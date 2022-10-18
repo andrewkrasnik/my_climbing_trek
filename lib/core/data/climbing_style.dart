@@ -6,4 +6,5 @@ class ClimbingStyle {
   static const lead = ClimbingStyle._(name: 'lead');
   static const topRope = ClimbingStyle._(name: 'top rope');
   static const bouldering = ClimbingStyle._(name: 'bouldering');
+  static const trad = ClimbingStyle._(name: 'trad');
 }

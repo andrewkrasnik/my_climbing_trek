@@ -1,6 +1,7 @@
 # climbing_diary
 
-A new Flutter project.
+Приложение для скалолазанья. В первую очередь для скалолазанья на скалодромах.
+
 
 ## Getting Started
 

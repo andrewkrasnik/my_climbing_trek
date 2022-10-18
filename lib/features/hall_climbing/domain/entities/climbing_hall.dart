@@ -1,3 +1,4 @@
+import 'package:climbing_diary/core/data/climbing_style.dart';
 import 'package:climbing_diary/core/data/map_point.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/city.dart';
 
@@ -11,6 +12,14 @@ class ClimbingHall {
   final String image;
   final String telephone;
   final String website;
+
+  List<ClimbingStyle> get styles => [
+        if (hasBouldering) ClimbingStyle.bouldering,
+        if (hasBigWall) ...[
+          ClimbingStyle.lead,
+          ClimbingStyle.topRope,
+        ],
+      ];
 
   ClimbingHall({
     required this.name,
