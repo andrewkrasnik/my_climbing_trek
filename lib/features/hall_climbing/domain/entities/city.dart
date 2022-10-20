@@ -1,6 +1,6 @@
 class City {
   final String name;
-  City({
+  const City({
     required this.name,
   });
 }
