@@ -5,9 +5,10 @@ import 'package:climbing_diary/features/hall_climbing/domain/entities/route_colo
 class ClimbingHallRoute extends ClimbingRoute {
   final ClimbingHall climbingHall;
   final RouteColor color;
-  ClimbingHallRoute({
+  const ClimbingHallRoute({
     required this.climbingHall,
     required super.category,
     required this.color,
+    required super.type,
   });
 }

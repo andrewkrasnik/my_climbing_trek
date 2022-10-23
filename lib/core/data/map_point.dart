@@ -1,1 +1,3 @@
-class MapPoint {}
+class MapPoint {
+  const MapPoint();
+}

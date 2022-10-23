@@ -1,11 +1,13 @@
 import 'package:climbing_diary/core/data/climbing_category.dart';
+import 'package:climbing_diary/core/data/climbing_route_type.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_attempt.dart';
 
 class ClimbingRoute {
   final ClimbingCategory category;
-  DateTime? firstAttemptDate;
-  DateTime? lastAttemptDate;
-  List<ClimbingHallAttempt>? attempts;
+  final ClimbingRouteType type;
 
-  ClimbingRoute({required this.category});
+  const ClimbingRoute({
+    required this.category,
+    required this.type,
+  });
 }

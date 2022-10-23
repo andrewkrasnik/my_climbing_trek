@@ -21,7 +21,7 @@ class ClimbingHall {
         ],
       ];
 
-  ClimbingHall({
+  const ClimbingHall({
     required this.name,
     required this.address,
     required this.city,

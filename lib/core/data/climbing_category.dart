@@ -8,7 +8,7 @@ class ClimbingCategory {
   final String ewbank;
   final String brasilian;
 
-  ClimbingCategory({
+  const ClimbingCategory({
     required this.french,
     required this.usa,
     required this.uiaa,
@@ -18,4 +18,24 @@ class ClimbingCategory {
     required this.ewbank,
     required this.brasilian,
   });
+
+  static const ClimbingCategory category6A = ClimbingCategory(
+      french: '6A',
+      usa: '',
+      uiaa: '',
+      britane: '',
+      sacson: '',
+      nord: '',
+      ewbank: '',
+      brasilian: '');
+
+  static const ClimbingCategory category6B = ClimbingCategory(
+      french: '6B',
+      usa: '',
+      uiaa: '',
+      britane: '',
+      sacson: '',
+      nord: '',
+      ewbank: '',
+      brasilian: '');
 }
