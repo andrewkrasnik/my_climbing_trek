@@ -5,6 +5,12 @@ class ClimbingHallTreaning {
   final DateTime date;
   final ClimbingHall climbingHall;
   List<ClimbingHallAttempt> attempts;
+  DateTime? _finish;
+
+  bool get finished => _finish != null;
+
+  ClimbingHallAttempt? get currentAttempt => attempts.last;
+
   ClimbingHallTreaning({
     required this.date,
     required this.climbingHall,
