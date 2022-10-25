@@ -22,8 +22,14 @@ class HallTreaningPage extends StatelessWidget {
               child: state.maybeMap(
                 loading: (_) => const CircularProgressIndicator(),
                 data: (dataState) => ListView.separated(
-                    itemBuilder: (context, index) => HallTreaningWidget(
-                        treaning: dataState.treanings[index]),
+                    itemBuilder: (context, index) => Column(
+                          children: [
+                            Text(dataState.treanings[index].climbingHall.name),
+                            Text(dataState.treanings[index].date.toString()),
+                            HallTreaningWidget(
+                                treaning: dataState.treanings[index]),
+                          ],
+                        ),
                     separatorBuilder: (_, __) => const SizedBox(
                           height: 32,
                         ),

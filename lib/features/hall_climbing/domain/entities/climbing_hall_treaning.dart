@@ -36,7 +36,10 @@ class ClimbingHallTreaning {
   });
 
   ClimbingHallTreaning copy() => ClimbingHallTreaning(
-      date: DateTime.now(), climbingHall: climbingHall, attempts: attempts);
+        date: DateTime.now(),
+        climbingHall: climbingHall,
+        attempts: attempts.map((e) => e.copy()).toList(),
+      );
 
   void finish() {
     _finish = DateTime.now();

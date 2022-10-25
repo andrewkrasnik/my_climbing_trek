@@ -14,11 +14,22 @@ part 'current_hall_treaning_cubit.freezed.dart';
 class CurrentHallTreaningCubit extends Cubit<CurrentHallTreaningState> {
   final NewHallAttemptFromRoute newHallAttemptFromRoute;
 
+  bool get treaningStarted => state.current != null;
+
+  bool get attemptStarted => state.currentAttempt != null;
+
   CurrentHallTreaningCubit({
     required this.newHallAttemptFromRoute,
   }) : super(CurrentHallTreaningState.initial());
 
   Future<void> loadData() async {}
+
+  Future<void> startAttempt({required ClimbingHallAttempt attempt}) async {
+    if (!attemptStarted) {
+      attempt.start();
+      emit(state.copyWith(currentAttempt: attempt));
+    }
+  }
 
   Future<void> attemptFromRoute(
       {required ClimbingHallRoute route, required ClimbingStyle style}) async {
@@ -35,7 +46,8 @@ class CurrentHallTreaningCubit extends Cubit<CurrentHallTreaningState> {
 
   Future<void> finishCurrentAttempt() async {
     final currentAttempt = state.currentAttempt;
-    if (currentAttempt != null) {
+    if (attemptStarted) {
+      currentAttempt?.finish();
       emit(state.copyWith(currentAttempt: null, lastAttempt: currentAttempt));
     }
   }
@@ -46,7 +58,7 @@ class CurrentHallTreaningCubit extends Cubit<CurrentHallTreaningState> {
       final currentAttempt = state.currentAttempt;
       if (currentAttempt == null) {
         final newAttempt = attempt.copy();
-        currentTreaning.attempts.add(newAttempt);
+        currentTreaning.attempts.add(newAttempt..start());
         emit(state.copyWith(currentAttempt: newAttempt));
       }
     }

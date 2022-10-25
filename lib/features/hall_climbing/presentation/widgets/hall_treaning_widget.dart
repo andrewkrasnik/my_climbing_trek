@@ -18,14 +18,56 @@ class HallTreaningWidget extends StatelessWidget {
     return Column(
       children: [
         if (treaning.hasLead) ...[
-          Row(
+          Wrap(
             children: [
               const Text('Верхняя:'),
               ...treaning.leadAttempts
                   .map((attempt) => Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                        child: HallRouteCategoryWidget.fromAttempt(
-                            attempt: attempt),
+                        child: InkWell(
+                          onTap: () => showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                    content: Padding(
+                                      padding: const EdgeInsets.all(8),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          HallRouteCategoryWidget.fromAttempt(
+                                              attempt: attempt)
+                                        ],
+                                      ),
+                                    ),
+                                    actions: [
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: Text('Назад'),
+                                      ),
+                                      if (attempt.planed)
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            BlocProvider.of<
+                                                        CurrentHallTreaningCubit>(
+                                                    context)
+                                                .startAttempt(attempt: attempt);
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: Text('Старт'),
+                                        ),
+                                      if (attempt.finished)
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: Text('Удалить'),
+                                        ),
+                                    ],
+                                  )),
+                          child: HallRouteCategoryWidget.fromAttempt(
+                              attempt: attempt),
+                        ),
                       ))
                   .toList(),
               if (isCurrent)
@@ -43,14 +85,26 @@ class HallTreaningWidget extends StatelessWidget {
           ),
         ],
         if (treaning.hasTopRope) ...[
-          Row(
+          Wrap(
             children: [
               const Text('Нижняя:'),
               ...treaning.topRopeAttempts
-                  .map((attempt) => Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                        child: HallRouteCategoryWidget.fromAttempt(
-                            attempt: attempt),
+                  .map((attempt) => InkWell(
+                        onTap: () => showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                                  actions: [
+                                    if (attempt.planed)
+                                      ElevatedButton(
+                                          onPressed: () {},
+                                          child: Text('Старт'))
+                                  ],
+                                )),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                          child: HallRouteCategoryWidget.fromAttempt(
+                              attempt: attempt),
+                        ),
                       ))
                   .toList(),
               if (isCurrent)
@@ -68,7 +122,7 @@ class HallTreaningWidget extends StatelessWidget {
           ),
         ],
         if (treaning.hasBouldering) ...[
-          Row(
+          Wrap(
             children: [
               const Text('Болдер:'),
               ...treaning.boulderingAttempts

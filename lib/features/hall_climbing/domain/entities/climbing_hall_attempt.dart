@@ -4,22 +4,29 @@ import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_h
 
 class ClimbingHallAttempt {
   final ClimbingHallRoute route;
-  final DateTime start;
-  DateTime? finish;
+  DateTime? _start;
+  DateTime? _finish;
   AscentType? ascentType;
   final ClimbingStyle style;
 
   int get routeColor => route.color.code;
   String get routeCategory => route.category.name;
 
+  bool get planed => _start == null;
+  bool get finished => _finish != null;
+
   ClimbingHallAttempt({
     required this.route,
-    required this.start,
     required this.style,
-    this.finish,
-    this.ascentType,
   });
 
-  ClimbingHallAttempt copy() =>
-      ClimbingHallAttempt(route: route, start: DateTime.now(), style: style);
+  ClimbingHallAttempt copy() => ClimbingHallAttempt(route: route, style: style);
+
+  void start() {
+    _start = DateTime.now();
+  }
+
+  void finish() {
+    _finish = DateTime.now();
+  }
 }
