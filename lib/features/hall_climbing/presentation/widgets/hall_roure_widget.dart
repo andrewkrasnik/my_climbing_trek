@@ -1,3 +1,5 @@
+import 'package:climbing_diary/core/data/climbing_route_type.dart';
+import 'package:climbing_diary/core/data/climbing_style.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_route.dart';
 import 'package:climbing_diary/features/hall_climbing/presentation/bloc/current_hall_treaning/current_hall_treaning_cubit.dart';
 import 'package:flutter/material.dart';
@@ -29,12 +31,42 @@ class HallRouteWidget extends StatelessWidget {
           const SizedBox(
             width: 16,
           ),
-          ElevatedButton(
-              onPressed: () {
-                BlocProvider.of<CurrentHallTreaningCubit>(context)
-                    .attemptFromRoute(route: route);
-              },
-              child: const Text('GO!'))
+          if (route.type == ClimbingRouteType.rope) ...[
+            ElevatedButton(
+                onPressed: () {
+                  BlocProvider.of<CurrentHallTreaningCubit>(context)
+                      .attemptFromRoute(
+                    route: route,
+                    style: ClimbingStyle.lead,
+                  );
+                  Navigator.of(context).pop();
+                },
+                child: const Text('GO LEAD!')),
+            const SizedBox(
+              width: 16,
+            ),
+            ElevatedButton(
+                onPressed: () {
+                  BlocProvider.of<CurrentHallTreaningCubit>(context)
+                      .attemptFromRoute(
+                    route: route,
+                    style: ClimbingStyle.topRope,
+                  );
+                  Navigator.of(context).pop();
+                },
+                child: const Text('GO TOP ROPE!')),
+          ],
+          if (route.type == ClimbingRouteType.bouldering)
+            ElevatedButton(
+                onPressed: () {
+                  BlocProvider.of<CurrentHallTreaningCubit>(context)
+                      .attemptFromRoute(
+                    route: route,
+                    style: ClimbingStyle.topRope,
+                  );
+                  Navigator.of(context).pop();
+                },
+                child: const Text('GO!'))
         ],
       ),
     );

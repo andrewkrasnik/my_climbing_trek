@@ -8,6 +8,8 @@ class ClimbingCategory {
   final String ewbank;
   final String brasilian;
 
+  String get name => french;
+
   const ClimbingCategory({
     required this.french,
     required this.usa,

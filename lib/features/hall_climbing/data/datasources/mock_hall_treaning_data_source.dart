@@ -16,7 +16,7 @@ class MockHallTreaningDataSource implements HallTreaningDataSource {
 
   @override
   Future<Either<Failure, ClimbingHallTreaning>> currentTreaning() async {
-    if (_treanings.isNotEmpty && _treanings.last.finished) {
+    if (_treanings.isNotEmpty && !_treanings.last.finished) {
       return Right(_treanings.last);
     } else {
       return Left(Failure());

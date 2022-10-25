@@ -1,3 +1,4 @@
+import 'package:climbing_diary/core/data/climbing_style.dart';
 import 'package:climbing_diary/core/failures/failure.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_attempt.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_route.dart';
@@ -13,9 +14,8 @@ class NewHallAttemptFromRoute {
     required this.hallTreaningRepository,
   });
 
-  Future<Either<Failure, ClimbingHallTreaning>> call({
-    required ClimbingHallRoute route,
-  }) async {
+  Future<Either<Failure, ClimbingHallTreaning>> call(
+      {required ClimbingHallRoute route, required ClimbingStyle style}) async {
     final failureOrCurrentTreaning =
         await hallTreaningRepository.currentTreaning();
 
@@ -28,8 +28,8 @@ class NewHallAttemptFromRoute {
           (failure) => throw Error(), (treaning) => treaning);
     }, (treaning) async => treaning);
 
-    currentTreaning.attempts
-        .add(ClimbingHallAttempt(route: route, start: DateTime.now()));
+    currentTreaning.attempts.add(
+        ClimbingHallAttempt(route: route, start: DateTime.now(), style: style));
 
     return Right(currentTreaning);
   }

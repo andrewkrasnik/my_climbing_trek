@@ -1,0 +1,22 @@
+import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_treaning.dart';
+import 'package:climbing_diary/features/hall_climbing/domain/usecases/treanings/all_hall_treanings.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
+
+part 'hall_treanings_state.dart';
+part 'hall_treanings_cubit.freezed.dart';
+
+@Injectable()
+class HallTreaningsCubit extends Cubit<HallTreaningsState> {
+  final AllHallTreanings allHallTreanings;
+  HallTreaningsCubit({required this.allHallTreanings})
+      : super(const HallTreaningsState.initial());
+
+  Future<void> loadData() async {
+    emit(const HallTreaningsState.loading());
+    final failureOrTreanings = await allHallTreanings();
+    failureOrTreanings.fold((failure) => null,
+        (treanings) => emit(HallTreaningsState.data(treanings: treanings)));
+  }
+}

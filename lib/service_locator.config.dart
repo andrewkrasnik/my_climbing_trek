@@ -27,16 +27,20 @@ import 'features/hall_climbing/domain/repositories/hall_treaning_repository.dart
 import 'features/hall_climbing/domain/usecases/all_climbing_halls.dart' as _i13;
 import 'features/hall_climbing/domain/usecases/get_climbing_hall_routes.dart'
     as _i7;
+import 'features/hall_climbing/domain/usecases/treanings/all_hall_treanings.dart'
+    as _i14;
 import 'features/hall_climbing/domain/usecases/treanings/new_hall_attempt_from_route.dart'
     as _i12;
 import 'features/hall_climbing/presentation/bloc/climbing_hall/climbing_hall_cubit.dart'
-    as _i14;
-import 'features/hall_climbing/presentation/bloc/climbing_halls/climbing_halls_cubit.dart'
     as _i15;
-import 'features/hall_climbing/presentation/bloc/current_hall_treaning/current_hall_treaning_cubit.dart'
+import 'features/hall_climbing/presentation/bloc/climbing_halls/climbing_halls_cubit.dart'
     as _i16;
+import 'features/hall_climbing/presentation/bloc/current_hall_treaning/current_hall_treaning_cubit.dart'
+    as _i17;
+import 'features/hall_climbing/presentation/bloc/hall_treanings/hall_treanings_cubit.dart'
+    as _i18;
 import 'features/hall_climbing/presentation/bloc/home_page/home_page_cubit.dart'
-    as _i17; // ignore_for_file: unnecessary_lambdas
+    as _i19; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -67,13 +71,17 @@ _i1.GetIt $initGetIt(
           hallTreaningRepository: get<_i10.HallTreaningRepository>()));
   gh.lazySingleton<_i13.AllClimbingHalls>(
       () => _i13.AllClimbingHalls(get<_i5.ClimbingHallRepository>()));
-  gh.factory<_i14.ClimbingHallCubit>(() => _i14.ClimbingHallCubit(
+  gh.lazySingleton<_i14.AllHallTreanings>(
+      () => _i14.AllHallTreanings(get<_i10.HallTreaningRepository>()));
+  gh.factory<_i15.ClimbingHallCubit>(() => _i15.ClimbingHallCubit(
       getClimbingHallRoures: get<_i7.GetClimbingHallRoures>()));
-  gh.factory<_i15.ClimbingHallsCubit>(() =>
-      _i15.ClimbingHallsCubit(allClimbingHalls: get<_i13.AllClimbingHalls>()));
-  gh.factory<_i16.CurrentHallTreaningCubit>(() => _i16.CurrentHallTreaningCubit(
+  gh.factory<_i16.ClimbingHallsCubit>(() =>
+      _i16.ClimbingHallsCubit(allClimbingHalls: get<_i13.AllClimbingHalls>()));
+  gh.factory<_i17.CurrentHallTreaningCubit>(() => _i17.CurrentHallTreaningCubit(
       newHallAttemptFromRoute: get<_i12.NewHallAttemptFromRoute>()));
-  gh.factory<_i17.HomePageCubit>(
-      () => _i17.HomePageCubit(allClimbingHalls: get<_i13.AllClimbingHalls>()));
+  gh.factory<_i18.HallTreaningsCubit>(() =>
+      _i18.HallTreaningsCubit(allHallTreanings: get<_i14.AllHallTreanings>()));
+  gh.factory<_i19.HomePageCubit>(
+      () => _i19.HomePageCubit(allClimbingHalls: get<_i13.AllClimbingHalls>()));
   return get;
 }

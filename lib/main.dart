@@ -19,20 +19,22 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      scrollBehavior: MyCustomScrollBehavior(),
-      home: MultiBlocProvider(providers: [
+    return MultiBlocProvider(
+      providers: [
         BlocProvider<HomePageCubit>(
           create: (context) => getIt<HomePageCubit>()..loadData(),
         ),
         BlocProvider<CurrentHallTreaningCubit>(
           create: (context) => getIt<CurrentHallTreaningCubit>()..loadData(),
         ),
-      ], child: const HomePage()),
+      ],
+      child: MaterialApp(
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          scrollBehavior: MyCustomScrollBehavior(),
+          home: const HomePage()),
     );
   }
 }
