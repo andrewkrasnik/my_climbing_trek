@@ -3,6 +3,7 @@ import 'package:climbing_diary/features/hall_climbing/domain/entities/city.dart'
 import 'package:climbing_diary/core/failures/failure.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_route.dart';
+import 'package:climbing_diary/features/hall_climbing/domain/entities/hall_routes_filter.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/repositories/climbing_hall_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
@@ -23,9 +24,19 @@ class ClimbingHallRepositoryImpl implements ClimbingHallRepository {
   }
 
   @override
-  Future<Either<Failure, List<ClimbingHallRoute>>> climbingHallRoutes(
-      {required ClimbingHall climbingHall}) async {
+  Future<Either<Failure, List<ClimbingHallRoute>>> climbingHallRoutes({
+    required ClimbingHall climbingHall,
+    HallRouteFilter? filter,
+  }) async {
     return await climbingHallDataSource.climbingHallRoutes(
-        climbingHall: climbingHall);
+      climbingHall: climbingHall,
+      filter: filter,
+    );
+  }
+
+  @override
+  Future<Either<Failure, ClimbingHallRoute>> addRoute(
+      {required ClimbingHallRoute route}) async {
+    return await climbingHallDataSource.addRoute(route: route);
   }
 }

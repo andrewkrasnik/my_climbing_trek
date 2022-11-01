@@ -1,4 +1,5 @@
 import 'package:climbing_diary/core/data/ascent_type.dart';
+import 'package:climbing_diary/core/data/climbing_category.dart';
 import 'package:climbing_diary/core/data/climbing_style.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_route.dart';
 
@@ -10,7 +11,7 @@ class ClimbingHallAttempt {
   final ClimbingStyle style;
 
   int get routeColor => route.color.code;
-  String get routeCategory => route.category.name;
+  ClimbingCategory get routeCategory => route.category;
 
   bool get planed => _start == null;
   bool get finished => _finish != null;

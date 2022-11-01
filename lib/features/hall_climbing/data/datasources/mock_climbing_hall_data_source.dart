@@ -4,6 +4,7 @@ import 'package:climbing_diary/core/data/map_point.dart';
 import 'package:climbing_diary/core/failures/failure.dart';
 import 'package:climbing_diary/features/hall_climbing/data/datasources/climbing_hall_data_source.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_route.dart';
+import 'package:climbing_diary/features/hall_climbing/domain/entities/hall_routes_filter.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/route_color.dart';
 import 'package:dartz/dartz.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall.dart';
@@ -77,6 +78,11 @@ class MockClimbingHallDataSource implements ClimbingHallDataSource {
       type: ClimbingRouteType.rope,
     ),
   ];
+
+  final List<ClimbingHallRoute> _routesData = [
+    ..._routes,
+  ];
+
   @override
   Future<Either<Failure, List<ClimbingHall>>> climbingHalls() async {
     return const Right(_climbingHalls);
@@ -88,10 +94,21 @@ class MockClimbingHallDataSource implements ClimbingHallDataSource {
   }
 
   @override
-  Future<Either<Failure, List<ClimbingHallRoute>>> climbingHallRoutes(
-      {required ClimbingHall climbingHall}) async {
-    return Right(_routes
-        .where((element) => element.climbingHall == climbingHall)
+  Future<Either<Failure, List<ClimbingHallRoute>>> climbingHallRoutes({
+    required ClimbingHall climbingHall,
+    HallRouteFilter? filter,
+  }) async {
+    return Right(_routesData
+        .where((element) =>
+            element.climbingHall == climbingHall &&
+            (filter?.match(element) ?? true))
         .toList());
+  }
+
+  @override
+  Future<Either<Failure, ClimbingHallRoute>> addRoute(
+      {required ClimbingHallRoute route}) async {
+    _routesData.add(route);
+    return Right(route);
   }
 }

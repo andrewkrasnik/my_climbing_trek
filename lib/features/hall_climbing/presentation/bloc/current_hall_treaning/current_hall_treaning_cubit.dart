@@ -1,6 +1,9 @@
+import 'package:climbing_diary/core/data/climbing_category.dart';
 import 'package:climbing_diary/core/data/climbing_style.dart';
+import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_route.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/usecases/treanings/new_hall_attempt_from_route.dart';
+import 'package:climbing_diary/features/hall_climbing/domain/usecases/treanings/new_hall_treaning.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_attempt.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_treaning.dart';
@@ -13,6 +16,7 @@ part 'current_hall_treaning_cubit.freezed.dart';
 @Injectable()
 class CurrentHallTreaningCubit extends Cubit<CurrentHallTreaningState> {
   final NewHallAttemptFromRoute newHallAttemptFromRoute;
+  final NewHallTreaning newHallTreaning;
 
   bool get treaningStarted => state.current != null;
 
@@ -20,6 +24,7 @@ class CurrentHallTreaningCubit extends Cubit<CurrentHallTreaningState> {
 
   CurrentHallTreaningCubit({
     required this.newHallAttemptFromRoute,
+    required this.newHallTreaning,
   }) : super(CurrentHallTreaningState.initial());
 
   Future<void> loadData() async {}
@@ -89,4 +94,19 @@ class CurrentHallTreaningCubit extends Cubit<CurrentHallTreaningState> {
       emit(state.copyWith(current: treaning.copy()));
     }
   }
+
+  Future<void> newTreaning({required ClimbingHall climbingHall}) async {
+    if (state.current == null) {
+      final failureOrTreaning =
+          await newHallTreaning(climbingHall: climbingHall);
+
+      failureOrTreaning.fold((failure) => null,
+          (treaning) => emit(state.copyWith(current: treaning)));
+    }
+  }
+
+  Future<void> newAttempt({
+    required ClimbingCategory category,
+    ClimbingHallRoute? route,
+  }) async {}
 }

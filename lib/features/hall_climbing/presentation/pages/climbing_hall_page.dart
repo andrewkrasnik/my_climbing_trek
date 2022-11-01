@@ -1,4 +1,5 @@
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall.dart';
+import 'package:climbing_diary/features/hall_climbing/presentation/pages/hall_route_page.dart';
 import 'package:climbing_diary/features/hall_climbing/presentation/widgets/climbing_hall_widget.dart';
 import 'package:climbing_diary/features/hall_climbing/presentation/widgets/hall_roure_widget.dart';
 import 'package:climbing_diary/service_locator.dart';
@@ -45,7 +46,20 @@ class ClimbingHallPage extends StatelessWidget {
                 }
               },
             ),
-            ElevatedButton(onPressed: () {}, child: Text('Добавить маршрут'))
+            BlocBuilder<ClimbingHallCubit, ClimbingHallState>(
+              builder: (context, state) {
+                return ElevatedButton(
+                    onPressed: () async {
+                      await Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => HallRoutePage(
+                                climbingHall: climbingHall,
+                              )));
+                      BlocProvider.of<ClimbingHallCubit>(context)
+                          .loadData(climbingHall);
+                    },
+                    child: const Text('Добавить маршрут'));
+              },
+            )
           ]),
         ),
       ),

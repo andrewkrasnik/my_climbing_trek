@@ -1,5 +1,11 @@
+import 'package:climbing_diary/core/data/climbing_route_type.dart';
+
 class ClimbingStyle {
   final String name;
+
+  ClimbingRouteType get type => name == 'bouldering'
+      ? ClimbingRouteType.bouldering
+      : ClimbingRouteType.rope;
   const ClimbingStyle._({
     required this.name,
   });

@@ -2,6 +2,7 @@ import 'package:climbing_diary/core/data/climbing_route_type.dart';
 import 'package:climbing_diary/core/data/climbing_style.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_route.dart';
 import 'package:climbing_diary/features/hall_climbing/presentation/bloc/current_hall_treaning/current_hall_treaning_cubit.dart';
+import 'package:climbing_diary/features/hall_climbing/presentation/pages/hall_route_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -58,15 +59,25 @@ class HallRouteWidget extends StatelessWidget {
           ],
           if (route.type == ClimbingRouteType.bouldering)
             ElevatedButton(
-                onPressed: () {
-                  BlocProvider.of<CurrentHallTreaningCubit>(context)
-                      .attemptFromRoute(
-                    route: route,
-                    style: ClimbingStyle.topRope,
-                  );
-                  Navigator.of(context).pop();
-                },
-                child: const Text('GO!'))
+              onPressed: () {
+                BlocProvider.of<CurrentHallTreaningCubit>(context)
+                    .attemptFromRoute(
+                  route: route,
+                  style: ClimbingStyle.bouldering,
+                );
+                Navigator.of(context).pop();
+              },
+              child: const Text('GO!'),
+            ),
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => HallRoutePage(
+                          climbingHall: route.climbingHall,
+                          route: route,
+                        )));
+              },
+              icon: const Icon(Icons.edit)),
         ],
       ),
     );

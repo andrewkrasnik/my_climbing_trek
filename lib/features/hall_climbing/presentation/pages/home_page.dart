@@ -22,7 +22,6 @@ class HomePage extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              const Text('Добавьте новую тренировку'),
               BlocBuilder<CurrentHallTreaningCubit, CurrentHallTreaningState>(
                 builder: (context, state) {
                   return Column(
@@ -108,8 +107,29 @@ class HomePage extends StatelessWidget {
                                         builder: (context) => ClimbingHallPage(
                                             climbingHall:
                                                 dataState.halls[index]))),
-                                child: ClimbingHallWidget(
-                                    climbingHall: dataState.halls[index]),
+                                child: Stack(
+                                  alignment: Alignment.bottomRight,
+                                  children: [
+                                    ClimbingHallWidget(
+                                        climbingHall: dataState.halls[index]),
+                                    Align(
+                                      alignment: Alignment.bottomRight,
+                                      child: IconButton(
+                                        icon: const Icon(Icons.add_box,
+                                            color: Colors.white),
+                                        onPressed: () {
+                                          BlocProvider.of<
+                                                      CurrentHallTreaningCubit>(
+                                                  context)
+                                              .newTreaning(
+                                            climbingHall:
+                                                dataState.halls[index],
+                                          );
+                                        },
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
                           separatorBuilder: (_, __) => const SizedBox(
                                 width: 16,
