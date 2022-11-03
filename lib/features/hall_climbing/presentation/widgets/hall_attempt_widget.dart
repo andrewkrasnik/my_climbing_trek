@@ -29,11 +29,17 @@ class HallAttemptWidget extends StatelessWidget {
                     .finishCurrentAttempt();
               },
             )
-          : ElevatedButton(
-              child: const Text('Повторить'),
-              onPressed: () {
-                BlocProvider.of<CurrentHallTreaningCubit>(context)
-                    .repeatAttempt(attempt: attempt);
+          : BlocBuilder<CurrentHallTreaningCubit, CurrentHallTreaningState>(
+              builder: (context, state) {
+                return state.currentAttempt == null
+                    ? ElevatedButton(
+                        child: const Text('Повторить'),
+                        onPressed: () {
+                          BlocProvider.of<CurrentHallTreaningCubit>(context)
+                              .repeatAttempt(attempt: attempt);
+                        },
+                      )
+                    : const SizedBox();
               },
             ),
     );

@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
           ),
           scrollBehavior: MyCustomScrollBehavior(),
-          home: const HomePage()),
+          home: const SafeArea(child: HomePage())),
     );
   }
 }

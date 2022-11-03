@@ -56,21 +56,35 @@ class HallTreaningWidget extends StatelessWidget {
             height: 8,
           ),
         ],
-        isCurrent
-            ? ElevatedButton(
-                child: const Text('Завершить'),
-                onPressed: () {
-                  BlocProvider.of<CurrentHallTreaningCubit>(context)
-                      .finishCurrentTreaning();
-                },
-              )
-            : ElevatedButton(
-                child: const Text('Повторить'),
-                onPressed: () {
-                  BlocProvider.of<CurrentHallTreaningCubit>(context)
-                      .repeatTreaning(treaning: treaning);
-                },
-              ),
+        BlocBuilder<CurrentHallTreaningCubit, CurrentHallTreaningState>(
+          builder: (context, state) {
+            if (isCurrent) {
+              if (state.currentAttempt == null) {
+                return ElevatedButton(
+                  child: const Text('Завершить'),
+                  onPressed: () {
+                    BlocProvider.of<CurrentHallTreaningCubit>(context)
+                        .finishCurrentTreaning();
+                  },
+                );
+              } else {
+                return const SizedBox();
+              }
+            } else {
+              if (state.current == null) {
+                return ElevatedButton(
+                  child: const Text('Повторить'),
+                  onPressed: () {
+                    BlocProvider.of<CurrentHallTreaningCubit>(context)
+                        .repeatTreaning(treaning: treaning);
+                  },
+                );
+              } else {
+                return const SizedBox();
+              }
+            }
+          },
+        ),
       ],
     );
   }
@@ -93,37 +107,42 @@ class AttemptsWithStyle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      crossAxisAlignment: WrapCrossAlignment.center,
-      children: [
-        SizedBox(width: 60, child: child),
-        ...attempts
-            .map((attempt) => Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                  child: AttemptClickWidget(
-                    attempt: attempt,
-                  ),
-                ))
-            .toList(),
-        if (isCurrent)
-          IconButton(
-            onPressed: () {
-              showModalBottomSheet<void>(
-                context: context,
-                builder: (context) {
-                  return SelectHallRouteWidget(
-                    treaning: treaning,
-                    type: climbingStyle.type,
+    return BlocBuilder<CurrentHallTreaningCubit, CurrentHallTreaningState>(
+      builder: (context, state) {
+        final bool showAddButton = isCurrent && state.currentAttempt == null;
+        return Wrap(
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: [
+            SizedBox(width: 60, child: child),
+            ...attempts
+                .map((attempt) => Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                      child: AttemptClickWidget(
+                        attempt: attempt,
+                      ),
+                    ))
+                .toList(),
+            if (showAddButton)
+              IconButton(
+                onPressed: () {
+                  showModalBottomSheet<void>(
+                    context: context,
+                    builder: (context) {
+                      return SelectHallRouteWidget(
+                        treaning: treaning,
+                        type: climbingStyle.type,
+                      );
+                    },
                   );
                 },
-              );
-            },
-            icon: Icon(
-              Icons.add_box,
-              color: Theme.of(context).primaryColor,
-            ),
-          ),
-      ],
+                icon: Icon(
+                  Icons.add_box,
+                  color: Theme.of(context).primaryColor,
+                ),
+              ),
+          ],
+        );
+      },
     );
   }
 }
