@@ -6,6 +6,7 @@ import 'package:climbing_diary/features/hall_climbing/presentation/widgets/hall_
 import 'package:climbing_diary/features/hall_climbing/presentation/widgets/select_hall_route_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 class HallTreaningWidget extends StatelessWidget {
   final bool isCurrent;
@@ -18,74 +19,88 @@ class HallTreaningWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        if (isCurrent || treaning.hasLead) ...[
-          AttemptsWithStyle(
-            attempts: treaning.leadAttempts,
-            treaning: treaning,
-            isCurrent: isCurrent,
-            climbingStyle: ClimbingStyle.topRope,
-            child: const Text('Верхняя:'),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      child: Material(
+        elevation: 2,
+        borderRadius: BorderRadius.circular(8),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(DateFormat('dd.MM.yyyy').format(treaning.date)),
+                  Text(treaning.climbingHall.name),
+                ],
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              if (isCurrent || treaning.hasLead)
+                AttemptsWithStyle(
+                  attempts: treaning.leadAttempts,
+                  treaning: treaning,
+                  isCurrent: isCurrent,
+                  climbingStyle: ClimbingStyle.topRope,
+                  child: const Text('Верхняя:'),
+                ),
+              if (isCurrent || treaning.hasTopRope)
+                AttemptsWithStyle(
+                  attempts: treaning.topRopeAttempts,
+                  treaning: treaning,
+                  isCurrent: isCurrent,
+                  climbingStyle: ClimbingStyle.topRope,
+                  child: const Text('Нижняя:'),
+                ),
+              if (isCurrent || treaning.hasBouldering)
+                AttemptsWithStyle(
+                  attempts: treaning.boulderingAttempts,
+                  treaning: treaning,
+                  isCurrent: isCurrent,
+                  climbingStyle: ClimbingStyle.bouldering,
+                  child: const Text('Болдер:'),
+                ),
+              BlocBuilder<CurrentHallTreaningCubit, CurrentHallTreaningState>(
+                builder: (context, state) {
+                  if (isCurrent) {
+                    if (state.currentAttempt == null) {
+                      return TextButton(
+                        child: const Text('Завершить'),
+                        onPressed: () {
+                          BlocProvider.of<CurrentHallTreaningCubit>(context)
+                              .finishCurrentTreaning();
+                        },
+                      );
+                    } else {
+                      return const SizedBox();
+                    }
+                  } else {
+                    if (state.current == null) {
+                      return Row(
+                        children: [
+                          const Expanded(child: SizedBox()),
+                          TextButton(
+                            child: const Text('Повторить'),
+                            onPressed: () {
+                              BlocProvider.of<CurrentHallTreaningCubit>(context)
+                                  .repeatTreaning(treaning: treaning);
+                            },
+                          ),
+                        ],
+                      );
+                    } else {
+                      return const SizedBox();
+                    }
+                  }
+                },
+              ),
+            ],
           ),
-          const SizedBox(
-            height: 8,
-          ),
-        ],
-        if (isCurrent || treaning.hasTopRope) ...[
-          AttemptsWithStyle(
-            attempts: treaning.topRopeAttempts,
-            treaning: treaning,
-            isCurrent: isCurrent,
-            climbingStyle: ClimbingStyle.topRope,
-            child: const Text('Нижняя:'),
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-        ],
-        if (isCurrent || treaning.hasBouldering) ...[
-          AttemptsWithStyle(
-            attempts: treaning.boulderingAttempts,
-            treaning: treaning,
-            isCurrent: isCurrent,
-            climbingStyle: ClimbingStyle.bouldering,
-            child: const Text('Болдер:'),
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-        ],
-        BlocBuilder<CurrentHallTreaningCubit, CurrentHallTreaningState>(
-          builder: (context, state) {
-            if (isCurrent) {
-              if (state.currentAttempt == null) {
-                return ElevatedButton(
-                  child: const Text('Завершить'),
-                  onPressed: () {
-                    BlocProvider.of<CurrentHallTreaningCubit>(context)
-                        .finishCurrentTreaning();
-                  },
-                );
-              } else {
-                return const SizedBox();
-              }
-            } else {
-              if (state.current == null) {
-                return ElevatedButton(
-                  child: const Text('Повторить'),
-                  onPressed: () {
-                    BlocProvider.of<CurrentHallTreaningCubit>(context)
-                        .repeatTreaning(treaning: treaning);
-                  },
-                );
-              } else {
-                return const SizedBox();
-              }
-            }
-          },
         ),
-      ],
+      ),
     );
   }
 }
@@ -110,37 +125,40 @@ class AttemptsWithStyle extends StatelessWidget {
     return BlocBuilder<CurrentHallTreaningCubit, CurrentHallTreaningState>(
       builder: (context, state) {
         final bool showAddButton = isCurrent && state.currentAttempt == null;
-        return Wrap(
-          crossAxisAlignment: WrapCrossAlignment.center,
-          children: [
-            SizedBox(width: 60, child: child),
-            ...attempts
-                .map((attempt) => Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                      child: AttemptClickWidget(
-                        attempt: attempt,
-                      ),
-                    ))
-                .toList(),
-            if (showAddButton)
-              IconButton(
-                onPressed: () {
-                  showModalBottomSheet<void>(
-                    context: context,
-                    builder: (context) {
-                      return SelectHallRouteWidget(
-                        treaning: treaning,
-                        type: climbingStyle.type,
-                      );
-                    },
-                  );
-                },
-                icon: Icon(
-                  Icons.add_box,
-                  color: Theme.of(context).primaryColor,
+        return Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              SizedBox(width: 60, child: child),
+              ...attempts
+                  .map((attempt) => Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                        child: AttemptClickWidget(
+                          attempt: attempt,
+                        ),
+                      ))
+                  .toList(),
+              if (showAddButton)
+                IconButton(
+                  onPressed: () {
+                    showModalBottomSheet<void>(
+                      context: context,
+                      builder: (context) {
+                        return SelectHallRouteWidget(
+                          treaning: treaning,
+                          type: climbingStyle.type,
+                        );
+                      },
+                    );
+                  },
+                  icon: Icon(
+                    Icons.add_box,
+                    color: Theme.of(context).primaryColor,
+                  ),
                 ),
-              ),
-          ],
+            ],
+          ),
         );
       },
     );
