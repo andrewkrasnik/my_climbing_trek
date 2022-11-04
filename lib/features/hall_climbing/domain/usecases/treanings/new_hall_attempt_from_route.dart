@@ -28,8 +28,8 @@ class NewHallAttemptFromRoute {
           (failure) => throw Error(), (treaning) => treaning);
     }, (treaning) async => treaning);
 
-    currentTreaning.attempts
-        .add(ClimbingHallAttempt(route: route, style: style)..start());
+    currentTreaning.attempts.add(
+        ClimbingHallAttempt.fromRoute(route: route, style: style)..start());
 
     return Right(currentTreaning);
   }

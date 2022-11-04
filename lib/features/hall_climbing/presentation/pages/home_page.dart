@@ -82,7 +82,7 @@ class HomePage extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text('Скалодромы:'),
+                  const Text('Мои скалодромы:'),
                   TextButton(
                     child: const Text('Смотреть все'),
                     onPressed: () => Navigator.of(context).push(
@@ -101,35 +101,34 @@ class HomePage extends StatelessWidget {
                       ),
                       data: (dataState) => ListView.separated(
                           scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) => GestureDetector(
-                                onTap: () => Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                        builder: (context) => ClimbingHallPage(
-                                            climbingHall:
-                                                dataState.halls[index]))),
-                                child: Stack(
-                                  alignment: Alignment.bottomRight,
-                                  children: [
-                                    ClimbingHallWidget(
-                                        climbingHall: dataState.halls[index]),
-                                    Align(
-                                      alignment: Alignment.bottomRight,
-                                      child: IconButton(
-                                        icon: const Icon(Icons.add_box,
-                                            color: Colors.white),
-                                        onPressed: () {
-                                          BlocProvider.of<
-                                                      CurrentHallTreaningCubit>(
-                                                  context)
-                                              .newTreaning(
-                                            climbingHall:
-                                                dataState.halls[index],
-                                          );
-                                        },
-                                      ),
-                                    )
-                                  ],
-                                ),
+                          itemBuilder: (context, index) => Stack(
+                                alignment: Alignment.bottomRight,
+                                children: [
+                                  ClimbingHallWidget(
+                                    climbingHall: dataState.halls[index],
+                                    onTap: () => Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ClimbingHallPage(
+                                                    climbingHall: dataState
+                                                        .halls[index]))),
+                                  ),
+                                  Align(
+                                    alignment: Alignment.bottomRight,
+                                    child: IconButton(
+                                      icon: const Icon(Icons.add_box,
+                                          color: Colors.white),
+                                      onPressed: () {
+                                        BlocProvider.of<
+                                                    CurrentHallTreaningCubit>(
+                                                context)
+                                            .newTreaning(
+                                          climbingHall: dataState.halls[index],
+                                        );
+                                      },
+                                    ),
+                                  )
+                                ],
                               ),
                           separatorBuilder: (_, __) => const SizedBox(
                                 width: 16,

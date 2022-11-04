@@ -19,43 +19,49 @@ class MockClimbingHallDataSource implements ClimbingHallDataSource {
   ];
 
   static const ClimbingHall _sportStation = ClimbingHall(
-      name: 'СпортСтейшн',
-      address: 'Новоостаповская улица, д. 5, стр. 2',
-      city: City.moscow,
-      hasBouldering: true,
-      hasBigWall: true,
-      point: MapPoint(),
-      image:
-          'https://avatars.mds.yandex.net/get-altay/5483320/2a0000017ce6617df6c425f29ba307b7e41e/XXXL',
-      telephone: '+7 (495) 126-16-59',
-      website: 'https://station.club/');
+    name: 'СпортСтейшн',
+    address: 'Новоостаповская улица, д. 5, стр. 2',
+    city: City.moscow,
+    hasBouldering: true,
+    hasBigWall: true,
+    point: MapPoint(),
+    image:
+        'https://avatars.mds.yandex.net/get-altay/5483320/2a0000017ce6617df6c425f29ba307b7e41e/XXXL',
+    telephone: '+7 (495) 126-16-59',
+    website: 'https://station.club/',
+    email: 'info@station.club',
+  );
 
   static const ClimbingHall _bigwall = ClimbingHall(
-      name: 'BigWallsport',
-      address: 'просп. Мира, 119, стр. 22',
-      city: City.moscow,
-      hasBouldering: true,
-      hasBigWall: true,
-      point: MapPoint(),
-      image:
-          'https://avatars.mds.yandex.net/get-altay/1938975/2a0000016ec72ab066107d87f0f36f12f04a/XXXL',
-      telephone: '+7 (499) 653-60-30',
-      website: 'https://bigwallsport.ru/');
+    name: 'BigWallsport',
+    address: 'просп. Мира, 119, стр. 22',
+    city: City.moscow,
+    hasBouldering: true,
+    hasBigWall: true,
+    point: MapPoint(),
+    image:
+        'https://avatars.mds.yandex.net/get-altay/1938975/2a0000016ec72ab066107d87f0f36f12f04a/XXXL',
+    telephone: '+7 (499) 653-60-30',
+    website: 'https://bigwallsport.ru/',
+    email: 'info@bigwallsport.ru',
+  );
 
   static const List<ClimbingHall> _climbingHalls = [
     _sportStation,
     _bigwall,
     ClimbingHall(
-        name: 'Северная стена',
-        address: 'Газовая ул., 10З',
-        city: City.spb,
-        hasBouldering: true,
-        hasBigWall: true,
-        point: MapPoint(),
-        image:
-            'https://avatars.mds.yandex.net/get-altay/4581272/2a00000179d578d29da510d67c0d62c26141/XXXL',
-        telephone: '+7 (812) 501-93-15',
-        website: 'https://severnayastena.ru/'),
+      name: 'Северная стена',
+      address: 'Газовая ул., 10З',
+      city: City.spb,
+      hasBouldering: true,
+      hasBigWall: true,
+      point: MapPoint(),
+      image:
+          'https://avatars.mds.yandex.net/get-altay/4581272/2a00000179d578d29da510d67c0d62c26141/XXXL',
+      telephone: '+7 (812) 501-93-15',
+      website: 'https://severnayastena.ru/',
+      email: 'severnayastena@gmail.com',
+    ),
   ];
 
   static const List<ClimbingHallRoute> _routes = [

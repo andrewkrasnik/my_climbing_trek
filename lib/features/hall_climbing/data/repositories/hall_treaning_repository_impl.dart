@@ -1,3 +1,4 @@
+import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_attempt.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
@@ -34,5 +35,13 @@ class HallTreaningRepositoryImpl implements HallTreaningRepository {
   Future<Either<Failure, ClimbingHallTreaning>> newTreaning(
       {required ClimbingHall climbingHall}) async {
     return await dataSource.newTreaning(climbingHall: climbingHall);
+  }
+
+  @override
+  Future<Either<Failure, ClimbingHallAttempt>> saveAttempt(
+      {required ClimbingHallTreaning treaning,
+      required ClimbingHallAttempt attempt}) {
+    // TODO: implement saveAttempt
+    throw UnimplementedError();
   }
 }

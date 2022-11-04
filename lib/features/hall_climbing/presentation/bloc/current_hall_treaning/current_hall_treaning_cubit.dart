@@ -108,5 +108,7 @@ class CurrentHallTreaningCubit extends Cubit<CurrentHallTreaningState> {
   Future<void> newAttempt({
     required ClimbingCategory category,
     ClimbingHallRoute? route,
-  }) async {}
+  }) async {
+    if (state.current != null) {}
+  }
 }

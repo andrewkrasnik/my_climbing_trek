@@ -1,5 +1,6 @@
 import 'package:climbing_diary/core/failures/failure.dart';
 import 'package:climbing_diary/features/hall_climbing/data/datasources/hall_treaning_data_source.dart';
+import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_attempt.dart';
 import 'package:dartz/dartz.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_treaning.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall.dart';
@@ -36,5 +37,13 @@ class MockHallTreaningDataSource implements HallTreaningDataSource {
         date: DateTime.now(), climbingHall: climbingHall, attempts: []);
     _treanings.add(treaning);
     return Right(treaning);
+  }
+
+  @override
+  Future<Either<Failure, ClimbingHallAttempt>> saveAttempt(
+      {required ClimbingHallTreaning treaning,
+      required ClimbingHallAttempt attempt}) async {
+    treaning.attempts.add(attempt);
+    return Right(attempt);
   }
 }

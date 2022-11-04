@@ -13,6 +13,9 @@ class ClimbingHall {
   final String image;
   final String telephone;
   final String website;
+  final String email;
+
+  String get fullAddress => '${city.name}, $address';
 
   List<ClimbingStyle> get styles => [
         if (hasBouldering) ClimbingStyle.bouldering,
@@ -32,6 +35,7 @@ class ClimbingHall {
     required this.image,
     required this.telephone,
     required this.website,
+    required this.email,
     this.hasSpeed = false,
   });
 }

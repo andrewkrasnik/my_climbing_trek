@@ -18,7 +18,7 @@ class HallRouteCategoryWidget extends StatelessWidget {
     required ClimbingHallAttempt attempt,
     super.key,
   })  : category = attempt.routeCategory,
-        color = Color(attempt.routeColor),
+        color = attempt.routeColor,
         planed = attempt.planed;
 
   @override
