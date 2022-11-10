@@ -20,6 +20,25 @@ class ClimbingHallPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => getIt<ClimbingHallCubit>()..loadData(climbingHall),
       child: Scaffold(
+        floatingActionButton: BlocBuilder<ClimbingHallCubit, ClimbingHallState>(
+          builder: (context, state) {
+            return FloatingActionButton(
+              onPressed: () async {
+                final cubit = BlocProvider.of<ClimbingHallCubit>(context);
+                await Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => HallRoutePage(
+                          climbingHall: climbingHall,
+                        )));
+
+                cubit.loadData(climbingHall);
+              },
+              child: const Icon(
+                Icons.add,
+                size: 40,
+              ),
+            );
+          },
+        ),
         body: CustomScrollView(
           slivers: [
             SliverAppBar(
@@ -90,9 +109,11 @@ class ClimbingHallPage extends StatelessWidget {
                     builder: (context, state) {
                       if (state.routes != null) {
                         return ListView.separated(
+                            padding: const EdgeInsets.all(16),
                             shrinkWrap: true,
-                            itemBuilder: (context, index) =>
-                                HallRouteWidget(route: state.routes![index]),
+                            itemBuilder: (context, index) => Center(
+                                child: HallRouteWidget(
+                                    route: state.routes![index])),
                             separatorBuilder: (_, __) => const SizedBox(
                                   height: 8,
                                 ),
@@ -103,20 +124,6 @@ class ClimbingHallPage extends StatelessWidget {
                       }
                     },
                   ),
-                  BlocBuilder<ClimbingHallCubit, ClimbingHallState>(
-                    builder: (context, state) {
-                      return ElevatedButton(
-                          onPressed: () async {
-                            await Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => HallRoutePage(
-                                      climbingHall: climbingHall,
-                                    )));
-                            BlocProvider.of<ClimbingHallCubit>(context)
-                                .loadData(climbingHall);
-                          },
-                          child: const Text('Добавить маршрут'));
-                    },
-                  )
                 ],
               ),
             ),

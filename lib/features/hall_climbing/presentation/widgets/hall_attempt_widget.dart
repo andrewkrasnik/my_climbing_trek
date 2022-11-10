@@ -3,6 +3,7 @@ import 'package:climbing_diary/features/hall_climbing/presentation/bloc/current_
 import 'package:climbing_diary/features/hall_climbing/presentation/widgets/hall_route_category_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:climbing_diary/features/hall_climbing/presentation/widgets/hall_sector_number_widget.dart';
 
 class HallAttemptWidget extends StatelessWidget {
   final bool isCurrent;
@@ -16,8 +17,11 @@ class HallAttemptWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: HallRouteCategoryWidget.fromAttempt(
-        attempt: attempt,
+      leading: HallSectorNumberWidget(
+        route: attempt.route,
+        child: HallRouteCategoryWidget.fromAttempt(
+          attempt: attempt,
+        ),
       ),
       title: Text(attempt.style.name),
       subtitle: const Text('первая попытка'),

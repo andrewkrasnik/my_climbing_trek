@@ -3,6 +3,7 @@ import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_h
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_treaning.dart';
 import 'package:climbing_diary/features/hall_climbing/presentation/bloc/current_hall_treaning/current_hall_treaning_cubit.dart';
 import 'package:climbing_diary/features/hall_climbing/presentation/widgets/hall_route_category_widget.dart';
+import 'package:climbing_diary/features/hall_climbing/presentation/widgets/hall_sector_number_widget.dart';
 import 'package:climbing_diary/features/hall_climbing/presentation/widgets/select_hall_route_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -125,40 +126,37 @@ class AttemptsWithStyle extends StatelessWidget {
     return BlocBuilder<CurrentHallTreaningCubit, CurrentHallTreaningState>(
       builder: (context, state) {
         final bool showAddButton = isCurrent && state.currentAttempt == null;
-        return Padding(
-          padding: const EdgeInsets.all(4.0),
-          child: Wrap(
-            crossAxisAlignment: WrapCrossAlignment.center,
-            children: [
-              SizedBox(width: 60, child: child),
-              ...attempts
-                  .map((attempt) => Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                        child: AttemptClickWidget(
-                          attempt: attempt,
-                        ),
-                      ))
-                  .toList(),
-              if (showAddButton)
-                IconButton(
-                  onPressed: () {
-                    showModalBottomSheet<void>(
-                      context: context,
-                      builder: (context) {
-                        return SelectHallRouteWidget(
-                          treaning: treaning,
-                          type: climbingStyle.type,
-                        );
-                      },
-                    );
-                  },
-                  icon: Icon(
-                    Icons.add_box,
-                    color: Theme.of(context).primaryColor,
-                  ),
+        return Wrap(
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: [
+            SizedBox(width: 60, child: child),
+            ...attempts
+                .map((attempt) => Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: AttemptClickWidget(
+                        attempt: attempt,
+                      ),
+                    ))
+                .toList(),
+            if (showAddButton)
+              IconButton(
+                onPressed: () {
+                  showModalBottomSheet<void>(
+                    context: context,
+                    builder: (context) {
+                      return SelectHallRouteWidget(
+                        treaning: treaning,
+                        type: climbingStyle.type,
+                      );
+                    },
+                  );
+                },
+                icon: Icon(
+                  Icons.add_box,
+                  color: Theme.of(context).primaryColor,
                 ),
-            ],
-          ),
+              ),
+          ],
         );
       },
     );
@@ -183,7 +181,11 @@ class AttemptClickWidget extends StatelessWidget {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      HallRouteCategoryWidget.fromAttempt(attempt: attempt)
+                      HallSectorNumberWidget(
+                        route: attempt.route,
+                        child: HallRouteCategoryWidget.fromAttempt(
+                            attempt: attempt),
+                      )
                     ],
                   ),
                 ),
@@ -212,7 +214,10 @@ class AttemptClickWidget extends StatelessWidget {
                     ),
                 ],
               )),
-      child: HallRouteCategoryWidget.fromAttempt(attempt: attempt),
+      child: HallSectorNumberWidget(
+        route: attempt.route,
+        child: HallRouteCategoryWidget.fromAttempt(attempt: attempt),
+      ),
     );
   }
 }

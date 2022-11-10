@@ -30,8 +30,8 @@ class HallRoutePage extends HookWidget {
     final color = useState<RouteColor?>(null);
     final type = useState<ClimbingRouteType>(
         route?.type ?? initialType ?? ClimbingRouteType.rope);
-    final numberEditingController = useTextEditingController();
-    numberEditingController.text = route?.sectorNumber.toString() ?? '';
+    final numberEditingController =
+        useTextEditingController(text: route?.sectorNumber.toString() ?? '');
 
     final colorsMap = RouteColor.colorsMap;
 

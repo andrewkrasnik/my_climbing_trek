@@ -4,6 +4,7 @@ import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_h
 import 'package:climbing_diary/features/hall_climbing/presentation/bloc/current_hall_treaning/current_hall_treaning_cubit.dart';
 import 'package:climbing_diary/features/hall_climbing/presentation/pages/hall_route_page.dart';
 import 'package:climbing_diary/features/hall_climbing/presentation/widgets/hall_route_category_widget.dart';
+import 'package:climbing_diary/features/hall_climbing/presentation/widgets/hall_sector_number_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -25,9 +26,12 @@ class HallRouteWidget extends StatelessWidget {
           const SizedBox(
             width: 16,
           ),
-          HallRouteCategoryWidget(
-            category: route.category,
-            color: route.color.materialColor,
+          HallSectorNumberWidget(
+            route: route,
+            child: HallRouteCategoryWidget(
+              category: route.category,
+              color: route.color.materialColor,
+            ),
           ),
           const SizedBox(
             width: 8,

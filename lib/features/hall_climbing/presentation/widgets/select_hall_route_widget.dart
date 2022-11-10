@@ -27,6 +27,11 @@ class SelectHallRouteWidget extends HookWidget {
   Widget build(BuildContext context) {
     final category = useState<ClimbingCategory?>(null);
 
+    final roureFilter = HallRouteFilter(
+      category: category.value,
+      type: type,
+    );
+
     return BlocProvider(
       create: (context) => getIt<ClimbingHallCubit>()
         ..loadData(
@@ -38,68 +43,69 @@ class SelectHallRouteWidget extends HookWidget {
         ),
       child: BlocBuilder<ClimbingHallCubit, ClimbingHallState>(
         builder: (context, state) {
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                SelectCategoryWidget(
-                  currentCategory: category.value,
-                  onTap: (selectedCategory) {
-                    category.value = selectedCategory;
-                    BlocProvider.of<ClimbingHallCubit>(context).loadData(
-                      treaning.climbingHall,
-                      filter: HallRouteFilter(
-                        category: selectedCategory,
-                        type: type,
-                      ),
-                    );
-                  },
-                ),
-                if (state.routes != null)
-                  Expanded(
-                    child: ListView.separated(
-                        itemBuilder: (context, index) =>
-                            HallRouteWidget(route: state.routes![index]),
-                        separatorBuilder: (_, __) => const SizedBox(
-                              height: 8,
-                            ),
-                        itemCount: state.routes!.length),
-                  ),
-                ElevatedButton(
-                  onPressed: () async {
-                    await Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => HallRoutePage(
+          return Scaffold(
+            floatingActionButton: FloatingActionButton(
+              onPressed: () async {
+                final cubit = BlocProvider.of<ClimbingHallCubit>(context);
+                await Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => HallRoutePage(
                           climbingHall: treaning.climbingHall,
                           initialCategory: category.value,
                           initialType: type,
+                        )));
+
+                cubit.loadData(
+                  treaning.climbingHall,
+                  filter: roureFilter,
+                );
+              },
+              child: const Icon(
+                Icons.add,
+                size: 40,
+              ),
+            ),
+            body: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  SelectCategoryWidget(
+                    currentCategory: category.value,
+                    onTap: (selectedCategory) {
+                      category.value = selectedCategory;
+                      BlocProvider.of<ClimbingHallCubit>(context).loadData(
+                        treaning.climbingHall,
+                        filter: HallRouteFilter(
+                          category: selectedCategory,
+                          type: type,
                         ),
-                      ),
-                    );
-                    BlocProvider.of<ClimbingHallCubit>(context).loadData(
-                      treaning.climbingHall,
-                      filter: HallRouteFilter(
-                        category: category.value,
-                        type: type,
-                      ),
-                    );
-                  },
-                  child: const Text('Добавить'),
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    BlocProvider.of<CurrentHallTreaningCubit>(context)
-                        .newAttempt(
-                      category: category.value!,
-                    );
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('Старт'),
-                ),
-              ],
+                      );
+                    },
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      BlocProvider.of<CurrentHallTreaningCubit>(context)
+                          .newAttempt(
+                        category: category.value!,
+                      );
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('Старт без трассы'),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  if (state.routes != null)
+                    Expanded(
+                      child: ListView.separated(
+                          itemBuilder: (context, index) =>
+                              HallRouteWidget(route: state.routes![index]),
+                          separatorBuilder: (_, __) => const SizedBox(
+                                height: 8,
+                              ),
+                          itemCount: state.routes!.length),
+                    ),
+                ],
+              ),
             ),
           );
         },
