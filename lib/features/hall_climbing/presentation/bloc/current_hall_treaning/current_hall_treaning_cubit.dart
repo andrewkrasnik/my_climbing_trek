@@ -40,10 +40,13 @@ class CurrentHallTreaningCubit extends Cubit<CurrentHallTreaningState> {
   }
 
   Future<void> attemptFromRoute(
-      {required ClimbingHallRoute route, required ClimbingStyle style}) async {
+      {required ClimbingHall climbingHall,
+      required ClimbingHallRoute route,
+      required ClimbingStyle style}) async {
     final failureOrTreaning = await newHallAttemptFromRoute(
       route: route,
       style: style,
+      climbingHall: climbingHall,
     );
 
     failureOrTreaning.fold(

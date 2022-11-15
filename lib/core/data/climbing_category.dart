@@ -7,6 +7,7 @@ class ClimbingCategory {
   final String nord;
   final String ewbank;
   final String brasilian;
+  final int id;
 
   String get name => french;
 
@@ -19,9 +20,14 @@ class ClimbingCategory {
     required this.nord,
     required this.ewbank,
     required this.brasilian,
+    required this.id,
   });
 
+  static ClimbingCategory getById(int id) =>
+      values.firstWhere((element) => element.id == id);
+
   static const ClimbingCategory category5A = ClimbingCategory(
+      id: 1,
       french: '5A',
       usa: '',
       uiaa: '',
@@ -32,6 +38,7 @@ class ClimbingCategory {
       brasilian: '');
 
   static const ClimbingCategory category5B = ClimbingCategory(
+      id: 2,
       french: '5B',
       usa: '',
       uiaa: '',
@@ -42,6 +49,7 @@ class ClimbingCategory {
       brasilian: '');
 
   static const ClimbingCategory category5C = ClimbingCategory(
+      id: 3,
       french: '5C',
       usa: '',
       uiaa: '',
@@ -52,6 +60,7 @@ class ClimbingCategory {
       brasilian: '');
 
   static const ClimbingCategory category6A = ClimbingCategory(
+      id: 4,
       french: '6A',
       usa: '',
       uiaa: '',
@@ -62,6 +71,7 @@ class ClimbingCategory {
       brasilian: '');
 
   static const ClimbingCategory category6B = ClimbingCategory(
+      id: 5,
       french: '6B',
       usa: '',
       uiaa: '',
@@ -72,6 +82,7 @@ class ClimbingCategory {
       brasilian: '');
 
   static const ClimbingCategory category6C = ClimbingCategory(
+      id: 6,
       french: '6C',
       usa: '',
       uiaa: '',
@@ -82,6 +93,7 @@ class ClimbingCategory {
       brasilian: '');
 
   static const ClimbingCategory category7A = ClimbingCategory(
+      id: 7,
       french: '7A',
       usa: '',
       uiaa: '',
@@ -92,6 +104,7 @@ class ClimbingCategory {
       brasilian: '');
 
   static const ClimbingCategory category7B = ClimbingCategory(
+      id: 8,
       french: '7B',
       usa: '',
       uiaa: '',
@@ -102,6 +115,7 @@ class ClimbingCategory {
       brasilian: '');
 
   static const ClimbingCategory category7C = ClimbingCategory(
+      id: 9,
       french: '7C',
       usa: '',
       uiaa: '',

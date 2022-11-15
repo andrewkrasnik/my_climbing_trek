@@ -113,6 +113,7 @@ class ClimbingHallPage extends StatelessWidget {
                             shrinkWrap: true,
                             itemBuilder: (context, index) => Center(
                                 child: HallRouteWidget(
+                                    climbingHall: climbingHall,
                                     route: state.routes![index])),
                             separatorBuilder: (_, __) => const SizedBox(
                                   height: 8,

@@ -1,3 +1,4 @@
+import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -15,7 +16,12 @@ class HallRouteCubit extends Cubit<HallRouteState> {
     this.newHallRoute,
   ) : super(const HallRouteState.initial());
 
-  Future<void> saveRoute({required ClimbingHallRoute route}) async {
-    await newHallRoute(route: route);
+  Future<void> saveRoute(
+      {required ClimbingHall climbingHall,
+      required ClimbingHallRoute route}) async {
+    await newHallRoute(
+      climbingHall: climbingHall,
+      route: route,
+    );
   }
 }

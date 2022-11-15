@@ -1,5 +1,6 @@
 import 'package:climbing_diary/core/data/climbing_route_type.dart';
 import 'package:climbing_diary/core/data/climbing_style.dart';
+import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall.dart';
 import 'package:climbing_diary/features/hall_climbing/presentation/bloc/current_hall_treaning/current_hall_treaning_cubit.dart';
 import 'package:flutter/material.dart';
 
@@ -7,11 +8,13 @@ import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_h
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HallRouteGoButton extends StatelessWidget {
+  final ClimbingHall climbingHall;
   final ClimbingHallRoute route;
   final void Function()? callback;
   const HallRouteGoButton({
     Key? key,
     required this.route,
+    required this.climbingHall,
     this.callback,
   }) : super(key: key);
 
@@ -24,6 +27,7 @@ class HallRouteGoButton extends StatelessWidget {
               onPressed: () {
                 BlocProvider.of<CurrentHallTreaningCubit>(context)
                     .attemptFromRoute(
+                  climbingHall: climbingHall,
                   route: route,
                   style: ClimbingStyle.lead,
                 );
@@ -43,6 +47,7 @@ class HallRouteGoButton extends StatelessWidget {
               onPressed: () {
                 BlocProvider.of<CurrentHallTreaningCubit>(context)
                     .attemptFromRoute(
+                  climbingHall: climbingHall,
                   route: route,
                   style: ClimbingStyle.topRope,
                 );
@@ -60,6 +65,7 @@ class HallRouteGoButton extends StatelessWidget {
       return ElevatedButton(
         onPressed: () {
           BlocProvider.of<CurrentHallTreaningCubit>(context).attemptFromRoute(
+            climbingHall: climbingHall,
             route: route,
             style: ClimbingStyle.bouldering,
           );

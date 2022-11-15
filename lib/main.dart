@@ -6,10 +6,12 @@ import 'package:climbing_diary/features/hall_climbing/presentation/pages/home_pa
 import 'package:climbing_diary/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   configureDependencies();
+  await Hive.initFlutter();
   runApp(const MyApp());
 }
 

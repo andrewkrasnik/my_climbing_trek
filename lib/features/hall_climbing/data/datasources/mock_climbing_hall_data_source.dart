@@ -3,6 +3,7 @@ import 'package:climbing_diary/core/data/climbing_route_type.dart';
 import 'package:climbing_diary/core/data/map_point.dart';
 import 'package:climbing_diary/core/failures/failure.dart';
 import 'package:climbing_diary/features/hall_climbing/data/datasources/climbing_hall_data_source.dart';
+import 'package:climbing_diary/features/hall_climbing/data/models/hall_model.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_route.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/hall_routes_filter.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/route_color.dart';
@@ -11,74 +12,74 @@ import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_h
 import 'package:climbing_diary/features/hall_climbing/domain/entities/city.dart';
 import 'package:injectable/injectable.dart';
 
-@LazySingleton(as: ClimbingHallDataSource)
+// @LazySingleton(as: ClimbingHallDataSource)
 class MockClimbingHallDataSource implements ClimbingHallDataSource {
   static const List<City> _cities = [
     City.moscow,
     City.spb,
   ];
 
-  static const ClimbingHall _sportStation = ClimbingHall(
+  static const HallModel _sportStation = HallModel(
     name: 'СпортСтейшн',
     address: 'Новоостаповская улица, д. 5, стр. 2',
     city: City.moscow,
     hasBouldering: true,
     hasBigWall: true,
-    point: MapPoint(),
+    // point: MapPoint(),
     image:
         'https://avatars.mds.yandex.net/get-altay/5483320/2a0000017ce6617df6c425f29ba307b7e41e/XXXL',
     telephone: '+7 (495) 126-16-59',
     website: 'https://station.club/',
     email: 'info@station.club',
+    id: 1,
   );
 
-  static const ClimbingHall _bigwall = ClimbingHall(
+  static const HallModel _bigwall = HallModel(
     name: 'BigWallsport',
     address: 'просп. Мира, 119, стр. 22',
     city: City.moscow,
     hasBouldering: true,
     hasBigWall: true,
-    point: MapPoint(),
+    // point: MapPoint(),
     image:
         'https://avatars.mds.yandex.net/get-altay/1938975/2a0000016ec72ab066107d87f0f36f12f04a/XXXL',
     telephone: '+7 (499) 653-60-30',
     website: 'https://bigwallsport.ru/',
     email: 'info@bigwallsport.ru',
+    id: 2,
   );
 
-  static const List<ClimbingHall> _climbingHalls = [
+  static const List<HallModel> climbingHallsList = [
     _sportStation,
     _bigwall,
-    ClimbingHall(
+    HallModel(
       name: 'Северная стена',
       address: 'Газовая ул., 10З',
       city: City.spb,
       hasBouldering: true,
       hasBigWall: true,
-      point: MapPoint(),
+      // point: MapPoint(),
       image:
           'https://avatars.mds.yandex.net/get-altay/4581272/2a00000179d578d29da510d67c0d62c26141/XXXL',
       telephone: '+7 (812) 501-93-15',
       website: 'https://severnayastena.ru/',
       email: 'severnayastena@gmail.com',
+      id: 3,
     ),
   ];
 
   static const List<ClimbingHallRoute> _routes = [
     ClimbingHallRoute(
-      climbingHall: _sportStation,
       category: ClimbingCategory.category6A,
       color: RouteColor.red,
       type: ClimbingRouteType.rope,
     ),
     ClimbingHallRoute(
-      climbingHall: _sportStation,
       category: ClimbingCategory.category6A,
       color: RouteColor.green,
       type: ClimbingRouteType.rope,
     ),
     ClimbingHallRoute(
-      climbingHall: _sportStation,
       category: ClimbingCategory.category6B,
       color: RouteColor.yellow,
       type: ClimbingRouteType.rope,
@@ -91,11 +92,11 @@ class MockClimbingHallDataSource implements ClimbingHallDataSource {
 
   @override
   Future<Either<Failure, List<ClimbingHall>>> climbingHalls() async {
-    return const Right(_climbingHalls);
+    return const Right(climbingHallsList);
   }
 
   @override
-  Future<Either<Failure, List<City>>> sities() async {
+  Future<Either<Failure, List<City>>> cities() async {
     return const Right(_cities);
   }
 
@@ -106,14 +107,14 @@ class MockClimbingHallDataSource implements ClimbingHallDataSource {
   }) async {
     return Right(_routesData
         .where((element) =>
-            element.climbingHall == climbingHall &&
-            (filter?.match(element) ?? true))
+            climbingHall == climbingHall && (filter?.match(element) ?? true))
         .toList());
   }
 
   @override
   Future<Either<Failure, ClimbingHallRoute>> addRoute(
-      {required ClimbingHallRoute route}) async {
+      {required ClimbingHall climbingHall,
+      required ClimbingHallRoute route}) async {
     _routesData.add(route);
     return Right(route);
   }

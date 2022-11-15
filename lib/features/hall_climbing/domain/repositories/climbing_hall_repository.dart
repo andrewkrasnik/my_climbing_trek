@@ -6,12 +6,12 @@ import 'package:climbing_diary/features/hall_climbing/domain/entities/hall_route
 import 'package:dartz/dartz.dart';
 
 abstract class ClimbingHallRepository {
-  Future<Either<Failure, List<City>>> sities();
+  Future<Either<Failure, List<City>>> cities();
   Future<Either<Failure, List<ClimbingHall>>> climbingHalls();
   Future<Either<Failure, List<ClimbingHallRoute>>> climbingHallRoutes({
     required ClimbingHall climbingHall,
     HallRouteFilter? filter,
   });
   Future<Either<Failure, ClimbingHallRoute>> addRoute(
-      {required ClimbingHallRoute route});
+      {required ClimbingHall climbingHall, required ClimbingHallRoute route});
 }
