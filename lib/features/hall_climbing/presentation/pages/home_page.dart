@@ -113,20 +113,28 @@ class HomePage extends StatelessWidget {
                                                     climbingHall: dataState
                                                         .halls[index]))),
                                   ),
-                                  Align(
-                                    alignment: Alignment.bottomRight,
-                                    child: IconButton(
-                                      icon: const Icon(Icons.add_box,
-                                          color: Colors.white),
-                                      onPressed: () {
-                                        BlocProvider.of<
-                                                    CurrentHallTreaningCubit>(
-                                                context)
-                                            .newTreaning(
-                                          climbingHall: dataState.halls[index],
-                                        );
-                                      },
-                                    ),
+                                  BlocBuilder<CurrentHallTreaningCubit,
+                                      CurrentHallTreaningState>(
+                                    builder: (context, state) {
+                                      return state.current == null
+                                          ? Align(
+                                              alignment: Alignment.bottomRight,
+                                              child: IconButton(
+                                                icon: const Icon(Icons.add_box,
+                                                    color: Colors.white),
+                                                onPressed: () {
+                                                  BlocProvider.of<
+                                                              CurrentHallTreaningCubit>(
+                                                          context)
+                                                      .newTreaning(
+                                                    climbingHall:
+                                                        dataState.halls[index],
+                                                  );
+                                                },
+                                              ),
+                                            )
+                                          : const SizedBox();
+                                    },
                                   )
                                 ],
                               ),

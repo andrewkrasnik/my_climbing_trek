@@ -1,5 +1,6 @@
 import 'package:climbing_diary/core/data/climbing_category.dart';
 import 'package:climbing_diary/core/data/climbing_route_type.dart';
+import 'package:climbing_diary/core/data/climbing_style.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_route.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_treaning.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/hall_routes_filter.dart';
@@ -16,11 +17,12 @@ import '../bloc/climbing_hall/climbing_hall_cubit.dart';
 
 class SelectHallRouteWidget extends HookWidget {
   final ClimbingHallTreaning treaning;
-  final ClimbingRouteType type;
+
+  final ClimbingStyle style;
   const SelectHallRouteWidget({
     Key? key,
     required this.treaning,
-    required this.type,
+    required this.style,
   }) : super(key: key);
 
   @override
@@ -29,7 +31,7 @@ class SelectHallRouteWidget extends HookWidget {
 
     final roureFilter = HallRouteFilter(
       category: category.value,
-      type: type,
+      type: style.type,
     );
 
     return BlocProvider(
@@ -38,7 +40,7 @@ class SelectHallRouteWidget extends HookWidget {
           treaning.climbingHall,
           filter: HallRouteFilter(
             category: category.value,
-            type: type,
+            type: style.type,
           ),
         ),
       child: BlocBuilder<ClimbingHallCubit, ClimbingHallState>(
@@ -51,7 +53,7 @@ class SelectHallRouteWidget extends HookWidget {
                     builder: (context) => HallRoutePage(
                           climbingHall: treaning.climbingHall,
                           initialCategory: category.value,
-                          initialType: type,
+                          initialType: style.type,
                         )));
 
                 cubit.loadData(
@@ -76,7 +78,7 @@ class SelectHallRouteWidget extends HookWidget {
                         treaning.climbingHall,
                         filter: HallRouteFilter(
                           category: selectedCategory,
-                          type: type,
+                          type: style.type,
                         ),
                       );
                     },
@@ -85,6 +87,7 @@ class SelectHallRouteWidget extends HookWidget {
                     onPressed: () {
                       BlocProvider.of<CurrentHallTreaningCubit>(context)
                           .newAttempt(
+                        style: style,
                         category: category.value!,
                       );
                       Navigator.of(context).pop();

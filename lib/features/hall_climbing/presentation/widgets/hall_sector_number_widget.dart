@@ -15,23 +15,33 @@ class HallSectorNumberWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return route != null
         ? Stack(
+            alignment: AlignmentDirectional.bottomCenter,
             children: [
               child,
               if (route!.sectorNumber > 0)
-                Positioned(
-                    top: 0,
-                    right: 0,
-                    child: CircleAvatar(
-                      backgroundColor: Colors.black,
-                      radius: 10,
-                      child: Text(
-                        route!.sectorNumber.toString(),
-                        style: const TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ))
+                Text(
+                  route!.sectorNumber.toString(),
+                  style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              // if (route!.sectorNumber > 0)
+              //   Positioned(
+              //       top: 0,
+              //       right: 0,
+              //       child: CircleAvatar(
+              //         backgroundColor: Colors.black,
+              //         radius: 10,
+              //         child: Text(
+              //           route!.sectorNumber.toString(),
+              //           style: const TextStyle(
+              //             fontSize: 12,
+              //             fontWeight: FontWeight.bold,
+              //           ),
+              //         ),
+              //       ))
             ],
           )
         : child;

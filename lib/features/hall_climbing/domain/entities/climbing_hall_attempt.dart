@@ -9,7 +9,12 @@ class ClimbingHallAttempt {
   final ClimbingCategory category;
   DateTime? _start;
   DateTime? _finish;
-  AscentType? ascentType;
+  AscentType? _ascentType;
+  int _suspensionCount = 0;
+  int _fallCount = 0;
+  bool _downClimbing = false;
+  bool _fail = false;
+
   final ClimbingStyle style;
 
   ClimbingCategory get routeCategory => category;
@@ -17,6 +22,13 @@ class ClimbingHallAttempt {
 
   bool get planed => _start == null;
   bool get finished => _finish != null;
+  bool get started => _start != null && _finish == null;
+
+  int get suspensionCount => _suspensionCount;
+  int get fallCount => _fallCount;
+  bool get downClimbing => _downClimbing;
+  AscentType? get ascentType => _ascentType;
+  bool get fail => _fail;
 
   ClimbingHallAttempt({
     required this.category,
@@ -30,14 +42,39 @@ class ClimbingHallAttempt {
   })  : category = route.category,
         route = route;
 
-  ClimbingHallAttempt copy() =>
-      ClimbingHallAttempt(route: route, style: style, category: category);
+  ClimbingHallAttempt copy() => ClimbingHallAttempt(
+        route: route,
+        style: style,
+        category: category,
+      );
 
   void start() {
     _start = DateTime.now();
   }
 
-  void finish() {
+  void finish({
+    int suspensionCount = 0,
+    int fallCount = 0,
+    bool downClimbing = false,
+    bool fail = false,
+    int attemptCount = 0,
+  }) {
     _finish = DateTime.now();
+    _suspensionCount = suspensionCount;
+    _fallCount = fallCount;
+    _downClimbing = downClimbing;
+    _fail = fail;
+
+    if (!_fail &&
+        style == ClimbingStyle.lead &&
+        route != null &&
+        fallCount == 0 &&
+        _suspensionCount == 0) {
+      if (attemptCount == 0) {
+        _ascentType = AscentType.onsite;
+      } else {
+        _ascentType = AscentType.redPoint;
+      }
+    }
   }
 }

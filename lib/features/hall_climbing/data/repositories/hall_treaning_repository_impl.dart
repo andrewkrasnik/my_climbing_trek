@@ -40,8 +40,7 @@ class HallTreaningRepositoryImpl implements HallTreaningRepository {
   @override
   Future<Either<Failure, ClimbingHallAttempt>> saveAttempt(
       {required ClimbingHallTreaning treaning,
-      required ClimbingHallAttempt attempt}) {
-    // TODO: implement saveAttempt
-    throw UnimplementedError();
+      required ClimbingHallAttempt attempt}) async {
+    return await dataSource.saveAttempt(treaning: treaning, attempt: attempt);
   }
 }

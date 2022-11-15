@@ -2,6 +2,7 @@ import 'package:climbing_diary/core/data/climbing_style.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_attempt.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_treaning.dart';
 import 'package:climbing_diary/features/hall_climbing/presentation/bloc/current_hall_treaning/current_hall_treaning_cubit.dart';
+import 'package:climbing_diary/features/hall_climbing/presentation/widgets/hall_attempt_dialog.dart';
 import 'package:climbing_diary/features/hall_climbing/presentation/widgets/hall_route_category_widget.dart';
 import 'package:climbing_diary/features/hall_climbing/presentation/widgets/hall_sector_number_widget.dart';
 import 'package:climbing_diary/features/hall_climbing/presentation/widgets/select_hall_route_widget.dart';
@@ -45,7 +46,7 @@ class HallTreaningWidget extends StatelessWidget {
                   attempts: treaning.leadAttempts,
                   treaning: treaning,
                   isCurrent: isCurrent,
-                  climbingStyle: ClimbingStyle.topRope,
+                  climbingStyle: ClimbingStyle.lead,
                   child: const Text('Верхняя:'),
                 ),
               if (isCurrent || treaning.hasTopRope)
@@ -146,7 +147,7 @@ class AttemptsWithStyle extends StatelessWidget {
                     builder: (context) {
                       return SelectHallRouteWidget(
                         treaning: treaning,
-                        type: climbingStyle.type,
+                        style: climbingStyle,
                       );
                     },
                   );
@@ -174,46 +175,9 @@ class AttemptClickWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-                content: Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      HallSectorNumberWidget(
-                        route: attempt.route,
-                        child: HallRouteCategoryWidget.fromAttempt(
-                            attempt: attempt),
-                      )
-                    ],
-                  ),
-                ),
-                actions: [
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text('Назад'),
-                  ),
-                  if (attempt.planed)
-                    ElevatedButton(
-                      onPressed: () {
-                        BlocProvider.of<CurrentHallTreaningCubit>(context)
-                            .startAttempt(attempt: attempt);
-                        Navigator.of(context).pop();
-                      },
-                      child: const Text('Старт'),
-                    ),
-                  if (attempt.finished)
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: const Text('Удалить'),
-                    ),
-                ],
-              )),
+        context: context,
+        builder: (context) => HallAttemptDialog(attempt: attempt),
+      ),
       child: HallSectorNumberWidget(
         route: attempt.route,
         child: HallRouteCategoryWidget.fromAttempt(attempt: attempt),

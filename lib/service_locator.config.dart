@@ -24,28 +24,30 @@ import 'features/hall_climbing/domain/repositories/climbing_hall_repository.dart
     as _i5;
 import 'features/hall_climbing/domain/repositories/hall_treaning_repository.dart'
     as _i10;
-import 'features/hall_climbing/domain/usecases/all_climbing_halls.dart' as _i15;
+import 'features/hall_climbing/domain/usecases/all_climbing_halls.dart' as _i16;
 import 'features/hall_climbing/domain/usecases/get_climbing_hall_routes.dart'
     as _i7;
-import 'features/hall_climbing/domain/usecases/new_hall_route.dart' as _i13;
+import 'features/hall_climbing/domain/usecases/new_hall_route.dart' as _i14;
 import 'features/hall_climbing/domain/usecases/treanings/all_hall_treanings.dart'
-    as _i16;
-import 'features/hall_climbing/domain/usecases/treanings/new_hall_attempt_from_route.dart'
-    as _i12;
-import 'features/hall_climbing/domain/usecases/treanings/new_hall_treaning.dart'
-    as _i14;
-import 'features/hall_climbing/presentation/bloc/climbing_hall/climbing_hall_cubit.dart'
     as _i17;
-import 'features/hall_climbing/presentation/bloc/climbing_halls/climbing_halls_cubit.dart'
+import 'features/hall_climbing/domain/usecases/treanings/new_hall_attempt.dart'
+    as _i12;
+import 'features/hall_climbing/domain/usecases/treanings/new_hall_attempt_from_route.dart'
+    as _i13;
+import 'features/hall_climbing/domain/usecases/treanings/new_hall_treaning.dart'
+    as _i15;
+import 'features/hall_climbing/presentation/bloc/climbing_hall/climbing_hall_cubit.dart'
     as _i18;
-import 'features/hall_climbing/presentation/bloc/current_hall_treaning/current_hall_treaning_cubit.dart'
+import 'features/hall_climbing/presentation/bloc/climbing_halls/climbing_halls_cubit.dart'
     as _i19;
-import 'features/hall_climbing/presentation/bloc/hall_route/hall_route_cubit.dart'
+import 'features/hall_climbing/presentation/bloc/current_hall_treaning/current_hall_treaning_cubit.dart'
     as _i20;
-import 'features/hall_climbing/presentation/bloc/hall_treanings/hall_treanings_cubit.dart'
+import 'features/hall_climbing/presentation/bloc/hall_route/hall_route_cubit.dart'
     as _i21;
+import 'features/hall_climbing/presentation/bloc/hall_treanings/hall_treanings_cubit.dart'
+    as _i22;
 import 'features/hall_climbing/presentation/bloc/home_page/home_page_cubit.dart'
-    as _i22; // ignore_for_file: unnecessary_lambdas
+    as _i23; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -71,30 +73,33 @@ _i1.GetIt $initGetIt(
   gh.lazySingleton<_i10.HallTreaningRepository>(() =>
       _i11.HallTreaningRepositoryImpl(
           dataSource: get<_i8.HallTreaningDataSource>()));
-  gh.lazySingleton<_i12.NewHallAttemptFromRoute>(() =>
-      _i12.NewHallAttemptFromRoute(
-          hallTreaningRepository: get<_i10.HallTreaningRepository>()));
-  gh.lazySingleton<_i13.NewHallRoute>(() => _i13.NewHallRoute(
-      climbingHallRepository: get<_i5.ClimbingHallRepository>()));
-  gh.lazySingleton<_i14.NewHallTreaning>(() => _i14.NewHallTreaning(
+  gh.lazySingleton<_i12.NewHallAttempt>(() => _i12.NewHallAttempt(
       treaningRepository: get<_i10.HallTreaningRepository>()));
-  gh.lazySingleton<_i15.AllClimbingHalls>(
-      () => _i15.AllClimbingHalls(get<_i5.ClimbingHallRepository>()));
-  gh.lazySingleton<_i16.AllHallTreanings>(
-      () => _i16.AllHallTreanings(get<_i10.HallTreaningRepository>()));
-  gh.factory<_i17.ClimbingHallCubit>(() => _i17.ClimbingHallCubit(
+  gh.lazySingleton<_i13.NewHallAttemptFromRoute>(() =>
+      _i13.NewHallAttemptFromRoute(
+          hallTreaningRepository: get<_i10.HallTreaningRepository>()));
+  gh.lazySingleton<_i14.NewHallRoute>(() => _i14.NewHallRoute(
+      climbingHallRepository: get<_i5.ClimbingHallRepository>()));
+  gh.lazySingleton<_i15.NewHallTreaning>(() => _i15.NewHallTreaning(
+      treaningRepository: get<_i10.HallTreaningRepository>()));
+  gh.lazySingleton<_i16.AllClimbingHalls>(
+      () => _i16.AllClimbingHalls(get<_i5.ClimbingHallRepository>()));
+  gh.lazySingleton<_i17.AllHallTreanings>(
+      () => _i17.AllHallTreanings(get<_i10.HallTreaningRepository>()));
+  gh.factory<_i18.ClimbingHallCubit>(() => _i18.ClimbingHallCubit(
       getClimbingHallRoures: get<_i7.GetClimbingHallRoures>()));
-  gh.factory<_i18.ClimbingHallsCubit>(() =>
-      _i18.ClimbingHallsCubit(allClimbingHalls: get<_i15.AllClimbingHalls>()));
-  gh.factory<_i19.CurrentHallTreaningCubit>(() => _i19.CurrentHallTreaningCubit(
-        newHallAttemptFromRoute: get<_i12.NewHallAttemptFromRoute>(),
-        newHallTreaning: get<_i14.NewHallTreaning>(),
+  gh.factory<_i19.ClimbingHallsCubit>(() =>
+      _i19.ClimbingHallsCubit(allClimbingHalls: get<_i16.AllClimbingHalls>()));
+  gh.factory<_i20.CurrentHallTreaningCubit>(() => _i20.CurrentHallTreaningCubit(
+        newHallAttemptFromRoute: get<_i13.NewHallAttemptFromRoute>(),
+        newHallTreaning: get<_i15.NewHallTreaning>(),
+        newHallAttempt: get<_i12.NewHallAttempt>(),
       ));
-  gh.factory<_i20.HallRouteCubit>(
-      () => _i20.HallRouteCubit(get<_i13.NewHallRoute>()));
-  gh.factory<_i21.HallTreaningsCubit>(() =>
-      _i21.HallTreaningsCubit(allHallTreanings: get<_i16.AllHallTreanings>()));
-  gh.factory<_i22.HomePageCubit>(
-      () => _i22.HomePageCubit(allClimbingHalls: get<_i15.AllClimbingHalls>()));
+  gh.factory<_i21.HallRouteCubit>(
+      () => _i21.HallRouteCubit(get<_i14.NewHallRoute>()));
+  gh.factory<_i22.HallTreaningsCubit>(() =>
+      _i22.HallTreaningsCubit(allHallTreanings: get<_i17.AllHallTreanings>()));
+  gh.factory<_i23.HomePageCubit>(
+      () => _i23.HomePageCubit(allClimbingHalls: get<_i16.AllClimbingHalls>()));
   return get;
 }
