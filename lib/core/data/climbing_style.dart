@@ -23,6 +23,6 @@ class ClimbingStyle {
   @override
   String toString() => name;
 
-  ClimbingStyle getById(int id) =>
+  static ClimbingStyle getById(int id) =>
       values.firstWhere((element) => element.id == id);
 }

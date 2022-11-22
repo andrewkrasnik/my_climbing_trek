@@ -6,7 +6,7 @@ import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_h
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall.dart';
 import 'package:injectable/injectable.dart';
 
-@LazySingleton(as: HallTreaningDataSource)
+// @LazySingleton(as: HallTreaningDataSource)
 class MockHallTreaningDataSource implements HallTreaningDataSource {
   final List<ClimbingHallTreaning> _treanings = [];
 
@@ -31,10 +31,10 @@ class MockHallTreaningDataSource implements HallTreaningDataSource {
   }
 
   @override
-  Future<Either<Failure, ClimbingHallTreaning>> newTreaning(
-      {required ClimbingHall climbingHall}) async {
-    final ClimbingHallTreaning treaning = ClimbingHallTreaning(
-        date: DateTime.now(), climbingHall: climbingHall, attempts: []);
+  Future<Either<Failure, ClimbingHallTreaning>> saveTreaning(
+      {required ClimbingHallTreaning treaning}) async {
+    // final ClimbingHallTreaning treaning = ClimbingHallTreaning(
+    //     date: DateTime.now(), climbingHall: climbingHall, attempts: []);
     _treanings.add(treaning);
     return Right(treaning);
   }

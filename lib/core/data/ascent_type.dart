@@ -14,6 +14,6 @@ class AscentType {
   @override
   String toString() => name;
 
-  AscentType getById(int id) =>
+  static AscentType getById(int id) =>
       values.firstWhere((element) => element.id == id);
 }

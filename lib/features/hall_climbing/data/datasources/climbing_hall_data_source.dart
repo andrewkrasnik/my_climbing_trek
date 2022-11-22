@@ -8,6 +8,9 @@ import 'package:dartz/dartz.dart';
 abstract class ClimbingHallDataSource {
   Future<Either<Failure, List<City>>> cities();
   Future<Either<Failure, List<ClimbingHall>>> climbingHalls();
+  Future<Either<Failure, ClimbingHall>> getHallById(int id);
+  Future<Either<Failure, ClimbingHallRoute>> getRouteById(
+      {required int id, required int hallId});
   Future<Either<Failure, List<ClimbingHallRoute>>> climbingHallRoutes({
     required ClimbingHall climbingHall,
     HallRouteFilter? filter,

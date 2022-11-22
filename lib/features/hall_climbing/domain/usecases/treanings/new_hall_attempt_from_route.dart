@@ -24,15 +24,23 @@ class NewHallAttemptFromRoute {
 
     final currentTreaning =
         await failureOrCurrentTreaning.fold((faulure) async {
+      final newTreaning = ClimbingHallTreaning(
+          date: DateTime.now(), climbingHall: climbingHall, attempts: []);
+
       final failureOrTreaning =
-          await hallTreaningRepository.newTreaning(climbingHall: climbingHall);
+          await hallTreaningRepository.saveTreaning(treaning: newTreaning);
 
       return failureOrTreaning.fold(
           (failure) => throw Error(), (treaning) => treaning);
     }, (treaning) async => treaning);
 
-    currentTreaning.attempts.add(
-        ClimbingHallAttempt.fromRoute(route: route, style: style)..start());
+    final attempt = ClimbingHallAttempt.fromRoute(route: route, style: style)
+      ..start();
+
+    final failureOrAttempt = hallTreaningRepository.saveAttempt(
+        treaning: currentTreaning, attempt: attempt);
+
+    currentTreaning.attempts.add(attempt);
 
     return Right(currentTreaning);
   }

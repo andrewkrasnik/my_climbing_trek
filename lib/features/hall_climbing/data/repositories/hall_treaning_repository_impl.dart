@@ -1,19 +1,22 @@
-import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_attempt.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
 import 'package:climbing_diary/core/failures/failure.dart';
+import 'package:climbing_diary/features/hall_climbing/data/datasources/climbing_hall_data_source.dart';
 import 'package:climbing_diary/features/hall_climbing/data/datasources/hall_treaning_data_source.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall.dart';
+import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_attempt.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_treaning.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/repositories/hall_treaning_repository.dart';
 
 @LazySingleton(as: HallTreaningRepository)
 class HallTreaningRepositoryImpl implements HallTreaningRepository {
   final HallTreaningDataSource dataSource;
+  final ClimbingHallDataSource hallDataSource;
 
   HallTreaningRepositoryImpl({
     required this.dataSource,
+    required this.hallDataSource,
   });
 
   @override
@@ -32,9 +35,9 @@ class HallTreaningRepositoryImpl implements HallTreaningRepository {
   }
 
   @override
-  Future<Either<Failure, ClimbingHallTreaning>> newTreaning(
-      {required ClimbingHall climbingHall}) async {
-    return await dataSource.newTreaning(climbingHall: climbingHall);
+  Future<Either<Failure, ClimbingHallTreaning>> saveTreaning(
+      {required ClimbingHallTreaning treaning}) async {
+    return await dataSource.saveTreaning(treaning: treaning);
   }
 
   @override

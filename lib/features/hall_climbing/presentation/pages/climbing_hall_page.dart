@@ -44,7 +44,7 @@ class ClimbingHallPage extends StatelessWidget {
             SliverAppBar(
               expandedHeight: 160,
               stretch: true,
-              floating: false,
+              floating: true,
               pinned: true,
               snap: false,
               flexibleSpace: FlexibleSpaceBar(

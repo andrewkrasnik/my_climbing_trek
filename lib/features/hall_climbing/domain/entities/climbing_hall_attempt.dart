@@ -5,42 +5,46 @@ import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_h
 import 'package:flutter/material.dart';
 
 class ClimbingHallAttempt {
+  int? id;
   final ClimbingHallRoute? route;
   final ClimbingCategory category;
-  DateTime? _start;
-  DateTime? _finish;
-  AscentType? _ascentType;
-  int _suspensionCount = 0;
-  int _fallCount = 0;
-  bool _downClimbing = false;
-  bool _fail = false;
+  DateTime? startTime;
+  DateTime? finishTime;
+  AscentType? ascentType;
+  int suspensionCount = 0;
+  int fallCount = 0;
+  bool downClimbing = false;
+  bool fail = false;
 
   final ClimbingStyle style;
 
   ClimbingCategory get routeCategory => category;
   Color? get routeColor => route?.color.materialColor;
 
-  bool get planed => _start == null;
-  bool get finished => _finish != null;
-  bool get started => _start != null && _finish == null;
+  bool get planed => startTime == null;
+  bool get finished => finishTime != null;
+  bool get started => startTime != null && finishTime == null;
 
-  int get suspensionCount => _suspensionCount;
-  int get fallCount => _fallCount;
-  bool get downClimbing => _downClimbing;
-  AscentType? get ascentType => _ascentType;
-  bool get fail => _fail;
+  // int get suspensionCount => _suspensionCount;
+  // int get fallCount => _fallCount;
+  // bool get downClimbing => _downClimbing;
+  // AscentType? get ascentType => _ascentType;
+  // bool get fail => _fail;
+  // DateTime? get getStart => _start;
+  // DateTime? get getFinish => _finish;
 
   ClimbingHallAttempt({
     required this.category,
     required this.style,
     this.route,
+    this.id,
   });
 
   ClimbingHallAttempt.fromRoute({
-    required route,
+    required this.route,
     required this.style,
-  })  : category = route.category,
-        route = route;
+    this.id,
+  }) : category = route!.category;
 
   ClimbingHallAttempt copy() => ClimbingHallAttempt(
         route: route,
@@ -49,7 +53,7 @@ class ClimbingHallAttempt {
       );
 
   void start() {
-    _start = DateTime.now();
+    startTime = DateTime.now();
   }
 
   void finish({
@@ -59,21 +63,21 @@ class ClimbingHallAttempt {
     bool fail = false,
     int attemptCount = 0,
   }) {
-    _finish = DateTime.now();
-    _suspensionCount = suspensionCount;
-    _fallCount = fallCount;
-    _downClimbing = downClimbing;
-    _fail = fail;
+    finishTime = DateTime.now();
+    suspensionCount = suspensionCount;
+    fallCount = fallCount;
+    downClimbing = downClimbing;
+    fail = fail;
 
-    if (!_fail &&
+    if (!fail &&
         style == ClimbingStyle.lead &&
         route != null &&
         fallCount == 0 &&
-        _suspensionCount == 0) {
+        suspensionCount == 0) {
       if (attemptCount == 0) {
-        _ascentType = AscentType.onsite;
+        ascentType = AscentType.onsite;
       } else {
-        _ascentType = AscentType.redPoint;
+        ascentType = AscentType.redPoint;
       }
     }
   }
