@@ -90,6 +90,8 @@ class HallAttemptDialog extends HookWidget {
         if (attempt.finished)
           ElevatedButton(
             onPressed: () {
+              BlocProvider.of<CurrentHallTreaningCubit>(context)
+                  .deleteAttempt(attempt: attempt);
               Navigator.of(context).pop();
             },
             child: const Text('Удалить'),

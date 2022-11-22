@@ -46,4 +46,16 @@ class HallTreaningRepositoryImpl implements HallTreaningRepository {
       required ClimbingHallAttempt attempt}) async {
     return await dataSource.saveAttempt(treaning: treaning, attempt: attempt);
   }
+
+  @override
+  Future<Either<Failure, Unit>> deleteAttempt(
+      {required ClimbingHallAttempt attempt}) async {
+    return await dataSource.deleteAttempt(attempt: attempt);
+  }
+
+  @override
+  Future<Either<Failure, Unit>> deleteTreaning(
+      {required ClimbingHallTreaning treaning}) async {
+    return await dataSource.deleteTreaning(treaning: treaning);
+  }
 }

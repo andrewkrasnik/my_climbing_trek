@@ -46,4 +46,18 @@ class MockHallTreaningDataSource implements HallTreaningDataSource {
     treaning.attempts.add(attempt);
     return Right(attempt);
   }
+
+  @override
+  Future<Either<Failure, Unit>> deleteAttempt(
+      {required ClimbingHallAttempt attempt}) {
+    // TODO: implement deleteAttempt
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, Unit>> deleteTreaning(
+      {required ClimbingHallTreaning treaning}) {
+    // TODO: implement deleteTreaning
+    throw UnimplementedError();
+  }
 }

@@ -11,6 +11,10 @@ abstract class HallTreaningRepository {
   Future<Either<Failure, List<ClimbingHallTreaning>>> allTreanings();
   Future<Either<Failure, ClimbingHallTreaning>> saveTreaning(
       {required ClimbingHallTreaning treaning});
+  Future<Either<Failure, Unit>> deleteTreaning(
+      {required ClimbingHallTreaning treaning});
+  Future<Either<Failure, Unit>> deleteAttempt(
+      {required ClimbingHallAttempt attempt});
   Future<Either<Failure, ClimbingHallAttempt>> saveAttempt({
     required ClimbingHallTreaning treaning,
     required ClimbingHallAttempt attempt,

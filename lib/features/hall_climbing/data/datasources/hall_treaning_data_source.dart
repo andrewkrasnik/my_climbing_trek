@@ -13,4 +13,8 @@ abstract class HallTreaningDataSource {
     required ClimbingHallTreaning treaning,
     required ClimbingHallAttempt attempt,
   });
+  Future<Either<Failure, Unit>> deleteTreaning(
+      {required ClimbingHallTreaning treaning});
+  Future<Either<Failure, Unit>> deleteAttempt(
+      {required ClimbingHallAttempt attempt});
 }

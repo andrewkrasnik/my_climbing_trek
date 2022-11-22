@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:io';
 
 import 'package:climbing_diary/core/data/ascent_type.dart';
@@ -161,8 +162,10 @@ class LocalHallTreaningDataSource implements HallTreaningDataSource {
     return attempts;
   }
 
-  Future<ClimbingHallAttempt> _itemToAttempt(
-      {required HallAttemptItem item, required int hallId}) async {
+  Future<ClimbingHallAttempt> _itemToAttempt({
+    required HallAttemptItem item,
+    required int hallId,
+  }) async {
     final ClimbingHallRoute? route;
 
     if (item.routeId != null) {
@@ -207,6 +210,29 @@ class LocalHallTreaningDataSource implements HallTreaningDataSource {
         ),
         attempts: attempts,
         date: item.date);
+  }
+
+  @override
+  Future<Either<Failure, Unit>> deleteAttempt(
+      {required ClimbingHallAttempt attempt}) async {
+    await (localDatabase.delete(localDatabase.hallAttemptTable)
+          ..where((tbl) => tbl.id.equals(attempt.id!)))
+        .go();
+
+    return const Right(unit);
+  }
+
+  @override
+  Future<Either<Failure, Unit>> deleteTreaning(
+      {required ClimbingHallTreaning treaning}) async {
+    await (localDatabase.delete(localDatabase.hallAttemptTable)
+          ..where((tbl) => tbl.treaningId.equals(treaning.id!)))
+        .go();
+    await (localDatabase.delete(localDatabase.hallTreaningTable)
+          ..where((tbl) => tbl.id.equals(treaning.id!)))
+        .go();
+
+    return const Right(unit);
   }
 }
 

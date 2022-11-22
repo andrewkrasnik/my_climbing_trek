@@ -4,6 +4,7 @@ import 'package:climbing_diary/features/hall_climbing/presentation/widgets/hall_
 import 'package:climbing_diary/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../bloc/climbing_hall/climbing_hall_cubit.dart';
@@ -112,9 +113,54 @@ class ClimbingHallPage extends StatelessWidget {
                             padding: const EdgeInsets.all(16),
                             shrinkWrap: true,
                             itemBuilder: (context, index) => Center(
-                                child: HallRouteWidget(
-                                    climbingHall: climbingHall,
-                                    route: state.routes![index])),
+                                    child: Slidable(
+                                  endActionPane: ActionPane(
+                                    motion: const ScrollMotion(),
+                                    children: [
+                                      SlidableAction(
+                                        flex: 1,
+                                        onPressed: (context) async {
+                                          final arhivePermission =
+                                              await showDialog<bool>(
+                                            context: context,
+                                            builder: (context) => AlertDialog(
+                                              title: const Text(
+                                                  'Подтверждение архивирования'),
+                                              content: const Text(
+                                                  'Трассу скрутили и она больше недоступна?'),
+                                              actions: [
+                                                ElevatedButton(
+                                                  onPressed: () {
+                                                    Navigator.of(context)
+                                                        .pop(false);
+                                                  },
+                                                  child: const Text('Отменить'),
+                                                ),
+                                                ElevatedButton(
+                                                  onPressed: () {
+                                                    Navigator.of(context)
+                                                        .pop(true);
+                                                  },
+                                                  child:
+                                                      const Text('Продолжить'),
+                                                ),
+                                              ],
+                                            ),
+                                          );
+
+                                          if (arhivePermission == true) {}
+                                        },
+                                        backgroundColor: Colors.red.shade400,
+                                        foregroundColor: Colors.white,
+                                        icon: Icons.delete,
+                                        label: 'arhivate',
+                                      ),
+                                    ],
+                                  ),
+                                  child: HallRouteWidget(
+                                      climbingHall: climbingHall,
+                                      route: state.routes![index]),
+                                )),
                             separatorBuilder: (_, __) => const SizedBox(
                                   height: 8,
                                 ),

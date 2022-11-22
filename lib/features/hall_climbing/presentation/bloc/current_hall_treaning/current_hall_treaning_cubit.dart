@@ -3,6 +3,7 @@ import 'package:climbing_diary/core/data/climbing_style.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_route.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/usecases/treanings/current_hall_treaning.dart';
+import 'package:climbing_diary/features/hall_climbing/domain/usecases/treanings/delete_hall_attempt.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/usecases/treanings/finish_hall_attempt.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/usecases/treanings/finish_hall_treaning.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/usecases/treanings/last_hall_treaning.dart';
@@ -27,6 +28,7 @@ class CurrentHallTreaningCubit extends Cubit<CurrentHallTreaningState> {
   final FinishHallAttempt finishHallAttempt;
   final FinishHallTreaning finishHallTreaning;
   final LastHallTreaning lastHallTreaning;
+  final DeleteHallAttempt deleteHallAttempt;
 
   bool get treaningStarted => state.current != null;
 
@@ -40,6 +42,7 @@ class CurrentHallTreaningCubit extends Cubit<CurrentHallTreaningState> {
     required this.finishHallAttempt,
     required this.finishHallTreaning,
     required this.lastHallTreaning,
+    required this.deleteHallAttempt,
   }) : super(CurrentHallTreaningState.initial());
 
   Future<void> loadData() async {
@@ -185,5 +188,11 @@ class CurrentHallTreaningCubit extends Cubit<CurrentHallTreaningState> {
               current: (await currentHallTreaning())
                   .fold((failure) => null, (treaning) => treaning))));
     }
+  }
+
+  Future<void> deleteAttempt({required ClimbingHallAttempt attempt}) async {
+    final failureOrUnit = await deleteHallAttempt(attempt: attempt);
+
+    failureOrUnit.fold((failure) => null, (_) => loadData());
   }
 }
