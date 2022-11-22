@@ -147,13 +147,6 @@ class HomePage extends StatelessWidget {
                   },
                 ),
               ),
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const HallTreaningPage()));
-                },
-                child: const Text('Все тренировки'),
-              )
             ],
           ),
         ),

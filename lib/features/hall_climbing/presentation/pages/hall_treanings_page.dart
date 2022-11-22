@@ -18,10 +18,6 @@ class HallTreaningPage extends StatelessWidget {
       child: BlocBuilder<HallTreaningsCubit, HallTreaningsState>(
         builder: (context, state) {
           return Scaffold(
-            appBar: AppBar(
-              title: const Text('Тренировки'),
-              centerTitle: true,
-            ),
             body: Padding(
               padding: const EdgeInsets.all(8.0),
               child: state.maybeMap(
