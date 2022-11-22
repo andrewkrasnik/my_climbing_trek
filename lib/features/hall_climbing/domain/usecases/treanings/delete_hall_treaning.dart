@@ -1,22 +1,19 @@
 import 'package:climbing_diary/core/failures/failure.dart';
-import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_treaning.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/repositories/hall_treaning_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
 @LazySingleton()
-class NewHallTreaning {
+class DeleteHallTreaning {
   final HallTreaningRepository treaningRepository;
-  NewHallTreaning({
+  DeleteHallTreaning({
     required this.treaningRepository,
   });
 
-  Future<Either<Failure, ClimbingHallTreaning>> call(
-      {required ClimbingHall climbingHall}) async {
-    final newTreaning = ClimbingHallTreaning(
-        date: DateTime.now(), climbingHall: climbingHall, attempts: []);
-
-    return await treaningRepository.saveTreaning(treaning: newTreaning);
+  Future<Either<Failure, Unit>> call({
+    required ClimbingHallTreaning treaning,
+  }) async {
+    return await treaningRepository.deleteTreaning(treaning: treaning);
   }
 }

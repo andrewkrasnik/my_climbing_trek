@@ -1,3 +1,4 @@
+import 'package:climbing_diary/features/hall_climbing/presentation/bloc/current_hall_treaning/current_hall_treaning_cubit.dart';
 import 'package:climbing_diary/features/hall_climbing/presentation/bloc/hall_treanings/hall_treanings_cubit.dart';
 import 'package:climbing_diary/features/hall_climbing/presentation/widgets/hall_treaning_widget.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:climbing_diary/service_locator.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class HallTreaningPage extends StatelessWidget {
   const HallTreaningPage({Key? key}) : super(key: key);
@@ -25,8 +27,63 @@ class HallTreaningPage extends StatelessWidget {
               child: state.maybeMap(
                 loading: (_) => const CircularProgressIndicator(),
                 data: (dataState) => ListView.separated(
-                    itemBuilder: (context, index) => HallTreaningWidget(
-                        treaning: dataState.treanings[index]),
+                    itemBuilder: (context, index) => Slidable(
+                          endActionPane: ActionPane(
+                            motion: const ScrollMotion(),
+                            children: [
+                              SlidableAction(
+                                flex: 1,
+                                onPressed: (context) async {
+                                  final cubit =
+                                      BlocProvider.of<HallTreaningsCubit>(
+                                          context);
+
+                                  final currentTreaningCubit =
+                                      BlocProvider.of<CurrentHallTreaningCubit>(
+                                          context);
+
+                                  final deletePermission =
+                                      await showDialog<bool>(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                      title:
+                                          const Text('Подтверждение удаления'),
+                                      content: const Text(
+                                          'После удаления данные о тренировке станут недоступны. Продолжить?'),
+                                      actions: [
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop(false);
+                                          },
+                                          child: const Text('Отменить'),
+                                        ),
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop(true);
+                                          },
+                                          child: const Text('Продолжить'),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+
+                                  if (deletePermission == true) {
+                                    cubit.deleteTreaning(
+                                        treaning: dataState.treanings[index]);
+
+                                    currentTreaningCubit.loadData();
+                                  }
+                                },
+                                backgroundColor: Colors.red.shade400,
+                                foregroundColor: Colors.white,
+                                icon: Icons.delete,
+                                label: 'delete',
+                              ),
+                            ],
+                          ),
+                          child: HallTreaningWidget(
+                              treaning: dataState.treanings[index]),
+                        ),
                     separatorBuilder: (_, __) => const SizedBox(
                           height: 32,
                         ),

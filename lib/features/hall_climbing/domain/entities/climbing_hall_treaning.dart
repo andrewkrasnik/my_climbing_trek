@@ -1,16 +1,25 @@
 import 'package:climbing_diary/core/data/climbing_style.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_attempt.dart';
+import 'package:collection/collection.dart';
 
 class ClimbingHallTreaning {
+  int? id;
   final DateTime date;
   final ClimbingHall climbingHall;
   List<ClimbingHallAttempt> attempts;
   DateTime? _finish;
 
+  DateTime? get getFinish => _finish;
+
   bool get finished => _finish != null;
 
   bool get hasLead => leadAttempts.isNotEmpty;
+
+  ClimbingHallAttempt? get currentAttempt =>
+      attempts.firstWhereOrNull((element) => element.started);
+  ClimbingHallAttempt? get lastAttempt =>
+      attempts.firstWhereOrNull((element) => element.finished);
 
   List<ClimbingHallAttempt> get leadAttempts =>
       attempts.where((element) => element.style == ClimbingStyle.lead).toList();
@@ -27,13 +36,14 @@ class ClimbingHallTreaning {
       .where((element) => element.style == ClimbingStyle.bouldering)
       .toList();
 
-  ClimbingHallAttempt? get currentAttempt => attempts.last;
-
   ClimbingHallTreaning({
     required this.date,
     required this.climbingHall,
     required this.attempts,
+    this.id,
   });
+
+  bool get isNew => id == null;
 
   ClimbingHallTreaning copy() => ClimbingHallTreaning(
         date: DateTime.now(),

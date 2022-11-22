@@ -100,8 +100,9 @@ class SelectHallRouteWidget extends HookWidget {
                   if (state.routes != null)
                     Expanded(
                       child: ListView.separated(
-                          itemBuilder: (context, index) =>
-                              HallRouteWidget(route: state.routes![index]),
+                          itemBuilder: (context, index) => HallRouteWidget(
+                              climbingHall: treaning.climbingHall,
+                              route: state.routes![index]),
                           separatorBuilder: (_, __) => const SizedBox(
                                 height: 8,
                               ),

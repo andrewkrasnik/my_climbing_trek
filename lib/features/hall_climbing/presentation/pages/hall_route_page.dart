@@ -141,8 +141,8 @@ class HallRoutePage extends HookWidget {
                       ElevatedButton(
                         onPressed: () {
                           BlocProvider.of<HallRouteCubit>(context).saveRoute(
+                              climbingHall: climbingHall,
                               route: ClimbingHallRoute(
-                                  climbingHall: climbingHall,
                                   category: category.value!,
                                   color: color.value!,
                                   type: type.value,

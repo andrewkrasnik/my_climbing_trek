@@ -54,7 +54,10 @@ class HallAttemptWidget extends StatelessWidget {
             : BlocBuilder<CurrentHallTreaningCubit, CurrentHallTreaningState>(
                 builder: (context, state) {
                   return state.currentAttempt == null && attempt.route != null
-                      ? HallRouteGoButton(route: attempt.route!)
+                      ? HallRouteGoButton(
+                          route: attempt.route!,
+                          climbingHall: state.current!.climbingHall,
+                        )
                       : const SizedBox();
                 },
               ),
