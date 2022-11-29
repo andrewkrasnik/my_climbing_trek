@@ -1,12 +1,8 @@
-import 'package:climbing_diary/core/data/climbing_category.dart';
-import 'package:climbing_diary/core/data/climbing_route_type.dart';
-import 'package:climbing_diary/core/data/map_point.dart';
 import 'package:climbing_diary/core/failures/failure.dart';
 import 'package:climbing_diary/features/hall_climbing/data/datasources/climbing_hall_data_source.dart';
 import 'package:climbing_diary/features/hall_climbing/data/models/hall_model.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_route.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/hall_routes_filter.dart';
-import 'package:climbing_diary/features/hall_climbing/domain/entities/route_color.dart';
 import 'package:dartz/dartz.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/city.dart';
@@ -68,23 +64,23 @@ class MockClimbingHallDataSource implements ClimbingHallDataSource {
     ),
   ];
 
-  static const List<ClimbingHallRoute> _routes = [
-    ClimbingHallRoute(
-      category: ClimbingCategory.category6A,
-      color: RouteColor.red,
-      type: ClimbingRouteType.rope,
-    ),
-    ClimbingHallRoute(
-      category: ClimbingCategory.category6A,
-      color: RouteColor.green,
-      type: ClimbingRouteType.rope,
-    ),
-    ClimbingHallRoute(
-      category: ClimbingCategory.category6B,
-      color: RouteColor.yellow,
-      type: ClimbingRouteType.rope,
-    ),
-  ];
+  static const List<ClimbingHallRoute> _routes = [];
+  //   ClimbingHallRoute(
+  //     category: ClimbingCategory.category6A,
+  //     color: RouteColor.red,
+  //     type: ClimbingRouteType.rope,
+  //   ),
+  //   ClimbingHallRoute(
+  //     category: ClimbingCategory.category6A,
+  //     color: RouteColor.green,
+  //     type: ClimbingRouteType.rope,
+  //   ),
+  //   ClimbingHallRoute(
+  //     category: ClimbingCategory.category6B,
+  //     color: RouteColor.yellow,
+  //     type: ClimbingRouteType.rope,
+  //   ),
+  // ];
 
   final List<ClimbingHallRoute> _routesData = [
     ..._routes,

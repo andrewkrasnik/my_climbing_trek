@@ -9,8 +9,8 @@ class SettingsPage extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Column(
-          children: [
-            const Padding(
+          children: const [
+            Padding(
               padding: EdgeInsets.symmetric(vertical: 8.0),
               child: Text(
                 'Настройки приложения',

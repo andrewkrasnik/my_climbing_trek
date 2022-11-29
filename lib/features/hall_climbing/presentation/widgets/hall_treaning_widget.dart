@@ -47,7 +47,7 @@ class HallTreaningWidget extends StatelessWidget {
                   treaning: treaning,
                   isCurrent: isCurrent,
                   climbingStyle: ClimbingStyle.lead,
-                  child: const Text('Верхняя:'),
+                  child: const Text('Нижняя:'),
                 ),
               if (isCurrent || treaning.hasTopRope)
                 AttemptsWithStyle(
@@ -55,7 +55,7 @@ class HallTreaningWidget extends StatelessWidget {
                   treaning: treaning,
                   isCurrent: isCurrent,
                   climbingStyle: ClimbingStyle.topRope,
-                  child: const Text('Нижняя:'),
+                  child: const Text('Верхняя:'),
                 ),
               if (isCurrent || treaning.hasBouldering)
                 AttemptsWithStyle(

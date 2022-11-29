@@ -25,8 +25,9 @@ class LocalClimbingHallDataSource implements ClimbingHallDataSource {
     final routesBox =
         await Hive.openBox<String>('$_climbingHallName${climbingHall.id}');
 
-    final int id = await routesBox
-        .add(json.encode(HallRouteModel.fromOrign(route).toJson()));
+    final int id = routesBox.length;
+    route.id = id;
+    await routesBox.add(json.encode(HallRouteModel.fromOrign(route).toJson()));
 
     return Right(route);
   }
