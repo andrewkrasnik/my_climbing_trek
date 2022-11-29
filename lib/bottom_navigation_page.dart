@@ -18,7 +18,7 @@ class _BottomNavigationPageState extends State<BottomNavigationPage>
   final RestorableInt _currentIndex = RestorableInt(0);
   static const List<Widget> _pages = <Widget>[
     HomePage(),
-    HallTreaningPage(),
+    HallTreaningsPage(),
     SettingsPage(),
   ];
 

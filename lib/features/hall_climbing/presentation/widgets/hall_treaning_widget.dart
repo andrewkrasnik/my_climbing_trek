@@ -130,7 +130,7 @@ class AttemptsWithStyle extends StatelessWidget {
         return Wrap(
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [
-            SizedBox(width: 60, child: child),
+            SizedBox(width: 80, child: child),
             ...attempts
                 .map((attempt) => Padding(
                       padding: const EdgeInsets.all(4.0),

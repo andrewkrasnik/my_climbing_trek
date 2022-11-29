@@ -2,6 +2,7 @@ import 'package:climbing_diary/core/data/climbing_style.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_attempt.dart';
 import 'package:collection/collection.dart';
+import 'package:intl/intl.dart';
 
 class ClimbingHallTreaning {
   int? id;
@@ -44,6 +45,10 @@ class ClimbingHallTreaning {
   });
 
   bool get isNew => id == null;
+
+  String get dateString => DateFormat('dd.MM.yyyy').format(date);
+
+  String get title => '${climbingHall.name} $dateString';
 
   ClimbingHallTreaning copy() => ClimbingHallTreaning(
         date: DateTime.now(),

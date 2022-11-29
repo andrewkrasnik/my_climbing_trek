@@ -13,6 +13,12 @@ class HallSectorNumberWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Color textColor;
+    if (route?.color.materialColor.value == Colors.white.value) {
+      textColor = Colors.black;
+    } else {
+      textColor = Colors.white;
+    }
     return route != null
         ? Stack(
             alignment: AlignmentDirectional.bottomCenter,
@@ -21,10 +27,10 @@ class HallSectorNumberWidget extends StatelessWidget {
               if (route!.sectorNumber > 0)
                 Text(
                   route!.sectorNumber.toString(),
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: textColor,
                   ),
                 ),
               // if (route!.sectorNumber > 0)
