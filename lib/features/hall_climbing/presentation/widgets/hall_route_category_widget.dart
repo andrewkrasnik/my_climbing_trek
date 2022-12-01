@@ -24,31 +24,45 @@ class HallRouteCategoryWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double opacity = planed ? 0.5 : 1;
+
     if (color == null) {
-      return CircleAvatar(
-        backgroundColor: Colors.red.withOpacity(opacity),
-        radius: 24,
+      return Material(
+        elevation: 5,
+        borderRadius: BorderRadius.circular(24),
         child: CircleAvatar(
-          backgroundColor: Colors.white,
-          radius: 20,
-          child: Text(
-            category.name,
-            style: TextStyle(
-                color: Colors.black.withOpacity(opacity),
-                fontWeight: FontWeight.bold,
-                fontSize: 24),
+          backgroundColor: Colors.red.withOpacity(opacity),
+          radius: 24,
+          child: CircleAvatar(
+            backgroundColor: Colors.white,
+            radius: 20,
+            child: Text(
+              category.name,
+              style: TextStyle(
+                  color: Colors.black.withOpacity(opacity),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24),
+            ),
           ),
         ),
       );
-    }
-    {
-      return CircleAvatar(
-        backgroundColor: color?.withOpacity(opacity),
-        radius: 24,
-        child: Text(
-          category.name,
-          style: const TextStyle(
-              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24),
+    } else {
+      final Color textColor;
+      if (color!.value == Colors.white.value) {
+        textColor = Colors.black;
+      } else {
+        textColor = Colors.white;
+      }
+      return Material(
+        elevation: 5,
+        borderRadius: BorderRadius.circular(24),
+        child: CircleAvatar(
+          backgroundColor: color?.withOpacity(opacity),
+          radius: 24,
+          child: Text(
+            category.name,
+            style: TextStyle(
+                color: textColor, fontWeight: FontWeight.bold, fontSize: 24),
+          ),
         ),
       );
     }
