@@ -1,10 +1,10 @@
 part of 'settings_cubit.dart';
 
-abstract class SettingsState extends Equatable {
-  const SettingsState();
+@freezed
+class SettingsState with _$SettingsState {
+  const factory SettingsState({required CategoryType hallCategoryType}) =
+      _SettingsState;
 
-  @override
-  List<Object> get props => [];
+  factory SettingsState.initial() =>
+      const SettingsState(hallCategoryType: CategoryType.french);
 }
-
-class SettingsInitial extends SettingsState {}

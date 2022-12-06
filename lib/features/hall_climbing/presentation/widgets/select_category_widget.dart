@@ -14,7 +14,7 @@ class SelectCategoryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const categories = ClimbingCategory.values;
+    const categories = ClimbingCategory.hallValues;
     return SizedBox(
         height: 64,
         child: SingleChildScrollView(
