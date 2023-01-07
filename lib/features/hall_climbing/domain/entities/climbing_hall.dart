@@ -9,6 +9,7 @@ class ClimbingHall {
   final bool hasBouldering;
   final bool hasBigWall;
   final bool hasSpeed;
+  final bool hasAutoBelay;
   final MapPoint point;
   final String image;
   final String telephone;
@@ -32,6 +33,7 @@ class ClimbingHall {
     required this.city,
     this.hasBouldering = false,
     this.hasBigWall = false,
+    this.hasAutoBelay = false,
     required this.point,
     required this.image,
     required this.telephone,

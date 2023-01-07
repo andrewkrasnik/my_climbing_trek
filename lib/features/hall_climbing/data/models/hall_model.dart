@@ -18,6 +18,7 @@ class HallModel extends ClimbingHall {
     super.hasBigWall,
     super.hasBouldering,
     super.hasSpeed,
+    super.hasAutoBelay,
     super.id,
   }) : super(point: const MapPoint());
 

@@ -41,7 +41,8 @@ class HallTreaningWidget extends StatelessWidget {
               const SizedBox(
                 height: 8,
               ),
-              if (isCurrent || treaning.hasLead)
+              if (treaning.climbingHall.hasBigWall &&
+                  (isCurrent || treaning.hasLead))
                 AttemptsWithStyle(
                   attempts: treaning.leadAttempts,
                   treaning: treaning,
@@ -49,7 +50,8 @@ class HallTreaningWidget extends StatelessWidget {
                   climbingStyle: ClimbingStyle.lead,
                   child: const Text('Нижняя:'),
                 ),
-              if (isCurrent || treaning.hasTopRope)
+              if (treaning.climbingHall.hasBigWall &&
+                  (isCurrent || treaning.hasTopRope))
                 AttemptsWithStyle(
                   attempts: treaning.topRopeAttempts,
                   treaning: treaning,
@@ -57,13 +59,23 @@ class HallTreaningWidget extends StatelessWidget {
                   climbingStyle: ClimbingStyle.topRope,
                   child: const Text('Верхняя:'),
                 ),
-              if (isCurrent || treaning.hasBouldering)
+              if (treaning.climbingHall.hasBouldering &&
+                  (isCurrent || treaning.hasBouldering))
                 AttemptsWithStyle(
                   attempts: treaning.boulderingAttempts,
                   treaning: treaning,
                   isCurrent: isCurrent,
                   climbingStyle: ClimbingStyle.bouldering,
                   child: const Text('Болдер:'),
+                ),
+              if (treaning.climbingHall.hasAutoBelay &&
+                  (isCurrent || treaning.hasAutoBelay))
+                AttemptsWithStyle(
+                  attempts: treaning.autoBelayAttempts,
+                  treaning: treaning,
+                  isCurrent: isCurrent,
+                  climbingStyle: ClimbingStyle.autoBelay,
+                  child: const Text('Auto belay:'),
                 ),
               BlocBuilder<CurrentHallTreaningCubit, CurrentHallTreaningState>(
                 builder: (context, state) {

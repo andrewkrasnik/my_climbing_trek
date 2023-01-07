@@ -84,6 +84,17 @@ class HallTreaningPictureWidget extends StatelessWidget {
               style: textStyle,
             ),
           ),
+        if (treaning.hasAutoBelay)
+          AttemptsWithStyle(
+            attempts: treaning.autoBelayAttempts,
+            treaning: treaning,
+            isCurrent: false,
+            climbingStyle: ClimbingStyle.autoBelay,
+            child: Text(
+              'Auto belay:',
+              style: textStyle,
+            ),
+          ),
         const SizedBox(
           height: 12,
         ),

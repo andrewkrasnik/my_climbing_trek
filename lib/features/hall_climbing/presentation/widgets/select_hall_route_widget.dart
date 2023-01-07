@@ -12,6 +12,7 @@ import 'package:climbing_diary/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 import '../bloc/climbing_hall/climbing_hall_cubit.dart';
 
@@ -32,16 +33,14 @@ class SelectHallRouteWidget extends HookWidget {
     final roureFilter = HallRouteFilter(
       category: category.value,
       type: style.type,
+      autoBelay: style == ClimbingStyle.autoBelay,
     );
 
     return BlocProvider(
       create: (context) => getIt<ClimbingHallCubit>()
         ..loadData(
           treaning.climbingHall,
-          filter: HallRouteFilter(
-            category: category.value,
-            type: style.type,
-          ),
+          filter: roureFilter,
         ),
       child: BlocBuilder<ClimbingHallCubit, ClimbingHallState>(
         builder: (context, state) {
@@ -54,6 +53,7 @@ class SelectHallRouteWidget extends HookWidget {
                           climbingHall: treaning.climbingHall,
                           initialCategory: category.value,
                           initialType: style.type,
+                          autoBelay: style == ClimbingStyle.autoBelay,
                         )));
 
                 cubit.loadData(
@@ -79,6 +79,7 @@ class SelectHallRouteWidget extends HookWidget {
                         filter: HallRouteFilter(
                           category: selectedCategory,
                           type: style.type,
+                          autoBelay: style == ClimbingStyle.autoBelay,
                         ),
                       );
                     },
@@ -100,9 +101,63 @@ class SelectHallRouteWidget extends HookWidget {
                   if (state.routes != null)
                     Expanded(
                       child: ListView.separated(
-                          itemBuilder: (context, index) => HallRouteWidget(
-                              climbingHall: treaning.climbingHall,
-                              route: state.routes![index]),
+                          itemBuilder: (context, index) => Slidable(
+                                endActionPane: ActionPane(
+                                  motion: const ScrollMotion(),
+                                  children: [
+                                    SlidableAction(
+                                      flex: 1,
+                                      onPressed: (context) async {
+                                        final climbingHallCubit =
+                                            BlocProvider.of<ClimbingHallCubit>(
+                                                context);
+
+                                        final archivePermission =
+                                            await showDialog<bool>(
+                                          context: context,
+                                          builder: (context) => AlertDialog(
+                                            title: const Text(
+                                                'Подтверждение архивирования'),
+                                            content: const Text(
+                                                'Трассу скрутили и она больше недоступна?'),
+                                            actions: [
+                                              ElevatedButton(
+                                                onPressed: () {
+                                                  Navigator.of(context)
+                                                      .pop(false);
+                                                },
+                                                child: const Text('Отменить'),
+                                              ),
+                                              ElevatedButton(
+                                                onPressed: () {
+                                                  Navigator.of(context)
+                                                      .pop(true);
+                                                },
+                                                child: const Text('Продолжить'),
+                                              ),
+                                            ],
+                                          ),
+                                        );
+
+                                        if (archivePermission == true) {
+                                          climbingHallCubit.toArchive(
+                                            hall: treaning.climbingHall,
+                                            route: state.routes![index],
+                                            filter: roureFilter,
+                                          );
+                                        }
+                                      },
+                                      backgroundColor: Colors.red.shade400,
+                                      foregroundColor: Colors.white,
+                                      icon: Icons.delete,
+                                      label: 'arhivate',
+                                    ),
+                                  ],
+                                ),
+                                child: HallRouteWidget(
+                                    climbingHall: treaning.climbingHall,
+                                    route: state.routes![index]),
+                              ),
                           separatorBuilder: (_, __) => const SizedBox(
                                 height: 8,
                               ),

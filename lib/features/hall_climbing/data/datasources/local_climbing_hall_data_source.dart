@@ -40,7 +40,8 @@ class LocalClimbingHallDataSource implements ClimbingHallDataSource {
 
     return Right(routesBox.values
         .map((value) => HallRouteModel.fromJson(json.decode(value)))
-        .where((element) => filter?.match(element) ?? true)
+        .where((element) =>
+            filter?.match(element) ?? HallRouteFilter().match(element))
         .toList());
   }
 
@@ -95,5 +96,22 @@ class LocalClimbingHallDataSource implements ClimbingHallDataSource {
     } else {
       return Left(Failure());
     }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> updateRoute(
+      {required ClimbingHall climbingHall,
+      required ClimbingHallRoute route}) async {
+    try {
+      final routesBox =
+          await Hive.openBox<String>('$_climbingHallName${climbingHall.id}');
+
+      await routesBox.put(
+          route.id, json.encode(HallRouteModel.fromOrign(route).toJson()));
+    } catch (e) {
+      return Left(Failure());
+    }
+
+    return const Right(unit);
   }
 }

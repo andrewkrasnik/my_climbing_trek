@@ -6,13 +6,15 @@ class ClimbingHallRoute extends ClimbingRoute {
 
   final RouteColor color;
   final int sectorNumber;
-  final bool arhive;
+  bool archive;
+  final bool autoBelay;
   ClimbingHallRoute({
     required super.category,
     required this.color,
     required super.type,
     this.sectorNumber = 0,
-    this.arhive = false,
+    this.autoBelay = false,
+    this.archive = false,
     this.id,
   });
 }

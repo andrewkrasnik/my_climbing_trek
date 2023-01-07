@@ -33,8 +33,14 @@ class ClimbingHallTreaning {
 
   bool get hasBouldering => boulderingAttempts.isNotEmpty;
 
+  bool get hasAutoBelay => autoBelayAttempts.isNotEmpty;
+
   List<ClimbingHallAttempt> get boulderingAttempts => attempts
       .where((element) => element.style == ClimbingStyle.bouldering)
+      .toList();
+
+  List<ClimbingHallAttempt> get autoBelayAttempts => attempts
+      .where((element) => element.style == ClimbingStyle.autoBelay)
       .toList();
 
   ClimbingHallTreaning({

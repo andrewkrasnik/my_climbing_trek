@@ -1,6 +1,8 @@
 import 'package:climbing_diary/core/data/climbing_category.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_attempt.dart';
+import 'package:climbing_diary/features/settings/presentation/cubit/settings_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HallRouteCategoryWidget extends StatelessWidget {
   final ClimbingCategory category;
@@ -35,12 +37,19 @@ class HallRouteCategoryWidget extends StatelessWidget {
           child: CircleAvatar(
             backgroundColor: Colors.white,
             radius: 20,
-            child: Text(
-              category.name,
-              style: TextStyle(
-                  color: Colors.black.withOpacity(opacity),
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24),
+            child: BlocBuilder<SettingsCubit, SettingsState>(
+              buildWhen: (previous, current) =>
+                  previous.hallCategoryType != current.hallCategoryType,
+              builder: (context, state) {
+                final String title = category.title(state.hallCategoryType);
+                return Text(
+                  title,
+                  style: TextStyle(
+                      color: Colors.black.withOpacity(opacity),
+                      fontWeight: FontWeight.bold,
+                      fontSize: category.fontSize(title)),
+                );
+              },
             ),
           ),
         ),
@@ -58,10 +67,19 @@ class HallRouteCategoryWidget extends StatelessWidget {
         child: CircleAvatar(
           backgroundColor: color?.withOpacity(opacity),
           radius: 24,
-          child: Text(
-            category.name,
-            style: TextStyle(
-                color: textColor, fontWeight: FontWeight.bold, fontSize: 24),
+          child: BlocBuilder<SettingsCubit, SettingsState>(
+            buildWhen: (previous, current) =>
+                previous.hallCategoryType != current.hallCategoryType,
+            builder: (context, state) {
+              final String title = category.title(state.hallCategoryType);
+              return Text(
+                title,
+                style: TextStyle(
+                    color: textColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: category.fontSize(title)),
+              );
+            },
           ),
         ),
       );

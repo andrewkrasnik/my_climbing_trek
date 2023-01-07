@@ -10,7 +10,8 @@ class HallRouteModel extends ClimbingHallRoute {
     required super.color,
     required super.type,
     super.sectorNumber,
-    super.arhive,
+    super.archive,
+    super.autoBelay,
     super.id,
   });
 
@@ -19,7 +20,8 @@ class HallRouteModel extends ClimbingHallRoute {
         'color': color.id,
         'type': type.id,
         'sectorNumber': sectorNumber,
-        'arhive': arhive,
+        'archive': archive,
+        'autoBelay': autoBelay,
         'id': id,
       };
 
@@ -27,9 +29,10 @@ class HallRouteModel extends ClimbingHallRoute {
         category: route.category,
         color: route.color,
         type: route.type,
-        arhive: route.arhive,
+        archive: route.archive,
         id: route.id,
         sectorNumber: route.sectorNumber,
+        autoBelay: route.autoBelay,
       );
 
   factory HallRouteModel.fromJson(Map<String, dynamic> json) => HallRouteModel(
@@ -37,7 +40,8 @@ class HallRouteModel extends ClimbingHallRoute {
         color: RouteColor.getById(json['color']),
         type: ClimbingRouteType.getById(json['type']),
         sectorNumber: json['sectorNumber'],
-        arhive: json['arhive'],
+        archive: json['archive'],
+        autoBelay: json['autoBelay'],
         id: json['id'],
       );
 }
