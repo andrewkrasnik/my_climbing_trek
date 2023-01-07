@@ -16,20 +16,27 @@ class HallRoutePage extends HookWidget {
   final ClimbingHallRoute? route;
   final ClimbingCategory? initialCategory;
   final ClimbingRouteType? initialType;
+  final bool autoBelay;
   const HallRoutePage({
     Key? key,
     required this.climbingHall,
     this.route,
     this.initialCategory,
     this.initialType,
+    this.autoBelay = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final category = useState<ClimbingCategory?>(initialCategory);
+
     final color = useState<RouteColor?>(null);
+
     final type = useState<ClimbingRouteType>(
         route?.type ?? initialType ?? ClimbingRouteType.rope);
+
+    final autoBelayState = useState<bool>(route?.autoBelay ?? autoBelay);
+
     final numberEditingController =
         useTextEditingController(text: route?.sectorNumber.toString() ?? '');
 
@@ -137,23 +144,45 @@ class HallRoutePage extends HookWidget {
                     const SizedBox(
                       height: 8,
                     ),
-                    if (route == null)
+                    if (climbingHall.hasAutoBelay &&
+                        type.value == ClimbingRouteType.rope)
+                      Row(
+                        children: [
+                          Text('Auto belay',
+                              style: Theme.of(context).textTheme.headline4),
+                          Switch(
+                            value: autoBelayState.value,
+                            activeColor: Theme.of(context).primaryColor,
+                            onChanged: (value) {
+                              autoBelayState.value = value;
+                            },
+                          ),
+                        ],
+                      ),
+                    if (route == null) ...[
+                      const SizedBox(
+                        height: 8,
+                      ),
                       ElevatedButton(
                         onPressed: () {
                           BlocProvider.of<HallRouteCubit>(context).saveRoute(
-                              climbingHall: climbingHall,
-                              route: ClimbingHallRoute(
-                                  category: category.value!,
-                                  color: color.value!,
-                                  type: type.value,
-                                  sectorNumber: int.tryParse(
-                                        numberEditingController.text,
-                                      ) ??
-                                      0));
+                            climbingHall: climbingHall,
+                            route: ClimbingHallRoute(
+                              category: category.value!,
+                              color: color.value!,
+                              type: type.value,
+                              autoBelay: autoBelayState.value,
+                              sectorNumber: int.tryParse(
+                                    numberEditingController.text,
+                                  ) ??
+                                  0,
+                            ),
+                          );
                           Navigator.of(context).pop();
                         },
                         child: const Text('Сохранить'),
                       ),
+                    ]
                   ],
                 ),
               ),

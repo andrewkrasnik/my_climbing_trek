@@ -120,7 +120,11 @@ class ClimbingHallPage extends StatelessWidget {
                                     SlidableAction(
                                       flex: 1,
                                       onPressed: (context) async {
-                                        final arhivePermission =
+                                        final climbingHallCubit =
+                                            BlocProvider.of<ClimbingHallCubit>(
+                                                context);
+
+                                        final archivePermission =
                                             await showDialog<bool>(
                                           context: context,
                                           builder: (context) => AlertDialog(
@@ -147,7 +151,11 @@ class ClimbingHallPage extends StatelessWidget {
                                           ),
                                         );
 
-                                        if (arhivePermission == true) {}
+                                        if (archivePermission == true) {
+                                          climbingHallCubit.toArchive(
+                                              hall: climbingHall,
+                                              route: state.routes![index]);
+                                        }
                                       },
                                       backgroundColor: Colors.red.shade400,
                                       foregroundColor: Colors.white,

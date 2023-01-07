@@ -21,12 +21,18 @@ class HallRouteWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String routeTitle;
+    if (route.autoBelay) {
+      routeTitle = '${route.type.name} autobelay';
+    } else {
+      routeTitle = route.type.name;
+    }
     return SizedBox(
       height: 56,
       width: double.infinity,
       child: Row(
         children: [
-          Text(route.type.name),
+          Text(routeTitle),
           const SizedBox(
             width: 16,
           ),

@@ -21,6 +21,7 @@ class MockClimbingHallDataSource implements ClimbingHallDataSource {
     city: City.moscow,
     hasBouldering: true,
     hasBigWall: true,
+    hasAutoBelay: true,
     // point: MapPoint(),
     image:
         'https://avatars.mds.yandex.net/get-altay/5483320/2a0000017ce6617df6c425f29ba307b7e41e/XXXL',
@@ -36,6 +37,7 @@ class MockClimbingHallDataSource implements ClimbingHallDataSource {
     city: City.moscow,
     hasBouldering: true,
     hasBigWall: true,
+    hasAutoBelay: true,
     // point: MapPoint(),
     image:
         'https://avatars.mds.yandex.net/get-altay/1938975/2a0000016ec72ab066107d87f0f36f12f04a/XXXL',
@@ -128,6 +130,13 @@ class MockClimbingHallDataSource implements ClimbingHallDataSource {
   Future<Either<Failure, ClimbingHallRoute>> getRouteById(
       {required int id, required int hallId}) {
     // TODO: implement getRouteById
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, Unit>> updateRoute(
+      {required ClimbingHall climbingHall, required ClimbingHallRoute route}) {
+    // TODO: implement updateRoute
     throw UnimplementedError();
   }
 }

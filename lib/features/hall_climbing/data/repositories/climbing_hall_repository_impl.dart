@@ -41,4 +41,11 @@ class ClimbingHallRepositoryImpl implements ClimbingHallRepository {
     return await climbingHallDataSource.addRoute(
         climbingHall: climbingHall, route: route);
   }
+
+  @override
+  Future<Either<Failure, Unit>> updateRoute(
+      {required ClimbingHall climbingHall, required ClimbingHallRoute route}) {
+    return climbingHallDataSource.updateRoute(
+        climbingHall: climbingHall, route: route);
+  }
 }

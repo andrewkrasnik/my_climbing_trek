@@ -17,4 +17,6 @@ abstract class ClimbingHallDataSource {
   });
   Future<Either<Failure, ClimbingHallRoute>> addRoute(
       {required ClimbingHall climbingHall, required ClimbingHallRoute route});
+  Future<Either<Failure, Unit>> updateRoute(
+      {required ClimbingHall climbingHall, required ClimbingHallRoute route});
 }

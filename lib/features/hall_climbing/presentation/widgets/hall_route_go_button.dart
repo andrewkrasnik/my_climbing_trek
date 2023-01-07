@@ -21,6 +21,21 @@ class HallRouteGoButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (route.type == ClimbingRouteType.rope) {
+      if (route.autoBelay) {
+        return ElevatedButton(
+          onPressed: () {
+            BlocProvider.of<CurrentHallTreaningCubit>(context).attemptFromRoute(
+              climbingHall: climbingHall,
+              route: route,
+              style: ClimbingStyle.autoBelay,
+            );
+            if (callback != null) {
+              callback!();
+            }
+          },
+          child: const Text('GO!'),
+        );
+      }
       return Row(
         children: [
           ElevatedButton(
