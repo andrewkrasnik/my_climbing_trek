@@ -1,5 +1,6 @@
 import 'package:climbing_diary/features/hall_climbing/presentation/pages/hall_treanings_page.dart';
-import 'package:climbing_diary/features/hall_climbing/presentation/pages/home_page.dart';
+import 'package:climbing_diary/home_page.dart';
+
 import 'package:flutter/material.dart';
 
 import 'features/settings/presentation/pages/settings_page.dart';
