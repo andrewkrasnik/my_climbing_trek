@@ -1,6 +1,7 @@
 import 'package:climbing_diary/core/data/category_type.dart';
 import 'package:climbing_diary/features/settings/presentation/cubit/settings_cubit.dart';
 import 'package:climbing_diary/features/settings/presentation/pages/all_categories_page.dart';
+import 'package:climbing_diary/features/settings/presentation/pages/ice_categories_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -74,11 +75,19 @@ class SettingsPage extends StatelessWidget {
                     height: 16,
                   ),
                   ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const AllCategoriesPage()));
-                      },
-                      child: const Text('Все категории'))
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const AllCategoriesPage()));
+                    },
+                    child: const Text('Категории скалолазанья'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const IceCategoriesPage()));
+                    },
+                    child: const Text('Категории ледолазанья'),
+                  ),
                 ],
               ),
             ),

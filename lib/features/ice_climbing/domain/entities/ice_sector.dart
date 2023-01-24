@@ -19,6 +19,22 @@ class IceSector extends Sector {
     return 'Искусственный';
   }
 
+  String get icePrefix {
+    if (waterfallIce) {
+      return 'W';
+    }
+    if (glacierIce) {
+      return 'A';
+    }
+    return 'G';
+  }
+
+  bool get hasTopRope => !artificialIce;
+
+  List<IceCategory> get categories => IceCategory.values
+      .where((element) => element.id > 2 && element.id <= maxCategory.id)
+      .toList();
+
   IceSector({
     required super.name,
     required super.district,

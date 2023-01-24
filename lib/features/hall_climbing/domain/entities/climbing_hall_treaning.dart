@@ -1,19 +1,12 @@
 import 'package:climbing_diary/core/data/climbing_style.dart';
+import 'package:climbing_diary/core/data/treaning.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_attempt.dart';
 import 'package:collection/collection.dart';
-import 'package:intl/intl.dart';
 
-class ClimbingHallTreaning {
-  int? id;
-  final DateTime date;
+class ClimbingHallTreaning extends Treaning {
   final ClimbingHall climbingHall;
   List<ClimbingHallAttempt> attempts;
-  DateTime? _finish;
-
-  DateTime? get getFinish => _finish;
-
-  bool get finished => _finish != null;
 
   bool get hasLead => leadAttempts.isNotEmpty;
 
@@ -44,15 +37,12 @@ class ClimbingHallTreaning {
       .toList();
 
   ClimbingHallTreaning({
-    required this.date,
+    required super.date,
     required this.climbingHall,
     required this.attempts,
-    this.id,
+    super.finish,
+    super.id,
   });
-
-  bool get isNew => id == null;
-
-  String get dateString => DateFormat('dd.MM.yyyy').format(date);
 
   String get title => '${climbingHall.name} $dateString';
 
@@ -61,8 +51,4 @@ class ClimbingHallTreaning {
         climbingHall: climbingHall,
         attempts: attempts.map((e) => e.copy()).toList(),
       );
-
-  void finish() {
-    _finish = DateTime.now();
-  }
 }
