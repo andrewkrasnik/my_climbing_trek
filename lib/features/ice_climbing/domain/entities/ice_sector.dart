@@ -9,6 +9,16 @@ class IceSector extends Sector {
   final int lenght;
   final IceCategory maxCategory;
 
+  String get iceType {
+    if (waterfallIce) {
+      return 'Водопадный';
+    }
+    if (glacierIce) {
+      return 'Ледниковый';
+    }
+    return 'Искусственный';
+  }
+
   IceSector({
     required super.name,
     required super.district,
