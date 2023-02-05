@@ -64,10 +64,10 @@ class ClimbingHallAttempt {
     int attemptCount = 0,
   }) {
     finishTime = DateTime.now();
-    suspensionCount = suspensionCount;
-    fallCount = fallCount;
-    downClimbing = downClimbing;
-    fail = fail;
+    this.suspensionCount = suspensionCount;
+    this.fallCount = fallCount;
+    this.downClimbing = downClimbing;
+    this.fail = fail;
 
     if (!fail &&
         style == ClimbingStyle.lead &&

@@ -193,6 +193,7 @@ class LocalHallTreaningDataSource implements HallTreaningDataSource {
     attempt.finishTime = item.finish;
     attempt.fail = item.fail;
     attempt.fallCount = item.fallCount;
+    attempt.suspensionCount = item.suspensionCount;
 
     return attempt;
   }
