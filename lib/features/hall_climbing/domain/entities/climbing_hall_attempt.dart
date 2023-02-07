@@ -25,6 +25,9 @@ class ClimbingHallAttempt {
   bool get finished => finishTime != null;
   bool get started => startTime != null && finishTime == null;
 
+  String get result =>
+      fail ? 'Не долез' : (ascentType == null ? 'Долез' : 'Долез $ascentType');
+
   // int get suspensionCount => _suspensionCount;
   // int get fallCount => _fallCount;
   // bool get downClimbing => _downClimbing;

@@ -27,6 +27,8 @@ import 'features/hall_climbing/domain/repositories/hall_treaning_repository.dart
 import 'features/hall_climbing/domain/usecases/all_climbing_halls.dart' as _i12;
 import 'features/hall_climbing/domain/usecases/get_climbing_hall_routes.dart'
     as _i7;
+import 'features/hall_climbing/domain/usecases/get_hall_route_attempts.dart'
+    as _i30;
 import 'features/hall_climbing/domain/usecases/hall_route_to_archive.dart'
     as _i8;
 import 'features/hall_climbing/domain/usecases/new_hall_route.dart' as _i10;
@@ -55,11 +57,13 @@ import 'features/hall_climbing/presentation/bloc/climbing_hall/climbing_hall_cub
 import 'features/hall_climbing/presentation/bloc/climbing_halls/climbing_halls_cubit.dart'
     as _i14;
 import 'features/hall_climbing/presentation/bloc/current_hall_treaning/current_hall_treaning_cubit.dart'
-    as _i31;
+    as _i33;
 import 'features/hall_climbing/presentation/bloc/hall_route/hall_route_cubit.dart'
     as _i15;
+import 'features/hall_climbing/presentation/bloc/hall_route_attempts/hall_route_attempts_cubit.dart'
+    as _i31;
 import 'features/hall_climbing/presentation/bloc/hall_treanings/hall_treanings_cubit.dart'
-    as _i30;
+    as _i32;
 import 'features/hall_climbing/presentation/bloc/home_page/home_page_cubit.dart'
     as _i19;
 import 'features/settings/presentation/cubit/settings_cubit.dart'
@@ -130,11 +134,15 @@ _i1.GetIt $initGetIt(
       treaningRepository: get<_i17.HallTreaningRepository>()));
   gh.lazySingleton<_i29.FinishHallTreaning>(() => _i29.FinishHallTreaning(
       treaningRepository: get<_i17.HallTreaningRepository>()));
-  gh.factory<_i30.HallTreaningsCubit>(() => _i30.HallTreaningsCubit(
+  gh.lazySingleton<_i30.GetHallRouteAttempts>(() => _i30.GetHallRouteAttempts(
+      repository: get<_i17.HallTreaningRepository>()));
+  gh.factory<_i31.HallRouteAttemptsCubit>(() => _i31.HallRouteAttemptsCubit(
+      getHallRouteAttempts: get<_i30.GetHallRouteAttempts>()));
+  gh.factory<_i32.HallTreaningsCubit>(() => _i32.HallTreaningsCubit(
         allHallTreanings: get<_i24.AllHallTreanings>(),
         deleteHallTreaning: get<_i27.DeleteHallTreaning>(),
       ));
-  gh.factory<_i31.CurrentHallTreaningCubit>(() => _i31.CurrentHallTreaningCubit(
+  gh.factory<_i33.CurrentHallTreaningCubit>(() => _i33.CurrentHallTreaningCubit(
         newHallAttemptFromRoute: get<_i22.NewHallAttemptFromRoute>(),
         newHallTreaning: get<_i23.NewHallTreaning>(),
         newHallAttempt: get<_i21.NewHallAttempt>(),

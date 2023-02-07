@@ -4,6 +4,7 @@ import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_h
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_route.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/route_color.dart';
 import 'package:climbing_diary/features/hall_climbing/presentation/bloc/hall_route/hall_route_cubit.dart';
+import 'package:climbing_diary/features/hall_climbing/presentation/widgets/hall_route_attempts_widget.dart';
 import 'package:climbing_diary/features/hall_climbing/presentation/widgets/select_category_widget.dart';
 import 'package:climbing_diary/service_locator.dart';
 import 'package:flutter/material.dart';
@@ -61,7 +62,7 @@ class HallRoutePage extends HookWidget {
                           'Rope',
                           style: Theme.of(context)
                               .textTheme
-                              .headline4
+                              .headlineMedium
                               ?.copyWith(
                                   fontWeight:
                                       type.value == ClimbingRouteType.bouldering
@@ -83,7 +84,7 @@ class HallRoutePage extends HookWidget {
                           'Bouldering',
                           style: Theme.of(context)
                               .textTheme
-                              .headline4
+                              .headlineMedium
                               ?.copyWith(
                                   fontWeight:
                                       type.value == ClimbingRouteType.bouldering
@@ -97,7 +98,7 @@ class HallRoutePage extends HookWidget {
                     ),
                     Text(
                       'Категория:',
-                      style: Theme.of(context).textTheme.headline4,
+                      style: Theme.of(context).textTheme.headlineMedium,
                     ),
                     Center(
                       child: SelectCategoryWidget(
@@ -113,7 +114,7 @@ class HallRoutePage extends HookWidget {
                     ),
                     Text(
                       'Цвет:',
-                      style: Theme.of(context).textTheme.headline4,
+                      style: Theme.of(context).textTheme.headlineMedium,
                     ),
                     const SizedBox(
                       height: 8,
@@ -149,7 +150,8 @@ class HallRoutePage extends HookWidget {
                       Row(
                         children: [
                           Text('Auto belay',
-                              style: Theme.of(context).textTheme.headline4),
+                              style:
+                                  Theme.of(context).textTheme.headlineMedium),
                           Switch(
                             value: autoBelayState.value,
                             activeColor: Theme.of(context).primaryColor,
@@ -182,7 +184,12 @@ class HallRoutePage extends HookWidget {
                         },
                         child: const Text('Сохранить'),
                       ),
-                    ]
+                    ],
+                    if (route != null)
+                      SizedBox(
+                        height: 320,
+                        child: HallRouteAttemptsWidget(route: route!),
+                      ),
                   ],
                 ),
               ),

@@ -165,16 +165,13 @@ class LocalHallTreaningDataSource implements HallTreaningDataSource {
   Future<ClimbingHallAttempt> _itemToAttempt({
     required HallAttemptItem item,
     required int hallId,
+    ClimbingHallRoute? route,
   }) async {
-    final ClimbingHallRoute? route;
-
-    if (item.routeId != null) {
+    if (route == null && item.routeId != null) {
       final failureOrRoute = await getIt<ClimbingHallDataSource>()
           .getRouteById(id: item.routeId!, hallId: hallId);
 
       route = failureOrRoute.fold((l) => null, (route) => route);
-    } else {
-      route = null;
     }
 
     final attempt = ClimbingHallAttempt(
@@ -234,6 +231,26 @@ class LocalHallTreaningDataSource implements HallTreaningDataSource {
         .go();
 
     return const Right(unit);
+  }
+
+  @override
+  Future<Either<Failure, List<ClimbingHallAttempt>>> routeAttempts(
+      {required ClimbingHallRoute route}) async {
+    final data = await (localDatabase.select(localDatabase.hallAttemptTable)
+          ..where((tbl) => tbl.routeId.equals(route.id!))
+          ..orderBy([
+            (u) => OrderingTerm(expression: u.start, mode: OrderingMode.desc),
+          ]))
+        .get();
+
+    final List<ClimbingHallAttempt> attempts = [];
+
+    for (var element in data) {
+      attempts
+          .add(await _itemToAttempt(item: element, hallId: 0, route: route));
+    }
+
+    return Right(attempts);
   }
 }
 
