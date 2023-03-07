@@ -127,6 +127,8 @@ class CardioHomePageWidget extends StatelessWidget {
                                         ),
                                         child: Material(
                                           elevation: 4,
+                                          borderRadius:
+                                              BorderRadius.circular(8),
                                           child: ListTile(
                                             leading:
                                                 Icon(treaning.exercise.icon),
