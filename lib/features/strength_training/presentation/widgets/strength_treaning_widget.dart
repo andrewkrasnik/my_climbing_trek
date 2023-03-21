@@ -33,21 +33,63 @@ class StrengthTreaningWidget extends StatelessWidget {
                       children: [
                         Text(treaning.date.dayString()),
                         if (editing)
-                          IconButton(
-                              onPressed: () async {
-                                final cubit =
-                                    BlocProvider.of<StrengthTrainingCubit>(
-                                        context);
+                          Row(
+                            children: [
+                              IconButton(
+                                onPressed: () async {
+                                  final cubit =
+                                      BlocProvider.of<StrengthTrainingCubit>(
+                                          context);
 
-                                await Navigator.of(context)
-                                    .push(MaterialPageRoute(
-                                  builder: (context) =>
-                                      const StrengthExercisesPage(),
-                                ));
+                                  final finishPermission =
+                                      await showDialog<bool>(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: const Text(
+                                          'Подтверждение завершения тренировки'),
+                                      content:
+                                          const Text('Завершить тренировку?'),
+                                      actions: [
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop(false);
+                                          },
+                                          child: const Text('Отменить'),
+                                        ),
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop(true);
+                                          },
+                                          child: const Text('Продолжить'),
+                                        ),
+                                      ],
+                                    ),
+                                  );
 
-                                cubit.updateExercises(treaning: treaning);
-                              },
-                              icon: const Icon(Icons.settings))
+                                  if (finishPermission == true) {
+                                    cubit.finishTreaning(treaning: treaning);
+                                  }
+                                },
+                                icon: const Icon(Icons.stop),
+                              ),
+                              IconButton(
+                                onPressed: () async {
+                                  final cubit =
+                                      BlocProvider.of<StrengthTrainingCubit>(
+                                          context);
+
+                                  await Navigator.of(context)
+                                      .push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        const StrengthExercisesPage(),
+                                  ));
+
+                                  cubit.updateExercises(treaning: treaning);
+                                },
+                                icon: const Icon(Icons.settings),
+                              ),
+                            ],
+                          )
                       ],
                     ),
                     ...treaning.excercises

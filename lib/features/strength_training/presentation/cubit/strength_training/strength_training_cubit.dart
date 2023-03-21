@@ -1,5 +1,6 @@
 import 'package:climbing_diary/features/strength_training/domain/entities/strength_exercise.dart';
 import 'package:climbing_diary/features/strength_training/domain/usecases/add_repetition_for_strength_treaning.dart';
+import 'package:climbing_diary/features/strength_training/domain/usecases/finish_stregth_treaning.dart';
 import 'package:climbing_diary/features/strength_training/domain/usecases/update_strength_treaning_exercises.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,6 +20,7 @@ class StrengthTrainingCubit extends Cubit<StrengthTrainingState> {
   final AddStrengthTreaning addStrengthTreaning;
   final UpdateStrengthTreaningExercises updateStrengthTreaningExercises;
   final AddRepetitionForStrengthTreaning addRepetitionForStrengthTreaning;
+  final FinishStrengthTreaning finishStrengthTreaning;
 
   StrengthTrainingCubit({
     required this.getCurrentStrengthTreaning,
@@ -26,6 +28,7 @@ class StrengthTrainingCubit extends Cubit<StrengthTrainingState> {
     required this.addStrengthTreaning,
     required this.updateStrengthTreaningExercises,
     required this.addRepetitionForStrengthTreaning,
+    required this.finishStrengthTreaning,
   }) : super(StrengthTrainingState.initial());
 
   Future<void> loadData() async {
@@ -91,6 +94,18 @@ class StrengthTrainingCubit extends Cubit<StrengthTrainingState> {
       (failure) => null,
       (treaning) =>
           emit(state.copyWith(currentTreaning: treaning, loading: false)),
+    );
+  }
+
+  Future<void> finishTreaning({required StrengthTreaning treaning}) async {
+    emit(state.copyWith(loading: true));
+
+    final failureOrTreaning = await finishStrengthTreaning(treaning: treaning);
+
+    failureOrTreaning.fold(
+      (failure) => null,
+      (treaning) => emit(state.copyWith(
+          currentTreaning: null, previosTreaning: treaning, loading: false)),
     );
   }
 }
