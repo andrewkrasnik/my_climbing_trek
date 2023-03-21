@@ -139,4 +139,10 @@ class MockClimbingHallDataSource implements ClimbingHallDataSource {
     // TODO: implement updateRoute
     throw UnimplementedError();
   }
+
+  @override
+  Future<Either<Failure, Unit>> updateData() {
+    // TODO: implement updateData
+    throw UnimplementedError();
+  }
 }
