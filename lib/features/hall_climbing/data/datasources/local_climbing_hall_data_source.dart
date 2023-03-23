@@ -42,7 +42,10 @@ class LocalClimbingHallDataSource implements ClimbingHallDataSource {
         .map((value) => HallRouteModel.fromJson(json.decode(value)))
         .where((element) =>
             filter?.match(element) ?? HallRouteFilter().match(element))
-        .toList());
+        .toList()
+      ..sort(
+        (a, b) => a.sectorNumber.compareTo(b.sectorNumber),
+      ));
   }
 
   @override

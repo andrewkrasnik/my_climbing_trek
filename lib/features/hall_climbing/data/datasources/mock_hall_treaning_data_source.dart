@@ -1,6 +1,7 @@
 import 'package:climbing_diary/core/failures/failure.dart';
 import 'package:climbing_diary/features/hall_climbing/data/datasources/hall_treaning_data_source.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_attempt.dart';
+import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_route.dart';
 import 'package:dartz/dartz.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_treaning.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall.dart';
@@ -58,6 +59,13 @@ class MockHallTreaningDataSource implements HallTreaningDataSource {
   Future<Either<Failure, Unit>> deleteTreaning(
       {required ClimbingHallTreaning treaning}) {
     // TODO: implement deleteTreaning
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, List<ClimbingHallAttempt>>> routeAttempts(
+      {required ClimbingHallRoute route}) {
+    // TODO: implement routeAttempts
     throw UnimplementedError();
   }
 }
