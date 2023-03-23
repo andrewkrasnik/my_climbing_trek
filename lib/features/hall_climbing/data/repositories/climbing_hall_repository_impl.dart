@@ -48,4 +48,9 @@ class ClimbingHallRepositoryImpl implements ClimbingHallRepository {
     return climbingHallDataSource.updateRoute(
         climbingHall: climbingHall, route: route);
   }
+
+  @override
+  Future<Either<Failure, Unit>> updateData() async {
+    return climbingHallDataSource.updateData();
+  }
 }
