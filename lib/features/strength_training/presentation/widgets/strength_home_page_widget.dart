@@ -1,5 +1,5 @@
-import 'package:climbing_diary/features/strength_training/domain/entities/strength_treaning.dart';
 import 'package:climbing_diary/features/strength_training/presentation/cubit/strength_training/strength_training_cubit.dart';
+import 'package:climbing_diary/features/strength_training/presentation/widgets/strength_exercises_widget.dart';
 import 'package:climbing_diary/features/strength_training/presentation/widgets/strength_treaning_widget.dart';
 import 'package:climbing_diary/service_locator.dart';
 import 'package:flutter/material.dart';
@@ -28,8 +28,9 @@ class StrengthHomePageWidget extends StatelessWidget {
               if (state.currentTreaning != null)
                 StrengthTreaningWidget(
                   treaning: state.currentTreaning!,
-                  editing: true,
-                )
+                  editing: state.currentTreaning!.started,
+                ),
+              const StrengthExercisesWidget(),
             ],
           );
         },

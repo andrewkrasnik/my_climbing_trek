@@ -1,4 +1,4 @@
-import 'package:climbing_diary/features/strength_training/presentation/cubit/strength_exercise/strength_exercises_cubit.dart';
+import 'package:climbing_diary/features/strength_training/presentation/cubit/strength_exercises/strength_exercises_cubit.dart';
 import 'package:climbing_diary/features/strength_training/presentation/widgets/strength_exercise_parameters_widget.dart';
 import 'package:climbing_diary/service_locator.dart';
 import 'package:flutter/material.dart';

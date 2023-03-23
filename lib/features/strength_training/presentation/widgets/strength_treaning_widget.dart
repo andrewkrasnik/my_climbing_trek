@@ -122,39 +122,59 @@ class StrengthTreaningExerciseLineWidget extends HookWidget {
     final countController = useState<int>(item.exercise.repetitions);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(
+      child: Column(
         children: [
-          SizedBox(
-              width: MediaQuery.of(context).size.width * 0.25,
-              child: Text('${item.exercise.name}:')),
-          ...item.repetitions.map(
-            (count) => Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 6.0),
-              child: SizedBox(
-                width: 24,
-                child: Text(
-                  count.toString(),
-                  textAlign: TextAlign.center,
+          Row(
+            children: [
+              SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.25,
+                  child: Text('${item.exercise.name}:')),
+              if (editing) ...[
+                IntCounterWidget(valueState: countController),
+                IconButton(
+                  onPressed: () {
+                    BlocProvider.of<StrengthTrainingCubit>(context)
+                        .addRepetition(
+                      treaning: treaning,
+                      exercise: item.exercise,
+                      count: countController.value,
+                    );
+                  },
+                  icon: const Icon(
+                    Icons.save,
+                  ),
                 ),
-              ),
-            ),
+                IconButton(
+                  onPressed: () {
+                    BlocProvider.of<StrengthTrainingCubit>(context)
+                        .deleteRepetition(
+                      treaning: treaning,
+                      exercise: item.exercise,
+                    );
+                  },
+                  icon: const Icon(
+                    Icons.delete,
+                  ),
+                )
+              ],
+            ],
           ),
-          if (editing) ...[
-            IntCounterWidget(valueState: countController),
-            IconButton(
-              padding: const EdgeInsets.all(0),
-              onPressed: () {
-                BlocProvider.of<StrengthTrainingCubit>(context).addRepetition(
-                  treaning: treaning,
-                  exercise: item.exercise,
-                  count: countController.value,
-                );
-              },
-              icon: const Icon(
-                Icons.save,
-              ),
-            ),
-          ]
+          Wrap(
+            children: item.repetitions
+                .map(
+                  (count) => Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                    child: SizedBox(
+                      width: 24,
+                      child: Text(
+                        count.toString(),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                )
+                .toList(),
+          )
         ],
       ),
     );
