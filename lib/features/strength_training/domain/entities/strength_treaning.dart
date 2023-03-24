@@ -35,11 +35,21 @@ class StrengthTreaning {
         .map((exercise) => StrengthTreaningExerciseLine(exercise: exercise))
         .toList());
   }
+
+  int excercisesCount(bool editing) {
+    if (editing) {
+      return excercises.length;
+    } else {
+      return excercises.where((element) => element.hasRepetitions).length;
+    }
+  }
 }
 
 class StrengthTreaningExerciseLine {
   final StrengthExercise exercise;
   final List<int> repetitions = [];
+
+  bool get hasRepetitions => repetitions.isNotEmpty;
 
   StrengthTreaningExerciseLine({
     required this.exercise,

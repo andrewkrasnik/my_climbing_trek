@@ -12,4 +12,8 @@ abstract class StrengthTreaningsRepository {
   Future<Either<Failure, StrengthTreaning>> saveTreaning({
     required StrengthTreaning treaning,
   });
+
+  Future<Either<Failure, Unit>> deleteTreaning({
+    required StrengthTreaning treaning,
+  });
 }

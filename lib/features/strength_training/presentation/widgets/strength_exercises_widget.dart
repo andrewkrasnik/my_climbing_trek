@@ -25,7 +25,7 @@ class StrengthExercisesWidget extends StatelessWidget {
                         return Padding(
                           padding: const EdgeInsets.all(4.0),
                           child: SizedBox(
-                            height: 80,
+                            height: 30 + treaning.excercisesCount(false) * 50,
                             child: Slidable(
                               endActionPane: ActionPane(
                                 motion: const ScrollMotion(),

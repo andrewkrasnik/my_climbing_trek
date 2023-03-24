@@ -14,6 +14,8 @@ abstract class StrengthExerciseDataSource {
       {required StrengthExercise exercise, required bool select});
 
   Future<Either<Failure, Map<StrengthExercise, bool>>> getSelected();
+
+  deleteExercise({required StrengthExercise exercise}) {}
 }
 
 @LazySingleton(as: StrengthExerciseDataSource)
@@ -54,6 +56,14 @@ class MockStrengthExerciseDataSource implements StrengthExerciseDataSource {
       _selected.remove(exercise);
     }
 
+    return const Right(unit);
+  }
+
+  @override
+  Future<Either<Failure, Unit>> deleteExercise(
+      {required StrengthExercise exercise}) async {
+    _exercises.remove(exercise);
+    _selected.remove(exercise);
     return const Right(unit);
   }
 }

@@ -1,3 +1,4 @@
+import 'package:climbing_diary/features/strength_training/domain/usecases/delete_strength_exercise.dart';
 import 'package:climbing_diary/features/strength_training/domain/usecases/select_to_use_strength_exercise.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -15,11 +16,13 @@ class StrengthExercisesCubit extends Cubit<StrengthExercisesState> {
   final GetStrengthExercises getStrengthExercises;
   final SaveStrengthExercise saveStrengthExercise;
   final SelectToUseStrengthExercise selectToUseStrengthExercise;
+  final DeleteStrengthExercise deleteStrengthExercise;
 
   StrengthExercisesCubit(
     this.getStrengthExercises,
     this.saveStrengthExercise,
     this.selectToUseStrengthExercise,
+    this.deleteStrengthExercise,
   ) : super(const StrengthExercisesState.initial());
 
   Future<void> loadData() async {
@@ -72,5 +75,17 @@ class StrengthExercisesCubit extends Cubit<StrengthExercisesState> {
               description: failure.toString(),
             )),
         (treaning) => loadData());
+  }
+
+  Future<void> deleteExercise({required StrengthExercise exercise}) async {
+    final failureOrUnit = await deleteStrengthExercise(exercise: exercise);
+
+    failureOrUnit.fold(
+        (failure) => emit(StrengthExercisesState.error(
+              description: failure.toString(),
+            )),
+        (_) => null);
+
+    loadData();
   }
 }

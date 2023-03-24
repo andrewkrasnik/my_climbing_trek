@@ -14,6 +14,10 @@ abstract class StrengthTreaningsDataSource {
   Future<Either<Failure, StrengthTreaning>> saveTreaning({
     required StrengthTreaning treaning,
   });
+
+  Future<Either<Failure, Unit>> deleteTreaning({
+    required StrengthTreaning treaning,
+  });
 }
 
 @LazySingleton(as: StrengthTreaningsDataSource)
@@ -46,5 +50,12 @@ class MockStrengthTreaningsDataSource implements StrengthTreaningsDataSource {
     }
 
     return Right(treaning);
+  }
+
+  @override
+  Future<Either<Failure, Unit>> deleteTreaning(
+      {required StrengthTreaning treaning}) async {
+    _treanings.remove(treaning);
+    return const Right(unit);
   }
 }

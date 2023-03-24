@@ -34,4 +34,10 @@ class StrengthTreaningsRepositoryImpl implements StrengthTreaningsRepository {
       {required StrengthTreaning treaning}) async {
     return await strengthTreaningsDataSource.saveTreaning(treaning: treaning);
   }
+
+  @override
+  Future<Either<Failure, Unit>> deleteTreaning(
+      {required StrengthTreaning treaning}) async {
+    return await strengthTreaningsDataSource.deleteTreaning(treaning: treaning);
+  }
 }

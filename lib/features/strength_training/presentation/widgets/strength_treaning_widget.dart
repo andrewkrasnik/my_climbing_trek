@@ -119,64 +119,68 @@ class StrengthTreaningExerciseLineWidget extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final countController = useState<int>(item.exercise.repetitions);
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.25,
-                  child: Text('${item.exercise.name}:')),
-              if (editing) ...[
-                IntCounterWidget(valueState: countController),
-                IconButton(
-                  onPressed: () {
-                    BlocProvider.of<StrengthTrainingCubit>(context)
-                        .addRepetition(
-                      treaning: treaning,
-                      exercise: item.exercise,
-                      count: countController.value,
-                    );
-                  },
-                  icon: const Icon(
-                    Icons.save,
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    BlocProvider.of<StrengthTrainingCubit>(context)
-                        .deleteRepetition(
-                      treaning: treaning,
-                      exercise: item.exercise,
-                    );
-                  },
-                  icon: const Icon(
-                    Icons.delete,
-                  ),
-                )
-              ],
-            ],
-          ),
-          Wrap(
-            children: item.repetitions
-                .map(
-                  (count) => Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 6.0),
-                    child: SizedBox(
-                      width: 24,
-                      child: Text(
-                        count.toString(),
-                        textAlign: TextAlign.center,
-                      ),
+    if (editing || item.hasRepetitions) {
+      final countController = useState<int>(item.exercise.repetitions);
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.25,
+                    child: Text('${item.exercise.name}:')),
+                if (editing) ...[
+                  IntCounterWidget(valueState: countController),
+                  IconButton(
+                    onPressed: () {
+                      BlocProvider.of<StrengthTrainingCubit>(context)
+                          .addRepetition(
+                        treaning: treaning,
+                        exercise: item.exercise,
+                        count: countController.value,
+                      );
+                    },
+                    icon: const Icon(
+                      Icons.save,
                     ),
                   ),
-                )
-                .toList(),
-          )
-        ],
-      ),
-    );
+                  IconButton(
+                    onPressed: () {
+                      BlocProvider.of<StrengthTrainingCubit>(context)
+                          .deleteRepetition(
+                        treaning: treaning,
+                        exercise: item.exercise,
+                      );
+                    },
+                    icon: const Icon(
+                      Icons.delete,
+                    ),
+                  )
+                ],
+              ],
+            ),
+            Wrap(
+              children: item.repetitions
+                  .map(
+                    (count) => Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                      child: SizedBox(
+                        width: 24,
+                        child: Text(
+                          count.toString(),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  )
+                  .toList(),
+            )
+          ],
+        ),
+      );
+    } else {
+      return const SizedBox();
+    }
   }
 }

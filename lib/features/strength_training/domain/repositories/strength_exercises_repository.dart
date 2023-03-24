@@ -13,4 +13,7 @@ abstract class StrengthExerciseRepository {
       {required StrengthExercise exercise, required bool select});
 
   Future<Either<Failure, Map<StrengthExercise, bool>>> getSelected();
+
+  Future<Either<Failure, Unit>> deleteExercise(
+      {required StrengthExercise exercise});
 }

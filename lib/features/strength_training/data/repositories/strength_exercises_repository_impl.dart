@@ -36,4 +36,10 @@ class StrengthExerciseRepositoryImpl implements StrengthExerciseRepository {
     return await strengthExerciseDataSource.selectToUse(
         exercise: exercise, select: select);
   }
+
+  @override
+  Future<Either<Failure, Unit>> deleteExercise(
+      {required StrengthExercise exercise}) async {
+    return await strengthExerciseDataSource.deleteExercise(exercise: exercise);
+  }
 }
