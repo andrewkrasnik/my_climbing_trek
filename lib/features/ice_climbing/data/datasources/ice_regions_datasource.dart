@@ -24,6 +24,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
     final caucasus = Region(name: 'Северный кавказ');
 
     final naroFominsk = IceDistrict(
+      compact: true,
       name: 'Наро-Фоминская сосулька',
       region: moscow,
       image:

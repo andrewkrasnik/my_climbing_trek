@@ -30,6 +30,7 @@ class IceTreaningWidget extends StatelessWidget {
                 treaning.district.image,
               ),
             ),
+            const SizedBox(width: 8),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -88,6 +89,7 @@ class _AttemptsWithStyle extends StatelessWidget {
     return BlocBuilder<CurrentIceTreaningCubit, CurrentIceTreaningState>(
       builder: (context, state) {
         final bool showAddButton = isCurrent && state.currentAttempt == null;
+        final cubit = BlocProvider.of<CurrentIceTreaningCubit>(context);
         return Wrap(
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [
@@ -109,6 +111,7 @@ class _AttemptsWithStyle extends StatelessWidget {
                       return SelectIceRouteWidget(
                         treaning: treaning,
                         style: climbingStyle,
+                        cubit: cubit,
                       );
                     },
                   );

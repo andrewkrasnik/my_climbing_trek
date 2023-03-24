@@ -1,12 +1,14 @@
 import 'package:climbing_diary/core/data/climbing_style.dart';
 import 'package:climbing_diary/core/data/treaning.dart';
 import 'package:climbing_diary/features/ice_climbing/domain/entities/ice_district.dart';
+import 'package:climbing_diary/features/ice_climbing/domain/entities/ice_sector.dart';
 
 import 'package:climbing_diary/features/ice_climbing/domain/entities/ice_treaning_attempt.dart';
 import 'package:collection/collection.dart';
 
 class IceTreaning extends Treaning {
   final IceDistrict district;
+  final List<IceSector> sectors;
 
   final List<IceTreaningAttempt> _attempts;
 
@@ -35,5 +37,6 @@ class IceTreaning extends Treaning {
     super.finish,
     super.id,
     List<IceTreaningAttempt>? attempts,
+    required this.sectors,
   }) : _attempts = attempts ?? [];
 }

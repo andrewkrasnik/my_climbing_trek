@@ -1,4 +1,5 @@
 import 'package:climbing_diary/features/ice_climbing/domain/entities/ice_district.dart';
+import 'package:climbing_diary/features/ice_climbing/domain/entities/ice_sector.dart';
 import 'package:climbing_diary/features/ice_climbing/presentation/bloc/ice_sectors/ice_sectors_cubit.dart';
 import 'package:climbing_diary/features/ice_climbing/presentation/pages/ice_sector_page.dart';
 import 'package:climbing_diary/features/ice_climbing/presentation/widgets/ice_sector_widget.dart';
@@ -8,8 +9,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class IceDistrictPage extends StatelessWidget {
   final IceDistrict district;
+  final void Function(IceSector)? addSector;
 
-  const IceDistrictPage({required this.district, Key? key}) : super(key: key);
+  const IceDistrictPage({
+    required this.district,
+    this.addSector,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -50,14 +56,32 @@ class IceDistrictPage extends StatelessWidget {
                         childCount: dataState.sectors.length,
                         (context, index) => Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: IceSectorWidget(
-                            sector: dataState.sectors[index],
-                            onTap: () =>
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => IceSectorPage(
-                                          district: district,
-                                          sector: dataState.sectors[index],
-                                        ))),
+                          child: Stack(
+                            alignment: AlignmentDirectional.bottomEnd,
+                            fit: StackFit.passthrough,
+                            children: [
+                              IceSectorWidget(
+                                sector: dataState.sectors[index],
+                                onTap: () => Navigator.of(context)
+                                    .push(MaterialPageRoute(
+                                        builder: (context) => IceSectorPage(
+                                              district: district,
+                                              sector: dataState.sectors[index],
+                                            ))),
+                              ),
+                              if (addSector != null)
+                                Align(
+                                  alignment: Alignment.bottomRight,
+                                  child: IconButton(
+                                    icon: const Icon(Icons.add_box,
+                                        color: Colors.white),
+                                    onPressed: () {
+                                      addSector!(dataState.sectors[index]);
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                )
+                            ],
                           ),
                         ),
                       ),

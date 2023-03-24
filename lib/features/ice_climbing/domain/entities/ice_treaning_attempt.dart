@@ -10,6 +10,22 @@ class IceTreaningAttempt {
   DateTime? _startTime;
   DateTime? _finishTime;
 
+  int suspensionCount = 0;
+
+  int fallCount = 0;
+
+  bool downClimbing = false;
+
+  bool fail = false;
+
+  int toolsCount = 2;
+
+  int iceScrewsCount = 0;
+
+  bool installedIceScrews = false;
+
+  int length;
+
   bool get planed => _startTime == null;
   bool get finished => _finishTime != null;
   bool get started => _startTime != null && _finishTime == null;
@@ -20,6 +36,8 @@ class IceTreaningAttempt {
     required this.style,
     DateTime? startTime,
     DateTime? finishTime,
+    int? wayLength,
   })  : _startTime = startTime,
-        _finishTime = finishTime;
+        _finishTime = finishTime,
+        length = wayLength ?? sector.lenght;
 }
