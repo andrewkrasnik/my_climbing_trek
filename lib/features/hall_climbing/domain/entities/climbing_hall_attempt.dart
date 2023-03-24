@@ -25,6 +25,9 @@ class ClimbingHallAttempt {
   bool get finished => finishTime != null;
   bool get started => startTime != null && finishTime == null;
 
+  String get result =>
+      fail ? 'Не долез' : (ascentType == null ? 'Долез' : 'Долез $ascentType');
+
   // int get suspensionCount => _suspensionCount;
   // int get fallCount => _fallCount;
   // bool get downClimbing => _downClimbing;
@@ -64,10 +67,10 @@ class ClimbingHallAttempt {
     int attemptCount = 0,
   }) {
     finishTime = DateTime.now();
-    suspensionCount = suspensionCount;
-    fallCount = fallCount;
-    downClimbing = downClimbing;
-    fail = fail;
+    this.suspensionCount = suspensionCount;
+    this.fallCount = fallCount;
+    this.downClimbing = downClimbing;
+    this.fail = fail;
 
     if (!fail &&
         style == ClimbingStyle.lead &&

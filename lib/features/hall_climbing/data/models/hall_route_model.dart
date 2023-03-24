@@ -40,8 +40,8 @@ class HallRouteModel extends ClimbingHallRoute {
         color: RouteColor.getById(json['color']),
         type: ClimbingRouteType.getById(json['type']),
         sectorNumber: json['sectorNumber'],
-        archive: json['archive'],
-        autoBelay: json['autoBelay'],
+        archive: json['archive'] ?? false,
+        autoBelay: json['autoBelay'] ?? false,
         id: json['id'],
       );
 }

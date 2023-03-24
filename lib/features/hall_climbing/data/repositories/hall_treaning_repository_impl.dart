@@ -1,3 +1,4 @@
+import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_route.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
@@ -57,5 +58,11 @@ class HallTreaningRepositoryImpl implements HallTreaningRepository {
   Future<Either<Failure, Unit>> deleteTreaning(
       {required ClimbingHallTreaning treaning}) async {
     return await dataSource.deleteTreaning(treaning: treaning);
+  }
+
+  @override
+  Future<Either<Failure, List<ClimbingHallAttempt>>> routeAttempts(
+      {required ClimbingHallRoute route}) async {
+    return await dataSource.routeAttempts(route: route);
   }
 }
