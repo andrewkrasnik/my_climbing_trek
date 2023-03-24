@@ -1,6 +1,7 @@
 import 'package:climbing_diary/core/data/climbing_style.dart';
 import 'package:climbing_diary/features/ice_climbing/domain/entities/ice_district.dart';
 import 'package:climbing_diary/features/ice_climbing/domain/entities/ice_sector.dart';
+import 'package:climbing_diary/features/ice_climbing/domain/usecases/finish_ice_attempt.dart';
 import 'package:climbing_diary/features/ice_climbing/domain/usecases/ice_sector_to_treaning.dart';
 import 'package:climbing_diary/features/ice_climbing/domain/usecases/new_ice_attempt.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,11 +20,13 @@ class CurrentIceTreaningCubit extends Cubit<CurrentIceTreaningState> {
   final NewIceTreaning _newIceTreaning;
   final NewIceAttempt _newIceAttempt;
   final IceSectorToTreaning _iceSectorToTreaning;
+  final FinishIceAttempt _finishIceAttempt;
 
   CurrentIceTreaningCubit(
     this._newIceTreaning,
     this._iceSectorToTreaning,
     this._newIceAttempt,
+    this._finishIceAttempt,
   ) : super(CurrentIceTreaningState.initial());
 
   Future<void> addNewTreaning({required IceDistrict district}) async {
@@ -62,4 +65,37 @@ class CurrentIceTreaningCubit extends Cubit<CurrentIceTreaningState> {
           (attempt) => emit(state.copyWith(currentAttempt: attempt)));
     }
   }
+
+  void startAttempt({required IceTreaningAttempt attempt}) {}
+
+  void finishCurrentAttempt({
+    required bool fail,
+    required bool downClimbing,
+    required int fallCount,
+    required int suspensionCount,
+    required int toolsCount,
+    required int iceScrewsCount,
+    required bool installedIceScrews,
+    required int length,
+  }) async {
+    final failureOrAttempt = await _finishIceAttempt(
+      attempt: state.currentAttempt!,
+      treaning: state.currentTreaning!,
+      length: length,
+      fail: fail,
+      downClimbing: downClimbing,
+      fallCount: fallCount,
+      iceScrewsCount: iceScrewsCount,
+      installedIceScrews: installedIceScrews,
+      suspensionCount: suspensionCount,
+      toolsCount: toolsCount,
+    );
+
+    failureOrAttempt.fold(
+        (failure) => null,
+        (attempt) =>
+            emit(state.copyWith(currentAttempt: null, lastAttempt: attempt)));
+  }
+
+  void deleteAttempt({required IceTreaningAttempt attempt}) {}
 }

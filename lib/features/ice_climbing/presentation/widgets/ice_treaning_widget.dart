@@ -1,7 +1,10 @@
 import 'package:climbing_diary/core/data/climbing_style.dart';
+import 'package:climbing_diary/core/widgets/attempt_budget.dart';
 import 'package:climbing_diary/features/ice_climbing/domain/entities/ice_treaning.dart';
 import 'package:climbing_diary/features/ice_climbing/domain/entities/ice_treaning_attempt.dart';
 import 'package:climbing_diary/features/ice_climbing/presentation/bloc/current_ice_treaning/current_ice_treaning_cubit.dart';
+import 'package:climbing_diary/features/ice_climbing/presentation/widgets/ice_attempt_dialog.dart';
+import 'package:climbing_diary/features/ice_climbing/presentation/widgets/ice_category_widget.dart';
 import 'package:climbing_diary/features/ice_climbing/presentation/widgets/select_ice_route_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,17 +27,18 @@ class IceTreaningWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
         child: Row(
           children: [
-            Image(
-              width: MediaQuery.of(context).size.width / 4,
-              image: NetworkImage(
-                treaning.district.image,
-              ),
-            ),
+            // Image(
+            //   width: MediaQuery.of(context).size.width / 4,
+            //   image: NetworkImage(
+            //     treaning.district.image,
+            //   ),
+            // ),
             const SizedBox(width: 8),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
+                  mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(DateFormat('dd.MM.yyyy').format(treaning.date)),
@@ -92,6 +96,7 @@ class _AttemptsWithStyle extends StatelessWidget {
         final cubit = BlocProvider.of<CurrentIceTreaningCubit>(context);
         return Wrap(
           crossAxisAlignment: WrapCrossAlignment.center,
+          alignment: WrapAlignment.start,
           children: [
             SizedBox(width: 80, child: child),
             ...attempts
@@ -137,17 +142,77 @@ class AttemptClickWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    late Widget topRight;
 
-    // InkWell(
-    //   onTap: () => showDialog(
-    //     context: context,
-    //     builder: (context) => HallAttemptDialog(attempt: attempt),
-    //   ),
-    //   child: HallSectorNumberWidget(
-    //     route: attempt.route,
-    //     child: HallRouteCategoryWidget.fromAttempt(attempt: attempt),
-    //   ),
-    // );
+    if (attempt.fail == true) {
+      topRight = const AttemptBudget(
+          color: Colors.red,
+          child: Icon(
+            Icons.close,
+            size: 12,
+            color: Colors.white,
+          ));
+    } else {
+      topRight = const SizedBox();
+    }
+
+    const badgetTextStyle =
+        TextStyle(color: Colors.white, fontWeight: FontWeight.bold);
+
+    final Widget bottomRight = Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (attempt.fallCount > 0)
+          AttemptBudget(
+            color: Colors.red,
+            child: Text(
+              attempt.fallCount.toString(),
+              textAlign: TextAlign.center,
+              style: badgetTextStyle,
+            ),
+          ),
+        if (attempt.suspensionCount > 0)
+          AttemptBudget(
+            color: Colors.orange,
+            child: Text(
+              attempt.suspensionCount.toString(),
+              textAlign: TextAlign.center,
+              style: badgetTextStyle,
+            ),
+          ),
+      ],
+    );
+
+    return InkWell(
+      onTap: () => showDialog(
+        context: context,
+        builder: (context) => IceAttemptDialog(
+          attempt: attempt,
+          cubit: BlocProvider.of<CurrentIceTreaningCubit>(context),
+        ),
+      ),
+      child: Stack(
+        alignment: AlignmentDirectional.topCenter,
+        children: [
+          IceCategoryWidget(category: attempt.category),
+          Positioned(
+            top: 6,
+            child: Text(
+              '${attempt.length}м',
+              style: const TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          Positioned(right: 0, top: 0, child: topRight),
+          Positioned(
+            right: 0,
+            bottom: 0,
+            child: bottomRight,
+          )
+        ],
+      ),
+    );
   }
 }

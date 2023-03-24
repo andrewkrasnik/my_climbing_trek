@@ -19,6 +19,7 @@ class IceHomePageWidget extends StatelessWidget {
       create: (context) => getIt<CurrentIceTreaningCubit>(),
       child: BlocBuilder<CurrentIceTreaningCubit, CurrentIceTreaningState>(
         builder: (context, state) {
+          final cubit = BlocProvider.of<CurrentIceTreaningCubit>(context);
           return Column(
             children: [
               const Text(
@@ -28,39 +29,37 @@ class IceHomePageWidget extends StatelessWidget {
               const SizedBox(
                 height: 32,
               ),
-              BlocBuilder<CurrentIceTreaningCubit, CurrentIceTreaningState>(
-                builder: (context, state) {
-                  return Column(
-                    children: [
-                      if (state.currentAttempt != null) ...[
-                        const Text('Текущая попытка'),
-                        IceAttemptWidget(
-                          attempt: state.currentAttempt!,
-                          isCurrent: true,
-                        )
-                      ],
-                      if (state.lastAttempt != null) ...[
-                        const Text('Предудущая попытка'),
-                        IceAttemptWidget(
-                          attempt: state.lastAttempt!,
-                        )
-                      ],
-                      if (state.currentTreaning != null) ...[
-                        const Text('Текущая тренировка'),
-                        IceTreaningWidget(
-                          treaning: state.currentTreaning!,
-                          isCurrent: true,
-                        )
-                      ],
-                      if (state.lastTreaning != null) ...[
-                        const Text('Предыдущая тренировка'),
-                        IceTreaningWidget(
-                          treaning: state.currentTreaning!,
-                        )
-                      ],
-                    ],
-                  );
-                },
+              Column(
+                children: [
+                  if (state.currentAttempt != null) ...[
+                    const Text('Текущая попытка'),
+                    IceAttemptWidget(
+                      attempt: state.currentAttempt!,
+                      isCurrent: true,
+                      cubit: cubit,
+                    )
+                  ],
+                  if (state.lastAttempt != null) ...[
+                    const Text('Предудущая попытка'),
+                    IceAttemptWidget(
+                      attempt: state.lastAttempt!,
+                      cubit: cubit,
+                    )
+                  ],
+                  if (state.currentTreaning != null) ...[
+                    const Text('Текущая тренировка'),
+                    IceTreaningWidget(
+                      treaning: state.currentTreaning!,
+                      isCurrent: true,
+                    )
+                  ],
+                  if (state.lastTreaning != null) ...[
+                    const Text('Предыдущая тренировка'),
+                    IceTreaningWidget(
+                      treaning: state.currentTreaning!,
+                    )
+                  ],
+                ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -93,19 +92,32 @@ class IceHomePageWidget extends StatelessWidget {
                                   children: [
                                     IceDistrictWidget(
                                       district: dataState.districts[index],
-                                      onTap: () => Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  IceDistrictPage(
-                                                      addSector: (sector) {
-                                                        cubit.addIceSectorToTreaning(
-                                                            sector: sector,
-                                                            district: dataState
-                                                                    .districts[
-                                                                index]);
-                                                      },
-                                                      district: dataState
-                                                          .districts[index]))),
+                                      onTap: () {
+                                        final district =
+                                            dataState.districts[index];
+                                        final bool showAddButton =
+                                            cubit.state.currentTreaning ==
+                                                    null ||
+                                                cubit.state.currentTreaning
+                                                        ?.district ==
+                                                    district;
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    IceDistrictPage(
+                                                        addSector: showAddButton
+                                                            ? (sector) {
+                                                                cubit.addIceSectorToTreaning(
+                                                                    sector:
+                                                                        sector,
+                                                                    district:
+                                                                        district);
+                                                              }
+                                                            : null,
+                                                        district:
+                                                            dataState.districts[
+                                                                index])));
+                                      },
                                     ),
                                     BlocBuilder<CurrentIceTreaningCubit,
                                         CurrentIceTreaningState>(
