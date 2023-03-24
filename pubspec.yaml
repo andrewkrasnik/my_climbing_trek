@@ -60,6 +60,7 @@ dependencies:
   uuid: ^3.0.6
   screenshot: ^1.2.3
   share_plus: ^6.3.0
+  collection: ^1.17.0
 
 
 dev_dependencies:
