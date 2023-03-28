@@ -1,17 +1,15 @@
 import 'package:climbing_diary/core/extentions/date_time_extention.dart';
 import 'package:climbing_diary/features/cardio_workout/domain/entities/cardio_exercise.dart';
 import 'package:climbing_diary/features/cardio_workout/domain/entities/cardio_treaning.dart';
-import 'package:climbing_diary/features/cardio_workout/presentation/cubit/cardio_treanings/cardio_treanings_cubit.dart';
+import 'package:climbing_diary/features/cardio_workout/presentation/cubit/cardio_treaning/cardio_treaning_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class CardioParametersWidget extends HookWidget {
-  final CardioTreaningsCubit cubit;
   final CardioTreaning? treaning;
 
-  const CardioParametersWidget({this.treaning, required this.cubit, Key? key})
-      : super(key: key);
+  const CardioParametersWidget({this.treaning, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +107,7 @@ class CardioParametersWidget extends HookWidget {
             ),
             ElevatedButton(
                 onPressed: () {
-                  cubit.save(
+                  BlocProvider.of<CardioTreaningCubit>(context).save(
                     id: treaning?.id,
                     date: date.value,
                     duration: int.parse(durationController.text),

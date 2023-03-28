@@ -1,3 +1,4 @@
+import 'package:climbing_diary/features/cardio_workout/presentation/widgets/cardio_home_page_widget.dart';
 import 'package:climbing_diary/features/hall_climbing/presentation/widgets/hall_home_page_widget.dart';
 import 'package:climbing_diary/features/ice_climbing/presentation/widgets/ice_home_page_widget.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,8 @@ class HomePage extends StatelessWidget {
           child: Column(
             children: const [
               HallHomePageWidget(),
+              SizedBox(height: 16),
+              CardioHomePageWidget(),
               SizedBox(height: 16),
               IceHomePageWidget(),
             ],

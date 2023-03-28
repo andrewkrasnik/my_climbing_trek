@@ -30,4 +30,9 @@ class CardioTreaningsRepositoryImpl implements CardioTreaningsRepository {
   Future<Either<Failure, List<CardioTreaning>>> getTreanings() async {
     return await cardioTreaningsDatasource.getTreanings();
   }
+
+  @override
+  Future<Either<Failure, CardioTreaning?>> lastTreaning() async {
+    return await cardioTreaningsDatasource.lastTreaning();
+  }
 }

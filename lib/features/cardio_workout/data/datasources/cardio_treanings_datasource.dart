@@ -1,13 +1,18 @@
 import 'package:climbing_diary/core/failures/failure.dart';
 import 'package:climbing_diary/features/cardio_workout/domain/entities/cardio_treaning.dart';
+import 'package:collection/collection.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
 abstract class CardioTreaningsDatasource {
   Future<Either<Failure, CardioTreaning>> save(
       {required CardioTreaning treaning});
+
   Future<Either<Failure, Unit>> delete({required CardioTreaning treaning});
+
   Future<Either<Failure, List<CardioTreaning>>> getTreanings();
+
+  Future<Either<Failure, CardioTreaning?>> lastTreaning();
 }
 
 @LazySingleton(as: CardioTreaningsDatasource)
@@ -46,5 +51,10 @@ class MockCardioTreaningsDatasource implements CardioTreaningsDatasource {
   @override
   Future<Either<Failure, List<CardioTreaning>>> getTreanings() async {
     return Right(_treanings);
+  }
+
+  @override
+  Future<Either<Failure, CardioTreaning?>> lastTreaning() async {
+    return Right(_treanings.lastOrNull);
   }
 }
