@@ -2,6 +2,7 @@ import 'package:climbing_diary/core/data/climbing_style.dart';
 import 'package:climbing_diary/features/ice_climbing/domain/entities/ice_district.dart';
 import 'package:climbing_diary/features/ice_climbing/domain/entities/ice_sector.dart';
 import 'package:climbing_diary/features/ice_climbing/domain/usecases/finish_ice_attempt.dart';
+import 'package:climbing_diary/features/ice_climbing/domain/usecases/finish_ice_treaning.dart';
 import 'package:climbing_diary/features/ice_climbing/domain/usecases/ice_sector_to_treaning.dart';
 import 'package:climbing_diary/features/ice_climbing/domain/usecases/new_ice_attempt.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,12 +22,14 @@ class CurrentIceTreaningCubit extends Cubit<CurrentIceTreaningState> {
   final NewIceAttempt _newIceAttempt;
   final IceSectorToTreaning _iceSectorToTreaning;
   final FinishIceAttempt _finishIceAttempt;
+  final FinishIceTreaning _finishIceTreaning;
 
   CurrentIceTreaningCubit(
     this._newIceTreaning,
     this._iceSectorToTreaning,
     this._newIceAttempt,
     this._finishIceAttempt,
+    this._finishIceTreaning,
   ) : super(CurrentIceTreaningState.initial());
 
   Future<void> addNewTreaning({required IceDistrict district}) async {
@@ -66,9 +69,9 @@ class CurrentIceTreaningCubit extends Cubit<CurrentIceTreaningState> {
     }
   }
 
-  void startAttempt({required IceTreaningAttempt attempt}) {}
+  Future<void> startAttempt({required IceTreaningAttempt attempt}) async {}
 
-  void finishCurrentAttempt({
+  Future<void> finishCurrentAttempt({
     required bool fail,
     required bool downClimbing,
     required int fallCount,
@@ -97,5 +100,21 @@ class CurrentIceTreaningCubit extends Cubit<CurrentIceTreaningState> {
             emit(state.copyWith(currentAttempt: null, lastAttempt: attempt)));
   }
 
-  void deleteAttempt({required IceTreaningAttempt attempt}) {}
+  Future<void> deleteAttempt({required IceTreaningAttempt attempt}) async {}
+
+  Future<void> finishTreaning() async {
+    if (state.currentAttempt == null) {
+      final failureOrTreaning =
+          await _finishIceTreaning(treaning: state.currentTreaning!);
+
+      failureOrTreaning.fold(
+        (failure) => null,
+        (treaning) => emit(state.copyWith(
+          currentTreaning: null,
+          lastTreaning: treaning,
+          lastAttempt: null,
+        )),
+      );
+    }
+  }
 }

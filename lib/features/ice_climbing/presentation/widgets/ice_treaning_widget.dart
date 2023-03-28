@@ -64,6 +64,14 @@ class IceTreaningWidget extends StatelessWidget {
                     climbingStyle: ClimbingStyle.topRope,
                     child: const Text('Верхняя:'),
                   ),
+                if (isCurrent)
+                  TextButton(
+                    child: const Text('Завершить'),
+                    onPressed: () {
+                      BlocProvider.of<CurrentIceTreaningCubit>(context)
+                          .finishTreaning();
+                    },
+                  )
               ],
             ),
           ],

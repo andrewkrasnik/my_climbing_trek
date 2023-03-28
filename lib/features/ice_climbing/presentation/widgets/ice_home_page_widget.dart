@@ -56,7 +56,7 @@ class IceHomePageWidget extends StatelessWidget {
                   if (state.lastTreaning != null) ...[
                     const Text('Предыдущая тренировка'),
                     IceTreaningWidget(
-                      treaning: state.currentTreaning!,
+                      treaning: state.lastTreaning!,
                     )
                   ],
                 ],
