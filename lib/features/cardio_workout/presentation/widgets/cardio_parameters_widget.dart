@@ -108,7 +108,7 @@ class CardioParametersWidget extends HookWidget {
             ElevatedButton(
                 onPressed: () {
                   BlocProvider.of<CardioTreaningCubit>(context).save(
-                    id: treaning?.id,
+                    id: treaning?.id ?? '',
                     date: date.value,
                     duration: int.parse(durationController.text),
                     exercise: exercise.value,

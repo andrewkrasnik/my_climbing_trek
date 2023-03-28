@@ -45,5 +45,6 @@ class IceSector extends Sector {
     this.glacierIce = false,
     this.artificialIce = false,
     this.description = '',
+    super.id,
   });
 }

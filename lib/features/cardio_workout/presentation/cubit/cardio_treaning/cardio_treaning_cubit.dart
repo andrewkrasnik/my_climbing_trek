@@ -31,7 +31,7 @@ class CardioTreaningCubit extends Cubit<CardioTreaningState> {
   }
 
   Future<void> save({
-    int? id,
+    String id = '',
     required DateTime date,
     required int duration,
     required CardioExercise exercise,

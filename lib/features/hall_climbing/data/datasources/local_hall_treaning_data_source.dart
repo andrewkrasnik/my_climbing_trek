@@ -1,9 +1,9 @@
-import 'dart:ffi';
 import 'dart:io';
 
 import 'package:climbing_diary/core/data/ascent_type.dart';
 import 'package:climbing_diary/core/data/climbing_category.dart';
 import 'package:climbing_diary/core/data/climbing_style.dart';
+import 'package:climbing_diary/core/datasource/drift_db_local_datasource.dart';
 import 'package:climbing_diary/features/hall_climbing/data/datasources/climbing_hall_data_source.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_route.dart';
 import 'package:climbing_diary/service_locator.dart';
@@ -17,14 +17,10 @@ import 'package:climbing_diary/features/hall_climbing/data/datasources/hall_trea
 
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_attempt.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_treaning.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:path/path.dart' as p;
-
-part 'local_hall_treaning_data_source.g.dart';
 
 @LazySingleton(as: HallTreaningDataSource)
 class LocalHallTreaningDataSource implements HallTreaningDataSource {
-  final LocalDatabase localDatabase;
+  final DriftBDLocalDataSource localDatabase;
   LocalHallTreaningDataSource({
     required this.localDatabase,
   });
@@ -76,29 +72,17 @@ class LocalHallTreaningDataSource implements HallTreaningDataSource {
   @override
   Future<Either<Failure, ClimbingHallTreaning>> saveTreaning(
       {required ClimbingHallTreaning treaning}) async {
-    if (treaning.isNew) {
-      final int id =
-          await localDatabase.into(localDatabase.hallTreaningTable).insert(
-                HallTreaningTableCompanion.insert(
-                  hallId: treaning.climbingHall.id,
-                  date: treaning.date,
-                  finish: Value(treaning.getFinish),
-                ),
-              );
+    await localDatabase
+        .into(localDatabase.hallTreaningTable)
+        .insertOnConflictUpdate(
+          HallTreaningTableCompanion.insert(
+            id: treaning.id,
+            hallId: treaning.climbingHall.id,
+            date: treaning.date,
+            finish: Value(treaning.getFinish),
+          ),
+        );
 
-      treaning.id = id;
-    } else {
-      await localDatabase
-          .into(localDatabase.hallTreaningTable)
-          .insertOnConflictUpdate(
-            HallTreaningTableCompanion.insert(
-              id: Value(treaning.id!),
-              hallId: treaning.climbingHall.id,
-              date: treaning.date,
-              finish: Value(treaning.getFinish),
-            ),
-          );
-    }
     return Right(treaning);
   }
 
@@ -110,7 +94,7 @@ class LocalHallTreaningDataSource implements HallTreaningDataSource {
       final int id = await localDatabase
           .into(localDatabase.hallAttemptTable)
           .insert(HallAttemptTableCompanion.insert(
-            treaningId: treaning.id!,
+            treaningId: treaning.id,
             categoryId: attempt.category.id,
             styleId: attempt.style.id,
             routeId: Value(attempt.route?.id),
@@ -129,7 +113,7 @@ class LocalHallTreaningDataSource implements HallTreaningDataSource {
           .into(localDatabase.hallAttemptTable)
           .insertOnConflictUpdate(HallAttemptTableCompanion.insert(
             id: Value(attempt.id!),
-            treaningId: treaning.id!,
+            treaningId: treaning.id,
             categoryId: attempt.category.id,
             styleId: attempt.style.id,
             routeId: Value(attempt.route?.id),
@@ -147,7 +131,7 @@ class LocalHallTreaningDataSource implements HallTreaningDataSource {
 
   Future<List<ClimbingHallAttempt>> _treaningAttempts({
     required int hallId,
-    required int treaningId,
+    required String treaningId,
   }) async {
     final data = await (localDatabase.select(localDatabase.hallAttemptTable)
           ..where((tbl) => tbl.treaningId.equals(treaningId)))
@@ -224,10 +208,10 @@ class LocalHallTreaningDataSource implements HallTreaningDataSource {
   Future<Either<Failure, Unit>> deleteTreaning(
       {required ClimbingHallTreaning treaning}) async {
     await (localDatabase.delete(localDatabase.hallAttemptTable)
-          ..where((tbl) => tbl.treaningId.equals(treaning.id!)))
+          ..where((tbl) => tbl.treaningId.equals(treaning.id)))
         .go();
     await (localDatabase.delete(localDatabase.hallTreaningTable)
-          ..where((tbl) => tbl.id.equals(treaning.id!)))
+          ..where((tbl) => tbl.id.equals(treaning.id)))
         .go();
 
     return const Right(unit);
@@ -252,66 +236,4 @@ class LocalHallTreaningDataSource implements HallTreaningDataSource {
 
     return Right(attempts);
   }
-}
-
-@DataClassName('HallTreaningItem')
-class HallTreaningTable extends Table {
-  IntColumn get id => integer().autoIncrement()();
-  IntColumn get hallId => integer()();
-  DateTimeColumn get date => dateTime()();
-  DateTimeColumn get finish => dateTime().nullable()();
-}
-
-@DataClassName('HallAttemptItem')
-class HallAttemptTable extends Table {
-  IntColumn get id => integer().autoIncrement()();
-  IntColumn get treaningId => integer().references(HallTreaningTable, #id)();
-  IntColumn get categoryId => integer()();
-  IntColumn get styleId => integer()();
-  IntColumn get routeId => integer().nullable()();
-  DateTimeColumn get finish => dateTime().nullable()();
-  DateTimeColumn get start => dateTime().nullable()();
-  IntColumn get ascentTypeId => integer().nullable()();
-  IntColumn get suspensionCount => integer()();
-  IntColumn get fallCount => integer()();
-  BoolColumn get downClimbing => boolean()();
-  BoolColumn get fail => boolean()();
-}
-
-@LazySingleton()
-@DriftDatabase(
-  tables: [
-    HallTreaningTable,
-    HallAttemptTable,
-  ],
-)
-class LocalDatabase extends _$LocalDatabase {
-  LocalDatabase() : super(_openConnection());
-
-  @override
-  int get schemaVersion => 1;
-
-  Future<List<HallTreaningItem>> getAllTreanings() async =>
-      (select(hallTreaningTable)
-            ..orderBy(
-              [
-                (u) => OrderingTerm(expression: u.date, mode: OrderingMode.desc)
-              ],
-            ))
-          .get();
-
-  Future<int> insertTreaning(HallTreaningItem item) async {
-    return await hallTreaningTable.insertOne(item, mode: InsertMode.insert);
-  }
-}
-
-LazyDatabase _openConnection() {
-  // the LazyDatabase util lets us find the right location for the file async.
-  return LazyDatabase(() async {
-    // put the database file, called db.sqlite here, into the documents folder
-    // for your app.
-    final dbFolder = await getApplicationDocumentsDirectory();
-    final file = File(p.join(dbFolder.path, 'db.sqlite'));
-    return NativeDatabase(file);
-  });
 }

@@ -18,7 +18,6 @@ abstract class CardioTreaningsDatasource {
 @LazySingleton(as: CardioTreaningsDatasource)
 class MockCardioTreaningsDatasource implements CardioTreaningsDatasource {
   final List<CardioTreaning> _treanings = [];
-  int _idCounter = 0;
 
   @override
   Future<Either<Failure, Unit>> delete(
@@ -35,9 +34,7 @@ class MockCardioTreaningsDatasource implements CardioTreaningsDatasource {
   @override
   Future<Either<Failure, CardioTreaning>> save(
       {required CardioTreaning treaning}) async {
-    if (treaning.id == null) {
-      _idCounter++;
-      treaning.id = _idCounter;
+    if (!_treanings.contains(treaning)) {
       _treanings.add(treaning);
     } else {
       final index =

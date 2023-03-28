@@ -1,15 +1,229 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'local_hall_treaning_data_source.dart';
+part of 'drift_db_local_datasource.dart';
 
 // **************************************************************************
 // DriftDatabaseGenerator
 // **************************************************************************
 
 // ignore_for_file: type=lint
+class DriftStrengthExercises extends DataClass
+    implements Insertable<DriftStrengthExercises> {
+  final int repetitions;
+  final String id;
+  final String name;
+  const DriftStrengthExercises(
+      {required this.repetitions, required this.id, required this.name});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['repetitions'] = Variable<int>(repetitions);
+    map['id'] = Variable<String>(id);
+    map['name'] = Variable<String>(name);
+    return map;
+  }
+
+  DriftStrengthExercisesTableCompanion toCompanion(bool nullToAbsent) {
+    return DriftStrengthExercisesTableCompanion(
+      repetitions: Value(repetitions),
+      id: Value(id),
+      name: Value(name),
+    );
+  }
+
+  factory DriftStrengthExercises.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return DriftStrengthExercises(
+      repetitions: serializer.fromJson<int>(json['repetitions']),
+      id: serializer.fromJson<String>(json['id']),
+      name: serializer.fromJson<String>(json['name']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'repetitions': serializer.toJson<int>(repetitions),
+      'id': serializer.toJson<String>(id),
+      'name': serializer.toJson<String>(name),
+    };
+  }
+
+  DriftStrengthExercises copyWith(
+          {int? repetitions, String? id, String? name}) =>
+      DriftStrengthExercises(
+        repetitions: repetitions ?? this.repetitions,
+        id: id ?? this.id,
+        name: name ?? this.name,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('DriftStrengthExercises(')
+          ..write('repetitions: $repetitions, ')
+          ..write('id: $id, ')
+          ..write('name: $name')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(repetitions, id, name);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is DriftStrengthExercises &&
+          other.repetitions == this.repetitions &&
+          other.id == this.id &&
+          other.name == this.name);
+}
+
+class DriftStrengthExercisesTableCompanion
+    extends UpdateCompanion<DriftStrengthExercises> {
+  final Value<int> repetitions;
+  final Value<String> id;
+  final Value<String> name;
+  const DriftStrengthExercisesTableCompanion({
+    this.repetitions = const Value.absent(),
+    this.id = const Value.absent(),
+    this.name = const Value.absent(),
+  });
+  DriftStrengthExercisesTableCompanion.insert({
+    required int repetitions,
+    required String id,
+    required String name,
+  })  : repetitions = Value(repetitions),
+        id = Value(id),
+        name = Value(name);
+  static Insertable<DriftStrengthExercises> custom({
+    Expression<int>? repetitions,
+    Expression<String>? id,
+    Expression<String>? name,
+  }) {
+    return RawValuesInsertable({
+      if (repetitions != null) 'repetitions': repetitions,
+      if (id != null) 'id': id,
+      if (name != null) 'name': name,
+    });
+  }
+
+  DriftStrengthExercisesTableCompanion copyWith(
+      {Value<int>? repetitions, Value<String>? id, Value<String>? name}) {
+    return DriftStrengthExercisesTableCompanion(
+      repetitions: repetitions ?? this.repetitions,
+      id: id ?? this.id,
+      name: name ?? this.name,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (repetitions.present) {
+      map['repetitions'] = Variable<int>(repetitions.value);
+    }
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DriftStrengthExercisesTableCompanion(')
+          ..write('repetitions: $repetitions, ')
+          ..write('id: $id, ')
+          ..write('name: $name')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $DriftStrengthExercisesTableTable extends DriftStrengthExercisesTable
+    with TableInfo<$DriftStrengthExercisesTableTable, DriftStrengthExercises> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $DriftStrengthExercisesTableTable(this.attachedDatabase, [this._alias]);
+  final VerificationMeta _repetitionsMeta =
+      const VerificationMeta('repetitions');
+  @override
+  late final GeneratedColumn<int> repetitions = GeneratedColumn<int>(
+      'repetitions', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  final VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      defaultConstraints: 'UNIQUE');
+  final VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+      'name', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [repetitions, id, name];
+  @override
+  String get aliasedName => _alias ?? 'drift_strength_exercises_table';
+  @override
+  String get actualTableName => 'drift_strength_exercises_table';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<DriftStrengthExercises> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('repetitions')) {
+      context.handle(
+          _repetitionsMeta,
+          repetitions.isAcceptableOrUnknown(
+              data['repetitions']!, _repetitionsMeta));
+    } else if (isInserting) {
+      context.missing(_repetitionsMeta);
+    }
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => <GeneratedColumn>{};
+  @override
+  DriftStrengthExercises map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return DriftStrengthExercises(
+      repetitions: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}repetitions'])!,
+      id: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      name: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+    );
+  }
+
+  @override
+  $DriftStrengthExercisesTableTable createAlias(String alias) {
+    return $DriftStrengthExercisesTableTable(attachedDatabase, alias);
+  }
+}
+
 class HallTreaningItem extends DataClass
     implements Insertable<HallTreaningItem> {
-  final int id;
+  final String id;
   final int hallId;
   final DateTime date;
   final DateTime? finish;
@@ -21,7 +235,7 @@ class HallTreaningItem extends DataClass
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
+    map['id'] = Variable<String>(id);
     map['hall_id'] = Variable<int>(hallId);
     map['date'] = Variable<DateTime>(date);
     if (!nullToAbsent || finish != null) {
@@ -44,7 +258,7 @@ class HallTreaningItem extends DataClass
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return HallTreaningItem(
-      id: serializer.fromJson<int>(json['id']),
+      id: serializer.fromJson<String>(json['id']),
       hallId: serializer.fromJson<int>(json['hallId']),
       date: serializer.fromJson<DateTime>(json['date']),
       finish: serializer.fromJson<DateTime?>(json['finish']),
@@ -54,7 +268,7 @@ class HallTreaningItem extends DataClass
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
+      'id': serializer.toJson<String>(id),
       'hallId': serializer.toJson<int>(hallId),
       'date': serializer.toJson<DateTime>(date),
       'finish': serializer.toJson<DateTime?>(finish),
@@ -62,7 +276,7 @@ class HallTreaningItem extends DataClass
   }
 
   HallTreaningItem copyWith(
-          {int? id,
+          {String? id,
           int? hallId,
           DateTime? date,
           Value<DateTime?> finish = const Value.absent()}) =>
@@ -96,7 +310,7 @@ class HallTreaningItem extends DataClass
 }
 
 class HallTreaningTableCompanion extends UpdateCompanion<HallTreaningItem> {
-  final Value<int> id;
+  final Value<String> id;
   final Value<int> hallId;
   final Value<DateTime> date;
   final Value<DateTime?> finish;
@@ -107,14 +321,15 @@ class HallTreaningTableCompanion extends UpdateCompanion<HallTreaningItem> {
     this.finish = const Value.absent(),
   });
   HallTreaningTableCompanion.insert({
-    this.id = const Value.absent(),
+    required String id,
     required int hallId,
     required DateTime date,
     this.finish = const Value.absent(),
-  })  : hallId = Value(hallId),
+  })  : id = Value(id),
+        hallId = Value(hallId),
         date = Value(date);
   static Insertable<HallTreaningItem> custom({
-    Expression<int>? id,
+    Expression<String>? id,
     Expression<int>? hallId,
     Expression<DateTime>? date,
     Expression<DateTime>? finish,
@@ -128,7 +343,7 @@ class HallTreaningTableCompanion extends UpdateCompanion<HallTreaningItem> {
   }
 
   HallTreaningTableCompanion copyWith(
-      {Value<int>? id,
+      {Value<String>? id,
       Value<int>? hallId,
       Value<DateTime>? date,
       Value<DateTime?>? finish}) {
@@ -144,7 +359,7 @@ class HallTreaningTableCompanion extends UpdateCompanion<HallTreaningItem> {
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     if (id.present) {
-      map['id'] = Variable<int>(id.value);
+      map['id'] = Variable<String>(id.value);
     }
     if (hallId.present) {
       map['hall_id'] = Variable<int>(hallId.value);
@@ -178,11 +393,9 @@ class $HallTreaningTableTable extends HallTreaningTable
   $HallTreaningTableTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
   @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
       'id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
+      type: DriftSqlType.string, requiredDuringInsert: true);
   final VerificationMeta _hallIdMeta = const VerificationMeta('hallId');
   @override
   late final GeneratedColumn<int> hallId = GeneratedColumn<int>(
@@ -211,6 +424,8 @@ class $HallTreaningTableTable extends HallTreaningTable
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
     }
     if (data.containsKey('hall_id')) {
       context.handle(_hallIdMeta,
@@ -232,13 +447,13 @@ class $HallTreaningTableTable extends HallTreaningTable
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {id};
+  Set<GeneratedColumn> get $primaryKey => <GeneratedColumn>{};
   @override
   HallTreaningItem map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return HallTreaningItem(
       id: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
       hallId: attachedDatabase.options.types
           .read(DriftSqlType.int, data['${effectivePrefix}hall_id'])!,
       date: attachedDatabase.options.types
@@ -256,7 +471,7 @@ class $HallTreaningTableTable extends HallTreaningTable
 
 class HallAttemptItem extends DataClass implements Insertable<HallAttemptItem> {
   final int id;
-  final int treaningId;
+  final String treaningId;
   final int categoryId;
   final int styleId;
   final int? routeId;
@@ -284,7 +499,7 @@ class HallAttemptItem extends DataClass implements Insertable<HallAttemptItem> {
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
-    map['treaning_id'] = Variable<int>(treaningId);
+    map['treaning_id'] = Variable<String>(treaningId);
     map['category_id'] = Variable<int>(categoryId);
     map['style_id'] = Variable<int>(styleId);
     if (!nullToAbsent || routeId != null) {
@@ -334,7 +549,7 @@ class HallAttemptItem extends DataClass implements Insertable<HallAttemptItem> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return HallAttemptItem(
       id: serializer.fromJson<int>(json['id']),
-      treaningId: serializer.fromJson<int>(json['treaningId']),
+      treaningId: serializer.fromJson<String>(json['treaningId']),
       categoryId: serializer.fromJson<int>(json['categoryId']),
       styleId: serializer.fromJson<int>(json['styleId']),
       routeId: serializer.fromJson<int?>(json['routeId']),
@@ -352,7 +567,7 @@ class HallAttemptItem extends DataClass implements Insertable<HallAttemptItem> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
-      'treaningId': serializer.toJson<int>(treaningId),
+      'treaningId': serializer.toJson<String>(treaningId),
       'categoryId': serializer.toJson<int>(categoryId),
       'styleId': serializer.toJson<int>(styleId),
       'routeId': serializer.toJson<int?>(routeId),
@@ -368,7 +583,7 @@ class HallAttemptItem extends DataClass implements Insertable<HallAttemptItem> {
 
   HallAttemptItem copyWith(
           {int? id,
-          int? treaningId,
+          String? treaningId,
           int? categoryId,
           int? styleId,
           Value<int?> routeId = const Value.absent(),
@@ -447,7 +662,7 @@ class HallAttemptItem extends DataClass implements Insertable<HallAttemptItem> {
 
 class HallAttemptTableCompanion extends UpdateCompanion<HallAttemptItem> {
   final Value<int> id;
-  final Value<int> treaningId;
+  final Value<String> treaningId;
   final Value<int> categoryId;
   final Value<int> styleId;
   final Value<int?> routeId;
@@ -474,7 +689,7 @@ class HallAttemptTableCompanion extends UpdateCompanion<HallAttemptItem> {
   });
   HallAttemptTableCompanion.insert({
     this.id = const Value.absent(),
-    required int treaningId,
+    required String treaningId,
     required int categoryId,
     required int styleId,
     this.routeId = const Value.absent(),
@@ -494,7 +709,7 @@ class HallAttemptTableCompanion extends UpdateCompanion<HallAttemptItem> {
         fail = Value(fail);
   static Insertable<HallAttemptItem> custom({
     Expression<int>? id,
-    Expression<int>? treaningId,
+    Expression<String>? treaningId,
     Expression<int>? categoryId,
     Expression<int>? styleId,
     Expression<int>? routeId,
@@ -524,7 +739,7 @@ class HallAttemptTableCompanion extends UpdateCompanion<HallAttemptItem> {
 
   HallAttemptTableCompanion copyWith(
       {Value<int>? id,
-      Value<int>? treaningId,
+      Value<String>? treaningId,
       Value<int>? categoryId,
       Value<int>? styleId,
       Value<int?>? routeId,
@@ -558,7 +773,7 @@ class HallAttemptTableCompanion extends UpdateCompanion<HallAttemptItem> {
       map['id'] = Variable<int>(id.value);
     }
     if (treaningId.present) {
-      map['treaning_id'] = Variable<int>(treaningId.value);
+      map['treaning_id'] = Variable<String>(treaningId.value);
     }
     if (categoryId.present) {
       map['category_id'] = Variable<int>(categoryId.value);
@@ -628,9 +843,9 @@ class $HallAttemptTableTable extends HallAttemptTable
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _treaningIdMeta = const VerificationMeta('treaningId');
   @override
-  late final GeneratedColumn<int> treaningId = GeneratedColumn<int>(
+  late final GeneratedColumn<String> treaningId = GeneratedColumn<String>(
       'treaning_id', aliasedName, false,
-      type: DriftSqlType.int,
+      type: DriftSqlType.string,
       requiredDuringInsert: true,
       defaultConstraints: 'REFERENCES "hall_treaning_table" ("id")');
   final VerificationMeta _categoryIdMeta = const VerificationMeta('categoryId');
@@ -797,7 +1012,7 @@ class $HallAttemptTableTable extends HallAttemptTable
       id: attachedDatabase.options.types
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       treaningId: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}treaning_id'])!,
+          .read(DriftSqlType.string, data['${effectivePrefix}treaning_id'])!,
       categoryId: attachedDatabase.options.types
           .read(DriftSqlType.int, data['${effectivePrefix}category_id'])!,
       styleId: attachedDatabase.options.types
@@ -827,8 +1042,10 @@ class $HallAttemptTableTable extends HallAttemptTable
   }
 }
 
-abstract class _$LocalDatabase extends GeneratedDatabase {
-  _$LocalDatabase(QueryExecutor e) : super(e);
+abstract class _$DriftBDLocalDataSource extends GeneratedDatabase {
+  _$DriftBDLocalDataSource(QueryExecutor e) : super(e);
+  late final $DriftStrengthExercisesTableTable driftStrengthExercisesTable =
+      $DriftStrengthExercisesTableTable(this);
   late final $HallTreaningTableTable hallTreaningTable =
       $HallTreaningTableTable(this);
   late final $HallAttemptTableTable hallAttemptTable =
@@ -838,5 +1055,5 @@ abstract class _$LocalDatabase extends GeneratedDatabase {
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities =>
-      [hallTreaningTable, hallAttemptTable];
+      [driftStrengthExercisesTable, hallTreaningTable, hallAttemptTable];
 }

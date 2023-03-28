@@ -1,8 +1,9 @@
 import 'package:climbing_diary/core/data/climbing_style.dart';
+import 'package:climbing_diary/core/data/data_with_uuid.dart';
 import 'package:climbing_diary/core/data/ice_category.dart';
 import 'package:climbing_diary/features/ice_climbing/domain/entities/ice_sector.dart';
 
-class IceTreaningAttempt {
+class IceTreaningAttempt extends DataWithUUID {
   final IceSector sector;
   final IceCategory category;
   final ClimbingStyle style;
@@ -37,6 +38,7 @@ class IceTreaningAttempt {
     DateTime? startTime,
     DateTime? finishTime,
     int? wayLength,
+    super.id,
   })  : _startTime = startTime,
         _finishTime = finishTime,
         length = wayLength ?? sector.lenght;

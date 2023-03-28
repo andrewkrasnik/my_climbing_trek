@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import 'package:climbing_diary/core/data/climbing_style.dart';
 import 'package:climbing_diary/features/ice_climbing/domain/entities/ice_treaning.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SelectIceRouteWidget extends StatelessWidget {
   final IceTreaning treaning;

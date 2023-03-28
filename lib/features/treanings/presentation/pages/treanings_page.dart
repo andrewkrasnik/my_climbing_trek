@@ -1,6 +1,4 @@
 import 'package:climbing_diary/core/extentions/date_time_extention.dart';
-import 'package:climbing_diary/features/hall_climbing/presentation/bloc/current_hall_treaning/current_hall_treaning_cubit.dart';
-import 'package:climbing_diary/features/hall_climbing/presentation/bloc/hall_treanings/hall_treanings_cubit.dart';
 import 'package:climbing_diary/features/treanings/presentation/cubit/treanings_cubit.dart';
 import 'package:climbing_diary/features/treanings/presentation/widgets/treaning_widget_factory.dart';
 import 'package:collection/collection.dart';

@@ -6,8 +6,6 @@ class CardioTreaning extends Treaning {
   final CardioExercise exercise;
   final double length;
 
-  DateTime? _finish;
-
   CardioTreaning({
     super.id,
     required super.date,

@@ -13,7 +13,7 @@ class SaveCardioTreaning {
   });
 
   Future<Either<Failure, CardioTreaning>> call({
-    int? id,
+    String id = '',
     required DateTime date,
     required int duration,
     required CardioExercise exercise,
