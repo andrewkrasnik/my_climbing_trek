@@ -7,6 +7,7 @@ import 'package:climbing_diary/features/hall_climbing/presentation/bloc/home_pag
 import 'package:climbing_diary/features/ice_climbing/presentation/bloc/current_ice_treaning/current_ice_treaning_cubit.dart';
 
 import 'package:climbing_diary/features/settings/presentation/cubit/settings_cubit.dart';
+import 'package:climbing_diary/features/strength_training/presentation/cubit/strength_training/strength_training_cubit.dart';
 import 'package:climbing_diary/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,6 +42,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => getIt<CardioTreaningCubit>()..loadData(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<StrengthTrainingCubit>()..loadData(),
         ),
       ],
       child: MaterialApp(

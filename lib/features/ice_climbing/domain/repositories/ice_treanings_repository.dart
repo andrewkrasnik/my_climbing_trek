@@ -8,4 +8,6 @@ abstract class IceTreaningsRepository {
   Future<Either<Failure, List<IceTreaning>>> getTreanings();
   Future<Either<Failure, IceTreaning>> getCurrentTreaning();
   Future<Either<Failure, IceTreaning>> getPreviousTreaning();
+
+  Future<Either<Failure, Unit>> deleteTreaning({required IceTreaning treaning});
 }

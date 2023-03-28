@@ -30,4 +30,11 @@ class IceTreaningsRepositoryImpl implements IceTreaningsRepository {
       {required IceTreaning treaning}) async {
     return await _iceTreaningsDataSource.saveTreaning(treaning: treaning);
   }
+
+  @override
+  Future<Either<Failure, Unit>> deleteTreaning(
+      {required IceTreaning treaning}) {
+    // TODO: implement deleteTreaning
+    throw UnimplementedError();
+  }
 }

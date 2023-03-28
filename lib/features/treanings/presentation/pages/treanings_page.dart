@@ -1,9 +1,9 @@
+import 'package:climbing_diary/core/extentions/date_time_extention.dart';
 import 'package:climbing_diary/features/hall_climbing/presentation/bloc/current_hall_treaning/current_hall_treaning_cubit.dart';
 import 'package:climbing_diary/features/hall_climbing/presentation/bloc/hall_treanings/hall_treanings_cubit.dart';
-import 'package:climbing_diary/features/hall_climbing/presentation/pages/hall_treaning_page.dart';
 import 'package:climbing_diary/features/treanings/presentation/cubit/treanings_cubit.dart';
-import 'package:climbing_diary/features/treanings/presentation/widgets/treaning_page_factory.dart';
 import 'package:climbing_diary/features/treanings/presentation/widgets/treaning_widget_factory.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
 import 'package:climbing_diary/service_locator.dart';
@@ -25,76 +25,98 @@ class TreaningsPage extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: state.maybeMap(
                 loading: (_) => const CircularProgressIndicator(),
-                data: (dataState) => ListView.separated(
-                    itemBuilder: (context, index) => Slidable(
-                          endActionPane: ActionPane(
-                            motion: const ScrollMotion(),
-                            children: [
-                              SlidableAction(
-                                flex: 1,
-                                onPressed: (context) async {
-                                  final cubit =
-                                      BlocProvider.of<HallTreaningsCubit>(
-                                          context);
+                data: (dataState) {
+                  DateTime cuttentMonth =
+                      (dataState.treanings.firstOrNull?.date ?? DateTime.now())
+                          .monthStart();
+                  return ListView.separated(
+                      itemBuilder: (context, index) => Slidable(
+                            endActionPane: ActionPane(
+                              motion: const ScrollMotion(),
+                              children: [
+                                SlidableAction(
+                                  flex: 1,
+                                  onPressed: (context) async {
+                                    final cubit =
+                                        BlocProvider.of<TreaningsCubit>(
+                                            context);
 
-                                  final currentTreaningCubit =
-                                      BlocProvider.of<CurrentHallTreaningCubit>(
-                                          context);
+                                    final deletePermission =
+                                        await showDialog<bool>(
+                                      context: context,
+                                      builder: (context) => AlertDialog(
+                                        title: const Text(
+                                            'Подтверждение удаления'),
+                                        content: const Text(
+                                            'После удаления данные о тренировке станут недоступны. Продолжить?'),
+                                        actions: [
+                                          ElevatedButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop(false);
+                                            },
+                                            child: const Text('Отменить'),
+                                          ),
+                                          ElevatedButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop(true);
+                                            },
+                                            child: const Text('Продолжить'),
+                                          ),
+                                        ],
+                                      ),
+                                    );
 
-                                  final deletePermission =
-                                      await showDialog<bool>(
-                                    context: context,
-                                    builder: (context) => AlertDialog(
-                                      title:
-                                          const Text('Подтверждение удаления'),
-                                      content: const Text(
-                                          'После удаления данные о тренировке станут недоступны. Продолжить?'),
-                                      actions: [
-                                        ElevatedButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pop(false);
-                                          },
-                                          child: const Text('Отменить'),
-                                        ),
-                                        ElevatedButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pop(true);
-                                          },
-                                          child: const Text('Продолжить'),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-
-                                  if (deletePermission == true) {
-                                    cubit.deleteTreaning(
-                                        treaning: dataState.treanings[index]);
-
-                                    currentTreaningCubit.loadData();
-                                  }
-                                },
-                                backgroundColor: Colors.red.shade400,
-                                foregroundColor: Colors.white,
-                                icon: Icons.delete,
-                                label: 'delete',
-                              ),
-                            ],
+                                    if (deletePermission == true) {
+                                      cubit.delete(
+                                          treaning: dataState.treanings[index]);
+                                    }
+                                  },
+                                  backgroundColor: Colors.red.shade400,
+                                  foregroundColor: Colors.white,
+                                  icon: Icons.delete,
+                                  label: 'delete',
+                                ),
+                              ],
+                            ),
+                            child: GestureDetector(
+                              onTap: () {
+                                // Navigator.of(context).push(MaterialPageRoute(
+                                //     builder: (context) => TreaningPageFactory(
+                                //           treaning: dataState.treanings[index],
+                                //         )));
+                              },
+                              child: TreaningWidgetFactory(
+                                  treaning: dataState.treanings[index]),
+                            ),
                           ),
-                          child: GestureDetector(
-                            onTap: () {
-                              // Navigator.of(context).push(MaterialPageRoute(
-                              //     builder: (context) => TreaningPageFactory(
-                              //           treaning: dataState.treanings[index],
-                              //         )));
-                            },
-                            child: TreaningWidgetFactory(
-                                treaning: dataState.treanings[index]),
-                          ),
-                        ),
-                    separatorBuilder: (_, __) => const SizedBox(
+                      separatorBuilder: (_, index) {
+                        if (index < dataState.treanings.length) {
+                          final month =
+                              dataState.treanings[index + 1].date.monthStart();
+
+                          if (cuttentMonth != month) {
+                            cuttentMonth = month;
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 24),
+                              child: Center(
+                                  child: Text(
+                                cuttentMonth.monthString(),
+                                style:
+                                    Theme.of(context).textTheme.headlineSmall,
+                              )),
+                            );
+                          } else {
+                            return const SizedBox(
+                              height: 32,
+                            );
+                          }
+                        }
+                        return const SizedBox(
                           height: 32,
-                        ),
-                    itemCount: dataState.treanings.length),
+                        );
+                      },
+                      itemCount: dataState.treanings.length);
+                },
                 orElse: () => const SizedBox(),
               ),
             ),

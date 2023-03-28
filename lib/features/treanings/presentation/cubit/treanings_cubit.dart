@@ -1,4 +1,5 @@
 import 'package:climbing_diary/core/data/treaning.dart';
+import 'package:climbing_diary/features/treanings/domain/usecases/delete_treaning.dart';
 import 'package:climbing_diary/features/treanings/domain/usecases/get_all_treanings.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -10,8 +11,12 @@ part 'treanings_cubit.freezed.dart';
 @injectable
 class TreaningsCubit extends Cubit<TreaningsState> {
   final GetAllTreanings _allTreanings;
+  final DeleteTreaning _deleteTreaning;
 
-  TreaningsCubit(this._allTreanings) : super(const TreaningsState.initial());
+  TreaningsCubit(
+    this._allTreanings,
+    this._deleteTreaning,
+  ) : super(const TreaningsState.initial());
 
   Future<void> loadData() async {
     emit(const TreaningsState.loading());
@@ -28,14 +33,14 @@ class TreaningsCubit extends Cubit<TreaningsState> {
   }
 
   Future<void> delete({required Treaning treaning}) async {
-    // final failureOrUnit = await _deleteStrengthTreaning(treaning: treaning);
+    final failureOrUnit = await _deleteTreaning(treaning: treaning);
 
-    // failureOrUnit.fold(
-    //     (failure) => emit(StrengthTrainingsState.error(
-    //           description: failure.toString(),
-    //         )),
-    //     (_) => null);
+    failureOrUnit.fold(
+        (failure) => emit(TreaningsState.error(
+              description: failure.toString(),
+            )),
+        (_) => null);
 
-    // loadData();
+    loadData();
   }
 }

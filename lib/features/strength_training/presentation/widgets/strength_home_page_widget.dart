@@ -1,5 +1,4 @@
 import 'package:climbing_diary/features/strength_training/presentation/cubit/strength_training/strength_training_cubit.dart';
-import 'package:climbing_diary/features/strength_training/presentation/widgets/strength_exercises_widget.dart';
 import 'package:climbing_diary/features/strength_training/presentation/widgets/strength_treaning_widget.dart';
 import 'package:climbing_diary/service_locator.dart';
 import 'package:flutter/material.dart';
@@ -10,31 +9,48 @@ class StrengthHomePageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<StrengthTrainingCubit>()..loadData(),
-      child: BlocBuilder<StrengthTrainingCubit, StrengthTrainingState>(
-        builder: (context, state) {
-          return Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              if (state.currentTreaning == null)
-                OutlinedButton(
-                  onPressed: () {
-                    BlocProvider.of<StrengthTrainingCubit>(context)
-                        .addTreaning();
-                  },
-                  child: const Text('Силовая тренировка'),
-                ),
-              if (state.currentTreaning != null)
-                StrengthTreaningWidget(
-                  treaning: state.currentTreaning!,
-                  editing: state.currentTreaning!.started,
-                ),
-              const StrengthExercisesWidget(),
+    const titleTextStyle = TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
+    return BlocBuilder<StrengthTrainingCubit, StrengthTrainingState>(
+      builder: (context, state) {
+        return Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            const Text(
+              'Силовые тренировки',
+              style: titleTextStyle,
+            ),
+            const SizedBox(height: 8),
+            if (state.currentTreaning == null)
+              OutlinedButton(
+                onPressed: () {
+                  BlocProvider.of<StrengthTrainingCubit>(context).addTreaning();
+                },
+                child: const Text('Добавить тренировку'),
+              ),
+            if (state.currentTreaning != null) ...[
+              const Text(
+                'Текущая тренировка:',
+                style: titleTextStyle,
+              ),
+              const SizedBox(height: 8),
+              StrengthTreaningWidget(
+                treaning: state.currentTreaning!,
+                editing: state.currentTreaning!.started,
+              ),
             ],
-          );
-        },
-      ),
+            if (state.previosTreaning != null) ...[
+              const Text(
+                'Предыдущая тренировка:',
+                style: titleTextStyle,
+              ),
+              const SizedBox(height: 8),
+              StrengthTreaningWidget(
+                treaning: state.previosTreaning!,
+              ),
+            ],
+          ],
+        );
+      },
     );
   }
 }

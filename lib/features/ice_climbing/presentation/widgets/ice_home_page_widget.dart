@@ -24,13 +24,15 @@ class IceHomePageWidget extends StatelessWidget {
               'Ледолазные тренировки',
               style: titleTextStyle,
             ),
-            const SizedBox(
-              height: 32,
-            ),
+            const SizedBox(height: 16),
             Column(
               children: [
                 if (state.currentAttempt != null) ...[
-                  const Text('Текущая попытка'),
+                  const Text(
+                    'Текущая попытка',
+                    style: titleTextStyle,
+                  ),
+                  const SizedBox(height: 8),
                   IceAttemptWidget(
                     attempt: state.currentAttempt!,
                     isCurrent: true,
@@ -38,21 +40,33 @@ class IceHomePageWidget extends StatelessWidget {
                   )
                 ],
                 if (state.lastAttempt != null) ...[
-                  const Text('Предудущая попытка'),
+                  const Text(
+                    'Предудущая попытка',
+                    style: titleTextStyle,
+                  ),
+                  const SizedBox(height: 8),
                   IceAttemptWidget(
                     attempt: state.lastAttempt!,
                     cubit: cubit,
                   )
                 ],
                 if (state.currentTreaning != null) ...[
-                  const Text('Текущая тренировка'),
+                  const Text(
+                    'Текущая тренировка',
+                    style: titleTextStyle,
+                  ),
+                  const SizedBox(height: 8),
                   IceTreaningWidget(
                     treaning: state.currentTreaning!,
                     isCurrent: true,
                   )
                 ],
                 if (state.lastTreaning != null) ...[
-                  const Text('Предыдущая тренировка'),
+                  const Text(
+                    'Предыдущая тренировка',
+                    style: titleTextStyle,
+                  ),
+                  const SizedBox(height: 8),
                   IceTreaningWidget(
                     treaning: state.lastTreaning!,
                   )

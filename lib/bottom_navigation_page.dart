@@ -1,6 +1,6 @@
 import 'package:climbing_diary/features/treanings/presentation/pages/treanings_page.dart';
 import 'package:climbing_diary/home_page.dart';
-import 'package:climbing_diary/other_treanings_page.dart';
+
 import 'package:flutter/material.dart';
 
 import 'features/settings/presentation/pages/settings_page.dart';
@@ -20,7 +20,6 @@ class _BottomNavigationPageState extends State<BottomNavigationPage>
   static const List<Widget> _pages = <Widget>[
     HomePage(),
     TreaningsPage(),
-    OtherTreaningsPage(),
     SettingsPage(),
   ];
 
@@ -45,12 +44,6 @@ class _BottomNavigationPageState extends State<BottomNavigationPage>
           BottomNavigationBarItem(
             icon: Icon(Icons.run_circle_outlined),
             label: 'Treanings',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.fitness_center_outlined,
-            ),
-            label: 'Other treanings',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
