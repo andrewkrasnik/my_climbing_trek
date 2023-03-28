@@ -5,7 +5,7 @@ import 'package:dartz/dartz.dart';
 abstract class IceTreaningsRepository {
   Future<Either<Failure, IceTreaning>> saveTreaning(
       {required IceTreaning treaning});
-  Future<Either<Failure, List<IceTreaning>>> getTreaning();
+  Future<Either<Failure, List<IceTreaning>>> getTreanings();
   Future<Either<Failure, IceTreaning>> getCurrentTreaning();
   Future<Either<Failure, IceTreaning>> getPreviousTreaning();
 }

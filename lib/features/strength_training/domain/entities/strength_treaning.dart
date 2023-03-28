@@ -1,9 +1,7 @@
-import 'package:climbing_diary/core/data/unique_id.dart';
+import 'package:climbing_diary/core/data/treaning.dart';
 import 'package:climbing_diary/features/strength_training/domain/entities/strength_exercise.dart';
 
-class StrengthTreaning {
-  final UniqueId _id;
-  final DateTime date;
+class StrengthTreaning extends Treaning {
   final List<StrengthTreaningExerciseLine> excercises = [];
 
   DateTime? _finish;
@@ -11,22 +9,14 @@ class StrengthTreaning {
 
   bool get started => _start != null && _finish == null;
 
-  bool get finished => _finish != null;
-
-  void finish() {
-    _finish = DateTime.now();
-  }
-
   void start() {
     _start = DateTime.now();
   }
 
-  String get id => _id.value;
-
   StrengthTreaning({
-    String id = '',
-    required this.date,
-  }) : _id = UniqueId.fromUniqueString(id);
+    super.id,
+    required super.date,
+  });
 
   void updateExercises({required List<StrengthExercise> selectedExercises}) {
     excercises.clear();

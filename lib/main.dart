@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:climbing_diary/bottom_navigation_page.dart';
 import 'package:climbing_diary/features/hall_climbing/presentation/bloc/current_hall_treaning/current_hall_treaning_cubit.dart';
 import 'package:climbing_diary/features/hall_climbing/presentation/bloc/home_page/home_page_cubit.dart';
+import 'package:climbing_diary/features/ice_climbing/presentation/bloc/current_ice_treaning/current_ice_treaning_cubit.dart';
 
 import 'package:climbing_diary/features/settings/presentation/cubit/settings_cubit.dart';
 import 'package:climbing_diary/service_locator.dart';
@@ -33,6 +34,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<SettingsCubit>(
           create: (context) => getIt<SettingsCubit>()..loadData(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<CurrentIceTreaningCubit>(),
         ),
       ],
       child: MaterialApp(

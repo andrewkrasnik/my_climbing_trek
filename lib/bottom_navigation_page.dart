@@ -1,4 +1,4 @@
-import 'package:climbing_diary/features/hall_climbing/presentation/pages/hall_treanings_page.dart';
+import 'package:climbing_diary/features/treanings/presentation/pages/treanings_page.dart';
 import 'package:climbing_diary/home_page.dart';
 import 'package:climbing_diary/other_treanings_page.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +19,7 @@ class _BottomNavigationPageState extends State<BottomNavigationPage>
   final RestorableInt _currentIndex = RestorableInt(0);
   static const List<Widget> _pages = <Widget>[
     HomePage(),
-    HallTreaningsPage(),
+    TreaningsPage(),
     OtherTreaningsPage(),
     SettingsPage(),
   ];

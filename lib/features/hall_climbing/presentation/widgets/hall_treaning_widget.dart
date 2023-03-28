@@ -92,22 +92,22 @@ class HallTreaningWidget extends StatelessWidget {
                       return const SizedBox();
                     }
                   } else {
-                    if (state.current == null) {
-                      return Row(
-                        children: [
-                          const Expanded(child: SizedBox()),
-                          TextButton(
-                            child: const Text('Повторить'),
-                            onPressed: () {
-                              BlocProvider.of<CurrentHallTreaningCubit>(context)
-                                  .repeatTreaning(treaning: treaning);
-                            },
-                          ),
-                        ],
-                      );
-                    } else {
-                      return const SizedBox();
-                    }
+                    // if (state.current == null) {
+                    //   return Row(
+                    //     children: [
+                    //       const Expanded(child: SizedBox()),
+                    //       TextButton(
+                    //         child: const Text('Повторить'),
+                    //         onPressed: () {
+                    //           BlocProvider.of<CurrentHallTreaningCubit>(context)
+                    //               .repeatTreaning(treaning: treaning);
+                    //         },
+                    //       ),
+                    //     ],
+                    //   );
+                    // } else {
+                    return const SizedBox();
+                    // }
                   }
                 },
               ),

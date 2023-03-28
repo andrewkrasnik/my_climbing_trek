@@ -1,3 +1,4 @@
+import 'package:climbing_diary/core/data/treaning.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_treaning.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/usecases/treanings/all_hall_treanings.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/usecases/treanings/delete_hall_treaning.dart';
@@ -24,8 +25,8 @@ class HallTreaningsCubit extends Cubit<HallTreaningsState> {
         (treanings) => emit(HallTreaningsState.data(treanings: treanings)));
   }
 
-  Future<void> deleteTreaning({required ClimbingHallTreaning treaning}) async {
-    final failureOrUnit = await deleteHallTreaning(treaning: treaning);
-    failureOrUnit.fold((failure) => null, (_) => loadData());
+  Future<void> deleteTreaning({required Treaning treaning}) async {
+    // final failureOrUnit = await deleteHallTreaning(treaning: treaning);
+    // failureOrUnit.fold((failure) => null, (_) => loadData());
   }
 }
