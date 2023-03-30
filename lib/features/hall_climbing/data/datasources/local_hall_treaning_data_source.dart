@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:climbing_diary/core/data/ascent_type.dart';
 import 'package:climbing_diary/core/data/climbing_category.dart';
 import 'package:climbing_diary/core/data/climbing_style.dart';
@@ -9,7 +7,7 @@ import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_h
 import 'package:climbing_diary/service_locator.dart';
 import 'package:dartz/dartz.dart';
 import 'package:drift/drift.dart';
-import 'package:drift/native.dart';
+
 import 'package:injectable/injectable.dart';
 
 import 'package:climbing_diary/core/failures/failure.dart';

@@ -23,7 +23,7 @@ class DriftDBLocalDataSource extends _$DriftDBLocalDataSource
   DriftDBLocalDataSource() : super(_openConnection());
 
   @override
-  int get schemaVersion => 3;
+  int get schemaVersion => 4;
 
   @override
   MigrationStrategy get migration {
@@ -43,6 +43,10 @@ class DriftDBLocalDataSource extends _$DriftDBLocalDataSource
           await m.renameTable(driftHallTreaningsTable, 'hall_treaning_table');
           await m.renameTable(driftHallAttemptsTable, 'hall_attempt_table');
         }
+        if (from < 4) {
+          await m.addColumn(driftStrengthExercisesTable,
+              driftStrengthExercisesTable.selected);
+        }
       },
     );
   }
@@ -57,16 +61,19 @@ class DriftDBLocalDataSource extends _$DriftDBLocalDataSource
 
     return failureOrTable.fold((failure) => Left(failure), (driftTable) async {
       final List<DataClass> data = await (select(driftTable)
-            // ..where((tbl) {
-            //   // final List<Expression<bool>> conditions = [];
-            //   for (var key in whereConditions!.keys) {
-            //     final column = tbl.columnsByName[key];
-            //     if (column != null) {
-            //       return column.equals(whereConditions[key]);
-            //     }
-            //   }
-            //   throw 'Неизвестное условие';
-            // })
+            ..where((tbl) {
+              if (whereConditions == null) {
+                return const Constant(true);
+              }
+              // final List<Expression<bool>> conditions = [];
+              for (var key in whereConditions!.keys) {
+                final column = driftTable.columnsByName[key];
+                if (column != null) {
+                  return column.equals(whereConditions[key]);
+                }
+              }
+              throw 'Неизвестное условие';
+            })
             ..orderBy(orderByConditions!.keys
                 .map(
                   (key) => (tbl) => OrderingTerm(

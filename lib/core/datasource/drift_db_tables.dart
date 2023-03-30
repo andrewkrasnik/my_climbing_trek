@@ -11,14 +11,21 @@ class DriftStrengthExercisesTable extends Table {
   IntColumn get repetitions => integer()();
   TextColumn get id => text().unique()();
   TextColumn get name => text()();
+  BoolColumn get selected => boolean().withDefault(const Constant(false))();
+
+  @override
+  Set<Column>? get primaryKey => {id};
 }
 
 @DataClassName('DriftHallTreaning')
 class DriftHallTreaningsTable extends Table {
-  TextColumn get id => text()();
+  TextColumn get id => text().unique()();
   IntColumn get hallId => integer()();
   DateTimeColumn get date => dateTime()();
   DateTimeColumn get finish => dateTime().nullable()();
+
+  @override
+  Set<Column>? get primaryKey => {id};
 }
 
 @DataClassName('DriftHallAttempt')

@@ -24,9 +24,9 @@ import 'features/cardio_workout/domain/usecases/get_last_cardio_treaning.dart'
 import 'features/cardio_workout/domain/usecases/save_cardio_treaning.dart'
     as _i35;
 import 'features/cardio_workout/presentation/cubit/cardio_treaning/cardio_treaning_cubit.dart'
-    as _i49;
-import 'features/cardio_workout/presentation/cubit/cardio_treanings/cardio_treanings_cubit.dart'
     as _i50;
+import 'features/cardio_workout/presentation/cubit/cardio_treanings/cardio_treanings_cubit.dart'
+    as _i51;
 import 'features/hall_climbing/data/datasources/climbing_hall_data_source.dart'
     as _i6;
 import 'features/hall_climbing/data/datasources/hall_treaning_data_source.dart'
@@ -43,26 +43,26 @@ import 'features/hall_climbing/domain/repositories/climbing_hall_repository.dart
     as _i8;
 import 'features/hall_climbing/domain/repositories/hall_treaning_repository.dart'
     as _i18;
-import 'features/hall_climbing/domain/usecases/all_climbing_halls.dart' as _i47;
+import 'features/hall_climbing/domain/usecases/all_climbing_halls.dart' as _i48;
 import 'features/hall_climbing/domain/usecases/get_climbing_hall_routes.dart'
     as _i13;
 import 'features/hall_climbing/domain/usecases/get_hall_route_attempts.dart'
-    as _i67;
+    as _i68;
 import 'features/hall_climbing/domain/usecases/hall_route_to_archive.dart'
     as _i15;
 import 'features/hall_climbing/domain/usecases/new_hall_route.dart' as _i31;
 import 'features/hall_climbing/domain/usecases/treanings/all_hall_treanings.dart'
-    as _i48;
+    as _i49;
 import 'features/hall_climbing/domain/usecases/treanings/current_hall_treaning.dart'
-    as _i53;
-import 'features/hall_climbing/domain/usecases/treanings/delete_hall_attempt.dart'
     as _i54;
-import 'features/hall_climbing/domain/usecases/treanings/delete_hall_treaning.dart'
+import 'features/hall_climbing/domain/usecases/treanings/delete_hall_attempt.dart'
     as _i55;
+import 'features/hall_climbing/domain/usecases/treanings/delete_hall_treaning.dart'
+    as _i56;
 import 'features/hall_climbing/domain/usecases/treanings/finish_hall_attempt.dart'
-    as _i60;
-import 'features/hall_climbing/domain/usecases/treanings/finish_hall_treaning.dart'
     as _i61;
+import 'features/hall_climbing/domain/usecases/treanings/finish_hall_treaning.dart'
+    as _i62;
 import 'features/hall_climbing/domain/usecases/treanings/last_hall_treaning.dart'
     as _i26;
 import 'features/hall_climbing/domain/usecases/treanings/new_hall_attempt.dart'
@@ -71,21 +71,21 @@ import 'features/hall_climbing/domain/usecases/treanings/new_hall_attempt_from_r
     as _i30;
 import 'features/hall_climbing/domain/usecases/treanings/new_hall_treaning.dart'
     as _i32;
-import 'features/hall_climbing/domain/usecases/update_halls.dart' as _i43;
+import 'features/hall_climbing/domain/usecases/update_halls.dart' as _i44;
 import 'features/hall_climbing/presentation/bloc/climbing_hall/climbing_hall_cubit.dart'
-    as _i51;
-import 'features/hall_climbing/presentation/bloc/climbing_halls/climbing_halls_cubit.dart'
     as _i52;
+import 'features/hall_climbing/presentation/bloc/climbing_halls/climbing_halls_cubit.dart'
+    as _i53;
 import 'features/hall_climbing/presentation/bloc/current_hall_treaning/current_hall_treaning_cubit.dart'
-    as _i84;
+    as _i85;
 import 'features/hall_climbing/presentation/bloc/hall_route/hall_route_cubit.dart'
-    as _i72;
-import 'features/hall_climbing/presentation/bloc/hall_route_attempts/hall_route_attempts_cubit.dart'
-    as _i71;
-import 'features/hall_climbing/presentation/bloc/hall_treanings/hall_treanings_cubit.dart'
     as _i73;
-import 'features/hall_climbing/presentation/bloc/home_page/home_page_cubit.dart'
+import 'features/hall_climbing/presentation/bloc/hall_route_attempts/hall_route_attempts_cubit.dart'
+    as _i72;
+import 'features/hall_climbing/presentation/bloc/hall_treanings/hall_treanings_cubit.dart'
     as _i74;
+import 'features/hall_climbing/presentation/bloc/home_page/home_page_cubit.dart'
+    as _i75;
 import 'features/ice_climbing/data/datasources/ice_regions_datasource.dart'
     as _i20;
 import 'features/ice_climbing/data/datasources/ice_treanings_datasource.dart'
@@ -98,10 +98,10 @@ import 'features/ice_climbing/domain/repositories/ice_regions_repository.dart'
     as _i21;
 import 'features/ice_climbing/domain/repositories/ice_treanings_repository.dart'
     as _i24;
-import 'features/ice_climbing/domain/usecases/finish_ice_attempt.dart' as _i62;
-import 'features/ice_climbing/domain/usecases/finish_ice_treaning.dart' as _i63;
+import 'features/ice_climbing/domain/usecases/finish_ice_attempt.dart' as _i63;
+import 'features/ice_climbing/domain/usecases/finish_ice_treaning.dart' as _i64;
 import 'features/ice_climbing/domain/usecases/ice_sector_to_treaning.dart'
-    as _i76;
+    as _i77;
 import 'features/ice_climbing/domain/usecases/load_disrtricts_usecase.dart'
     as _i27;
 import 'features/ice_climbing/domain/usecases/load_sectors_usecase.dart'
@@ -109,60 +109,62 @@ import 'features/ice_climbing/domain/usecases/load_sectors_usecase.dart'
 import 'features/ice_climbing/domain/usecases/new_ice_attempt.dart' as _i33;
 import 'features/ice_climbing/domain/usecases/new_ice_treaning.dart' as _i34;
 import 'features/ice_climbing/presentation/bloc/current_ice_treaning/current_ice_treaning_cubit.dart'
-    as _i85;
+    as _i86;
 import 'features/ice_climbing/presentation/bloc/ice_districts/ice_districts_cubit.dart'
-    as _i75;
+    as _i76;
 import 'features/ice_climbing/presentation/bloc/ice_sectors/ice_sectors_cubit.dart'
-    as _i77;
+    as _i78;
 import 'features/settings/presentation/cubit/settings_cubit.dart' as _i36;
+import 'features/strength_training/data/datasources/local_strength_exercise_datasource.dart'
+    as _i38;
 import 'features/strength_training/data/datasources/strength_exercise_datasource.dart'
     as _i37;
 import 'features/strength_training/data/datasources/strength_treanings_datasource.dart'
-    as _i40;
-import 'features/strength_training/data/repositories/strength_exercises_repository_impl.dart'
-    as _i39;
-import 'features/strength_training/data/repositories/strength_treanings_repository_impl.dart'
-    as _i42;
-import 'features/strength_training/domain/repositories/strength_exercises_repository.dart'
-    as _i38;
-import 'features/strength_training/domain/repositories/strength_treanings_repository.dart'
     as _i41;
+import 'features/strength_training/data/repositories/strength_exercises_repository_impl.dart'
+    as _i40;
+import 'features/strength_training/data/repositories/strength_treanings_repository_impl.dart'
+    as _i43;
+import 'features/strength_training/domain/repositories/strength_exercises_repository.dart'
+    as _i39;
+import 'features/strength_training/domain/repositories/strength_treanings_repository.dart'
+    as _i42;
 import 'features/strength_training/domain/usecases/add_repetition_for_strength_treaning.dart'
-    as _i45;
-import 'features/strength_training/domain/usecases/add_strength_treaning.dart'
     as _i46;
+import 'features/strength_training/domain/usecases/add_strength_treaning.dart'
+    as _i47;
 import 'features/strength_training/domain/usecases/delete_repetition_for_strength_treaning.dart'
-    as _i56;
-import 'features/strength_training/domain/usecases/delete_strength_exercise.dart'
     as _i57;
-import 'features/strength_training/domain/usecases/delete_strength_treaning.dart'
+import 'features/strength_training/domain/usecases/delete_strength_exercise.dart'
     as _i58;
+import 'features/strength_training/domain/usecases/delete_strength_treaning.dart'
+    as _i59;
 import 'features/strength_training/domain/usecases/finish_stregth_treaning.dart'
-    as _i64;
+    as _i65;
 import 'features/strength_training/domain/usecases/get_current_strength_treaning.dart'
-    as _i66;
+    as _i67;
 import 'features/strength_training/domain/usecases/get_previos_strength_treaning.dart'
-    as _i68;
-import 'features/strength_training/domain/usecases/get_strength_exercises.dart'
     as _i69;
-import 'features/strength_training/domain/usecases/get_strength_treanings.dart'
+import 'features/strength_training/domain/usecases/get_strength_exercises.dart'
     as _i70;
+import 'features/strength_training/domain/usecases/get_strength_treanings.dart'
+    as _i71;
 import 'features/strength_training/domain/usecases/save_strength_exercise.dart'
-    as _i78;
-import 'features/strength_training/domain/usecases/select_to_use_strength_exercise.dart'
     as _i79;
-import 'features/strength_training/domain/usecases/update_strength_treaning_exercises.dart'
-    as _i44;
-import 'features/strength_training/presentation/cubit/strength_exercises/strength_exercises_cubit.dart'
+import 'features/strength_training/domain/usecases/select_to_use_strength_exercise.dart'
     as _i80;
-import 'features/strength_training/presentation/cubit/strength_training/strength_training_cubit.dart'
+import 'features/strength_training/domain/usecases/update_strength_treaning_exercises.dart'
+    as _i45;
+import 'features/strength_training/presentation/cubit/strength_exercises/strength_exercises_cubit.dart'
     as _i81;
-import 'features/strength_training/presentation/cubit/strength_trainings/strength_trainings_cubit.dart'
+import 'features/strength_training/presentation/cubit/strength_training/strength_training_cubit.dart'
     as _i82;
-import 'features/treanings/domain/usecases/delete_treaning.dart' as _i59;
-import 'features/treanings/domain/usecases/get_all_treanings.dart' as _i65;
+import 'features/strength_training/presentation/cubit/strength_trainings/strength_trainings_cubit.dart'
+    as _i83;
+import 'features/treanings/domain/usecases/delete_treaning.dart' as _i60;
+import 'features/treanings/domain/usecases/get_all_treanings.dart' as _i66;
 import 'features/treanings/presentation/cubit/treanings_cubit.dart'
-    as _i83; // ignore_for_file: unnecessary_lambdas
+    as _i84; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -239,169 +241,169 @@ _i1.GetIt $initGetIt(
   gh.lazySingleton<_i35.SaveCardioTreaning>(() => _i35.SaveCardioTreaning(
       cardioTreaningsRepository: get<_i4.CardioTreaningsRepository>()));
   gh.lazySingleton<_i36.SettingsCubit>(() => _i36.SettingsCubit());
-  gh.lazySingleton<_i37.StrengthExerciseDataSource>(
-      () => _i37.MockStrengthExerciseDataSource());
-  gh.lazySingleton<_i38.StrengthExerciseRepository>(() =>
-      _i39.StrengthExerciseRepositoryImpl(
+  gh.lazySingleton<_i37.StrengthExerciseDataSource>(() =>
+      _i38.LocalStrengthExerciseDataSource(get<_i11.DriftDBLocalDataSource>()));
+  gh.lazySingleton<_i39.StrengthExerciseRepository>(() =>
+      _i40.StrengthExerciseRepositoryImpl(
           strengthExerciseDataSource: get<_i37.StrengthExerciseDataSource>()));
-  gh.lazySingleton<_i40.StrengthTreaningsDataSource>(
-      () => _i40.MockStrengthTreaningsDataSource());
-  gh.lazySingleton<_i41.StrengthTreaningsRepository>(() =>
-      _i42.StrengthTreaningsRepositoryImpl(
+  gh.lazySingleton<_i41.StrengthTreaningsDataSource>(
+      () => _i41.MockStrengthTreaningsDataSource());
+  gh.lazySingleton<_i42.StrengthTreaningsRepository>(() =>
+      _i43.StrengthTreaningsRepositoryImpl(
           strengthTreaningsDataSource:
-              get<_i40.StrengthTreaningsDataSource>()));
-  gh.lazySingleton<_i43.UpdateHalls>(
-      () => _i43.UpdateHalls(get<_i8.ClimbingHallRepository>()));
-  gh.lazySingleton<_i44.UpdateStrengthTreaningExercises>(() =>
-      _i44.UpdateStrengthTreaningExercises(
-        strengthTreaningsRepository: get<_i41.StrengthTreaningsRepository>(),
-        strengthExerciseRepository: get<_i38.StrengthExerciseRepository>(),
+              get<_i41.StrengthTreaningsDataSource>()));
+  gh.lazySingleton<_i44.UpdateHalls>(
+      () => _i44.UpdateHalls(get<_i8.ClimbingHallRepository>()));
+  gh.lazySingleton<_i45.UpdateStrengthTreaningExercises>(() =>
+      _i45.UpdateStrengthTreaningExercises(
+        strengthTreaningsRepository: get<_i42.StrengthTreaningsRepository>(),
+        strengthExerciseRepository: get<_i39.StrengthExerciseRepository>(),
       ));
-  gh.lazySingleton<_i45.AddRepetitionForStrengthTreaning>(() =>
-      _i45.AddRepetitionForStrengthTreaning(
+  gh.lazySingleton<_i46.AddRepetitionForStrengthTreaning>(() =>
+      _i46.AddRepetitionForStrengthTreaning(
           strengthTreaningsRepository:
-              get<_i41.StrengthTreaningsRepository>()));
-  gh.lazySingleton<_i46.AddStrengthTreaning>(() => _i46.AddStrengthTreaning(
-        strengthTreaningsRepository: get<_i41.StrengthTreaningsRepository>(),
-        strengthExerciseRepository: get<_i38.StrengthExerciseRepository>(),
+              get<_i42.StrengthTreaningsRepository>()));
+  gh.lazySingleton<_i47.AddStrengthTreaning>(() => _i47.AddStrengthTreaning(
+        strengthTreaningsRepository: get<_i42.StrengthTreaningsRepository>(),
+        strengthExerciseRepository: get<_i39.StrengthExerciseRepository>(),
       ));
-  gh.lazySingleton<_i47.AllClimbingHalls>(
-      () => _i47.AllClimbingHalls(get<_i8.ClimbingHallRepository>()));
-  gh.lazySingleton<_i48.AllHallTreanings>(
-      () => _i48.AllHallTreanings(get<_i18.HallTreaningRepository>()));
-  gh.factory<_i49.CardioTreaningCubit>(() => _i49.CardioTreaningCubit(
+  gh.lazySingleton<_i48.AllClimbingHalls>(
+      () => _i48.AllClimbingHalls(get<_i8.ClimbingHallRepository>()));
+  gh.lazySingleton<_i49.AllHallTreanings>(
+      () => _i49.AllHallTreanings(get<_i18.HallTreaningRepository>()));
+  gh.factory<_i50.CardioTreaningCubit>(() => _i50.CardioTreaningCubit(
         get<_i14.GetLastCardioTreaning>(),
         get<_i35.SaveCardioTreaning>(),
       ));
-  gh.factory<_i50.CardioTreaningsCubit>(() => _i50.CardioTreaningsCubit(
+  gh.factory<_i51.CardioTreaningsCubit>(() => _i51.CardioTreaningsCubit(
         get<_i12.GetCardioTreanings>(),
         get<_i10.DeleteCardioTreaning>(),
         get<_i35.SaveCardioTreaning>(),
       ));
-  gh.factory<_i51.ClimbingHallCubit>(() => _i51.ClimbingHallCubit(
+  gh.factory<_i52.ClimbingHallCubit>(() => _i52.ClimbingHallCubit(
         getClimbingHallRoures: get<_i13.GetClimbingHallRoures>(),
         hallRouteToArchive: get<_i15.HallRouteToArchive>(),
       ));
-  gh.factory<_i52.ClimbingHallsCubit>(() =>
-      _i52.ClimbingHallsCubit(allClimbingHalls: get<_i47.AllClimbingHalls>()));
-  gh.lazySingleton<_i53.CurrentHallTreaning>(
-      () => _i53.CurrentHallTreaning(get<_i18.HallTreaningRepository>()));
-  gh.lazySingleton<_i54.DeleteHallAttempt>(() => _i54.DeleteHallAttempt(
+  gh.factory<_i53.ClimbingHallsCubit>(() =>
+      _i53.ClimbingHallsCubit(allClimbingHalls: get<_i48.AllClimbingHalls>()));
+  gh.lazySingleton<_i54.CurrentHallTreaning>(
+      () => _i54.CurrentHallTreaning(get<_i18.HallTreaningRepository>()));
+  gh.lazySingleton<_i55.DeleteHallAttempt>(() => _i55.DeleteHallAttempt(
       treaningRepository: get<_i18.HallTreaningRepository>()));
-  gh.lazySingleton<_i55.DeleteHallTreaning>(() => _i55.DeleteHallTreaning(
+  gh.lazySingleton<_i56.DeleteHallTreaning>(() => _i56.DeleteHallTreaning(
       treaningRepository: get<_i18.HallTreaningRepository>()));
-  gh.lazySingleton<_i56.DeleteRepetitionForStrengthTreaning>(() =>
-      _i56.DeleteRepetitionForStrengthTreaning(
+  gh.lazySingleton<_i57.DeleteRepetitionForStrengthTreaning>(() =>
+      _i57.DeleteRepetitionForStrengthTreaning(
           strengthTreaningsRepository:
-              get<_i41.StrengthTreaningsRepository>()));
-  gh.lazySingleton<_i57.DeleteStrengthExercise>(() =>
-      _i57.DeleteStrengthExercise(
-          strengthExerciseRepository: get<_i38.StrengthExerciseRepository>()));
-  gh.lazySingleton<_i58.DeleteStrengthTreaning>(() =>
-      _i58.DeleteStrengthTreaning(
+              get<_i42.StrengthTreaningsRepository>()));
+  gh.lazySingleton<_i58.DeleteStrengthExercise>(() =>
+      _i58.DeleteStrengthExercise(
+          strengthExerciseRepository: get<_i39.StrengthExerciseRepository>()));
+  gh.lazySingleton<_i59.DeleteStrengthTreaning>(() =>
+      _i59.DeleteStrengthTreaning(
           strengthTreaningsRepository:
-              get<_i41.StrengthTreaningsRepository>()));
-  gh.lazySingleton<_i59.DeleteTreaning>(() => _i59.DeleteTreaning(
+              get<_i42.StrengthTreaningsRepository>()));
+  gh.lazySingleton<_i60.DeleteTreaning>(() => _i60.DeleteTreaning(
         get<_i18.HallTreaningRepository>(),
         get<_i24.IceTreaningsRepository>(),
-        get<_i41.StrengthTreaningsRepository>(),
+        get<_i42.StrengthTreaningsRepository>(),
         get<_i4.CardioTreaningsRepository>(),
       ));
-  gh.lazySingleton<_i60.FinishHallAttempt>(() => _i60.FinishHallAttempt(
+  gh.lazySingleton<_i61.FinishHallAttempt>(() => _i61.FinishHallAttempt(
       treaningRepository: get<_i18.HallTreaningRepository>()));
-  gh.lazySingleton<_i61.FinishHallTreaning>(() => _i61.FinishHallTreaning(
+  gh.lazySingleton<_i62.FinishHallTreaning>(() => _i62.FinishHallTreaning(
       treaningRepository: get<_i18.HallTreaningRepository>()));
-  gh.lazySingleton<_i62.FinishIceAttempt>(
-      () => _i62.FinishIceAttempt(get<_i24.IceTreaningsRepository>()));
-  gh.lazySingleton<_i63.FinishIceTreaning>(() => _i63.FinishIceTreaning(
+  gh.lazySingleton<_i63.FinishIceAttempt>(
+      () => _i63.FinishIceAttempt(get<_i24.IceTreaningsRepository>()));
+  gh.lazySingleton<_i64.FinishIceTreaning>(() => _i64.FinishIceTreaning(
       iceTreaningsRepository: get<_i24.IceTreaningsRepository>()));
-  gh.lazySingleton<_i64.FinishStrengthTreaning>(() =>
-      _i64.FinishStrengthTreaning(
+  gh.lazySingleton<_i65.FinishStrengthTreaning>(() =>
+      _i65.FinishStrengthTreaning(
           strengthTreaningsRepository:
-              get<_i41.StrengthTreaningsRepository>()));
-  gh.lazySingleton<_i65.GetAllTreanings>(() => _i65.GetAllTreanings(
+              get<_i42.StrengthTreaningsRepository>()));
+  gh.lazySingleton<_i66.GetAllTreanings>(() => _i66.GetAllTreanings(
         get<_i18.HallTreaningRepository>(),
         get<_i24.IceTreaningsRepository>(),
-        get<_i41.StrengthTreaningsRepository>(),
+        get<_i42.StrengthTreaningsRepository>(),
         get<_i4.CardioTreaningsRepository>(),
       ));
-  gh.lazySingleton<_i66.GetCurrentStrengthTreaning>(() =>
-      _i66.GetCurrentStrengthTreaning(
+  gh.lazySingleton<_i67.GetCurrentStrengthTreaning>(() =>
+      _i67.GetCurrentStrengthTreaning(
           strengthTreaningsRepository:
-              get<_i41.StrengthTreaningsRepository>()));
-  gh.lazySingleton<_i67.GetHallRouteAttempts>(() => _i67.GetHallRouteAttempts(
+              get<_i42.StrengthTreaningsRepository>()));
+  gh.lazySingleton<_i68.GetHallRouteAttempts>(() => _i68.GetHallRouteAttempts(
       repository: get<_i18.HallTreaningRepository>()));
-  gh.lazySingleton<_i68.GetPreviosStrengthTreaning>(() =>
-      _i68.GetPreviosStrengthTreaning(
+  gh.lazySingleton<_i69.GetPreviosStrengthTreaning>(() =>
+      _i69.GetPreviosStrengthTreaning(
           strengthTreaningsRepository:
-              get<_i41.StrengthTreaningsRepository>()));
-  gh.lazySingleton<_i69.GetStrengthExercises>(() => _i69.GetStrengthExercises(
-      strengthExerciseRepository: get<_i38.StrengthExerciseRepository>()));
-  gh.lazySingleton<_i70.GetStrengthTreanings>(() => _i70.GetStrengthTreanings(
-      strengthTreaningsRepository: get<_i41.StrengthTreaningsRepository>()));
-  gh.factory<_i71.HallRouteAttemptsCubit>(() => _i71.HallRouteAttemptsCubit(
-      getHallRouteAttempts: get<_i67.GetHallRouteAttempts>()));
-  gh.factory<_i72.HallRouteCubit>(
-      () => _i72.HallRouteCubit(get<_i31.NewHallRoute>()));
-  gh.factory<_i73.HallTreaningsCubit>(() => _i73.HallTreaningsCubit(
-        allHallTreanings: get<_i48.AllHallTreanings>(),
-        deleteHallTreaning: get<_i55.DeleteHallTreaning>(),
+              get<_i42.StrengthTreaningsRepository>()));
+  gh.lazySingleton<_i70.GetStrengthExercises>(() => _i70.GetStrengthExercises(
+      strengthExerciseRepository: get<_i39.StrengthExerciseRepository>()));
+  gh.lazySingleton<_i71.GetStrengthTreanings>(() => _i71.GetStrengthTreanings(
+      strengthTreaningsRepository: get<_i42.StrengthTreaningsRepository>()));
+  gh.factory<_i72.HallRouteAttemptsCubit>(() => _i72.HallRouteAttemptsCubit(
+      getHallRouteAttempts: get<_i68.GetHallRouteAttempts>()));
+  gh.factory<_i73.HallRouteCubit>(
+      () => _i73.HallRouteCubit(get<_i31.NewHallRoute>()));
+  gh.factory<_i74.HallTreaningsCubit>(() => _i74.HallTreaningsCubit(
+        allHallTreanings: get<_i49.AllHallTreanings>(),
+        deleteHallTreaning: get<_i56.DeleteHallTreaning>(),
       ));
-  gh.factory<_i74.HomePageCubit>(
-      () => _i74.HomePageCubit(allClimbingHalls: get<_i47.AllClimbingHalls>()));
-  gh.factory<_i75.IceDistrictsCubit>(() => _i75.IceDistrictsCubit(
+  gh.factory<_i75.HomePageCubit>(
+      () => _i75.HomePageCubit(allClimbingHalls: get<_i48.AllClimbingHalls>()));
+  gh.factory<_i76.IceDistrictsCubit>(() => _i76.IceDistrictsCubit(
       loadDistrictsUseCase: get<_i27.LoadDistrictsUseCase>()));
-  gh.lazySingleton<_i76.IceSectorToTreaning>(() => _i76.IceSectorToTreaning(
+  gh.lazySingleton<_i77.IceSectorToTreaning>(() => _i77.IceSectorToTreaning(
       iceTreaningsRepository: get<_i24.IceTreaningsRepository>()));
-  gh.factory<_i77.IceSectorsCubit>(() =>
-      _i77.IceSectorsCubit(loadSectorsUseCase: get<_i28.LoadSectorsUseCase>()));
-  gh.lazySingleton<_i78.SaveStrengthExercise>(() => _i78.SaveStrengthExercise(
-      strengthExerciseRepository: get<_i38.StrengthExerciseRepository>()));
-  gh.lazySingleton<_i79.SelectToUseStrengthExercise>(() =>
-      _i79.SelectToUseStrengthExercise(
-          strengthExerciseRepository: get<_i38.StrengthExerciseRepository>()));
-  gh.factory<_i80.StrengthExercisesCubit>(() => _i80.StrengthExercisesCubit(
-        get<_i69.GetStrengthExercises>(),
-        get<_i78.SaveStrengthExercise>(),
-        get<_i79.SelectToUseStrengthExercise>(),
-        get<_i57.DeleteStrengthExercise>(),
+  gh.factory<_i78.IceSectorsCubit>(() =>
+      _i78.IceSectorsCubit(loadSectorsUseCase: get<_i28.LoadSectorsUseCase>()));
+  gh.lazySingleton<_i79.SaveStrengthExercise>(() => _i79.SaveStrengthExercise(
+      strengthExerciseRepository: get<_i39.StrengthExerciseRepository>()));
+  gh.lazySingleton<_i80.SelectToUseStrengthExercise>(() =>
+      _i80.SelectToUseStrengthExercise(
+          strengthExerciseRepository: get<_i39.StrengthExerciseRepository>()));
+  gh.factory<_i81.StrengthExercisesCubit>(() => _i81.StrengthExercisesCubit(
+        get<_i70.GetStrengthExercises>(),
+        get<_i79.SaveStrengthExercise>(),
+        get<_i80.SelectToUseStrengthExercise>(),
+        get<_i58.DeleteStrengthExercise>(),
       ));
-  gh.factory<_i81.StrengthTrainingCubit>(() => _i81.StrengthTrainingCubit(
-        getCurrentStrengthTreaning: get<_i66.GetCurrentStrengthTreaning>(),
-        getPreviosStrengthTreaning: get<_i68.GetPreviosStrengthTreaning>(),
-        addStrengthTreaning: get<_i46.AddStrengthTreaning>(),
+  gh.factory<_i82.StrengthTrainingCubit>(() => _i82.StrengthTrainingCubit(
+        getCurrentStrengthTreaning: get<_i67.GetCurrentStrengthTreaning>(),
+        getPreviosStrengthTreaning: get<_i69.GetPreviosStrengthTreaning>(),
+        addStrengthTreaning: get<_i47.AddStrengthTreaning>(),
         updateStrengthTreaningExercises:
-            get<_i44.UpdateStrengthTreaningExercises>(),
+            get<_i45.UpdateStrengthTreaningExercises>(),
         addRepetitionForStrengthTreaning:
-            get<_i45.AddRepetitionForStrengthTreaning>(),
-        finishStrengthTreaning: get<_i64.FinishStrengthTreaning>(),
+            get<_i46.AddRepetitionForStrengthTreaning>(),
+        finishStrengthTreaning: get<_i65.FinishStrengthTreaning>(),
         deleteRepetitionForStrengthTreaning:
-            get<_i56.DeleteRepetitionForStrengthTreaning>(),
+            get<_i57.DeleteRepetitionForStrengthTreaning>(),
       ));
-  gh.factory<_i82.StrengthTrainingsCubit>(() => _i82.StrengthTrainingsCubit(
-        get<_i70.GetStrengthTreanings>(),
-        get<_i58.DeleteStrengthTreaning>(),
+  gh.factory<_i83.StrengthTrainingsCubit>(() => _i83.StrengthTrainingsCubit(
+        get<_i71.GetStrengthTreanings>(),
+        get<_i59.DeleteStrengthTreaning>(),
       ));
-  gh.factory<_i83.TreaningsCubit>(() => _i83.TreaningsCubit(
-        get<_i65.GetAllTreanings>(),
-        get<_i59.DeleteTreaning>(),
+  gh.factory<_i84.TreaningsCubit>(() => _i84.TreaningsCubit(
+        get<_i66.GetAllTreanings>(),
+        get<_i60.DeleteTreaning>(),
       ));
-  gh.factory<_i84.CurrentHallTreaningCubit>(() => _i84.CurrentHallTreaningCubit(
+  gh.factory<_i85.CurrentHallTreaningCubit>(() => _i85.CurrentHallTreaningCubit(
         newHallAttemptFromRoute: get<_i30.NewHallAttemptFromRoute>(),
         newHallTreaning: get<_i32.NewHallTreaning>(),
         newHallAttempt: get<_i29.NewHallAttempt>(),
-        currentHallTreaning: get<_i53.CurrentHallTreaning>(),
-        finishHallAttempt: get<_i60.FinishHallAttempt>(),
-        finishHallTreaning: get<_i61.FinishHallTreaning>(),
+        currentHallTreaning: get<_i54.CurrentHallTreaning>(),
+        finishHallAttempt: get<_i61.FinishHallAttempt>(),
+        finishHallTreaning: get<_i62.FinishHallTreaning>(),
         lastHallTreaning: get<_i26.LastHallTreaning>(),
-        deleteHallAttempt: get<_i54.DeleteHallAttempt>(),
+        deleteHallAttempt: get<_i55.DeleteHallAttempt>(),
       ));
-  gh.factory<_i85.CurrentIceTreaningCubit>(() => _i85.CurrentIceTreaningCubit(
+  gh.factory<_i86.CurrentIceTreaningCubit>(() => _i86.CurrentIceTreaningCubit(
         get<_i34.NewIceTreaning>(),
-        get<_i76.IceSectorToTreaning>(),
+        get<_i77.IceSectorToTreaning>(),
         get<_i33.NewIceAttempt>(),
-        get<_i62.FinishIceAttempt>(),
-        get<_i63.FinishIceTreaning>(),
+        get<_i63.FinishIceAttempt>(),
+        get<_i64.FinishIceTreaning>(),
       ));
   return get;
 }

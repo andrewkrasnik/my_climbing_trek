@@ -12,14 +12,19 @@ class DriftStrengthExercise extends DataClass
   final int repetitions;
   final String id;
   final String name;
+  final bool selected;
   const DriftStrengthExercise(
-      {required this.repetitions, required this.id, required this.name});
+      {required this.repetitions,
+      required this.id,
+      required this.name,
+      required this.selected});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['repetitions'] = Variable<int>(repetitions);
     map['id'] = Variable<String>(id);
     map['name'] = Variable<String>(name);
+    map['selected'] = Variable<bool>(selected);
     return map;
   }
 
@@ -28,6 +33,7 @@ class DriftStrengthExercise extends DataClass
       repetitions: Value(repetitions),
       id: Value(id),
       name: Value(name),
+      selected: Value(selected),
     );
   }
 
@@ -38,6 +44,7 @@ class DriftStrengthExercise extends DataClass
       repetitions: serializer.fromJson<int>(json['repetitions']),
       id: serializer.fromJson<String>(json['id']),
       name: serializer.fromJson<String>(json['name']),
+      selected: serializer.fromJson<bool>(json['selected']),
     );
   }
   @override
@@ -47,35 +54,39 @@ class DriftStrengthExercise extends DataClass
       'repetitions': serializer.toJson<int>(repetitions),
       'id': serializer.toJson<String>(id),
       'name': serializer.toJson<String>(name),
+      'selected': serializer.toJson<bool>(selected),
     };
   }
 
   DriftStrengthExercise copyWith(
-          {int? repetitions, String? id, String? name}) =>
+          {int? repetitions, String? id, String? name, bool? selected}) =>
       DriftStrengthExercise(
         repetitions: repetitions ?? this.repetitions,
         id: id ?? this.id,
         name: name ?? this.name,
+        selected: selected ?? this.selected,
       );
   @override
   String toString() {
     return (StringBuffer('DriftStrengthExercise(')
           ..write('repetitions: $repetitions, ')
           ..write('id: $id, ')
-          ..write('name: $name')
+          ..write('name: $name, ')
+          ..write('selected: $selected')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(repetitions, id, name);
+  int get hashCode => Object.hash(repetitions, id, name, selected);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is DriftStrengthExercise &&
           other.repetitions == this.repetitions &&
           other.id == this.id &&
-          other.name == this.name);
+          other.name == this.name &&
+          other.selected == this.selected);
 }
 
 class DriftStrengthExercisesTableCompanion
@@ -83,15 +94,18 @@ class DriftStrengthExercisesTableCompanion
   final Value<int> repetitions;
   final Value<String> id;
   final Value<String> name;
+  final Value<bool> selected;
   const DriftStrengthExercisesTableCompanion({
     this.repetitions = const Value.absent(),
     this.id = const Value.absent(),
     this.name = const Value.absent(),
+    this.selected = const Value.absent(),
   });
   DriftStrengthExercisesTableCompanion.insert({
     required int repetitions,
     required String id,
     required String name,
+    this.selected = const Value.absent(),
   })  : repetitions = Value(repetitions),
         id = Value(id),
         name = Value(name);
@@ -99,20 +113,26 @@ class DriftStrengthExercisesTableCompanion
     Expression<int>? repetitions,
     Expression<String>? id,
     Expression<String>? name,
+    Expression<bool>? selected,
   }) {
     return RawValuesInsertable({
       if (repetitions != null) 'repetitions': repetitions,
       if (id != null) 'id': id,
       if (name != null) 'name': name,
+      if (selected != null) 'selected': selected,
     });
   }
 
   DriftStrengthExercisesTableCompanion copyWith(
-      {Value<int>? repetitions, Value<String>? id, Value<String>? name}) {
+      {Value<int>? repetitions,
+      Value<String>? id,
+      Value<String>? name,
+      Value<bool>? selected}) {
     return DriftStrengthExercisesTableCompanion(
       repetitions: repetitions ?? this.repetitions,
       id: id ?? this.id,
       name: name ?? this.name,
+      selected: selected ?? this.selected,
     );
   }
 
@@ -128,6 +148,9 @@ class DriftStrengthExercisesTableCompanion
     if (name.present) {
       map['name'] = Variable<String>(name.value);
     }
+    if (selected.present) {
+      map['selected'] = Variable<bool>(selected.value);
+    }
     return map;
   }
 
@@ -136,7 +159,8 @@ class DriftStrengthExercisesTableCompanion
     return (StringBuffer('DriftStrengthExercisesTableCompanion(')
           ..write('repetitions: $repetitions, ')
           ..write('id: $id, ')
-          ..write('name: $name')
+          ..write('name: $name, ')
+          ..write('selected: $selected')
           ..write(')'))
         .toString();
   }
@@ -166,8 +190,16 @@ class $DriftStrengthExercisesTableTable extends DriftStrengthExercisesTable
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
       'name', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
+  final VerificationMeta _selectedMeta = const VerificationMeta('selected');
   @override
-  List<GeneratedColumn> get $columns => [repetitions, id, name];
+  late final GeneratedColumn<bool> selected = GeneratedColumn<bool>(
+      'selected', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: 'CHECK ("selected" IN (0, 1))',
+      defaultValue: const Constant(false));
+  @override
+  List<GeneratedColumn> get $columns => [repetitions, id, name, selected];
   @override
   String get aliasedName => _alias ?? 'drift_strength_exercises_table';
   @override
@@ -197,11 +229,15 @@ class $DriftStrengthExercisesTableTable extends DriftStrengthExercisesTable
     } else if (isInserting) {
       context.missing(_nameMeta);
     }
+    if (data.containsKey('selected')) {
+      context.handle(_selectedMeta,
+          selected.isAcceptableOrUnknown(data['selected']!, _selectedMeta));
+    }
     return context;
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => <GeneratedColumn>{};
+  Set<GeneratedColumn> get $primaryKey => {id};
   @override
   DriftStrengthExercise map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
@@ -212,6 +248,8 @@ class $DriftStrengthExercisesTableTable extends DriftStrengthExercisesTable
           .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
       name: attachedDatabase.options.types
           .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+      selected: attachedDatabase.options.types
+          .read(DriftSqlType.bool, data['${effectivePrefix}selected'])!,
     );
   }
 
@@ -396,7 +434,9 @@ class $DriftHallTreaningsTableTable extends DriftHallTreaningsTable
   @override
   late final GeneratedColumn<String> id = GeneratedColumn<String>(
       'id', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      defaultConstraints: 'UNIQUE');
   final VerificationMeta _hallIdMeta = const VerificationMeta('hallId');
   @override
   late final GeneratedColumn<int> hallId = GeneratedColumn<int>(
@@ -448,7 +488,7 @@ class $DriftHallTreaningsTableTable extends DriftHallTreaningsTable
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => <GeneratedColumn>{};
+  Set<GeneratedColumn> get $primaryKey => {id};
   @override
   DriftHallTreaning map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';

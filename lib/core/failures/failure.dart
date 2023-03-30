@@ -15,4 +15,8 @@ class DataBaseFailure extends FailureWithDescription {
   DataBaseFailure({required super.description});
 }
 
+class DataConvertionFailure extends FailureWithDescription {
+  DataConvertionFailure({required super.description});
+}
+
 class UseCaseFailure extends Failure {}
