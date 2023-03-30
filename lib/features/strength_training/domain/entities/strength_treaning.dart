@@ -4,19 +4,9 @@ import 'package:climbing_diary/features/strength_training/domain/entities/streng
 class StrengthTreaning extends Treaning {
   final List<StrengthTreaningExerciseLine> excercises = [];
 
-  DateTime? _finish;
-  DateTime? _start;
+  bool get started => start != null && finish == null;
 
-  bool get started => _start != null && _finish == null;
-
-  void start() {
-    _start = DateTime.now();
-  }
-
-  StrengthTreaning({
-    super.id,
-    required super.date,
-  });
+  StrengthTreaning({super.id, required super.date, super.finish});
 
   void updateExercises({required List<StrengthExercise> selectedExercises}) {
     excercises.clear();

@@ -21,7 +21,7 @@ class AddStrengthTreaning {
     return failureOrSelectedExercises.fold((failure) => Left(failure),
         (selectedExercises) async {
       final treaning = StrengthTreaning(date: DateTime.now())
-        ..start()
+        ..startTreaning()
         ..updateExercises(selectedExercises: selectedExercises.keys.toList());
 
       return await strengthTreaningsRepository.saveTreaning(treaning: treaning);

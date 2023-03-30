@@ -14,7 +14,7 @@ class FinishStrengthTreaning {
   Future<Either<Failure, StrengthTreaning>> call({
     required StrengthTreaning treaning,
   }) async {
-    treaning.finish();
+    treaning.finishTreaning();
 
     return await strengthTreaningsRepository.saveTreaning(treaning: treaning);
   }

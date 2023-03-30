@@ -23,7 +23,7 @@ class DriftDBLocalDataSource extends _$DriftDBLocalDataSource
   DriftDBLocalDataSource() : super(_openConnection());
 
   @override
-  int get schemaVersion => 4;
+  int get schemaVersion => 5;
 
   @override
   MigrationStrategy get migration {
@@ -47,6 +47,13 @@ class DriftDBLocalDataSource extends _$DriftDBLocalDataSource
           await m.addColumn(driftStrengthExercisesTable,
               driftStrengthExercisesTable.selected);
         }
+        if (from < 5) {
+          // we added the dueDate property in the change from version 1 to
+          // version 2
+          await m.createTable(driftStrengthTreaningLinesTable);
+          await m.createTable(driftStrengthTreaningsTable);
+          await m.createTable(driftCardioTreaningsTable);
+        }
       },
     );
   }
@@ -66,7 +73,7 @@ class DriftDBLocalDataSource extends _$DriftDBLocalDataSource
                 return const Constant(true);
               }
               // final List<Expression<bool>> conditions = [];
-              for (var key in whereConditions!.keys) {
+              for (var key in whereConditions.keys) {
                 final column = driftTable.columnsByName[key];
                 if (column != null) {
                   return column.equals(whereConditions[key]);
@@ -124,6 +131,15 @@ class DriftDBLocalDataSource extends _$DriftDBLocalDataSource
 
       case DBTables.hallTreanings:
         return Right(driftHallTreaningsTable);
+
+      case DBTables.cardioTreanings:
+        return Right(driftCardioTreaningsTable);
+
+      case DBTables.strengthLines:
+        return Right(driftStrengthTreaningLinesTable);
+
+      case DBTables.strengthTreanings:
+        return Right(driftStrengthTreaningsTable);
 
       default:
         return Left(DataBaseFailure(
@@ -257,6 +273,15 @@ Insertable<DataClass> _dataClassFromJson(
 
     case DBTables.hallTreanings:
       return DriftHallTreaning.fromJson(json);
+
+    case DBTables.cardioTreanings:
+      return DriftCardioTreanings.fromJson(json);
+
+    case DBTables.strengthLines:
+      return DriftStrengthTreaningLine.fromJson(json);
+
+    case DBTables.strengthTreanings:
+      return DriftStrengthTreaning.fromJson(json);
 
     default:
       return throw 'Drift DB - неизвестная таблица: $table';

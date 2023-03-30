@@ -15,7 +15,7 @@ abstract class CardioTreaningsDatasource {
   Future<Either<Failure, CardioTreaning?>> lastTreaning();
 }
 
-@LazySingleton(as: CardioTreaningsDatasource)
+// @LazySingleton(as: CardioTreaningsDatasource)
 class MockCardioTreaningsDatasource implements CardioTreaningsDatasource {
   final List<CardioTreaning> _treanings = [];
 

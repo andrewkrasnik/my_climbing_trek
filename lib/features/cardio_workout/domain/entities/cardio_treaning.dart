@@ -12,5 +12,7 @@ class CardioTreaning extends Treaning {
     required this.duration,
     required this.exercise,
     required this.length,
+    super.finish,
+    super.start,
   });
 }

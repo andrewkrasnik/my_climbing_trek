@@ -14,7 +14,7 @@ class FinishIceTreaning {
 
   Future<Either<Failure, IceTreaning>> call(
       {required IceTreaning treaning}) async {
-    treaning.finish();
+    treaning.finishTreaning();
 
     return await iceTreaningsRepository.saveTreaning(treaning: treaning);
   }

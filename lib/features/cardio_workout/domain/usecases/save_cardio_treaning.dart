@@ -27,6 +27,8 @@ class SaveCardioTreaning {
       id: id,
     );
 
+    treaning.finishTreaning();
+
     return await cardioTreaningsRepository.save(treaning: treaning);
   }
 }

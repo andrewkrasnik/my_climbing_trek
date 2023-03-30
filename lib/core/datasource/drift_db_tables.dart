@@ -4,6 +4,9 @@ const tables = [
   DriftStrengthExercisesTable,
   DriftHallTreaningsTable,
   DriftHallAttemptsTable,
+  DriftCardioTreaningsTable,
+  DriftStrengthTreaningsTable,
+  DriftStrengthTreaningLinesTable,
 ];
 
 @DataClassName('DriftStrengthExercise')
@@ -12,6 +15,40 @@ class DriftStrengthExercisesTable extends Table {
   TextColumn get id => text().unique()();
   TextColumn get name => text()();
   BoolColumn get selected => boolean().withDefault(const Constant(false))();
+
+  @override
+  Set<Column>? get primaryKey => {id};
+}
+
+@DataClassName('DriftStrengthTreaning')
+class DriftStrengthTreaningsTable extends Table {
+  TextColumn get id => text().unique()();
+  DateTimeColumn get date => dateTime()();
+  DateTimeColumn get finish => dateTime().nullable()();
+  DateTimeColumn get start => dateTime().nullable()();
+
+  @override
+  Set<Column>? get primaryKey => {id};
+}
+
+@DataClassName('DriftStrengthTreaningLine')
+class DriftStrengthTreaningLinesTable extends Table {
+  TextColumn get repetitions => text()();
+  TextColumn get treaningId =>
+      text().references(DriftStrengthTreaningsTable, #id)();
+  TextColumn get exercise =>
+      text().references(DriftStrengthExercisesTable, #id)();
+}
+
+@DataClassName('DriftCardioTreanings')
+class DriftCardioTreaningsTable extends Table {
+  TextColumn get id => text().unique()();
+  TextColumn get exercise => text()();
+  DateTimeColumn get date => dateTime()();
+  DateTimeColumn get finish => dateTime().nullable()();
+  DateTimeColumn get start => dateTime().nullable()();
+  IntColumn get duration => integer()();
+  RealColumn get length => real()();
 
   @override
   Set<Column>? get primaryKey => {id};

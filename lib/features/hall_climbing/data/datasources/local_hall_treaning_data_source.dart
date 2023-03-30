@@ -77,7 +77,7 @@ class LocalHallTreaningDataSource implements HallTreaningDataSource {
             id: treaning.id,
             hallId: treaning.climbingHall.id,
             date: treaning.date,
-            finish: Value(treaning.getFinish),
+            finish: Value(treaning.finish),
           ),
         );
 

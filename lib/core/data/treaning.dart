@@ -7,10 +7,13 @@ class Treaning {
   final UniqueId _id;
 
   DateTime? _finish;
+  DateTime? _start;
 
   String get id => _id.value;
 
-  DateTime? get getFinish => _finish;
+  DateTime? get start => _start;
+
+  DateTime? get finish => _finish;
 
   bool get finished => _finish != null;
 
@@ -19,11 +22,17 @@ class Treaning {
   Treaning({
     required this.date,
     DateTime? finish,
+    DateTime? start,
     String id = '',
   })  : _finish = finish,
+        _start = start,
         _id = UniqueId.fromUniqueString(id);
 
-  void finish() {
+  void finishTreaning() {
     _finish = DateTime.now();
+  }
+
+  void startTreaning() {
+    _start = DateTime.now();
   }
 }
