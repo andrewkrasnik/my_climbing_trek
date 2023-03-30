@@ -17,4 +17,10 @@ abstract class LocalDBDatasource {
 
   Future<Either<Failure, Unit>> deleteById(
       {required DBTables table, required Map<String, dynamic> data});
+
+  Future<Either<Failure, Map<String, dynamic>?>> getCurrentTreaning(
+      {required DBTables table});
+
+  Future<Either<Failure, Map<String, dynamic>?>> getLastTreaning(
+      {required DBTables table});
 }

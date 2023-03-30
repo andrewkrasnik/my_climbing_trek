@@ -7,12 +7,12 @@ part of 'drift_db_local_datasource.dart';
 // **************************************************************************
 
 // ignore_for_file: type=lint
-class DriftStrengthExercises extends DataClass
-    implements Insertable<DriftStrengthExercises> {
+class DriftStrengthExercise extends DataClass
+    implements Insertable<DriftStrengthExercise> {
   final int repetitions;
   final String id;
   final String name;
-  const DriftStrengthExercises(
+  const DriftStrengthExercise(
       {required this.repetitions, required this.id, required this.name});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -31,10 +31,10 @@ class DriftStrengthExercises extends DataClass
     );
   }
 
-  factory DriftStrengthExercises.fromJson(Map<String, dynamic> json,
+  factory DriftStrengthExercise.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return DriftStrengthExercises(
+    return DriftStrengthExercise(
       repetitions: serializer.fromJson<int>(json['repetitions']),
       id: serializer.fromJson<String>(json['id']),
       name: serializer.fromJson<String>(json['name']),
@@ -50,16 +50,16 @@ class DriftStrengthExercises extends DataClass
     };
   }
 
-  DriftStrengthExercises copyWith(
+  DriftStrengthExercise copyWith(
           {int? repetitions, String? id, String? name}) =>
-      DriftStrengthExercises(
+      DriftStrengthExercise(
         repetitions: repetitions ?? this.repetitions,
         id: id ?? this.id,
         name: name ?? this.name,
       );
   @override
   String toString() {
-    return (StringBuffer('DriftStrengthExercises(')
+    return (StringBuffer('DriftStrengthExercise(')
           ..write('repetitions: $repetitions, ')
           ..write('id: $id, ')
           ..write('name: $name')
@@ -72,14 +72,14 @@ class DriftStrengthExercises extends DataClass
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is DriftStrengthExercises &&
+      (other is DriftStrengthExercise &&
           other.repetitions == this.repetitions &&
           other.id == this.id &&
           other.name == this.name);
 }
 
 class DriftStrengthExercisesTableCompanion
-    extends UpdateCompanion<DriftStrengthExercises> {
+    extends UpdateCompanion<DriftStrengthExercise> {
   final Value<int> repetitions;
   final Value<String> id;
   final Value<String> name;
@@ -95,7 +95,7 @@ class DriftStrengthExercisesTableCompanion
   })  : repetitions = Value(repetitions),
         id = Value(id),
         name = Value(name);
-  static Insertable<DriftStrengthExercises> custom({
+  static Insertable<DriftStrengthExercise> custom({
     Expression<int>? repetitions,
     Expression<String>? id,
     Expression<String>? name,
@@ -143,7 +143,7 @@ class DriftStrengthExercisesTableCompanion
 }
 
 class $DriftStrengthExercisesTableTable extends DriftStrengthExercisesTable
-    with TableInfo<$DriftStrengthExercisesTableTable, DriftStrengthExercises> {
+    with TableInfo<$DriftStrengthExercisesTableTable, DriftStrengthExercise> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
@@ -174,7 +174,7 @@ class $DriftStrengthExercisesTableTable extends DriftStrengthExercisesTable
   String get actualTableName => 'drift_strength_exercises_table';
   @override
   VerificationContext validateIntegrity(
-      Insertable<DriftStrengthExercises> instance,
+      Insertable<DriftStrengthExercise> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -203,9 +203,9 @@ class $DriftStrengthExercisesTableTable extends DriftStrengthExercisesTable
   @override
   Set<GeneratedColumn> get $primaryKey => <GeneratedColumn>{};
   @override
-  DriftStrengthExercises map(Map<String, dynamic> data, {String? tablePrefix}) {
+  DriftStrengthExercise map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return DriftStrengthExercises(
+    return DriftStrengthExercise(
       repetitions: attachedDatabase.options.types
           .read(DriftSqlType.int, data['${effectivePrefix}repetitions'])!,
       id: attachedDatabase.options.types
@@ -221,13 +221,13 @@ class $DriftStrengthExercisesTableTable extends DriftStrengthExercisesTable
   }
 }
 
-class HallTreaningItem extends DataClass
-    implements Insertable<HallTreaningItem> {
+class DriftHallTreaning extends DataClass
+    implements Insertable<DriftHallTreaning> {
   final String id;
   final int hallId;
   final DateTime date;
   final DateTime? finish;
-  const HallTreaningItem(
+  const DriftHallTreaning(
       {required this.id,
       required this.hallId,
       required this.date,
@@ -244,8 +244,8 @@ class HallTreaningItem extends DataClass
     return map;
   }
 
-  HallTreaningTableCompanion toCompanion(bool nullToAbsent) {
-    return HallTreaningTableCompanion(
+  DriftHallTreaningsTableCompanion toCompanion(bool nullToAbsent) {
+    return DriftHallTreaningsTableCompanion(
       id: Value(id),
       hallId: Value(hallId),
       date: Value(date),
@@ -254,10 +254,10 @@ class HallTreaningItem extends DataClass
     );
   }
 
-  factory HallTreaningItem.fromJson(Map<String, dynamic> json,
+  factory DriftHallTreaning.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return HallTreaningItem(
+    return DriftHallTreaning(
       id: serializer.fromJson<String>(json['id']),
       hallId: serializer.fromJson<int>(json['hallId']),
       date: serializer.fromJson<DateTime>(json['date']),
@@ -275,12 +275,12 @@ class HallTreaningItem extends DataClass
     };
   }
 
-  HallTreaningItem copyWith(
+  DriftHallTreaning copyWith(
           {String? id,
           int? hallId,
           DateTime? date,
           Value<DateTime?> finish = const Value.absent()}) =>
-      HallTreaningItem(
+      DriftHallTreaning(
         id: id ?? this.id,
         hallId: hallId ?? this.hallId,
         date: date ?? this.date,
@@ -288,7 +288,7 @@ class HallTreaningItem extends DataClass
       );
   @override
   String toString() {
-    return (StringBuffer('HallTreaningItem(')
+    return (StringBuffer('DriftHallTreaning(')
           ..write('id: $id, ')
           ..write('hallId: $hallId, ')
           ..write('date: $date, ')
@@ -302,25 +302,26 @@ class HallTreaningItem extends DataClass
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is HallTreaningItem &&
+      (other is DriftHallTreaning &&
           other.id == this.id &&
           other.hallId == this.hallId &&
           other.date == this.date &&
           other.finish == this.finish);
 }
 
-class HallTreaningTableCompanion extends UpdateCompanion<HallTreaningItem> {
+class DriftHallTreaningsTableCompanion
+    extends UpdateCompanion<DriftHallTreaning> {
   final Value<String> id;
   final Value<int> hallId;
   final Value<DateTime> date;
   final Value<DateTime?> finish;
-  const HallTreaningTableCompanion({
+  const DriftHallTreaningsTableCompanion({
     this.id = const Value.absent(),
     this.hallId = const Value.absent(),
     this.date = const Value.absent(),
     this.finish = const Value.absent(),
   });
-  HallTreaningTableCompanion.insert({
+  DriftHallTreaningsTableCompanion.insert({
     required String id,
     required int hallId,
     required DateTime date,
@@ -328,7 +329,7 @@ class HallTreaningTableCompanion extends UpdateCompanion<HallTreaningItem> {
   })  : id = Value(id),
         hallId = Value(hallId),
         date = Value(date);
-  static Insertable<HallTreaningItem> custom({
+  static Insertable<DriftHallTreaning> custom({
     Expression<String>? id,
     Expression<int>? hallId,
     Expression<DateTime>? date,
@@ -342,12 +343,12 @@ class HallTreaningTableCompanion extends UpdateCompanion<HallTreaningItem> {
     });
   }
 
-  HallTreaningTableCompanion copyWith(
+  DriftHallTreaningsTableCompanion copyWith(
       {Value<String>? id,
       Value<int>? hallId,
       Value<DateTime>? date,
       Value<DateTime?>? finish}) {
-    return HallTreaningTableCompanion(
+    return DriftHallTreaningsTableCompanion(
       id: id ?? this.id,
       hallId: hallId ?? this.hallId,
       date: date ?? this.date,
@@ -375,7 +376,7 @@ class HallTreaningTableCompanion extends UpdateCompanion<HallTreaningItem> {
 
   @override
   String toString() {
-    return (StringBuffer('HallTreaningTableCompanion(')
+    return (StringBuffer('DriftHallTreaningsTableCompanion(')
           ..write('id: $id, ')
           ..write('hallId: $hallId, ')
           ..write('date: $date, ')
@@ -385,12 +386,12 @@ class HallTreaningTableCompanion extends UpdateCompanion<HallTreaningItem> {
   }
 }
 
-class $HallTreaningTableTable extends HallTreaningTable
-    with TableInfo<$HallTreaningTableTable, HallTreaningItem> {
+class $DriftHallTreaningsTableTable extends DriftHallTreaningsTable
+    with TableInfo<$DriftHallTreaningsTableTable, DriftHallTreaning> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $HallTreaningTableTable(this.attachedDatabase, [this._alias]);
+  $DriftHallTreaningsTableTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<String> id = GeneratedColumn<String>(
@@ -414,11 +415,11 @@ class $HallTreaningTableTable extends HallTreaningTable
   @override
   List<GeneratedColumn> get $columns => [id, hallId, date, finish];
   @override
-  String get aliasedName => _alias ?? 'hall_treaning_table';
+  String get aliasedName => _alias ?? 'drift_hall_treanings_table';
   @override
-  String get actualTableName => 'hall_treaning_table';
+  String get actualTableName => 'drift_hall_treanings_table';
   @override
-  VerificationContext validateIntegrity(Insertable<HallTreaningItem> instance,
+  VerificationContext validateIntegrity(Insertable<DriftHallTreaning> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -449,9 +450,9 @@ class $HallTreaningTableTable extends HallTreaningTable
   @override
   Set<GeneratedColumn> get $primaryKey => <GeneratedColumn>{};
   @override
-  HallTreaningItem map(Map<String, dynamic> data, {String? tablePrefix}) {
+  DriftHallTreaning map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return HallTreaningItem(
+    return DriftHallTreaning(
       id: attachedDatabase.options.types
           .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
       hallId: attachedDatabase.options.types
@@ -464,12 +465,13 @@ class $HallTreaningTableTable extends HallTreaningTable
   }
 
   @override
-  $HallTreaningTableTable createAlias(String alias) {
-    return $HallTreaningTableTable(attachedDatabase, alias);
+  $DriftHallTreaningsTableTable createAlias(String alias) {
+    return $DriftHallTreaningsTableTable(attachedDatabase, alias);
   }
 }
 
-class HallAttemptItem extends DataClass implements Insertable<HallAttemptItem> {
+class DriftHallAttempt extends DataClass
+    implements Insertable<DriftHallAttempt> {
   final int id;
   final String treaningId;
   final int categoryId;
@@ -482,7 +484,7 @@ class HallAttemptItem extends DataClass implements Insertable<HallAttemptItem> {
   final int fallCount;
   final bool downClimbing;
   final bool fail;
-  const HallAttemptItem(
+  const DriftHallAttempt(
       {required this.id,
       required this.treaningId,
       required this.categoryId,
@@ -521,8 +523,8 @@ class HallAttemptItem extends DataClass implements Insertable<HallAttemptItem> {
     return map;
   }
 
-  HallAttemptTableCompanion toCompanion(bool nullToAbsent) {
-    return HallAttemptTableCompanion(
+  DriftHallAttemptsTableCompanion toCompanion(bool nullToAbsent) {
+    return DriftHallAttemptsTableCompanion(
       id: Value(id),
       treaningId: Value(treaningId),
       categoryId: Value(categoryId),
@@ -544,10 +546,10 @@ class HallAttemptItem extends DataClass implements Insertable<HallAttemptItem> {
     );
   }
 
-  factory HallAttemptItem.fromJson(Map<String, dynamic> json,
+  factory DriftHallAttempt.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return HallAttemptItem(
+    return DriftHallAttempt(
       id: serializer.fromJson<int>(json['id']),
       treaningId: serializer.fromJson<String>(json['treaningId']),
       categoryId: serializer.fromJson<int>(json['categoryId']),
@@ -581,7 +583,7 @@ class HallAttemptItem extends DataClass implements Insertable<HallAttemptItem> {
     };
   }
 
-  HallAttemptItem copyWith(
+  DriftHallAttempt copyWith(
           {int? id,
           String? treaningId,
           int? categoryId,
@@ -594,7 +596,7 @@ class HallAttemptItem extends DataClass implements Insertable<HallAttemptItem> {
           int? fallCount,
           bool? downClimbing,
           bool? fail}) =>
-      HallAttemptItem(
+      DriftHallAttempt(
         id: id ?? this.id,
         treaningId: treaningId ?? this.treaningId,
         categoryId: categoryId ?? this.categoryId,
@@ -611,7 +613,7 @@ class HallAttemptItem extends DataClass implements Insertable<HallAttemptItem> {
       );
   @override
   String toString() {
-    return (StringBuffer('HallAttemptItem(')
+    return (StringBuffer('DriftHallAttempt(')
           ..write('id: $id, ')
           ..write('treaningId: $treaningId, ')
           ..write('categoryId: $categoryId, ')
@@ -645,7 +647,7 @@ class HallAttemptItem extends DataClass implements Insertable<HallAttemptItem> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is HallAttemptItem &&
+      (other is DriftHallAttempt &&
           other.id == this.id &&
           other.treaningId == this.treaningId &&
           other.categoryId == this.categoryId &&
@@ -660,7 +662,8 @@ class HallAttemptItem extends DataClass implements Insertable<HallAttemptItem> {
           other.fail == this.fail);
 }
 
-class HallAttemptTableCompanion extends UpdateCompanion<HallAttemptItem> {
+class DriftHallAttemptsTableCompanion
+    extends UpdateCompanion<DriftHallAttempt> {
   final Value<int> id;
   final Value<String> treaningId;
   final Value<int> categoryId;
@@ -673,7 +676,7 @@ class HallAttemptTableCompanion extends UpdateCompanion<HallAttemptItem> {
   final Value<int> fallCount;
   final Value<bool> downClimbing;
   final Value<bool> fail;
-  const HallAttemptTableCompanion({
+  const DriftHallAttemptsTableCompanion({
     this.id = const Value.absent(),
     this.treaningId = const Value.absent(),
     this.categoryId = const Value.absent(),
@@ -687,7 +690,7 @@ class HallAttemptTableCompanion extends UpdateCompanion<HallAttemptItem> {
     this.downClimbing = const Value.absent(),
     this.fail = const Value.absent(),
   });
-  HallAttemptTableCompanion.insert({
+  DriftHallAttemptsTableCompanion.insert({
     this.id = const Value.absent(),
     required String treaningId,
     required int categoryId,
@@ -707,7 +710,7 @@ class HallAttemptTableCompanion extends UpdateCompanion<HallAttemptItem> {
         fallCount = Value(fallCount),
         downClimbing = Value(downClimbing),
         fail = Value(fail);
-  static Insertable<HallAttemptItem> custom({
+  static Insertable<DriftHallAttempt> custom({
     Expression<int>? id,
     Expression<String>? treaningId,
     Expression<int>? categoryId,
@@ -737,7 +740,7 @@ class HallAttemptTableCompanion extends UpdateCompanion<HallAttemptItem> {
     });
   }
 
-  HallAttemptTableCompanion copyWith(
+  DriftHallAttemptsTableCompanion copyWith(
       {Value<int>? id,
       Value<String>? treaningId,
       Value<int>? categoryId,
@@ -750,7 +753,7 @@ class HallAttemptTableCompanion extends UpdateCompanion<HallAttemptItem> {
       Value<int>? fallCount,
       Value<bool>? downClimbing,
       Value<bool>? fail}) {
-    return HallAttemptTableCompanion(
+    return DriftHallAttemptsTableCompanion(
       id: id ?? this.id,
       treaningId: treaningId ?? this.treaningId,
       categoryId: categoryId ?? this.categoryId,
@@ -810,7 +813,7 @@ class HallAttemptTableCompanion extends UpdateCompanion<HallAttemptItem> {
 
   @override
   String toString() {
-    return (StringBuffer('HallAttemptTableCompanion(')
+    return (StringBuffer('DriftHallAttemptsTableCompanion(')
           ..write('id: $id, ')
           ..write('treaningId: $treaningId, ')
           ..write('categoryId: $categoryId, ')
@@ -828,12 +831,12 @@ class HallAttemptTableCompanion extends UpdateCompanion<HallAttemptItem> {
   }
 }
 
-class $HallAttemptTableTable extends HallAttemptTable
-    with TableInfo<$HallAttemptTableTable, HallAttemptItem> {
+class $DriftHallAttemptsTableTable extends DriftHallAttemptsTable
+    with TableInfo<$DriftHallAttemptsTableTable, DriftHallAttempt> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $HallAttemptTableTable(this.attachedDatabase, [this._alias]);
+  $DriftHallAttemptsTableTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
@@ -847,7 +850,7 @@ class $HallAttemptTableTable extends HallAttemptTable
       'treaning_id', aliasedName, false,
       type: DriftSqlType.string,
       requiredDuringInsert: true,
-      defaultConstraints: 'REFERENCES "hall_treaning_table" ("id")');
+      defaultConstraints: 'REFERENCES "drift_hall_treanings_table" ("id")');
   final VerificationMeta _categoryIdMeta = const VerificationMeta('categoryId');
   @override
   late final GeneratedColumn<int> categoryId = GeneratedColumn<int>(
@@ -921,11 +924,11 @@ class $HallAttemptTableTable extends HallAttemptTable
         fail
       ];
   @override
-  String get aliasedName => _alias ?? 'hall_attempt_table';
+  String get aliasedName => _alias ?? 'drift_hall_attempts_table';
   @override
-  String get actualTableName => 'hall_attempt_table';
+  String get actualTableName => 'drift_hall_attempts_table';
   @override
-  VerificationContext validateIntegrity(Insertable<HallAttemptItem> instance,
+  VerificationContext validateIntegrity(Insertable<DriftHallAttempt> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -1006,9 +1009,9 @@ class $HallAttemptTableTable extends HallAttemptTable
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  HallAttemptItem map(Map<String, dynamic> data, {String? tablePrefix}) {
+  DriftHallAttempt map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return HallAttemptItem(
+    return DriftHallAttempt(
       id: attachedDatabase.options.types
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       treaningId: attachedDatabase.options.types
@@ -1037,23 +1040,26 @@ class $HallAttemptTableTable extends HallAttemptTable
   }
 
   @override
-  $HallAttemptTableTable createAlias(String alias) {
-    return $HallAttemptTableTable(attachedDatabase, alias);
+  $DriftHallAttemptsTableTable createAlias(String alias) {
+    return $DriftHallAttemptsTableTable(attachedDatabase, alias);
   }
 }
 
-abstract class _$DriftBDLocalDataSource extends GeneratedDatabase {
-  _$DriftBDLocalDataSource(QueryExecutor e) : super(e);
+abstract class _$DriftDBLocalDataSource extends GeneratedDatabase {
+  _$DriftDBLocalDataSource(QueryExecutor e) : super(e);
   late final $DriftStrengthExercisesTableTable driftStrengthExercisesTable =
       $DriftStrengthExercisesTableTable(this);
-  late final $HallTreaningTableTable hallTreaningTable =
-      $HallTreaningTableTable(this);
-  late final $HallAttemptTableTable hallAttemptTable =
-      $HallAttemptTableTable(this);
+  late final $DriftHallTreaningsTableTable driftHallTreaningsTable =
+      $DriftHallTreaningsTableTable(this);
+  late final $DriftHallAttemptsTableTable driftHallAttemptsTable =
+      $DriftHallAttemptsTableTable(this);
   @override
   Iterable<TableInfo<Table, dynamic>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities =>
-      [driftStrengthExercisesTable, hallTreaningTable, hallAttemptTable];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [
+        driftStrengthExercisesTable,
+        driftHallTreaningsTable,
+        driftHallAttemptsTable
+      ];
 }

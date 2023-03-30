@@ -2,29 +2,30 @@ part of 'drift_db_local_datasource.dart';
 
 const tables = [
   DriftStrengthExercisesTable,
-  HallTreaningTable,
-  HallAttemptTable,
+  DriftHallTreaningsTable,
+  DriftHallAttemptsTable,
 ];
 
-@DataClassName('DriftStrengthExercises')
+@DataClassName('DriftStrengthExercise')
 class DriftStrengthExercisesTable extends Table {
   IntColumn get repetitions => integer()();
   TextColumn get id => text().unique()();
   TextColumn get name => text()();
 }
 
-@DataClassName('HallTreaningItem')
-class HallTreaningTable extends Table {
+@DataClassName('DriftHallTreaning')
+class DriftHallTreaningsTable extends Table {
   TextColumn get id => text()();
   IntColumn get hallId => integer()();
   DateTimeColumn get date => dateTime()();
   DateTimeColumn get finish => dateTime().nullable()();
 }
 
-@DataClassName('HallAttemptItem')
-class HallAttemptTable extends Table {
+@DataClassName('DriftHallAttempt')
+class DriftHallAttemptsTable extends Table {
   IntColumn get id => integer().autoIncrement()();
-  TextColumn get treaningId => text().references(HallTreaningTable, #id)();
+  TextColumn get treaningId =>
+      text().references(DriftHallTreaningsTable, #id)();
   IntColumn get categoryId => integer()();
   IntColumn get styleId => integer()();
   IntColumn get routeId => integer().nullable()();

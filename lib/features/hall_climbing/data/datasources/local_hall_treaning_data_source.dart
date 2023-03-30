@@ -20,13 +20,13 @@ import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_h
 
 @LazySingleton(as: HallTreaningDataSource)
 class LocalHallTreaningDataSource implements HallTreaningDataSource {
-  final DriftBDLocalDataSource localDatabase;
+  final DriftDBLocalDataSource localDatabase;
   LocalHallTreaningDataSource({
     required this.localDatabase,
   });
   @override
   Future<Either<Failure, List<ClimbingHallTreaning>>> allTreanings() async {
-    final rawTreanings = await localDatabase.getAllTreanings();
+    final rawTreanings = await _getAllTreanings();
     final List<ClimbingHallTreaning> treanings = [];
     for (var element in rawTreanings) {
       treanings.add(await _itemToTreaning(element));
@@ -37,7 +37,7 @@ class LocalHallTreaningDataSource implements HallTreaningDataSource {
   @override
   Future<Either<Failure, ClimbingHallTreaning>> currentTreaning() async {
     final treaning =
-        await (localDatabase.select(localDatabase.hallTreaningTable)
+        await (localDatabase.select(localDatabase.driftHallTreaningsTable)
               ..where((tbl) => tbl.finish.equalsNullable(null)))
             .getSingleOrNull();
 
@@ -51,7 +51,7 @@ class LocalHallTreaningDataSource implements HallTreaningDataSource {
   @override
   Future<Either<Failure, ClimbingHallTreaning>> lastTreaning() async {
     final treaning =
-        await (localDatabase.select(localDatabase.hallTreaningTable)
+        await (localDatabase.select(localDatabase.driftHallTreaningsTable)
               ..orderBy(
                 [
                   (u) =>
@@ -73,9 +73,9 @@ class LocalHallTreaningDataSource implements HallTreaningDataSource {
   Future<Either<Failure, ClimbingHallTreaning>> saveTreaning(
       {required ClimbingHallTreaning treaning}) async {
     await localDatabase
-        .into(localDatabase.hallTreaningTable)
+        .into(localDatabase.driftHallTreaningsTable)
         .insertOnConflictUpdate(
-          HallTreaningTableCompanion.insert(
+          DriftHallTreaningsTableCompanion.insert(
             id: treaning.id,
             hallId: treaning.climbingHall.id,
             date: treaning.date,
@@ -92,8 +92,8 @@ class LocalHallTreaningDataSource implements HallTreaningDataSource {
       required ClimbingHallAttempt attempt}) async {
     if (attempt.id == null) {
       final int id = await localDatabase
-          .into(localDatabase.hallAttemptTable)
-          .insert(HallAttemptTableCompanion.insert(
+          .into(localDatabase.driftHallAttemptsTable)
+          .insert(DriftHallAttemptsTableCompanion.insert(
             treaningId: treaning.id,
             categoryId: attempt.category.id,
             styleId: attempt.style.id,
@@ -110,8 +110,8 @@ class LocalHallTreaningDataSource implements HallTreaningDataSource {
       attempt.id = id;
     } else {
       await localDatabase
-          .into(localDatabase.hallAttemptTable)
-          .insertOnConflictUpdate(HallAttemptTableCompanion.insert(
+          .into(localDatabase.driftHallAttemptsTable)
+          .insertOnConflictUpdate(DriftHallAttemptsTableCompanion.insert(
             id: Value(attempt.id!),
             treaningId: treaning.id,
             categoryId: attempt.category.id,
@@ -133,9 +133,10 @@ class LocalHallTreaningDataSource implements HallTreaningDataSource {
     required int hallId,
     required String treaningId,
   }) async {
-    final data = await (localDatabase.select(localDatabase.hallAttemptTable)
-          ..where((tbl) => tbl.treaningId.equals(treaningId)))
-        .get();
+    final data =
+        await (localDatabase.select(localDatabase.driftHallAttemptsTable)
+              ..where((tbl) => tbl.treaningId.equals(treaningId)))
+            .get();
 
     final List<ClimbingHallAttempt> attempts = [];
 
@@ -147,7 +148,7 @@ class LocalHallTreaningDataSource implements HallTreaningDataSource {
   }
 
   Future<ClimbingHallAttempt> _itemToAttempt({
-    required HallAttemptItem item,
+    required DriftHallAttempt item,
     required int hallId,
     ClimbingHallRoute? route,
   }) async {
@@ -179,7 +180,7 @@ class LocalHallTreaningDataSource implements HallTreaningDataSource {
     return attempt;
   }
 
-  Future<ClimbingHallTreaning> _itemToTreaning(HallTreaningItem item) async {
+  Future<ClimbingHallTreaning> _itemToTreaning(DriftHallTreaning item) async {
     final failureOrHall =
         await getIt<ClimbingHallDataSource>().getHallById(item.hallId);
 
@@ -197,7 +198,7 @@ class LocalHallTreaningDataSource implements HallTreaningDataSource {
   @override
   Future<Either<Failure, Unit>> deleteAttempt(
       {required ClimbingHallAttempt attempt}) async {
-    await (localDatabase.delete(localDatabase.hallAttemptTable)
+    await (localDatabase.delete(localDatabase.driftHallAttemptsTable)
           ..where((tbl) => tbl.id.equals(attempt.id!)))
         .go();
 
@@ -207,10 +208,10 @@ class LocalHallTreaningDataSource implements HallTreaningDataSource {
   @override
   Future<Either<Failure, Unit>> deleteTreaning(
       {required ClimbingHallTreaning treaning}) async {
-    await (localDatabase.delete(localDatabase.hallAttemptTable)
+    await (localDatabase.delete(localDatabase.driftHallAttemptsTable)
           ..where((tbl) => tbl.treaningId.equals(treaning.id)))
         .go();
-    await (localDatabase.delete(localDatabase.hallTreaningTable)
+    await (localDatabase.delete(localDatabase.driftHallTreaningsTable)
           ..where((tbl) => tbl.id.equals(treaning.id)))
         .go();
 
@@ -220,12 +221,14 @@ class LocalHallTreaningDataSource implements HallTreaningDataSource {
   @override
   Future<Either<Failure, List<ClimbingHallAttempt>>> routeAttempts(
       {required ClimbingHallRoute route}) async {
-    final data = await (localDatabase.select(localDatabase.hallAttemptTable)
-          ..where((tbl) => tbl.routeId.equals(route.id!))
-          ..orderBy([
-            (u) => OrderingTerm(expression: u.start, mode: OrderingMode.desc),
-          ]))
-        .get();
+    final data =
+        await (localDatabase.select(localDatabase.driftHallAttemptsTable)
+              ..where((tbl) => tbl.routeId.equals(route.id!))
+              ..orderBy([
+                (u) =>
+                    OrderingTerm(expression: u.start, mode: OrderingMode.desc),
+              ]))
+            .get();
 
     final List<ClimbingHallAttempt> attempts = [];
 
@@ -236,4 +239,13 @@ class LocalHallTreaningDataSource implements HallTreaningDataSource {
 
     return Right(attempts);
   }
+
+  Future<List<DriftHallTreaning>> _getAllTreanings() async =>
+      (localDatabase.select(localDatabase.driftHallTreaningsTable)
+            ..orderBy(
+              [
+                (u) => OrderingTerm(expression: u.date, mode: OrderingMode.desc)
+              ],
+            ))
+          .get();
 }

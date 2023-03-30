@@ -6,5 +6,6 @@ class HallTreaningModel extends ClimbingHallTreaning {
     required super.climbingHall,
     required super.attempts,
     super.id,
+    super.finish,
   });
 }
