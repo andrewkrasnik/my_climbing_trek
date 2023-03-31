@@ -40,12 +40,13 @@ class DriftDBLocalDataSource extends _$DriftDBLocalDataSource
         if (from < 3) {
           // we added the priority property in the change from version 1 or 2
           // to version 3
+
           await m.renameTable(driftHallTreaningsTable, 'hall_treaning_table');
           await m.renameTable(driftHallAttemptsTable, 'hall_attempt_table');
         }
         if (from < 4) {
-          await m.addColumn(driftStrengthExercisesTable,
-              driftStrengthExercisesTable.selected);
+          // await m.addColumn(driftStrengthExercisesTable,
+          //     driftStrengthExercisesTable.selected);
         }
         if (from < 5) {
           // we added the dueDate property in the change from version 1 to
