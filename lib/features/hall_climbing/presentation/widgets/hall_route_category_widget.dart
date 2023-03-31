@@ -1,5 +1,6 @@
 import 'package:climbing_diary/core/data/ascent_type.dart';
 import 'package:climbing_diary/core/data/climbing_category.dart';
+import 'package:climbing_diary/core/widgets/attempt_budget.dart';
 import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_attempt.dart';
 import 'package:climbing_diary/features/settings/presentation/cubit/settings_cubit.dart';
 import 'package:flutter/material.dart';
@@ -113,11 +114,11 @@ class _AttemptBadgets extends StatelessWidget {
     late Widget topRight;
 
     if (attempt?.ascentType == AscentType.redPoint) {
-      topRight = const _AttemptBudget(color: Colors.red, child: SizedBox());
+      topRight = const AttemptBudget(color: Colors.red, child: SizedBox());
     } else if (attempt?.ascentType == AscentType.onsite) {
-      topRight = const _AttemptBudget(color: Colors.amber, child: SizedBox());
+      topRight = const AttemptBudget(color: Colors.amber, child: SizedBox());
     } else if (attempt?.fail == true) {
-      topRight = const _AttemptBudget(
+      topRight = const AttemptBudget(
           color: Colors.red,
           child: Icon(
             Icons.close,
@@ -138,7 +139,7 @@ class _AttemptBadgets extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         if (fallCount > 0)
-          _AttemptBudget(
+          AttemptBudget(
             color: Colors.red,
             child: Text(
               fallCount.toString(),
@@ -147,7 +148,7 @@ class _AttemptBadgets extends StatelessWidget {
             ),
           ),
         if (suspensionCount > 0)
-          _AttemptBudget(
+          AttemptBudget(
             color: Colors.orange,
             child: Text(
               suspensionCount.toString(),
@@ -171,27 +172,9 @@ class _AttemptBadgets extends StatelessWidget {
           Align(
             alignment: Alignment.bottomRight,
             child: bottomRight,
-          )
+          ),
         ],
       ),
-    );
-  }
-}
-
-class _AttemptBudget extends StatelessWidget {
-  final Color color;
-  final Widget child;
-  const _AttemptBudget({required this.color, required this.child, Key? key})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 16,
-      width: 16,
-      decoration:
-          BoxDecoration(color: color, borderRadius: BorderRadius.circular(8)),
-      child: child,
     );
   }
 }

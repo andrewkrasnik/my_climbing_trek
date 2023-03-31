@@ -35,7 +35,7 @@ class StrengthTrainingCubit extends Cubit<StrengthTrainingState> {
   }) : super(StrengthTrainingState.initial());
 
   Future<void> loadData() async {
-    emit(state.copyWith(loading: true));
+    emit(const StrengthTrainingState(loading: true));
 
     final failureOrCurrent = await getCurrentStrengthTreaning();
 
@@ -123,8 +123,7 @@ class StrengthTrainingCubit extends Cubit<StrengthTrainingState> {
 
     failureOrTreaning.fold(
       (failure) => null,
-      (treaning) => emit(state.copyWith(
-          currentTreaning: null, previosTreaning: treaning, loading: false)),
+      (treaning) => loadData(),
     );
   }
 }

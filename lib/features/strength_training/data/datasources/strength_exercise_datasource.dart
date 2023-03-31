@@ -15,10 +15,11 @@ abstract class StrengthExerciseDataSource {
 
   Future<Either<Failure, Map<StrengthExercise, bool>>> getSelected();
 
-  deleteExercise({required StrengthExercise exercise}) {}
+  Future<Either<Failure, Unit>> deleteExercise(
+      {required StrengthExercise exercise});
 }
 
-@LazySingleton(as: StrengthExerciseDataSource)
+// @LazySingleton(as: StrengthExerciseDataSource)
 class MockStrengthExerciseDataSource implements StrengthExerciseDataSource {
   final List<StrengthExercise> _exercises = [];
   final Map<StrengthExercise, bool> _selected = {};

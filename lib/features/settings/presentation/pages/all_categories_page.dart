@@ -11,7 +11,7 @@ class AllCategoriesPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Все категории'),
+        title: const Text('Все категории скалолазанья'),
       ),
       body: SingleChildScrollView(
         child: Table(

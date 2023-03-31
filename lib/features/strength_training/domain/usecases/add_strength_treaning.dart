@@ -16,13 +16,13 @@ class AddStrengthTreaning {
 
   Future<Either<Failure, StrengthTreaning>> call() async {
     final failureOrSelectedExercises =
-        await strengthExerciseRepository.getExercises();
+        await strengthExerciseRepository.getSelected();
 
     return failureOrSelectedExercises.fold((failure) => Left(failure),
         (selectedExercises) async {
       final treaning = StrengthTreaning(date: DateTime.now())
-        ..start()
-        ..updateExercises(selectedExercises: selectedExercises);
+        ..startTreaning()
+        ..updateExercises(selectedExercises: selectedExercises.keys.toList());
 
       return await strengthTreaningsRepository.saveTreaning(treaning: treaning);
     });

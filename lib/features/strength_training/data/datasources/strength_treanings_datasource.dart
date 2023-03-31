@@ -20,7 +20,7 @@ abstract class StrengthTreaningsDataSource {
   });
 }
 
-@LazySingleton(as: StrengthTreaningsDataSource)
+// @LazySingleton(as: StrengthTreaningsDataSource)
 class MockStrengthTreaningsDataSource implements StrengthTreaningsDataSource {
   final List<StrengthTreaning> _treanings = [];
   @override

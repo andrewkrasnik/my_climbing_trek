@@ -17,11 +17,12 @@ class UpdateStrengthTreaningExercises {
   Future<Either<Failure, StrengthTreaning>> call(
       {required StrengthTreaning treaning}) async {
     final failureOrSelectedExercises =
-        await strengthExerciseRepository.getExercises();
+        await strengthExerciseRepository.getSelected();
 
     return failureOrSelectedExercises.fold((failure) => Left(failure),
         (selectedExercises) async {
-      treaning.updateExercises(selectedExercises: selectedExercises);
+      treaning.updateExercises(
+          selectedExercises: selectedExercises.keys.toList());
 
       return await strengthTreaningsRepository.saveTreaning(treaning: treaning);
     });

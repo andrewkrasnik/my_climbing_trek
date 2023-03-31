@@ -14,7 +14,7 @@ class FinishHallTreaning {
   Future<Either<Failure, ClimbingHallTreaning>> call({
     required ClimbingHallTreaning treaning,
   }) async {
-    treaning.finish();
+    treaning.finishTreaning();
     return await treaningRepository.saveTreaning(treaning: treaning);
   }
 }

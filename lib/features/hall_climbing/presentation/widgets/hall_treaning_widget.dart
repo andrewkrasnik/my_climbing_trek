@@ -22,7 +22,7 @@ class HallTreaningWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      padding: const EdgeInsets.symmetric(vertical: 4),
       child: Material(
         elevation: 2,
         borderRadius: BorderRadius.circular(8),
@@ -92,22 +92,22 @@ class HallTreaningWidget extends StatelessWidget {
                       return const SizedBox();
                     }
                   } else {
-                    if (state.current == null) {
-                      return Row(
-                        children: [
-                          const Expanded(child: SizedBox()),
-                          TextButton(
-                            child: const Text('Повторить'),
-                            onPressed: () {
-                              BlocProvider.of<CurrentHallTreaningCubit>(context)
-                                  .repeatTreaning(treaning: treaning);
-                            },
-                          ),
-                        ],
-                      );
-                    } else {
-                      return const SizedBox();
-                    }
+                    // if (state.current == null) {
+                    //   return Row(
+                    //     children: [
+                    //       const Expanded(child: SizedBox()),
+                    //       TextButton(
+                    //         child: const Text('Повторить'),
+                    //         onPressed: () {
+                    //           BlocProvider.of<CurrentHallTreaningCubit>(context)
+                    //               .repeatTreaning(treaning: treaning);
+                    //         },
+                    //       ),
+                    //     ],
+                    //   );
+                    // } else {
+                    return const SizedBox();
+                    // }
                   }
                 },
               ),
