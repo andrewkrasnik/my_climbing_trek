@@ -88,4 +88,7 @@ class IceCategory {
     i6plus,
     i7,
   ];
+
+  static IceCategory getById(id) =>
+      values.firstWhere((element) => element.id == id);
 }

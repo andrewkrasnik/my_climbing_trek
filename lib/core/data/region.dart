@@ -1,13 +1,22 @@
 import 'package:climbing_diary/core/data/data_with_uuid.dart';
-import 'package:climbing_diary/core/data/district.dart';
 
 class Region extends DataWithUUID {
   final String name;
-  final List<District> _districts;
 
   Region({
     required this.name,
-    List<District>? districts,
     super.id,
-  }) : _districts = districts ?? [];
+  });
+
+  static final moscow = Region(name: 'Москва и область', id: 'moscow');
+  static final caucasus = Region(name: 'Северный кавказ', id: 'caucas');
+
+  static final Map<String, Region> _values = {
+    moscow.id: moscow,
+    caucasus.id: caucasus
+  };
+
+  static List<Region> get values => _values.values.toList();
+
+  static Region getById(String id) => _values[id]!;
 }

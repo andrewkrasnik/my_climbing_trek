@@ -1,6 +1,8 @@
 import 'package:climbing_diary/core/data/ice_category.dart';
 import 'package:climbing_diary/core/data/region.dart';
 import 'package:climbing_diary/core/failures/failure.dart';
+import 'package:climbing_diary/features/ice_climbing/data/models/ice_district_model.dart';
+import 'package:climbing_diary/features/ice_climbing/data/models/ice_sector_model.dart';
 import 'package:climbing_diary/features/ice_climbing/domain/entities/ice_district.dart';
 import 'package:climbing_diary/features/ice_climbing/domain/entities/ice_sector.dart';
 import 'package:dartz/dartz.dart';
@@ -12,7 +14,7 @@ abstract class IceRegionsDataSource {
       {required IceDistrict district});
 }
 
-@LazySingleton(as: IceRegionsDataSource)
+// @LazySingleton(as: IceRegionsDataSource)
 class MockIceRegionsDataSource implements IceRegionsDataSource {
   final List<IceDistrict> _districts = [];
   final Map<IceDistrict, List<IceSector>> _sectors = {};
@@ -21,7 +23,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
     final moscow = Region(name: 'Москва и область', id: 'moscow');
     final caucasus = Region(name: 'Северный кавказ', id: 'caucas');
 
-    final naroFominsk = IceDistrict(
+    final naroFominsk = IceDistrictModel(
       id: 'narofom',
       compact: true,
       name: 'Наро-Фоминская сосулька',
@@ -30,7 +32,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
           'https://sun1-47.userapi.com/impg/3VW79oaXqedj5fD4CuX4ccvqcF4if6dNgdSfPg/6mM_UsN9ntQ.jpg?size=1242x1234&quality=95&sign=9e66838aba3b3f42a82261a77c0c8bcb&type=album',
     );
 
-    final naroFominskWestWall = IceSector(
+    final naroFominskWestWall = IceSectorModel(
       id: 'narofomWest',
       name: 'Западная стена',
       district: naroFominsk,
@@ -42,7 +44,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
       artificialIce: true,
     );
 
-    final naroFominskEastWall = IceSector(
+    final naroFominskEastWall = IceSectorModel(
       id: 'narofomEast',
       name: 'Восточная стена',
       district: naroFominsk,
@@ -54,7 +56,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
       artificialIce: true,
     );
 
-    final naroFominskNordWall = IceSector(
+    final naroFominskNordWall = IceSectorModel(
       id: 'narofomNord',
       name: 'Северная стена',
       district: naroFominsk,
@@ -66,14 +68,14 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
       artificialIce: true,
     );
 
-    final digoria = IceDistrict(
+    final digoria = IceDistrictModel(
       id: 'digora',
       name: 'Дигория',
       region: caucasus,
       image: 'http://caas.ru/taimazy/taymaz_01_small.jpg',
     );
 
-    final digoriaWall = IceSector(
+    final digoriaWall = IceSectorModel(
       id: 'digora1',
       name: 'Стенка',
       lenght: 40,
@@ -88,7 +90,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
 """,
     );
 
-    final digoriaRivers = IceSector(
+    final digoriaRivers = IceSectorModel(
       id: 'digora2',
       name: 'Ручейки',
       district: digoria,
@@ -106,7 +108,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
 """,
     );
 
-    final digoriaAihva = IceSector(
+    final digoriaAihva = IceSectorModel(
       id: 'digora3',
       name: 'Айхва',
       district: digoria,
@@ -120,7 +122,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
         """,
     );
 
-    final digoriaKubus = IceSector(
+    final digoriaKubus = IceSectorModel(
       id: 'digora4',
       name: 'Кубус 2000',
       district: digoria,
@@ -143,7 +145,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
                    """,
     );
 
-    final digoriaKubusik = IceSector(
+    final digoriaKubusik = IceSectorModel(
       name: 'Кубусик',
       id: 'digora5',
       district: digoria,
@@ -158,7 +160,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
 """,
     );
 
-    final digoriaToof = IceSector(
+    final digoriaToof = IceSectorModel(
       id: 'digora6',
       name: 'Зубовый',
       district: digoria,
@@ -173,7 +175,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
 """,
     );
 
-    final digoriaKindom = IceSector(
+    final digoriaKindom = IceSectorModel(
       id: 'digora7',
       name: 'Ледовое Королевство 1-ый каскад',
       district: digoria,
@@ -192,7 +194,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
 """,
     );
 
-    final digoriaKrown = IceSector(
+    final digoriaKrown = IceSectorModel(
       id: 'digora8',
       name: 'Ледовое королевство  каскад "Корона"',
       district: digoria,
@@ -211,7 +213,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
 """,
     );
 
-    final digoriaKurazh = IceSector(
+    final digoriaKurazh = IceSectorModel(
       id: 'digora9',
       name: 'Ледовое королевство  каскад "Кураж"',
       district: digoria,
@@ -226,7 +228,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
 """,
     );
 
-    final digoriaDushik = IceSector(
+    final digoriaDushik = IceSectorModel(
       id: 'digora10',
       name: 'Душик ада',
       district: digoria,
@@ -241,7 +243,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
 """,
     );
 
-    final digoriaBlue = IceSector(
+    final digoriaBlue = IceSectorModel(
       id: 'digora11',
       name: 'Голубая щель',
       district: digoria,
