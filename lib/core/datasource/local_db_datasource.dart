@@ -9,6 +9,9 @@ abstract class LocalDBDatasource {
     Map<String, bool>? orderByConditions,
   });
 
+  Future<Either<Failure, Unit>> deleteAll(
+      {required DBTables table, Map<String, dynamic>? whereConditions});
+
   Future<Either<Failure, Unit>> insertAll(
       {required DBTables table, required List<Map<String, dynamic>> data});
 

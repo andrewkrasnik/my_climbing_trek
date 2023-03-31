@@ -33,11 +33,15 @@ class DriftStrengthTreaningsTable extends Table {
 
 @DataClassName('DriftStrengthTreaningLine')
 class DriftStrengthTreaningLinesTable extends Table {
+  IntColumn get id => integer().nullable().autoIncrement()();
   TextColumn get repetitions => text()();
   TextColumn get treaningId =>
       text().references(DriftStrengthTreaningsTable, #id)();
   TextColumn get exercise =>
       text().references(DriftStrengthExercisesTable, #id)();
+
+  @override
+  Set<Column>? get primaryKey => {id};
 }
 
 @DataClassName('DriftCardioTreanings')

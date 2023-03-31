@@ -23,7 +23,7 @@ class DriftDBLocalDataSource extends _$DriftDBLocalDataSource
   DriftDBLocalDataSource() : super(_openConnection());
 
   @override
-  int get schemaVersion => 5;
+  int get schemaVersion => 7;
 
   @override
   MigrationStrategy get migration {
@@ -53,6 +53,10 @@ class DriftDBLocalDataSource extends _$DriftDBLocalDataSource
           await m.createTable(driftStrengthTreaningLinesTable);
           await m.createTable(driftStrengthTreaningsTable);
           await m.createTable(driftCardioTreaningsTable);
+        }
+        if (from < 7) {
+          await m.deleteTable(driftStrengthTreaningLinesTable.actualTableName);
+          await m.createTable(driftStrengthTreaningLinesTable);
         }
       },
     );
@@ -105,46 +109,19 @@ class DriftDBLocalDataSource extends _$DriftDBLocalDataSource
 
     return failureOrTable.fold(
       (failure) => Left(failure),
-      (driftTable) {
-        // try {
-        //   driftTable.insertAll(
-        //       data
-        //           .map((dataItem) => DriftRecipeItem.fromJson(dataItem))
-        //           .toList(),
-        //       mode: InsertMode.insertOrReplace);
-        // } catch (error) {
-        //   return Left(DataBaseFailure(description: 'Drift DB: $error'));
-        // }
+      (driftTable) async {
+        try {
+          for (var dataItem in data) {
+            await driftTable.insertOnConflictUpdate(
+                _dataClassFromJson(json: dataItem, table: table));
+          }
+        } catch (error) {
+          return Left(DataBaseFailure(description: 'Drift DB: $error'));
+        }
 
         return const Right(unit);
       },
     );
-  }
-
-  Either<Failure, TableInfo<Table, DataClass>> _getTable(DBTables table) {
-    switch (table) {
-      case DBTables.strengthExercises:
-        return Right(driftStrengthExercisesTable);
-
-      case DBTables.hallAttempts:
-        return Right(driftHallAttemptsTable);
-
-      case DBTables.hallTreanings:
-        return Right(driftHallTreaningsTable);
-
-      case DBTables.cardioTreanings:
-        return Right(driftCardioTreaningsTable);
-
-      case DBTables.strengthLines:
-        return Right(driftStrengthTreaningLinesTable);
-
-      case DBTables.strengthTreanings:
-        return Right(driftStrengthTreaningsTable);
-
-      default:
-        return Left(DataBaseFailure(
-            description: 'Drift DB - неизвестная таблица: $table'));
-    }
   }
 
   @override
@@ -242,13 +219,12 @@ class DriftDBLocalDataSource extends _$DriftDBLocalDataSource
         try {
           final finishColumn = driftTable.columnsByName['finish'];
           final treaning = await (select(driftTable)
-                // ..orderBy(
-                //   [
-                //     (u) => OrderingTerm(
-                //         expression: table..,
-                //         mode: OrderingMode.desc)
-                //   ],
-                // )
+                ..orderBy(
+                  [
+                    (tbl) => OrderingTerm(
+                        expression: finishColumn!, mode: OrderingMode.desc)
+                  ],
+                )
                 ..where((tbl) => finishColumn!.isNotNull())
                 ..limit(1))
               .getSingleOrNull();
@@ -260,31 +236,88 @@ class DriftDBLocalDataSource extends _$DriftDBLocalDataSource
       },
     );
   }
-}
 
-Insertable<DataClass> _dataClassFromJson(
-    {required DBTables table, required Map<String, dynamic> json}) {
-  switch (table) {
-    case DBTables.strengthExercises:
-      return DriftStrengthExercise.fromJson(json);
+  Either<Failure, TableInfo<Table, DataClass>> _getTable(DBTables table) {
+    switch (table) {
+      case DBTables.strengthExercises:
+        return Right(driftStrengthExercisesTable);
 
-    case DBTables.hallAttempts:
-      return DriftHallAttempt.fromJson(json);
+      case DBTables.hallAttempts:
+        return Right(driftHallAttemptsTable);
 
-    case DBTables.hallTreanings:
-      return DriftHallTreaning.fromJson(json);
+      case DBTables.hallTreanings:
+        return Right(driftHallTreaningsTable);
 
-    case DBTables.cardioTreanings:
-      return DriftCardioTreanings.fromJson(json);
+      case DBTables.cardioTreanings:
+        return Right(driftCardioTreaningsTable);
 
-    case DBTables.strengthLines:
-      return DriftStrengthTreaningLine.fromJson(json);
+      case DBTables.strengthLines:
+        return Right(driftStrengthTreaningLinesTable);
 
-    case DBTables.strengthTreanings:
-      return DriftStrengthTreaning.fromJson(json);
+      case DBTables.strengthTreanings:
+        return Right(driftStrengthTreaningsTable);
 
-    default:
-      return throw 'Drift DB - неизвестная таблица: $table';
+      default:
+        return Left(DataBaseFailure(
+            description: 'Drift DB - неизвестная таблица: $table'));
+    }
+  }
+
+  Insertable<DataClass> _dataClassFromJson(
+      {required DBTables table, required Map<String, dynamic> json}) {
+    switch (table) {
+      case DBTables.strengthExercises:
+        return DriftStrengthExercise.fromJson(json);
+
+      case DBTables.hallAttempts:
+        return DriftHallAttempt.fromJson(json);
+
+      case DBTables.hallTreanings:
+        return DriftHallTreaning.fromJson(json);
+
+      case DBTables.cardioTreanings:
+        return DriftCardioTreanings.fromJson(json);
+
+      case DBTables.strengthLines:
+        return DriftStrengthTreaningLine.fromJson(json);
+
+      case DBTables.strengthTreanings:
+        return DriftStrengthTreaning.fromJson(json);
+
+      default:
+        return throw 'Drift DB - неизвестная таблица: $table';
+    }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> deleteAll(
+      {required DBTables table, Map<String, dynamic>? whereConditions}) async {
+    final failureOrTable = _getTable(table);
+
+    return failureOrTable.fold(
+      (failure) => Left(failure),
+      (driftTable) {
+        try {
+          driftTable.deleteWhere((tbl) {
+            if (whereConditions == null) {
+              return const Constant(true);
+            }
+            // final List<Expression<bool>> conditions = [];
+            for (var key in whereConditions.keys) {
+              final column = driftTable.columnsByName[key];
+              if (column != null) {
+                return column.equals(whereConditions[key]);
+              }
+            }
+            throw 'Неизвестное условие';
+          });
+        } catch (error) {
+          return Left(DataBaseFailure(description: 'Drift DB: $error'));
+        }
+
+        return const Right(unit);
+      },
+    );
   }
 }
 

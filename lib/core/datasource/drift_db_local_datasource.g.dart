@@ -1695,16 +1695,21 @@ class $DriftStrengthTreaningsTableTable extends DriftStrengthTreaningsTable
 
 class DriftStrengthTreaningLine extends DataClass
     implements Insertable<DriftStrengthTreaningLine> {
+  final int? id;
   final String repetitions;
   final String treaningId;
   final String exercise;
   const DriftStrengthTreaningLine(
-      {required this.repetitions,
+      {this.id,
+      required this.repetitions,
       required this.treaningId,
       required this.exercise});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
+    if (!nullToAbsent || id != null) {
+      map['id'] = Variable<int>(id);
+    }
     map['repetitions'] = Variable<String>(repetitions);
     map['treaning_id'] = Variable<String>(treaningId);
     map['exercise'] = Variable<String>(exercise);
@@ -1713,6 +1718,7 @@ class DriftStrengthTreaningLine extends DataClass
 
   DriftStrengthTreaningLinesTableCompanion toCompanion(bool nullToAbsent) {
     return DriftStrengthTreaningLinesTableCompanion(
+      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
       repetitions: Value(repetitions),
       treaningId: Value(treaningId),
       exercise: Value(exercise),
@@ -1723,6 +1729,7 @@ class DriftStrengthTreaningLine extends DataClass
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return DriftStrengthTreaningLine(
+      id: serializer.fromJson<int?>(json['id']),
       repetitions: serializer.fromJson<String>(json['repetitions']),
       treaningId: serializer.fromJson<String>(json['treaningId']),
       exercise: serializer.fromJson<String>(json['exercise']),
@@ -1732,6 +1739,7 @@ class DriftStrengthTreaningLine extends DataClass
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
+      'id': serializer.toJson<int?>(id),
       'repetitions': serializer.toJson<String>(repetitions),
       'treaningId': serializer.toJson<String>(treaningId),
       'exercise': serializer.toJson<String>(exercise),
@@ -1739,8 +1747,12 @@ class DriftStrengthTreaningLine extends DataClass
   }
 
   DriftStrengthTreaningLine copyWith(
-          {String? repetitions, String? treaningId, String? exercise}) =>
+          {Value<int?> id = const Value.absent(),
+          String? repetitions,
+          String? treaningId,
+          String? exercise}) =>
       DriftStrengthTreaningLine(
+        id: id.present ? id.value : this.id,
         repetitions: repetitions ?? this.repetitions,
         treaningId: treaningId ?? this.treaningId,
         exercise: exercise ?? this.exercise,
@@ -1748,6 +1760,7 @@ class DriftStrengthTreaningLine extends DataClass
   @override
   String toString() {
     return (StringBuffer('DriftStrengthTreaningLine(')
+          ..write('id: $id, ')
           ..write('repetitions: $repetitions, ')
           ..write('treaningId: $treaningId, ')
           ..write('exercise: $exercise')
@@ -1756,11 +1769,12 @@ class DriftStrengthTreaningLine extends DataClass
   }
 
   @override
-  int get hashCode => Object.hash(repetitions, treaningId, exercise);
+  int get hashCode => Object.hash(id, repetitions, treaningId, exercise);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is DriftStrengthTreaningLine &&
+          other.id == this.id &&
           other.repetitions == this.repetitions &&
           other.treaningId == this.treaningId &&
           other.exercise == this.exercise);
@@ -1768,15 +1782,18 @@ class DriftStrengthTreaningLine extends DataClass
 
 class DriftStrengthTreaningLinesTableCompanion
     extends UpdateCompanion<DriftStrengthTreaningLine> {
+  final Value<int?> id;
   final Value<String> repetitions;
   final Value<String> treaningId;
   final Value<String> exercise;
   const DriftStrengthTreaningLinesTableCompanion({
+    this.id = const Value.absent(),
     this.repetitions = const Value.absent(),
     this.treaningId = const Value.absent(),
     this.exercise = const Value.absent(),
   });
   DriftStrengthTreaningLinesTableCompanion.insert({
+    this.id = const Value.absent(),
     required String repetitions,
     required String treaningId,
     required String exercise,
@@ -1784,11 +1801,13 @@ class DriftStrengthTreaningLinesTableCompanion
         treaningId = Value(treaningId),
         exercise = Value(exercise);
   static Insertable<DriftStrengthTreaningLine> custom({
+    Expression<int>? id,
     Expression<String>? repetitions,
     Expression<String>? treaningId,
     Expression<String>? exercise,
   }) {
     return RawValuesInsertable({
+      if (id != null) 'id': id,
       if (repetitions != null) 'repetitions': repetitions,
       if (treaningId != null) 'treaning_id': treaningId,
       if (exercise != null) 'exercise': exercise,
@@ -1796,10 +1815,12 @@ class DriftStrengthTreaningLinesTableCompanion
   }
 
   DriftStrengthTreaningLinesTableCompanion copyWith(
-      {Value<String>? repetitions,
+      {Value<int?>? id,
+      Value<String>? repetitions,
       Value<String>? treaningId,
       Value<String>? exercise}) {
     return DriftStrengthTreaningLinesTableCompanion(
+      id: id ?? this.id,
       repetitions: repetitions ?? this.repetitions,
       treaningId: treaningId ?? this.treaningId,
       exercise: exercise ?? this.exercise,
@@ -1809,6 +1830,9 @@ class DriftStrengthTreaningLinesTableCompanion
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
     if (repetitions.present) {
       map['repetitions'] = Variable<String>(repetitions.value);
     }
@@ -1824,6 +1848,7 @@ class DriftStrengthTreaningLinesTableCompanion
   @override
   String toString() {
     return (StringBuffer('DriftStrengthTreaningLinesTableCompanion(')
+          ..write('id: $id, ')
           ..write('repetitions: $repetitions, ')
           ..write('treaningId: $treaningId, ')
           ..write('exercise: $exercise')
@@ -1841,6 +1866,13 @@ class $DriftStrengthTreaningLinesTableTable
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $DriftStrengthTreaningLinesTableTable(this.attachedDatabase, [this._alias]);
+  final VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _repetitionsMeta =
       const VerificationMeta('repetitions');
   @override
@@ -1862,7 +1894,7 @@ class $DriftStrengthTreaningLinesTableTable
       requiredDuringInsert: true,
       defaultConstraints: 'REFERENCES "drift_strength_exercises_table" ("id")');
   @override
-  List<GeneratedColumn> get $columns => [repetitions, treaningId, exercise];
+  List<GeneratedColumn> get $columns => [id, repetitions, treaningId, exercise];
   @override
   String get aliasedName => _alias ?? 'drift_strength_treaning_lines_table';
   @override
@@ -1873,6 +1905,9 @@ class $DriftStrengthTreaningLinesTableTable
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
     if (data.containsKey('repetitions')) {
       context.handle(
           _repetitionsMeta,
@@ -1899,12 +1934,14 @@ class $DriftStrengthTreaningLinesTableTable
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => <GeneratedColumn>{};
+  Set<GeneratedColumn> get $primaryKey => {id};
   @override
   DriftStrengthTreaningLine map(Map<String, dynamic> data,
       {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return DriftStrengthTreaningLine(
+      id: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}id']),
       repetitions: attachedDatabase.options.types
           .read(DriftSqlType.string, data['${effectivePrefix}repetitions'])!,
       treaningId: attachedDatabase.options.types

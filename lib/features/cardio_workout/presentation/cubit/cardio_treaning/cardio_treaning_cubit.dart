@@ -50,7 +50,6 @@ class CardioTreaningCubit extends Cubit<CardioTreaningState> {
     failureOrTreaning.fold(
         (failure) => emit(
             state.copyWith(loading: false, errorMessage: failure.toString())),
-        (treaning) => emit(state.copyWith(
-            loading: false, lastTreaning: treaning, errorMessage: '')));
+        (_) => loadData());
   }
 }
