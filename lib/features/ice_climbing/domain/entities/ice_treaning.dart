@@ -38,5 +38,6 @@ class IceTreaning extends Treaning {
     super.id,
     List<IceTreaningAttempt>? attempts,
     required this.sectors,
+    super.start,
   }) : _attempts = attempts ?? [];
 }

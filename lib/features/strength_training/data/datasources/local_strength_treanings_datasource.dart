@@ -38,8 +38,14 @@ class LocalStrengthTreaningsDataSource implements StrengthTreaningsDataSource {
   @override
   Future<Either<Failure, Unit>> deleteTreaning(
       {required StrengthTreaning treaning}) async {
-    return await _localDatabase.deleteById(
-        table: table, data: _convertTreaning(treaning: treaning));
+    final failureOrUnitDelete = await _localDatabase.deleteAll(
+        table: linesTable, whereConditions: {'treaning_id': treaning.id});
+
+    return failureOrUnitDelete.fold(
+      (failure) => Left(failure),
+      (_) async => await _localDatabase.deleteById(
+          table: table, data: _convertTreaning(treaning: treaning)),
+    );
   }
 
   @override

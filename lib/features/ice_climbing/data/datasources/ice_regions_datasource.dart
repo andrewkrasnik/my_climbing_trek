@@ -12,6 +12,7 @@ abstract class IceRegionsDataSource {
   Future<Either<Failure, List<IceDistrict>>> getDistricts();
   Future<Either<Failure, List<IceSector>>> getSectors(
       {required IceDistrict district});
+  Future<Either<Failure, List<IceSector>>> getAllSectors();
 }
 
 // @LazySingleton(as: IceRegionsDataSource)
@@ -291,5 +292,11 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
   Future<Either<Failure, List<IceSector>>> getSectors(
       {required IceDistrict district}) async {
     return Right(_sectors[district] ?? []);
+  }
+
+  @override
+  Future<Either<Failure, List<IceSector>>> getAllSectors() {
+    // TODO: implement getAllSectors
+    throw UnimplementedError();
   }
 }

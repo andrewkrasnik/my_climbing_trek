@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
           create: (context) => getIt<SettingsCubit>()..loadData(),
         ),
         BlocProvider(
-          create: (context) => getIt<CurrentIceTreaningCubit>(),
+          create: (context) => getIt<CurrentIceTreaningCubit>()..loadData(),
         ),
         BlocProvider(
           create: (context) => getIt<CardioTreaningCubit>()..loadData(),

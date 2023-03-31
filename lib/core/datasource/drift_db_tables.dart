@@ -7,6 +7,8 @@ const tables = [
   DriftCardioTreaningsTable,
   DriftStrengthTreaningsTable,
   DriftStrengthTreaningLinesTable,
+  DriftIceAttemptsTable,
+  DriftIceTreaningsTable,
 ];
 
 @DataClassName('DriftStrengthExercise')
@@ -84,4 +86,39 @@ class DriftHallAttemptsTable extends Table {
   IntColumn get fallCount => integer()();
   BoolColumn get downClimbing => boolean()();
   BoolColumn get fail => boolean()();
+}
+
+@DataClassName('DriftIceTreanings')
+class DriftIceTreaningsTable extends Table {
+  TextColumn get id => text().unique()();
+  TextColumn get districtId => text()();
+  DateTimeColumn get date => dateTime()();
+  DateTimeColumn get finish => dateTime().nullable()();
+  DateTimeColumn get start => dateTime().nullable()();
+
+  @override
+  Set<Column>? get primaryKey => {id};
+}
+
+@DataClassName('DriftIceAttempt')
+class DriftIceAttemptsTable extends Table {
+  TextColumn get id => text().unique()();
+  TextColumn get sector => text()();
+  TextColumn get treaningId => text().references(DriftIceTreaningsTable, #id)();
+  IntColumn get category => integer()();
+  IntColumn get style => integer()();
+  DateTimeColumn get finishTime => dateTime().nullable()();
+  DateTimeColumn get startTime => dateTime().nullable()();
+
+  IntColumn get wayLength => integer()();
+  IntColumn get suspensionCount => integer()();
+  IntColumn get fallCount => integer()();
+  BoolColumn get downClimbing => boolean()();
+  BoolColumn get fail => boolean()();
+  BoolColumn get installedIceScrews => boolean()();
+  IntColumn get iceScrewsCount => integer()();
+  IntColumn get toolsCount => integer()();
+
+  @override
+  Set<Column>? get primaryKey => {id};
 }

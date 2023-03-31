@@ -11,21 +11,24 @@ class IceTreaningAttempt extends DataWithUUID {
   DateTime? _startTime;
   DateTime? _finishTime;
 
-  int suspensionCount = 0;
+  int suspensionCount;
 
-  int fallCount = 0;
+  int fallCount;
 
-  bool downClimbing = false;
+  bool downClimbing;
 
-  bool fail = false;
+  bool fail;
 
-  int toolsCount = 2;
+  int toolsCount;
 
-  int iceScrewsCount = 0;
+  int iceScrewsCount;
 
-  bool installedIceScrews = false;
+  bool installedIceScrews;
 
   int length;
+
+  DateTime? get startTime => _startTime;
+  DateTime? get finishTime => _finishTime;
 
   bool get planed => _startTime == null;
   bool get finished => _finishTime != null;
@@ -39,6 +42,13 @@ class IceTreaningAttempt extends DataWithUUID {
     DateTime? finishTime,
     int? wayLength,
     super.id,
+    this.downClimbing = false,
+    this.fallCount = 0,
+    this.iceScrewsCount = 0,
+    this.fail = false,
+    this.installedIceScrews = false,
+    this.suspensionCount = 0,
+    this.toolsCount = 2,
   })  : _startTime = startTime,
         _finishTime = finishTime,
         length = wayLength ?? sector.lenght;

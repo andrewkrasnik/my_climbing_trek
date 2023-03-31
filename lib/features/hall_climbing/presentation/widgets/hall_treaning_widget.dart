@@ -22,7 +22,7 @@ class HallTreaningWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      padding: const EdgeInsets.symmetric(vertical: 4),
       child: Material(
         elevation: 2,
         borderRadius: BorderRadius.circular(8),

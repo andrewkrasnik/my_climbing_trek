@@ -54,7 +54,10 @@ class SelectIceRouteWidget extends StatelessWidget {
                       children: [
                         const Text('Сложность до:'),
                         const SizedBox(width: 8),
-                        IceCategoryWidget(category: sector.maxCategory),
+                        IceCategoryWidget(
+                          category: sector.maxCategory,
+                          prefix: sector.icePrefix,
+                        ),
                         const SizedBox(width: 24),
                         ElevatedButton(
                           onPressed: () {

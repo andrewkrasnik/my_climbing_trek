@@ -7,21 +7,23 @@ abstract class IceTreaningsDataSource {
   Future<Either<Failure, IceTreaning>> saveTreaning(
       {required IceTreaning treaning});
   Future<Either<Failure, List<IceTreaning>>> getTreanings();
-  Future<Either<Failure, IceTreaning>> getCurrentTreaning();
-  Future<Either<Failure, IceTreaning>> getPreviousTreaning();
+  Future<Either<Failure, IceTreaning?>> getCurrentTreaning();
+  Future<Either<Failure, IceTreaning?>> getPreviousTreaning();
+
+  Future<Either<Failure, Unit>> deleteTreaning({required IceTreaning treaning});
 }
 
-@LazySingleton(as: IceTreaningsDataSource)
+// @LazySingleton(as: IceTreaningsDataSource)
 class MockIceTreaningsDataSource implements IceTreaningsDataSource {
   final List<IceTreaning> _treanings = [];
   @override
-  Future<Either<Failure, IceTreaning>> getCurrentTreaning() async {
+  Future<Either<Failure, IceTreaning?>> getCurrentTreaning() async {
     // TODO: implement getCurrentTreaning
     throw UnimplementedError();
   }
 
   @override
-  Future<Either<Failure, IceTreaning>> getPreviousTreaning() async {
+  Future<Either<Failure, IceTreaning?>> getPreviousTreaning() async {
     // TODO: implement getPreviousTreaning
     throw UnimplementedError();
   }
@@ -38,5 +40,12 @@ class MockIceTreaningsDataSource implements IceTreaningsDataSource {
       _treanings.add(treaning);
     }
     return Right(treaning);
+  }
+
+  @override
+  Future<Either<Failure, Unit>> deleteTreaning(
+      {required IceTreaning treaning}) {
+    // TODO: implement deleteTreaning
+    throw UnimplementedError();
   }
 }

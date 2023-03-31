@@ -66,4 +66,10 @@ class LocalIceRegionsDataSource implements IceRegionsDataSource {
       }
     });
   }
+
+  @override
+  Future<Either<Failure, List<IceSector>>> getAllSectors() {
+    // TODO: implement getAllSectors
+    throw UnimplementedError();
+  }
 }

@@ -5,4 +5,6 @@ enum DBTables {
   cardioTreanings,
   strengthTreanings,
   strengthLines,
+  iceTreanings,
+  iceAttempts,
 }

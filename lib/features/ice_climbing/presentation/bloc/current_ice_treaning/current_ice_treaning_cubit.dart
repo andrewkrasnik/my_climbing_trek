@@ -3,6 +3,8 @@ import 'package:climbing_diary/features/ice_climbing/domain/entities/ice_distric
 import 'package:climbing_diary/features/ice_climbing/domain/entities/ice_sector.dart';
 import 'package:climbing_diary/features/ice_climbing/domain/usecases/finish_ice_attempt.dart';
 import 'package:climbing_diary/features/ice_climbing/domain/usecases/finish_ice_treaning.dart';
+import 'package:climbing_diary/features/ice_climbing/domain/usecases/get_current_ice_treaning.dart';
+import 'package:climbing_diary/features/ice_climbing/domain/usecases/get_last_ice_treaning.dart';
 import 'package:climbing_diary/features/ice_climbing/domain/usecases/ice_sector_to_treaning.dart';
 import 'package:climbing_diary/features/ice_climbing/domain/usecases/new_ice_attempt.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,6 +25,8 @@ class CurrentIceTreaningCubit extends Cubit<CurrentIceTreaningState> {
   final IceSectorToTreaning _iceSectorToTreaning;
   final FinishIceAttempt _finishIceAttempt;
   final FinishIceTreaning _finishIceTreaning;
+  final GetLastIceTreaning _getLastIceTreaning;
+  final GetCurrentIceTreaning _getCurrentIceTreaning;
 
   CurrentIceTreaningCubit(
     this._newIceTreaning,
@@ -30,7 +34,31 @@ class CurrentIceTreaningCubit extends Cubit<CurrentIceTreaningState> {
     this._newIceAttempt,
     this._finishIceAttempt,
     this._finishIceTreaning,
+    this._getCurrentIceTreaning,
+    this._getLastIceTreaning,
   ) : super(CurrentIceTreaningState.initial());
+
+  Future<void> loadData() async {
+    emit(const CurrentIceTreaningState());
+
+    final failureOrCurrent = await _getCurrentIceTreaning();
+
+    if (failureOrCurrent.isLeft()) {
+      // emit(state)
+    }
+
+    final failureOrPrevios = await _getLastIceTreaning();
+
+    if (failureOrPrevios.isLeft()) {
+      // emit(state)
+    }
+
+    emit(state.copyWith(
+      currentTreaning:
+          failureOrCurrent.fold((_) => null, (treaning) => treaning),
+      lastTreaning: failureOrPrevios.fold((_) => null, (treaning) => treaning),
+    ));
+  }
 
   Future<void> addNewTreaning({required IceDistrict district}) async {
     final failureOrTreaning = await _newIceTreaning(district: district);

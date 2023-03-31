@@ -21,7 +21,7 @@ class IceTreaningWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      padding: const EdgeInsets.symmetric(vertical: 4),
       child: Material(
         elevation: 2,
         borderRadius: BorderRadius.circular(8),
@@ -64,7 +64,11 @@ class IceTreaningWidget extends StatelessWidget {
                     climbingStyle: ClimbingStyle.topRope,
                     child: const Text('Верхняя:'),
                   ),
-                if (isCurrent)
+                if (isCurrent &&
+                    BlocProvider.of<CurrentIceTreaningCubit>(context)
+                            .state
+                            .currentAttempt ==
+                        null)
                   TextButton(
                     child: const Text('Завершить'),
                     onPressed: () {
@@ -202,7 +206,10 @@ class AttemptClickWidget extends StatelessWidget {
       child: Stack(
         alignment: AlignmentDirectional.topCenter,
         children: [
-          IceCategoryWidget(category: attempt.category),
+          IceCategoryWidget(
+            category: attempt.category,
+            prefix: attempt.sector.icePrefix,
+          ),
           Positioned(
             top: 6,
             child: Text(

@@ -11,12 +11,12 @@ class IceTreaningsRepositoryImpl implements IceTreaningsRepository {
 
   IceTreaningsRepositoryImpl(this._iceTreaningsDataSource);
   @override
-  Future<Either<Failure, IceTreaning>> getCurrentTreaning() async {
+  Future<Either<Failure, IceTreaning?>> getCurrentTreaning() async {
     return await _iceTreaningsDataSource.getCurrentTreaning();
   }
 
   @override
-  Future<Either<Failure, IceTreaning>> getPreviousTreaning() async {
+  Future<Either<Failure, IceTreaning?>> getPreviousTreaning() async {
     return await _iceTreaningsDataSource.getPreviousTreaning();
   }
 
@@ -33,8 +33,7 @@ class IceTreaningsRepositoryImpl implements IceTreaningsRepository {
 
   @override
   Future<Either<Failure, Unit>> deleteTreaning(
-      {required IceTreaning treaning}) {
-    // TODO: implement deleteTreaning
-    throw UnimplementedError();
+      {required IceTreaning treaning}) async {
+    return await _iceTreaningsDataSource.deleteTreaning(treaning: treaning);
   }
 }

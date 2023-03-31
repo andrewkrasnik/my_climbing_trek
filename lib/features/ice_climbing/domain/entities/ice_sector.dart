@@ -26,7 +26,7 @@ class IceSector extends Sector {
     if (glacierIce) {
       return 'A';
     }
-    return 'G';
+    return 'W';
   }
 
   bool get hasTopRope => !artificialIce;
