@@ -1,6 +1,6 @@
-import 'package:climbing_diary/features/ice_climbing/domain/entities/ice_district.dart';
-import 'package:climbing_diary/features/ice_climbing/domain/entities/ice_sector.dart';
-import 'package:climbing_diary/features/ice_climbing/presentation/widgets/text_with_title_widget.dart';
+import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_district.dart';
+import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_sector.dart';
+import 'package:my_climbing_trek/features/ice_climbing/presentation/widgets/text_with_title_widget.dart';
 import 'package:flutter/material.dart';
 
 class IceSectorPage extends StatelessWidget {

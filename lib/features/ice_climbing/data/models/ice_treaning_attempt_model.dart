@@ -1,7 +1,7 @@
-import 'package:climbing_diary/core/data/climbing_style.dart';
-import 'package:climbing_diary/core/data/ice_category.dart';
-import 'package:climbing_diary/features/ice_climbing/domain/entities/ice_sector.dart';
-import 'package:climbing_diary/features/ice_climbing/domain/entities/ice_treaning_attempt.dart';
+import 'package:my_climbing_trek/core/data/climbing_style.dart';
+import 'package:my_climbing_trek/core/data/ice_category.dart';
+import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_sector.dart';
+import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_treaning_attempt.dart';
 
 class IceTreaningAttemptModel extends IceTreaningAttempt {
   final String treaningId;

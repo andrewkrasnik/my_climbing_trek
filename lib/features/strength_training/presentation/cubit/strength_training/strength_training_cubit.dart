@@ -1,16 +1,16 @@
-import 'package:climbing_diary/features/strength_training/domain/entities/strength_exercise.dart';
-import 'package:climbing_diary/features/strength_training/domain/usecases/add_repetition_for_strength_treaning.dart';
-import 'package:climbing_diary/features/strength_training/domain/usecases/delete_repetition_for_strength_treaning.dart';
-import 'package:climbing_diary/features/strength_training/domain/usecases/finish_stregth_treaning.dart';
-import 'package:climbing_diary/features/strength_training/domain/usecases/update_strength_treaning_exercises.dart';
+import 'package:my_climbing_trek/features/strength_training/domain/entities/strength_exercise.dart';
+import 'package:my_climbing_trek/features/strength_training/domain/usecases/add_repetition_for_strength_treaning.dart';
+import 'package:my_climbing_trek/features/strength_training/domain/usecases/delete_repetition_for_strength_treaning.dart';
+import 'package:my_climbing_trek/features/strength_training/domain/usecases/finish_stregth_treaning.dart';
+import 'package:my_climbing_trek/features/strength_training/domain/usecases/update_strength_treaning_exercises.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
-import 'package:climbing_diary/features/strength_training/domain/entities/strength_treaning.dart';
-import 'package:climbing_diary/features/strength_training/domain/usecases/add_strength_treaning.dart';
-import 'package:climbing_diary/features/strength_training/domain/usecases/get_current_strength_treaning.dart';
-import 'package:climbing_diary/features/strength_training/domain/usecases/get_previos_strength_treaning.dart';
+import 'package:my_climbing_trek/features/strength_training/domain/entities/strength_treaning.dart';
+import 'package:my_climbing_trek/features/strength_training/domain/usecases/add_strength_treaning.dart';
+import 'package:my_climbing_trek/features/strength_training/domain/usecases/get_current_strength_treaning.dart';
+import 'package:my_climbing_trek/features/strength_training/domain/usecases/get_previos_strength_treaning.dart';
 
 part 'strength_training_state.dart';
 

@@ -1,11 +1,11 @@
-import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_attempt.dart';
-import 'package:climbing_diary/features/hall_climbing/presentation/bloc/current_hall_treaning/current_hall_treaning_cubit.dart';
-import 'package:climbing_diary/features/hall_climbing/presentation/widgets/hall_attempt_dialog.dart';
-import 'package:climbing_diary/features/hall_climbing/presentation/widgets/hall_route_category_widget.dart';
-import 'package:climbing_diary/features/hall_climbing/presentation/widgets/hall_route_go_button.dart';
+import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_attempt.dart';
+import 'package:my_climbing_trek/features/hall_climbing/presentation/bloc/current_hall_treaning/current_hall_treaning_cubit.dart';
+import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/hall_attempt_dialog.dart';
+import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/hall_route_category_widget.dart';
+import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/hall_route_go_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:climbing_diary/features/hall_climbing/presentation/widgets/hall_sector_number_widget.dart';
+import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/hall_sector_number_widget.dart';
 
 class HallAttemptWidget extends StatelessWidget {
   final bool isCurrent;

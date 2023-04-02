@@ -1,6 +1,6 @@
-import 'package:climbing_diary/core/data/climbing_category.dart';
-import 'package:climbing_diary/core/data/climbing_route_type.dart';
-import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_route.dart';
+import 'package:my_climbing_trek/core/data/climbing_category.dart';
+import 'package:my_climbing_trek/core/data/climbing_route_type.dart';
+import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_route.dart';
 
 class HallRouteFilter {
   final ClimbingCategory? category;

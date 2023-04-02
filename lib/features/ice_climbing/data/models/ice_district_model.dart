@@ -1,5 +1,5 @@
-import 'package:climbing_diary/core/data/region.dart';
-import 'package:climbing_diary/features/ice_climbing/domain/entities/ice_district.dart';
+import 'package:my_climbing_trek/core/data/region.dart';
+import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_district.dart';
 
 class IceDistrictModel extends IceDistrict {
   IceDistrictModel({

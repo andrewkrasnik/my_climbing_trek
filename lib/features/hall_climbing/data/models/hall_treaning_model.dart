@@ -1,4 +1,4 @@
-import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_treaning.dart';
+import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_treaning.dart';
 
 class HallTreaningModel extends ClimbingHallTreaning {
   HallTreaningModel({

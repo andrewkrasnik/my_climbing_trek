@@ -1,6 +1,6 @@
 {
-    "name": "climbing_diary",
-    "short_name": "climbing_diary",
+    "name": "my_climbing_trek",
+    "short_name": "my_climbing_trek",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

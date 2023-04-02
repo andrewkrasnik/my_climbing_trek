@@ -1,8 +1,8 @@
-import 'package:climbing_diary/core/data/ascent_type.dart';
-import 'package:climbing_diary/core/data/climbing_category.dart';
-import 'package:climbing_diary/core/widgets/attempt_budget.dart';
-import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_attempt.dart';
-import 'package:climbing_diary/features/settings/presentation/cubit/settings_cubit.dart';
+import 'package:my_climbing_trek/core/data/ascent_type.dart';
+import 'package:my_climbing_trek/core/data/climbing_category.dart';
+import 'package:my_climbing_trek/core/widgets/attempt_budget.dart';
+import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_attempt.dart';
+import 'package:my_climbing_trek/features/settings/presentation/cubit/settings_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

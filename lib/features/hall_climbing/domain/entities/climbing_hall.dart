@@ -1,6 +1,6 @@
-import 'package:climbing_diary/core/data/climbing_style.dart';
-import 'package:climbing_diary/core/data/map_point.dart';
-import 'package:climbing_diary/features/hall_climbing/domain/entities/city.dart';
+import 'package:my_climbing_trek/core/data/climbing_style.dart';
+import 'package:my_climbing_trek/core/data/map_point.dart';
+import 'package:my_climbing_trek/features/hall_climbing/domain/entities/city.dart';
 
 class ClimbingHall {
   final String name;

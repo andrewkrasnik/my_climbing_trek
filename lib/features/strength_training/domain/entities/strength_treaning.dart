@@ -1,5 +1,5 @@
-import 'package:climbing_diary/core/data/treaning.dart';
-import 'package:climbing_diary/features/strength_training/domain/entities/strength_exercise.dart';
+import 'package:my_climbing_trek/core/data/treaning.dart';
+import 'package:my_climbing_trek/features/strength_training/domain/entities/strength_exercise.dart';
 
 class StrengthTreaning extends Treaning {
   final List<StrengthTreaningExerciseLine> excercises;

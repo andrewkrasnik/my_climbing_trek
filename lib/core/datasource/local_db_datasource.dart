@@ -1,5 +1,5 @@
-import 'package:climbing_diary/core/datasource/db_tables.dart';
-import 'package:climbing_diary/core/failures/failure.dart';
+import 'package:my_climbing_trek/core/datasource/db_tables.dart';
+import 'package:my_climbing_trek/core/failures/failure.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class LocalDBDatasource {

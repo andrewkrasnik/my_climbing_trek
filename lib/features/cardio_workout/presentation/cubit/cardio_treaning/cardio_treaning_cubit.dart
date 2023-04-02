@@ -1,7 +1,7 @@
-import 'package:climbing_diary/features/cardio_workout/domain/entities/cardio_exercise.dart';
-import 'package:climbing_diary/features/cardio_workout/domain/entities/cardio_treaning.dart';
-import 'package:climbing_diary/features/cardio_workout/domain/usecases/get_last_cardio_treaning.dart';
-import 'package:climbing_diary/features/cardio_workout/domain/usecases/save_cardio_treaning.dart';
+import 'package:my_climbing_trek/features/cardio_workout/domain/entities/cardio_exercise.dart';
+import 'package:my_climbing_trek/features/cardio_workout/domain/entities/cardio_treaning.dart';
+import 'package:my_climbing_trek/features/cardio_workout/domain/usecases/get_last_cardio_treaning.dart';
+import 'package:my_climbing_trek/features/cardio_workout/domain/usecases/save_cardio_treaning.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';

@@ -1,4 +1,4 @@
-import 'package:climbing_diary/core/data/ice_category.dart';
+import 'package:my_climbing_trek/core/data/ice_category.dart';
 import 'package:flutter/material.dart';
 
 class IceCategoryWidget extends StatelessWidget {

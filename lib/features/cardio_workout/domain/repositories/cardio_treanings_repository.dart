@@ -1,6 +1,6 @@
-import 'package:climbing_diary/core/failures/failure.dart';
+import 'package:my_climbing_trek/core/failures/failure.dart';
 
-import 'package:climbing_diary/features/cardio_workout/domain/entities/cardio_treaning.dart';
+import 'package:my_climbing_trek/features/cardio_workout/domain/entities/cardio_treaning.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class CardioTreaningsRepository {

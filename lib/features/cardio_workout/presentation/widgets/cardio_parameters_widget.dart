@@ -1,7 +1,7 @@
-import 'package:climbing_diary/core/extentions/date_time_extention.dart';
-import 'package:climbing_diary/features/cardio_workout/domain/entities/cardio_exercise.dart';
-import 'package:climbing_diary/features/cardio_workout/domain/entities/cardio_treaning.dart';
-import 'package:climbing_diary/features/cardio_workout/presentation/cubit/cardio_treaning/cardio_treaning_cubit.dart';
+import 'package:my_climbing_trek/core/extentions/date_time_extention.dart';
+import 'package:my_climbing_trek/features/cardio_workout/domain/entities/cardio_exercise.dart';
+import 'package:my_climbing_trek/features/cardio_workout/domain/entities/cardio_treaning.dart';
+import 'package:my_climbing_trek/features/cardio_workout/presentation/cubit/cardio_treaning/cardio_treaning_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';

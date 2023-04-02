@@ -1,12 +1,12 @@
-import 'package:climbing_diary/features/strength_training/domain/usecases/delete_strength_exercise.dart';
-import 'package:climbing_diary/features/strength_training/domain/usecases/select_to_use_strength_exercise.dart';
+import 'package:my_climbing_trek/features/strength_training/domain/usecases/delete_strength_exercise.dart';
+import 'package:my_climbing_trek/features/strength_training/domain/usecases/select_to_use_strength_exercise.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
-import 'package:climbing_diary/features/strength_training/domain/entities/strength_exercise.dart';
-import 'package:climbing_diary/features/strength_training/domain/usecases/get_strength_exercises.dart';
-import 'package:climbing_diary/features/strength_training/domain/usecases/save_strength_exercise.dart';
+import 'package:my_climbing_trek/features/strength_training/domain/entities/strength_exercise.dart';
+import 'package:my_climbing_trek/features/strength_training/domain/usecases/get_strength_exercises.dart';
+import 'package:my_climbing_trek/features/strength_training/domain/usecases/save_strength_exercise.dart';
 
 part 'strength_exercises_cubit.freezed.dart';
 part 'strength_exercises_state.dart';

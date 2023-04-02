@@ -1,6 +1,6 @@
-import 'package:climbing_diary/core/data/data_with_uuid.dart';
-import 'package:climbing_diary/core/data/region.dart';
-import 'package:climbing_diary/core/data/sector.dart';
+import 'package:my_climbing_trek/core/data/data_with_uuid.dart';
+import 'package:my_climbing_trek/core/data/region.dart';
+import 'package:my_climbing_trek/core/data/sector.dart';
 
 class District extends DataWithUUID {
   final String name;

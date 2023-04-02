@@ -1,5 +1,5 @@
-import 'package:climbing_diary/features/cardio_workout/domain/entities/cardio_exercise.dart';
-import 'package:climbing_diary/features/cardio_workout/domain/entities/cardio_treaning.dart';
+import 'package:my_climbing_trek/features/cardio_workout/domain/entities/cardio_exercise.dart';
+import 'package:my_climbing_trek/features/cardio_workout/domain/entities/cardio_treaning.dart';
 
 class CardioTreaningModel extends CardioTreaning {
   CardioTreaningModel({

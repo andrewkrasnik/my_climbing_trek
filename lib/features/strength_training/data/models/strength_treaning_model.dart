@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:climbing_diary/features/strength_training/domain/entities/strength_exercise.dart';
-import 'package:climbing_diary/features/strength_training/domain/entities/strength_treaning.dart';
+import 'package:my_climbing_trek/features/strength_training/domain/entities/strength_exercise.dart';
+import 'package:my_climbing_trek/features/strength_training/domain/entities/strength_treaning.dart';
 
 class StrengthTreaningModel extends StrengthTreaning {
   StrengthTreaningModel({

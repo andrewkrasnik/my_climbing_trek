@@ -1,5 +1,5 @@
-import 'package:climbing_diary/core/data/ice_category.dart';
-import 'package:climbing_diary/features/settings/presentation/widgets/settings_ice_category_widget.dart';
+import 'package:my_climbing_trek/core/data/ice_category.dart';
+import 'package:my_climbing_trek/features/settings/presentation/widgets/settings_ice_category_widget.dart';
 import 'package:flutter/material.dart';
 
 class IceCategoriesPage extends StatelessWidget {

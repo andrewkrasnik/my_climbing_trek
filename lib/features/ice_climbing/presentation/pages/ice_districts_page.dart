@@ -1,7 +1,7 @@
-import 'package:climbing_diary/features/ice_climbing/presentation/bloc/ice_districts/ice_districts_cubit.dart';
-import 'package:climbing_diary/features/ice_climbing/presentation/pages/ice_district_page.dart';
-import 'package:climbing_diary/features/ice_climbing/presentation/widgets/ice_district_widget.dart';
-import 'package:climbing_diary/service_locator.dart';
+import 'package:my_climbing_trek/features/ice_climbing/presentation/bloc/ice_districts/ice_districts_cubit.dart';
+import 'package:my_climbing_trek/features/ice_climbing/presentation/pages/ice_district_page.dart';
+import 'package:my_climbing_trek/features/ice_climbing/presentation/widgets/ice_district_widget.dart';
+import 'package:my_climbing_trek/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

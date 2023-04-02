@@ -1,7 +1,7 @@
-import 'package:climbing_diary/core/data/category_type.dart';
-import 'package:climbing_diary/features/settings/presentation/cubit/settings_cubit.dart';
-import 'package:climbing_diary/features/settings/presentation/pages/all_categories_page.dart';
-import 'package:climbing_diary/features/settings/presentation/pages/ice_categories_page.dart';
+import 'package:my_climbing_trek/core/data/category_type.dart';
+import 'package:my_climbing_trek/features/settings/presentation/cubit/settings_cubit.dart';
+import 'package:my_climbing_trek/features/settings/presentation/pages/all_categories_page.dart';
+import 'package:my_climbing_trek/features/settings/presentation/pages/ice_categories_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

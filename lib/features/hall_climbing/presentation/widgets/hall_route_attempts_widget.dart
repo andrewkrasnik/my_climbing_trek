@@ -1,6 +1,6 @@
-import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_route.dart';
-import 'package:climbing_diary/features/hall_climbing/presentation/bloc/hall_route_attempts/hall_route_attempts_cubit.dart';
-import 'package:climbing_diary/service_locator.dart';
+import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_route.dart';
+import 'package:my_climbing_trek/features/hall_climbing/presentation/bloc/hall_route_attempts/hall_route_attempts_cubit.dart';
+import 'package:my_climbing_trek/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';

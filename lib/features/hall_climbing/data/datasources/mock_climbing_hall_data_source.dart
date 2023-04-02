@@ -1,11 +1,11 @@
-import 'package:climbing_diary/core/failures/failure.dart';
-import 'package:climbing_diary/features/hall_climbing/data/datasources/climbing_hall_data_source.dart';
-import 'package:climbing_diary/features/hall_climbing/data/models/hall_model.dart';
-import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_route.dart';
-import 'package:climbing_diary/features/hall_climbing/domain/entities/hall_routes_filter.dart';
+import 'package:my_climbing_trek/core/failures/failure.dart';
+import 'package:my_climbing_trek/features/hall_climbing/data/datasources/climbing_hall_data_source.dart';
+import 'package:my_climbing_trek/features/hall_climbing/data/models/hall_model.dart';
+import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_route.dart';
+import 'package:my_climbing_trek/features/hall_climbing/domain/entities/hall_routes_filter.dart';
 import 'package:dartz/dartz.dart';
-import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall.dart';
-import 'package:climbing_diary/features/hall_climbing/domain/entities/city.dart';
+import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall.dart';
+import 'package:my_climbing_trek/features/hall_climbing/domain/entities/city.dart';
 import 'package:injectable/injectable.dart';
 
 // @LazySingleton(as: ClimbingHallDataSource)

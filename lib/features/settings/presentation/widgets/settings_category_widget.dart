@@ -1,5 +1,5 @@
-import 'package:climbing_diary/core/data/category_type.dart';
-import 'package:climbing_diary/core/data/climbing_category.dart';
+import 'package:my_climbing_trek/core/data/category_type.dart';
+import 'package:my_climbing_trek/core/data/climbing_category.dart';
 import 'package:flutter/material.dart';
 
 class SettingsCategoryWidget extends StatelessWidget {

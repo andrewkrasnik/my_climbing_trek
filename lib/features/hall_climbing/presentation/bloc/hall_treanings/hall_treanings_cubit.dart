@@ -1,7 +1,7 @@
-import 'package:climbing_diary/core/data/treaning.dart';
-import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_treaning.dart';
-import 'package:climbing_diary/features/hall_climbing/domain/usecases/treanings/all_hall_treanings.dart';
-import 'package:climbing_diary/features/hall_climbing/domain/usecases/treanings/delete_hall_treaning.dart';
+import 'package:my_climbing_trek/core/data/treaning.dart';
+import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_treaning.dart';
+import 'package:my_climbing_trek/features/hall_climbing/domain/usecases/treanings/all_hall_treanings.dart';
+import 'package:my_climbing_trek/features/hall_climbing/domain/usecases/treanings/delete_hall_treaning.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';

@@ -1,13 +1,13 @@
-import 'package:climbing_diary/core/data/treaning.dart';
-import 'package:climbing_diary/core/failures/failure.dart';
-import 'package:climbing_diary/features/cardio_workout/domain/entities/cardio_treaning.dart';
-import 'package:climbing_diary/features/cardio_workout/domain/repositories/cardio_treanings_repository.dart';
-import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_treaning.dart';
-import 'package:climbing_diary/features/hall_climbing/domain/repositories/hall_treaning_repository.dart';
-import 'package:climbing_diary/features/ice_climbing/domain/entities/ice_treaning.dart';
-import 'package:climbing_diary/features/ice_climbing/domain/repositories/ice_treanings_repository.dart';
-import 'package:climbing_diary/features/strength_training/domain/entities/strength_treaning.dart';
-import 'package:climbing_diary/features/strength_training/domain/repositories/strength_treanings_repository.dart';
+import 'package:my_climbing_trek/core/data/treaning.dart';
+import 'package:my_climbing_trek/core/failures/failure.dart';
+import 'package:my_climbing_trek/features/cardio_workout/domain/entities/cardio_treaning.dart';
+import 'package:my_climbing_trek/features/cardio_workout/domain/repositories/cardio_treanings_repository.dart';
+import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_treaning.dart';
+import 'package:my_climbing_trek/features/hall_climbing/domain/repositories/hall_treaning_repository.dart';
+import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_treaning.dart';
+import 'package:my_climbing_trek/features/ice_climbing/domain/repositories/ice_treanings_repository.dart';
+import 'package:my_climbing_trek/features/strength_training/domain/entities/strength_treaning.dart';
+import 'package:my_climbing_trek/features/strength_training/domain/repositories/strength_treanings_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 

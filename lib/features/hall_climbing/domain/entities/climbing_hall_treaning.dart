@@ -1,7 +1,7 @@
-import 'package:climbing_diary/core/data/climbing_style.dart';
-import 'package:climbing_diary/core/data/treaning.dart';
-import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall.dart';
-import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_attempt.dart';
+import 'package:my_climbing_trek/core/data/climbing_style.dart';
+import 'package:my_climbing_trek/core/data/treaning.dart';
+import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall.dart';
+import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_attempt.dart';
 import 'package:collection/collection.dart';
 
 class ClimbingHallTreaning extends Treaning {

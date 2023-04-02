@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:climbing_diary/core/datasource/db_tables.dart';
-import 'package:climbing_diary/core/datasource/local_db_datasource.dart';
-import 'package:climbing_diary/core/failures/failure.dart';
+import 'package:my_climbing_trek/core/datasource/db_tables.dart';
+import 'package:my_climbing_trek/core/datasource/local_db_datasource.dart';
+import 'package:my_climbing_trek/core/failures/failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';

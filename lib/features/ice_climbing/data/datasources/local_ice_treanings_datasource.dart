@@ -1,14 +1,14 @@
-import 'package:climbing_diary/core/datasource/db_tables.dart';
-import 'package:climbing_diary/core/datasource/drift_db_local_datasource.dart';
-import 'package:climbing_diary/core/failures/failure.dart';
-import 'package:climbing_diary/features/ice_climbing/data/datasources/ice_regions_datasource.dart';
-import 'package:climbing_diary/features/ice_climbing/data/datasources/ice_treanings_datasource.dart';
-import 'package:climbing_diary/features/ice_climbing/data/models/ice_treaning_model.dart';
-import 'package:climbing_diary/features/ice_climbing/domain/entities/ice_district.dart';
-import 'package:climbing_diary/features/ice_climbing/domain/entities/ice_sector.dart';
-import 'package:climbing_diary/service_locator.dart';
+import 'package:my_climbing_trek/core/datasource/db_tables.dart';
+import 'package:my_climbing_trek/core/datasource/drift_db_local_datasource.dart';
+import 'package:my_climbing_trek/core/failures/failure.dart';
+import 'package:my_climbing_trek/features/ice_climbing/data/datasources/ice_regions_datasource.dart';
+import 'package:my_climbing_trek/features/ice_climbing/data/datasources/ice_treanings_datasource.dart';
+import 'package:my_climbing_trek/features/ice_climbing/data/models/ice_treaning_model.dart';
+import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_district.dart';
+import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_sector.dart';
+import 'package:my_climbing_trek/service_locator.dart';
 import 'package:dartz/dartz.dart';
-import 'package:climbing_diary/features/ice_climbing/domain/entities/ice_treaning.dart';
+import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_treaning.dart';
 import 'package:injectable/injectable.dart';
 
 @LazySingleton(as: IceTreaningsDataSource)

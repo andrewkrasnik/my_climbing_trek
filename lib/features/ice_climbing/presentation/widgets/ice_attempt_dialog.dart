@@ -1,8 +1,8 @@
-import 'package:climbing_diary/core/data/climbing_style.dart';
-import 'package:climbing_diary/features/hall_climbing/presentation/widgets/bool_value_widget.dart';
-import 'package:climbing_diary/features/hall_climbing/presentation/widgets/int_counter_widget.dart';
-import 'package:climbing_diary/features/ice_climbing/domain/entities/ice_treaning_attempt.dart';
-import 'package:climbing_diary/features/ice_climbing/presentation/bloc/current_ice_treaning/current_ice_treaning_cubit.dart';
+import 'package:my_climbing_trek/core/data/climbing_style.dart';
+import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/bool_value_widget.dart';
+import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/int_counter_widget.dart';
+import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_treaning_attempt.dart';
+import 'package:my_climbing_trek/features/ice_climbing/presentation/bloc/current_ice_treaning/current_ice_treaning_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 

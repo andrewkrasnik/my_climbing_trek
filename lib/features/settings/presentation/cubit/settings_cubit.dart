@@ -1,4 +1,4 @@
-import 'package:climbing_diary/core/data/category_type.dart';
+import 'package:my_climbing_trek/core/data/category_type.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';

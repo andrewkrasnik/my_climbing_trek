@@ -1,6 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
-import 'package:climbing_diary/service_locator.config.dart';
+import 'package:my_climbing_trek/service_locator.config.dart';
 
 final getIt = GetIt.instance;
 

@@ -1,6 +1,6 @@
-import 'package:climbing_diary/core/data/map_point.dart';
-import 'package:climbing_diary/features/hall_climbing/domain/entities/city.dart';
-import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall.dart';
+import 'package:my_climbing_trek/core/data/map_point.dart';
+import 'package:my_climbing_trek/features/hall_climbing/domain/entities/city.dart';
+import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'hall_model.g.dart';

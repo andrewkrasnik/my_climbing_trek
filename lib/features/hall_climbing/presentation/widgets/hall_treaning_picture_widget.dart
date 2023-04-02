@@ -1,8 +1,8 @@
-import 'package:climbing_diary/core/data/climbing_style.dart';
-import 'package:climbing_diary/features/hall_climbing/presentation/widgets/hall_treaning_widget.dart';
+import 'package:my_climbing_trek/core/data/climbing_style.dart';
+import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/hall_treaning_widget.dart';
 import 'package:flutter/material.dart';
 
-import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_treaning.dart';
+import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_treaning.dart';
 
 class HallTreaningPictureWidget extends StatelessWidget {
   final ClimbingHallTreaning treaning;

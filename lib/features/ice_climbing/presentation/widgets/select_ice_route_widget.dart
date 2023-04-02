@@ -1,9 +1,9 @@
-import 'package:climbing_diary/features/ice_climbing/presentation/bloc/current_ice_treaning/current_ice_treaning_cubit.dart';
-import 'package:climbing_diary/features/ice_climbing/presentation/widgets/ice_category_widget.dart';
+import 'package:my_climbing_trek/features/ice_climbing/presentation/bloc/current_ice_treaning/current_ice_treaning_cubit.dart';
+import 'package:my_climbing_trek/features/ice_climbing/presentation/widgets/ice_category_widget.dart';
 import 'package:flutter/material.dart';
 
-import 'package:climbing_diary/core/data/climbing_style.dart';
-import 'package:climbing_diary/features/ice_climbing/domain/entities/ice_treaning.dart';
+import 'package:my_climbing_trek/core/data/climbing_style.dart';
+import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_treaning.dart';
 
 class SelectIceRouteWidget extends StatelessWidget {
   final IceTreaning treaning;

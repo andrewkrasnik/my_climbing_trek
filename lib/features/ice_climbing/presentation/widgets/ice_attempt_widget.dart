@@ -1,7 +1,7 @@
-import 'package:climbing_diary/features/ice_climbing/domain/entities/ice_treaning_attempt.dart';
-import 'package:climbing_diary/features/ice_climbing/presentation/bloc/current_ice_treaning/current_ice_treaning_cubit.dart';
-import 'package:climbing_diary/features/ice_climbing/presentation/widgets/ice_attempt_dialog.dart';
-import 'package:climbing_diary/features/ice_climbing/presentation/widgets/ice_category_widget.dart';
+import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_treaning_attempt.dart';
+import 'package:my_climbing_trek/features/ice_climbing/presentation/bloc/current_ice_treaning/current_ice_treaning_cubit.dart';
+import 'package:my_climbing_trek/features/ice_climbing/presentation/widgets/ice_attempt_dialog.dart';
+import 'package:my_climbing_trek/features/ice_climbing/presentation/widgets/ice_category_widget.dart';
 import 'package:flutter/material.dart';
 
 class IceAttemptWidget extends StatelessWidget {

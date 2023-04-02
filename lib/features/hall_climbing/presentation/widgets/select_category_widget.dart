@@ -1,6 +1,6 @@
-import 'package:climbing_diary/core/data/climbing_category.dart';
-import 'package:climbing_diary/features/hall_climbing/domain/entities/route_color.dart';
-import 'package:climbing_diary/features/hall_climbing/presentation/widgets/hall_route_category_widget.dart';
+import 'package:my_climbing_trek/core/data/climbing_category.dart';
+import 'package:my_climbing_trek/features/hall_climbing/domain/entities/route_color.dart';
+import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/hall_route_category_widget.dart';
 import 'package:flutter/material.dart';
 
 class SelectCategoryWidget extends StatelessWidget {

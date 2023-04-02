@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_route.dart';
+import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_route.dart';
 
 class HallSectorNumberWidget extends StatelessWidget {
   final Widget child;

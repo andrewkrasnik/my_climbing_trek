@@ -1,9 +1,9 @@
-import 'package:climbing_diary/core/extentions/date_time_extention.dart';
-import 'package:climbing_diary/core/widgets/int_counter_widget.dart';
+import 'package:my_climbing_trek/core/extentions/date_time_extention.dart';
+import 'package:my_climbing_trek/core/widgets/int_counter_widget.dart';
 
-import 'package:climbing_diary/features/strength_training/domain/entities/strength_treaning.dart';
-import 'package:climbing_diary/features/strength_training/presentation/cubit/strength_training/strength_training_cubit.dart';
-import 'package:climbing_diary/features/strength_training/presentation/pages/strength_exercises_page.dart';
+import 'package:my_climbing_trek/features/strength_training/domain/entities/strength_treaning.dart';
+import 'package:my_climbing_trek/features/strength_training/presentation/cubit/strength_training/strength_training_cubit.dart';
+import 'package:my_climbing_trek/features/strength_training/presentation/pages/strength_exercises_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';

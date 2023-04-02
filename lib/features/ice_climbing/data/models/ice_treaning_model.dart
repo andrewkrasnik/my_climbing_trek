@@ -1,8 +1,8 @@
-import 'package:climbing_diary/features/ice_climbing/data/models/ice_treaning_attempt_model.dart';
-import 'package:climbing_diary/features/ice_climbing/domain/entities/ice_district.dart';
-import 'package:climbing_diary/features/ice_climbing/domain/entities/ice_sector.dart';
-import 'package:climbing_diary/features/ice_climbing/domain/entities/ice_treaning.dart';
-import 'package:climbing_diary/features/ice_climbing/domain/entities/ice_treaning_attempt.dart';
+import 'package:my_climbing_trek/features/ice_climbing/data/models/ice_treaning_attempt_model.dart';
+import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_district.dart';
+import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_sector.dart';
+import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_treaning.dart';
+import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_treaning_attempt.dart';
 
 class IceTreaningModel extends IceTreaning {
   IceTreaningModel({

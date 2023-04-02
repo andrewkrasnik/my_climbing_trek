@@ -1,10 +1,10 @@
-import 'package:climbing_diary/features/hall_climbing/presentation/bloc/current_hall_treaning/current_hall_treaning_cubit.dart';
-import 'package:climbing_diary/features/hall_climbing/presentation/bloc/hall_treanings/hall_treanings_cubit.dart';
-import 'package:climbing_diary/features/hall_climbing/presentation/pages/hall_treaning_page.dart';
-import 'package:climbing_diary/features/hall_climbing/presentation/widgets/hall_treaning_widget.dart';
+import 'package:my_climbing_trek/features/hall_climbing/presentation/bloc/current_hall_treaning/current_hall_treaning_cubit.dart';
+import 'package:my_climbing_trek/features/hall_climbing/presentation/bloc/hall_treanings/hall_treanings_cubit.dart';
+import 'package:my_climbing_trek/features/hall_climbing/presentation/pages/hall_treaning_page.dart';
+import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/hall_treaning_widget.dart';
 import 'package:flutter/material.dart';
 
-import 'package:climbing_diary/service_locator.dart';
+import 'package:my_climbing_trek/service_locator.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';

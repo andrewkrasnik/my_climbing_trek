@@ -5,18 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "climbing_diary",
+            "name": "my_climbing_trek",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "climbing_diary (profile mode)",
+            "name": "my_climbing_trek (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "climbing_diary (release mode)",
+            "name": "my_climbing_trek (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"

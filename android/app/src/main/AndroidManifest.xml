@@ -1,9 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.climbing_diary">
+    package="ru.krasnik.my_climbing_trek">
 
     <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="climbing_diary"
+        android:label="My Climbing Trek"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

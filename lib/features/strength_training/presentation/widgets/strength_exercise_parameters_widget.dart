@@ -1,5 +1,5 @@
-import 'package:climbing_diary/features/strength_training/domain/entities/strength_exercise.dart';
-import 'package:climbing_diary/features/strength_training/presentation/cubit/strength_exercises/strength_exercises_cubit.dart';
+import 'package:my_climbing_trek/features/strength_training/domain/entities/strength_exercise.dart';
+import 'package:my_climbing_trek/features/strength_training/presentation/cubit/strength_exercises/strength_exercises_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 

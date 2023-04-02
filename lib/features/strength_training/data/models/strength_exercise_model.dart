@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'package:climbing_diary/features/strength_training/domain/entities/strength_exercise.dart';
+import 'package:my_climbing_trek/features/strength_training/domain/entities/strength_exercise.dart';
 
 part 'strength_exercise_model.g.dart';
 

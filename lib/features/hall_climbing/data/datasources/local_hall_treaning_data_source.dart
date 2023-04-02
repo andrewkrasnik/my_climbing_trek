@@ -1,20 +1,20 @@
-import 'package:climbing_diary/core/data/ascent_type.dart';
-import 'package:climbing_diary/core/data/climbing_category.dart';
-import 'package:climbing_diary/core/data/climbing_style.dart';
-import 'package:climbing_diary/core/datasource/drift_db_local_datasource.dart';
-import 'package:climbing_diary/features/hall_climbing/data/datasources/climbing_hall_data_source.dart';
-import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_route.dart';
-import 'package:climbing_diary/service_locator.dart';
+import 'package:my_climbing_trek/core/data/ascent_type.dart';
+import 'package:my_climbing_trek/core/data/climbing_category.dart';
+import 'package:my_climbing_trek/core/data/climbing_style.dart';
+import 'package:my_climbing_trek/core/datasource/drift_db_local_datasource.dart';
+import 'package:my_climbing_trek/features/hall_climbing/data/datasources/climbing_hall_data_source.dart';
+import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_route.dart';
+import 'package:my_climbing_trek/service_locator.dart';
 import 'package:dartz/dartz.dart';
 import 'package:drift/drift.dart';
 
 import 'package:injectable/injectable.dart';
 
-import 'package:climbing_diary/core/failures/failure.dart';
-import 'package:climbing_diary/features/hall_climbing/data/datasources/hall_treaning_data_source.dart';
+import 'package:my_climbing_trek/core/failures/failure.dart';
+import 'package:my_climbing_trek/features/hall_climbing/data/datasources/hall_treaning_data_source.dart';
 
-import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_attempt.dart';
-import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall_treaning.dart';
+import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_attempt.dart';
+import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_treaning.dart';
 
 @LazySingleton(as: HallTreaningDataSource)
 class LocalHallTreaningDataSource implements HallTreaningDataSource {

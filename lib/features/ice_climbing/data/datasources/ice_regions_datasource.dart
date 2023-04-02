@@ -1,10 +1,10 @@
-import 'package:climbing_diary/core/data/ice_category.dart';
-import 'package:climbing_diary/core/data/region.dart';
-import 'package:climbing_diary/core/failures/failure.dart';
-import 'package:climbing_diary/features/ice_climbing/data/models/ice_district_model.dart';
-import 'package:climbing_diary/features/ice_climbing/data/models/ice_sector_model.dart';
-import 'package:climbing_diary/features/ice_climbing/domain/entities/ice_district.dart';
-import 'package:climbing_diary/features/ice_climbing/domain/entities/ice_sector.dart';
+import 'package:my_climbing_trek/core/data/ice_category.dart';
+import 'package:my_climbing_trek/core/data/region.dart';
+import 'package:my_climbing_trek/core/failures/failure.dart';
+import 'package:my_climbing_trek/features/ice_climbing/data/models/ice_district_model.dart';
+import 'package:my_climbing_trek/features/ice_climbing/data/models/ice_sector_model.dart';
+import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_district.dart';
+import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_sector.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 

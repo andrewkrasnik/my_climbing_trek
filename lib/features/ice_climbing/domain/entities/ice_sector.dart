@@ -1,5 +1,5 @@
-import 'package:climbing_diary/core/data/ice_category.dart';
-import 'package:climbing_diary/core/data/sector.dart';
+import 'package:my_climbing_trek/core/data/ice_category.dart';
+import 'package:my_climbing_trek/core/data/sector.dart';
 
 class IceSector extends Sector {
   final bool waterfallIce;

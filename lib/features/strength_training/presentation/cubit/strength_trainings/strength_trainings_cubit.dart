@@ -1,6 +1,6 @@
-import 'package:climbing_diary/features/strength_training/domain/entities/strength_treaning.dart';
-import 'package:climbing_diary/features/strength_training/domain/usecases/delete_strength_treaning.dart';
-import 'package:climbing_diary/features/strength_training/domain/usecases/get_strength_treanings.dart';
+import 'package:my_climbing_trek/features/strength_training/domain/entities/strength_treaning.dart';
+import 'package:my_climbing_trek/features/strength_training/domain/usecases/delete_strength_treaning.dart';
+import 'package:my_climbing_trek/features/strength_training/domain/usecases/get_strength_treanings.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';

@@ -1,7 +1,7 @@
-import 'package:climbing_diary/features/hall_climbing/domain/entities/climbing_hall.dart';
-import 'package:climbing_diary/features/hall_climbing/presentation/pages/hall_route_page.dart';
-import 'package:climbing_diary/features/hall_climbing/presentation/widgets/hall_roure_widget.dart';
-import 'package:climbing_diary/service_locator.dart';
+import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall.dart';
+import 'package:my_climbing_trek/features/hall_climbing/presentation/pages/hall_route_page.dart';
+import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/hall_roure_widget.dart';
+import 'package:my_climbing_trek/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';

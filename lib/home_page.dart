@@ -1,7 +1,7 @@
-import 'package:climbing_diary/features/cardio_workout/presentation/widgets/cardio_home_page_widget.dart';
-import 'package:climbing_diary/features/hall_climbing/presentation/widgets/hall_home_page_widget.dart';
-import 'package:climbing_diary/features/ice_climbing/presentation/widgets/ice_home_page_widget.dart';
-import 'package:climbing_diary/features/strength_training/presentation/widgets/strength_home_page_widget.dart';
+import 'package:my_climbing_trek/features/cardio_workout/presentation/widgets/cardio_home_page_widget.dart';
+import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/hall_home_page_widget.dart';
+import 'package:my_climbing_trek/features/ice_climbing/presentation/widgets/ice_home_page_widget.dart';
+import 'package:my_climbing_trek/features/strength_training/presentation/widgets/strength_home_page_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {

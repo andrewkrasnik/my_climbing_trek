@@ -1,5 +1,5 @@
-import 'package:climbing_diary/features/treanings/presentation/pages/treanings_page.dart';
-import 'package:climbing_diary/home_page.dart';
+import 'package:my_climbing_trek/features/treanings/presentation/pages/treanings_page.dart';
+import 'package:my_climbing_trek/home_page.dart';
 
 import 'package:flutter/material.dart';
 

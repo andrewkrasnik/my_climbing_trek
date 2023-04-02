@@ -1,4 +1,4 @@
-import 'package:climbing_diary/core/data/unique_id.dart';
+import 'package:my_climbing_trek/core/data/unique_id.dart';
 import 'package:equatable/equatable.dart';
 
 class StrengthExercise extends Equatable {

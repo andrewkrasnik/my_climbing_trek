@@ -1,4 +1,4 @@
-import 'package:climbing_diary/core/data/district.dart';
+import 'package:my_climbing_trek/core/data/district.dart';
 
 class IceDistrict extends District {
   final bool compact;

@@ -1,10 +1,10 @@
-import 'package:climbing_diary/core/datasource/db_tables.dart';
-import 'package:climbing_diary/core/datasource/drift_db_local_datasource.dart';
-import 'package:climbing_diary/core/failures/failure.dart';
-import 'package:climbing_diary/features/cardio_workout/data/datasources/cardio_treanings_datasource.dart';
-import 'package:climbing_diary/features/cardio_workout/data/models/cardio_treaning_model.dart';
+import 'package:my_climbing_trek/core/datasource/db_tables.dart';
+import 'package:my_climbing_trek/core/datasource/drift_db_local_datasource.dart';
+import 'package:my_climbing_trek/core/failures/failure.dart';
+import 'package:my_climbing_trek/features/cardio_workout/data/datasources/cardio_treanings_datasource.dart';
+import 'package:my_climbing_trek/features/cardio_workout/data/models/cardio_treaning_model.dart';
 import 'package:dartz/dartz.dart';
-import 'package:climbing_diary/features/cardio_workout/domain/entities/cardio_treaning.dart';
+import 'package:my_climbing_trek/features/cardio_workout/domain/entities/cardio_treaning.dart';
 import 'package:injectable/injectable.dart';
 
 @LazySingleton(as: CardioTreaningsDatasource)
