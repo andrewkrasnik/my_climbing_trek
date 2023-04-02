@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "454320308985",
+    "project_id": "my-climbing-trek",
+    "storage_bucket": "my-climbing-trek.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:454320308985:android:92240bf70542b2ed075828",
+        "android_client_info": {
+          "package_name": "ru.krasnik.my_climbing_trek"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "454320308985-3v6e3hucs9m1o3e7s7v4f3h0o86gqsgv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD--TXcPyXEJhMfWl2wt5dkfM22OvAPkVI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "454320308985-3v6e3hucs9m1o3e7s7v4f3h0o86gqsgv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
