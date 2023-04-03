@@ -1,3 +1,4 @@
+import 'package:my_climbing_trek/core/services/network/network_info.dart';
 import 'package:my_climbing_trek/features/hall_climbing/data/datasources/climbing_hall_data_source.dart';
 import 'package:my_climbing_trek/features/hall_climbing/data/datasources/remote_gym_data_source.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/city.dart';
@@ -13,9 +14,14 @@ import 'package:injectable/injectable.dart';
 class ClimbingHallRepositoryImpl implements ClimbingHallRepository {
   final ClimbingHallDataSource _climbingHallDataSource;
   final RemoteGymDataSource _remoteGymDataSource;
+  final NetworkInfo _networkInfo;
 
   ClimbingHallRepositoryImpl(
-      this._climbingHallDataSource, this._remoteGymDataSource);
+    this._climbingHallDataSource,
+    this._remoteGymDataSource,
+    this._networkInfo,
+  );
+
   @override
   Future<Either<Failure, List<City>>> cities() async {
     return await _climbingHallDataSource.cities();
@@ -23,8 +29,21 @@ class ClimbingHallRepositoryImpl implements ClimbingHallRepository {
 
   @override
   Future<Either<Failure, List<ClimbingHall>>> climbingHalls() async {
-    // return await _climbingHallDataSource.climbingHalls();
-    return await _remoteGymDataSource.gyms();
+    if (await _networkInfo.isConnected) {
+      final failureOrGyms = await _remoteGymDataSource.gyms();
+
+      return await failureOrGyms.fold(
+        (failure) async => Left(failure),
+        (gyms) async {
+          final failureOrUnit =
+              await _climbingHallDataSource.saveGyms(gyms: gyms);
+          return failureOrUnit.fold((failure) async => Left(failure),
+              (_) => _climbingHallDataSource.climbingHalls());
+        },
+      );
+    }
+
+    return await _climbingHallDataSource.climbingHalls();
   }
 
   @override
@@ -32,12 +51,29 @@ class ClimbingHallRepositoryImpl implements ClimbingHallRepository {
     required ClimbingHall climbingHall,
     HallRouteFilter? filter,
   }) async {
-    // return await _climbingHallDataSource.climbingHallRoutes(
-    //   climbingHall: climbingHall,
-    //   filter: filter,
-    // );
-    return await _remoteGymDataSource.gymRoutes(
-      gym: climbingHall,
+    if (await _networkInfo.isConnected) {
+      final failureOrRoutes =
+          await _remoteGymDataSource.gymRoutes(gym: climbingHall);
+
+      return await failureOrRoutes.fold(
+        (failure) async => Left(failure),
+        (routes) async {
+          final failureOrUnit = await _climbingHallDataSource.saveRoutes(
+            gym: climbingHall,
+            routes: routes,
+          );
+
+          return failureOrUnit.fold(
+              (failure) async => Left(failure),
+              (_) => _climbingHallDataSource.climbingHallRoutes(
+                    climbingHall: climbingHall,
+                    filter: filter,
+                  ));
+        },
+      );
+    }
+    return await _climbingHallDataSource.climbingHallRoutes(
+      climbingHall: climbingHall,
       filter: filter,
     );
   }
@@ -51,7 +87,11 @@ class ClimbingHallRepositoryImpl implements ClimbingHallRepository {
     final failureOrUnit =
         await _remoteGymDataSource.updateRoute(gym: climbingHall, route: route);
 
-    return failureOrUnit.fold((failure) => Left(failure), (_) => Right(route));
+    return failureOrUnit.fold(
+      (failure) => Left(failure),
+      (_) => _climbingHallDataSource.addRoute(
+          climbingHall: climbingHall, route: route),
+    );
   }
 
   @override

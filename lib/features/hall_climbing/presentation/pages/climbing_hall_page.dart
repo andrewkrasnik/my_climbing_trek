@@ -1,3 +1,4 @@
+import 'package:my_climbing_trek/core/widgets/my_cached_network_image.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/pages/hall_route_page.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/hall_roure_widget.dart';
@@ -56,8 +57,8 @@ class ClimbingHallPage extends StatelessWidget {
                       background: Stack(
                         fit: StackFit.expand,
                         children: [
-                          Image.network(
-                            climbingHall.image,
+                          MyCachedNetworkImage(
+                            imageUrl: climbingHall.image,
                             fit: BoxFit.cover,
                           ),
                           Positioned(

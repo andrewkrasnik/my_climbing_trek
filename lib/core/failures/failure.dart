@@ -15,6 +15,10 @@ class DataBaseFailure extends FailureWithDescription {
   DataBaseFailure({required super.description});
 }
 
+class NoSQLBaseFailure extends FailureWithDescription {
+  NoSQLBaseFailure({required super.description});
+}
+
 class DataConvertionFailure extends FailureWithDescription {
   DataConvertionFailure({required super.description});
 }

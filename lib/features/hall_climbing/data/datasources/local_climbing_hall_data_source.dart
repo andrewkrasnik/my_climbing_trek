@@ -157,4 +157,37 @@ class LocalClimbingHallDataSource implements ClimbingHallDataSource {
 
     return const Right(unit);
   }
+
+  @override
+  Future<Either<Failure, Unit>> saveGyms(
+      {required List<ClimbingHall> gyms}) async {
+    try {
+      final hallsBox = await Hive.openBox<String>(_climbingHallsName);
+
+      for (final gym in gyms) {
+        await hallsBox.put(gym.id, json.encode((gym as HallModel).toJson()));
+      }
+    } catch (error) {
+      return Left(NoSQLBaseFailure(description: error.toString()));
+    }
+    return const Right(unit);
+  }
+
+  @override
+  Future<Either<Failure, Unit>> saveRoutes({
+    required ClimbingHall gym,
+    required List<ClimbingHallRoute> routes,
+  }) async {
+    try {
+      final routesBox =
+          await Hive.openBox<String>('$_climbingHallName${gym.id}');
+      for (final route in routes) {
+        await routesBox.put(
+            route.id, json.encode((route as HallRouteModel).toJson()));
+      }
+    } catch (error) {
+      return Left(NoSQLBaseFailure(description: error.toString()));
+    }
+    return const Right(unit);
+  }
 }

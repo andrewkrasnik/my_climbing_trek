@@ -145,4 +145,17 @@ class MockClimbingHallDataSource implements ClimbingHallDataSource {
     // TODO: implement updateData
     throw UnimplementedError();
   }
+
+  @override
+  Future<Either<Failure, Unit>> saveGyms({required List<ClimbingHall> gyms}) {
+    // TODO: implement saveGyms
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, Unit>> saveRoutes(
+      {required ClimbingHall gym, required List<ClimbingHallRoute> routes}) {
+    // TODO: implement saveRoutes
+    throw UnimplementedError();
+  }
 }
