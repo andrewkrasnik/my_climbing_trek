@@ -25,9 +25,8 @@ class LocalClimbingHallDataSource implements ClimbingHallDataSource {
     final routesBox =
         await Hive.openBox<String>('$_climbingHallName${climbingHall.id}');
 
-    final int id = routesBox.length;
-    route.id = id;
-    await routesBox.add(json.encode(HallRouteModel.fromOrign(route).toJson()));
+    await routesBox.put(
+        route.id, json.encode(HallRouteModel.fromOrign(route).toJson()));
 
     return Right(route);
   }
@@ -89,10 +88,10 @@ class LocalClimbingHallDataSource implements ClimbingHallDataSource {
 
   @override
   Future<Either<Failure, ClimbingHallRoute>> getRouteById(
-      {required int id, required int hallId}) async {
+      {required String id, required int hallId}) async {
     final routesBox = await Hive.openBox<String>('$_climbingHallName$hallId');
 
-    final jsonString = routesBox.getAt(id);
+    final jsonString = routesBox.get(id);
 
     if (jsonString != null) {
       return Right(HallRouteModel.fromJson(json.decode(jsonString)));
@@ -118,43 +117,43 @@ class LocalClimbingHallDataSource implements ClimbingHallDataSource {
     return const Right(unit);
   }
 
-  static const HallModel _skala = HallModel(
-    name: 'Скала Сити',
-    address: 'Кутузовский проспект, дом 36, строение 13/14',
-    city: City.moscow,
-    hasBouldering: false,
-    hasBigWall: true,
-    hasAutoBelay: false,
-    // point: MapPoint(),
-    image:
-        'https://skala-city.ru/storage/SCContent/1/%D0%A1%D0%BA%D0%B0%D0%BB%D0%B0_%D0%A1%D0%B8%D1%82%D0%B8_2020_3.jpg',
-    telephone: '+7 (966) 112-93-77',
-    website: 'https://skala-city.ru/',
-    email: 'skalatown@gmail.com',
-    id: 3,
-  );
+  // static const HallModel _skala = HallModel(
+  //   name: 'Скала Сити',
+  //   address: 'Кутузовский проспект, дом 36, строение 13/14',
+  //   city: City.moscow,
+  //   hasBouldering: false,
+  //   hasBigWall: true,
+  //   hasAutoBelay: false,
+  //   // point: MapPoint(),
+  //   image:
+  //       'https://skala-city.ru/storage/SCContent/1/%D0%A1%D0%BA%D0%B0%D0%BB%D0%B0_%D0%A1%D0%B8%D1%82%D0%B8_2020_3.jpg',
+  //   telephone: '+7 (966) 112-93-77',
+  //   website: 'https://skala-city.ru/',
+  //   email: 'skalatown@gmail.com',
+  //   id: 3,
+  // );
 
   @override
   Future<Either<Failure, Unit>> updateData() async {
-    final hallsBox = await Hive.openBox<String>(_climbingHallsName);
+    // final hallsBox = await Hive.openBox<String>(_climbingHallsName);
 
-    final jsonRaw1 = json.decode(hallsBox.getAt(0)!);
+    // final jsonRaw1 = json.decode(hallsBox.getAt(0)!);
 
-    jsonRaw1['hasAutoBelay'] = true;
+    // jsonRaw1['hasAutoBelay'] = true;
 
-    await hallsBox.put(0, json.encode(jsonRaw1));
+    // await hallsBox.put(0, json.encode(jsonRaw1));
 
-    final jsonRaw2 = json.decode(hallsBox.getAt(1)!);
+    // final jsonRaw2 = json.decode(hallsBox.getAt(1)!);
 
-    jsonRaw2['hasAutoBelay'] = true;
+    // jsonRaw2['hasAutoBelay'] = true;
 
-    await hallsBox.put(1, json.encode(jsonRaw2));
+    // await hallsBox.put(1, json.encode(jsonRaw2));
 
-    // final jsonRaw = hallsBox.getAt(_skala.id);
+    // // final jsonRaw = hallsBox.getAt(_skala.id);
 
-    // if (jsonRaw == null) {
-    await hallsBox.put(_skala.id, json.encode(_skala.toJson()));
-    // }
+    // // if (jsonRaw == null) {
+    // await hallsBox.put(_skala.id, json.encode(_skala.toJson()));
+    // // }
 
     return const Right(unit);
   }

@@ -8,7 +8,10 @@ abstract class RemoteGymDataSource {
   Future<Either<Failure, List<ClimbingHall>>> gyms();
 
   Future<Either<Failure, List<ClimbingHallRoute>>> gymRoutes({
-    required ClimbingHall climbingHall,
+    required ClimbingHall gym,
     HallRouteFilter? filter,
   });
+
+  Future<Either<Failure, Unit>> updateRoute(
+      {required ClimbingHall gym, required ClimbingHallRoute route});
 }

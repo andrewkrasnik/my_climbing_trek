@@ -128,7 +128,7 @@ class MockClimbingHallDataSource implements ClimbingHallDataSource {
 
   @override
   Future<Either<Failure, ClimbingHallRoute>> getRouteById(
-      {required int id, required int hallId}) {
+      {required String id, required int hallId}) {
     // TODO: implement getRouteById
     throw UnimplementedError();
   }

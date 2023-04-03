@@ -78,7 +78,7 @@ class DriftHallAttemptsTable extends Table {
       text().references(DriftHallTreaningsTable, #id)();
   IntColumn get categoryId => integer()();
   IntColumn get styleId => integer()();
-  IntColumn get routeId => integer().nullable()();
+  TextColumn get routeId => text().nullable()();
   DateTimeColumn get finish => dateTime().nullable()();
   DateTimeColumn get start => dateTime().nullable()();
   IntColumn get ascentTypeId => integer().nullable()();

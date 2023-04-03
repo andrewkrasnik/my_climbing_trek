@@ -42,20 +42,10 @@ class RemoteGymDataSourceImpl implements RemoteGymDataSource {
 
   @override
   Future<Either<Failure, List<ClimbingHallRoute>>> gymRoutes({
-    required ClimbingHall climbingHall,
+    required ClimbingHall gym,
     HallRouteFilter? filter,
   }) async {
-    final CollectionReference<HallRouteModel> routesRef = _firebaseFirestore
-        .collection(
-            '$_gymsCollectionName/${climbingHall.id}/$_routesCollectionName')
-        .withConverter(
-          fromFirestore: (snapshot, options) {
-            final json = snapshot.data()!;
-
-            return HallRouteModel.fromJson(json, id: int.parse(snapshot.id));
-          },
-          toFirestore: (value, options) => {},
-        );
+    final routesRef = _routesRef(gym: gym);
 
     final routes = await routesRef.get(
       const GetOptions(
@@ -65,4 +55,36 @@ class RemoteGymDataSourceImpl implements RemoteGymDataSource {
 
     return Right(routes.docs.map((snapshot) => snapshot.data()).toList());
   }
+
+  @override
+  Future<Either<Failure, Unit>> updateRoute({
+    required ClimbingHall gym,
+    required ClimbingHallRoute route,
+  }) async {
+    final routesRef = _routesRef(gym: gym);
+
+    routesRef.doc(route.id).set(route);
+
+    return const Right(unit);
+  }
+
+  CollectionReference<ClimbingHallRoute> _routesRef({
+    required ClimbingHall gym,
+  }) =>
+      _firebaseFirestore
+          .collection('$_gymsCollectionName/${gym.id}/$_routesCollectionName')
+          .withConverter(
+        fromFirestore: (snapshot, options) {
+          final json = snapshot.data()!;
+
+          return HallRouteModel.fromJson(json, id: snapshot.id);
+        },
+        toFirestore: (value, options) {
+          if (value is HallRouteModel) {
+            return value.toJson();
+          } else {
+            return HallRouteModel.fromOrign(value).toJson();
+          }
+        },
+      );
 }

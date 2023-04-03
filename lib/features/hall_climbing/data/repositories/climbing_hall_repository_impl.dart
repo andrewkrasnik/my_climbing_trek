@@ -37,7 +37,7 @@ class ClimbingHallRepositoryImpl implements ClimbingHallRepository {
     //   filter: filter,
     // );
     return await _remoteGymDataSource.gymRoutes(
-      climbingHall: climbingHall,
+      gym: climbingHall,
       filter: filter,
     );
   }
@@ -46,15 +46,21 @@ class ClimbingHallRepositoryImpl implements ClimbingHallRepository {
   Future<Either<Failure, ClimbingHallRoute>> addRoute(
       {required ClimbingHall climbingHall,
       required ClimbingHallRoute route}) async {
-    return await _climbingHallDataSource.addRoute(
-        climbingHall: climbingHall, route: route);
+    // return await _climbingHallDataSource.addRoute(
+    //     climbingHall: climbingHall, route: route);
+    final failureOrUnit =
+        await _remoteGymDataSource.updateRoute(gym: climbingHall, route: route);
+
+    return failureOrUnit.fold((failure) => Left(failure), (_) => Right(route));
   }
 
   @override
   Future<Either<Failure, Unit>> updateRoute(
       {required ClimbingHall climbingHall, required ClimbingHallRoute route}) {
-    return _climbingHallDataSource.updateRoute(
-        climbingHall: climbingHall, route: route);
+    // return _climbingHallDataSource.updateRoute(
+    //     climbingHall: climbingHall, route: route);
+
+    return _remoteGymDataSource.updateRoute(gym: climbingHall, route: route);
   }
 
   @override
