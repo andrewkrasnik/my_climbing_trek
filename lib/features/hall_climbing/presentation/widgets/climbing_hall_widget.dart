@@ -28,24 +28,29 @@ class ClimbingHallWidget extends StatelessWidget {
             MyCachedNetworkImage(
               imageUrl: climbingHall.image,
             ),
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
-                climbingHall.name,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    shadows: [Shadow(offset: Offset.fromDirection(1))]),
-              ),
-              Text(
-                climbingHall.city.name,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                    shadows: [Shadow(offset: Offset.fromDirection(1))]),
-              )
-            ]),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      climbingHall.name,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          shadows: [Shadow(offset: Offset.fromDirection(1))]),
+                    ),
+                    Text(
+                      climbingHall.city.name,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          shadows: [Shadow(offset: Offset.fromDirection(1))]),
+                    )
+                  ]),
+            ),
           ],
         ),
       ),
