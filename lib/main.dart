@@ -1,6 +1,9 @@
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:my_climbing_trek/bottom_navigation_page.dart';
+import 'package:my_climbing_trek/core/services/analitics/analitics_service.dart';
+import 'package:my_climbing_trek/core/services/crash_log_service/crash_log_service.dart';
 import 'package:my_climbing_trek/features/cardio_workout/presentation/cubit/cardio_treaning/cardio_treaning_cubit.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/bloc/current_hall_treaning/current_hall_treaning_cubit.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/bloc/home_page/home_page_cubit.dart';
@@ -8,16 +11,30 @@ import 'package:my_climbing_trek/features/ice_climbing/presentation/bloc/current
 
 import 'package:my_climbing_trek/features/settings/presentation/cubit/settings_cubit.dart';
 import 'package:my_climbing_trek/features/strength_training/presentation/cubit/strength_training/strength_training_cubit.dart';
-import 'package:my_climbing_trek/service_locator.dart';
+import 'package:my_climbing_trek/service_locator.dart' as di;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  configureDependencies();
-  await Hive.initFlutter();
-  runApp(const MyApp());
+  runZonedGuarded<Future<void>>(
+    () async {
+      WidgetsFlutterBinding.ensureInitialized();
+      di.configureDependencies();
+      await di.getIt.getAsync<CrashLogService>();
+
+      await di.getIt.getAsync<AnaliticsService>();
+
+      await Hive.initFlutter();
+
+      di.getIt.get<CrashLogService>().test();
+
+      runApp(const MyApp());
+    },
+    (error, stack) {
+      di.getIt<CrashLogService>().recordError(error, stack);
+    },
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -29,22 +46,22 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<HomePageCubit>(
-          create: (context) => getIt<HomePageCubit>()..loadData(),
+          create: (context) => di.getIt<HomePageCubit>()..loadData(),
         ),
         BlocProvider<CurrentHallTreaningCubit>(
-          create: (context) => getIt<CurrentHallTreaningCubit>()..loadData(),
+          create: (context) => di.getIt<CurrentHallTreaningCubit>()..loadData(),
         ),
         BlocProvider<SettingsCubit>(
-          create: (context) => getIt<SettingsCubit>()..loadData(),
+          create: (context) => di.getIt<SettingsCubit>()..loadData(),
         ),
         BlocProvider(
-          create: (context) => getIt<CurrentIceTreaningCubit>()..loadData(),
+          create: (context) => di.getIt<CurrentIceTreaningCubit>()..loadData(),
         ),
         BlocProvider(
-          create: (context) => getIt<CardioTreaningCubit>()..loadData(),
+          create: (context) => di.getIt<CardioTreaningCubit>()..loadData(),
         ),
         BlocProvider(
-          create: (context) => getIt<StrengthTrainingCubit>()..loadData(),
+          create: (context) => di.getIt<StrengthTrainingCubit>()..loadData(),
         ),
       ],
       child: MaterialApp(

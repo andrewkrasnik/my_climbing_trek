@@ -1,0 +1,15 @@
+{
+  "files.exclude": {
+    ".idea": true,
+    ".dart_tool": true,
+    "linux": true,
+    "macos": true,
+    "windows": true,
+    ".flutter-plugins": true,
+    ".flutter-plugins-dependencies": true,
+    "climbing_diary.iml": true,
+    "pubspec.lock": true,
+    ".metadata": true,
+    "ios": true
+  }
+}
