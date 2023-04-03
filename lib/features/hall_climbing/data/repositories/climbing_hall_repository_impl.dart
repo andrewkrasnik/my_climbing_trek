@@ -1,4 +1,5 @@
 import 'package:my_climbing_trek/features/hall_climbing/data/datasources/climbing_hall_data_source.dart';
+import 'package:my_climbing_trek/features/hall_climbing/data/datasources/remote_gym_data_source.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/city.dart';
 import 'package:my_climbing_trek/core/failures/failure.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall.dart';
@@ -10,17 +11,20 @@ import 'package:injectable/injectable.dart';
 
 @LazySingleton(as: ClimbingHallRepository)
 class ClimbingHallRepositoryImpl implements ClimbingHallRepository {
-  final ClimbingHallDataSource climbingHallDataSource;
+  final ClimbingHallDataSource _climbingHallDataSource;
+  final RemoteGymDataSource _remoteGymDataSource;
 
-  ClimbingHallRepositoryImpl({required this.climbingHallDataSource});
+  ClimbingHallRepositoryImpl(
+      this._climbingHallDataSource, this._remoteGymDataSource);
   @override
   Future<Either<Failure, List<City>>> cities() async {
-    return await climbingHallDataSource.cities();
+    return await _climbingHallDataSource.cities();
   }
 
   @override
   Future<Either<Failure, List<ClimbingHall>>> climbingHalls() async {
-    return await climbingHallDataSource.climbingHalls();
+    // return await _climbingHallDataSource.climbingHalls();
+    return await _remoteGymDataSource.gyms();
   }
 
   @override
@@ -28,7 +32,11 @@ class ClimbingHallRepositoryImpl implements ClimbingHallRepository {
     required ClimbingHall climbingHall,
     HallRouteFilter? filter,
   }) async {
-    return await climbingHallDataSource.climbingHallRoutes(
+    // return await _climbingHallDataSource.climbingHallRoutes(
+    //   climbingHall: climbingHall,
+    //   filter: filter,
+    // );
+    return await _remoteGymDataSource.gymRoutes(
       climbingHall: climbingHall,
       filter: filter,
     );
@@ -38,19 +46,19 @@ class ClimbingHallRepositoryImpl implements ClimbingHallRepository {
   Future<Either<Failure, ClimbingHallRoute>> addRoute(
       {required ClimbingHall climbingHall,
       required ClimbingHallRoute route}) async {
-    return await climbingHallDataSource.addRoute(
+    return await _climbingHallDataSource.addRoute(
         climbingHall: climbingHall, route: route);
   }
 
   @override
   Future<Either<Failure, Unit>> updateRoute(
       {required ClimbingHall climbingHall, required ClimbingHallRoute route}) {
-    return climbingHallDataSource.updateRoute(
+    return _climbingHallDataSource.updateRoute(
         climbingHall: climbingHall, route: route);
   }
 
   @override
   Future<Either<Failure, Unit>> updateData() async {
-    return climbingHallDataSource.updateData();
+    return _climbingHallDataSource.updateData();
   }
 }

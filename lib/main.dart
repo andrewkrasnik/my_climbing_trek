@@ -27,8 +27,6 @@ void main() async {
 
       await Hive.initFlutter();
 
-      di.getIt.get<CrashLogService>().test();
-
       runApp(const MyApp());
     },
     (error, stack) {
