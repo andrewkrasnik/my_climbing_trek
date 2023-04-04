@@ -23,4 +23,12 @@ class DataConvertionFailure extends FailureWithDescription {
   DataConvertionFailure({required super.description});
 }
 
+class LoginFailure extends FailureWithDescription {
+  LoginFailure({required super.description});
+}
+
+class LogoutFailure extends FailureWithDescription {
+  LogoutFailure({required super.description});
+}
+
 class UseCaseFailure extends Failure {}

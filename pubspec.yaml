@@ -53,6 +53,8 @@ dependencies:
   cloud_firestore: ^4.5.0
   #Проверка интернет соединения
   internet_connection_checker: ^1.0.0+1
+  #Аунтификация
+  firebase_auth: ^4.2.10
 
 
 dev_dependencies:

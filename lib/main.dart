@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:my_climbing_trek/bottom_navigation_page.dart';
 import 'package:my_climbing_trek/core/services/analitics/analitics_service.dart';
 import 'package:my_climbing_trek/core/services/crash_log_service/crash_log_service.dart';
+import 'package:my_climbing_trek/features/authentication/presentation/cubit/authentication_cubit.dart';
 import 'package:my_climbing_trek/features/cardio_workout/presentation/cubit/cardio_treaning/cardio_treaning_cubit.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/bloc/current_hall_treaning/current_hall_treaning_cubit.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/bloc/home_page/home_page_cubit.dart';
@@ -43,6 +44,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider<AuthenticationCubit>(
+          create: (context) => di.getIt<AuthenticationCubit>()..getUser(),
+        ),
         BlocProvider<HomePageCubit>(
           create: (context) => di.getIt<HomePageCubit>()..loadData(),
         ),

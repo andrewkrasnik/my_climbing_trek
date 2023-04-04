@@ -1,4 +1,5 @@
 import 'package:my_climbing_trek/core/data/category_type.dart';
+import 'package:my_climbing_trek/features/authentication/presentation/widgets/auth_button.dart';
 import 'package:my_climbing_trek/features/settings/presentation/cubit/settings_cubit.dart';
 import 'package:my_climbing_trek/features/settings/presentation/pages/all_categories_page.dart';
 import 'package:my_climbing_trek/features/settings/presentation/pages/ice_categories_page.dart';
@@ -88,6 +89,7 @@ class SettingsPage extends StatelessWidget {
                     },
                     child: const Text('Категории ледолазанья'),
                   ),
+                  const AuthButton(),
                 ],
               ),
             ),
