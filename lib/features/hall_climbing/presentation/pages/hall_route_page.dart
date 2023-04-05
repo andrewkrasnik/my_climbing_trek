@@ -45,7 +45,34 @@ class HallRoutePage extends HookWidget {
 
     return BlocProvider(
       create: (context) => getIt<HallRouteCubit>(),
-      child: BlocBuilder<HallRouteCubit, HallRouteState>(
+      child: BlocConsumer<HallRouteCubit, HallRouteState>(
+        listenWhen: (_, current) => current.maybeMap(
+            error: (_) => true, saved: (_) => true, orElse: () => false),
+        listener: (context, state) {
+          state.maybeMap(
+            saved: (_) => Navigator.of(context).pop(),
+            error: (errorState) {
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text('Ошибка'),
+                  content: Column(
+                    children: [Text(errorState.description)],
+                  ),
+                  actions: [
+                    ElevatedButton(
+                      child: const Text('OK'),
+                      onPressed: () => Navigator.of(context).pop(),
+                    )
+                  ],
+                ),
+              );
+            },
+            orElse: () => null,
+          );
+        },
+        buildWhen: (_, current) =>
+            current.maybeMap(error: (_) => false, orElse: () => true),
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(),
@@ -93,6 +120,23 @@ class HallRoutePage extends HookWidget {
                         ),
                       ],
                     ),
+                    if (climbingHall.hasAutoBelay &&
+                        type.value == ClimbingRouteType.rope)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('Auto belay',
+                              style:
+                                  Theme.of(context).textTheme.headlineMedium),
+                          Switch(
+                            value: autoBelayState.value,
+                            activeColor: Theme.of(context).primaryColor,
+                            onChanged: (value) {
+                              autoBelayState.value = value;
+                            },
+                          ),
+                        ],
+                      ),
                     const SizedBox(
                       height: 8,
                     ),
@@ -145,22 +189,6 @@ class HallRoutePage extends HookWidget {
                     const SizedBox(
                       height: 8,
                     ),
-                    if (climbingHall.hasAutoBelay &&
-                        type.value == ClimbingRouteType.rope)
-                      Row(
-                        children: [
-                          Text('Auto belay',
-                              style:
-                                  Theme.of(context).textTheme.headlineMedium),
-                          Switch(
-                            value: autoBelayState.value,
-                            activeColor: Theme.of(context).primaryColor,
-                            onChanged: (value) {
-                              autoBelayState.value = value;
-                            },
-                          ),
-                        ],
-                      ),
                     if (route == null) ...[
                       const SizedBox(
                         height: 8,
@@ -180,7 +208,6 @@ class HallRoutePage extends HookWidget {
                                   0,
                             ),
                           );
-                          Navigator.of(context).pop();
                         },
                         child: const Text('Сохранить'),
                       ),

@@ -1,11 +1,7 @@
 import 'package:my_climbing_trek/core/data/map_point.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/city.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall.dart';
-import 'package:json_annotation/json_annotation.dart';
 
-part 'hall_model.g.dart';
-
-@JsonSerializable()
 class HallModel extends ClimbingHall {
   const HallModel({
     required super.name,
@@ -20,10 +16,57 @@ class HallModel extends ClimbingHall {
     super.hasSpeed,
     super.hasAutoBelay,
     super.id,
+    super.hasEditPermission,
   }) : super(point: const MapPoint());
 
-  factory HallModel.fromJson(Map<String, dynamic> json) =>
-      _$HallModelFromJson(json);
+  factory HallModel.fromJson(
+    Map<String, dynamic> json, {
+    int? id,
+    bool? hasEditPermission,
+  }) =>
+      _$HallModelFromJson(
+        json,
+        id: id,
+        hasEditPermission: hasEditPermission,
+      );
 
   Map<String, dynamic> toJson() => _$HallModelToJson(this);
 }
+
+HallModel _$HallModelFromJson(
+  Map<String, dynamic> json, {
+  int? id,
+  bool? hasEditPermission,
+}) =>
+    HallModel(
+      name: json['name'] as String,
+      address: json['address'] as String,
+      city: City.fromJson(json['city']),
+      image: json['image'] as String,
+      telephone: json['telephone'] as String,
+      website: json['website'] as String,
+      email: json['email'] as String,
+      hasBigWall: json['hasBigWall'] as bool? ?? false,
+      hasBouldering: json['hasBouldering'] as bool? ?? false,
+      hasSpeed: json['hasSpeed'] as bool? ?? false,
+      hasAutoBelay: json['hasAutoBelay'] as bool? ?? false,
+      id: id ?? json['id'],
+      hasEditPermission:
+          (hasEditPermission ?? json['hasEditPermission']) ?? false,
+    );
+
+Map<String, dynamic> _$HallModelToJson(HallModel instance) => <String, dynamic>{
+      'name': instance.name,
+      'address': instance.address,
+      'city': instance.city,
+      'hasBouldering': instance.hasBouldering,
+      'hasBigWall': instance.hasBigWall,
+      'hasSpeed': instance.hasSpeed,
+      'hasAutoBelay': instance.hasAutoBelay,
+      'image': instance.image,
+      'telephone': instance.telephone,
+      'website': instance.website,
+      'email': instance.email,
+      'id': instance.id,
+      'hasEditPermission': instance.hasEditPermission,
+    };

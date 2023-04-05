@@ -1,5 +1,6 @@
 import 'package:my_climbing_trek/core/data/climbing_style.dart';
 import 'package:my_climbing_trek/core/data/treaning.dart';
+import 'package:my_climbing_trek/core/extentions/date_time_extention.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_district.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_sector.dart';
 
@@ -40,4 +41,9 @@ class IceTreaning extends Treaning {
     required this.sectors,
     super.start,
   }) : _attempts = attempts ?? [];
+
+  String get title => '${district.name} ${date.dayString()}';
+
+  String get image =>
+      sectors.length == 1 ? sectors.first.image : district.image;
 }

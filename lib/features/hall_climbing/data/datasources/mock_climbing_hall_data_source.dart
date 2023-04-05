@@ -128,7 +128,7 @@ class MockClimbingHallDataSource implements ClimbingHallDataSource {
 
   @override
   Future<Either<Failure, ClimbingHallRoute>> getRouteById(
-      {required int id, required int hallId}) {
+      {required String id, required int hallId}) {
     // TODO: implement getRouteById
     throw UnimplementedError();
   }
@@ -143,6 +143,19 @@ class MockClimbingHallDataSource implements ClimbingHallDataSource {
   @override
   Future<Either<Failure, Unit>> updateData() {
     // TODO: implement updateData
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, Unit>> saveGyms({required List<ClimbingHall> gyms}) {
+    // TODO: implement saveGyms
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, Unit>> saveRoutes(
+      {required ClimbingHall gym, required List<ClimbingHallRoute> routes}) {
+    // TODO: implement saveRoutes
     throw UnimplementedError();
   }
 }

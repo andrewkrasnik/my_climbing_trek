@@ -516,7 +516,7 @@ class DriftHallAttempt extends DataClass
   final String treaningId;
   final int categoryId;
   final int styleId;
-  final int? routeId;
+  final String? routeId;
   final DateTime? finish;
   final DateTime? start;
   final int? ascentTypeId;
@@ -545,7 +545,7 @@ class DriftHallAttempt extends DataClass
     map['category_id'] = Variable<int>(categoryId);
     map['style_id'] = Variable<int>(styleId);
     if (!nullToAbsent || routeId != null) {
-      map['route_id'] = Variable<int>(routeId);
+      map['route_id'] = Variable<String>(routeId);
     }
     if (!nullToAbsent || finish != null) {
       map['finish'] = Variable<DateTime>(finish);
@@ -594,7 +594,7 @@ class DriftHallAttempt extends DataClass
       treaningId: serializer.fromJson<String>(json['treaningId']),
       categoryId: serializer.fromJson<int>(json['categoryId']),
       styleId: serializer.fromJson<int>(json['styleId']),
-      routeId: serializer.fromJson<int?>(json['routeId']),
+      routeId: serializer.fromJson<String?>(json['routeId']),
       finish: serializer.fromJson<DateTime?>(json['finish']),
       start: serializer.fromJson<DateTime?>(json['start']),
       ascentTypeId: serializer.fromJson<int?>(json['ascentTypeId']),
@@ -612,7 +612,7 @@ class DriftHallAttempt extends DataClass
       'treaningId': serializer.toJson<String>(treaningId),
       'categoryId': serializer.toJson<int>(categoryId),
       'styleId': serializer.toJson<int>(styleId),
-      'routeId': serializer.toJson<int?>(routeId),
+      'routeId': serializer.toJson<String?>(routeId),
       'finish': serializer.toJson<DateTime?>(finish),
       'start': serializer.toJson<DateTime?>(start),
       'ascentTypeId': serializer.toJson<int?>(ascentTypeId),
@@ -628,7 +628,7 @@ class DriftHallAttempt extends DataClass
           String? treaningId,
           int? categoryId,
           int? styleId,
-          Value<int?> routeId = const Value.absent(),
+          Value<String?> routeId = const Value.absent(),
           Value<DateTime?> finish = const Value.absent(),
           Value<DateTime?> start = const Value.absent(),
           Value<int?> ascentTypeId = const Value.absent(),
@@ -708,7 +708,7 @@ class DriftHallAttemptsTableCompanion
   final Value<String> treaningId;
   final Value<int> categoryId;
   final Value<int> styleId;
-  final Value<int?> routeId;
+  final Value<String?> routeId;
   final Value<DateTime?> finish;
   final Value<DateTime?> start;
   final Value<int?> ascentTypeId;
@@ -755,7 +755,7 @@ class DriftHallAttemptsTableCompanion
     Expression<String>? treaningId,
     Expression<int>? categoryId,
     Expression<int>? styleId,
-    Expression<int>? routeId,
+    Expression<String>? routeId,
     Expression<DateTime>? finish,
     Expression<DateTime>? start,
     Expression<int>? ascentTypeId,
@@ -785,7 +785,7 @@ class DriftHallAttemptsTableCompanion
       Value<String>? treaningId,
       Value<int>? categoryId,
       Value<int>? styleId,
-      Value<int?>? routeId,
+      Value<String?>? routeId,
       Value<DateTime?>? finish,
       Value<DateTime?>? start,
       Value<int?>? ascentTypeId,
@@ -825,7 +825,7 @@ class DriftHallAttemptsTableCompanion
       map['style_id'] = Variable<int>(styleId.value);
     }
     if (routeId.present) {
-      map['route_id'] = Variable<int>(routeId.value);
+      map['route_id'] = Variable<String>(routeId.value);
     }
     if (finish.present) {
       map['finish'] = Variable<DateTime>(finish.value);
@@ -903,9 +903,9 @@ class $DriftHallAttemptsTableTable extends DriftHallAttemptsTable
       type: DriftSqlType.int, requiredDuringInsert: true);
   final VerificationMeta _routeIdMeta = const VerificationMeta('routeId');
   @override
-  late final GeneratedColumn<int> routeId = GeneratedColumn<int>(
+  late final GeneratedColumn<String> routeId = GeneratedColumn<String>(
       'route_id', aliasedName, true,
-      type: DriftSqlType.int, requiredDuringInsert: false);
+      type: DriftSqlType.string, requiredDuringInsert: false);
   final VerificationMeta _finishMeta = const VerificationMeta('finish');
   @override
   late final GeneratedColumn<DateTime> finish = GeneratedColumn<DateTime>(
@@ -1061,7 +1061,7 @@ class $DriftHallAttemptsTableTable extends DriftHallAttemptsTable
       styleId: attachedDatabase.options.types
           .read(DriftSqlType.int, data['${effectivePrefix}style_id'])!,
       routeId: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}route_id']),
+          .read(DriftSqlType.string, data['${effectivePrefix}route_id']),
       finish: attachedDatabase.options.types
           .read(DriftSqlType.dateTime, data['${effectivePrefix}finish']),
       start: attachedDatabase.options.types

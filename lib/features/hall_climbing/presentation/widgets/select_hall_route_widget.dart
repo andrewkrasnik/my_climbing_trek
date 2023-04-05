@@ -45,27 +45,29 @@ class SelectHallRouteWidget extends HookWidget {
       child: BlocBuilder<ClimbingHallCubit, ClimbingHallState>(
         builder: (context, state) {
           return Scaffold(
-            floatingActionButton: FloatingActionButton(
-              onPressed: () async {
-                final cubit = BlocProvider.of<ClimbingHallCubit>(context);
-                await Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => HallRoutePage(
-                          climbingHall: treaning.climbingHall,
-                          initialCategory: category.value,
-                          initialType: style.type,
-                          autoBelay: style == ClimbingStyle.autoBelay,
-                        )));
+            floatingActionButton: treaning.climbingHall.hasEditPermission
+                ? FloatingActionButton(
+                    onPressed: () async {
+                      final cubit = BlocProvider.of<ClimbingHallCubit>(context);
+                      await Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => HallRoutePage(
+                                climbingHall: treaning.climbingHall,
+                                initialCategory: category.value,
+                                initialType: style.type,
+                                autoBelay: style == ClimbingStyle.autoBelay,
+                              )));
 
-                cubit.loadData(
-                  treaning.climbingHall,
-                  filter: roureFilter,
-                );
-              },
-              child: const Icon(
-                Icons.add,
-                size: 40,
-              ),
-            ),
+                      cubit.loadData(
+                        treaning.climbingHall,
+                        filter: roureFilter,
+                      );
+                    },
+                    child: const Icon(
+                      Icons.add,
+                      size: 40,
+                    ),
+                  )
+                : null,
             body: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -98,71 +100,104 @@ class SelectHallRouteWidget extends HookWidget {
                   const SizedBox(
                     height: 8,
                   ),
-                  if (state.routes != null)
-                    Expanded(
+                  state.maybeMap(
+                    loading: (_) => const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                    data: (dataState) => Expanded(
                       child: ListView.separated(
                           itemBuilder: (context, index) => Slidable(
-                                endActionPane: ActionPane(
-                                  motion: const ScrollMotion(),
-                                  children: [
-                                    SlidableAction(
-                                      flex: 1,
-                                      onPressed: (context) async {
-                                        final climbingHallCubit =
-                                            BlocProvider.of<ClimbingHallCubit>(
-                                                context);
-
-                                        final archivePermission =
-                                            await showDialog<bool>(
-                                          context: context,
-                                          builder: (context) => AlertDialog(
-                                            title: const Text(
-                                                'Подтверждение архивирования'),
-                                            content: const Text(
-                                                'Трассу скрутили и она больше недоступна?'),
-                                            actions: [
-                                              ElevatedButton(
-                                                onPressed: () {
-                                                  Navigator.of(context)
-                                                      .pop(false);
-                                                },
-                                                child: const Text('Отменить'),
-                                              ),
-                                              ElevatedButton(
-                                                onPressed: () {
-                                                  Navigator.of(context)
-                                                      .pop(true);
-                                                },
-                                                child: const Text('Продолжить'),
-                                              ),
-                                            ],
+                                endActionPane: treaning
+                                        .climbingHall.hasEditPermission
+                                    ? ActionPane(
+                                        motion: const ScrollMotion(),
+                                        children: [
+                                          SlidableAction(
+                                            flex: 1,
+                                            onPressed: (context) async {
+                                              Navigator.of(context).push(
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          HallRoutePage(
+                                                            climbingHall: treaning
+                                                                .climbingHall,
+                                                            route: dataState
+                                                                .routes[index],
+                                                          )));
+                                            },
+                                            backgroundColor:
+                                                Colors.orange.shade400,
+                                            foregroundColor: Colors.white,
+                                            icon: Icons.edit,
+                                            label: 'edit',
                                           ),
-                                        );
+                                          SlidableAction(
+                                            flex: 1,
+                                            onPressed: (context) async {
+                                              final climbingHallCubit =
+                                                  BlocProvider.of<
+                                                          ClimbingHallCubit>(
+                                                      context);
 
-                                        if (archivePermission == true) {
-                                          climbingHallCubit.toArchive(
-                                            hall: treaning.climbingHall,
-                                            route: state.routes![index],
-                                            filter: roureFilter,
-                                          );
-                                        }
-                                      },
-                                      backgroundColor: Colors.red.shade400,
-                                      foregroundColor: Colors.white,
-                                      icon: Icons.delete,
-                                      label: 'arhivate',
-                                    ),
-                                  ],
-                                ),
+                                              final archivePermission =
+                                                  await showDialog<bool>(
+                                                context: context,
+                                                builder: (context) =>
+                                                    AlertDialog(
+                                                  title: const Text(
+                                                      'Подтверждение архивирования'),
+                                                  content: const Text(
+                                                      'Трассу скрутили и она больше недоступна?'),
+                                                  actions: [
+                                                    ElevatedButton(
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop(false);
+                                                      },
+                                                      child: const Text(
+                                                          'Отменить'),
+                                                    ),
+                                                    ElevatedButton(
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop(true);
+                                                      },
+                                                      child: const Text(
+                                                          'Продолжить'),
+                                                    ),
+                                                  ],
+                                                ),
+                                              );
+
+                                              if (archivePermission == true) {
+                                                climbingHallCubit.toArchive(
+                                                  hall: treaning.climbingHall,
+                                                  route:
+                                                      dataState.routes[index],
+                                                  filter: roureFilter,
+                                                );
+                                              }
+                                            },
+                                            backgroundColor:
+                                                Colors.red.shade400,
+                                            foregroundColor: Colors.white,
+                                            icon: Icons.delete,
+                                            label: 'arhivate',
+                                          ),
+                                        ],
+                                      )
+                                    : null,
                                 child: HallRouteWidget(
                                     climbingHall: treaning.climbingHall,
-                                    route: state.routes![index]),
+                                    route: dataState.routes[index]),
                               ),
                           separatorBuilder: (_, __) => const SizedBox(
                                 height: 8,
                               ),
-                          itemCount: state.routes!.length),
+                          itemCount: dataState.routes.length),
                     ),
+                    orElse: () => const SizedBox(),
+                  ),
                 ],
               ),
             ),

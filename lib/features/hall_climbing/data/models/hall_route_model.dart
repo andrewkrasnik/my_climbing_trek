@@ -35,13 +35,14 @@ class HallRouteModel extends ClimbingHallRoute {
         autoBelay: route.autoBelay,
       );
 
-  factory HallRouteModel.fromJson(Map<String, dynamic> json) => HallRouteModel(
+  factory HallRouteModel.fromJson(Map<String, dynamic> json, {String? id}) =>
+      HallRouteModel(
         category: ClimbingCategory.getById(json['category']),
         color: RouteColor.getById(json['color']),
         type: ClimbingRouteType.getById(json['type']),
         sectorNumber: json['sectorNumber'],
         archive: json['archive'] ?? false,
         autoBelay: json['autoBelay'] ?? false,
-        id: json['id'],
+        id: id ?? json['id'],
       );
 }

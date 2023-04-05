@@ -221,7 +221,7 @@ class LocalHallTreaningDataSource implements HallTreaningDataSource {
       {required ClimbingHallRoute route}) async {
     final data =
         await (localDatabase.select(localDatabase.driftHallAttemptsTable)
-              ..where((tbl) => tbl.routeId.equals(route.id!))
+              ..where((tbl) => tbl.routeId.equals(route.id))
               ..orderBy([
                 (u) =>
                     OrderingTerm(expression: u.start, mode: OrderingMode.desc),

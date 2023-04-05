@@ -1,3 +1,4 @@
+import 'package:my_climbing_trek/core/widgets/my_cached_network_image.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_treaning_attempt.dart';
 import 'package:my_climbing_trek/features/ice_climbing/presentation/bloc/current_ice_treaning/current_ice_treaning_cubit.dart';
 import 'package:my_climbing_trek/features/ice_climbing/presentation/widgets/ice_attempt_dialog.dart';
@@ -24,11 +25,9 @@ class IceAttemptWidget extends StatelessWidget {
         elevation: 2,
         borderRadius: BorderRadius.circular(8),
         child: Row(children: [
-          Image(
+          MyCachedNetworkImage(
             width: MediaQuery.of(context).size.width / 4,
-            image: NetworkImage(
-              attempt.sector.image,
-            ),
+            imageUrl: attempt.sector.image,
           ),
           const SizedBox(width: 8),
           Column(

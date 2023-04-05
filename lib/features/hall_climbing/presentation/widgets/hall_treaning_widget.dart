@@ -2,6 +2,7 @@ import 'package:my_climbing_trek/core/data/climbing_style.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_attempt.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_treaning.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/bloc/current_hall_treaning/current_hall_treaning_cubit.dart';
+import 'package:my_climbing_trek/features/hall_climbing/presentation/pages/hall_treaning_page.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/hall_attempt_dialog.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/hall_route_category_widget.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/hall_sector_number_widget.dart';
@@ -35,7 +36,20 @@ class HallTreaningWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(DateFormat('dd.MM.yyyy').format(treaning.date)),
+                  const Spacer(),
                   Text(treaning.climbingHall.name),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => HallTreaningPage(
+                                treaning: treaning,
+                              )));
+                    },
+                    icon: const Icon(
+                      Icons.share,
+                      size: 16,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(

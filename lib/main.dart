@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:my_climbing_trek/bottom_navigation_page.dart';
 import 'package:my_climbing_trek/core/services/analitics/analitics_service.dart';
 import 'package:my_climbing_trek/core/services/crash_log_service/crash_log_service.dart';
+import 'package:my_climbing_trek/features/authentication/presentation/cubit/authentication_cubit.dart';
 import 'package:my_climbing_trek/features/cardio_workout/presentation/cubit/cardio_treaning/cardio_treaning_cubit.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/bloc/current_hall_treaning/current_hall_treaning_cubit.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/bloc/home_page/home_page_cubit.dart';
@@ -27,8 +28,6 @@ void main() async {
 
       await Hive.initFlutter();
 
-      di.getIt.get<CrashLogService>().test();
-
       runApp(const MyApp());
     },
     (error, stack) {
@@ -45,11 +44,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider<AuthenticationCubit>(
+          create: (context) => di.getIt<AuthenticationCubit>()..getUser(),
+        ),
         BlocProvider<HomePageCubit>(
-          create: (context) => di.getIt<HomePageCubit>()..loadData(),
+          create: (context) => di.getIt<HomePageCubit>(), //..loadData(),
         ),
         BlocProvider<CurrentHallTreaningCubit>(
-          create: (context) => di.getIt<CurrentHallTreaningCubit>()..loadData(),
+          create: (context) =>
+              di.getIt<CurrentHallTreaningCubit>(), //..loadData(),
         ),
         BlocProvider<SettingsCubit>(
           create: (context) => di.getIt<SettingsCubit>()..loadData(),
@@ -67,10 +70,22 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
           title: 'Flutter Demo',
           theme: ThemeData(
-            primarySwatch: Colors.blue,
+            primarySwatch: Colors.blueGrey,
           ),
           scrollBehavior: MyCustomScrollBehavior(),
-          home: const SafeArea(child: BottomNavigationPage())),
+          home: BlocListener<AuthenticationCubit, AuthenticationState>(
+            listenWhen: (previous, current) => current.maybeMap(
+              orElse: () => true,
+              loading: (_) => false,
+              error: (_) => false,
+            ),
+            listener: (context, state) async {
+              await BlocProvider.of<HomePageCubit>(context).loadData();
+              await BlocProvider.of<CurrentHallTreaningCubit>(context)
+                  .loadData();
+            },
+            child: const SafeArea(child: BottomNavigationPage()),
+          )),
     );
   }
 }

@@ -19,9 +19,16 @@ class HallRouteCubit extends Cubit<HallRouteState> {
   Future<void> saveRoute(
       {required ClimbingHall climbingHall,
       required ClimbingHallRoute route}) async {
-    await newHallRoute(
+    emit(const HallRouteState.loading());
+
+    final failureOrUnit = await newHallRoute(
       climbingHall: climbingHall,
       route: route,
     );
+
+    failureOrUnit.fold(
+        (failure) =>
+            emit(HallRouteState.error(description: failure.toString())),
+        (_) => emit(const HallRouteState.saved()));
   }
 }
