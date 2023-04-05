@@ -55,6 +55,7 @@ dependencies:
   internet_connection_checker: ^1.0.0+1
   #Аунтификация
   firebase_auth: ^4.2.10
+  
 
 
 dev_dependencies:

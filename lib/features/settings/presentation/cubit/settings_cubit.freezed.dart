@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$SettingsState {
   CategoryType get hallCategoryType => throw _privateConstructorUsedError;
+  TreaningsSettings get treaningsSettings => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SettingsStateCopyWith<SettingsState> get copyWith =>
@@ -29,7 +30,8 @@ abstract class $SettingsStateCopyWith<$Res> {
           SettingsState value, $Res Function(SettingsState) then) =
       _$SettingsStateCopyWithImpl<$Res, SettingsState>;
   @useResult
-  $Res call({CategoryType hallCategoryType});
+  $Res call(
+      {CategoryType hallCategoryType, TreaningsSettings treaningsSettings});
 }
 
 /// @nodoc
@@ -46,12 +48,17 @@ class _$SettingsStateCopyWithImpl<$Res, $Val extends SettingsState>
   @override
   $Res call({
     Object? hallCategoryType = null,
+    Object? treaningsSettings = null,
   }) {
     return _then(_value.copyWith(
       hallCategoryType: null == hallCategoryType
           ? _value.hallCategoryType
           : hallCategoryType // ignore: cast_nullable_to_non_nullable
               as CategoryType,
+      treaningsSettings: null == treaningsSettings
+          ? _value.treaningsSettings
+          : treaningsSettings // ignore: cast_nullable_to_non_nullable
+              as TreaningsSettings,
     ) as $Val);
   }
 }
@@ -64,7 +71,8 @@ abstract class _$$_SettingsStateCopyWith<$Res>
       __$$_SettingsStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({CategoryType hallCategoryType});
+  $Res call(
+      {CategoryType hallCategoryType, TreaningsSettings treaningsSettings});
 }
 
 /// @nodoc
@@ -79,12 +87,17 @@ class __$$_SettingsStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? hallCategoryType = null,
+    Object? treaningsSettings = null,
   }) {
     return _then(_$_SettingsState(
       hallCategoryType: null == hallCategoryType
           ? _value.hallCategoryType
           : hallCategoryType // ignore: cast_nullable_to_non_nullable
               as CategoryType,
+      treaningsSettings: null == treaningsSettings
+          ? _value.treaningsSettings
+          : treaningsSettings // ignore: cast_nullable_to_non_nullable
+              as TreaningsSettings,
     ));
   }
 }
@@ -92,14 +105,17 @@ class __$$_SettingsStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_SettingsState implements _SettingsState {
-  const _$_SettingsState({required this.hallCategoryType});
+  const _$_SettingsState(
+      {required this.hallCategoryType, required this.treaningsSettings});
 
   @override
   final CategoryType hallCategoryType;
+  @override
+  final TreaningsSettings treaningsSettings;
 
   @override
   String toString() {
-    return 'SettingsState(hallCategoryType: $hallCategoryType)';
+    return 'SettingsState(hallCategoryType: $hallCategoryType, treaningsSettings: $treaningsSettings)';
   }
 
   @override
@@ -108,11 +124,14 @@ class _$_SettingsState implements _SettingsState {
         (other.runtimeType == runtimeType &&
             other is _$_SettingsState &&
             (identical(other.hallCategoryType, hallCategoryType) ||
-                other.hallCategoryType == hallCategoryType));
+                other.hallCategoryType == hallCategoryType) &&
+            (identical(other.treaningsSettings, treaningsSettings) ||
+                other.treaningsSettings == treaningsSettings));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, hallCategoryType);
+  int get hashCode =>
+      Object.hash(runtimeType, hallCategoryType, treaningsSettings);
 
   @JsonKey(ignore: true)
   @override
@@ -122,11 +141,14 @@ class _$_SettingsState implements _SettingsState {
 }
 
 abstract class _SettingsState implements SettingsState {
-  const factory _SettingsState({required final CategoryType hallCategoryType}) =
-      _$_SettingsState;
+  const factory _SettingsState(
+      {required final CategoryType hallCategoryType,
+      required final TreaningsSettings treaningsSettings}) = _$_SettingsState;
 
   @override
   CategoryType get hallCategoryType;
+  @override
+  TreaningsSettings get treaningsSettings;
   @override
   @JsonKey(ignore: true)
   _$$_SettingsStateCopyWith<_$_SettingsState> get copyWith =>

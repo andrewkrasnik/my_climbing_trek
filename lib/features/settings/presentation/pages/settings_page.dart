@@ -27,11 +27,47 @@ class SettingsPage extends StatelessWidget {
                       style: titleTextStyle,
                     ),
                   ),
-                  const Text('Настройка темного режима'),
-                  const Text('Выбор языка'),
-                  const Text('Выбор категорий трасс'),
-                  const Text('Выбор видов лазанья'),
-                  const Text('Соглашение на уведомления'),
+                  // const Text('Настройка темного режима'),
+                  // const Text('Выбор языка'),
+                  // const Text('Выбор категорий трасс'),
+                  // const Text('Выбор видов лазанья'),
+                  // const Text('Соглашение на уведомления'),
+                  const SizedBox(
+                    height: 16,
+                  ),
+
+                  SwitchListTile(
+                    value: state.treaningsSettings.useGymTreanings,
+                    onChanged: (value) =>
+                        BlocProvider.of<SettingsCubit>(context)
+                            .changeTreaningSettings(
+                                settingsId: 1, value: value),
+                    title: const Text('Скалолазные тренировки'),
+                  ),
+                  SwitchListTile(
+                    value: state.treaningsSettings.useCardioTreanings,
+                    onChanged: (value) =>
+                        BlocProvider.of<SettingsCubit>(context)
+                            .changeTreaningSettings(
+                                settingsId: 2, value: value),
+                    title: const Text('Кардио тренировки'),
+                  ),
+                  SwitchListTile(
+                    value: state.treaningsSettings.useStrengthTraining,
+                    onChanged: (value) =>
+                        BlocProvider.of<SettingsCubit>(context)
+                            .changeTreaningSettings(
+                                settingsId: 3, value: value),
+                    title: const Text('Силовые тренировки'),
+                  ),
+                  SwitchListTile(
+                    value: state.treaningsSettings.useIceTreanings,
+                    onChanged: (value) =>
+                        BlocProvider.of<SettingsCubit>(context)
+                            .changeTreaningSettings(
+                                settingsId: 4, value: value),
+                    title: const Text('Ледолазные тренировки'),
+                  ),
                   const SizedBox(
                     height: 16,
                   ),
