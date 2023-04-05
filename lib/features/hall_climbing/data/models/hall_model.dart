@@ -16,15 +16,28 @@ class HallModel extends ClimbingHall {
     super.hasSpeed,
     super.hasAutoBelay,
     super.id,
+    super.hasEditPermission,
   }) : super(point: const MapPoint());
 
-  factory HallModel.fromJson(Map<String, dynamic> json, {int? id}) =>
-      _$HallModelFromJson(json, id: id);
+  factory HallModel.fromJson(
+    Map<String, dynamic> json, {
+    int? id,
+    bool? hasEditPermission,
+  }) =>
+      _$HallModelFromJson(
+        json,
+        id: id,
+        hasEditPermission: hasEditPermission,
+      );
 
   Map<String, dynamic> toJson() => _$HallModelToJson(this);
 }
 
-HallModel _$HallModelFromJson(Map<String, dynamic> json, {int? id}) =>
+HallModel _$HallModelFromJson(
+  Map<String, dynamic> json, {
+  int? id,
+  bool? hasEditPermission,
+}) =>
     HallModel(
       name: json['name'] as String,
       address: json['address'] as String,
@@ -38,6 +51,8 @@ HallModel _$HallModelFromJson(Map<String, dynamic> json, {int? id}) =>
       hasSpeed: json['hasSpeed'] as bool? ?? false,
       hasAutoBelay: json['hasAutoBelay'] as bool? ?? false,
       id: id ?? json['id'],
+      hasEditPermission:
+          (hasEditPermission ?? json['hasEditPermission']) ?? false,
     );
 
 Map<String, dynamic> _$HallModelToJson(HallModel instance) => <String, dynamic>{
@@ -53,4 +68,5 @@ Map<String, dynamic> _$HallModelToJson(HallModel instance) => <String, dynamic>{
       'website': instance.website,
       'email': instance.email,
       'id': instance.id,
+      'hasEditPermission': instance.hasEditPermission,
     };

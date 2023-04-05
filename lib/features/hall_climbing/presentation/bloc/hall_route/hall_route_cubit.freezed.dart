@@ -19,32 +19,50 @@ mixin _$HallRouteState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() saved,
+    required TResult Function() loading,
+    required TResult Function(String description) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? saved,
+    TResult? Function()? loading,
+    TResult? Function(String description)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? saved,
+    TResult Function()? loading,
+    TResult Function(String description)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
+    required TResult Function(_Saved value) saved,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Error value) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
+    TResult? Function(_Saved value)? saved,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Error value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
+    TResult Function(_Saved value)? saved,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Error value)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -106,6 +124,9 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() saved,
+    required TResult Function() loading,
+    required TResult Function(String description) error,
   }) {
     return initial();
   }
@@ -114,6 +135,9 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? saved,
+    TResult? Function()? loading,
+    TResult? Function(String description)? error,
   }) {
     return initial?.call();
   }
@@ -122,6 +146,9 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? saved,
+    TResult Function()? loading,
+    TResult Function(String description)? error,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -134,6 +161,9 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
+    required TResult Function(_Saved value) saved,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Error value) error,
   }) {
     return initial(this);
   }
@@ -142,6 +172,9 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
+    TResult? Function(_Saved value)? saved,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Error value)? error,
   }) {
     return initial?.call(this);
   }
@@ -150,6 +183,9 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
+    TResult Function(_Saved value)? saved,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -161,4 +197,373 @@ class _$_Initial implements _Initial {
 
 abstract class _Initial implements HallRouteState {
   const factory _Initial() = _$_Initial;
+}
+
+/// @nodoc
+abstract class _$$_SavedCopyWith<$Res> {
+  factory _$$_SavedCopyWith(_$_Saved value, $Res Function(_$_Saved) then) =
+      __$$_SavedCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_SavedCopyWithImpl<$Res>
+    extends _$HallRouteStateCopyWithImpl<$Res, _$_Saved>
+    implements _$$_SavedCopyWith<$Res> {
+  __$$_SavedCopyWithImpl(_$_Saved _value, $Res Function(_$_Saved) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_Saved implements _Saved {
+  const _$_Saved();
+
+  @override
+  String toString() {
+    return 'HallRouteState.saved()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_Saved);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() saved,
+    required TResult Function() loading,
+    required TResult Function(String description) error,
+  }) {
+    return saved();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? saved,
+    TResult? Function()? loading,
+    TResult? Function(String description)? error,
+  }) {
+    return saved?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? saved,
+    TResult Function()? loading,
+    TResult Function(String description)? error,
+    required TResult orElse(),
+  }) {
+    if (saved != null) {
+      return saved();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Saved value) saved,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Error value) error,
+  }) {
+    return saved(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Saved value)? saved,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Error value)? error,
+  }) {
+    return saved?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Saved value)? saved,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (saved != null) {
+      return saved(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Saved implements HallRouteState {
+  const factory _Saved() = _$_Saved;
+}
+
+/// @nodoc
+abstract class _$$_LoadingCopyWith<$Res> {
+  factory _$$_LoadingCopyWith(
+          _$_Loading value, $Res Function(_$_Loading) then) =
+      __$$_LoadingCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_LoadingCopyWithImpl<$Res>
+    extends _$HallRouteStateCopyWithImpl<$Res, _$_Loading>
+    implements _$$_LoadingCopyWith<$Res> {
+  __$$_LoadingCopyWithImpl(_$_Loading _value, $Res Function(_$_Loading) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_Loading implements _Loading {
+  const _$_Loading();
+
+  @override
+  String toString() {
+    return 'HallRouteState.loading()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_Loading);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() saved,
+    required TResult Function() loading,
+    required TResult Function(String description) error,
+  }) {
+    return loading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? saved,
+    TResult? Function()? loading,
+    TResult? Function(String description)? error,
+  }) {
+    return loading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? saved,
+    TResult Function()? loading,
+    TResult Function(String description)? error,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Saved value) saved,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Error value) error,
+  }) {
+    return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Saved value)? saved,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Error value)? error,
+  }) {
+    return loading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Saved value)? saved,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Loading implements HallRouteState {
+  const factory _Loading() = _$_Loading;
+}
+
+/// @nodoc
+abstract class _$$_ErrorCopyWith<$Res> {
+  factory _$$_ErrorCopyWith(_$_Error value, $Res Function(_$_Error) then) =
+      __$$_ErrorCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String description});
+}
+
+/// @nodoc
+class __$$_ErrorCopyWithImpl<$Res>
+    extends _$HallRouteStateCopyWithImpl<$Res, _$_Error>
+    implements _$$_ErrorCopyWith<$Res> {
+  __$$_ErrorCopyWithImpl(_$_Error _value, $Res Function(_$_Error) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? description = null,
+  }) {
+    return _then(_$_Error(
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_Error implements _Error {
+  const _$_Error({required this.description});
+
+  @override
+  final String description;
+
+  @override
+  String toString() {
+    return 'HallRouteState.error(description: $description)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_Error &&
+            (identical(other.description, description) ||
+                other.description == description));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, description);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_ErrorCopyWith<_$_Error> get copyWith =>
+      __$$_ErrorCopyWithImpl<_$_Error>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() saved,
+    required TResult Function() loading,
+    required TResult Function(String description) error,
+  }) {
+    return error(description);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? saved,
+    TResult? Function()? loading,
+    TResult? Function(String description)? error,
+  }) {
+    return error?.call(description);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? saved,
+    TResult Function()? loading,
+    TResult Function(String description)? error,
+    required TResult orElse(),
+  }) {
+    if (error != null) {
+      return error(description);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Saved value) saved,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Error value) error,
+  }) {
+    return error(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Saved value)? saved,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Error value)? error,
+  }) {
+    return error?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Saved value)? saved,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (error != null) {
+      return error(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Error implements HallRouteState {
+  const factory _Error({required final String description}) = _$_Error;
+
+  String get description;
+  @JsonKey(ignore: true)
+  _$$_ErrorCopyWith<_$_Error> get copyWith =>
+      throw _privateConstructorUsedError;
 }

@@ -17,18 +17,25 @@ class ClimbingHallCubit extends Cubit<ClimbingHallState> {
   ClimbingHallCubit({
     required this.getClimbingHallRoures,
     required this.hallRouteToArchive,
-  }) : super(ClimbingHallState.initial());
+  }) : super(const ClimbingHallState.initial());
 
   Future<void> loadData(
     ClimbingHall climbingHall, {
     HallRouteFilter? filter,
   }) async {
+    emit(const ClimbingHallState.loading());
+
     final failureOrRoutes = await getClimbingHallRoures(
       climbingHall: climbingHall,
       filter: filter,
     );
     failureOrRoutes.fold(
-        (failure) => null, (routes) => emit(state.copyWith(routes: routes)));
+      (failure) =>
+          emit(ClimbingHallState.error(description: failure.toString())),
+      (routes) => routes.isEmpty
+          ? emit(const ClimbingHallState.initial())
+          : emit(ClimbingHallState.data(routes: routes)),
+    );
   }
 
   Future<void> toArchive({
@@ -36,18 +43,14 @@ class ClimbingHallCubit extends Cubit<ClimbingHallState> {
     required ClimbingHallRoute route,
     HallRouteFilter? filter,
   }) async {
+    emit(const ClimbingHallState.loading());
+
     final failureOrUnit = await hallRouteToArchive(hall: hall, route: route);
 
-    if (failureOrUnit.isRight()) {
-      final failureOrRoutes = await getClimbingHallRoures(
-        climbingHall: hall,
-        filter: filter,
-      );
-
-      failureOrRoutes.fold(
-          (failure) => null, (routes) => emit(state.copyWith(routes: routes)));
-    } else {
-      //обработать ошибку
-    }
+    failureOrUnit.fold(
+      (failure) =>
+          emit(ClimbingHallState.error(description: failure.toString())),
+      (routes) => loadData(hall, filter: filter),
+    );
   }
 }

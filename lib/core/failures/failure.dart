@@ -31,4 +31,8 @@ class LogoutFailure extends FailureWithDescription {
   LogoutFailure({required super.description});
 }
 
+class RemoteServerFailure extends FailureWithDescription {
+  RemoteServerFailure({required super.description});
+}
+
 class UseCaseFailure extends Failure {}

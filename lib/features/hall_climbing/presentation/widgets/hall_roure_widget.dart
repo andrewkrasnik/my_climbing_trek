@@ -51,15 +51,6 @@ class HallRouteWidget extends StatelessWidget {
             route: route,
             callback: () => Navigator.of(context).pop(),
           ),
-          IconButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => HallRoutePage(
-                          climbingHall: climbingHall,
-                          route: route,
-                        )));
-              },
-              icon: const Icon(Icons.edit)),
         ],
       ),
     );

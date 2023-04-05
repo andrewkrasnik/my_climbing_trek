@@ -271,8 +271,10 @@ _i1.GetIt $initGetIt(
         iceTreaningsRepository: get<_i20.IceTreaningsRepository>(),
         iceRegionsRepository: get<_i16.IceRegionsRepository>(),
       ));
-  gh.lazySingleton<_i32.RemoteGymDataSource>(
-      () => _i33.RemoteGymDataSourceImpl(get<_i9.FirebaseFirestore>()));
+  gh.lazySingleton<_i32.RemoteGymDataSource>(() => _i33.RemoteGymDataSourceImpl(
+        get<_i9.FirebaseFirestore>(),
+        get<_i7.FirebaseAuth>(),
+      ));
   gh.lazySingleton<_i34.SettingsCubit>(() => _i34.SettingsCubit());
   gh.lazySingleton<_i35.StrengthExerciseDataSource>(() =>
       _i36.LocalStrengthExerciseDataSource(get<_i5.DriftDBLocalDataSource>()));

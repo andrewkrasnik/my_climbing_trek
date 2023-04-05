@@ -23,27 +23,56 @@ class ClimbingHallPage extends StatelessWidget {
       create: (context) => getIt<ClimbingHallCubit>()..loadData(climbingHall),
       child: SafeArea(
         child: Scaffold(
-          floatingActionButton:
-              BlocBuilder<ClimbingHallCubit, ClimbingHallState>(
-            builder: (context, state) {
-              return FloatingActionButton(
-                onPressed: () async {
-                  final cubit = BlocProvider.of<ClimbingHallCubit>(context);
-                  await Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => HallRoutePage(
-                            climbingHall: climbingHall,
-                          )));
+          floatingActionButton: climbingHall.hasEditPermission
+              ? BlocBuilder<ClimbingHallCubit, ClimbingHallState>(
+                  builder: (context, state) {
+                    return FloatingActionButton(
+                      onPressed: () async {
+                        final cubit =
+                            BlocProvider.of<ClimbingHallCubit>(context);
+                        await Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => HallRoutePage(
+                                  climbingHall: climbingHall,
+                                )));
 
-                  cubit.loadData(climbingHall);
-                },
-                child: const Icon(
-                  Icons.add,
-                  size: 40,
+                        cubit.loadData(climbingHall);
+                      },
+                      child: const Icon(
+                        Icons.add,
+                        size: 40,
+                      ),
+                    );
+                  },
+                )
+              : null,
+          body: BlocConsumer<ClimbingHallCubit, ClimbingHallState>(
+            listenWhen: (_, current) =>
+                current.maybeMap(error: (_) => true, orElse: () => false),
+            listener: (context, state) {
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text('Ошибка'),
+                  content: Column(
+                    children: [
+                      Text(
+                        state.maybeMap(
+                            error: (errorState) => errorState.description,
+                            orElse: () => 'Неизвестная ошибка'),
+                      )
+                    ],
+                  ),
+                  actions: [
+                    ElevatedButton(
+                      child: const Text('OK'),
+                      onPressed: () => Navigator.of(context).pop(),
+                    )
+                  ],
                 ),
               );
             },
-          ),
-          body: BlocBuilder<ClimbingHallCubit, ClimbingHallState>(
+            buildWhen: (_, current) =>
+                current.maybeMap(error: (_) => false, orElse: () => true),
             builder: (context, state) {
               return CustomScrollView(
                 slivers: [
@@ -109,72 +138,105 @@ class ClimbingHallPage extends StatelessWidget {
                     ),
                   ),
                   SliverList(
-                    delegate: state.routes != null && state.routes!.isNotEmpty
-                        ? SliverChildBuilderDelegate(
-                            childCount: state.routes!.length,
-                            (context, index) => Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Slidable(
-                                endActionPane: ActionPane(
-                                  motion: const ScrollMotion(),
-                                  children: [
-                                    SlidableAction(
-                                      flex: 1,
-                                      onPressed: (context) async {
-                                        final climbingHallCubit =
-                                            BlocProvider.of<ClimbingHallCubit>(
-                                                context);
+                    delegate: state.maybeMap(
+                        initial: (_) => SliverChildListDelegate([
+                              const Center(
+                                  child: Text('Трасс еще нет, добавьте новую!'))
+                            ]),
+                        loading: (_) => SliverChildListDelegate(
+                            [const Center(child: CircularProgressIndicator())]),
+                        data: (dataState) => SliverChildBuilderDelegate(
+                              childCount: dataState.routes.length,
+                              (context, index) => Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Slidable(
+                                  endActionPane: climbingHall.hasEditPermission
+                                      ? ActionPane(
+                                          motion: const ScrollMotion(),
+                                          children: [
+                                            SlidableAction(
+                                              flex: 1,
+                                              onPressed: (context) async {
+                                                Navigator.of(context).push(
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            HallRoutePage(
+                                                              climbingHall:
+                                                                  climbingHall,
+                                                              route: dataState
+                                                                      .routes[
+                                                                  index],
+                                                            )));
+                                              },
+                                              backgroundColor:
+                                                  Colors.orange.shade400,
+                                              foregroundColor: Colors.white,
+                                              icon: Icons.edit,
+                                              label: 'edit',
+                                            ),
+                                            SlidableAction(
+                                              flex: 1,
+                                              onPressed: (context) async {
+                                                final climbingHallCubit =
+                                                    BlocProvider.of<
+                                                            ClimbingHallCubit>(
+                                                        context);
 
-                                        final archivePermission =
-                                            await showDialog<bool>(
-                                          context: context,
-                                          builder: (context) => AlertDialog(
-                                            title: const Text(
-                                                'Подтверждение архивирования'),
-                                            content: const Text(
-                                                'Трассу скрутили и она больше недоступна?'),
-                                            actions: [
-                                              ElevatedButton(
-                                                onPressed: () {
-                                                  Navigator.of(context)
-                                                      .pop(false);
-                                                },
-                                                child: const Text('Отменить'),
-                                              ),
-                                              ElevatedButton(
-                                                onPressed: () {
-                                                  Navigator.of(context)
-                                                      .pop(true);
-                                                },
-                                                child: const Text('Продолжить'),
-                                              ),
-                                            ],
-                                          ),
-                                        );
+                                                final archivePermission =
+                                                    await showDialog<bool>(
+                                                  context: context,
+                                                  builder: (context) =>
+                                                      AlertDialog(
+                                                    title: const Text(
+                                                        'Подтверждение архивирования'),
+                                                    content: const Text(
+                                                        'Трассу скрутили и она больше недоступна?'),
+                                                    actions: [
+                                                      ElevatedButton(
+                                                        onPressed: () {
+                                                          Navigator.of(context)
+                                                              .pop(false);
+                                                        },
+                                                        child: const Text(
+                                                            'Отменить'),
+                                                      ),
+                                                      ElevatedButton(
+                                                        onPressed: () {
+                                                          Navigator.of(context)
+                                                              .pop(true);
+                                                        },
+                                                        child: const Text(
+                                                            'Продолжить'),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                );
 
-                                        if (archivePermission == true) {
-                                          climbingHallCubit.toArchive(
-                                              hall: climbingHall,
-                                              route: state.routes![index]);
-                                        }
-                                      },
-                                      backgroundColor: Colors.red.shade400,
-                                      foregroundColor: Colors.white,
-                                      icon: Icons.delete,
-                                      label: 'arhivate',
-                                    ),
-                                  ],
+                                                if (archivePermission == true) {
+                                                  climbingHallCubit.toArchive(
+                                                      hall: climbingHall,
+                                                      route: dataState
+                                                          .routes[index]);
+                                                }
+                                              },
+                                              backgroundColor:
+                                                  Colors.red.shade400,
+                                              foregroundColor: Colors.white,
+                                              icon: Icons.delete,
+                                              label: 'arhivate',
+                                            ),
+                                          ],
+                                        )
+                                      : null,
+                                  child: HallRouteWidget(
+                                      climbingHall: climbingHall,
+                                      route: dataState.routes[index]),
                                 ),
-                                child: HallRouteWidget(
-                                    climbingHall: climbingHall,
-                                    route: state.routes![index]),
                               ),
                             ),
-                          )
-                        : SliverChildListDelegate([
-                            const Center(
-                                child: Text('Трасс еще нет, добавьте новую!'))
-                          ]),
+                        orElse: () => SliverChildListDelegate([
+                              const SizedBox(),
+                            ])),
                   ),
                 ],
               );

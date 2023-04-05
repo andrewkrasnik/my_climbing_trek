@@ -48,10 +48,11 @@ class MyApp extends StatelessWidget {
           create: (context) => di.getIt<AuthenticationCubit>()..getUser(),
         ),
         BlocProvider<HomePageCubit>(
-          create: (context) => di.getIt<HomePageCubit>()..loadData(),
+          create: (context) => di.getIt<HomePageCubit>(), //..loadData(),
         ),
         BlocProvider<CurrentHallTreaningCubit>(
-          create: (context) => di.getIt<CurrentHallTreaningCubit>()..loadData(),
+          create: (context) =>
+              di.getIt<CurrentHallTreaningCubit>(), //..loadData(),
         ),
         BlocProvider<SettingsCubit>(
           create: (context) => di.getIt<SettingsCubit>()..loadData(),
@@ -72,7 +73,19 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blueGrey,
           ),
           scrollBehavior: MyCustomScrollBehavior(),
-          home: const SafeArea(child: BottomNavigationPage())),
+          home: BlocListener<AuthenticationCubit, AuthenticationState>(
+            listenWhen: (previous, current) => current.maybeMap(
+              orElse: () => true,
+              loading: (_) => false,
+              error: (_) => false,
+            ),
+            listener: (context, state) async {
+              await BlocProvider.of<HomePageCubit>(context).loadData();
+              await BlocProvider.of<CurrentHallTreaningCubit>(context)
+                  .loadData();
+            },
+            child: const SafeArea(child: BottomNavigationPage()),
+          )),
     );
   }
 }
