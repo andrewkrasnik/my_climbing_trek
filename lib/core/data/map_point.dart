@@ -13,4 +13,6 @@ class MapPoint extends Equatable {
 
   @override
   List<Object?> get props => [latitude, longitude];
+
+  String get coordinates => '$longitude,$latitude';
 }
