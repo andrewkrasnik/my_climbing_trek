@@ -46,7 +46,7 @@ class SelectIceRouteWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '${sector.name}, ${sector.lenght} м.',
+                      '${sector.name}, ${sector.length} м.',
                       style: Theme.of(context).textTheme.labelLarge,
                     ),
                     const SizedBox(height: 8),

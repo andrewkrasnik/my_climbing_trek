@@ -33,7 +33,7 @@ class IceSectorWidget extends StatelessWidget {
                     shadows: [Shadow(offset: Offset.fromDirection(1))]),
               ),
               Text(
-                sector.lenght.toString(),
+                sector.length.toString(),
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 12,

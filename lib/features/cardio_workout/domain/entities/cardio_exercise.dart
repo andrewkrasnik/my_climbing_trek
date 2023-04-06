@@ -5,27 +5,27 @@ class CardioExercise extends DataWithUUID {
   final String name;
 
   final IconData icon;
-  final String lenghtUnit;
+  final String lengthUnit;
   CardioExercise(
       {required this.name,
       required this.icon,
-      required this.lenghtUnit,
+      required this.lengthUnit,
       super.id});
 
   static final CardioExercise jogging = CardioExercise(
-      name: 'Пробежка', id: '1', icon: Icons.directions_run, lenghtUnit: 'км');
+      name: 'Пробежка', id: '1', icon: Icons.directions_run, lengthUnit: 'км');
   static final CardioExercise swimming = CardioExercise(
-      name: 'Плавание', id: '2', icon: Icons.pool, lenghtUnit: 'м');
+      name: 'Плавание', id: '2', icon: Icons.pool, lengthUnit: 'м');
   static final CardioExercise cycling = CardioExercise(
       name: 'Велосипед',
       id: '3',
       icon: Icons.directions_bike,
-      lenghtUnit: 'км');
+      lengthUnit: 'км');
   static final CardioExercise crossCountrySkiing = CardioExercise(
       name: 'Беговые лыжи',
       id: '4',
       icon: Icons.downhill_skiing,
-      lenghtUnit: 'км');
+      lengthUnit: 'км');
 
   static final List<CardioExercise> values = [
     jogging,

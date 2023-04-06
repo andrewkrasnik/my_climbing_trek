@@ -6,7 +6,7 @@ class IceSector extends Sector {
   final bool glacierIce;
   final bool artificialIce;
   final String description;
-  final int lenght;
+  final int length;
   final IceCategory maxCategory;
 
   String get iceType {
@@ -38,7 +38,7 @@ class IceSector extends Sector {
   IceSector({
     required super.name,
     required super.district,
-    required this.lenght,
+    required this.length,
     required this.maxCategory,
     super.image,
     this.waterfallIce = false,

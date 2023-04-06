@@ -38,7 +38,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
       name: 'Западная стена',
       district: naroFominsk,
       description: '',
-      lenght: 14,
+      length: 14,
       maxCategory: IceCategory.i3,
       image:
           'https://sun1-47.userapi.com/impg/3VW79oaXqedj5fD4CuX4ccvqcF4if6dNgdSfPg/6mM_UsN9ntQ.jpg?size=1242x1234&quality=95&sign=9e66838aba3b3f42a82261a77c0c8bcb&type=album',
@@ -50,7 +50,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
       name: 'Восточная стена',
       district: naroFominsk,
       description: '',
-      lenght: 14,
+      length: 14,
       maxCategory: IceCategory.i3,
       image:
           'https://sun1-47.userapi.com/impg/3VW79oaXqedj5fD4CuX4ccvqcF4if6dNgdSfPg/6mM_UsN9ntQ.jpg?size=1242x1234&quality=95&sign=9e66838aba3b3f42a82261a77c0c8bcb&type=album',
@@ -62,7 +62,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
       name: 'Северная стена',
       district: naroFominsk,
       description: '',
-      lenght: 14,
+      length: 14,
       maxCategory: IceCategory.i3,
       image:
           'https://sun1-47.userapi.com/impg/3VW79oaXqedj5fD4CuX4ccvqcF4if6dNgdSfPg/6mM_UsN9ntQ.jpg?size=1242x1234&quality=95&sign=9e66838aba3b3f42a82261a77c0c8bcb&type=album',
@@ -79,7 +79,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
     final digoriaWall = IceSectorModel(
       id: 'digora1',
       name: 'Стенка',
-      lenght: 40,
+      length: 40,
       district: digoria,
       waterfallIce: true,
       image: 'https://risk.ru/u/img/15/14919-670.jpg',
@@ -97,7 +97,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
       district: digoria,
       waterfallIce: true,
       image: 'https://risk.ru/u/img/15/14924-670.jpg',
-      lenght: 50,
+      length: 50,
       maxCategory: IceCategory.i6plus,
       description:
           """Расположен на правобережной стенке каньона реки Урух, примерно в 2,5 - 3км от а/л, после "Душика ада". Несколько почти вертикальных сосулек разной структуры длиной от 10 до 50 м (WI 4 - 6+). Также большое количество микстовых маршрутов по ледовым потекам и залитым щелям.
@@ -115,7 +115,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
       district: digoria,
       waterfallIce: true,
       image: 'https://risk.ru/u/img/15/14924-670.jpg',
-      lenght: 80,
+      length: 80,
       maxCategory: IceCategory.i4plus,
       description:
           """Расположен на южном склоне ущелья в прямой видимости из а/л. Первые 30м WI 2 (до 45°), затем 8-10 м стенка (до 85°), после выполаживания 40м WI 1 или н/к. Простой мягкий лед, буры хорошо крутятся.
@@ -129,7 +129,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
       district: digoria,
       waterfallIce: true,
       image: 'http://caas.ru/taimazy/taym_09_2_small.jpg',
-      lenght: 65,
+      length: 65,
       maxCategory: IceCategory.i5plus,
       description: """
       Расположен на северном склоне горы Кубус в прямой видимости из а/л. Тут мы пролезли три маршрута.
@@ -152,7 +152,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
       district: digoria,
       waterfallIce: true,
       image: 'http://caas.ru/taimazy/taym_10_small.jpg',
-      lenght: 20,
+      length: 20,
       maxCategory: IceCategory.i5plus,
       description:
           """Расположен на северном склоне горы Кубус в непосредственной близости от каскада "Кубус 2000", в прямой видимости из а/л. Возможно несколько вариантов прохождения: по сложному льду в центральной части с элементами простого микста и ключом в виде системы карнизиков на последних пяти метрах, либо микстовым лазанием различной сложности слева или справа от ледового столба (варианты разной сложности).
@@ -167,7 +167,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
       district: digoria,
       waterfallIce: true,
       image: 'http://caas.ru/taimazy/taym_11_small.jpg',
-      lenght: 35,
+      length: 35,
       maxCategory: IceCategory.i4plus,
       description:
           """Расположен в кулуаре правобережной стенки каньона реки Урух, на самом выходе из каньона. Первые 25-30 м простого, часто засыпанного снегом, монолитного льда WI 3 (до 50°), после резкого перегиба 6-метровая стенка (90°).
@@ -182,7 +182,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
       district: digoria,
       waterfallIce: true,
       image: 'http://caas.ru/taimazy/taym_13_2_small.jpg',
-      lenght: 20,
+      length: 20,
       maxCategory: IceCategory.i6,
       description:
           """Расположен на правобережной стенке каньона р.Урух, на 30 метров дальше каскада "Стенка", после 2-ого поворота каньона. Участки сложности WI 6 на "Яростном парашютисте" без использования скалы.
@@ -201,7 +201,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
       district: digoria,
       waterfallIce: true,
       image: 'http://caas.ru/taimazy/taym_14_2_small.jpg',
-      lenght: 25,
+      length: 25,
       maxCategory: IceCategory.i6,
       description:
           """Расположен на правобережной стенке каньона р.Урух, на 10м дальше 1-ого каскада "Ледового королевства".
@@ -220,7 +220,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
       district: digoria,
       waterfallIce: true,
       image: 'http://caas.ru/taimazy/taym_15_2_small.jpg',
-      lenght: 25,
+      length: 25,
       maxCategory: IceCategory.i5plus,
       description: """
 Расположен на правобережной стенке каньона реки Урух, на 10м дальше "Короны". Равномерное лазание по тонкому прозрачному натечному льду (90°), сквозь который видно скалу. Каскад имеет ширину около 20 метров, но все варианты подъема идентичны. Страховка желательно верхняя - лед тонкий и буры глубоко не закручиваются.
@@ -235,7 +235,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
       district: digoria,
       waterfallIce: true,
       image: 'http://caas.ru/taimazy/shell_small.jpg',
-      lenght: 80,
+      length: 80,
       maxCategory: IceCategory.i7,
       description: """
 Расположен на правобережной стенке каньона реки Урух, примерно в 2-2,5км от а/л. Красивый техничный каскад, состоящий из двух независимых частей: левой "Ширмы" и правого столба "Душика". Большое количество вариантов с микстами и карнизами.
@@ -250,7 +250,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
       district: digoria,
       waterfallIce: true,
       image: 'https://risk.ru/u/img/15/14924-670.jpg',
-      lenght: 40,
+      length: 40,
       maxCategory: IceCategory.i4,
       description: """
 Расположен в большом внутреннем углу на правобережной стенке каньона реки Урух, примерно в 3 км от а/л. Каскад из твердого "бутылочного" льда шириной около 8 метров. В нижней и средней части средняя крутизна 65°, в верхней - 80°. "Сраный спонсор" - по центру самой высокой части через стенку вверху. По бокам имеются более простые варианты.

@@ -42,13 +42,13 @@ class IceAttemptDialog extends HookWidget {
                 Slider(
                   value: lengthState.value.toDouble(),
                   min: 0,
-                  divisions: attempt.sector.lenght,
-                  max: attempt.sector.lenght.toDouble(),
+                  divisions: attempt.sector.length,
+                  max: attempt.sector.length.toDouble(),
                   onChanged: (value) {
                     lengthState.value = value.toInt();
                   },
                 ),
-                Text('${attempt.sector.lenght} м.'),
+                Text('${attempt.sector.length} м.'),
               ],
             ),
             Row(

@@ -6,7 +6,7 @@ class IceSectorModel extends IceSector {
   IceSectorModel({
     required super.name,
     required super.district,
-    required super.lenght,
+    required super.length,
     required super.maxCategory,
     super.image,
     super.waterfallIce,
@@ -25,7 +25,7 @@ class IceSectorModel extends IceSector {
         'glacierIce': glacierIce,
         'artificialIce': artificialIce,
         'description': description,
-        'lenght': lenght,
+        'length': length,
         'id': id,
       };
 
@@ -35,7 +35,7 @@ class IceSectorModel extends IceSector {
         district: district,
         maxCategory: IceCategory.getById(json['maxCategory']),
         name: json['name'],
-        lenght: json['lenght'],
+        length: json['length'],
         waterfallIce: json['waterfallIce'] ?? false,
         glacierIce: json['glacierIce'] ?? false,
         artificialIce: json['artificialIce'] ?? false,

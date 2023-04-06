@@ -102,7 +102,7 @@ class CardioTreaningsPage extends StatelessWidget {
                                   title: Row(
                                     children: [
                                       Text(
-                                          '${treaning.length.toString()} ${treaning.exercise.lenghtUnit}.'),
+                                          '${treaning.length.toString()} ${treaning.exercise.lengthUnit}.'),
                                       const SizedBox(width: 12),
                                       Text(
                                           '${treaning.duration.toString()} мин.'),
