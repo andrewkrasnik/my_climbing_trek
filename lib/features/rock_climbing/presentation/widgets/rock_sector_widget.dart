@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_climbing_trek/core/widgets/my_cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_district.dart';
+import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_route.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_sector.dart';
 import 'package:my_climbing_trek/features/rock_climbing/presentation/cubit/rock_routes/rock_routes_cubit.dart';
 import 'package:my_climbing_trek/features/rock_climbing/presentation/widgets/rock_route_widget.dart';
@@ -11,10 +12,14 @@ class RockSectorWidget extends StatelessWidget {
   final RockSector sector;
   final RockDistrict district;
   final void Function()? onTap;
+  final void Function(RockSector)? addSector;
+  final void Function(RockRoute route)? onTapGo;
   const RockSectorWidget({
     required this.sector,
     required this.district,
     this.onTap,
+    this.addSector,
+    this.onTapGo,
     Key? key,
   }) : super(key: key);
 
@@ -51,6 +56,17 @@ class RockSectorWidget extends StatelessWidget {
                         ),
                       ]),
                 ),
+                if (addSector != null)
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: IconButton(
+                      icon: const Icon(Icons.add_box, color: Colors.white),
+                      onPressed: () {
+                        addSector!(sector);
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  )
               ],
             ),
           ),
@@ -69,7 +85,10 @@ class RockSectorWidget extends StatelessWidget {
                           .map((route) => Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 8.0, vertical: 4),
-                                child: RockRouteWidget(route: route),
+                                child: RockRouteWidget(
+                                  route: route,
+                                  onTapGo: onTapGo,
+                                ),
                               ))
                           .toList(),
                     );

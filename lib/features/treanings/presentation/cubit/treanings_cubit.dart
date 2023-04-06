@@ -18,10 +18,22 @@ class TreaningsCubit extends Cubit<TreaningsState> {
     this._deleteTreaning,
   ) : super(const TreaningsState.initial());
 
-  Future<void> loadData() async {
+  Future<void> loadData({
+    required bool rock,
+    required bool gym,
+    required bool ice,
+    required bool cardio,
+    required bool strength,
+  }) async {
     emit(const TreaningsState.loading());
 
-    final failureOrTreanings = await _allTreanings();
+    final failureOrTreanings = await _allTreanings(
+      cardio: cardio,
+      gym: gym,
+      ice: ice,
+      rock: rock,
+      strength: strength,
+    );
 
     failureOrTreanings.fold(
         (failure) => emit(TreaningsState.error(
@@ -41,6 +53,6 @@ class TreaningsCubit extends Cubit<TreaningsState> {
             )),
         (_) => null);
 
-    loadData();
+    // loadData();
   }
 }

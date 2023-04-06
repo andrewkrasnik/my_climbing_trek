@@ -1,4 +1,6 @@
-class TreaningsSettings {
+import 'package:equatable/equatable.dart';
+
+class TreaningsSettings extends Equatable {
   final bool useGymTreanings;
   final bool useCardioTreanings;
   final bool useIceTreanings;
@@ -36,4 +38,13 @@ class TreaningsSettings {
         useStrengthTraining: true,
         useRockTraining: true,
       );
+
+  @override
+  List<Object?> get props => [
+        useCardioTreanings,
+        useGymTreanings,
+        useIceTreanings,
+        useRockTraining,
+        useStrengthTraining,
+      ];
 }

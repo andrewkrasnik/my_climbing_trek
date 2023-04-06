@@ -4,7 +4,9 @@ import 'package:my_climbing_trek/features/rock_climbing/presentation/widgets/roc
 
 class RockRouteWidget extends StatelessWidget {
   final RockRoute route;
-  const RockRouteWidget({required this.route, Key? key}) : super(key: key);
+  final void Function(RockRoute route)? onTapGo;
+  const RockRouteWidget({required this.route, this.onTapGo, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +35,10 @@ class RockRouteWidget extends StatelessWidget {
           title: Text(route.name),
           subtitle:
               Text('${route.length} м., шлямбуров ${route.boltCount} шт.'),
+          trailing: onTapGo == null
+              ? null
+              : ElevatedButton(
+                  onPressed: () => onTapGo!(route), child: const Text('GO!')),
         ));
   }
 }

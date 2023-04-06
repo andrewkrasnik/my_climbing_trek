@@ -35,7 +35,7 @@ class IceSectorModel extends IceSector {
         district: district,
         maxCategory: IceCategory.getById(json['maxCategory']),
         name: json['name'],
-        length: json['length'],
+        length: json['length'] ?? json['lenght'],
         waterfallIce: json['waterfallIce'] ?? false,
         glacierIce: json['glacierIce'] ?? false,
         artificialIce: json['artificialIce'] ?? false,

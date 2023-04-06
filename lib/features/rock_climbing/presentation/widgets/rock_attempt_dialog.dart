@@ -1,0 +1,93 @@
+import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/bool_value_widget.dart';
+import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/int_counter_widget.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_treaning_attempt.dart';
+import 'package:my_climbing_trek/features/rock_climbing/presentation/cubit/rock_treaning/rock_treaning_cubit.dart';
+
+class RockAttemptDialog extends HookWidget {
+  final RockTreaningAttempt attempt;
+  final RockTreaningCubit cubit;
+
+  final bool editing;
+  const RockAttemptDialog({
+    required this.attempt,
+    required this.cubit,
+    this.editing = false,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final suspensionCountState = useState<int>(attempt.suspensionCount);
+    final fallCountState = useState<int>(attempt.fallCount);
+    final downClimbingState = useState<bool>(attempt.downClimbing);
+    final failState = useState<bool>(attempt.fail);
+
+    return AlertDialog(
+      content: Padding(
+        padding: const EdgeInsets.all(8),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(attempt.style.toString()),
+            Text('${attempt.sector.district.name}, ${attempt.sector.name}'),
+            BoolValueWidget(
+                title: 'Недолез', valueState: failState, editing: editing),
+            IntCounterWidget(
+              title: 'Зависаний:',
+              valueState: suspensionCountState,
+              editing: editing,
+            ),
+            IntCounterWidget(
+              title: 'Срывов:',
+              valueState: fallCountState,
+              editing: editing,
+            ),
+            BoolValueWidget(
+                title: 'Спуск лазаньем',
+                valueState: downClimbingState,
+                editing: editing),
+          ],
+        ),
+      ),
+      actions: [
+        ElevatedButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: const Text('Назад'),
+        ),
+        if (attempt.planed)
+          ElevatedButton(
+            onPressed: () {
+              cubit.startAttempt(attempt: attempt);
+              Navigator.of(context).pop();
+            },
+            child: const Text('Старт'),
+          ),
+        if (attempt.started)
+          ElevatedButton(
+            onPressed: () {
+              cubit.finishCurrentAttempt(
+                fail: failState.value,
+                downClimbing: downClimbingState.value,
+                fallCount: fallCountState.value,
+                suspensionCount: suspensionCountState.value,
+              );
+              Navigator.of(context).pop();
+            },
+            child: const Text('Завершить'),
+          ),
+        if (attempt.finished)
+          ElevatedButton(
+            onPressed: () {
+              cubit.deleteAttempt(attempt: attempt);
+              Navigator.of(context).pop();
+            },
+            child: const Text('Удалить'),
+          ),
+      ],
+    );
+  }
+}

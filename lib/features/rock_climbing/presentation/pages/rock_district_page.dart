@@ -1,8 +1,3 @@
-import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_district.dart';
-import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_sector.dart';
-import 'package:my_climbing_trek/features/ice_climbing/presentation/bloc/ice_sectors/ice_sectors_cubit.dart';
-import 'package:my_climbing_trek/features/ice_climbing/presentation/pages/ice_sector_page.dart';
-import 'package:my_climbing_trek/features/ice_climbing/presentation/widgets/ice_sector_widget.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_district.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_sector.dart';
 import 'package:my_climbing_trek/features/rock_climbing/presentation/cubit/rock_sectors/rock_sectors_cubit.dart';
@@ -78,33 +73,10 @@ class RockDistrictPage extends StatelessWidget {
                         childCount: dataState.sectors.length,
                         (context, index) => Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Stack(
-                            alignment: AlignmentDirectional.bottomEnd,
-                            fit: StackFit.passthrough,
-                            children: [
-                              RockSectorWidget(
-                                district: district,
-                                sector: dataState.sectors[index],
-                                // onTap: () => Navigator.of(context)
-                                //     .push(MaterialPageRoute(
-                                //         builder: (context) => IceSectorPage(
-                                //               district: district,
-                                //               sector: dataState.sectors[index],
-                                //             ))),
-                              ),
-                              if (addSector != null)
-                                Align(
-                                  alignment: Alignment.bottomRight,
-                                  child: IconButton(
-                                    icon: const Icon(Icons.add_box,
-                                        color: Colors.white),
-                                    onPressed: () {
-                                      addSector!(dataState.sectors[index]);
-                                      Navigator.of(context).pop();
-                                    },
-                                  ),
-                                )
-                            ],
+                          child: RockSectorWidget(
+                            district: district,
+                            sector: dataState.sectors[index],
+                            addSector: addSector,
                           ),
                         ),
                       ),
