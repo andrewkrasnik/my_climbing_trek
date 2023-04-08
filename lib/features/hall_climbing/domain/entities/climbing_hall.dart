@@ -15,7 +15,7 @@ class ClimbingHall {
   final String telephone;
   final String website;
   final String email;
-  final int id;
+  final String id;
   final bool hasEditPermission;
 
   String get fullAddress => '${city.name}, $address';
@@ -41,7 +41,7 @@ class ClimbingHall {
     required this.website,
     required this.email,
     this.hasSpeed = false,
-    this.id = 0,
+    this.id = '',
     this.hasEditPermission = false,
   });
 }

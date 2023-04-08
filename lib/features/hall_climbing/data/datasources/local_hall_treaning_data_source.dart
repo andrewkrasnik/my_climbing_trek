@@ -128,7 +128,7 @@ class LocalHallTreaningDataSource implements HallTreaningDataSource {
   }
 
   Future<List<ClimbingHallAttempt>> _treaningAttempts({
-    required int hallId,
+    required String hallId,
     required String treaningId,
   }) async {
     final data =
@@ -147,7 +147,7 @@ class LocalHallTreaningDataSource implements HallTreaningDataSource {
 
   Future<ClimbingHallAttempt> _itemToAttempt({
     required DriftHallAttempt item,
-    required int hallId,
+    required String hallId,
     ClimbingHallRoute? route,
   }) async {
     if (route == null && item.routeId != null) {
@@ -232,7 +232,7 @@ class LocalHallTreaningDataSource implements HallTreaningDataSource {
 
     for (var element in data) {
       attempts
-          .add(await _itemToAttempt(item: element, hallId: 0, route: route));
+          .add(await _itemToAttempt(item: element, hallId: '0', route: route));
     }
 
     return Right(attempts);

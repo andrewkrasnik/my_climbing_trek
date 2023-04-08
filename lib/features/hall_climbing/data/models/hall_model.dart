@@ -23,12 +23,12 @@ class HallModel extends ClimbingHall {
 
   factory HallModel.fromJson(
     Map<String, dynamic> json, {
-    int? id,
+    String? id,
     bool? hasEditPermission,
   }) =>
       _$HallModelFromJson(
         json,
-        id: id,
+        id: id ?? json['id'],
         hasEditPermission: hasEditPermission,
       );
 
@@ -37,7 +37,7 @@ class HallModel extends ClimbingHall {
 
 HallModel _$HallModelFromJson(
   Map<String, dynamic> json, {
-  int? id,
+  String id = '',
   bool? hasEditPermission,
 }) =>
     HallModel(

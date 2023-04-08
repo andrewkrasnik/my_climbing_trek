@@ -48,7 +48,7 @@ class RemoteGymDataSourceImpl implements RemoteGymDataSource {
 
       gymsList.add(HallModel.fromJson(
         snapshot.data(),
-        id: int.parse(snapshot.id),
+        id: snapshot.id,
         hasEditPermission: hasPermission,
       ));
     }

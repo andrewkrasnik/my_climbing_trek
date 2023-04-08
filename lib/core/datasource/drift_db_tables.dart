@@ -65,7 +65,7 @@ class DriftCardioTreaningsTable extends Table {
 @DataClassName('DriftHallTreaning')
 class DriftHallTreaningsTable extends Table {
   TextColumn get id => text().unique()();
-  IntColumn get hallId => integer()();
+  TextColumn get hallId => text()();
   DateTimeColumn get date => dateTime()();
   DateTimeColumn get finish => dateTime().nullable()();
 

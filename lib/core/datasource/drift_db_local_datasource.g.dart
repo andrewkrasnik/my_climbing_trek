@@ -262,7 +262,7 @@ class $DriftStrengthExercisesTableTable extends DriftStrengthExercisesTable
 class DriftHallTreaning extends DataClass
     implements Insertable<DriftHallTreaning> {
   final String id;
-  final int hallId;
+  final String hallId;
   final DateTime date;
   final DateTime? finish;
   const DriftHallTreaning(
@@ -274,7 +274,7 @@ class DriftHallTreaning extends DataClass
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<String>(id);
-    map['hall_id'] = Variable<int>(hallId);
+    map['hall_id'] = Variable<String>(hallId);
     map['date'] = Variable<DateTime>(date);
     if (!nullToAbsent || finish != null) {
       map['finish'] = Variable<DateTime>(finish);
@@ -297,7 +297,7 @@ class DriftHallTreaning extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return DriftHallTreaning(
       id: serializer.fromJson<String>(json['id']),
-      hallId: serializer.fromJson<int>(json['hallId']),
+      hallId: serializer.fromJson<String>(json['hallId']),
       date: serializer.fromJson<DateTime>(json['date']),
       finish: serializer.fromJson<DateTime?>(json['finish']),
     );
@@ -307,7 +307,7 @@ class DriftHallTreaning extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<String>(id),
-      'hallId': serializer.toJson<int>(hallId),
+      'hallId': serializer.toJson<String>(hallId),
       'date': serializer.toJson<DateTime>(date),
       'finish': serializer.toJson<DateTime?>(finish),
     };
@@ -315,7 +315,7 @@ class DriftHallTreaning extends DataClass
 
   DriftHallTreaning copyWith(
           {String? id,
-          int? hallId,
+          String? hallId,
           DateTime? date,
           Value<DateTime?> finish = const Value.absent()}) =>
       DriftHallTreaning(
@@ -350,7 +350,7 @@ class DriftHallTreaning extends DataClass
 class DriftHallTreaningsTableCompanion
     extends UpdateCompanion<DriftHallTreaning> {
   final Value<String> id;
-  final Value<int> hallId;
+  final Value<String> hallId;
   final Value<DateTime> date;
   final Value<DateTime?> finish;
   const DriftHallTreaningsTableCompanion({
@@ -361,7 +361,7 @@ class DriftHallTreaningsTableCompanion
   });
   DriftHallTreaningsTableCompanion.insert({
     required String id,
-    required int hallId,
+    required String hallId,
     required DateTime date,
     this.finish = const Value.absent(),
   })  : id = Value(id),
@@ -369,7 +369,7 @@ class DriftHallTreaningsTableCompanion
         date = Value(date);
   static Insertable<DriftHallTreaning> custom({
     Expression<String>? id,
-    Expression<int>? hallId,
+    Expression<String>? hallId,
     Expression<DateTime>? date,
     Expression<DateTime>? finish,
   }) {
@@ -383,7 +383,7 @@ class DriftHallTreaningsTableCompanion
 
   DriftHallTreaningsTableCompanion copyWith(
       {Value<String>? id,
-      Value<int>? hallId,
+      Value<String>? hallId,
       Value<DateTime>? date,
       Value<DateTime?>? finish}) {
     return DriftHallTreaningsTableCompanion(
@@ -401,7 +401,7 @@ class DriftHallTreaningsTableCompanion
       map['id'] = Variable<String>(id.value);
     }
     if (hallId.present) {
-      map['hall_id'] = Variable<int>(hallId.value);
+      map['hall_id'] = Variable<String>(hallId.value);
     }
     if (date.present) {
       map['date'] = Variable<DateTime>(date.value);
@@ -439,9 +439,9 @@ class $DriftHallTreaningsTableTable extends DriftHallTreaningsTable
       defaultConstraints: 'UNIQUE');
   final VerificationMeta _hallIdMeta = const VerificationMeta('hallId');
   @override
-  late final GeneratedColumn<int> hallId = GeneratedColumn<int>(
+  late final GeneratedColumn<String> hallId = GeneratedColumn<String>(
       'hall_id', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+      type: DriftSqlType.string, requiredDuringInsert: true);
   final VerificationMeta _dateMeta = const VerificationMeta('date');
   @override
   late final GeneratedColumn<DateTime> date = GeneratedColumn<DateTime>(
@@ -496,7 +496,7 @@ class $DriftHallTreaningsTableTable extends DriftHallTreaningsTable
       id: attachedDatabase.options.types
           .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
       hallId: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}hall_id'])!,
+          .read(DriftSqlType.string, data['${effectivePrefix}hall_id'])!,
       date: attachedDatabase.options.types
           .read(DriftSqlType.dateTime, data['${effectivePrefix}date'])!,
       finish: attachedDatabase.options.types

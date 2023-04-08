@@ -28,7 +28,7 @@ class MockClimbingHallDataSource implements ClimbingHallDataSource {
     telephone: '+7 (495) 126-16-59',
     website: 'https://station.club/',
     email: 'info@station.club',
-    id: 0,
+    id: '0',
   );
 
   static const HallModel _bigwall = HallModel(
@@ -44,7 +44,7 @@ class MockClimbingHallDataSource implements ClimbingHallDataSource {
     telephone: '+7 (499) 653-60-30',
     website: 'https://bigwallsport.ru/',
     email: 'info@bigwallsport.ru',
-    id: 1,
+    id: '1',
   );
 
   static const List<HallModel> climbingHallsList = [
@@ -62,7 +62,7 @@ class MockClimbingHallDataSource implements ClimbingHallDataSource {
       telephone: '+7 (812) 501-93-15',
       website: 'https://severnayastena.ru/',
       email: 'severnayastena@gmail.com',
-      id: 2,
+      id: '2',
     ),
   ];
 
@@ -118,7 +118,7 @@ class MockClimbingHallDataSource implements ClimbingHallDataSource {
   }
 
   @override
-  Future<Either<Failure, HallModel>> getHallById(int id) async {
+  Future<Either<Failure, HallModel>> getHallById(String id) async {
     try {
       return Right(climbingHallsList.firstWhere((element) => element.id == id));
     } catch (e) {
@@ -128,7 +128,7 @@ class MockClimbingHallDataSource implements ClimbingHallDataSource {
 
   @override
   Future<Either<Failure, ClimbingHallRoute>> getRouteById(
-      {required String id, required int hallId}) {
+      {required String id, required String hallId}) {
     // TODO: implement getRouteById
     throw UnimplementedError();
   }

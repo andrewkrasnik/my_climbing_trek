@@ -68,10 +68,10 @@ class LocalClimbingHallDataSource implements ClimbingHallDataSource {
   }
 
   @override
-  Future<Either<Failure, HallModel>> getHallById(int id) async {
+  Future<Either<Failure, HallModel>> getHallById(String id) async {
     final hallsBox = await Hive.openBox<String>(_climbingHallsName);
 
-    final jsonRaw = hallsBox.getAt(id);
+    final jsonRaw = hallsBox.get(id);
 
     if (jsonRaw != null) {
       return Right(HallModel.fromJson(json.decode(jsonRaw)));
@@ -82,7 +82,7 @@ class LocalClimbingHallDataSource implements ClimbingHallDataSource {
 
   @override
   Future<Either<Failure, ClimbingHallRoute>> getRouteById(
-      {required String id, required int hallId}) async {
+      {required String id, required String hallId}) async {
     final routesBox = await Hive.openBox<String>('$_climbingHallName$hallId');
 
     final jsonString = routesBox.get(id);
