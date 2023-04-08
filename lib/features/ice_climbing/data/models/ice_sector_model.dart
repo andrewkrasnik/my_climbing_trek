@@ -27,9 +27,7 @@ class IceSectorModel extends IceSector {
         'id': id,
       };
 
-  factory IceSectorModel.fromJson(
-          Map<String, dynamic> json, IceDistrict district) =>
-      IceSectorModel(
+  factory IceSectorModel.fromJson(Map<String, dynamic> json) => IceSectorModel(
         maxCategory: IceCategory.getById(json['maxCategory']),
         name: json['name'],
         length: json['length'] ?? json['lenght'],

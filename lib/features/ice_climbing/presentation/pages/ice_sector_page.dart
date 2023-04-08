@@ -1,3 +1,4 @@
+import 'package:my_climbing_trek/core/widgets/my_cached_network_image.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_district.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_sector.dart';
 import 'package:my_climbing_trek/features/ice_climbing/presentation/widgets/text_with_title_widget.dart';
@@ -25,10 +26,8 @@ class IceSectorPage extends StatelessWidget {
               pinned: true,
               snap: false,
               flexibleSpace: FlexibleSpaceBar(
-                background: Image.network(
-                  sector.image,
-                  fit: BoxFit.cover,
-                ),
+                background: MyCachedNetworkImage(
+                    imageUrl: sector.image, fit: BoxFit.cover),
                 centerTitle: true,
                 title: Text(
                   sector.name,

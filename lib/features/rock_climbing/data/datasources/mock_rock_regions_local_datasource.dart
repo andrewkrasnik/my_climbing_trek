@@ -120,4 +120,27 @@ class MockRockRegionsLocalDataSource implements RockRegionsLocalDataSource {
       {required RockDistrict district}) async {
     return Right(_sectors[district]!);
   }
+
+  @override
+  Future<Either<Failure, Unit>> saveDistricts(
+      {required List<RockDistrict> districts}) {
+    // TODO: implement saveDistricts
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, Unit>> saveRoutes(
+      {required RockDistrict district,
+      required RockSector sector,
+      required List<RockRoute> routes}) {
+    // TODO: implement saveRoutes
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, Unit>> saveSectors(
+      {required RockDistrict district, required List<RockSector> sectors}) {
+    // TODO: implement saveSectors
+    throw UnimplementedError();
+  }
 }

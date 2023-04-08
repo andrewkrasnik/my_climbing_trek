@@ -9,7 +9,7 @@ class Region extends DataWithUUID {
   });
 
   static final moscow = Region(name: 'Москва и область', id: 'moscow');
-  static final caucasus = Region(name: 'Северный кавказ', id: 'caucas');
+  static final caucasus = Region(name: 'Северный кавказ', id: 'caucasus');
   static final vladimirskaya =
       Region(name: 'Владимирская область', id: 'vladimirskaya');
 

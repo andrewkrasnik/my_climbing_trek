@@ -14,4 +14,18 @@ abstract class RockRegionsLocalDataSource {
     required RockDistrict district,
     required RockSector sector,
   });
+
+  Future<Either<Failure, Unit>> saveDistricts(
+      {required List<RockDistrict> districts});
+
+  Future<Either<Failure, Unit>> saveSectors({
+    required RockDistrict district,
+    required List<RockSector> sectors,
+  });
+
+  Future<Either<Failure, Unit>> saveRoutes({
+    required RockDistrict district,
+    required RockSector sector,
+    required List<RockRoute> routes,
+  });
 }

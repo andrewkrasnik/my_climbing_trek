@@ -1,3 +1,4 @@
+import 'package:my_climbing_trek/core/widgets/my_cached_network_image.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_district.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_sector.dart';
 import 'package:my_climbing_trek/features/rock_climbing/presentation/cubit/rock_sectors/rock_sectors_cubit.dart';
@@ -30,10 +31,8 @@ class RockDistrictPage extends StatelessWidget {
               pinned: true,
               snap: false,
               flexibleSpace: FlexibleSpaceBar(
-                background: Image.network(
-                  district.image,
-                  fit: BoxFit.cover,
-                ),
+                background: MyCachedNetworkImage(
+                    imageUrl: district.image, fit: BoxFit.cover),
                 centerTitle: true,
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
