@@ -5,20 +5,24 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'rock_treaning_model.g.dart';
 
 @JsonSerializable(converters: [
-  RockDistrictConverter(),
+  RockDistrictStringConverter(),
   RockSectorConverter(),
   RockTreaningAttemptConverter(),
+  EpochDateTimeConverter(),
 ])
 class RockTreaningModel extends RockTreaning {
   RockTreaningModel({
     required super.date,
     required super.district,
     super.attempts,
-    required super.sectors,
     super.finish,
     super.id,
     super.start,
-  });
+    String districtId = '',
+  }) : super(sectors: attempts?.map((e) => e.sector).toSet().toList() ?? []);
+
+  @JsonKey(name: 'districtId')
+  String get districtId => district.id;
 
   factory RockTreaningModel.fromJson(Map<String, dynamic> json) =>
       _$RockTreaningModelFromJson(json);

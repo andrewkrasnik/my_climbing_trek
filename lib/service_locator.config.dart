@@ -153,10 +153,10 @@ import 'features/ice_climbing/presentation/bloc/ice_districts/ice_districts_cubi
     as _i103;
 import 'features/ice_climbing/presentation/bloc/ice_sectors/ice_sectors_cubit.dart'
     as _i105;
+import 'features/rock_climbing/data/datasources/drift_rock_treanings_local_datasource.dart'
+    as _i39;
 import 'features/rock_climbing/data/datasources/hive_rock_regions_local_datasource.dart'
     as _i35;
-import 'features/rock_climbing/data/datasources/mock_rock_treanings_local_datasource.dart'
-    as _i39;
 import 'features/rock_climbing/data/datasources/rock_regions_local_datasource.dart'
     as _i34;
 import 'features/rock_climbing/data/datasources/rock_treanings_local_datasource.dart'
@@ -329,8 +329,9 @@ _i1.GetIt $initGetIt(
       () => _i35.HiveRockRegionsLocalDataSource());
   gh.lazySingleton<_i36.RockRegionsRepository>(() =>
       _i37.RockRegionsRepositoryImpl(get<_i34.RockRegionsLocalDataSource>()));
-  gh.lazySingleton<_i38.RockTreaningsLocalDataSource>(
-      () => _i39.MockRockTreaningsLocalDataSource());
+  gh.lazySingleton<_i38.RockTreaningsLocalDataSource>(() =>
+      _i39.DriftRockTreaningsLocalDataSource(
+          get<_i5.DriftDBLocalDataSource>()));
   gh.lazySingleton<_i40.RockTreaningsRepository>(() =>
       _i41.RockTreaningsRepositoryImpl(
           get<_i38.RockTreaningsLocalDataSource>()));

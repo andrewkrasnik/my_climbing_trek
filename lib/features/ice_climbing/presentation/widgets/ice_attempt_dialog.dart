@@ -5,6 +5,7 @@ import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_trean
 import 'package:my_climbing_trek/features/ice_climbing/presentation/bloc/current_ice_treaning/current_ice_treaning_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:my_climbing_trek/features/ice_climbing/presentation/widgets/ice_category_widget.dart';
 
 class IceAttemptDialog extends HookWidget {
   final IceTreaningAttempt attempt;
@@ -34,61 +35,73 @@ class IceAttemptDialog extends HookWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            IceCategoryWidget(category: attempt.category),
             Text(attempt.style.toString()),
-            Text('${attempt.sector.district.name}, ${attempt.sector.name}'),
+            Text('Сектор: ${attempt.sector.name}'),
             Text('Пройдено ${lengthState.value} м.'),
-            Row(
-              children: [
-                Slider(
-                  value: lengthState.value.toDouble(),
-                  min: 0,
-                  divisions: attempt.sector.length,
-                  max: attempt.sector.length.toDouble(),
-                  onChanged: (value) {
-                    lengthState.value = value.toInt();
-                  },
-                ),
-                Text('${attempt.sector.length} м.'),
-              ],
-            ),
-            Row(
-              children: [
-                const Text('Инструменты:'),
-                Column(
-                  children: [
-                    Radio(
-                        value: 2,
-                        groupValue: toolsCountState.value,
-                        onChanged: (value) {
-                          toolsCountState.value = value ?? 2;
-                        }),
-                    const Text('2'),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Radio(
-                        value: 1,
-                        groupValue: toolsCountState.value,
-                        onChanged: (value) {
-                          toolsCountState.value = value ?? 2;
-                        }),
-                    const Text('1'),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Radio(
-                        value: 0,
-                        groupValue: toolsCountState.value,
-                        onChanged: (value) {
-                          toolsCountState.value = value ?? 2;
-                        }),
-                    const Text('0'),
-                  ],
-                ),
-              ],
-            ),
+            if (editing)
+              Row(
+                children: [
+                  Slider(
+                    value: lengthState.value.toDouble(),
+                    min: 0,
+                    divisions: attempt.sector.length,
+                    max: attempt.sector.length.toDouble(),
+                    onChanged: editing
+                        ? (value) {
+                            lengthState.value = value.toInt();
+                          }
+                        : null,
+                  ),
+                  Text('${attempt.sector.length} м.'),
+                ],
+              ),
+            if (editing)
+              Row(
+                children: [
+                  const Text('Инструменты:'),
+                  Column(
+                    children: [
+                      Radio(
+                          value: 2,
+                          groupValue: toolsCountState.value,
+                          onChanged: editing
+                              ? (value) {
+                                  toolsCountState.value = (value as int?) ?? 2;
+                                }
+                              : null),
+                      const Text('2'),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Radio(
+                          value: 1,
+                          groupValue: toolsCountState.value,
+                          onChanged: editing
+                              ? (value) {
+                                  toolsCountState.value = (value as int?) ?? 2;
+                                }
+                              : null),
+                      const Text('1'),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Radio(
+                          value: 0,
+                          groupValue: toolsCountState.value,
+                          onChanged: editing
+                              ? (value) {
+                                  toolsCountState.value = (value as int?) ?? 2;
+                                }
+                              : null),
+                      const Text('0'),
+                    ],
+                  ),
+                ],
+              ),
+            if (!editing) Text('Инструменты: ${attempt.toolsCount}'),
             if (attempt.style == ClimbingStyle.lead) ...[
               IntCounterWidget(
                 title: 'Использовано буров:',

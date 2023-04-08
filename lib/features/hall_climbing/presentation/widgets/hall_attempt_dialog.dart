@@ -29,11 +29,14 @@ class HallAttemptDialog extends HookWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(attempt.style.toString()),
             HallSectorNumberWidget(
               route: attempt.route,
-              child: HallRouteCategoryWidget.fromAttempt(attempt: attempt),
+              child: HallRouteCategoryWidget(
+                category: attempt.category,
+                color: attempt.routeColor,
+              ),
             ),
+            Text(attempt.style.toString()),
             BoolValueWidget(
                 title: 'Недолез', valueState: failState, editing: editing),
             if (attempt.style.type == ClimbingRouteType.rope) ...[

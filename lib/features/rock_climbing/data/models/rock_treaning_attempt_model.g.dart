@@ -9,41 +9,47 @@ part of 'rock_treaning_attempt_model.dart';
 RockTreaningAttemptModel _$RockTreaningAttemptModelFromJson(
         Map<String, dynamic> json) =>
     RockTreaningAttemptModel(
-      sector: const RockSectorConverter()
-          .fromJson(json['sector'] as Map<String, dynamic>),
+      treaningId: json['treaningId'] as String,
+      sector:
+          const RockSectorStringConverter().fromJson(json['sector'] as String),
       category:
           const ClimbingCategoryConverter().fromJson(json['category'] as int),
       style: const ClimbingStyleConverter().fromJson(json['style'] as int),
-      startTime: json['startTime'] == null
-          ? null
-          : DateTime.parse(json['startTime'] as String),
-      finishTime: json['finishTime'] == null
-          ? null
-          : DateTime.parse(json['finishTime'] as String),
+      startTime: _$JsonConverterFromJson<int, DateTime>(
+          json['startTime'], const EpochDateTimeConverter().fromJson),
+      finishTime: _$JsonConverterFromJson<int, DateTime>(
+          json['finishTime'], const EpochDateTimeConverter().fromJson),
       id: json['id'] as String? ?? '',
-      route: _$JsonConverterFromJson<Map<String, dynamic>, RockRoute>(
-          json['route'], const RockRouteConverter().fromJson),
+      route: _$JsonConverterFromJson<String, RockRoute>(
+          json['route'], const RockRouteStringConverter().fromJson),
       downClimbing: json['downClimbing'] as bool? ?? false,
       fallCount: json['fallCount'] as int? ?? 0,
       fail: json['fail'] as bool? ?? false,
       suspensionCount: json['suspensionCount'] as int? ?? 0,
+      sectorId: json['sectorId'] as String? ?? '',
+      routeId: json['routeId'] as String? ?? '',
     );
 
 Map<String, dynamic> _$RockTreaningAttemptModelToJson(
         RockTreaningAttemptModel instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'sector': const RockSectorConverter().toJson(instance.sector),
+      'sector': const RockSectorStringConverter().toJson(instance.sector),
       'category': const ClimbingCategoryConverter().toJson(instance.category),
       'style': const ClimbingStyleConverter().toJson(instance.style),
-      'route': _$JsonConverterToJson<Map<String, dynamic>, RockRoute>(
-          instance.route, const RockRouteConverter().toJson),
+      'route': _$JsonConverterToJson<String, RockRoute>(
+          instance.route, const RockRouteStringConverter().toJson),
+      'treaningId': instance.treaningId,
       'suspensionCount': instance.suspensionCount,
       'fallCount': instance.fallCount,
       'downClimbing': instance.downClimbing,
       'fail': instance.fail,
-      'startTime': instance.startTime?.toIso8601String(),
-      'finishTime': instance.finishTime?.toIso8601String(),
+      'startTime': _$JsonConverterToJson<int, DateTime>(
+          instance.startTime, const EpochDateTimeConverter().toJson),
+      'finishTime': _$JsonConverterToJson<int, DateTime>(
+          instance.finishTime, const EpochDateTimeConverter().toJson),
+      'sectorId': instance.sectorId,
+      'routeId': instance.routeId,
     };
 
 Value? _$JsonConverterFromJson<Json, Value>(

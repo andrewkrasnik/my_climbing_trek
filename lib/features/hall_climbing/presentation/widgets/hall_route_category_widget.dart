@@ -24,6 +24,7 @@ class HallRouteCategoryWidget extends StatelessWidget {
 
   HallRouteCategoryWidget.fromAttempt({
     required ClimbingHallAttempt attempt,
+    bool showBadgets = true,
     super.key,
   })  : _attempt = attempt,
         category = attempt.routeCategory,

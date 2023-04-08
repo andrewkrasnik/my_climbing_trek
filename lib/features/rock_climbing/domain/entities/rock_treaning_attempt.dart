@@ -9,6 +9,7 @@ class RockTreaningAttempt extends DataWithUUID {
   final ClimbingCategory category;
   final ClimbingStyle style;
   final RockRoute? route;
+  final String treaningId;
 
   DateTime? _startTime;
   DateTime? _finishTime;
@@ -32,9 +33,9 @@ class RockTreaningAttempt extends DataWithUUID {
     required this.sector,
     required this.category,
     required this.style,
+    required this.treaningId,
     DateTime? startTime,
     DateTime? finishTime,
-    int? wayLength,
     super.id,
     this.route,
     this.downClimbing = false,

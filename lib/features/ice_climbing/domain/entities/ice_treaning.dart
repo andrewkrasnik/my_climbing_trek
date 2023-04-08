@@ -21,7 +21,7 @@ class IceTreaning extends Treaning {
       attempts.firstWhereOrNull((element) => element.started);
 
   IceTreaningAttempt? get lastAttempt =>
-      attempts.firstWhereOrNull((element) => element.finished);
+      attempts.lastWhereOrNull((element) => element.finished);
 
   List<IceTreaningAttempt> get leadAttempts =>
       attempts.where((element) => element.style == ClimbingStyle.lead).toList();

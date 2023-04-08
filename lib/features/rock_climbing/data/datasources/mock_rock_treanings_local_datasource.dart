@@ -5,7 +5,7 @@ import 'package:dartz/dartz.dart';
 import 'package:my_climbing_trek/features/rock_climbing/data/datasources/rock_treanings_local_datasource.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_treaning.dart';
 
-@LazySingleton(as: RockTreaningsLocalDataSource)
+// @LazySingleton(as: RockTreaningsLocalDataSource)
 class MockRockTreaningsLocalDataSource implements RockTreaningsLocalDataSource {
   final List<RockTreaning> _treanings = [];
 

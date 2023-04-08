@@ -8,36 +8,44 @@ part of 'rock_treaning_model.dart';
 
 RockTreaningModel _$RockTreaningModelFromJson(Map<String, dynamic> json) =>
     RockTreaningModel(
-      date: DateTime.parse(json['date'] as String),
-      district: const RockDistrictConverter()
-          .fromJson(json['district'] as Map<String, dynamic>),
+      date: const EpochDateTimeConverter().fromJson(json['date'] as int),
+      district: const RockDistrictStringConverter()
+          .fromJson(json['district'] as String),
       attempts: (json['attempts'] as List<dynamic>?)
           ?.map((e) => const RockTreaningAttemptConverter()
               .fromJson(e as Map<String, dynamic>))
           .toList(),
-      sectors: (json['sectors'] as List<dynamic>)
-          .map((e) =>
-              const RockSectorConverter().fromJson(e as Map<String, dynamic>))
-          .toList(),
-      finish: json['finish'] == null
-          ? null
-          : DateTime.parse(json['finish'] as String),
+      finish: _$JsonConverterFromJson<int, DateTime>(
+          json['finish'], const EpochDateTimeConverter().fromJson),
       id: json['id'] as String? ?? '',
-      start: json['start'] == null
-          ? null
-          : DateTime.parse(json['start'] as String),
+      start: _$JsonConverterFromJson<int, DateTime>(
+          json['start'], const EpochDateTimeConverter().fromJson),
+      districtId: json['districtId'] as String? ?? '',
     );
 
 Map<String, dynamic> _$RockTreaningModelToJson(RockTreaningModel instance) =>
     <String, dynamic>{
-      'date': instance.date.toIso8601String(),
+      'date': const EpochDateTimeConverter().toJson(instance.date),
       'id': instance.id,
-      'start': instance.start?.toIso8601String(),
-      'finish': instance.finish?.toIso8601String(),
-      'district': const RockDistrictConverter().toJson(instance.district),
-      'sectors':
-          instance.sectors.map(const RockSectorConverter().toJson).toList(),
+      'start': _$JsonConverterToJson<int, DateTime>(
+          instance.start, const EpochDateTimeConverter().toJson),
+      'finish': _$JsonConverterToJson<int, DateTime>(
+          instance.finish, const EpochDateTimeConverter().toJson),
+      'district': const RockDistrictStringConverter().toJson(instance.district),
       'attempts': instance.attempts
           .map(const RockTreaningAttemptConverter().toJson)
           .toList(),
+      'districtId': instance.districtId,
     };
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) =>
+    json == null ? null : fromJson(json as Json);
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) =>
+    value == null ? null : toJson(value);

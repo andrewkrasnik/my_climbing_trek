@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:my_climbing_trek/core/data/climbing_style.dart';
 import 'package:my_climbing_trek/core/data/treaning.dart';
 import 'package:my_climbing_trek/core/extentions/date_time_extention.dart';
@@ -34,6 +35,13 @@ class RockTreaning extends Treaning {
 
   List<RockTreaningAttempt> get tradAttempts =>
       attempts.where((element) => element.style == ClimbingStyle.trad).toList();
+
+  RockTreaningAttempt? get currentAttempt =>
+      attempts.firstWhereOrNull((element) => element.started);
+
+  RockTreaningAttempt? get lastAttempt {
+    return attempts.lastWhereOrNull((element) => element.finished);
+  }
 
   RockTreaning({
     required super.date,

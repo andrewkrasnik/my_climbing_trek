@@ -30,6 +30,7 @@ class NewRockAttempt {
       category: category,
       style: style,
       route: route,
+      treaningId: treaning.id,
     );
 
     attempt.start();

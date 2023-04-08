@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:json_annotation/json_annotation.dart';
 import 'package:my_climbing_trek/core/data/climbing_category.dart';
 import 'package:my_climbing_trek/core/data/climbing_route_type.dart';
@@ -110,7 +112,24 @@ class RockTreaningAttemptConverter
 
   @override
   Map<String, dynamic> toJson(RockTreaningAttempt object) {
-    return (object as RockTreaningAttemptModel).toJson();
+    if (object is RockTreaningAttemptModel) {
+      return object.toJson();
+    } else {
+      return RockTreaningAttemptModel(
+        category: object.category,
+        sector: object.sector,
+        style: object.style,
+        treaningId: object.treaningId,
+        downClimbing: object.downClimbing,
+        fail: object.downClimbing,
+        fallCount: object.fallCount,
+        finishTime: object.finishTime,
+        id: object.id,
+        route: object.route,
+        startTime: object.startTime,
+        suspensionCount: object.suspensionCount,
+      ).toJson();
+    }
   }
 }
 
@@ -153,4 +172,54 @@ class ClimbingStyleConverter implements JsonConverter<ClimbingStyle, int> {
   int toJson(ClimbingStyle object) {
     return object.id;
   }
+}
+
+class RockDistrictStringConverter
+    implements JsonConverter<RockDistrict, String> {
+  const RockDistrictStringConverter();
+  @override
+  RockDistrict fromJson(String json) {
+    return RockDistrictModel.fromJson(jsonDecode(json));
+  }
+
+  @override
+  String toJson(District object) {
+    return jsonEncode((object as RockDistrictModel).toJson());
+  }
+}
+
+class RockSectorStringConverter implements JsonConverter<RockSector, String> {
+  const RockSectorStringConverter();
+  @override
+  RockSector fromJson(String json) {
+    return RockSectorModel.fromJson(jsonDecode(json));
+  }
+
+  @override
+  String toJson(RockSector object) {
+    return jsonEncode((object as RockSectorModel).toJson());
+  }
+}
+
+class RockRouteStringConverter implements JsonConverter<RockRoute, String> {
+  const RockRouteStringConverter();
+  @override
+  RockRoute fromJson(String json) {
+    return RockRouteModel.fromJson(jsonDecode(json));
+  }
+
+  @override
+  String toJson(RockRoute object) {
+    return jsonEncode((object as RockRouteModel).toJson());
+  }
+}
+
+class EpochDateTimeConverter implements JsonConverter<DateTime, int> {
+  const EpochDateTimeConverter();
+
+  @override
+  DateTime fromJson(int json) => DateTime.fromMillisecondsSinceEpoch(json);
+
+  @override
+  int toJson(DateTime object) => object.millisecondsSinceEpoch;
 }
