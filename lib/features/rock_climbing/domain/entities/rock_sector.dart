@@ -9,12 +9,11 @@ class RockSector extends Sector {
 
   RockSector({
     required super.name,
-    required RockDistrict district,
     super.id,
     super.image,
     this.hasBouldering = false,
     this.hasDryTooling = false,
     this.hasRope = false,
     this.hasTrad = false,
-  }) : super(district: district);
+  });
 }

@@ -11,7 +11,7 @@ class ClimbingCategory {
   final String nord;
   final String ewbank;
   final String brasilian;
-  final int id;
+  final String id;
 
   String get name => french;
 
@@ -50,11 +50,10 @@ class ClimbingCategory {
     }
   }
 
-  static ClimbingCategory getById(int id) =>
-      values.firstWhere((element) => element.id == id);
+  static ClimbingCategory getById(String id) => values[id]!;
 
   static const ClimbingCategory category1 = ClimbingCategory(
-      id: 19,
+      id: '1',
       french: '1',
       usa: '3-4',
       uiaa: 'I',
@@ -65,7 +64,7 @@ class ClimbingCategory {
       brasilian: 'I');
 
   static const ClimbingCategory category2 = ClimbingCategory(
-      id: 20,
+      id: '2',
       french: '2',
       usa: '5.1',
       uiaa: 'II',
@@ -76,7 +75,7 @@ class ClimbingCategory {
       brasilian: 'II');
 
   static const ClimbingCategory category3 = ClimbingCategory(
-      id: 21,
+      id: '3',
       french: '3',
       usa: '5.3',
       uiaa: 'III',
@@ -87,7 +86,7 @@ class ClimbingCategory {
       brasilian: 'II sup');
 
   static const ClimbingCategory category4A = ClimbingCategory(
-      id: 22,
+      id: '4A',
       french: '4A',
       usa: '5.4',
       uiaa: 'iV',
@@ -98,7 +97,7 @@ class ClimbingCategory {
       brasilian: 'III');
 
   static const ClimbingCategory category4B = ClimbingCategory(
-      id: 23,
+      id: '4B',
       french: '4B',
       usa: '5.5',
       uiaa: 'IV+',
@@ -109,7 +108,7 @@ class ClimbingCategory {
       brasilian: 'III sup');
 
   static const ClimbingCategory category4C = ClimbingCategory(
-      id: 24,
+      id: '4C',
       french: '4C',
       usa: '5.6',
       uiaa: 'V',
@@ -120,7 +119,7 @@ class ClimbingCategory {
       brasilian: 'IV');
 
   static const ClimbingCategory category5A = ClimbingCategory(
-      id: 1,
+      id: '5A',
       french: '5A',
       usa: '5.7',
       uiaa: 'V+',
@@ -131,7 +130,7 @@ class ClimbingCategory {
       brasilian: 'IV');
 
   static const ClimbingCategory category5B = ClimbingCategory(
-      id: 2,
+      id: '5B',
       french: '5B',
       usa: '5.8',
       uiaa: 'VI-',
@@ -142,7 +141,7 @@ class ClimbingCategory {
       brasilian: 'IV sup');
 
   static const ClimbingCategory category5C = ClimbingCategory(
-      id: 3,
+      id: '5C',
       french: '5C',
       usa: '5.9',
       uiaa: 'VI',
@@ -153,7 +152,7 @@ class ClimbingCategory {
       brasilian: 'V');
 
   static const ClimbingCategory category6A = ClimbingCategory(
-      id: 4,
+      id: '6A',
       french: '6A',
       usa: '5.10a',
       uiaa: 'VI+',
@@ -164,7 +163,7 @@ class ClimbingCategory {
       brasilian: 'VI sup');
 
   static const ClimbingCategory category6Aplus = ClimbingCategory(
-      id: 13,
+      id: '6Aplus',
       french: '6A+',
       usa: '5.10b',
       uiaa: 'VII-',
@@ -175,7 +174,7 @@ class ClimbingCategory {
       brasilian: 'VI');
 
   static const ClimbingCategory category6B = ClimbingCategory(
-      id: 5,
+      id: '6B',
       french: '6B',
       usa: '5.10c',
       uiaa: 'VII',
@@ -186,7 +185,7 @@ class ClimbingCategory {
       brasilian: 'VI sup');
 
   static const ClimbingCategory category6Bplus = ClimbingCategory(
-      id: 14,
+      id: '6Bplus',
       french: '6B+',
       usa: '5.10d',
       uiaa: 'VII+',
@@ -197,7 +196,7 @@ class ClimbingCategory {
       brasilian: 'VI sup');
 
   static const ClimbingCategory category6C = ClimbingCategory(
-      id: 6,
+      id: '6C',
       french: '6C',
       usa: '5.11b',
       uiaa: 'VIII-',
@@ -208,7 +207,7 @@ class ClimbingCategory {
       brasilian: '7a');
 
   static const ClimbingCategory category6Cplus = ClimbingCategory(
-      id: 15,
+      id: '6Cplus',
       french: '6C+',
       usa: '5.11c',
       uiaa: 'VIII-',
@@ -219,7 +218,7 @@ class ClimbingCategory {
       brasilian: '7b');
 
   static const ClimbingCategory category7A = ClimbingCategory(
-      id: 7,
+      id: '7A',
       french: '7A',
       usa: '5.11d',
       uiaa: 'VIII',
@@ -230,7 +229,7 @@ class ClimbingCategory {
       brasilian: '7c');
 
   static const ClimbingCategory category7Aplus = ClimbingCategory(
-      id: 16,
+      id: '7Aplus',
       french: '7A+',
       usa: '5.12a',
       uiaa: 'VIII+',
@@ -241,7 +240,7 @@ class ClimbingCategory {
       brasilian: '8a');
 
   static const ClimbingCategory category7B = ClimbingCategory(
-      id: 8,
+      id: '7B',
       french: '7B',
       usa: '5.12b',
       uiaa: 'VIII+',
@@ -252,7 +251,7 @@ class ClimbingCategory {
       brasilian: '8b');
 
   static const ClimbingCategory category7Bplus = ClimbingCategory(
-      id: 17,
+      id: '7Bplus',
       french: '7B+',
       usa: '5.12c',
       uiaa: 'IX-',
@@ -263,7 +262,7 @@ class ClimbingCategory {
       brasilian: '8c');
 
   static const ClimbingCategory category7C = ClimbingCategory(
-      id: 9,
+      id: '7C',
       french: '7C',
       usa: '5.12c',
       uiaa: 'IX',
@@ -274,7 +273,7 @@ class ClimbingCategory {
       brasilian: '9a');
 
   static const ClimbingCategory category7Cplus = ClimbingCategory(
-      id: 18,
+      id: '7Cplus',
       french: '7C+',
       usa: '5.13a',
       uiaa: 'IX+',
@@ -285,7 +284,7 @@ class ClimbingCategory {
       brasilian: '9b');
 
   static const ClimbingCategory category8A = ClimbingCategory(
-      id: 25,
+      id: '8A',
       french: '8A',
       usa: '5.13b',
       uiaa: 'IX+',
@@ -296,7 +295,7 @@ class ClimbingCategory {
       brasilian: '9c');
 
   static const ClimbingCategory category8Aplus = ClimbingCategory(
-      id: 28,
+      id: '8Aplus',
       french: '8A+',
       usa: '5.13c',
       uiaa: 'X-',
@@ -307,7 +306,7 @@ class ClimbingCategory {
       brasilian: '10a');
 
   static const ClimbingCategory category8B = ClimbingCategory(
-      id: 26,
+      id: '8B',
       french: '8B',
       usa: '5.13d',
       uiaa: 'X',
@@ -318,7 +317,7 @@ class ClimbingCategory {
       brasilian: '10b');
 
   static const ClimbingCategory category8Bplus = ClimbingCategory(
-      id: 29,
+      id: '8Bplus',
       french: '8B+',
       usa: '5.14a',
       uiaa: 'X+',
@@ -329,7 +328,7 @@ class ClimbingCategory {
       brasilian: '10c');
 
   static const ClimbingCategory category8C = ClimbingCategory(
-      id: 27,
+      id: '8C',
       french: '8C',
       usa: '5.14b',
       uiaa: 'X+',
@@ -340,7 +339,7 @@ class ClimbingCategory {
       brasilian: '11a');
 
   static const ClimbingCategory category8Cplus = ClimbingCategory(
-      id: 30,
+      id: '8Cplus',
       french: '8C+',
       usa: '5.14c',
       uiaa: 'XI-',
@@ -351,7 +350,7 @@ class ClimbingCategory {
       brasilian: '11b');
 
   static const ClimbingCategory category9A = ClimbingCategory(
-      id: 31,
+      id: '9A',
       french: '9A',
       usa: '5.14d',
       uiaa: 'XI',
@@ -362,7 +361,7 @@ class ClimbingCategory {
       brasilian: '11c');
 
   static const ClimbingCategory category9Aplus = ClimbingCategory(
-      id: 34,
+      id: '9Aplus',
       french: '9A+',
       usa: '5.15a',
       uiaa: 'XI+',
@@ -373,7 +372,7 @@ class ClimbingCategory {
       brasilian: '12a');
 
   static const ClimbingCategory category9B = ClimbingCategory(
-      id: 32,
+      id: '9B',
       french: '9B',
       usa: '5.15b',
       uiaa: 'XII-',
@@ -384,7 +383,7 @@ class ClimbingCategory {
       brasilian: '12b');
 
   static const ClimbingCategory category9Bplus = ClimbingCategory(
-      id: 35,
+      id: '9Bplus',
       french: '9B+',
       usa: '5.15c',
       uiaa: 'XII-',
@@ -395,7 +394,7 @@ class ClimbingCategory {
       brasilian: '12c');
 
   static const ClimbingCategory category9C = ClimbingCategory(
-      id: 33,
+      id: '9C',
       french: '9C',
       usa: '5.15c',
       uiaa: 'XII',
@@ -405,40 +404,40 @@ class ClimbingCategory {
       ewbank: '39',
       brasilian: '13');
 
-  static const List<ClimbingCategory> values = [
-    category1,
-    category2,
-    category3,
-    category4A,
-    category4B,
-    category4C,
-    category5A,
-    category5B,
-    category5C,
-    category6A,
-    category6Aplus,
-    category6B,
-    category6Bplus,
-    category6C,
-    category6Cplus,
-    category7A,
-    category7Aplus,
-    category7B,
-    category7Bplus,
-    category7C,
-    category7Cplus,
-    category8A,
-    category8Aplus,
-    category8B,
-    category8Bplus,
-    category8C,
-    category8Cplus,
-    category9A,
-    category9Aplus,
-    category9B,
-    category9Bplus,
-    category9C,
-  ];
+  static final Map<String, ClimbingCategory> values = {
+    category1.id: category1,
+    category2.id: category2,
+    category3.id: category3,
+    category4A.id: category4A,
+    category4B.id: category4B,
+    category4C.id: category4C,
+    category5A.id: category5A,
+    category5B.id: category5B,
+    category5C.id: category5C,
+    category6A.id: category6A,
+    category6Aplus.id: category6Aplus,
+    category6B.id: category6B,
+    category6Bplus.id: category6Bplus,
+    category6C.id: category6C,
+    category6Cplus.id: category6Cplus,
+    category7A.id: category7A,
+    category7Aplus.id: category7Aplus,
+    category7B.id: category7B,
+    category7Bplus.id: category7Bplus,
+    category7C.id: category7C,
+    category7Cplus.id: category7Cplus,
+    category8A.id: category8A,
+    category8Aplus.id: category8Aplus,
+    category8B.id: category8B,
+    category8Bplus.id: category8Bplus,
+    category8C.id: category8C,
+    category8Cplus.id: category8Cplus,
+    category9A.id: category9A,
+    category9Aplus.id: category9Aplus,
+    category9B.id: category9B,
+    category9Bplus.id: category9Bplus,
+    category9C.id: category9C,
+  };
 
   static const List<ClimbingCategory> hallValues = [
     category5B,

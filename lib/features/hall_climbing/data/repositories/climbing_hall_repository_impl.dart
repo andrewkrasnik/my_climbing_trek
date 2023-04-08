@@ -1,7 +1,6 @@
 import 'package:my_climbing_trek/core/services/network/network_info.dart';
 import 'package:my_climbing_trek/features/hall_climbing/data/datasources/climbing_hall_data_source.dart';
 import 'package:my_climbing_trek/features/hall_climbing/data/datasources/remote_gym_data_source.dart';
-import 'package:my_climbing_trek/features/hall_climbing/domain/entities/city.dart';
 import 'package:my_climbing_trek/core/failures/failure.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_route.dart';
@@ -21,11 +20,6 @@ class ClimbingHallRepositoryImpl implements ClimbingHallRepository {
     this._remoteGymDataSource,
     this._networkInfo,
   );
-
-  @override
-  Future<Either<Failure, List<City>>> cities() async {
-    return await _climbingHallDataSource.cities();
-  }
 
   @override
   Future<Either<Failure, List<ClimbingHall>>> climbingHalls() async {

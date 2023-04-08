@@ -1,5 +1,7 @@
 import 'package:my_climbing_trek/core/data/region.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_district.dart';
+import 'package:my_climbing_trek/features/settings/domain/repositories/places_repository.dart';
+import 'package:my_climbing_trek/service_locator.dart';
 
 class IceDistrictModel extends IceDistrict {
   IceDistrictModel({
@@ -7,7 +9,6 @@ class IceDistrictModel extends IceDistrict {
     required super.name,
     required super.region,
     super.image,
-    super.sectors,
     super.id,
   });
 
@@ -21,7 +22,7 @@ class IceDistrictModel extends IceDistrict {
 
   factory IceDistrictModel.fromJson(Map<String, dynamic> json) =>
       IceDistrictModel(
-        region: Region.getById(json['region']),
+        region: getIt<PlacesRepository>().regionById(json['region']),
         name: json['name'],
         compact: json['compact'] ?? false,
         image: json['image'],

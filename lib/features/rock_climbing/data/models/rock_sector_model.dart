@@ -8,7 +8,6 @@ part 'rock_sector_model.g.dart';
 class RockSectorModel extends RockSector {
   RockSectorModel({
     required super.name,
-    required super.district,
     super.id,
     super.image,
     super.hasBouldering,

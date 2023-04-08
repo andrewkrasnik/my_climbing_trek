@@ -15,6 +15,8 @@ import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_dis
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_route.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_sector.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_treaning_attempt.dart';
+import 'package:my_climbing_trek/features/settings/domain/repositories/places_repository.dart';
+import 'package:my_climbing_trek/service_locator.dart';
 
 class MapPointConverter
     implements JsonConverter<MapPoint, Map<String, dynamic>> {
@@ -37,7 +39,7 @@ class RegionConverter implements JsonConverter<Region, String> {
   const RegionConverter();
   @override
   Region fromJson(String json) {
-    return Region.getById(json);
+    return getIt<PlacesRepository>().regionById(json);
   }
 
   @override
@@ -134,42 +136,42 @@ class RockTreaningAttemptConverter
 }
 
 class ClimbingCategoryConverter
-    implements JsonConverter<ClimbingCategory, int> {
+    implements JsonConverter<ClimbingCategory, String> {
   const ClimbingCategoryConverter();
   @override
-  ClimbingCategory fromJson(int json) {
+  ClimbingCategory fromJson(String json) {
     return ClimbingCategory.getById(json);
   }
 
   @override
-  int toJson(ClimbingCategory object) {
+  String toJson(ClimbingCategory object) {
     return object.id;
   }
 }
 
 class ClimbingRouteTypeConverter
-    implements JsonConverter<ClimbingRouteType, int> {
+    implements JsonConverter<ClimbingRouteType, String> {
   const ClimbingRouteTypeConverter();
   @override
-  ClimbingRouteType fromJson(int json) {
+  ClimbingRouteType fromJson(String json) {
     return ClimbingRouteType.getById(json);
   }
 
   @override
-  int toJson(ClimbingRouteType object) {
+  String toJson(ClimbingRouteType object) {
     return object.id;
   }
 }
 
-class ClimbingStyleConverter implements JsonConverter<ClimbingStyle, int> {
+class ClimbingStyleConverter implements JsonConverter<ClimbingStyle, String> {
   const ClimbingStyleConverter();
   @override
-  ClimbingStyle fromJson(int json) {
+  ClimbingStyle fromJson(String json) {
     return ClimbingStyle.getById(json);
   }
 
   @override
-  int toJson(ClimbingStyle object) {
+  String toJson(ClimbingStyle object) {
     return object.id;
   }
 }

@@ -18,15 +18,15 @@ class TreaningsPage extends StatelessWidget {
     return BlocBuilder<SettingsCubit, SettingsState>(
       buildWhen: (previous, current) =>
           previous.treaningsSettings != current.treaningsSettings,
-      builder: (context, state) {
+      builder: (context, settingsState) {
         return BlocProvider(
           create: (context) => getIt<TreaningsCubit>()
             ..loadData(
-              cardio: state.treaningsSettings.useCardioTreanings,
-              gym: state.treaningsSettings.useGymTreanings,
-              ice: state.treaningsSettings.useIceTreanings,
-              rock: state.treaningsSettings.useRockTraining,
-              strength: state.treaningsSettings.useStrengthTraining,
+              cardio: settingsState.treaningsSettings.useCardioTreanings,
+              gym: settingsState.treaningsSettings.useGymTreanings,
+              ice: settingsState.treaningsSettings.useIceTreanings,
+              rock: settingsState.treaningsSettings.useRockTraining,
+              strength: settingsState.treaningsSettings.useStrengthTraining,
             ),
           child: BlocBuilder<TreaningsCubit, TreaningsState>(
             builder: (context, state) {
@@ -81,8 +81,22 @@ class TreaningsPage extends StatelessWidget {
 
                                         if (deletePermission == true) {
                                           cubit.delete(
-                                              treaning:
-                                                  dataState.treanings[index]);
+                                            treaning:
+                                                dataState.treanings[index],
+                                            cardio: settingsState
+                                                .treaningsSettings
+                                                .useCardioTreanings,
+                                            gym: settingsState.treaningsSettings
+                                                .useGymTreanings,
+                                            ice: settingsState.treaningsSettings
+                                                .useIceTreanings,
+                                            rock: settingsState
+                                                .treaningsSettings
+                                                .useRockTraining,
+                                            strength: settingsState
+                                                .treaningsSettings
+                                                .useStrengthTraining,
+                                          );
                                         }
                                       },
                                       backgroundColor: Colors.red.shade400,

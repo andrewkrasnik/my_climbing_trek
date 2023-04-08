@@ -27,7 +27,7 @@ class AllCategoriesPage extends StatelessWidget {
                   children: CategoryType.values
                       .map((type) => Text(type.name))
                       .toList()),
-              ...ClimbingCategory.values.map((category) => TableRow(
+              ...ClimbingCategory.values.values.map((category) => TableRow(
                   children: CategoryType.values
                       .map((type) => SettingsCategoryWidget(
                             category: category,

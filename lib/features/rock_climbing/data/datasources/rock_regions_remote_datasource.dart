@@ -4,7 +4,7 @@ import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_dis
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_route.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_sector.dart';
 
-abstract class RockRegionsLocalDataSource {
+abstract class RockRegionsRemoteDataSource {
   Future<Either<Failure, List<RockDistrict>>> districts();
 
   Future<Either<Failure, List<RockSector>>> sectors(
@@ -13,19 +13,5 @@ abstract class RockRegionsLocalDataSource {
   Future<Either<Failure, List<RockRoute>>> routes({
     required RockDistrict district,
     required RockSector sector,
-  });
-
-  Future<Either<Failure, Unit>> saveDistricts(
-      {required List<RockDistrict> districts});
-
-  Future<Either<Failure, Unit>> saveSectors({
-    required RockDistrict district,
-    required List<RockSector> sectors,
-  });
-
-  Future<Either<Failure, Unit>> saveRoutes({
-    required RockDistrict district,
-    required RockSector sector,
-    required List<RockRoute> routes,
   });
 }

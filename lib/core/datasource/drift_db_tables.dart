@@ -78,8 +78,8 @@ class DriftHallAttemptsTable extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get treaningId =>
       text().references(DriftHallTreaningsTable, #id)();
-  IntColumn get categoryId => integer()();
-  IntColumn get styleId => integer()();
+  TextColumn get categoryId => text()();
+  TextColumn get styleId => text()();
   TextColumn get routeId => text().nullable()();
   DateTimeColumn get finish => dateTime().nullable()();
   DateTimeColumn get start => dateTime().nullable()();
@@ -107,8 +107,8 @@ class DriftIceAttemptsTable extends Table {
   TextColumn get id => text().unique()();
   TextColumn get sector => text()();
   TextColumn get treaningId => text().references(DriftIceTreaningsTable, #id)();
-  IntColumn get category => integer()();
-  IntColumn get style => integer()();
+  TextColumn get category => text()();
+  TextColumn get style => text()();
   DateTimeColumn get finishTime => dateTime().nullable()();
   DateTimeColumn get startTime => dateTime().nullable()();
 
@@ -145,10 +145,10 @@ class DriftRockAttemptsTable extends Table {
   TextColumn get sectorId => text()();
   TextColumn get treaningId =>
       text().references(DriftRockTreaningsTable, #id)();
-  IntColumn get category => integer()();
+  TextColumn get category => text()();
   TextColumn get route => text().nullable()();
   TextColumn get routeId => text().nullable()();
-  IntColumn get style => integer()();
+  TextColumn get style => text()();
   DateTimeColumn get finishTime => dateTime().nullable()();
   DateTimeColumn get startTime => dateTime().nullable()();
   IntColumn get suspensionCount => integer()();

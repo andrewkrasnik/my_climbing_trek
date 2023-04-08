@@ -31,13 +31,12 @@ class IceSector extends Sector {
 
   bool get hasTopRope => !artificialIce;
 
-  List<IceCategory> get categories => IceCategory.values
-      .where((element) => element.id > 2 && element.id <= maxCategory.id)
-      .toList();
+  // List<IceCategory> get categories => IceCategory.values
+  //     .where((element) => element.id > 2 && element.id <= maxCategory.id)
+  //     .toList();
 
   IceSector({
     required super.name,
-    required super.district,
     required this.length,
     required this.maxCategory,
     super.image,

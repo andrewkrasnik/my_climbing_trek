@@ -1,3 +1,4 @@
+import 'package:my_climbing_trek/core/widgets/my_cached_network_image.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_district.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_sector.dart';
 import 'package:my_climbing_trek/features/ice_climbing/presentation/bloc/ice_sectors/ice_sectors_cubit.dart';
@@ -30,8 +31,8 @@ class IceDistrictPage extends StatelessWidget {
               pinned: true,
               snap: false,
               flexibleSpace: FlexibleSpaceBar(
-                background: Image.network(
-                  district.image,
+                background: MyCachedNetworkImage(
+                  imageUrl: district.image,
                   fit: BoxFit.cover,
                 ),
                 centerTitle: true,

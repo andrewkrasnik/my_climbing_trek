@@ -11,7 +11,6 @@ class RockDistrict extends District {
     required super.region,
     this.mapPoint,
     super.image,
-    super.sectors,
     super.id,
   });
 }

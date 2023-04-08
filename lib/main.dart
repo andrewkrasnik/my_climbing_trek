@@ -31,7 +31,11 @@ void main() async {
 
       await Hive.initFlutter();
 
-      runApp(const MyApp());
+      final settingsCubit = di.getIt<SettingsCubit>();
+
+      await settingsCubit.loadData();
+
+      runApp(MyApp(settingsCubit));
     },
     (error, stack) {
       di.getIt<CrashLogService>().recordError(error, stack);
@@ -40,7 +44,8 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final SettingsCubit _settingsCubit;
+  const MyApp(this._settingsCubit, {super.key});
 
   // This widget is the root of your application.
   @override
@@ -58,7 +63,7 @@ class MyApp extends StatelessWidget {
               di.getIt<CurrentHallTreaningCubit>(), //..loadData(),
         ),
         BlocProvider<SettingsCubit>(
-          create: (context) => di.getIt<SettingsCubit>()..loadData(),
+          create: (context) => _settingsCubit,
         ),
         BlocProvider(
           create: (context) => di.getIt<CurrentIceTreaningCubit>()..loadData(),

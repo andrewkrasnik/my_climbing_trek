@@ -14,13 +14,14 @@ import 'package:injectable/injectable.dart';
 class LocalIceRegionsDataSource implements IceRegionsDataSource {
   static const _districtsName = 'iceDistricts';
   static const _sectorsName = 'iceDistricts';
+
   @override
   Future<Either<Failure, List<IceDistrict>>> getDistricts() async {
     final districtsBox = await Hive.openBox<String>(_districtsName);
 
-    if (districtsBox.isEmpty) {
-      await _loadData(districtsBox);
-    }
+    // if (districtsBox.isEmpty) {
+    //   await _loadData(districtsBox);
+    // }
 
     return Right(districtsBox.values
         .map((value) => IceDistrictModel.fromJson(json.decode(value)))
@@ -31,10 +32,10 @@ class LocalIceRegionsDataSource implements IceRegionsDataSource {
   Future<Either<Failure, List<IceSector>>> getSectors(
       {required IceDistrict district}) async {
     final sectorsBox =
-        await Hive.openBox<String>('$_sectorsName${district.id}');
+        await Hive.openBox<String>('${_sectorsName}distr${district.id}');
 
     return Right(sectorsBox.values
-        .map((value) => IceSectorModel.fromJson(json.decode(value), district))
+        .map((value) => IceSectorModel.fromJson(json.decode(value)))
         .toList());
   }
 
@@ -54,8 +55,8 @@ class LocalIceRegionsDataSource implements IceRegionsDataSource {
         await failureOrSectors.fold(
           (l) async => null,
           (sectors) async {
-            final sectorsBox =
-                await Hive.openBox<String>('$_sectorsName${district.id}');
+            final sectorsBox = await Hive.openBox<String>(
+                '${_sectorsName}distr${district.id}');
 
             for (var sector in sectors) {
               await sectorsBox.put(
@@ -68,8 +69,29 @@ class LocalIceRegionsDataSource implements IceRegionsDataSource {
   }
 
   @override
-  Future<Either<Failure, List<IceSector>>> getAllSectors() {
-    // TODO: implement getAllSectors
-    throw UnimplementedError();
+  Future<Either<Failure, Unit>> saveDistricts(
+      {required List<IceDistrict> districts}) async {
+    final districtsBox = await Hive.openBox<String>(_districtsName);
+
+    for (var district in districts) {
+      await districtsBox.put(
+          district.id, json.encode((district as IceDistrictModel).toJson()));
+    }
+
+    return const Right(unit);
+  }
+
+  @override
+  Future<Either<Failure, Unit>> saveSectors(
+      {required IceDistrict district, required List<IceSector> sectors}) async {
+    final sectorsBox =
+        await Hive.openBox<String>('${_sectorsName}distr${district.id}');
+
+    for (var sector in sectors) {
+      await sectorsBox.put(
+          sector.id, json.encode((sector as IceSectorModel).toJson()));
+    }
+
+    return const Right(unit);
   }
 }

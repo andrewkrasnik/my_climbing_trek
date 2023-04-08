@@ -23,9 +23,9 @@ class HiveRockRegionsLocalDataSource implements RockRegionsLocalDataSource {
   Future<Either<Failure, List<RockDistrict>>> districts() async {
     final districtsBox = await Hive.openBox<String>(_districtsName);
 
-    if (districtsBox.isEmpty) {
-      await _loadData(districtsBox);
-    }
+    // if (districtsBox.isEmpty) {
+    //   await _loadData(districtsBox);
+    // }
 
     return Right(districtsBox.values
         .map((value) => RockDistrictModel.fromJson(json.decode(value)))
@@ -96,5 +96,49 @@ class HiveRockRegionsLocalDataSource implements RockRegionsLocalDataSource {
         );
       }
     });
+  }
+
+  @override
+  Future<Either<Failure, Unit>> saveDistricts(
+      {required List<RockDistrict> districts}) async {
+    final districtsBox = await Hive.openBox<String>(_districtsName);
+
+    for (var district in districts) {
+      await districtsBox.put(
+          district.id, json.encode((district as RockDistrictModel).toJson()));
+    }
+
+    return const Right(unit);
+  }
+
+  @override
+  Future<Either<Failure, Unit>> saveRoutes(
+      {required RockDistrict district,
+      required RockSector sector,
+      required List<RockRoute> routes}) async {
+    final routesBox = await Hive.openBox<String>(
+        '${_routesName}distr${district.id}sector${sector.id}');
+
+    for (var route in routes) {
+      await routesBox.put(
+          route.id, json.encode((route as RockRouteModel).toJson()));
+    }
+
+    return const Right(unit);
+  }
+
+  @override
+  Future<Either<Failure, Unit>> saveSectors(
+      {required RockDistrict district,
+      required List<RockSector> sectors}) async {
+    final sectorsBox =
+        await Hive.openBox<String>('${_sectorsName}distr${district.id}');
+
+    for (var sector in sectors) {
+      await sectorsBox.put(
+          sector.id, json.encode((sector as RockSectorModel).toJson()));
+    }
+
+    return const Right(unit);
   }
 }

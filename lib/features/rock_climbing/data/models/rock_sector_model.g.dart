@@ -9,8 +9,6 @@ part of 'rock_sector_model.dart';
 RockSectorModel _$RockSectorModelFromJson(Map<String, dynamic> json) =>
     RockSectorModel(
       name: json['name'] as String,
-      district: const RockDistrictConverter()
-          .fromJson(json['district'] as Map<String, dynamic>),
       id: json['id'] as String? ?? '',
       image: json['image'] as String? ?? '',
       hasBouldering: json['hasBouldering'] as bool? ?? false,
@@ -23,7 +21,6 @@ Map<String, dynamic> _$RockSectorModelToJson(RockSectorModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'district': const DistrictConverter().toJson(instance.district),
       'image': instance.image,
       'hasBouldering': instance.hasBouldering,
       'hasRope': instance.hasRope,
