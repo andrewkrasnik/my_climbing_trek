@@ -15,6 +15,8 @@ import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_dis
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_route.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_sector.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_treaning_attempt.dart';
+import 'package:my_climbing_trek/features/settings/domain/repositories/places_repository.dart';
+import 'package:my_climbing_trek/service_locator.dart';
 
 class MapPointConverter
     implements JsonConverter<MapPoint, Map<String, dynamic>> {
@@ -37,7 +39,7 @@ class RegionConverter implements JsonConverter<Region, String> {
   const RegionConverter();
   @override
   Region fromJson(String json) {
-    return Region.getById(json);
+    return getIt<PlacesRepository>().regionById(json);
   }
 
   @override

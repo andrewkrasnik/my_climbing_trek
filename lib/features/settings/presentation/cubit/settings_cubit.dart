@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:my_climbing_trek/features/settings/domain/entities/treanings_settings.dart';
+import 'package:my_climbing_trek/features/settings/domain/usecases/load_places.dart';
 import 'package:my_climbing_trek/features/settings/domain/usecases/load_treanings_settings.dart';
 import 'package:my_climbing_trek/features/settings/domain/usecases/save_treanings_settings.dart';
 
@@ -14,11 +15,17 @@ part 'settings_cubit.freezed.dart';
 class SettingsCubit extends Cubit<SettingsState> {
   final LoadTreaningsSettings _loadTreaningsSettings;
   final SaveTreaningsSettings _saveTreaningsSettings;
+  final LoadPlaces _loadPlaces;
 
-  SettingsCubit(this._loadTreaningsSettings, this._saveTreaningsSettings)
-      : super(SettingsState.initial());
+  SettingsCubit(
+    this._loadTreaningsSettings,
+    this._saveTreaningsSettings,
+    this._loadPlaces,
+  ) : super(SettingsState.initial());
 
   Future<void> loadData() async {
+    await _loadPlaces();
+
     final failureOrSettings = await _loadTreaningsSettings();
 
     failureOrSettings.fold(

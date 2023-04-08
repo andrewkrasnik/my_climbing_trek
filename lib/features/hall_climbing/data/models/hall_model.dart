@@ -1,6 +1,8 @@
+import 'package:my_climbing_trek/core/data/city.dart';
 import 'package:my_climbing_trek/core/data/map_point.dart';
-import 'package:my_climbing_trek/features/hall_climbing/domain/entities/city.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall.dart';
+import 'package:my_climbing_trek/features/settings/domain/repositories/places_repository.dart';
+import 'package:my_climbing_trek/service_locator.dart';
 
 class HallModel extends ClimbingHall {
   const HallModel({
@@ -41,7 +43,7 @@ HallModel _$HallModelFromJson(
     HallModel(
       name: json['name'] as String,
       address: json['address'] as String,
-      city: City.fromJson(json['city']),
+      city: getIt<PlacesRepository>().cityById(json['city']),
       image: json['image'] as String,
       telephone: json['telephone'] as String,
       website: json['website'] as String,
@@ -58,7 +60,7 @@ HallModel _$HallModelFromJson(
 Map<String, dynamic> _$HallModelToJson(HallModel instance) => <String, dynamic>{
       'name': instance.name,
       'address': instance.address,
-      'city': instance.city,
+      'city': instance.city.id,
       'hasBouldering': instance.hasBouldering,
       'hasBigWall': instance.hasBigWall,
       'hasSpeed': instance.hasSpeed,

@@ -49,8 +49,9 @@ class RockAttemptDialog extends HookWidget {
                   )
               ],
             ),
-            Text(attempt.style.toString()),
+            Text(attempt.route?.name ?? 'Безымянная'),
             Text('Сектор: ${attempt.sector.name}'),
+            Text(attempt.style.toString()),
             BoolValueWidget(
                 title: 'Недолез', valueState: failState, editing: editing),
             IntCounterWidget(

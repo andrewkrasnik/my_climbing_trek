@@ -9,7 +9,6 @@ import 'package:dartz/dartz.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/hall_routes_filter.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_route.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall.dart';
-import 'package:my_climbing_trek/features/hall_climbing/domain/entities/city.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:injectable/injectable.dart';
 
@@ -66,11 +65,6 @@ class LocalClimbingHallDataSource implements ClimbingHallDataSource {
     return Right(hallsBox.values
         .map((value) => HallModel.fromJson(json.decode(value)))
         .toList());
-  }
-
-  @override
-  Future<Either<Failure, List<City>>> cities() async {
-    return const Right(City.values);
   }
 
   @override
