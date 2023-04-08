@@ -6,6 +6,7 @@ class TreaningsSettingsModel extends TreaningsSettings {
     required super.useCardioTreanings,
     required super.useIceTreanings,
     required super.useStrengthTraining,
+    required super.useRockTraining,
   });
 
   Map<String, dynamic> toJson() => {
@@ -13,6 +14,7 @@ class TreaningsSettingsModel extends TreaningsSettings {
         'useCardioTreanings': useCardioTreanings,
         'useIceTreanings': useIceTreanings,
         'useStrengthTraining': useStrengthTraining,
+        'useRockTraining': useRockTraining,
       };
 
   factory TreaningsSettingsModel.fromJson(Map<String, dynamic> json) =>
@@ -21,6 +23,7 @@ class TreaningsSettingsModel extends TreaningsSettings {
         useIceTreanings: json['useIceTreanings'],
         useStrengthTraining: json['useStrengthTraining'],
         useGymTreanings: json['useGymTreanings'],
+        useRockTraining: json['useRockTraining'] ?? true,
       );
 
   factory TreaningsSettingsModel.fromOrign(TreaningsSettings settings) {
@@ -32,6 +35,7 @@ class TreaningsSettingsModel extends TreaningsSettings {
         useCardioTreanings: settings.useCardioTreanings,
         useIceTreanings: settings.useIceTreanings,
         useStrengthTraining: settings.useStrengthTraining,
+        useRockTraining: settings.useRockTraining,
       );
     }
   }

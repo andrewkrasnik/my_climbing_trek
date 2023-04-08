@@ -17,7 +17,7 @@ class HallModel extends ClimbingHall {
     super.hasAutoBelay,
     super.id,
     super.hasEditPermission,
-  }) : super(point: const MapPoint());
+  }) : super(point: const MapPoint(latitude: 0, longitude: 0));
 
   factory HallModel.fromJson(
     Map<String, dynamic> json, {

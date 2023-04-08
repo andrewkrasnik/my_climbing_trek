@@ -7,4 +7,6 @@ enum DBTables {
   strengthLines,
   iceTreanings,
   iceAttempts,
+  rockTreanings,
+  rockAttempts,
 }

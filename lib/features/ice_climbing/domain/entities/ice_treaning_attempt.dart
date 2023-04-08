@@ -51,7 +51,7 @@ class IceTreaningAttempt extends DataWithUUID {
     this.toolsCount = 2,
   })  : _startTime = startTime,
         _finishTime = finishTime,
-        length = wayLength ?? sector.lenght;
+        length = wayLength ?? sector.length;
 
   void start() {
     _startTime = DateTime.now();

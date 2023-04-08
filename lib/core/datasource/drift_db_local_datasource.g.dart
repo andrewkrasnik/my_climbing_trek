@@ -2939,6 +2939,980 @@ class $DriftIceAttemptsTableTable extends DriftIceAttemptsTable
   }
 }
 
+class DriftRockTreanings extends DataClass
+    implements Insertable<DriftRockTreanings> {
+  final String id;
+  final String districtId;
+  final String district;
+  final DateTime date;
+  final DateTime? finish;
+  final DateTime? start;
+  const DriftRockTreanings(
+      {required this.id,
+      required this.districtId,
+      required this.district,
+      required this.date,
+      this.finish,
+      this.start});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['district_id'] = Variable<String>(districtId);
+    map['district'] = Variable<String>(district);
+    map['date'] = Variable<DateTime>(date);
+    if (!nullToAbsent || finish != null) {
+      map['finish'] = Variable<DateTime>(finish);
+    }
+    if (!nullToAbsent || start != null) {
+      map['start'] = Variable<DateTime>(start);
+    }
+    return map;
+  }
+
+  DriftRockTreaningsTableCompanion toCompanion(bool nullToAbsent) {
+    return DriftRockTreaningsTableCompanion(
+      id: Value(id),
+      districtId: Value(districtId),
+      district: Value(district),
+      date: Value(date),
+      finish:
+          finish == null && nullToAbsent ? const Value.absent() : Value(finish),
+      start:
+          start == null && nullToAbsent ? const Value.absent() : Value(start),
+    );
+  }
+
+  factory DriftRockTreanings.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return DriftRockTreanings(
+      id: serializer.fromJson<String>(json['id']),
+      districtId: serializer.fromJson<String>(json['districtId']),
+      district: serializer.fromJson<String>(json['district']),
+      date: serializer.fromJson<DateTime>(json['date']),
+      finish: serializer.fromJson<DateTime?>(json['finish']),
+      start: serializer.fromJson<DateTime?>(json['start']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'districtId': serializer.toJson<String>(districtId),
+      'district': serializer.toJson<String>(district),
+      'date': serializer.toJson<DateTime>(date),
+      'finish': serializer.toJson<DateTime?>(finish),
+      'start': serializer.toJson<DateTime?>(start),
+    };
+  }
+
+  DriftRockTreanings copyWith(
+          {String? id,
+          String? districtId,
+          String? district,
+          DateTime? date,
+          Value<DateTime?> finish = const Value.absent(),
+          Value<DateTime?> start = const Value.absent()}) =>
+      DriftRockTreanings(
+        id: id ?? this.id,
+        districtId: districtId ?? this.districtId,
+        district: district ?? this.district,
+        date: date ?? this.date,
+        finish: finish.present ? finish.value : this.finish,
+        start: start.present ? start.value : this.start,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('DriftRockTreanings(')
+          ..write('id: $id, ')
+          ..write('districtId: $districtId, ')
+          ..write('district: $district, ')
+          ..write('date: $date, ')
+          ..write('finish: $finish, ')
+          ..write('start: $start')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(id, districtId, district, date, finish, start);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is DriftRockTreanings &&
+          other.id == this.id &&
+          other.districtId == this.districtId &&
+          other.district == this.district &&
+          other.date == this.date &&
+          other.finish == this.finish &&
+          other.start == this.start);
+}
+
+class DriftRockTreaningsTableCompanion
+    extends UpdateCompanion<DriftRockTreanings> {
+  final Value<String> id;
+  final Value<String> districtId;
+  final Value<String> district;
+  final Value<DateTime> date;
+  final Value<DateTime?> finish;
+  final Value<DateTime?> start;
+  const DriftRockTreaningsTableCompanion({
+    this.id = const Value.absent(),
+    this.districtId = const Value.absent(),
+    this.district = const Value.absent(),
+    this.date = const Value.absent(),
+    this.finish = const Value.absent(),
+    this.start = const Value.absent(),
+  });
+  DriftRockTreaningsTableCompanion.insert({
+    required String id,
+    required String districtId,
+    required String district,
+    required DateTime date,
+    this.finish = const Value.absent(),
+    this.start = const Value.absent(),
+  })  : id = Value(id),
+        districtId = Value(districtId),
+        district = Value(district),
+        date = Value(date);
+  static Insertable<DriftRockTreanings> custom({
+    Expression<String>? id,
+    Expression<String>? districtId,
+    Expression<String>? district,
+    Expression<DateTime>? date,
+    Expression<DateTime>? finish,
+    Expression<DateTime>? start,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (districtId != null) 'district_id': districtId,
+      if (district != null) 'district': district,
+      if (date != null) 'date': date,
+      if (finish != null) 'finish': finish,
+      if (start != null) 'start': start,
+    });
+  }
+
+  DriftRockTreaningsTableCompanion copyWith(
+      {Value<String>? id,
+      Value<String>? districtId,
+      Value<String>? district,
+      Value<DateTime>? date,
+      Value<DateTime?>? finish,
+      Value<DateTime?>? start}) {
+    return DriftRockTreaningsTableCompanion(
+      id: id ?? this.id,
+      districtId: districtId ?? this.districtId,
+      district: district ?? this.district,
+      date: date ?? this.date,
+      finish: finish ?? this.finish,
+      start: start ?? this.start,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (districtId.present) {
+      map['district_id'] = Variable<String>(districtId.value);
+    }
+    if (district.present) {
+      map['district'] = Variable<String>(district.value);
+    }
+    if (date.present) {
+      map['date'] = Variable<DateTime>(date.value);
+    }
+    if (finish.present) {
+      map['finish'] = Variable<DateTime>(finish.value);
+    }
+    if (start.present) {
+      map['start'] = Variable<DateTime>(start.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DriftRockTreaningsTableCompanion(')
+          ..write('id: $id, ')
+          ..write('districtId: $districtId, ')
+          ..write('district: $district, ')
+          ..write('date: $date, ')
+          ..write('finish: $finish, ')
+          ..write('start: $start')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $DriftRockTreaningsTableTable extends DriftRockTreaningsTable
+    with TableInfo<$DriftRockTreaningsTableTable, DriftRockTreanings> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $DriftRockTreaningsTableTable(this.attachedDatabase, [this._alias]);
+  final VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      defaultConstraints: 'UNIQUE');
+  final VerificationMeta _districtIdMeta = const VerificationMeta('districtId');
+  @override
+  late final GeneratedColumn<String> districtId = GeneratedColumn<String>(
+      'district_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  final VerificationMeta _districtMeta = const VerificationMeta('district');
+  @override
+  late final GeneratedColumn<String> district = GeneratedColumn<String>(
+      'district', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  final VerificationMeta _dateMeta = const VerificationMeta('date');
+  @override
+  late final GeneratedColumn<DateTime> date = GeneratedColumn<DateTime>(
+      'date', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  final VerificationMeta _finishMeta = const VerificationMeta('finish');
+  @override
+  late final GeneratedColumn<DateTime> finish = GeneratedColumn<DateTime>(
+      'finish', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  final VerificationMeta _startMeta = const VerificationMeta('start');
+  @override
+  late final GeneratedColumn<DateTime> start = GeneratedColumn<DateTime>(
+      'start', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, districtId, district, date, finish, start];
+  @override
+  String get aliasedName => _alias ?? 'drift_rock_treanings_table';
+  @override
+  String get actualTableName => 'drift_rock_treanings_table';
+  @override
+  VerificationContext validateIntegrity(Insertable<DriftRockTreanings> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('district_id')) {
+      context.handle(
+          _districtIdMeta,
+          districtId.isAcceptableOrUnknown(
+              data['district_id']!, _districtIdMeta));
+    } else if (isInserting) {
+      context.missing(_districtIdMeta);
+    }
+    if (data.containsKey('district')) {
+      context.handle(_districtMeta,
+          district.isAcceptableOrUnknown(data['district']!, _districtMeta));
+    } else if (isInserting) {
+      context.missing(_districtMeta);
+    }
+    if (data.containsKey('date')) {
+      context.handle(
+          _dateMeta, date.isAcceptableOrUnknown(data['date']!, _dateMeta));
+    } else if (isInserting) {
+      context.missing(_dateMeta);
+    }
+    if (data.containsKey('finish')) {
+      context.handle(_finishMeta,
+          finish.isAcceptableOrUnknown(data['finish']!, _finishMeta));
+    }
+    if (data.containsKey('start')) {
+      context.handle(
+          _startMeta, start.isAcceptableOrUnknown(data['start']!, _startMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  DriftRockTreanings map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return DriftRockTreanings(
+      id: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      districtId: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}district_id'])!,
+      district: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}district'])!,
+      date: attachedDatabase.options.types
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}date'])!,
+      finish: attachedDatabase.options.types
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}finish']),
+      start: attachedDatabase.options.types
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}start']),
+    );
+  }
+
+  @override
+  $DriftRockTreaningsTableTable createAlias(String alias) {
+    return $DriftRockTreaningsTableTable(attachedDatabase, alias);
+  }
+}
+
+class DriftRockAttempt extends DataClass
+    implements Insertable<DriftRockAttempt> {
+  final String id;
+  final String sector;
+  final String sectorId;
+  final String treaningId;
+  final int category;
+  final String? route;
+  final String? routeId;
+  final int style;
+  final DateTime? finishTime;
+  final DateTime? startTime;
+  final int suspensionCount;
+  final int fallCount;
+  final bool downClimbing;
+  final bool fail;
+  const DriftRockAttempt(
+      {required this.id,
+      required this.sector,
+      required this.sectorId,
+      required this.treaningId,
+      required this.category,
+      this.route,
+      this.routeId,
+      required this.style,
+      this.finishTime,
+      this.startTime,
+      required this.suspensionCount,
+      required this.fallCount,
+      required this.downClimbing,
+      required this.fail});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['sector'] = Variable<String>(sector);
+    map['sector_id'] = Variable<String>(sectorId);
+    map['treaning_id'] = Variable<String>(treaningId);
+    map['category'] = Variable<int>(category);
+    if (!nullToAbsent || route != null) {
+      map['route'] = Variable<String>(route);
+    }
+    if (!nullToAbsent || routeId != null) {
+      map['route_id'] = Variable<String>(routeId);
+    }
+    map['style'] = Variable<int>(style);
+    if (!nullToAbsent || finishTime != null) {
+      map['finish_time'] = Variable<DateTime>(finishTime);
+    }
+    if (!nullToAbsent || startTime != null) {
+      map['start_time'] = Variable<DateTime>(startTime);
+    }
+    map['suspension_count'] = Variable<int>(suspensionCount);
+    map['fall_count'] = Variable<int>(fallCount);
+    map['down_climbing'] = Variable<bool>(downClimbing);
+    map['fail'] = Variable<bool>(fail);
+    return map;
+  }
+
+  DriftRockAttemptsTableCompanion toCompanion(bool nullToAbsent) {
+    return DriftRockAttemptsTableCompanion(
+      id: Value(id),
+      sector: Value(sector),
+      sectorId: Value(sectorId),
+      treaningId: Value(treaningId),
+      category: Value(category),
+      route:
+          route == null && nullToAbsent ? const Value.absent() : Value(route),
+      routeId: routeId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(routeId),
+      style: Value(style),
+      finishTime: finishTime == null && nullToAbsent
+          ? const Value.absent()
+          : Value(finishTime),
+      startTime: startTime == null && nullToAbsent
+          ? const Value.absent()
+          : Value(startTime),
+      suspensionCount: Value(suspensionCount),
+      fallCount: Value(fallCount),
+      downClimbing: Value(downClimbing),
+      fail: Value(fail),
+    );
+  }
+
+  factory DriftRockAttempt.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return DriftRockAttempt(
+      id: serializer.fromJson<String>(json['id']),
+      sector: serializer.fromJson<String>(json['sector']),
+      sectorId: serializer.fromJson<String>(json['sectorId']),
+      treaningId: serializer.fromJson<String>(json['treaningId']),
+      category: serializer.fromJson<int>(json['category']),
+      route: serializer.fromJson<String?>(json['route']),
+      routeId: serializer.fromJson<String?>(json['routeId']),
+      style: serializer.fromJson<int>(json['style']),
+      finishTime: serializer.fromJson<DateTime?>(json['finishTime']),
+      startTime: serializer.fromJson<DateTime?>(json['startTime']),
+      suspensionCount: serializer.fromJson<int>(json['suspensionCount']),
+      fallCount: serializer.fromJson<int>(json['fallCount']),
+      downClimbing: serializer.fromJson<bool>(json['downClimbing']),
+      fail: serializer.fromJson<bool>(json['fail']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'sector': serializer.toJson<String>(sector),
+      'sectorId': serializer.toJson<String>(sectorId),
+      'treaningId': serializer.toJson<String>(treaningId),
+      'category': serializer.toJson<int>(category),
+      'route': serializer.toJson<String?>(route),
+      'routeId': serializer.toJson<String?>(routeId),
+      'style': serializer.toJson<int>(style),
+      'finishTime': serializer.toJson<DateTime?>(finishTime),
+      'startTime': serializer.toJson<DateTime?>(startTime),
+      'suspensionCount': serializer.toJson<int>(suspensionCount),
+      'fallCount': serializer.toJson<int>(fallCount),
+      'downClimbing': serializer.toJson<bool>(downClimbing),
+      'fail': serializer.toJson<bool>(fail),
+    };
+  }
+
+  DriftRockAttempt copyWith(
+          {String? id,
+          String? sector,
+          String? sectorId,
+          String? treaningId,
+          int? category,
+          Value<String?> route = const Value.absent(),
+          Value<String?> routeId = const Value.absent(),
+          int? style,
+          Value<DateTime?> finishTime = const Value.absent(),
+          Value<DateTime?> startTime = const Value.absent(),
+          int? suspensionCount,
+          int? fallCount,
+          bool? downClimbing,
+          bool? fail}) =>
+      DriftRockAttempt(
+        id: id ?? this.id,
+        sector: sector ?? this.sector,
+        sectorId: sectorId ?? this.sectorId,
+        treaningId: treaningId ?? this.treaningId,
+        category: category ?? this.category,
+        route: route.present ? route.value : this.route,
+        routeId: routeId.present ? routeId.value : this.routeId,
+        style: style ?? this.style,
+        finishTime: finishTime.present ? finishTime.value : this.finishTime,
+        startTime: startTime.present ? startTime.value : this.startTime,
+        suspensionCount: suspensionCount ?? this.suspensionCount,
+        fallCount: fallCount ?? this.fallCount,
+        downClimbing: downClimbing ?? this.downClimbing,
+        fail: fail ?? this.fail,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('DriftRockAttempt(')
+          ..write('id: $id, ')
+          ..write('sector: $sector, ')
+          ..write('sectorId: $sectorId, ')
+          ..write('treaningId: $treaningId, ')
+          ..write('category: $category, ')
+          ..write('route: $route, ')
+          ..write('routeId: $routeId, ')
+          ..write('style: $style, ')
+          ..write('finishTime: $finishTime, ')
+          ..write('startTime: $startTime, ')
+          ..write('suspensionCount: $suspensionCount, ')
+          ..write('fallCount: $fallCount, ')
+          ..write('downClimbing: $downClimbing, ')
+          ..write('fail: $fail')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id,
+      sector,
+      sectorId,
+      treaningId,
+      category,
+      route,
+      routeId,
+      style,
+      finishTime,
+      startTime,
+      suspensionCount,
+      fallCount,
+      downClimbing,
+      fail);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is DriftRockAttempt &&
+          other.id == this.id &&
+          other.sector == this.sector &&
+          other.sectorId == this.sectorId &&
+          other.treaningId == this.treaningId &&
+          other.category == this.category &&
+          other.route == this.route &&
+          other.routeId == this.routeId &&
+          other.style == this.style &&
+          other.finishTime == this.finishTime &&
+          other.startTime == this.startTime &&
+          other.suspensionCount == this.suspensionCount &&
+          other.fallCount == this.fallCount &&
+          other.downClimbing == this.downClimbing &&
+          other.fail == this.fail);
+}
+
+class DriftRockAttemptsTableCompanion
+    extends UpdateCompanion<DriftRockAttempt> {
+  final Value<String> id;
+  final Value<String> sector;
+  final Value<String> sectorId;
+  final Value<String> treaningId;
+  final Value<int> category;
+  final Value<String?> route;
+  final Value<String?> routeId;
+  final Value<int> style;
+  final Value<DateTime?> finishTime;
+  final Value<DateTime?> startTime;
+  final Value<int> suspensionCount;
+  final Value<int> fallCount;
+  final Value<bool> downClimbing;
+  final Value<bool> fail;
+  const DriftRockAttemptsTableCompanion({
+    this.id = const Value.absent(),
+    this.sector = const Value.absent(),
+    this.sectorId = const Value.absent(),
+    this.treaningId = const Value.absent(),
+    this.category = const Value.absent(),
+    this.route = const Value.absent(),
+    this.routeId = const Value.absent(),
+    this.style = const Value.absent(),
+    this.finishTime = const Value.absent(),
+    this.startTime = const Value.absent(),
+    this.suspensionCount = const Value.absent(),
+    this.fallCount = const Value.absent(),
+    this.downClimbing = const Value.absent(),
+    this.fail = const Value.absent(),
+  });
+  DriftRockAttemptsTableCompanion.insert({
+    required String id,
+    required String sector,
+    required String sectorId,
+    required String treaningId,
+    required int category,
+    this.route = const Value.absent(),
+    this.routeId = const Value.absent(),
+    required int style,
+    this.finishTime = const Value.absent(),
+    this.startTime = const Value.absent(),
+    required int suspensionCount,
+    required int fallCount,
+    required bool downClimbing,
+    required bool fail,
+  })  : id = Value(id),
+        sector = Value(sector),
+        sectorId = Value(sectorId),
+        treaningId = Value(treaningId),
+        category = Value(category),
+        style = Value(style),
+        suspensionCount = Value(suspensionCount),
+        fallCount = Value(fallCount),
+        downClimbing = Value(downClimbing),
+        fail = Value(fail);
+  static Insertable<DriftRockAttempt> custom({
+    Expression<String>? id,
+    Expression<String>? sector,
+    Expression<String>? sectorId,
+    Expression<String>? treaningId,
+    Expression<int>? category,
+    Expression<String>? route,
+    Expression<String>? routeId,
+    Expression<int>? style,
+    Expression<DateTime>? finishTime,
+    Expression<DateTime>? startTime,
+    Expression<int>? suspensionCount,
+    Expression<int>? fallCount,
+    Expression<bool>? downClimbing,
+    Expression<bool>? fail,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (sector != null) 'sector': sector,
+      if (sectorId != null) 'sector_id': sectorId,
+      if (treaningId != null) 'treaning_id': treaningId,
+      if (category != null) 'category': category,
+      if (route != null) 'route': route,
+      if (routeId != null) 'route_id': routeId,
+      if (style != null) 'style': style,
+      if (finishTime != null) 'finish_time': finishTime,
+      if (startTime != null) 'start_time': startTime,
+      if (suspensionCount != null) 'suspension_count': suspensionCount,
+      if (fallCount != null) 'fall_count': fallCount,
+      if (downClimbing != null) 'down_climbing': downClimbing,
+      if (fail != null) 'fail': fail,
+    });
+  }
+
+  DriftRockAttemptsTableCompanion copyWith(
+      {Value<String>? id,
+      Value<String>? sector,
+      Value<String>? sectorId,
+      Value<String>? treaningId,
+      Value<int>? category,
+      Value<String?>? route,
+      Value<String?>? routeId,
+      Value<int>? style,
+      Value<DateTime?>? finishTime,
+      Value<DateTime?>? startTime,
+      Value<int>? suspensionCount,
+      Value<int>? fallCount,
+      Value<bool>? downClimbing,
+      Value<bool>? fail}) {
+    return DriftRockAttemptsTableCompanion(
+      id: id ?? this.id,
+      sector: sector ?? this.sector,
+      sectorId: sectorId ?? this.sectorId,
+      treaningId: treaningId ?? this.treaningId,
+      category: category ?? this.category,
+      route: route ?? this.route,
+      routeId: routeId ?? this.routeId,
+      style: style ?? this.style,
+      finishTime: finishTime ?? this.finishTime,
+      startTime: startTime ?? this.startTime,
+      suspensionCount: suspensionCount ?? this.suspensionCount,
+      fallCount: fallCount ?? this.fallCount,
+      downClimbing: downClimbing ?? this.downClimbing,
+      fail: fail ?? this.fail,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (sector.present) {
+      map['sector'] = Variable<String>(sector.value);
+    }
+    if (sectorId.present) {
+      map['sector_id'] = Variable<String>(sectorId.value);
+    }
+    if (treaningId.present) {
+      map['treaning_id'] = Variable<String>(treaningId.value);
+    }
+    if (category.present) {
+      map['category'] = Variable<int>(category.value);
+    }
+    if (route.present) {
+      map['route'] = Variable<String>(route.value);
+    }
+    if (routeId.present) {
+      map['route_id'] = Variable<String>(routeId.value);
+    }
+    if (style.present) {
+      map['style'] = Variable<int>(style.value);
+    }
+    if (finishTime.present) {
+      map['finish_time'] = Variable<DateTime>(finishTime.value);
+    }
+    if (startTime.present) {
+      map['start_time'] = Variable<DateTime>(startTime.value);
+    }
+    if (suspensionCount.present) {
+      map['suspension_count'] = Variable<int>(suspensionCount.value);
+    }
+    if (fallCount.present) {
+      map['fall_count'] = Variable<int>(fallCount.value);
+    }
+    if (downClimbing.present) {
+      map['down_climbing'] = Variable<bool>(downClimbing.value);
+    }
+    if (fail.present) {
+      map['fail'] = Variable<bool>(fail.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DriftRockAttemptsTableCompanion(')
+          ..write('id: $id, ')
+          ..write('sector: $sector, ')
+          ..write('sectorId: $sectorId, ')
+          ..write('treaningId: $treaningId, ')
+          ..write('category: $category, ')
+          ..write('route: $route, ')
+          ..write('routeId: $routeId, ')
+          ..write('style: $style, ')
+          ..write('finishTime: $finishTime, ')
+          ..write('startTime: $startTime, ')
+          ..write('suspensionCount: $suspensionCount, ')
+          ..write('fallCount: $fallCount, ')
+          ..write('downClimbing: $downClimbing, ')
+          ..write('fail: $fail')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $DriftRockAttemptsTableTable extends DriftRockAttemptsTable
+    with TableInfo<$DriftRockAttemptsTableTable, DriftRockAttempt> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $DriftRockAttemptsTableTable(this.attachedDatabase, [this._alias]);
+  final VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      defaultConstraints: 'UNIQUE');
+  final VerificationMeta _sectorMeta = const VerificationMeta('sector');
+  @override
+  late final GeneratedColumn<String> sector = GeneratedColumn<String>(
+      'sector', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  final VerificationMeta _sectorIdMeta = const VerificationMeta('sectorId');
+  @override
+  late final GeneratedColumn<String> sectorId = GeneratedColumn<String>(
+      'sector_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  final VerificationMeta _treaningIdMeta = const VerificationMeta('treaningId');
+  @override
+  late final GeneratedColumn<String> treaningId = GeneratedColumn<String>(
+      'treaning_id', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      defaultConstraints: 'REFERENCES "drift_rock_treanings_table" ("id")');
+  final VerificationMeta _categoryMeta = const VerificationMeta('category');
+  @override
+  late final GeneratedColumn<int> category = GeneratedColumn<int>(
+      'category', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  final VerificationMeta _routeMeta = const VerificationMeta('route');
+  @override
+  late final GeneratedColumn<String> route = GeneratedColumn<String>(
+      'route', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  final VerificationMeta _routeIdMeta = const VerificationMeta('routeId');
+  @override
+  late final GeneratedColumn<String> routeId = GeneratedColumn<String>(
+      'route_id', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  final VerificationMeta _styleMeta = const VerificationMeta('style');
+  @override
+  late final GeneratedColumn<int> style = GeneratedColumn<int>(
+      'style', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  final VerificationMeta _finishTimeMeta = const VerificationMeta('finishTime');
+  @override
+  late final GeneratedColumn<DateTime> finishTime = GeneratedColumn<DateTime>(
+      'finish_time', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  final VerificationMeta _startTimeMeta = const VerificationMeta('startTime');
+  @override
+  late final GeneratedColumn<DateTime> startTime = GeneratedColumn<DateTime>(
+      'start_time', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  final VerificationMeta _suspensionCountMeta =
+      const VerificationMeta('suspensionCount');
+  @override
+  late final GeneratedColumn<int> suspensionCount = GeneratedColumn<int>(
+      'suspension_count', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  final VerificationMeta _fallCountMeta = const VerificationMeta('fallCount');
+  @override
+  late final GeneratedColumn<int> fallCount = GeneratedColumn<int>(
+      'fall_count', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  final VerificationMeta _downClimbingMeta =
+      const VerificationMeta('downClimbing');
+  @override
+  late final GeneratedColumn<bool> downClimbing = GeneratedColumn<bool>(
+      'down_climbing', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: 'CHECK ("down_climbing" IN (0, 1))');
+  final VerificationMeta _failMeta = const VerificationMeta('fail');
+  @override
+  late final GeneratedColumn<bool> fail = GeneratedColumn<bool>(
+      'fail', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: 'CHECK ("fail" IN (0, 1))');
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        sector,
+        sectorId,
+        treaningId,
+        category,
+        route,
+        routeId,
+        style,
+        finishTime,
+        startTime,
+        suspensionCount,
+        fallCount,
+        downClimbing,
+        fail
+      ];
+  @override
+  String get aliasedName => _alias ?? 'drift_rock_attempts_table';
+  @override
+  String get actualTableName => 'drift_rock_attempts_table';
+  @override
+  VerificationContext validateIntegrity(Insertable<DriftRockAttempt> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('sector')) {
+      context.handle(_sectorMeta,
+          sector.isAcceptableOrUnknown(data['sector']!, _sectorMeta));
+    } else if (isInserting) {
+      context.missing(_sectorMeta);
+    }
+    if (data.containsKey('sector_id')) {
+      context.handle(_sectorIdMeta,
+          sectorId.isAcceptableOrUnknown(data['sector_id']!, _sectorIdMeta));
+    } else if (isInserting) {
+      context.missing(_sectorIdMeta);
+    }
+    if (data.containsKey('treaning_id')) {
+      context.handle(
+          _treaningIdMeta,
+          treaningId.isAcceptableOrUnknown(
+              data['treaning_id']!, _treaningIdMeta));
+    } else if (isInserting) {
+      context.missing(_treaningIdMeta);
+    }
+    if (data.containsKey('category')) {
+      context.handle(_categoryMeta,
+          category.isAcceptableOrUnknown(data['category']!, _categoryMeta));
+    } else if (isInserting) {
+      context.missing(_categoryMeta);
+    }
+    if (data.containsKey('route')) {
+      context.handle(
+          _routeMeta, route.isAcceptableOrUnknown(data['route']!, _routeMeta));
+    }
+    if (data.containsKey('route_id')) {
+      context.handle(_routeIdMeta,
+          routeId.isAcceptableOrUnknown(data['route_id']!, _routeIdMeta));
+    }
+    if (data.containsKey('style')) {
+      context.handle(
+          _styleMeta, style.isAcceptableOrUnknown(data['style']!, _styleMeta));
+    } else if (isInserting) {
+      context.missing(_styleMeta);
+    }
+    if (data.containsKey('finish_time')) {
+      context.handle(
+          _finishTimeMeta,
+          finishTime.isAcceptableOrUnknown(
+              data['finish_time']!, _finishTimeMeta));
+    }
+    if (data.containsKey('start_time')) {
+      context.handle(_startTimeMeta,
+          startTime.isAcceptableOrUnknown(data['start_time']!, _startTimeMeta));
+    }
+    if (data.containsKey('suspension_count')) {
+      context.handle(
+          _suspensionCountMeta,
+          suspensionCount.isAcceptableOrUnknown(
+              data['suspension_count']!, _suspensionCountMeta));
+    } else if (isInserting) {
+      context.missing(_suspensionCountMeta);
+    }
+    if (data.containsKey('fall_count')) {
+      context.handle(_fallCountMeta,
+          fallCount.isAcceptableOrUnknown(data['fall_count']!, _fallCountMeta));
+    } else if (isInserting) {
+      context.missing(_fallCountMeta);
+    }
+    if (data.containsKey('down_climbing')) {
+      context.handle(
+          _downClimbingMeta,
+          downClimbing.isAcceptableOrUnknown(
+              data['down_climbing']!, _downClimbingMeta));
+    } else if (isInserting) {
+      context.missing(_downClimbingMeta);
+    }
+    if (data.containsKey('fail')) {
+      context.handle(
+          _failMeta, fail.isAcceptableOrUnknown(data['fail']!, _failMeta));
+    } else if (isInserting) {
+      context.missing(_failMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  DriftRockAttempt map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return DriftRockAttempt(
+      id: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      sector: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}sector'])!,
+      sectorId: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}sector_id'])!,
+      treaningId: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}treaning_id'])!,
+      category: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}category'])!,
+      route: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}route']),
+      routeId: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}route_id']),
+      style: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}style'])!,
+      finishTime: attachedDatabase.options.types
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}finish_time']),
+      startTime: attachedDatabase.options.types
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}start_time']),
+      suspensionCount: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}suspension_count'])!,
+      fallCount: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}fall_count'])!,
+      downClimbing: attachedDatabase.options.types
+          .read(DriftSqlType.bool, data['${effectivePrefix}down_climbing'])!,
+      fail: attachedDatabase.options.types
+          .read(DriftSqlType.bool, data['${effectivePrefix}fail'])!,
+    );
+  }
+
+  @override
+  $DriftRockAttemptsTableTable createAlias(String alias) {
+    return $DriftRockAttemptsTableTable(attachedDatabase, alias);
+  }
+}
+
 abstract class _$DriftDBLocalDataSource extends GeneratedDatabase {
   _$DriftDBLocalDataSource(QueryExecutor e) : super(e);
   late final $DriftStrengthExercisesTableTable driftStrengthExercisesTable =
@@ -2958,6 +3932,10 @@ abstract class _$DriftDBLocalDataSource extends GeneratedDatabase {
       $DriftIceTreaningsTableTable(this);
   late final $DriftIceAttemptsTableTable driftIceAttemptsTable =
       $DriftIceAttemptsTableTable(this);
+  late final $DriftRockTreaningsTableTable driftRockTreaningsTable =
+      $DriftRockTreaningsTableTable(this);
+  late final $DriftRockAttemptsTableTable driftRockAttemptsTable =
+      $DriftRockAttemptsTableTable(this);
   @override
   Iterable<TableInfo<Table, dynamic>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -2970,6 +3948,8 @@ abstract class _$DriftDBLocalDataSource extends GeneratedDatabase {
         driftStrengthTreaningsTable,
         driftStrengthTreaningLinesTable,
         driftIceTreaningsTable,
-        driftIceAttemptsTable
+        driftIceAttemptsTable,
+        driftRockTreaningsTable,
+        driftRockAttemptsTable
       ];
 }

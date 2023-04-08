@@ -9,6 +9,7 @@ import 'package:my_climbing_trek/features/cardio_workout/presentation/cubit/card
 import 'package:my_climbing_trek/features/hall_climbing/presentation/bloc/current_hall_treaning/current_hall_treaning_cubit.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/bloc/home_page/home_page_cubit.dart';
 import 'package:my_climbing_trek/features/ice_climbing/presentation/bloc/current_ice_treaning/current_ice_treaning_cubit.dart';
+import 'package:my_climbing_trek/features/rock_climbing/presentation/cubit/rock_treaning/rock_treaning_cubit.dart';
 
 import 'package:my_climbing_trek/features/settings/presentation/cubit/settings_cubit.dart';
 import 'package:my_climbing_trek/features/strength_training/presentation/cubit/strength_training/strength_training_cubit.dart';
@@ -21,7 +22,9 @@ void main() async {
   runZonedGuarded<Future<void>>(
     () async {
       WidgetsFlutterBinding.ensureInitialized();
+
       di.configureDependencies();
+
       await di.getIt.getAsync<CrashLogService>();
 
       await di.getIt.getAsync<AnaliticsService>();
@@ -65,6 +68,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => di.getIt<StrengthTrainingCubit>()..loadData(),
+        ),
+        BlocProvider(
+          create: (context) => di.getIt<RockTreaningCubit>()..loadData(),
         ),
       ],
       child: MaterialApp(

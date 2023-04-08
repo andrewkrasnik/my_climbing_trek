@@ -89,7 +89,7 @@ class CardioParametersWidget extends HookWidget {
               controller: lengthController,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                  labelText: 'Расстояние, ${exercise.value.lenghtUnit} ',
+                  labelText: 'Расстояние, ${exercise.value.lengthUnit} ',
                   border: const OutlineInputBorder()),
             ),
             const SizedBox(

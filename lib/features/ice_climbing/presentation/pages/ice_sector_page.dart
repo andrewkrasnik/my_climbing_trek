@@ -48,7 +48,7 @@ class IceSectorPage extends StatelessWidget {
                 ),
                 TextWithTitleWidget(
                   title: 'Протяженность, м:',
-                  child: Text(sector.lenght.toString()),
+                  child: Text(sector.length.toString()),
                 ),
                 TextWithTitleWidget(
                   title: 'Максимальная сложность:',

@@ -53,10 +53,17 @@ class CurrentIceTreaningCubit extends Cubit<CurrentIceTreaningState> {
       // emit(state)
     }
 
+    final currentTreaning =
+        failureOrCurrent.fold((_) => null, (treaning) => treaning);
+
+    final lastTreaning =
+        failureOrPrevios.fold((_) => null, (treaning) => treaning);
+
     emit(state.copyWith(
-      currentTreaning:
-          failureOrCurrent.fold((_) => null, (treaning) => treaning),
-      lastTreaning: failureOrPrevios.fold((_) => null, (treaning) => treaning),
+      currentAttempt: currentTreaning?.currentAttempt,
+      lastAttempt: currentTreaning?.lastAttempt,
+      currentTreaning: currentTreaning,
+      lastTreaning: lastTreaning,
     ));
   }
 

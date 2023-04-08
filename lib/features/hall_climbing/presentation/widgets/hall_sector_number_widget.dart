@@ -33,21 +33,6 @@ class HallSectorNumberWidget extends StatelessWidget {
                     color: textColor,
                   ),
                 ),
-              // if (route!.sectorNumber > 0)
-              //   Positioned(
-              //       top: 0,
-              //       right: 0,
-              //       child: CircleAvatar(
-              //         backgroundColor: Colors.black,
-              //         radius: 10,
-              //         child: Text(
-              //           route!.sectorNumber.toString(),
-              //           style: const TextStyle(
-              //             fontSize: 12,
-              //             fontWeight: FontWeight.bold,
-              //           ),
-              //         ),
-              //       ))
             ],
           )
         : child;
