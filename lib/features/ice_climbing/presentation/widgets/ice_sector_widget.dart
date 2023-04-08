@@ -23,24 +23,29 @@ class IceSectorWidget extends StatelessWidget {
           fit: StackFit.expand,
           children: [
             MyCachedNetworkImage(imageUrl: sector.image, fit: BoxFit.cover),
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
-                sector.name,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    shadows: [Shadow(offset: Offset.fromDirection(1))]),
-              ),
-              Text(
-                sector.length.toString(),
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                    shadows: [Shadow(offset: Offset.fromDirection(1))]),
-              )
-            ]),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      sector.name,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          shadows: [Shadow(offset: Offset.fromDirection(1))]),
+                    ),
+                    Text(
+                      'до ${sector.length.toString()} м., сложность до ${sector.maxCategory.name}',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          shadows: [Shadow(offset: Offset.fromDirection(1))]),
+                    )
+                  ]),
+            ),
           ],
         ),
       ),

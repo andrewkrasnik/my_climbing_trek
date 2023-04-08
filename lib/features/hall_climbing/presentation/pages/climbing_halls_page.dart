@@ -1,4 +1,3 @@
-import 'package:my_climbing_trek/features/hall_climbing/domain/usecases/update_halls.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/bloc/climbing_halls/climbing_halls_cubit.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/pages/climbing_hall_page.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/climbing_hall_widget.dart';
@@ -19,14 +18,6 @@ class ClimbingHallsPage extends StatelessWidget {
             appBar: AppBar(
               centerTitle: true,
               title: const Text('Скалодромы'),
-              actions: [
-                IconButton(
-                    onPressed: () async {
-                      await getIt<UpdateHalls>().call();
-                      BlocProvider.of<ClimbingHallsCubit>(context).loadData();
-                    },
-                    icon: const Icon(Icons.update))
-              ],
             ),
             body: Padding(
               padding: const EdgeInsets.all(8.0),
