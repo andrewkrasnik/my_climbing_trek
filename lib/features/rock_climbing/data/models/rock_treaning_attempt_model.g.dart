@@ -12,9 +12,9 @@ RockTreaningAttemptModel _$RockTreaningAttemptModelFromJson(
       treaningId: json['treaningId'] as String,
       sector:
           const RockSectorStringConverter().fromJson(json['sector'] as String),
-      category:
-          const ClimbingCategoryConverter().fromJson(json['category'] as int),
-      style: const ClimbingStyleConverter().fromJson(json['style'] as int),
+      category: const ClimbingCategoryConverter()
+          .fromJson(json['category'] as String),
+      style: const ClimbingStyleConverter().fromJson(json['style'] as String),
       startTime: _$JsonConverterFromJson<int, DateTime>(
           json['startTime'], const EpochDateTimeConverter().fromJson),
       finishTime: _$JsonConverterFromJson<int, DateTime>(

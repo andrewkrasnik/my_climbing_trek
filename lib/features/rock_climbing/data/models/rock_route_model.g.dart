@@ -9,9 +9,9 @@ part of 'rock_route_model.dart';
 RockRouteModel _$RockRouteModelFromJson(Map<String, dynamic> json) =>
     RockRouteModel(
       name: json['name'] as String,
-      category:
-          const ClimbingCategoryConverter().fromJson(json['category'] as int),
-      type: const ClimbingRouteTypeConverter().fromJson(json['type'] as int),
+      category: const ClimbingCategoryConverter()
+          .fromJson(json['category'] as String),
+      type: const ClimbingRouteTypeConverter().fromJson(json['type'] as String),
       id: json['id'] as String? ?? '',
       anchor: json['anchor'] as String? ?? '',
       length: json['length'] as int? ?? 0,

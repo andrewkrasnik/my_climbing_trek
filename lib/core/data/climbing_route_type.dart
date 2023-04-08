@@ -1,19 +1,20 @@
 class ClimbingRouteType {
   final String name;
-  final int id;
+  final String id;
   const ClimbingRouteType({
     required this.name,
     required this.id,
   });
 
   static const ClimbingRouteType bouldering =
-      ClimbingRouteType(name: 'bouldering', id: 1);
-  static const ClimbingRouteType rope = ClimbingRouteType(name: 'rope', id: 2);
+      ClimbingRouteType(name: 'bouldering', id: 'bouldering');
+  static const ClimbingRouteType rope =
+      ClimbingRouteType(name: 'rope', id: 'rope');
   static const ClimbingRouteType speed =
-      ClimbingRouteType(name: 'speed', id: 3);
+      ClimbingRouteType(name: 'speed', id: 'speed');
 
   static const List<ClimbingRouteType> values = [bouldering, rope, speed];
 
-  static ClimbingRouteType getById(int id) =>
+  static ClimbingRouteType getById(String id) =>
       values.firstWhere((element) => element.id == id);
 }

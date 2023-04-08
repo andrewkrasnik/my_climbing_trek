@@ -23,9 +23,9 @@ class HiveRockRegionsLocalDataSource implements RockRegionsLocalDataSource {
   Future<Either<Failure, List<RockDistrict>>> districts() async {
     final districtsBox = await Hive.openBox<String>(_districtsName);
 
-    if (districtsBox.isEmpty) {
-      await _loadData(districtsBox);
-    }
+    // if (districtsBox.isEmpty) {
+    //   await _loadData(districtsBox);
+    // }
 
     return Right(districtsBox.values
         .map((value) => RockDistrictModel.fromJson(json.decode(value)))

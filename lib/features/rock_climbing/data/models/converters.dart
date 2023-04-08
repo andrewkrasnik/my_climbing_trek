@@ -134,42 +134,42 @@ class RockTreaningAttemptConverter
 }
 
 class ClimbingCategoryConverter
-    implements JsonConverter<ClimbingCategory, int> {
+    implements JsonConverter<ClimbingCategory, String> {
   const ClimbingCategoryConverter();
   @override
-  ClimbingCategory fromJson(int json) {
+  ClimbingCategory fromJson(String json) {
     return ClimbingCategory.getById(json);
   }
 
   @override
-  int toJson(ClimbingCategory object) {
+  String toJson(ClimbingCategory object) {
     return object.id;
   }
 }
 
 class ClimbingRouteTypeConverter
-    implements JsonConverter<ClimbingRouteType, int> {
+    implements JsonConverter<ClimbingRouteType, String> {
   const ClimbingRouteTypeConverter();
   @override
-  ClimbingRouteType fromJson(int json) {
+  ClimbingRouteType fromJson(String json) {
     return ClimbingRouteType.getById(json);
   }
 
   @override
-  int toJson(ClimbingRouteType object) {
+  String toJson(ClimbingRouteType object) {
     return object.id;
   }
 }
 
-class ClimbingStyleConverter implements JsonConverter<ClimbingStyle, int> {
+class ClimbingStyleConverter implements JsonConverter<ClimbingStyle, String> {
   const ClimbingStyleConverter();
   @override
-  ClimbingStyle fromJson(int json) {
+  ClimbingStyle fromJson(String json) {
     return ClimbingStyle.getById(json);
   }
 
   @override
-  int toJson(ClimbingStyle object) {
+  String toJson(ClimbingStyle object) {
     return object.id;
   }
 }

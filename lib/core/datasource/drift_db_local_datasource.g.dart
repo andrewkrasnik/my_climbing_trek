@@ -514,8 +514,8 @@ class DriftHallAttempt extends DataClass
     implements Insertable<DriftHallAttempt> {
   final int id;
   final String treaningId;
-  final int categoryId;
-  final int styleId;
+  final String categoryId;
+  final String styleId;
   final String? routeId;
   final DateTime? finish;
   final DateTime? start;
@@ -542,8 +542,8 @@ class DriftHallAttempt extends DataClass
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
     map['treaning_id'] = Variable<String>(treaningId);
-    map['category_id'] = Variable<int>(categoryId);
-    map['style_id'] = Variable<int>(styleId);
+    map['category_id'] = Variable<String>(categoryId);
+    map['style_id'] = Variable<String>(styleId);
     if (!nullToAbsent || routeId != null) {
       map['route_id'] = Variable<String>(routeId);
     }
@@ -592,8 +592,8 @@ class DriftHallAttempt extends DataClass
     return DriftHallAttempt(
       id: serializer.fromJson<int>(json['id']),
       treaningId: serializer.fromJson<String>(json['treaningId']),
-      categoryId: serializer.fromJson<int>(json['categoryId']),
-      styleId: serializer.fromJson<int>(json['styleId']),
+      categoryId: serializer.fromJson<String>(json['categoryId']),
+      styleId: serializer.fromJson<String>(json['styleId']),
       routeId: serializer.fromJson<String?>(json['routeId']),
       finish: serializer.fromJson<DateTime?>(json['finish']),
       start: serializer.fromJson<DateTime?>(json['start']),
@@ -610,8 +610,8 @@ class DriftHallAttempt extends DataClass
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'treaningId': serializer.toJson<String>(treaningId),
-      'categoryId': serializer.toJson<int>(categoryId),
-      'styleId': serializer.toJson<int>(styleId),
+      'categoryId': serializer.toJson<String>(categoryId),
+      'styleId': serializer.toJson<String>(styleId),
       'routeId': serializer.toJson<String?>(routeId),
       'finish': serializer.toJson<DateTime?>(finish),
       'start': serializer.toJson<DateTime?>(start),
@@ -626,8 +626,8 @@ class DriftHallAttempt extends DataClass
   DriftHallAttempt copyWith(
           {int? id,
           String? treaningId,
-          int? categoryId,
-          int? styleId,
+          String? categoryId,
+          String? styleId,
           Value<String?> routeId = const Value.absent(),
           Value<DateTime?> finish = const Value.absent(),
           Value<DateTime?> start = const Value.absent(),
@@ -706,8 +706,8 @@ class DriftHallAttemptsTableCompanion
     extends UpdateCompanion<DriftHallAttempt> {
   final Value<int> id;
   final Value<String> treaningId;
-  final Value<int> categoryId;
-  final Value<int> styleId;
+  final Value<String> categoryId;
+  final Value<String> styleId;
   final Value<String?> routeId;
   final Value<DateTime?> finish;
   final Value<DateTime?> start;
@@ -733,8 +733,8 @@ class DriftHallAttemptsTableCompanion
   DriftHallAttemptsTableCompanion.insert({
     this.id = const Value.absent(),
     required String treaningId,
-    required int categoryId,
-    required int styleId,
+    required String categoryId,
+    required String styleId,
     this.routeId = const Value.absent(),
     this.finish = const Value.absent(),
     this.start = const Value.absent(),
@@ -753,8 +753,8 @@ class DriftHallAttemptsTableCompanion
   static Insertable<DriftHallAttempt> custom({
     Expression<int>? id,
     Expression<String>? treaningId,
-    Expression<int>? categoryId,
-    Expression<int>? styleId,
+    Expression<String>? categoryId,
+    Expression<String>? styleId,
     Expression<String>? routeId,
     Expression<DateTime>? finish,
     Expression<DateTime>? start,
@@ -783,8 +783,8 @@ class DriftHallAttemptsTableCompanion
   DriftHallAttemptsTableCompanion copyWith(
       {Value<int>? id,
       Value<String>? treaningId,
-      Value<int>? categoryId,
-      Value<int>? styleId,
+      Value<String>? categoryId,
+      Value<String>? styleId,
       Value<String?>? routeId,
       Value<DateTime?>? finish,
       Value<DateTime?>? start,
@@ -819,10 +819,10 @@ class DriftHallAttemptsTableCompanion
       map['treaning_id'] = Variable<String>(treaningId.value);
     }
     if (categoryId.present) {
-      map['category_id'] = Variable<int>(categoryId.value);
+      map['category_id'] = Variable<String>(categoryId.value);
     }
     if (styleId.present) {
-      map['style_id'] = Variable<int>(styleId.value);
+      map['style_id'] = Variable<String>(styleId.value);
     }
     if (routeId.present) {
       map['route_id'] = Variable<String>(routeId.value);
@@ -893,14 +893,14 @@ class $DriftHallAttemptsTableTable extends DriftHallAttemptsTable
       defaultConstraints: 'REFERENCES "drift_hall_treanings_table" ("id")');
   final VerificationMeta _categoryIdMeta = const VerificationMeta('categoryId');
   @override
-  late final GeneratedColumn<int> categoryId = GeneratedColumn<int>(
+  late final GeneratedColumn<String> categoryId = GeneratedColumn<String>(
       'category_id', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+      type: DriftSqlType.string, requiredDuringInsert: true);
   final VerificationMeta _styleIdMeta = const VerificationMeta('styleId');
   @override
-  late final GeneratedColumn<int> styleId = GeneratedColumn<int>(
+  late final GeneratedColumn<String> styleId = GeneratedColumn<String>(
       'style_id', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+      type: DriftSqlType.string, requiredDuringInsert: true);
   final VerificationMeta _routeIdMeta = const VerificationMeta('routeId');
   @override
   late final GeneratedColumn<String> routeId = GeneratedColumn<String>(
@@ -1057,9 +1057,9 @@ class $DriftHallAttemptsTableTable extends DriftHallAttemptsTable
       treaningId: attachedDatabase.options.types
           .read(DriftSqlType.string, data['${effectivePrefix}treaning_id'])!,
       categoryId: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}category_id'])!,
+          .read(DriftSqlType.string, data['${effectivePrefix}category_id'])!,
       styleId: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}style_id'])!,
+          .read(DriftSqlType.string, data['${effectivePrefix}style_id'])!,
       routeId: attachedDatabase.options.types
           .read(DriftSqlType.string, data['${effectivePrefix}route_id']),
       finish: attachedDatabase.options.types
@@ -2249,8 +2249,8 @@ class DriftIceAttempt extends DataClass implements Insertable<DriftIceAttempt> {
   final String id;
   final String sector;
   final String treaningId;
-  final int category;
-  final int style;
+  final String category;
+  final String style;
   final DateTime? finishTime;
   final DateTime? startTime;
   final int wayLength;
@@ -2283,8 +2283,8 @@ class DriftIceAttempt extends DataClass implements Insertable<DriftIceAttempt> {
     map['id'] = Variable<String>(id);
     map['sector'] = Variable<String>(sector);
     map['treaning_id'] = Variable<String>(treaningId);
-    map['category'] = Variable<int>(category);
-    map['style'] = Variable<int>(style);
+    map['category'] = Variable<String>(category);
+    map['style'] = Variable<String>(style);
     if (!nullToAbsent || finishTime != null) {
       map['finish_time'] = Variable<DateTime>(finishTime);
     }
@@ -2333,8 +2333,8 @@ class DriftIceAttempt extends DataClass implements Insertable<DriftIceAttempt> {
       id: serializer.fromJson<String>(json['id']),
       sector: serializer.fromJson<String>(json['sector']),
       treaningId: serializer.fromJson<String>(json['treaningId']),
-      category: serializer.fromJson<int>(json['category']),
-      style: serializer.fromJson<int>(json['style']),
+      category: serializer.fromJson<String>(json['category']),
+      style: serializer.fromJson<String>(json['style']),
       finishTime: serializer.fromJson<DateTime?>(json['finishTime']),
       startTime: serializer.fromJson<DateTime?>(json['startTime']),
       wayLength: serializer.fromJson<int>(json['wayLength']),
@@ -2354,8 +2354,8 @@ class DriftIceAttempt extends DataClass implements Insertable<DriftIceAttempt> {
       'id': serializer.toJson<String>(id),
       'sector': serializer.toJson<String>(sector),
       'treaningId': serializer.toJson<String>(treaningId),
-      'category': serializer.toJson<int>(category),
-      'style': serializer.toJson<int>(style),
+      'category': serializer.toJson<String>(category),
+      'style': serializer.toJson<String>(style),
       'finishTime': serializer.toJson<DateTime?>(finishTime),
       'startTime': serializer.toJson<DateTime?>(startTime),
       'wayLength': serializer.toJson<int>(wayLength),
@@ -2373,8 +2373,8 @@ class DriftIceAttempt extends DataClass implements Insertable<DriftIceAttempt> {
           {String? id,
           String? sector,
           String? treaningId,
-          int? category,
-          int? style,
+          String? category,
+          String? style,
           Value<DateTime?> finishTime = const Value.absent(),
           Value<DateTime?> startTime = const Value.absent(),
           int? wayLength,
@@ -2466,8 +2466,8 @@ class DriftIceAttemptsTableCompanion extends UpdateCompanion<DriftIceAttempt> {
   final Value<String> id;
   final Value<String> sector;
   final Value<String> treaningId;
-  final Value<int> category;
-  final Value<int> style;
+  final Value<String> category;
+  final Value<String> style;
   final Value<DateTime?> finishTime;
   final Value<DateTime?> startTime;
   final Value<int> wayLength;
@@ -2499,8 +2499,8 @@ class DriftIceAttemptsTableCompanion extends UpdateCompanion<DriftIceAttempt> {
     required String id,
     required String sector,
     required String treaningId,
-    required int category,
-    required int style,
+    required String category,
+    required String style,
     this.finishTime = const Value.absent(),
     this.startTime = const Value.absent(),
     required int wayLength,
@@ -2528,8 +2528,8 @@ class DriftIceAttemptsTableCompanion extends UpdateCompanion<DriftIceAttempt> {
     Expression<String>? id,
     Expression<String>? sector,
     Expression<String>? treaningId,
-    Expression<int>? category,
-    Expression<int>? style,
+    Expression<String>? category,
+    Expression<String>? style,
     Expression<DateTime>? finishTime,
     Expression<DateTime>? startTime,
     Expression<int>? wayLength,
@@ -2565,8 +2565,8 @@ class DriftIceAttemptsTableCompanion extends UpdateCompanion<DriftIceAttempt> {
       {Value<String>? id,
       Value<String>? sector,
       Value<String>? treaningId,
-      Value<int>? category,
-      Value<int>? style,
+      Value<String>? category,
+      Value<String>? style,
       Value<DateTime?>? finishTime,
       Value<DateTime?>? startTime,
       Value<int>? wayLength,
@@ -2609,10 +2609,10 @@ class DriftIceAttemptsTableCompanion extends UpdateCompanion<DriftIceAttempt> {
       map['treaning_id'] = Variable<String>(treaningId.value);
     }
     if (category.present) {
-      map['category'] = Variable<int>(category.value);
+      map['category'] = Variable<String>(category.value);
     }
     if (style.present) {
-      map['style'] = Variable<int>(style.value);
+      map['style'] = Variable<String>(style.value);
     }
     if (finishTime.present) {
       map['finish_time'] = Variable<DateTime>(finishTime.value);
@@ -2697,14 +2697,14 @@ class $DriftIceAttemptsTableTable extends DriftIceAttemptsTable
       defaultConstraints: 'REFERENCES "drift_ice_treanings_table" ("id")');
   final VerificationMeta _categoryMeta = const VerificationMeta('category');
   @override
-  late final GeneratedColumn<int> category = GeneratedColumn<int>(
+  late final GeneratedColumn<String> category = GeneratedColumn<String>(
       'category', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+      type: DriftSqlType.string, requiredDuringInsert: true);
   final VerificationMeta _styleMeta = const VerificationMeta('style');
   @override
-  late final GeneratedColumn<int> style = GeneratedColumn<int>(
+  late final GeneratedColumn<String> style = GeneratedColumn<String>(
       'style', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+      type: DriftSqlType.string, requiredDuringInsert: true);
   final VerificationMeta _finishTimeMeta = const VerificationMeta('finishTime');
   @override
   late final GeneratedColumn<DateTime> finishTime = GeneratedColumn<DateTime>(
@@ -2907,9 +2907,9 @@ class $DriftIceAttemptsTableTable extends DriftIceAttemptsTable
       treaningId: attachedDatabase.options.types
           .read(DriftSqlType.string, data['${effectivePrefix}treaning_id'])!,
       category: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}category'])!,
+          .read(DriftSqlType.string, data['${effectivePrefix}category'])!,
       style: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}style'])!,
+          .read(DriftSqlType.string, data['${effectivePrefix}style'])!,
       finishTime: attachedDatabase.options.types
           .read(DriftSqlType.dateTime, data['${effectivePrefix}finish_time']),
       startTime: attachedDatabase.options.types
@@ -3270,10 +3270,10 @@ class DriftRockAttempt extends DataClass
   final String sector;
   final String sectorId;
   final String treaningId;
-  final int category;
+  final String category;
   final String? route;
   final String? routeId;
-  final int style;
+  final String style;
   final DateTime? finishTime;
   final DateTime? startTime;
   final int suspensionCount;
@@ -3302,14 +3302,14 @@ class DriftRockAttempt extends DataClass
     map['sector'] = Variable<String>(sector);
     map['sector_id'] = Variable<String>(sectorId);
     map['treaning_id'] = Variable<String>(treaningId);
-    map['category'] = Variable<int>(category);
+    map['category'] = Variable<String>(category);
     if (!nullToAbsent || route != null) {
       map['route'] = Variable<String>(route);
     }
     if (!nullToAbsent || routeId != null) {
       map['route_id'] = Variable<String>(routeId);
     }
-    map['style'] = Variable<int>(style);
+    map['style'] = Variable<String>(style);
     if (!nullToAbsent || finishTime != null) {
       map['finish_time'] = Variable<DateTime>(finishTime);
     }
@@ -3357,10 +3357,10 @@ class DriftRockAttempt extends DataClass
       sector: serializer.fromJson<String>(json['sector']),
       sectorId: serializer.fromJson<String>(json['sectorId']),
       treaningId: serializer.fromJson<String>(json['treaningId']),
-      category: serializer.fromJson<int>(json['category']),
+      category: serializer.fromJson<String>(json['category']),
       route: serializer.fromJson<String?>(json['route']),
       routeId: serializer.fromJson<String?>(json['routeId']),
-      style: serializer.fromJson<int>(json['style']),
+      style: serializer.fromJson<String>(json['style']),
       finishTime: serializer.fromJson<DateTime?>(json['finishTime']),
       startTime: serializer.fromJson<DateTime?>(json['startTime']),
       suspensionCount: serializer.fromJson<int>(json['suspensionCount']),
@@ -3377,10 +3377,10 @@ class DriftRockAttempt extends DataClass
       'sector': serializer.toJson<String>(sector),
       'sectorId': serializer.toJson<String>(sectorId),
       'treaningId': serializer.toJson<String>(treaningId),
-      'category': serializer.toJson<int>(category),
+      'category': serializer.toJson<String>(category),
       'route': serializer.toJson<String?>(route),
       'routeId': serializer.toJson<String?>(routeId),
-      'style': serializer.toJson<int>(style),
+      'style': serializer.toJson<String>(style),
       'finishTime': serializer.toJson<DateTime?>(finishTime),
       'startTime': serializer.toJson<DateTime?>(startTime),
       'suspensionCount': serializer.toJson<int>(suspensionCount),
@@ -3395,10 +3395,10 @@ class DriftRockAttempt extends DataClass
           String? sector,
           String? sectorId,
           String? treaningId,
-          int? category,
+          String? category,
           Value<String?> route = const Value.absent(),
           Value<String?> routeId = const Value.absent(),
-          int? style,
+          String? style,
           Value<DateTime?> finishTime = const Value.absent(),
           Value<DateTime?> startTime = const Value.absent(),
           int? suspensionCount,
@@ -3484,10 +3484,10 @@ class DriftRockAttemptsTableCompanion
   final Value<String> sector;
   final Value<String> sectorId;
   final Value<String> treaningId;
-  final Value<int> category;
+  final Value<String> category;
   final Value<String?> route;
   final Value<String?> routeId;
-  final Value<int> style;
+  final Value<String> style;
   final Value<DateTime?> finishTime;
   final Value<DateTime?> startTime;
   final Value<int> suspensionCount;
@@ -3515,10 +3515,10 @@ class DriftRockAttemptsTableCompanion
     required String sector,
     required String sectorId,
     required String treaningId,
-    required int category,
+    required String category,
     this.route = const Value.absent(),
     this.routeId = const Value.absent(),
-    required int style,
+    required String style,
     this.finishTime = const Value.absent(),
     this.startTime = const Value.absent(),
     required int suspensionCount,
@@ -3540,10 +3540,10 @@ class DriftRockAttemptsTableCompanion
     Expression<String>? sector,
     Expression<String>? sectorId,
     Expression<String>? treaningId,
-    Expression<int>? category,
+    Expression<String>? category,
     Expression<String>? route,
     Expression<String>? routeId,
-    Expression<int>? style,
+    Expression<String>? style,
     Expression<DateTime>? finishTime,
     Expression<DateTime>? startTime,
     Expression<int>? suspensionCount,
@@ -3574,10 +3574,10 @@ class DriftRockAttemptsTableCompanion
       Value<String>? sector,
       Value<String>? sectorId,
       Value<String>? treaningId,
-      Value<int>? category,
+      Value<String>? category,
       Value<String?>? route,
       Value<String?>? routeId,
-      Value<int>? style,
+      Value<String>? style,
       Value<DateTime?>? finishTime,
       Value<DateTime?>? startTime,
       Value<int>? suspensionCount,
@@ -3618,7 +3618,7 @@ class DriftRockAttemptsTableCompanion
       map['treaning_id'] = Variable<String>(treaningId.value);
     }
     if (category.present) {
-      map['category'] = Variable<int>(category.value);
+      map['category'] = Variable<String>(category.value);
     }
     if (route.present) {
       map['route'] = Variable<String>(route.value);
@@ -3627,7 +3627,7 @@ class DriftRockAttemptsTableCompanion
       map['route_id'] = Variable<String>(routeId.value);
     }
     if (style.present) {
-      map['style'] = Variable<int>(style.value);
+      map['style'] = Variable<String>(style.value);
     }
     if (finishTime.present) {
       map['finish_time'] = Variable<DateTime>(finishTime.value);
@@ -3704,9 +3704,9 @@ class $DriftRockAttemptsTableTable extends DriftRockAttemptsTable
       defaultConstraints: 'REFERENCES "drift_rock_treanings_table" ("id")');
   final VerificationMeta _categoryMeta = const VerificationMeta('category');
   @override
-  late final GeneratedColumn<int> category = GeneratedColumn<int>(
+  late final GeneratedColumn<String> category = GeneratedColumn<String>(
       'category', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+      type: DriftSqlType.string, requiredDuringInsert: true);
   final VerificationMeta _routeMeta = const VerificationMeta('route');
   @override
   late final GeneratedColumn<String> route = GeneratedColumn<String>(
@@ -3719,9 +3719,9 @@ class $DriftRockAttemptsTableTable extends DriftRockAttemptsTable
       type: DriftSqlType.string, requiredDuringInsert: false);
   final VerificationMeta _styleMeta = const VerificationMeta('style');
   @override
-  late final GeneratedColumn<int> style = GeneratedColumn<int>(
+  late final GeneratedColumn<String> style = GeneratedColumn<String>(
       'style', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+      type: DriftSqlType.string, requiredDuringInsert: true);
   final VerificationMeta _finishTimeMeta = const VerificationMeta('finishTime');
   @override
   late final GeneratedColumn<DateTime> finishTime = GeneratedColumn<DateTime>(
@@ -3885,13 +3885,13 @@ class $DriftRockAttemptsTableTable extends DriftRockAttemptsTable
       treaningId: attachedDatabase.options.types
           .read(DriftSqlType.string, data['${effectivePrefix}treaning_id'])!,
       category: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}category'])!,
+          .read(DriftSqlType.string, data['${effectivePrefix}category'])!,
       route: attachedDatabase.options.types
           .read(DriftSqlType.string, data['${effectivePrefix}route']),
       routeId: attachedDatabase.options.types
           .read(DriftSqlType.string, data['${effectivePrefix}route_id']),
       style: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}style'])!,
+          .read(DriftSqlType.string, data['${effectivePrefix}style'])!,
       finishTime: attachedDatabase.options.types
           .read(DriftSqlType.dateTime, data['${effectivePrefix}finish_time']),
       startTime: attachedDatabase.options.types

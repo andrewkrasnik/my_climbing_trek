@@ -8,7 +8,6 @@ class IceDistrict extends District {
     required super.name,
     required super.region,
     super.image,
-    super.sectors,
     super.id,
   });
 }

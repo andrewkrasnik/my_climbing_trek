@@ -23,16 +23,17 @@ class MockRockRegionsLocalDataSource implements RockRegionsLocalDataSource {
       id: 'dukenskie');
 
   static final dukenskieCentral = RockSectorModel(
-      name: 'Центральный',
-      district: dukinskie,
-      id: 'dukenskie_central',
-      hasRope: true,
-      image:
-          'https://firebasestorage.googleapis.com/v0/b/my-climbing-trek.appspot.com/o/images%2Frock_climbing%2Fdukenskie_central.png?alt=media&token=1b7495e2-fbdf-4bfd-a543-0771f5ddc67c');
+    name: 'Центральный',
+    // district: dukinskie,
+    id: 'dukenskie_central',
+    hasRope: true,
+    image:
+        'https://firebasestorage.googleapis.com/v0/b/my-climbing-trek.appspot.com/o/images%2Frock_climbing%2Fdukenskie_central.png?alt=media&token=1b7495e2-fbdf-4bfd-a543-0771f5ddc67c',
+  );
 
   static final dukenskieCircus = RockSectorModel(
     name: 'Цирк',
-    district: dukinskie,
+    // district: dukinskie,
     id: 'dukenskie_circus',
     image:
         'https://firebasestorage.googleapis.com/v0/b/my-climbing-trek.appspot.com/o/images%2Frock_climbing%2Fdukenskie_circus.png?alt=media&token=20176891-a099-4770-9641-565614e8cb79',

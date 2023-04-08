@@ -5,7 +5,6 @@ import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_secto
 class IceSectorModel extends IceSector {
   IceSectorModel({
     required super.name,
-    required super.district,
     required super.length,
     required super.maxCategory,
     super.image,
@@ -17,7 +16,6 @@ class IceSectorModel extends IceSector {
   });
 
   Map<String, dynamic> toJson() => {
-        'district': district.id,
         'name': name,
         'maxCategory': maxCategory.id,
         'image': image,
@@ -32,7 +30,6 @@ class IceSectorModel extends IceSector {
   factory IceSectorModel.fromJson(
           Map<String, dynamic> json, IceDistrict district) =>
       IceSectorModel(
-        district: district,
         maxCategory: IceCategory.getById(json['maxCategory']),
         name: json['name'],
         length: json['length'] ?? json['lenght'],

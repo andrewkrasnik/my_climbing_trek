@@ -36,7 +36,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
     final naroFominskWestWall = IceSectorModel(
       id: 'narofomWest',
       name: 'Западная стена',
-      district: naroFominsk,
+      // district: naroFominsk,
       description: '',
       length: 14,
       maxCategory: IceCategory.i3,
@@ -48,7 +48,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
     final naroFominskEastWall = IceSectorModel(
       id: 'narofomEast',
       name: 'Восточная стена',
-      district: naroFominsk,
+      // district: naroFominsk,
       description: '',
       length: 14,
       maxCategory: IceCategory.i3,
@@ -60,7 +60,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
     final naroFominskNordWall = IceSectorModel(
       id: 'narofomNord',
       name: 'Северная стена',
-      district: naroFominsk,
+      // district: naroFominsk,
       description: '',
       length: 14,
       maxCategory: IceCategory.i3,
@@ -80,7 +80,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
       id: 'digora1',
       name: 'Стенка',
       length: 40,
-      district: digoria,
+      // district: digoria,
       waterfallIce: true,
       image: 'https://risk.ru/u/img/15/14919-670.jpg',
       maxCategory: IceCategory.i6,
@@ -94,7 +94,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
     final digoriaRivers = IceSectorModel(
       id: 'digora2',
       name: 'Ручейки',
-      district: digoria,
+      // district: digoria,
       waterfallIce: true,
       image: 'https://risk.ru/u/img/15/14924-670.jpg',
       length: 50,
@@ -112,7 +112,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
     final digoriaAihva = IceSectorModel(
       id: 'digora3',
       name: 'Айхва',
-      district: digoria,
+      // district: digoria,
       waterfallIce: true,
       image: 'https://risk.ru/u/img/15/14924-670.jpg',
       length: 80,
@@ -126,7 +126,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
     final digoriaKubus = IceSectorModel(
       id: 'digora4',
       name: 'Кубус 2000',
-      district: digoria,
+      // district: digoria,
       waterfallIce: true,
       image: 'http://caas.ru/taimazy/taym_09_2_small.jpg',
       length: 65,
@@ -149,7 +149,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
     final digoriaKubusik = IceSectorModel(
       name: 'Кубусик',
       id: 'digora5',
-      district: digoria,
+      // district: digoria,
       waterfallIce: true,
       image: 'http://caas.ru/taimazy/taym_10_small.jpg',
       length: 20,
@@ -164,7 +164,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
     final digoriaToof = IceSectorModel(
       id: 'digora6',
       name: 'Зубовый',
-      district: digoria,
+      // district: digoria,
       waterfallIce: true,
       image: 'http://caas.ru/taimazy/taym_11_small.jpg',
       length: 35,
@@ -179,7 +179,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
     final digoriaKindom = IceSectorModel(
       id: 'digora7',
       name: 'Ледовое Королевство 1-ый каскад',
-      district: digoria,
+      // district: digoria,
       waterfallIce: true,
       image: 'http://caas.ru/taimazy/taym_13_2_small.jpg',
       length: 20,
@@ -198,7 +198,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
     final digoriaKrown = IceSectorModel(
       id: 'digora8',
       name: 'Ледовое королевство  каскад "Корона"',
-      district: digoria,
+      // district: digoria,
       waterfallIce: true,
       image: 'http://caas.ru/taimazy/taym_14_2_small.jpg',
       length: 25,
@@ -217,7 +217,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
     final digoriaKurazh = IceSectorModel(
       id: 'digora9',
       name: 'Ледовое королевство  каскад "Кураж"',
-      district: digoria,
+      // district: digoria,
       waterfallIce: true,
       image: 'http://caas.ru/taimazy/taym_15_2_small.jpg',
       length: 25,
@@ -232,7 +232,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
     final digoriaDushik = IceSectorModel(
       id: 'digora10',
       name: 'Душик ада',
-      district: digoria,
+      // district: digoria,
       waterfallIce: true,
       image: 'http://caas.ru/taimazy/shell_small.jpg',
       length: 80,
@@ -247,7 +247,7 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
     final digoriaBlue = IceSectorModel(
       id: 'digora11',
       name: 'Голубая щель',
-      district: digoria,
+      // district: digoria,
       waterfallIce: true,
       image: 'https://risk.ru/u/img/15/14924-670.jpg',
       length: 40,
