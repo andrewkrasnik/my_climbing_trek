@@ -153,7 +153,7 @@ import 'features/ice_climbing/presentation/bloc/ice_districts/ice_districts_cubi
     as _i103;
 import 'features/ice_climbing/presentation/bloc/ice_sectors/ice_sectors_cubit.dart'
     as _i105;
-import 'features/rock_climbing/data/datasources/mock_rock_regions_local_datasource.dart'
+import 'features/rock_climbing/data/datasources/hive_rock_regions_local_datasource.dart'
     as _i35;
 import 'features/rock_climbing/data/datasources/mock_rock_treanings_local_datasource.dart'
     as _i39;
@@ -326,7 +326,7 @@ _i1.GetIt $initGetIt(
         get<_i7.FirebaseAuth>(),
       ));
   gh.lazySingleton<_i34.RockRegionsLocalDataSource>(
-      () => _i35.MockRockRegionsLocalDataSource());
+      () => _i35.HiveRockRegionsLocalDataSource());
   gh.lazySingleton<_i36.RockRegionsRepository>(() =>
       _i37.RockRegionsRepositoryImpl(get<_i34.RockRegionsLocalDataSource>()));
   gh.lazySingleton<_i38.RockTreaningsLocalDataSource>(
