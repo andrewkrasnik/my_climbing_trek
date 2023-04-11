@@ -9,10 +9,12 @@ part of 'region_model.dart';
 RegionModel _$RegionModelFromJson(Map<String, dynamic> json) => RegionModel(
       name: json['name'] as String,
       id: json['id'] as String? ?? '',
+      image: json['image'] as String?,
     );
 
 Map<String, dynamic> _$RegionModelToJson(RegionModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
+      'image': instance.image,
     };
