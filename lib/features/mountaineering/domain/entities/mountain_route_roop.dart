@@ -17,5 +17,6 @@ class MountainRouteRoop extends DataWithUUID {
     required this.slope,
     this.anchor = '',
     this.boltCount = 0,
+    super.id,
   });
 }

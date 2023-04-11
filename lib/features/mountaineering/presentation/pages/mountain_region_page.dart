@@ -59,6 +59,7 @@ class MountainRegionPage extends StatelessWidget {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => MountainPage(
                                         mountain: dataState.mountains[index],
+                                        region: region,
                                       )));
                             },
                             child: MountainWidget(

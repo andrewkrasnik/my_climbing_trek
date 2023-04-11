@@ -105,7 +105,7 @@ class MountainRegionsLocalDataSourceImpl
         type: MountainRouteType.rock,
         roops: [],
         id: 'racekaTreeA',
-        name: 'По западному угребню',
+        name: 'По западному гребню',
       ),
     ],
   };
@@ -123,7 +123,7 @@ class MountainRegionsLocalDataSourceImpl
 
   @override
   Future<Either<Failure, List<MountainRoute>>> routes(
-      {required Mountain mountain}) async {
+      {required Region region, required Mountain mountain}) async {
     return Right(_routes[mountain]!);
   }
 }

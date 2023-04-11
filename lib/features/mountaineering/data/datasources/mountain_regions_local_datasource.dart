@@ -10,5 +10,5 @@ abstract class MountainRegionsLocalDataSource {
   Future<Either<Failure, List<Mountain>>> mountains({required Region region});
 
   Future<Either<Failure, List<MountainRoute>>> routes(
-      {required Mountain mountain});
+      {required Region region, required Mountain mountain});
 }

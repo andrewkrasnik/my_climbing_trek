@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:my_climbing_trek/core/data/region.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountain.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountain_route.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/usecases/get_mountain_routes.dart';
@@ -15,9 +16,11 @@ class MountainRoutesCubit extends Cubit<MountainRoutesState> {
   MountainRoutesCubit(this._getMountainRoutes)
       : super(const MountainRoutesState.initial());
 
-  Future<void> loadData({required Mountain mountain}) async {
+  Future<void> loadData(
+      {required Region region, required Mountain mountain}) async {
     emit(const MountainRoutesState.loading());
-    final failureOrRoutes = await _getMountainRoutes(mountain: mountain);
+    final failureOrRoutes =
+        await _getMountainRoutes(mountain: mountain, region: region);
     failureOrRoutes.fold(
         (failure) =>
             emit(MountainRoutesState.error(description: failure.toString())),

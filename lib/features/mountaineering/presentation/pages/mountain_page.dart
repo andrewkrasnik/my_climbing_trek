@@ -1,3 +1,4 @@
+import 'package:my_climbing_trek/core/data/region.dart';
 import 'package:my_climbing_trek/core/widgets/my_cached_network_image.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountain.dart';
 import 'package:my_climbing_trek/features/mountaineering/presentation/bloc/mountain_routes/mountain_routes_cubit.dart';
@@ -8,9 +9,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MountainPage extends StatelessWidget {
   final Mountain mountain;
+  final Region region;
 
   const MountainPage({
     required this.mountain,
+    required this.region,
     Key? key,
   }) : super(key: key);
 
@@ -43,8 +46,8 @@ class MountainPage extends StatelessWidget {
               ),
             ),
             BlocProvider(
-              create: (context) =>
-                  getIt<MountainRoutesCubit>()..loadData(mountain: mountain),
+              create: (context) => getIt<MountainRoutesCubit>()
+                ..loadData(mountain: mountain, region: region),
               child: BlocBuilder<MountainRoutesCubit, MountainRoutesState>(
                 builder: (context, state) {
                   return state.maybeMap(
