@@ -137,7 +137,7 @@ class AttemptClickWidget extends StatelessWidget {
           Positioned(
             top: 6,
             child: Text(
-              '${attempt.length}м',
+              '${attempt.wayLength}м',
               style: const TextStyle(
                 fontSize: 10,
                 fontWeight: FontWeight.bold,

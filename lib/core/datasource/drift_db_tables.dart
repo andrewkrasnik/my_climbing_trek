@@ -93,10 +93,12 @@ class DriftHallAttemptsTable extends Table {
 @DataClassName('DriftIceTreanings')
 class DriftIceTreaningsTable extends Table {
   TextColumn get id => text().unique()();
+  TextColumn get district => text()();
   TextColumn get districtId => text()();
   DateTimeColumn get date => dateTime()();
   DateTimeColumn get finish => dateTime().nullable()();
   DateTimeColumn get start => dateTime().nullable()();
+  TextColumn get sectors => text().nullable()();
 
   @override
   Set<Column>? get primaryKey => {id};
@@ -106,13 +108,13 @@ class DriftIceTreaningsTable extends Table {
 class DriftIceAttemptsTable extends Table {
   TextColumn get id => text().unique()();
   TextColumn get sector => text()();
+  TextColumn get sectorId => text()();
   TextColumn get treaningId => text().references(DriftIceTreaningsTable, #id)();
   TextColumn get category => text()();
   TextColumn get style => text()();
   DateTimeColumn get finishTime => dateTime().nullable()();
   DateTimeColumn get startTime => dateTime().nullable()();
-
-  IntColumn get wayLength => integer()();
+  IntColumn get wayLength => integer().nullable()();
   IntColumn get suspensionCount => integer()();
   IntColumn get fallCount => integer()();
   BoolColumn get downClimbing => boolean()();

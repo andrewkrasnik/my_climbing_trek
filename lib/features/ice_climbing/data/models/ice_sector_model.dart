@@ -1,7 +1,16 @@
-import 'package:my_climbing_trek/core/data/ice_category.dart';
-import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_district.dart';
+import 'package:my_climbing_trek/core/datasource/converters.dart';
+import 'package:my_climbing_trek/features/ice_climbing/data/models/converters.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_sector.dart';
 
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'ice_sector_model.g.dart';
+
+@JsonSerializable(converters: [
+  DistrictConverter(),
+  IceDistrictConverter(),
+  IceCategoryConverter(),
+])
 class IceSectorModel extends IceSector {
   IceSectorModel({
     required super.name,
@@ -15,27 +24,8 @@ class IceSectorModel extends IceSector {
     super.id,
   });
 
-  Map<String, dynamic> toJson() => {
-        'name': name,
-        'maxCategory': maxCategory.id,
-        'image': image,
-        'waterfallIce': waterfallIce,
-        'glacierIce': glacierIce,
-        'artificialIce': artificialIce,
-        'description': description,
-        'length': length,
-        'id': id,
-      };
+  factory IceSectorModel.fromJson(Map<String, dynamic> json) =>
+      _$IceSectorModelFromJson(json);
 
-  factory IceSectorModel.fromJson(Map<String, dynamic> json) => IceSectorModel(
-        maxCategory: IceCategory.getById(json['maxCategory']),
-        name: json['name'],
-        length: json['length'] ?? json['lenght'],
-        waterfallIce: json['waterfallIce'] ?? false,
-        glacierIce: json['glacierIce'] ?? false,
-        artificialIce: json['artificialIce'] ?? false,
-        image: json['image'],
-        description: json['description'],
-        id: json['id'],
-      );
+  Map<String, dynamic> toJson() => _$IceSectorModelToJson(this);
 }

@@ -34,7 +34,7 @@ class IceAttemptWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                '${attempt.sector.name}, ${attempt.length} м. ${attempt.style.name}',
+                '${attempt.sector.name}, ${attempt.wayLength} м. ${attempt.style.name}',
                 style: Theme.of(context).textTheme.labelLarge,
               ),
               const SizedBox(height: 8),

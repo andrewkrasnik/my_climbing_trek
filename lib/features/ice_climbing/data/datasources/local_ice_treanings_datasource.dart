@@ -115,32 +115,12 @@ class LocalIceTreaningsDataSource implements IceTreaningsDataSource {
       orderByConditions: {'start_time': false},
     );
 
-    if (_districts == null) {
-      final dataSource = getIt<IceRegionsDataSource>();
-      final failureOrList = await dataSource.getDistricts();
-
-      _sectors = {};
-
-      await failureOrList.fold((_) async => null, (list) async {
-        _districts = {for (final item in list) item.id: item};
-
-        for (var district in list) {
-          final failureOrSectors =
-              await dataSource.getSectors(district: district);
-
-          failureOrSectors.fold((l) => null, (sectors) {
-            _sectors!.addAll({for (final item in sectors) item.id: item});
-          });
-        }
-      });
-    }
-
     json['attempts'] = failureOrLines.fold(
       (l) => [],
       (lines) => lines,
     );
 
-    return IceTreaningModel.fromJson(json, _districts!, _sectors!);
+    return IceTreaningModel.fromJson(json);
   }
 
   Map<String, dynamic> _convertTreaning({required IceTreaning treaning}) {
@@ -153,8 +133,8 @@ class LocalIceTreaningsDataSource implements IceTreaningsDataSource {
         start: treaning.start,
         id: treaning.id,
         district: treaning.district,
-        sectors: treaning.sectors,
         attempts: treaning.attempts,
+        sectors: treaning.sectors,
       ).toJson();
     }
   }

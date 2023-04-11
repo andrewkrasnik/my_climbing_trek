@@ -28,108 +28,113 @@ class IceAttemptDialog extends HookWidget {
     final failState = useState<bool>(attempt.fail);
     final iceScrewsCountState = useState<int>(attempt.iceScrewsCount);
     final installedIceScrewsState = useState<bool>(attempt.installedIceScrews);
-    final lengthState = useState<int>(attempt.length);
+    final lengthState = useState<int>(attempt.wayLength);
     return AlertDialog(
-      content: Padding(
-        padding: const EdgeInsets.all(8),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            IceCategoryWidget(category: attempt.category),
-            Text(attempt.style.toString()),
-            Text('Сектор: ${attempt.sector.name}'),
-            Text('Пройдено ${lengthState.value} м.'),
-            if (editing)
-              Row(
-                children: [
-                  Slider(
-                    value: lengthState.value.toDouble(),
-                    min: 0,
-                    divisions: attempt.sector.length,
-                    max: attempt.sector.length.toDouble(),
-                    onChanged: editing
-                        ? (value) {
-                            lengthState.value = value.toInt();
-                          }
-                        : null,
-                  ),
-                  Text('${attempt.sector.length} м.'),
-                ],
-              ),
-            if (editing)
-              Row(
-                children: [
-                  const Text('Инструменты:'),
-                  Column(
-                    children: [
-                      Radio(
-                          value: 2,
-                          groupValue: toolsCountState.value,
-                          onChanged: editing
-                              ? (value) {
-                                  toolsCountState.value = (value as int?) ?? 2;
-                                }
-                              : null),
-                      const Text('2'),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Radio(
-                          value: 1,
-                          groupValue: toolsCountState.value,
-                          onChanged: editing
-                              ? (value) {
-                                  toolsCountState.value = (value as int?) ?? 2;
-                                }
-                              : null),
-                      const Text('1'),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Radio(
-                          value: 0,
-                          groupValue: toolsCountState.value,
-                          onChanged: editing
-                              ? (value) {
-                                  toolsCountState.value = (value as int?) ?? 2;
-                                }
-                              : null),
-                      const Text('0'),
-                    ],
-                  ),
-                ],
-              ),
-            if (!editing) Text('Инструменты: ${attempt.toolsCount}'),
-            if (attempt.style == ClimbingStyle.lead) ...[
+      content: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              IceCategoryWidget(category: attempt.category),
+              Text(attempt.style.toString()),
+              Text('Сектор: ${attempt.sector.name}'),
+              Text('Пройдено ${lengthState.value} м.'),
+              if (editing)
+                Row(
+                  children: [
+                    Slider(
+                      value: lengthState.value.toDouble(),
+                      min: 0,
+                      divisions: attempt.sector.length,
+                      max: attempt.sector.length.toDouble(),
+                      onChanged: editing
+                          ? (value) {
+                              lengthState.value = value.toInt();
+                            }
+                          : null,
+                    ),
+                    Text('${attempt.sector.length} м.'),
+                  ],
+                ),
+              if (editing)
+                Row(
+                  children: [
+                    const Text('Инструменты:'),
+                    Column(
+                      children: [
+                        Radio(
+                            value: 2,
+                            groupValue: toolsCountState.value,
+                            onChanged: editing
+                                ? (value) {
+                                    toolsCountState.value =
+                                        (value as int?) ?? 2;
+                                  }
+                                : null),
+                        const Text('2'),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Radio(
+                            value: 1,
+                            groupValue: toolsCountState.value,
+                            onChanged: editing
+                                ? (value) {
+                                    toolsCountState.value =
+                                        (value as int?) ?? 2;
+                                  }
+                                : null),
+                        const Text('1'),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Radio(
+                            value: 0,
+                            groupValue: toolsCountState.value,
+                            onChanged: editing
+                                ? (value) {
+                                    toolsCountState.value =
+                                        (value as int?) ?? 2;
+                                  }
+                                : null),
+                        const Text('0'),
+                      ],
+                    ),
+                  ],
+                ),
+              if (!editing) Text('Инструменты: ${attempt.toolsCount}'),
+              if (attempt.style == ClimbingStyle.lead) ...[
+                IntCounterWidget(
+                  title: 'Использовано буров:',
+                  valueState: iceScrewsCountState,
+                  editing: editing,
+                ),
+                BoolValueWidget(
+                    title: 'Буры предустановлены',
+                    valueState: installedIceScrewsState,
+                    editing: editing),
+              ],
+              BoolValueWidget(
+                  title: 'Недолез', valueState: failState, editing: editing),
               IntCounterWidget(
-                title: 'Использовано буров:',
-                valueState: iceScrewsCountState,
+                title: 'Зависаний:',
+                valueState: suspensionCountState,
+                editing: editing,
+              ),
+              IntCounterWidget(
+                title: 'Срывов:',
+                valueState: fallCountState,
                 editing: editing,
               ),
               BoolValueWidget(
-                  title: 'Буры предустановлены',
-                  valueState: installedIceScrewsState,
+                  title: 'Спуск лазаньем',
+                  valueState: downClimbingState,
                   editing: editing),
             ],
-            BoolValueWidget(
-                title: 'Недолез', valueState: failState, editing: editing),
-            IntCounterWidget(
-              title: 'Зависаний:',
-              valueState: suspensionCountState,
-              editing: editing,
-            ),
-            IntCounterWidget(
-              title: 'Срывов:',
-              valueState: fallCountState,
-              editing: editing,
-            ),
-            BoolValueWidget(
-                title: 'Спуск лазаньем',
-                valueState: downClimbingState,
-                editing: editing),
-          ],
+          ),
         ),
       ),
       actions: [

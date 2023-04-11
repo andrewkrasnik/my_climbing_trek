@@ -1960,20 +1960,25 @@ class $DriftStrengthTreaningLinesTableTable
 class DriftIceTreanings extends DataClass
     implements Insertable<DriftIceTreanings> {
   final String id;
+  final String district;
   final String districtId;
   final DateTime date;
   final DateTime? finish;
   final DateTime? start;
+  final String? sectors;
   const DriftIceTreanings(
       {required this.id,
+      required this.district,
       required this.districtId,
       required this.date,
       this.finish,
-      this.start});
+      this.start,
+      this.sectors});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<String>(id);
+    map['district'] = Variable<String>(district);
     map['district_id'] = Variable<String>(districtId);
     map['date'] = Variable<DateTime>(date);
     if (!nullToAbsent || finish != null) {
@@ -1982,18 +1987,25 @@ class DriftIceTreanings extends DataClass
     if (!nullToAbsent || start != null) {
       map['start'] = Variable<DateTime>(start);
     }
+    if (!nullToAbsent || sectors != null) {
+      map['sectors'] = Variable<String>(sectors);
+    }
     return map;
   }
 
   DriftIceTreaningsTableCompanion toCompanion(bool nullToAbsent) {
     return DriftIceTreaningsTableCompanion(
       id: Value(id),
+      district: Value(district),
       districtId: Value(districtId),
       date: Value(date),
       finish:
           finish == null && nullToAbsent ? const Value.absent() : Value(finish),
       start:
           start == null && nullToAbsent ? const Value.absent() : Value(start),
+      sectors: sectors == null && nullToAbsent
+          ? const Value.absent()
+          : Value(sectors),
     );
   }
 
@@ -2002,10 +2014,12 @@ class DriftIceTreanings extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return DriftIceTreanings(
       id: serializer.fromJson<String>(json['id']),
+      district: serializer.fromJson<String>(json['district']),
       districtId: serializer.fromJson<String>(json['districtId']),
       date: serializer.fromJson<DateTime>(json['date']),
       finish: serializer.fromJson<DateTime?>(json['finish']),
       start: serializer.fromJson<DateTime?>(json['start']),
+      sectors: serializer.fromJson<String?>(json['sectors']),
     );
   }
   @override
@@ -2013,102 +2027,128 @@ class DriftIceTreanings extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<String>(id),
+      'district': serializer.toJson<String>(district),
       'districtId': serializer.toJson<String>(districtId),
       'date': serializer.toJson<DateTime>(date),
       'finish': serializer.toJson<DateTime?>(finish),
       'start': serializer.toJson<DateTime?>(start),
+      'sectors': serializer.toJson<String?>(sectors),
     };
   }
 
   DriftIceTreanings copyWith(
           {String? id,
+          String? district,
           String? districtId,
           DateTime? date,
           Value<DateTime?> finish = const Value.absent(),
-          Value<DateTime?> start = const Value.absent()}) =>
+          Value<DateTime?> start = const Value.absent(),
+          Value<String?> sectors = const Value.absent()}) =>
       DriftIceTreanings(
         id: id ?? this.id,
+        district: district ?? this.district,
         districtId: districtId ?? this.districtId,
         date: date ?? this.date,
         finish: finish.present ? finish.value : this.finish,
         start: start.present ? start.value : this.start,
+        sectors: sectors.present ? sectors.value : this.sectors,
       );
   @override
   String toString() {
     return (StringBuffer('DriftIceTreanings(')
           ..write('id: $id, ')
+          ..write('district: $district, ')
           ..write('districtId: $districtId, ')
           ..write('date: $date, ')
           ..write('finish: $finish, ')
-          ..write('start: $start')
+          ..write('start: $start, ')
+          ..write('sectors: $sectors')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, districtId, date, finish, start);
+  int get hashCode =>
+      Object.hash(id, district, districtId, date, finish, start, sectors);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is DriftIceTreanings &&
           other.id == this.id &&
+          other.district == this.district &&
           other.districtId == this.districtId &&
           other.date == this.date &&
           other.finish == this.finish &&
-          other.start == this.start);
+          other.start == this.start &&
+          other.sectors == this.sectors);
 }
 
 class DriftIceTreaningsTableCompanion
     extends UpdateCompanion<DriftIceTreanings> {
   final Value<String> id;
+  final Value<String> district;
   final Value<String> districtId;
   final Value<DateTime> date;
   final Value<DateTime?> finish;
   final Value<DateTime?> start;
+  final Value<String?> sectors;
   const DriftIceTreaningsTableCompanion({
     this.id = const Value.absent(),
+    this.district = const Value.absent(),
     this.districtId = const Value.absent(),
     this.date = const Value.absent(),
     this.finish = const Value.absent(),
     this.start = const Value.absent(),
+    this.sectors = const Value.absent(),
   });
   DriftIceTreaningsTableCompanion.insert({
     required String id,
+    required String district,
     required String districtId,
     required DateTime date,
     this.finish = const Value.absent(),
     this.start = const Value.absent(),
+    this.sectors = const Value.absent(),
   })  : id = Value(id),
+        district = Value(district),
         districtId = Value(districtId),
         date = Value(date);
   static Insertable<DriftIceTreanings> custom({
     Expression<String>? id,
+    Expression<String>? district,
     Expression<String>? districtId,
     Expression<DateTime>? date,
     Expression<DateTime>? finish,
     Expression<DateTime>? start,
+    Expression<String>? sectors,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
+      if (district != null) 'district': district,
       if (districtId != null) 'district_id': districtId,
       if (date != null) 'date': date,
       if (finish != null) 'finish': finish,
       if (start != null) 'start': start,
+      if (sectors != null) 'sectors': sectors,
     });
   }
 
   DriftIceTreaningsTableCompanion copyWith(
       {Value<String>? id,
+      Value<String>? district,
       Value<String>? districtId,
       Value<DateTime>? date,
       Value<DateTime?>? finish,
-      Value<DateTime?>? start}) {
+      Value<DateTime?>? start,
+      Value<String?>? sectors}) {
     return DriftIceTreaningsTableCompanion(
       id: id ?? this.id,
+      district: district ?? this.district,
       districtId: districtId ?? this.districtId,
       date: date ?? this.date,
       finish: finish ?? this.finish,
       start: start ?? this.start,
+      sectors: sectors ?? this.sectors,
     );
   }
 
@@ -2117,6 +2157,9 @@ class DriftIceTreaningsTableCompanion
     final map = <String, Expression>{};
     if (id.present) {
       map['id'] = Variable<String>(id.value);
+    }
+    if (district.present) {
+      map['district'] = Variable<String>(district.value);
     }
     if (districtId.present) {
       map['district_id'] = Variable<String>(districtId.value);
@@ -2130,6 +2173,9 @@ class DriftIceTreaningsTableCompanion
     if (start.present) {
       map['start'] = Variable<DateTime>(start.value);
     }
+    if (sectors.present) {
+      map['sectors'] = Variable<String>(sectors.value);
+    }
     return map;
   }
 
@@ -2137,10 +2183,12 @@ class DriftIceTreaningsTableCompanion
   String toString() {
     return (StringBuffer('DriftIceTreaningsTableCompanion(')
           ..write('id: $id, ')
+          ..write('district: $district, ')
           ..write('districtId: $districtId, ')
           ..write('date: $date, ')
           ..write('finish: $finish, ')
-          ..write('start: $start')
+          ..write('start: $start, ')
+          ..write('sectors: $sectors')
           ..write(')'))
         .toString();
   }
@@ -2159,6 +2207,11 @@ class $DriftIceTreaningsTableTable extends DriftIceTreaningsTable
       type: DriftSqlType.string,
       requiredDuringInsert: true,
       defaultConstraints: 'UNIQUE');
+  final VerificationMeta _districtMeta = const VerificationMeta('district');
+  @override
+  late final GeneratedColumn<String> district = GeneratedColumn<String>(
+      'district', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   final VerificationMeta _districtIdMeta = const VerificationMeta('districtId');
   @override
   late final GeneratedColumn<String> districtId = GeneratedColumn<String>(
@@ -2179,8 +2232,14 @@ class $DriftIceTreaningsTableTable extends DriftIceTreaningsTable
   late final GeneratedColumn<DateTime> start = GeneratedColumn<DateTime>(
       'start', aliasedName, true,
       type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  final VerificationMeta _sectorsMeta = const VerificationMeta('sectors');
   @override
-  List<GeneratedColumn> get $columns => [id, districtId, date, finish, start];
+  late final GeneratedColumn<String> sectors = GeneratedColumn<String>(
+      'sectors', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, district, districtId, date, finish, start, sectors];
   @override
   String get aliasedName => _alias ?? 'drift_ice_treanings_table';
   @override
@@ -2194,6 +2253,12 @@ class $DriftIceTreaningsTableTable extends DriftIceTreaningsTable
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     } else if (isInserting) {
       context.missing(_idMeta);
+    }
+    if (data.containsKey('district')) {
+      context.handle(_districtMeta,
+          district.isAcceptableOrUnknown(data['district']!, _districtMeta));
+    } else if (isInserting) {
+      context.missing(_districtMeta);
     }
     if (data.containsKey('district_id')) {
       context.handle(
@@ -2217,6 +2282,10 @@ class $DriftIceTreaningsTableTable extends DriftIceTreaningsTable
       context.handle(
           _startMeta, start.isAcceptableOrUnknown(data['start']!, _startMeta));
     }
+    if (data.containsKey('sectors')) {
+      context.handle(_sectorsMeta,
+          sectors.isAcceptableOrUnknown(data['sectors']!, _sectorsMeta));
+    }
     return context;
   }
 
@@ -2228,6 +2297,8 @@ class $DriftIceTreaningsTableTable extends DriftIceTreaningsTable
     return DriftIceTreanings(
       id: attachedDatabase.options.types
           .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      district: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}district'])!,
       districtId: attachedDatabase.options.types
           .read(DriftSqlType.string, data['${effectivePrefix}district_id'])!,
       date: attachedDatabase.options.types
@@ -2236,6 +2307,8 @@ class $DriftIceTreaningsTableTable extends DriftIceTreaningsTable
           .read(DriftSqlType.dateTime, data['${effectivePrefix}finish']),
       start: attachedDatabase.options.types
           .read(DriftSqlType.dateTime, data['${effectivePrefix}start']),
+      sectors: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}sectors']),
     );
   }
 
@@ -2248,12 +2321,13 @@ class $DriftIceTreaningsTableTable extends DriftIceTreaningsTable
 class DriftIceAttempt extends DataClass implements Insertable<DriftIceAttempt> {
   final String id;
   final String sector;
+  final String sectorId;
   final String treaningId;
   final String category;
   final String style;
   final DateTime? finishTime;
   final DateTime? startTime;
-  final int wayLength;
+  final int? wayLength;
   final int suspensionCount;
   final int fallCount;
   final bool downClimbing;
@@ -2264,12 +2338,13 @@ class DriftIceAttempt extends DataClass implements Insertable<DriftIceAttempt> {
   const DriftIceAttempt(
       {required this.id,
       required this.sector,
+      required this.sectorId,
       required this.treaningId,
       required this.category,
       required this.style,
       this.finishTime,
       this.startTime,
-      required this.wayLength,
+      this.wayLength,
       required this.suspensionCount,
       required this.fallCount,
       required this.downClimbing,
@@ -2282,6 +2357,7 @@ class DriftIceAttempt extends DataClass implements Insertable<DriftIceAttempt> {
     final map = <String, Expression>{};
     map['id'] = Variable<String>(id);
     map['sector'] = Variable<String>(sector);
+    map['sector_id'] = Variable<String>(sectorId);
     map['treaning_id'] = Variable<String>(treaningId);
     map['category'] = Variable<String>(category);
     map['style'] = Variable<String>(style);
@@ -2291,7 +2367,9 @@ class DriftIceAttempt extends DataClass implements Insertable<DriftIceAttempt> {
     if (!nullToAbsent || startTime != null) {
       map['start_time'] = Variable<DateTime>(startTime);
     }
-    map['way_length'] = Variable<int>(wayLength);
+    if (!nullToAbsent || wayLength != null) {
+      map['way_length'] = Variable<int>(wayLength);
+    }
     map['suspension_count'] = Variable<int>(suspensionCount);
     map['fall_count'] = Variable<int>(fallCount);
     map['down_climbing'] = Variable<bool>(downClimbing);
@@ -2306,6 +2384,7 @@ class DriftIceAttempt extends DataClass implements Insertable<DriftIceAttempt> {
     return DriftIceAttemptsTableCompanion(
       id: Value(id),
       sector: Value(sector),
+      sectorId: Value(sectorId),
       treaningId: Value(treaningId),
       category: Value(category),
       style: Value(style),
@@ -2315,7 +2394,9 @@ class DriftIceAttempt extends DataClass implements Insertable<DriftIceAttempt> {
       startTime: startTime == null && nullToAbsent
           ? const Value.absent()
           : Value(startTime),
-      wayLength: Value(wayLength),
+      wayLength: wayLength == null && nullToAbsent
+          ? const Value.absent()
+          : Value(wayLength),
       suspensionCount: Value(suspensionCount),
       fallCount: Value(fallCount),
       downClimbing: Value(downClimbing),
@@ -2332,12 +2413,13 @@ class DriftIceAttempt extends DataClass implements Insertable<DriftIceAttempt> {
     return DriftIceAttempt(
       id: serializer.fromJson<String>(json['id']),
       sector: serializer.fromJson<String>(json['sector']),
+      sectorId: serializer.fromJson<String>(json['sectorId']),
       treaningId: serializer.fromJson<String>(json['treaningId']),
       category: serializer.fromJson<String>(json['category']),
       style: serializer.fromJson<String>(json['style']),
       finishTime: serializer.fromJson<DateTime?>(json['finishTime']),
       startTime: serializer.fromJson<DateTime?>(json['startTime']),
-      wayLength: serializer.fromJson<int>(json['wayLength']),
+      wayLength: serializer.fromJson<int?>(json['wayLength']),
       suspensionCount: serializer.fromJson<int>(json['suspensionCount']),
       fallCount: serializer.fromJson<int>(json['fallCount']),
       downClimbing: serializer.fromJson<bool>(json['downClimbing']),
@@ -2353,12 +2435,13 @@ class DriftIceAttempt extends DataClass implements Insertable<DriftIceAttempt> {
     return <String, dynamic>{
       'id': serializer.toJson<String>(id),
       'sector': serializer.toJson<String>(sector),
+      'sectorId': serializer.toJson<String>(sectorId),
       'treaningId': serializer.toJson<String>(treaningId),
       'category': serializer.toJson<String>(category),
       'style': serializer.toJson<String>(style),
       'finishTime': serializer.toJson<DateTime?>(finishTime),
       'startTime': serializer.toJson<DateTime?>(startTime),
-      'wayLength': serializer.toJson<int>(wayLength),
+      'wayLength': serializer.toJson<int?>(wayLength),
       'suspensionCount': serializer.toJson<int>(suspensionCount),
       'fallCount': serializer.toJson<int>(fallCount),
       'downClimbing': serializer.toJson<bool>(downClimbing),
@@ -2372,12 +2455,13 @@ class DriftIceAttempt extends DataClass implements Insertable<DriftIceAttempt> {
   DriftIceAttempt copyWith(
           {String? id,
           String? sector,
+          String? sectorId,
           String? treaningId,
           String? category,
           String? style,
           Value<DateTime?> finishTime = const Value.absent(),
           Value<DateTime?> startTime = const Value.absent(),
-          int? wayLength,
+          Value<int?> wayLength = const Value.absent(),
           int? suspensionCount,
           int? fallCount,
           bool? downClimbing,
@@ -2388,12 +2472,13 @@ class DriftIceAttempt extends DataClass implements Insertable<DriftIceAttempt> {
       DriftIceAttempt(
         id: id ?? this.id,
         sector: sector ?? this.sector,
+        sectorId: sectorId ?? this.sectorId,
         treaningId: treaningId ?? this.treaningId,
         category: category ?? this.category,
         style: style ?? this.style,
         finishTime: finishTime.present ? finishTime.value : this.finishTime,
         startTime: startTime.present ? startTime.value : this.startTime,
-        wayLength: wayLength ?? this.wayLength,
+        wayLength: wayLength.present ? wayLength.value : this.wayLength,
         suspensionCount: suspensionCount ?? this.suspensionCount,
         fallCount: fallCount ?? this.fallCount,
         downClimbing: downClimbing ?? this.downClimbing,
@@ -2407,6 +2492,7 @@ class DriftIceAttempt extends DataClass implements Insertable<DriftIceAttempt> {
     return (StringBuffer('DriftIceAttempt(')
           ..write('id: $id, ')
           ..write('sector: $sector, ')
+          ..write('sectorId: $sectorId, ')
           ..write('treaningId: $treaningId, ')
           ..write('category: $category, ')
           ..write('style: $style, ')
@@ -2428,6 +2514,7 @@ class DriftIceAttempt extends DataClass implements Insertable<DriftIceAttempt> {
   int get hashCode => Object.hash(
       id,
       sector,
+      sectorId,
       treaningId,
       category,
       style,
@@ -2447,6 +2534,7 @@ class DriftIceAttempt extends DataClass implements Insertable<DriftIceAttempt> {
       (other is DriftIceAttempt &&
           other.id == this.id &&
           other.sector == this.sector &&
+          other.sectorId == this.sectorId &&
           other.treaningId == this.treaningId &&
           other.category == this.category &&
           other.style == this.style &&
@@ -2465,12 +2553,13 @@ class DriftIceAttempt extends DataClass implements Insertable<DriftIceAttempt> {
 class DriftIceAttemptsTableCompanion extends UpdateCompanion<DriftIceAttempt> {
   final Value<String> id;
   final Value<String> sector;
+  final Value<String> sectorId;
   final Value<String> treaningId;
   final Value<String> category;
   final Value<String> style;
   final Value<DateTime?> finishTime;
   final Value<DateTime?> startTime;
-  final Value<int> wayLength;
+  final Value<int?> wayLength;
   final Value<int> suspensionCount;
   final Value<int> fallCount;
   final Value<bool> downClimbing;
@@ -2481,6 +2570,7 @@ class DriftIceAttemptsTableCompanion extends UpdateCompanion<DriftIceAttempt> {
   const DriftIceAttemptsTableCompanion({
     this.id = const Value.absent(),
     this.sector = const Value.absent(),
+    this.sectorId = const Value.absent(),
     this.treaningId = const Value.absent(),
     this.category = const Value.absent(),
     this.style = const Value.absent(),
@@ -2498,12 +2588,13 @@ class DriftIceAttemptsTableCompanion extends UpdateCompanion<DriftIceAttempt> {
   DriftIceAttemptsTableCompanion.insert({
     required String id,
     required String sector,
+    required String sectorId,
     required String treaningId,
     required String category,
     required String style,
     this.finishTime = const Value.absent(),
     this.startTime = const Value.absent(),
-    required int wayLength,
+    this.wayLength = const Value.absent(),
     required int suspensionCount,
     required int fallCount,
     required bool downClimbing,
@@ -2513,10 +2604,10 @@ class DriftIceAttemptsTableCompanion extends UpdateCompanion<DriftIceAttempt> {
     required int toolsCount,
   })  : id = Value(id),
         sector = Value(sector),
+        sectorId = Value(sectorId),
         treaningId = Value(treaningId),
         category = Value(category),
         style = Value(style),
-        wayLength = Value(wayLength),
         suspensionCount = Value(suspensionCount),
         fallCount = Value(fallCount),
         downClimbing = Value(downClimbing),
@@ -2527,6 +2618,7 @@ class DriftIceAttemptsTableCompanion extends UpdateCompanion<DriftIceAttempt> {
   static Insertable<DriftIceAttempt> custom({
     Expression<String>? id,
     Expression<String>? sector,
+    Expression<String>? sectorId,
     Expression<String>? treaningId,
     Expression<String>? category,
     Expression<String>? style,
@@ -2544,6 +2636,7 @@ class DriftIceAttemptsTableCompanion extends UpdateCompanion<DriftIceAttempt> {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (sector != null) 'sector': sector,
+      if (sectorId != null) 'sector_id': sectorId,
       if (treaningId != null) 'treaning_id': treaningId,
       if (category != null) 'category': category,
       if (style != null) 'style': style,
@@ -2564,12 +2657,13 @@ class DriftIceAttemptsTableCompanion extends UpdateCompanion<DriftIceAttempt> {
   DriftIceAttemptsTableCompanion copyWith(
       {Value<String>? id,
       Value<String>? sector,
+      Value<String>? sectorId,
       Value<String>? treaningId,
       Value<String>? category,
       Value<String>? style,
       Value<DateTime?>? finishTime,
       Value<DateTime?>? startTime,
-      Value<int>? wayLength,
+      Value<int?>? wayLength,
       Value<int>? suspensionCount,
       Value<int>? fallCount,
       Value<bool>? downClimbing,
@@ -2580,6 +2674,7 @@ class DriftIceAttemptsTableCompanion extends UpdateCompanion<DriftIceAttempt> {
     return DriftIceAttemptsTableCompanion(
       id: id ?? this.id,
       sector: sector ?? this.sector,
+      sectorId: sectorId ?? this.sectorId,
       treaningId: treaningId ?? this.treaningId,
       category: category ?? this.category,
       style: style ?? this.style,
@@ -2604,6 +2699,9 @@ class DriftIceAttemptsTableCompanion extends UpdateCompanion<DriftIceAttempt> {
     }
     if (sector.present) {
       map['sector'] = Variable<String>(sector.value);
+    }
+    if (sectorId.present) {
+      map['sector_id'] = Variable<String>(sectorId.value);
     }
     if (treaningId.present) {
       map['treaning_id'] = Variable<String>(treaningId.value);
@@ -2652,6 +2750,7 @@ class DriftIceAttemptsTableCompanion extends UpdateCompanion<DriftIceAttempt> {
     return (StringBuffer('DriftIceAttemptsTableCompanion(')
           ..write('id: $id, ')
           ..write('sector: $sector, ')
+          ..write('sectorId: $sectorId, ')
           ..write('treaningId: $treaningId, ')
           ..write('category: $category, ')
           ..write('style: $style, ')
@@ -2688,6 +2787,11 @@ class $DriftIceAttemptsTableTable extends DriftIceAttemptsTable
   late final GeneratedColumn<String> sector = GeneratedColumn<String>(
       'sector', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
+  final VerificationMeta _sectorIdMeta = const VerificationMeta('sectorId');
+  @override
+  late final GeneratedColumn<String> sectorId = GeneratedColumn<String>(
+      'sector_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   final VerificationMeta _treaningIdMeta = const VerificationMeta('treaningId');
   @override
   late final GeneratedColumn<String> treaningId = GeneratedColumn<String>(
@@ -2718,8 +2822,8 @@ class $DriftIceAttemptsTableTable extends DriftIceAttemptsTable
   final VerificationMeta _wayLengthMeta = const VerificationMeta('wayLength');
   @override
   late final GeneratedColumn<int> wayLength = GeneratedColumn<int>(
-      'way_length', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+      'way_length', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
   final VerificationMeta _suspensionCountMeta =
       const VerificationMeta('suspensionCount');
   @override
@@ -2769,6 +2873,7 @@ class $DriftIceAttemptsTableTable extends DriftIceAttemptsTable
   List<GeneratedColumn> get $columns => [
         id,
         sector,
+        sectorId,
         treaningId,
         category,
         style,
@@ -2803,6 +2908,12 @@ class $DriftIceAttemptsTableTable extends DriftIceAttemptsTable
     } else if (isInserting) {
       context.missing(_sectorMeta);
     }
+    if (data.containsKey('sector_id')) {
+      context.handle(_sectorIdMeta,
+          sectorId.isAcceptableOrUnknown(data['sector_id']!, _sectorIdMeta));
+    } else if (isInserting) {
+      context.missing(_sectorIdMeta);
+    }
     if (data.containsKey('treaning_id')) {
       context.handle(
           _treaningIdMeta,
@@ -2836,8 +2947,6 @@ class $DriftIceAttemptsTableTable extends DriftIceAttemptsTable
     if (data.containsKey('way_length')) {
       context.handle(_wayLengthMeta,
           wayLength.isAcceptableOrUnknown(data['way_length']!, _wayLengthMeta));
-    } else if (isInserting) {
-      context.missing(_wayLengthMeta);
     }
     if (data.containsKey('suspension_count')) {
       context.handle(
@@ -2904,6 +3013,8 @@ class $DriftIceAttemptsTableTable extends DriftIceAttemptsTable
           .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
       sector: attachedDatabase.options.types
           .read(DriftSqlType.string, data['${effectivePrefix}sector'])!,
+      sectorId: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}sector_id'])!,
       treaningId: attachedDatabase.options.types
           .read(DriftSqlType.string, data['${effectivePrefix}treaning_id'])!,
       category: attachedDatabase.options.types
@@ -2915,7 +3026,7 @@ class $DriftIceAttemptsTableTable extends DriftIceAttemptsTable
       startTime: attachedDatabase.options.types
           .read(DriftSqlType.dateTime, data['${effectivePrefix}start_time']),
       wayLength: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}way_length'])!,
+          .read(DriftSqlType.int, data['${effectivePrefix}way_length']),
       suspensionCount: attachedDatabase.options.types
           .read(DriftSqlType.int, data['${effectivePrefix}suspension_count'])!,
       fallCount: attachedDatabase.options.types

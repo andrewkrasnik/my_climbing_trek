@@ -7,6 +7,7 @@ class IceTreaningAttempt extends DataWithUUID {
   final IceSector sector;
   final IceCategory category;
   final ClimbingStyle style;
+  final String treaningId;
 
   DateTime? _startTime;
   DateTime? _finishTime;
@@ -25,7 +26,7 @@ class IceTreaningAttempt extends DataWithUUID {
 
   bool installedIceScrews;
 
-  int length;
+  int wayLength;
 
   DateTime? get startTime => _startTime;
   DateTime? get finishTime => _finishTime;
@@ -35,6 +36,7 @@ class IceTreaningAttempt extends DataWithUUID {
   bool get started => _startTime != null && _finishTime == null;
 
   IceTreaningAttempt({
+    required this.treaningId,
     required this.sector,
     required this.category,
     required this.style,
@@ -51,7 +53,7 @@ class IceTreaningAttempt extends DataWithUUID {
     this.toolsCount = 2,
   })  : _startTime = startTime,
         _finishTime = finishTime,
-        length = wayLength ?? sector.length;
+        wayLength = wayLength ?? sector.length;
 
   void start() {
     _startTime = DateTime.now();
@@ -75,6 +77,6 @@ class IceTreaningAttempt extends DataWithUUID {
     this.iceScrewsCount = iceScrewsCount;
     this.installedIceScrews = installedIceScrews;
     this.toolsCount = toolsCount;
-    this.length = length;
+    wayLength = length;
   }
 }

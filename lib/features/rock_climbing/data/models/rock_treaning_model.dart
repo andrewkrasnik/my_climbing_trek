@@ -1,3 +1,4 @@
+import 'package:my_climbing_trek/core/datasource/converters.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_treaning.dart';
 import 'package:my_climbing_trek/features/rock_climbing/data/models/converters.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';

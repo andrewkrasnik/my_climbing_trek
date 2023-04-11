@@ -23,8 +23,12 @@ class NewIceAttempt {
     required IceCategory category,
     required ClimbingStyle style,
   }) async {
-    final attempt =
-        IceTreaningAttempt(sector: sector, category: category, style: style);
+    final attempt = IceTreaningAttempt(
+      sector: sector,
+      category: category,
+      style: style,
+      treaningId: treaning.id,
+    );
 
     attempt.start();
 
