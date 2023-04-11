@@ -17,8 +17,8 @@ class AddRepetitionForStrengthTreaning {
     required StrengthExercise exercise,
     required int count,
   }) async {
-    final item = treaning.excercises
-        .firstWhere((element) => element.exercise == exercise);
+    final item =
+        treaning.attempts.firstWhere((element) => element.exercise == exercise);
 
     item.repetitions.add(count);
 

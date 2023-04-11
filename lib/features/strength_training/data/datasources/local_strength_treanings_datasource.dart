@@ -83,12 +83,12 @@ class LocalStrengthTreaningsDataSource implements StrengthTreaningsDataSource {
       });
     }
 
-    json['exercises'] = failureOrLines.fold(
+    json['attempts'] = failureOrLines.fold(
       (l) => [],
       (lines) => lines,
     );
 
-    return StrengthTreaningModel.fromJson(json, _exercises!);
+    return StrengthTreaningModel.fromJson(json);
   }
 
   @override
@@ -122,10 +122,14 @@ class LocalStrengthTreaningsDataSource implements StrengthTreaningsDataSource {
       return failureOrUnitDelete.fold(
         (failure) => Left(failure),
         (_) async {
-          final failureOrUnitInsert = await _localDatabase.insertAll(
-              table: linesTable, data: data['exercises']);
-          return failureOrUnitInsert.fold(
-              (failure) => Left(failure), (r) => Right(treaning));
+          if (treaning.attempts.isNotEmpty) {
+            final failureOrUnitInsert = await _localDatabase.insertAll(
+                table: linesTable, data: data['attempts']);
+            return failureOrUnitInsert.fold(
+                (failure) => Left(failure), (r) => Right(treaning));
+          } else {
+            return Right(treaning);
+          }
         },
       );
     });
@@ -140,7 +144,7 @@ class LocalStrengthTreaningsDataSource implements StrengthTreaningsDataSource {
         finish: treaning.finish,
         start: treaning.start,
         id: treaning.id,
-        exercises: treaning.excercises,
+        attempts: treaning.attempts,
       ).toJson();
     }
   }

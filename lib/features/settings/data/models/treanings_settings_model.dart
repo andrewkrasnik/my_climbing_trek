@@ -1,5 +1,9 @@
 import 'package:my_climbing_trek/features/settings/domain/entities/treanings_settings.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
+part 'treanings_settings_model.g.dart';
+
+@JsonSerializable()
 class TreaningsSettingsModel extends TreaningsSettings {
   const TreaningsSettingsModel({
     required super.useGymTreanings,
@@ -9,22 +13,10 @@ class TreaningsSettingsModel extends TreaningsSettings {
     required super.useRockTraining,
   });
 
-  Map<String, dynamic> toJson() => {
-        'useGymTreanings': useGymTreanings,
-        'useCardioTreanings': useCardioTreanings,
-        'useIceTreanings': useIceTreanings,
-        'useStrengthTraining': useStrengthTraining,
-        'useRockTraining': useRockTraining,
-      };
-
   factory TreaningsSettingsModel.fromJson(Map<String, dynamic> json) =>
-      TreaningsSettingsModel(
-        useCardioTreanings: json['useCardioTreanings'],
-        useIceTreanings: json['useIceTreanings'],
-        useStrengthTraining: json['useStrengthTraining'],
-        useGymTreanings: json['useGymTreanings'],
-        useRockTraining: json['useRockTraining'] ?? true,
-      );
+      _$TreaningsSettingsModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$TreaningsSettingsModelToJson(this);
 
   factory TreaningsSettingsModel.fromOrign(TreaningsSettings settings) {
     if (settings is TreaningsSettingsModel) {

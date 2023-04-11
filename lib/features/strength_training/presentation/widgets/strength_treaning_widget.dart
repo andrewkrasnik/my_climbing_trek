@@ -92,7 +92,7 @@ class StrengthTreaningWidget extends StatelessWidget {
                           )
                       ],
                     ),
-                    ...treaning.excercises
+                    ...treaning.attempts
                         .map((item) => StrengthTreaningExerciseLineWidget(
                               item: item,
                               treaning: treaning,

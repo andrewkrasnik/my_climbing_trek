@@ -1,4 +1,3 @@
-import 'package:my_climbing_trek/core/data/city.dart';
 import 'package:my_climbing_trek/core/data/map_point.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall.dart';
 import 'package:my_climbing_trek/features/settings/domain/repositories/places_repository.dart';
@@ -52,7 +51,7 @@ HallModel _$HallModelFromJson(
       hasBouldering: json['hasBouldering'] as bool? ?? false,
       hasSpeed: json['hasSpeed'] as bool? ?? false,
       hasAutoBelay: json['hasAutoBelay'] as bool? ?? false,
-      id: id ?? json['id'],
+      id: id,
       hasEditPermission:
           (hasEditPermission ?? json['hasEditPermission']) ?? false,
     );

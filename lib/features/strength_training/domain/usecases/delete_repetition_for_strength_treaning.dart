@@ -16,8 +16,8 @@ class DeleteRepetitionForStrengthTreaning {
     required StrengthTreaning treaning,
     required StrengthExercise exercise,
   }) async {
-    final item = treaning.excercises
-        .firstWhere((element) => element.exercise == exercise);
+    final item =
+        treaning.attempts.firstWhere((element) => element.exercise == exercise);
 
     if (item.repetitions.isNotEmpty) {
       item.repetitions.removeLast();

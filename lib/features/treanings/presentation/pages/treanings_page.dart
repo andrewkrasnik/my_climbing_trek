@@ -40,112 +40,124 @@ class TreaningsPage extends StatelessWidget {
                           (dataState.treanings.firstOrNull?.date ??
                                   DateTime.now())
                               .monthStart();
-                      return ListView.separated(
-                          itemBuilder: (context, index) => Slidable(
-                                endActionPane: ActionPane(
-                                  motion: const ScrollMotion(),
-                                  children: [
-                                    SlidableAction(
-                                      flex: 1,
-                                      onPressed: (context) async {
-                                        final cubit =
-                                            BlocProvider.of<TreaningsCubit>(
-                                                context);
+                      return dataState.treanings.isEmpty
+                          ? Center(
+                              child: Text(
+                              'Выбрете\nактивность и начните тренироваться сегодня',
+                              style: Theme.of(context).textTheme.headlineLarge,
+                              textAlign: TextAlign.center,
+                            ))
+                          : ListView.separated(
+                              itemBuilder: (context, index) => Slidable(
+                                    endActionPane: ActionPane(
+                                      motion: const ScrollMotion(),
+                                      children: [
+                                        SlidableAction(
+                                          flex: 1,
+                                          onPressed: (context) async {
+                                            final cubit =
+                                                BlocProvider.of<TreaningsCubit>(
+                                                    context);
 
-                                        final deletePermission =
-                                            await showDialog<bool>(
-                                          context: context,
-                                          builder: (context) => AlertDialog(
-                                            title: const Text(
-                                                'Подтверждение удаления'),
-                                            content: const Text(
-                                                'После удаления данные о тренировке станут недоступны. Продолжить?'),
-                                            actions: [
-                                              ElevatedButton(
-                                                onPressed: () {
-                                                  Navigator.of(context)
-                                                      .pop(false);
-                                                },
-                                                child: const Text('Отменить'),
+                                            final deletePermission =
+                                                await showDialog<bool>(
+                                              context: context,
+                                              builder: (context) => AlertDialog(
+                                                title: const Text(
+                                                    'Подтверждение удаления'),
+                                                content: const Text(
+                                                    'После удаления данные о тренировке станут недоступны. Продолжить?'),
+                                                actions: [
+                                                  ElevatedButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop(false);
+                                                    },
+                                                    child:
+                                                        const Text('Отменить'),
+                                                  ),
+                                                  ElevatedButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop(true);
+                                                    },
+                                                    child: const Text(
+                                                        'Продолжить'),
+                                                  ),
+                                                ],
                                               ),
-                                              ElevatedButton(
-                                                onPressed: () {
-                                                  Navigator.of(context)
-                                                      .pop(true);
-                                                },
-                                                child: const Text('Продолжить'),
-                                              ),
-                                            ],
-                                          ),
-                                        );
+                                            );
 
-                                        if (deletePermission == true) {
-                                          cubit.delete(
-                                            treaning:
-                                                dataState.treanings[index],
-                                            cardio: settingsState
-                                                .treaningsSettings
-                                                .useCardioTreanings,
-                                            gym: settingsState.treaningsSettings
-                                                .useGymTreanings,
-                                            ice: settingsState.treaningsSettings
-                                                .useIceTreanings,
-                                            rock: settingsState
-                                                .treaningsSettings
-                                                .useRockTraining,
-                                            strength: settingsState
-                                                .treaningsSettings
-                                                .useStrengthTraining,
-                                          );
-                                        }
-                                      },
-                                      backgroundColor: Colors.red.shade400,
-                                      foregroundColor: Colors.white,
-                                      icon: Icons.delete,
-                                      label: 'delete',
+                                            if (deletePermission == true) {
+                                              cubit.delete(
+                                                treaning:
+                                                    dataState.treanings[index],
+                                                cardio: settingsState
+                                                    .treaningsSettings
+                                                    .useCardioTreanings,
+                                                gym: settingsState
+                                                    .treaningsSettings
+                                                    .useGymTreanings,
+                                                ice: settingsState
+                                                    .treaningsSettings
+                                                    .useIceTreanings,
+                                                rock: settingsState
+                                                    .treaningsSettings
+                                                    .useRockTraining,
+                                                strength: settingsState
+                                                    .treaningsSettings
+                                                    .useStrengthTraining,
+                                              );
+                                            }
+                                          },
+                                          backgroundColor: Colors.red.shade400,
+                                          foregroundColor: Colors.white,
+                                          icon: Icons.delete,
+                                          label: 'delete',
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    // Navigator.of(context).push(MaterialPageRoute(
-                                    //     builder: (context) => TreaningPageFactory(
-                                    //           treaning: dataState.treanings[index],
-                                    //         )));
-                                  },
-                                  child: TreaningWidgetFactory(
-                                      treaning: dataState.treanings[index]),
-                                ),
-                              ),
-                          separatorBuilder: (_, index) {
-                            if (index < dataState.treanings.length) {
-                              final month = dataState.treanings[index + 1].date
-                                  .monthStart();
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        // Navigator.of(context).push(MaterialPageRoute(
+                                        //     builder: (context) => TreaningPageFactory(
+                                        //           treaning: dataState.treanings[index],
+                                        //         )));
+                                      },
+                                      child: TreaningWidgetFactory(
+                                          treaning: dataState.treanings[index]),
+                                    ),
+                                  ),
+                              separatorBuilder: (_, index) {
+                                if (index < dataState.treanings.length) {
+                                  final month = dataState
+                                      .treanings[index + 1].date
+                                      .monthStart();
 
-                              if (cuttentMonth != month) {
-                                cuttentMonth = month;
-                                return Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 24),
-                                  child: Center(
-                                      child: Text(
-                                    cuttentMonth.monthString(),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineSmall,
-                                  )),
-                                );
-                              } else {
+                                  if (cuttentMonth != month) {
+                                    cuttentMonth = month;
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 24),
+                                      child: Center(
+                                          child: Text(
+                                        cuttentMonth.monthString(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineSmall,
+                                      )),
+                                    );
+                                  } else {
+                                    return const SizedBox(
+                                      height: 32,
+                                    );
+                                  }
+                                }
                                 return const SizedBox(
                                   height: 32,
                                 );
-                              }
-                            }
-                            return const SizedBox(
-                              height: 32,
-                            );
-                          },
-                          itemCount: dataState.treanings.length);
+                              },
+                              itemCount: dataState.treanings.length);
                     },
                     orElse: () => const SizedBox(),
                   ),
