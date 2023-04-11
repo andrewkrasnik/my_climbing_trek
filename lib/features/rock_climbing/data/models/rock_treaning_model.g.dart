@@ -11,6 +11,8 @@ RockTreaningModel _$RockTreaningModelFromJson(Map<String, dynamic> json) =>
       date: const EpochDateTimeConverter().fromJson(json['date'] as int),
       district: const RockDistrictStringConverter()
           .fromJson(json['district'] as String),
+      sectors: _$JsonConverterFromJson<String, List<RockSector>>(
+          json['sectors'], const RockSectorsStringConverter().fromJson),
       attempts: (json['attempts'] as List<dynamic>?)
           ?.map((e) => const RockTreaningAttemptConverter()
               .fromJson(e as Map<String, dynamic>))
@@ -32,6 +34,7 @@ Map<String, dynamic> _$RockTreaningModelToJson(RockTreaningModel instance) =>
       'finish': _$JsonConverterToJson<int, DateTime>(
           instance.finish, const EpochDateTimeConverter().toJson),
       'district': const RockDistrictStringConverter().toJson(instance.district),
+      'sectors': const RockSectorsStringConverter().toJson(instance.sectors),
       'attempts': instance.attempts
           .map(const RockTreaningAttemptConverter().toJson)
           .toList(),

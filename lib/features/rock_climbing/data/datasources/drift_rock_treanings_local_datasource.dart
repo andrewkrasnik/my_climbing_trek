@@ -132,6 +132,7 @@ class DriftRockTreaningsLocalDataSource
         id: treaning.id,
         district: treaning.district,
         attempts: treaning.attempts,
+        sectors: treaning.sectors,
       ).toJson();
     }
   }

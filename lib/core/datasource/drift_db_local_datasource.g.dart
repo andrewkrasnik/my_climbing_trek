@@ -3058,13 +3058,15 @@ class DriftRockTreanings extends DataClass
   final DateTime date;
   final DateTime? finish;
   final DateTime? start;
+  final String? sectors;
   const DriftRockTreanings(
       {required this.id,
       required this.districtId,
       required this.district,
       required this.date,
       this.finish,
-      this.start});
+      this.start,
+      this.sectors});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -3077,6 +3079,9 @@ class DriftRockTreanings extends DataClass
     }
     if (!nullToAbsent || start != null) {
       map['start'] = Variable<DateTime>(start);
+    }
+    if (!nullToAbsent || sectors != null) {
+      map['sectors'] = Variable<String>(sectors);
     }
     return map;
   }
@@ -3091,6 +3096,9 @@ class DriftRockTreanings extends DataClass
           finish == null && nullToAbsent ? const Value.absent() : Value(finish),
       start:
           start == null && nullToAbsent ? const Value.absent() : Value(start),
+      sectors: sectors == null && nullToAbsent
+          ? const Value.absent()
+          : Value(sectors),
     );
   }
 
@@ -3104,6 +3112,7 @@ class DriftRockTreanings extends DataClass
       date: serializer.fromJson<DateTime>(json['date']),
       finish: serializer.fromJson<DateTime?>(json['finish']),
       start: serializer.fromJson<DateTime?>(json['start']),
+      sectors: serializer.fromJson<String?>(json['sectors']),
     );
   }
   @override
@@ -3116,6 +3125,7 @@ class DriftRockTreanings extends DataClass
       'date': serializer.toJson<DateTime>(date),
       'finish': serializer.toJson<DateTime?>(finish),
       'start': serializer.toJson<DateTime?>(start),
+      'sectors': serializer.toJson<String?>(sectors),
     };
   }
 
@@ -3125,7 +3135,8 @@ class DriftRockTreanings extends DataClass
           String? district,
           DateTime? date,
           Value<DateTime?> finish = const Value.absent(),
-          Value<DateTime?> start = const Value.absent()}) =>
+          Value<DateTime?> start = const Value.absent(),
+          Value<String?> sectors = const Value.absent()}) =>
       DriftRockTreanings(
         id: id ?? this.id,
         districtId: districtId ?? this.districtId,
@@ -3133,6 +3144,7 @@ class DriftRockTreanings extends DataClass
         date: date ?? this.date,
         finish: finish.present ? finish.value : this.finish,
         start: start.present ? start.value : this.start,
+        sectors: sectors.present ? sectors.value : this.sectors,
       );
   @override
   String toString() {
@@ -3142,14 +3154,15 @@ class DriftRockTreanings extends DataClass
           ..write('district: $district, ')
           ..write('date: $date, ')
           ..write('finish: $finish, ')
-          ..write('start: $start')
+          ..write('start: $start, ')
+          ..write('sectors: $sectors')
           ..write(')'))
         .toString();
   }
 
   @override
   int get hashCode =>
-      Object.hash(id, districtId, district, date, finish, start);
+      Object.hash(id, districtId, district, date, finish, start, sectors);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -3159,7 +3172,8 @@ class DriftRockTreanings extends DataClass
           other.district == this.district &&
           other.date == this.date &&
           other.finish == this.finish &&
-          other.start == this.start);
+          other.start == this.start &&
+          other.sectors == this.sectors);
 }
 
 class DriftRockTreaningsTableCompanion
@@ -3170,6 +3184,7 @@ class DriftRockTreaningsTableCompanion
   final Value<DateTime> date;
   final Value<DateTime?> finish;
   final Value<DateTime?> start;
+  final Value<String?> sectors;
   const DriftRockTreaningsTableCompanion({
     this.id = const Value.absent(),
     this.districtId = const Value.absent(),
@@ -3177,6 +3192,7 @@ class DriftRockTreaningsTableCompanion
     this.date = const Value.absent(),
     this.finish = const Value.absent(),
     this.start = const Value.absent(),
+    this.sectors = const Value.absent(),
   });
   DriftRockTreaningsTableCompanion.insert({
     required String id,
@@ -3185,6 +3201,7 @@ class DriftRockTreaningsTableCompanion
     required DateTime date,
     this.finish = const Value.absent(),
     this.start = const Value.absent(),
+    this.sectors = const Value.absent(),
   })  : id = Value(id),
         districtId = Value(districtId),
         district = Value(district),
@@ -3196,6 +3213,7 @@ class DriftRockTreaningsTableCompanion
     Expression<DateTime>? date,
     Expression<DateTime>? finish,
     Expression<DateTime>? start,
+    Expression<String>? sectors,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -3204,6 +3222,7 @@ class DriftRockTreaningsTableCompanion
       if (date != null) 'date': date,
       if (finish != null) 'finish': finish,
       if (start != null) 'start': start,
+      if (sectors != null) 'sectors': sectors,
     });
   }
 
@@ -3213,7 +3232,8 @@ class DriftRockTreaningsTableCompanion
       Value<String>? district,
       Value<DateTime>? date,
       Value<DateTime?>? finish,
-      Value<DateTime?>? start}) {
+      Value<DateTime?>? start,
+      Value<String?>? sectors}) {
     return DriftRockTreaningsTableCompanion(
       id: id ?? this.id,
       districtId: districtId ?? this.districtId,
@@ -3221,6 +3241,7 @@ class DriftRockTreaningsTableCompanion
       date: date ?? this.date,
       finish: finish ?? this.finish,
       start: start ?? this.start,
+      sectors: sectors ?? this.sectors,
     );
   }
 
@@ -3245,6 +3266,9 @@ class DriftRockTreaningsTableCompanion
     if (start.present) {
       map['start'] = Variable<DateTime>(start.value);
     }
+    if (sectors.present) {
+      map['sectors'] = Variable<String>(sectors.value);
+    }
     return map;
   }
 
@@ -3256,7 +3280,8 @@ class DriftRockTreaningsTableCompanion
           ..write('district: $district, ')
           ..write('date: $date, ')
           ..write('finish: $finish, ')
-          ..write('start: $start')
+          ..write('start: $start, ')
+          ..write('sectors: $sectors')
           ..write(')'))
         .toString();
   }
@@ -3300,9 +3325,14 @@ class $DriftRockTreaningsTableTable extends DriftRockTreaningsTable
   late final GeneratedColumn<DateTime> start = GeneratedColumn<DateTime>(
       'start', aliasedName, true,
       type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  final VerificationMeta _sectorsMeta = const VerificationMeta('sectors');
+  @override
+  late final GeneratedColumn<String> sectors = GeneratedColumn<String>(
+      'sectors', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns =>
-      [id, districtId, district, date, finish, start];
+      [id, districtId, district, date, finish, start, sectors];
   @override
   String get aliasedName => _alias ?? 'drift_rock_treanings_table';
   @override
@@ -3345,6 +3375,10 @@ class $DriftRockTreaningsTableTable extends DriftRockTreaningsTable
       context.handle(
           _startMeta, start.isAcceptableOrUnknown(data['start']!, _startMeta));
     }
+    if (data.containsKey('sectors')) {
+      context.handle(_sectorsMeta,
+          sectors.isAcceptableOrUnknown(data['sectors']!, _sectorsMeta));
+    }
     return context;
   }
 
@@ -3366,6 +3400,8 @@ class $DriftRockTreaningsTableTable extends DriftRockTreaningsTable
           .read(DriftSqlType.dateTime, data['${effectivePrefix}finish']),
       start: attachedDatabase.options.types
           .read(DriftSqlType.dateTime, data['${effectivePrefix}start']),
+      sectors: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}sectors']),
     );
   }
 

@@ -135,6 +135,7 @@ class DriftRockTreaningsTable extends Table {
   DateTimeColumn get date => dateTime()();
   DateTimeColumn get finish => dateTime().nullable()();
   DateTimeColumn get start => dateTime().nullable()();
+  TextColumn get sectors => text().nullable()();
 
   @override
   Set<Column>? get primaryKey => {id};

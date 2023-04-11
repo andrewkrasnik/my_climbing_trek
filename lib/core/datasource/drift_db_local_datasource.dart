@@ -23,7 +23,7 @@ class DriftDBLocalDataSource extends _$DriftDBLocalDataSource
   DriftDBLocalDataSource() : super(_openConnection());
 
   @override
-  int get schemaVersion => 11;
+  int get schemaVersion => 12;
 
   @override
   MigrationStrategy get migration {
@@ -76,6 +76,10 @@ class DriftDBLocalDataSource extends _$DriftDBLocalDataSource
         if (from < 11) {
           await m.addColumn(
               driftIceTreaningsTable, driftIceTreaningsTable.sectors);
+        }
+        if (from < 12) {
+          await m.addColumn(
+              driftRockTreaningsTable, driftRockTreaningsTable.sectors);
         }
       },
     );

@@ -56,6 +56,22 @@ class RockSectorConverter
   }
 }
 
+class RockSectorsStringConverter
+    implements JsonConverter<List<RockSector>, String> {
+  const RockSectorsStringConverter();
+  @override
+  List<RockSector> fromJson(String json) {
+    final sectors = jsonDecode(json) as List<dynamic>;
+    return sectors.map((sector) => RockSectorModel.fromJson(sector)).toList();
+  }
+
+  @override
+  String toJson(List<RockSector> objects) {
+    return jsonEncode(
+        objects.map((object) => (object as RockSectorModel).toJson()).toList());
+  }
+}
+
 class RockRouteConverter
     implements JsonConverter<RockRoute, Map<String, dynamic>> {
   const RockRouteConverter();
