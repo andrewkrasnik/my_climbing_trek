@@ -6,6 +6,7 @@ class TreaningsSettings extends Equatable {
   final bool useIceTreanings;
   final bool useStrengthTraining;
   final bool useRockTraining;
+  final bool useMountaineering;
 
   const TreaningsSettings({
     required this.useGymTreanings,
@@ -13,7 +14,8 @@ class TreaningsSettings extends Equatable {
     required this.useIceTreanings,
     required this.useStrengthTraining,
     required this.useRockTraining,
-  });
+    bool? useMountaineering,
+  }) : useMountaineering = useMountaineering ?? true;
 
   TreaningsSettings copyWith({
     bool? useGymTreanings,
@@ -21,6 +23,7 @@ class TreaningsSettings extends Equatable {
     bool? useIceTreanings,
     bool? useStrengthTraining,
     bool? useRockTraining,
+    bool? useMountaineering,
   }) {
     return TreaningsSettings(
       useGymTreanings: useGymTreanings ?? this.useGymTreanings,
@@ -28,6 +31,7 @@ class TreaningsSettings extends Equatable {
       useIceTreanings: useIceTreanings ?? this.useIceTreanings,
       useStrengthTraining: useStrengthTraining ?? this.useStrengthTraining,
       useRockTraining: useRockTraining ?? this.useRockTraining,
+      useMountaineering: useMountaineering ?? this.useMountaineering,
     );
   }
 
@@ -37,6 +41,7 @@ class TreaningsSettings extends Equatable {
         useIceTreanings: true,
         useStrengthTraining: true,
         useRockTraining: true,
+        useMountaineering: true,
       );
 
   @override
@@ -46,5 +51,6 @@ class TreaningsSettings extends Equatable {
         useIceTreanings,
         useRockTraining,
         useStrengthTraining,
+        useMountaineering,
       ];
 }

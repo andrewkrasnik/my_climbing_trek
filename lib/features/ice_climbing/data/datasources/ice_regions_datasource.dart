@@ -28,8 +28,10 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
   final Map<IceDistrict, List<IceSector>> _sectors = {};
 
   MockIceRegionsDataSource() {
-    final moscow = Region(name: 'Москва и область', id: 'moscow');
-    final caucasus = Region(name: 'Северный кавказ', id: 'caucas');
+    final moscow =
+        Region(name: 'Москва и область', id: 'moscow', state: 'Россия');
+    final caucasus =
+        Region(name: 'Северный кавказ', id: 'caucas', state: 'Россия');
 
     final naroFominsk = IceDistrictModel(
       id: 'narofom',

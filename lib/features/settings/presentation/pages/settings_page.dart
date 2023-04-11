@@ -76,6 +76,14 @@ class SettingsPage extends StatelessWidget {
                                 settingsId: 4, value: value),
                     title: const Text('Ледолазные тренировки'),
                   ),
+                  SwitchListTile(
+                    value: state.treaningsSettings.useMountaineering,
+                    onChanged: (value) =>
+                        BlocProvider.of<SettingsCubit>(context)
+                            .changeTreaningSettings(
+                                settingsId: 6, value: value),
+                    title: const Text('Восхождения и мультипитчи'),
+                  ),
                   const SizedBox(
                     height: 16,
                   ),

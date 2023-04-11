@@ -5,7 +5,11 @@ part 'region_model.g.dart';
 
 @JsonSerializable()
 class RegionModel extends Region {
-  RegionModel({required super.name, super.id});
+  RegionModel({
+    required super.name,
+    super.id,
+    super.image,
+  }) : super(state: '');
 
   factory RegionModel.fromJson(Map<String, dynamic> json) =>
       _$RegionModelFromJson(json);
