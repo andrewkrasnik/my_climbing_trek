@@ -13,7 +13,10 @@ class CardioTreaningWidget extends StatelessWidget {
       elevation: 4,
       borderRadius: BorderRadius.circular(8),
       child: ListTile(
-        leading: Icon(treaning.exercise.icon),
+        leading: Icon(
+          treaning.exercise.icon,
+          color: Theme.of(context).colorScheme.surface,
+        ),
         title: Row(
           children: [
             Text(

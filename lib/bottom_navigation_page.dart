@@ -29,8 +29,9 @@ class _BottomNavigationPageState extends State<BottomNavigationPage>
       body: _pages.elementAt(_currentIndex.value),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex.value,
-        fixedColor: Colors.black,
-        unselectedItemColor: Colors.black26,
+        fixedColor: Theme.of(context).colorScheme.surface,
+        unselectedItemColor:
+            Theme.of(context).colorScheme.surface.withOpacity(0.5),
         onTap: (index) {
           setState(() {
             _currentIndex.value = index;

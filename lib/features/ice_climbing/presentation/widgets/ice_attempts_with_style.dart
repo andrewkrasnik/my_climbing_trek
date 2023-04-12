@@ -57,9 +57,8 @@ class IceAttemptsWithStyle extends StatelessWidget {
                     },
                   );
                 },
-                icon: Icon(
+                icon: const Icon(
                   Icons.add_box,
-                  color: Theme.of(context).primaryColor,
                 ),
               ),
           ],
@@ -139,9 +138,9 @@ class AttemptClickWidget extends StatelessWidget {
             child: Text(
               '${attempt.wayLength}м',
               style: const TextStyle(
-                fontSize: 10,
-                fontWeight: FontWeight.bold,
-              ),
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black),
             ),
           ),
           Positioned(right: 0, top: 0, child: topRight),

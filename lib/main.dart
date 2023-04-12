@@ -81,8 +81,11 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
           title: 'Flutter Demo',
           theme: ThemeData(
-            primarySwatch: Colors.blueGrey,
-          ),
+              colorScheme: ColorScheme.light()
+                  .copyWith(primary: Colors.blueGrey, surface: Colors.black)),
+          darkTheme: ThemeData.dark().copyWith(
+              colorScheme: ColorScheme.fromSeed(
+                  seedColor: Colors.blueGrey, surface: Colors.white)),
           scrollBehavior: MyCustomScrollBehavior(),
           home: BlocListener<AuthenticationCubit, AuthenticationState>(
             listenWhen: (previous, current) => current.maybeMap(

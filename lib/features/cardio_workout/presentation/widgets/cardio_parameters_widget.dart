@@ -75,7 +75,12 @@ class CardioParametersWidget extends HookWidget {
                         onPressed: () {
                           exercise.value = exerc;
                         },
-                        color: current ? Colors.black : Colors.black38,
+                        color: current
+                            ? Theme.of(context).colorScheme.surface
+                            : Theme.of(context)
+                                .colorScheme
+                                .surface
+                                .withOpacity(0.5),
                         icon: Icon(
                           exerc.icon,
                           size: 40,

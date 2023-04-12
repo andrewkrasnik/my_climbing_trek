@@ -72,7 +72,9 @@ class FirebaseRockRegionsRemoteDataSource
       ),
     );
 
-    return Right(routesData.docs.map((snapshot) => snapshot.data()).toList());
+    final routes = routesData.docs.map((snapshot) => snapshot.data()).toList();
+
+    return Right(routes);
   }
 
   CollectionReference<RockSectorModel> _sectorsRef(

@@ -178,9 +178,8 @@ class AttemptsWithStyle extends StatelessWidget {
                     },
                   );
                 },
-                icon: Icon(
+                icon: const Icon(
                   Icons.add_box,
-                  color: Theme.of(context).primaryColor,
                 ),
               ),
           ],

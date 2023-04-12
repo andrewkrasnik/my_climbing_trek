@@ -51,9 +51,15 @@ class HiveRockRegionsLocalDataSource implements RockRegionsLocalDataSource {
     final routesBox = await Hive.openBox<String>(
         '${_routesName}distr${district.id}sector${sector.id}');
 
-    return Right(routesBox.values
+    final _routes = routesBox.values
         .map((value) => RockRouteModel.fromJson(json.decode(value)))
-        .toList());
+        .toList();
+
+    _routes.sort(
+      (a, b) => (a.number ?? 0).compareTo(b.number ?? 0),
+    );
+
+    return Right(_routes);
   }
 
   Future<void> _loadData(Box<String> districtsBox) async {
