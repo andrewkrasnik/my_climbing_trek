@@ -1,25 +1,17 @@
 import 'package:my_climbing_trek/core/datasource/db_tables.dart';
-import 'package:my_climbing_trek/core/datasource/drift_db_local_datasource.dart';
+import 'package:my_climbing_trek/core/datasource/local_db_datasource.dart';
 import 'package:my_climbing_trek/core/failures/failure.dart';
-import 'package:my_climbing_trek/features/ice_climbing/data/datasources/ice_regions_datasource.dart';
 import 'package:my_climbing_trek/features/ice_climbing/data/datasources/ice_treanings_datasource.dart';
 import 'package:my_climbing_trek/features/ice_climbing/data/models/ice_treaning_model.dart';
-import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_district.dart';
-import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_sector.dart';
-import 'package:my_climbing_trek/service_locator.dart';
 import 'package:dartz/dartz.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_treaning.dart';
 import 'package:injectable/injectable.dart';
 
 @LazySingleton(as: IceTreaningsDataSource)
 class LocalIceTreaningsDataSource implements IceTreaningsDataSource {
-  final DriftDBLocalDataSource _localDatabase;
+  final LocalDBDatasource _localDatabase;
   final table = DBTables.iceTreanings;
   final attemptsTable = DBTables.iceAttempts;
-
-  Map<String, IceSector>? _sectors;
-
-  Map<String, IceDistrict>? _districts;
 
   LocalIceTreaningsDataSource(this._localDatabase);
 

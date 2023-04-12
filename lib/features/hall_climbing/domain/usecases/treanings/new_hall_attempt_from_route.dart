@@ -34,10 +34,14 @@ class NewHallAttemptFromRoute {
           (failure) => throw Error(), (treaning) => treaning);
     }, (treaning) async => treaning);
 
-    final attempt = ClimbingHallAttempt.fromRoute(route: route, style: style)
-      ..start();
+    final attempt = ClimbingHallAttempt(
+      route: route,
+      style: style,
+      category: route.category,
+      treaningId: currentTreaning!.id,
+    )..start();
 
-    final failureOrAttempt = hallTreaningRepository.saveAttempt(
+    final failureOrAttempt = await hallTreaningRepository.saveAttempt(
         treaning: currentTreaning, attempt: attempt);
 
     currentTreaning.attempts.add(attempt);

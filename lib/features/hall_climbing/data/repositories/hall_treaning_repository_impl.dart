@@ -26,12 +26,12 @@ class HallTreaningRepositoryImpl implements HallTreaningRepository {
   }
 
   @override
-  Future<Either<Failure, ClimbingHallTreaning>> currentTreaning() async {
+  Future<Either<Failure, ClimbingHallTreaning?>> currentTreaning() async {
     return await dataSource.currentTreaning();
   }
 
   @override
-  Future<Either<Failure, ClimbingHallTreaning>> lastTreaning() async {
+  Future<Either<Failure, ClimbingHallTreaning?>> lastTreaning() async {
     return await dataSource.lastTreaning();
   }
 

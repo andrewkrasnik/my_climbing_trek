@@ -1,21 +1,16 @@
 import 'package:injectable/injectable.dart';
 import 'package:my_climbing_trek/core/datasource/db_tables.dart';
-import 'package:my_climbing_trek/core/datasource/drift_db_local_datasource.dart';
+import 'package:my_climbing_trek/core/datasource/local_db_datasource.dart';
 import 'package:my_climbing_trek/core/failures/failure.dart';
 import 'package:dartz/dartz.dart';
-import 'package:my_climbing_trek/features/rock_climbing/data/datasources/rock_regions_local_datasource.dart';
 import 'package:my_climbing_trek/features/rock_climbing/data/datasources/rock_treanings_local_datasource.dart';
 import 'package:my_climbing_trek/features/rock_climbing/data/models/rock_treaning_model.dart';
-import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_district.dart';
-import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_route.dart';
-import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_sector.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_treaning.dart';
-import 'package:my_climbing_trek/service_locator.dart';
 
 @LazySingleton(as: RockTreaningsLocalDataSource)
 class DriftRockTreaningsLocalDataSource
     implements RockTreaningsLocalDataSource {
-  final DriftDBLocalDataSource _localDatabase;
+  final LocalDBDatasource _localDatabase;
   final table = DBTables.rockTreanings;
   final attemptsTable = DBTables.rockAttempts;
 

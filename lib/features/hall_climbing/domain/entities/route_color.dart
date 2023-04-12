@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class RouteColor {
   final String name;
   final int code;
-  final int id;
+  final String id;
 
   MaterialColor get materialColor => MaterialColor(code, const {});
 
@@ -16,50 +16,52 @@ class RouteColor {
   final color = Colors.amber;
 
   static const RouteColor red =
-      RouteColor(name: 'Красный', code: 0xFFF40000, id: 1);
+      RouteColor(name: 'Красный', code: 0xFFF40000, id: 'red');
   static const RouteColor yellow =
-      RouteColor(name: 'Желтый', code: 0xFFCDDC39, id: 2);
+      RouteColor(name: 'Желтый', code: 0xFFCDDC39, id: 'yellow');
   static const RouteColor blue =
-      RouteColor(name: 'Синий', code: 0xFF0000F3, id: 3);
+      RouteColor(name: 'Синий', code: 0xFF0000F3, id: 'blue');
   static const RouteColor green =
-      RouteColor(name: 'Зеленый', code: 0xFF009900, id: 4);
+      RouteColor(name: 'Зеленый', code: 0xFF009900, id: 'green');
   static const RouteColor black =
-      RouteColor(name: 'Черный', code: 0xFF000000, id: 5);
+      RouteColor(name: 'Черный', code: 0xFF000000, id: 'black');
   static const RouteColor orange =
-      RouteColor(name: 'Оранжевый', code: 0xFFFF9800, id: 6);
+      RouteColor(name: 'Оранжевый', code: 0xFFFF9800, id: 'orange');
   static const RouteColor white =
-      RouteColor(name: 'Белый', code: 0xFFFFFFFF, id: 7);
+      RouteColor(name: 'Белый', code: 0xFFFFFFFF, id: 'white');
   static const RouteColor purple =
-      RouteColor(name: 'Фиолетовый', code: 0xFF9C27B0, id: 8);
+      RouteColor(name: 'Фиолетовый', code: 0xFF9C27B0, id: 'purple');
   static const RouteColor brown =
-      RouteColor(name: 'Коричневый', code: 0xFF795548, id: 9);
+      RouteColor(name: 'Коричневый', code: 0xFF795548, id: 'brown');
   static const RouteColor sendy =
-      RouteColor(name: 'Песочный', code: 0xFFFFC107, id: 10);
+      RouteColor(name: 'Песочный', code: 0xFFFFC107, id: 'sendy');
   static const RouteColor pink =
-      RouteColor(name: 'Розовый', code: 0xFFE91E63, id: 11);
+      RouteColor(name: 'Розовый', code: 0xFFE91E63, id: 'pink');
   static const RouteColor lime =
-      RouteColor(name: 'Светло-зеленый', code: 0xFF8BC34A, id: 12);
+      RouteColor(name: 'Светло-зеленый', code: 0xFF8BC34A, id: 'lime');
   static const RouteColor wave =
-      RouteColor(name: 'Бирюзовый', code: 0xFF009688, id: 13);
+      RouteColor(name: 'Бирюзовый', code: 0xFF009688, id: 'wave');
 
-  static const List<RouteColor> values = [
-    red,
-    yellow,
-    blue,
-    green,
-    black,
-    orange,
-    white,
-    purple,
-    brown,
-    sendy,
-    pink,
-    lime,
-    wave,
-  ];
+  static const Map<String, RouteColor> _values = {
+    '': red,
+    'yellow': yellow,
+    'blue': blue,
+    'green': green,
+    'black': black,
+    'orange': orange,
+    'white': white,
+    'purple': purple,
+    'brown': brown,
+    'sendy': sendy,
+    'pink': pink,
+    'lime': lime,
+    'wave': wave,
+  };
+
+  static List<RouteColor> get values => _values.values.toList();
 
   static List<MaterialColor> get materialColors =>
-      values.map((e) => e.materialColor).toList();
+      _values.values.map((e) => e.materialColor).toList();
 
   static Map<MaterialColor, RouteColor> get colorsMap {
     Map<MaterialColor, RouteColor> result = {};
@@ -69,6 +71,5 @@ class RouteColor {
     return result;
   }
 
-  static RouteColor getById(int id) =>
-      values.firstWhere((element) => element.id == id);
+  static RouteColor getById(String id) => _values[id]!;
 }

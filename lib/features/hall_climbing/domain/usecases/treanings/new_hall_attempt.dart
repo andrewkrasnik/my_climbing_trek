@@ -22,8 +22,12 @@ class NewHallAttempt {
     ClimbingHallRoute? route,
     bool start = false,
   }) async {
-    final ClimbingHallAttempt newAttempt =
-        ClimbingHallAttempt(category: category, style: style, route: route);
+    final ClimbingHallAttempt newAttempt = ClimbingHallAttempt(
+      category: category,
+      style: style,
+      route: route,
+      treaningId: treaning.id,
+    );
 
     if (start) {
       newAttempt.start();

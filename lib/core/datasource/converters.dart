@@ -1,4 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:my_climbing_trek/core/data/ascent_type.dart';
+import 'package:my_climbing_trek/core/data/city.dart';
 import 'package:my_climbing_trek/core/data/climbing_category.dart';
 import 'package:my_climbing_trek/core/data/climbing_route_type.dart';
 import 'package:my_climbing_trek/core/data/climbing_style.dart';
@@ -38,6 +40,19 @@ class RegionConverter implements JsonConverter<Region, String> {
   }
 }
 
+class CityConverter implements JsonConverter<City, String> {
+  const CityConverter();
+  @override
+  City fromJson(String json) {
+    return getIt<PlacesRepository>().cityById(json);
+  }
+
+  @override
+  String toJson(City object) {
+    return object.id;
+  }
+}
+
 class ClimbingCategoryConverter
     implements JsonConverter<ClimbingCategory, String> {
   const ClimbingCategoryConverter();
@@ -48,6 +63,19 @@ class ClimbingCategoryConverter
 
   @override
   String toJson(ClimbingCategory object) {
+    return object.id;
+  }
+}
+
+class AscentTypeConverter implements JsonConverter<AscentType, String> {
+  const AscentTypeConverter();
+  @override
+  AscentType fromJson(String json) {
+    return AscentType.getById(json);
+  }
+
+  @override
+  String toJson(AscentType object) {
     return object.id;
   }
 }

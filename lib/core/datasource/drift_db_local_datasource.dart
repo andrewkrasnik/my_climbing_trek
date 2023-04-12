@@ -13,7 +13,7 @@ import 'package:path/path.dart' as p;
 part 'drift_db_local_datasource.g.dart';
 part 'drift_db_tables.dart';
 
-// @LazySingleton(as: LocalDBDatasource)
+@LazySingleton(as: LocalDBDatasource)
 @LazySingleton()
 @DriftDatabase(
   tables: tables,

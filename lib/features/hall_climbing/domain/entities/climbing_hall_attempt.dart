@@ -1,20 +1,21 @@
 import 'package:my_climbing_trek/core/data/ascent_type.dart';
 import 'package:my_climbing_trek/core/data/climbing_category.dart';
 import 'package:my_climbing_trek/core/data/climbing_style.dart';
+import 'package:my_climbing_trek/core/data/data_with_uuid.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_route.dart';
 import 'package:flutter/material.dart';
 
-class ClimbingHallAttempt {
-  int? id;
+class ClimbingHallAttempt extends DataWithUUID {
   final ClimbingHallRoute? route;
   final ClimbingCategory category;
+  final String treaningId;
   DateTime? startTime;
   DateTime? finishTime;
   AscentType? ascentType;
-  int suspensionCount = 0;
-  int fallCount = 0;
-  bool downClimbing = false;
-  bool fail = false;
+  int suspensionCount;
+  int fallCount;
+  bool downClimbing;
+  bool fail;
 
   final ClimbingStyle style;
 
@@ -28,31 +29,26 @@ class ClimbingHallAttempt {
   String get result =>
       fail ? 'Не долез' : (ascentType == null ? 'Долез' : 'Долез $ascentType');
 
-  // int get suspensionCount => _suspensionCount;
-  // int get fallCount => _fallCount;
-  // bool get downClimbing => _downClimbing;
-  // AscentType? get ascentType => _ascentType;
-  // bool get fail => _fail;
-  // DateTime? get getStart => _start;
-  // DateTime? get getFinish => _finish;
-
   ClimbingHallAttempt({
     required this.category,
     required this.style,
+    required this.treaningId,
     this.route,
-    this.id,
+    super.id,
+    this.ascentType,
+    this.downClimbing = false,
+    this.fail = false,
+    this.fallCount = 0,
+    this.finishTime,
+    this.startTime,
+    this.suspensionCount = 0,
   });
-
-  ClimbingHallAttempt.fromRoute({
-    required this.route,
-    required this.style,
-    this.id,
-  }) : category = route!.category;
 
   ClimbingHallAttempt copy() => ClimbingHallAttempt(
         route: route,
         style: style,
         category: category,
+        treaningId: treaningId,
       );
 
   void start() {

@@ -6,9 +6,9 @@ import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing
 import 'package:dartz/dartz.dart';
 
 abstract class HallTreaningRepository {
-  Future<Either<Failure, ClimbingHallTreaning>> lastTreaning();
+  Future<Either<Failure, ClimbingHallTreaning?>> lastTreaning();
 
-  Future<Either<Failure, ClimbingHallTreaning>> currentTreaning();
+  Future<Either<Failure, ClimbingHallTreaning?>> currentTreaning();
 
   Future<Either<Failure, List<ClimbingHallTreaning>>> allTreanings();
 

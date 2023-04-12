@@ -1,9 +1,19 @@
 import 'package:my_climbing_trek/core/data/climbing_category.dart';
 import 'package:my_climbing_trek/core/data/climbing_route_type.dart';
+import 'package:my_climbing_trek/core/datasource/converters.dart';
+import 'package:my_climbing_trek/features/hall_climbing/data/models/converters.dart';
 import 'package:my_climbing_trek/features/hall_climbing/data/models/hall_model.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_route.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/route_color.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
+part 'hall_route_model.g.dart';
+
+@JsonSerializable(converters: [
+  ClimbingCategoryConverter(),
+  ClimbingRouteTypeConverter(),
+  RouteColorConverter(),
+])
 class HallRouteModel extends ClimbingHallRoute {
   HallRouteModel({
     required super.category,
@@ -15,16 +25,6 @@ class HallRouteModel extends ClimbingHallRoute {
     super.id,
   });
 
-  Map<String, dynamic> toJson() => {
-        'category': category.id,
-        'color': color.id,
-        'type': type.id,
-        'sectorNumber': sectorNumber,
-        'archive': archive,
-        'autoBelay': autoBelay,
-        'id': id,
-      };
-
   factory HallRouteModel.fromOrign(ClimbingHallRoute route) => HallRouteModel(
         category: route.category,
         color: route.color,
@@ -35,14 +35,8 @@ class HallRouteModel extends ClimbingHallRoute {
         autoBelay: route.autoBelay,
       );
 
-  factory HallRouteModel.fromJson(Map<String, dynamic> json, {String? id}) =>
-      HallRouteModel(
-        category: ClimbingCategory.getById(json['category']),
-        color: RouteColor.getById(json['color']),
-        type: ClimbingRouteType.getById(json['type']),
-        sectorNumber: json['sectorNumber'],
-        archive: json['archive'] ?? false,
-        autoBelay: json['autoBelay'] ?? false,
-        id: id ?? json['id'],
-      );
+  factory HallRouteModel.fromJson(Map<String, dynamic> json) =>
+      _$HallRouteModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$HallRouteModelToJson(this);
 }

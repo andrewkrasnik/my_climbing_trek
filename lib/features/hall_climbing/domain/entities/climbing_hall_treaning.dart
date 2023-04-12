@@ -41,6 +41,7 @@ class ClimbingHallTreaning extends Treaning {
     required this.climbingHall,
     required this.attempts,
     super.finish,
+    super.start,
     super.id,
   });
 

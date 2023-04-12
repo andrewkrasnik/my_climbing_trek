@@ -1,5 +1,5 @@
 import 'package:my_climbing_trek/core/datasource/db_tables.dart';
-import 'package:my_climbing_trek/core/datasource/drift_db_local_datasource.dart';
+import 'package:my_climbing_trek/core/datasource/local_db_datasource.dart';
 import 'package:my_climbing_trek/core/failures/failure.dart';
 import 'package:my_climbing_trek/features/cardio_workout/data/datasources/cardio_treanings_datasource.dart';
 import 'package:my_climbing_trek/features/cardio_workout/data/models/cardio_treaning_model.dart';
@@ -9,7 +9,7 @@ import 'package:injectable/injectable.dart';
 
 @LazySingleton(as: CardioTreaningsDatasource)
 class LocalCardioTreaningsDatasource implements CardioTreaningsDatasource {
-  final DriftDBLocalDataSource _localDatabase;
+  final LocalDBDatasource _localDatabase;
 
   final table = DBTables.cardioTreanings;
 

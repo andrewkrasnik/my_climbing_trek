@@ -11,8 +11,7 @@ class LastHallTreaning {
 
   LastHallTreaning(this.treaningRepository);
 
-  Future<Either<Failure, ClimbingHallTreaning>> call() async {
-    final failureOrTreaning = await treaningRepository.lastTreaning();
-    return failureOrTreaning;
+  Future<Either<Failure, ClimbingHallTreaning?>> call() async {
+    return await treaningRepository.lastTreaning();
   }
 }

@@ -46,10 +46,13 @@ class RemoteGymDataSourceImpl implements RemoteGymDataSource {
     for (final snapshot in gyms.docs) {
       final hasPermission = await _hasEditPermission(gymId: snapshot.id);
 
+      final data = snapshot.data();
+
+      data['id'] = snapshot.id;
+      data['hasEditPermission'] = hasPermission;
+
       gymsList.add(HallModel.fromJson(
-        snapshot.data(),
-        id: snapshot.id,
-        hasEditPermission: hasPermission,
+        data,
       ));
     }
 
@@ -97,7 +100,9 @@ class RemoteGymDataSourceImpl implements RemoteGymDataSource {
         fromFirestore: (snapshot, options) {
           final json = snapshot.data()!;
 
-          return HallRouteModel.fromJson(json, id: snapshot.id);
+          json['id'] = snapshot.id;
+
+          return HallRouteModel.fromJson(json);
         },
         toFirestore: (value, options) {
           if (value is HallRouteModel) {

@@ -1,12 +1,8 @@
-import 'package:my_climbing_trek/core/data/ascent_type.dart';
-import 'package:my_climbing_trek/core/data/climbing_category.dart';
-import 'package:my_climbing_trek/core/data/climbing_style.dart';
-import 'package:my_climbing_trek/core/datasource/drift_db_local_datasource.dart';
-import 'package:my_climbing_trek/features/hall_climbing/data/datasources/climbing_hall_data_source.dart';
-import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_route.dart';
-import 'package:my_climbing_trek/service_locator.dart';
+import 'package:my_climbing_trek/core/datasource/db_tables.dart';
+import 'package:my_climbing_trek/core/datasource/local_db_datasource.dart';
+import 'package:my_climbing_trek/features/hall_climbing/data/models/converters.dart';
+import 'package:my_climbing_trek/features/hall_climbing/data/models/hall_treaning_model.dart';
 import 'package:dartz/dartz.dart';
-import 'package:drift/drift.dart';
 
 import 'package:injectable/injectable.dart';
 
@@ -14,236 +10,159 @@ import 'package:my_climbing_trek/core/failures/failure.dart';
 import 'package:my_climbing_trek/features/hall_climbing/data/datasources/hall_treaning_data_source.dart';
 
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_attempt.dart';
+import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_route.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_treaning.dart';
 
 @LazySingleton(as: HallTreaningDataSource)
 class LocalHallTreaningDataSource implements HallTreaningDataSource {
-  final DriftDBLocalDataSource localDatabase;
-  LocalHallTreaningDataSource({
-    required this.localDatabase,
-  });
+  final LocalDBDatasource _localDatabase;
+
+  final table = DBTables.hallTreanings;
+  final attemptsTable = DBTables.hallAttempts;
+
+  LocalHallTreaningDataSource(
+    this._localDatabase,
+  );
+
   @override
   Future<Either<Failure, List<ClimbingHallTreaning>>> allTreanings() async {
-    final rawTreanings = await _getAllTreanings();
-    final List<ClimbingHallTreaning> treanings = [];
-    for (var element in rawTreanings) {
-      treanings.add(await _itemToTreaning(element));
-    }
-    return Right(treanings);
+    final failureOrData = await _localDatabase
+        .getData(table: table, orderByConditions: {'date': false});
+
+    return failureOrData.fold(
+      (failure) => Left(failure),
+      (data) async {
+        final List<ClimbingHallTreaning> treanings = [];
+
+        for (var treaning in data) {
+          treanings.add(await _treaningWithAttempts(treaning));
+        }
+
+        return Right(treanings);
+      },
+    );
   }
 
   @override
-  Future<Either<Failure, ClimbingHallTreaning>> currentTreaning() async {
-    final treaning =
-        await (localDatabase.select(localDatabase.driftHallTreaningsTable)
-              ..where((tbl) => tbl.finish.equalsNullable(null)))
-            .getSingleOrNull();
+  Future<Either<Failure, ClimbingHallTreaning?>> currentTreaning() async {
+    final failureOrTreaning =
+        await _localDatabase.getCurrentTreaning(table: table);
 
-    if (treaning != null) {
-      return Right(await _itemToTreaning(treaning));
-    } else {
-      return Left(Failure());
-    }
+    return failureOrTreaning.fold((failure) => Left(failure), (json) async {
+      if (json == null) {
+        return const Right(null);
+      } else {
+        return Right(await _treaningWithAttempts(json));
+      }
+    });
   }
 
   @override
-  Future<Either<Failure, ClimbingHallTreaning>> lastTreaning() async {
-    final treaning =
-        await (localDatabase.select(localDatabase.driftHallTreaningsTable)
-              ..orderBy(
-                [
-                  (u) =>
-                      OrderingTerm(expression: u.date, mode: OrderingMode.desc)
-                ],
-              )
-              ..where((tbl) => tbl.finish.isNotNull())
-              ..limit(1))
-            .getSingleOrNull();
+  Future<Either<Failure, ClimbingHallTreaning?>> lastTreaning() async {
+    final failureOrTreaning =
+        await _localDatabase.getLastTreaning(table: table);
 
-    if (treaning != null) {
-      return Right(await _itemToTreaning(treaning));
-    } else {
-      return Left(Failure());
-    }
+    return failureOrTreaning.fold((failure) => Left(failure), (json) async {
+      if (json == null) {
+        return const Right(null);
+      } else {
+        return Right(await _treaningWithAttempts(json));
+      }
+    });
   }
 
   @override
   Future<Either<Failure, ClimbingHallTreaning>> saveTreaning(
       {required ClimbingHallTreaning treaning}) async {
-    await localDatabase
-        .into(localDatabase.driftHallTreaningsTable)
-        .insertOnConflictUpdate(
-          DriftHallTreaningsTableCompanion.insert(
-            id: treaning.id,
-            hallId: treaning.climbingHall.id,
-            date: treaning.date,
-            finish: Value(treaning.finish),
-          ),
-        );
+    final data = _convertTreaning(treaning: treaning);
 
-    return Right(treaning);
+    final failureOrUnit =
+        await _localDatabase.updateById(table: table, data: data);
+
+    return failureOrUnit.fold((failure) => Left(failure), (_) async {
+      final failureOrUnitDelete = await _localDatabase.deleteAll(
+          table: attemptsTable, whereConditions: {'treaning_id': treaning.id});
+
+      return failureOrUnitDelete.fold(
+        (failure) => Left(failure),
+        (_) async {
+          final failureOrUnitInsert = await _localDatabase.insertAll(
+              table: attemptsTable, data: data['attempts']);
+          return failureOrUnitInsert.fold(
+              (failure) => Left(failure), (r) => Right(treaning));
+        },
+      );
+    });
   }
 
   @override
   Future<Either<Failure, ClimbingHallAttempt>> saveAttempt(
       {required ClimbingHallTreaning treaning,
       required ClimbingHallAttempt attempt}) async {
-    if (attempt.id == null) {
-      final int id = await localDatabase
-          .into(localDatabase.driftHallAttemptsTable)
-          .insert(DriftHallAttemptsTableCompanion.insert(
-            treaningId: treaning.id,
-            categoryId: attempt.category.id,
-            styleId: attempt.style.id,
-            routeId: Value(attempt.route?.id),
-            suspensionCount: attempt.suspensionCount,
-            fallCount: attempt.fallCount,
-            downClimbing: attempt.downClimbing,
-            fail: attempt.fail,
-            start: Value(attempt.startTime),
-            finish: Value(attempt.finishTime),
-            ascentTypeId: Value(attempt.ascentType?.id),
-          ));
-
-      attempt.id = id;
-    } else {
-      await localDatabase
-          .into(localDatabase.driftHallAttemptsTable)
-          .insertOnConflictUpdate(DriftHallAttemptsTableCompanion.insert(
-            id: Value(attempt.id!),
-            treaningId: treaning.id,
-            categoryId: attempt.category.id,
-            styleId: attempt.style.id,
-            routeId: Value(attempt.route?.id),
-            suspensionCount: attempt.suspensionCount,
-            fallCount: attempt.fallCount,
-            downClimbing: attempt.downClimbing,
-            fail: attempt.fail,
-            start: Value(attempt.startTime),
-            finish: Value(attempt.finishTime),
-            ascentTypeId: Value(attempt.ascentType?.id),
-          ));
-    }
-    return Right(attempt);
-  }
-
-  Future<List<ClimbingHallAttempt>> _treaningAttempts({
-    required String hallId,
-    required String treaningId,
-  }) async {
-    final data =
-        await (localDatabase.select(localDatabase.driftHallAttemptsTable)
-              ..where((tbl) => tbl.treaningId.equals(treaningId)))
-            .get();
-
-    final List<ClimbingHallAttempt> attempts = [];
-
-    for (var element in data) {
-      attempts.add(await _itemToAttempt(item: element, hallId: hallId));
-    }
-
-    return attempts;
-  }
-
-  Future<ClimbingHallAttempt> _itemToAttempt({
-    required DriftHallAttempt item,
-    required String hallId,
-    ClimbingHallRoute? route,
-  }) async {
-    if (route == null && item.routeId != null) {
-      final failureOrRoute = await getIt<ClimbingHallDataSource>()
-          .getRouteById(id: item.routeId!, hallId: hallId);
-
-      route = failureOrRoute.fold((l) => null, (route) => route);
-    }
-
-    final attempt = ClimbingHallAttempt(
-      category: ClimbingCategory.getById(item.categoryId),
-      style: ClimbingStyle.getById(item.styleId),
-      id: item.id,
-      route: route,
-    );
-
-    attempt.ascentType = item.ascentTypeId == null
-        ? null
-        : AscentType.getById(item.ascentTypeId!);
-
-    attempt.downClimbing = item.downClimbing;
-    attempt.startTime = item.start;
-    attempt.finishTime = item.finish;
-    attempt.fail = item.fail;
-    attempt.fallCount = item.fallCount;
-    attempt.suspensionCount = item.suspensionCount;
-
-    return attempt;
-  }
-
-  Future<ClimbingHallTreaning> _itemToTreaning(DriftHallTreaning item) async {
-    final failureOrHall =
-        await getIt<ClimbingHallDataSource>().getHallById(item.hallId);
-
-    final attempts =
-        await _treaningAttempts(hallId: item.hallId, treaningId: item.id);
-    return ClimbingHallTreaning(
-        id: item.id,
-        climbingHall: failureOrHall.getOrElse(
-          () => throw 'error',
-        ),
-        attempts: attempts,
-        date: item.date);
+    // TODO: implement routeAttempts
+    throw UnimplementedError();
   }
 
   @override
   Future<Either<Failure, Unit>> deleteAttempt(
       {required ClimbingHallAttempt attempt}) async {
-    await (localDatabase.delete(localDatabase.driftHallAttemptsTable)
-          ..where((tbl) => tbl.id.equals(attempt.id!)))
-        .go();
-
-    return const Right(unit);
+    return await _localDatabase.deleteById(
+        table: table, data: _convertAttempt(attempt: attempt));
   }
 
   @override
   Future<Either<Failure, Unit>> deleteTreaning(
       {required ClimbingHallTreaning treaning}) async {
-    await (localDatabase.delete(localDatabase.driftHallAttemptsTable)
-          ..where((tbl) => tbl.treaningId.equals(treaning.id)))
-        .go();
-    await (localDatabase.delete(localDatabase.driftHallTreaningsTable)
-          ..where((tbl) => tbl.id.equals(treaning.id)))
-        .go();
+    final failureOrUnitDelete = await _localDatabase.deleteAll(
+        table: attemptsTable, whereConditions: {'treaning_id': treaning.id});
 
-    return const Right(unit);
+    return failureOrUnitDelete.fold(
+      (failure) => Left(failure),
+      (_) async => await _localDatabase.deleteById(
+          table: table, data: _convertTreaning(treaning: treaning)),
+    );
+  }
+
+  Future<HallTreaningModel> _treaningWithAttempts(
+      Map<String, dynamic> json) async {
+    final failureOrLines = await _localDatabase.getData(
+      table: attemptsTable,
+      whereConditions: {'treaning_id': json['id']},
+      orderByConditions: {'start_time': false},
+    );
+
+    json['attempts'] = failureOrLines.fold(
+      (l) => [],
+      (lines) => lines,
+    );
+
+    return HallTreaningModel.fromJson(json);
+  }
+
+  Map<String, dynamic> _convertTreaning(
+      {required ClimbingHallTreaning treaning}) {
+    if (treaning is HallTreaningModel) {
+      return treaning.toJson();
+    } else {
+      return HallTreaningModel(
+        date: treaning.date,
+        finish: treaning.finish,
+        start: treaning.start,
+        id: treaning.id,
+        climbingHall: treaning.climbingHall,
+        attempts: treaning.attempts,
+      ).toJson();
+    }
+  }
+
+  Map<String, dynamic> _convertAttempt({required ClimbingHallAttempt attempt}) {
+    return const ClimbingHallAttemptConverter().toJson(attempt);
   }
 
   @override
   Future<Either<Failure, List<ClimbingHallAttempt>>> routeAttempts(
-      {required ClimbingHallRoute route}) async {
-    final data =
-        await (localDatabase.select(localDatabase.driftHallAttemptsTable)
-              ..where((tbl) => tbl.routeId.equals(route.id))
-              ..orderBy([
-                (u) =>
-                    OrderingTerm(expression: u.start, mode: OrderingMode.desc),
-              ]))
-            .get();
-
-    final List<ClimbingHallAttempt> attempts = [];
-
-    for (var element in data) {
-      attempts
-          .add(await _itemToAttempt(item: element, hallId: '0', route: route));
-    }
-
-    return Right(attempts);
+      {required ClimbingHallRoute route}) {
+    // TODO: implement routeAttempts
+    throw UnimplementedError();
   }
-
-  Future<List<DriftHallTreaning>> _getAllTreanings() async =>
-      (localDatabase.select(localDatabase.driftHallTreaningsTable)
-            ..orderBy(
-              [
-                (u) => OrderingTerm(expression: u.date, mode: OrderingMode.desc)
-              ],
-            ))
-          .get();
 }
