@@ -4,6 +4,7 @@ import 'package:my_climbing_trek/core/data/climbing_style.dart';
 import 'package:my_climbing_trek/core/data/data_with_uuid.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_route.dart';
 import 'package:flutter/material.dart';
+import 'package:my_climbing_trek/features/hall_climbing/domain/entities/gym_route_attempts_statistic.dart';
 
 class ClimbingHallAttempt extends DataWithUUID {
   final ClimbingHallRoute? route;
@@ -60,7 +61,7 @@ class ClimbingHallAttempt extends DataWithUUID {
     int fallCount = 0,
     bool downClimbing = false,
     bool fail = false,
-    int attemptCount = 0,
+    GymRouteAttemptsStatistic? statistic,
   }) {
     finishTime = DateTime.now();
     this.suspensionCount = suspensionCount;
@@ -68,13 +69,14 @@ class ClimbingHallAttempt extends DataWithUUID {
     this.downClimbing = downClimbing;
     this.fail = fail;
 
-    if (!fail &&
+    if (statistic?.done == false &&
+        !fail &&
         style == ClimbingStyle.lead &&
         route != null &&
         fallCount == 0 &&
         suspensionCount == 0) {
-      if (attemptCount == 0) {
-        ascentType = AscentType.onsite;
+      if (statistic?.count == 1) {
+        ascentType = AscentType.flash;
       } else {
         ascentType = AscentType.redPoint;
       }

@@ -170,7 +170,7 @@ class LocalHallTreaningDataSource implements HallTreaningDataSource {
     final failureOrLines = await _localDatabase.getData(
       table: attemptsTable,
       whereConditions: {'route_id': route.id},
-      orderByConditions: {'start_time': false},
+      orderByConditions: {'start_time': true},
     );
 
     return failureOrLines.fold(

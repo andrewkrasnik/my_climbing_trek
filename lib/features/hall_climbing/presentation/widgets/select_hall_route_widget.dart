@@ -16,7 +16,6 @@ import '../bloc/climbing_hall/climbing_hall_cubit.dart';
 
 class SelectHallRouteWidget extends HookWidget {
   final ClimbingHallTreaning treaning;
-
   final ClimbingStyle style;
   const SelectHallRouteWidget({
     Key? key,
@@ -67,9 +66,16 @@ class SelectHallRouteWidget extends HookWidget {
                   )
                 : null,
             body: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(4.0),
               child: Column(
                 children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    child: Text(
+                      style.name,
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
+                  ),
                   SelectCategoryWidget(
                     currentCategory: category.value,
                     onTap: (selectedCategory) {
@@ -191,6 +197,22 @@ class SelectHallRouteWidget extends HookWidget {
                                   loadStatistic: dataState.statistic == null,
                                   statistic: dataState
                                       .statistic?[dataState.routes[index]],
+                                  child: ElevatedButton(
+                                      onPressed: () {
+                                        BlocProvider.of<
+                                                    CurrentHallTreaningCubit>(
+                                                context)
+                                            .attemptFromRoute(
+                                          climbingHall: treaning.climbingHall,
+                                          route: dataState.routes[index],
+                                          style: style,
+                                        );
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text(
+                                        'GO',
+                                        textAlign: TextAlign.center,
+                                      )),
                                 ),
                               ),
                           separatorBuilder: (_, __) => const SizedBox(

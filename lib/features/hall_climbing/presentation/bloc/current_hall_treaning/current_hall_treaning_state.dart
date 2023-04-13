@@ -7,6 +7,8 @@ class CurrentHallTreaningState with _$CurrentHallTreaningState {
     ClimbingHallTreaning? last,
     ClimbingHallAttempt? currentAttempt,
     ClimbingHallAttempt? lastAttempt,
+    GymRouteAttemptsStatistic? currentRouteStatistic,
+    GymRouteAttemptsStatistic? lastRouteStatistic,
   }) = _CurrentHallTreaningState;
 
   factory CurrentHallTreaningState.initial() =>

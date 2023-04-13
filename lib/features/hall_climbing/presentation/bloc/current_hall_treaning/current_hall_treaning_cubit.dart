@@ -2,6 +2,8 @@ import 'package:my_climbing_trek/core/data/climbing_category.dart';
 import 'package:my_climbing_trek/core/data/climbing_style.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_route.dart';
+import 'package:my_climbing_trek/features/hall_climbing/domain/entities/gym_route_attempts_statistic.dart';
+import 'package:my_climbing_trek/features/hall_climbing/domain/usecases/get_gym_route_statistic.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/usecases/treanings/current_hall_treaning.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/usecases/treanings/delete_hall_attempt.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/usecases/treanings/finish_hall_attempt.dart';
@@ -29,6 +31,7 @@ class CurrentHallTreaningCubit extends Cubit<CurrentHallTreaningState> {
   final FinishHallTreaning finishHallTreaning;
   final LastHallTreaning lastHallTreaning;
   final DeleteHallAttempt deleteHallAttempt;
+  final GetGymRouteStatistic getGymRouteStatistic;
 
   bool get treaningStarted => state.current != null;
 
@@ -43,6 +46,7 @@ class CurrentHallTreaningCubit extends Cubit<CurrentHallTreaningState> {
     required this.finishHallTreaning,
     required this.lastHallTreaning,
     required this.deleteHallAttempt,
+    required this.getGymRouteStatistic,
   }) : super(CurrentHallTreaningState.initial());
 
   Future<void> loadData() async {
@@ -61,7 +65,30 @@ class CurrentHallTreaningCubit extends Cubit<CurrentHallTreaningState> {
           failureOrLastTreaning.fold((failure) => null, (treaning) => treaning),
       currentAttempt: treaning?.currentAttempt,
       lastAttempt: treaning?.lastAttempt,
+      currentRouteStatistic: null,
+      lastRouteStatistic: null,
     ));
+
+    if (treaning?.currentAttempt != null &&
+        treaning?.currentAttempt?.route != null) {
+      final route = treaning!.currentAttempt!.route!;
+      final failureOrStatistic = await getGymRouteStatistic(routes: [route]);
+
+      failureOrStatistic.fold(
+          (l) => null,
+          (statistic) =>
+              emit(state.copyWith(currentRouteStatistic: statistic[route])));
+    }
+
+    if (treaning?.lastAttempt != null && treaning?.lastAttempt?.route != null) {
+      final route = treaning!.lastAttempt!.route!;
+      final failureOrStatistic = await getGymRouteStatistic(routes: [route]);
+
+      failureOrStatistic.fold(
+          (l) => null,
+          (statistic) =>
+              emit(state.copyWith(lastRouteStatistic: statistic[route])));
+    }
   }
 
   Future<void> startAttempt({required ClimbingHallAttempt attempt}) async {
@@ -81,10 +108,21 @@ class CurrentHallTreaningCubit extends Cubit<CurrentHallTreaningState> {
       climbingHall: climbingHall,
     );
 
-    failureOrTreaning.fold(
-        (failure) => null,
-        (treaning) => emit(state.copyWith(
-            current: treaning, currentAttempt: treaning.currentAttempt)));
+    failureOrTreaning.fold((failure) => null, (treaning) async {
+      emit(state.copyWith(
+          current: treaning, currentAttempt: treaning.currentAttempt));
+
+      if (treaning.currentAttempt != null &&
+          treaning.currentAttempt?.route != null) {
+        final route = treaning.currentAttempt!.route!;
+        final failureOrStatistic = await getGymRouteStatistic(routes: [route]);
+
+        failureOrStatistic.fold(
+            (l) => null,
+            (statistic) =>
+                emit(state.copyWith(currentRouteStatistic: statistic[route])));
+      }
+    });
   }
 
   Future<void> finishCurrentAttempt({
@@ -112,12 +150,34 @@ class CurrentHallTreaningCubit extends Cubit<CurrentHallTreaningState> {
 
           failureOrTreaning.fold(
             (l) => null,
-            (treaning) => emit(
-              state.copyWith(
+            (treaning) async {
+              emit(
+                state.copyWith(
                   currentAttempt: null,
+                  currentRouteStatistic: null,
                   lastAttempt: attempt,
-                  current: treaning),
-            ),
+                  current: treaning,
+                  lastRouteStatistic: null,
+                ),
+              );
+
+              if (attempt.route != null) {
+                final failureOrStatistic =
+                    await getGymRouteStatistic(routes: [attempt.route!]);
+                failureOrStatistic.fold(
+                  (l) => null,
+                  (statistic) {
+                    if (statistic.isNotEmpty) {
+                      emit(
+                        state.copyWith(
+                          lastRouteStatistic: statistic[attempt.route!],
+                        ),
+                      );
+                    }
+                  },
+                );
+              }
+            },
           );
         },
       );
@@ -136,6 +196,8 @@ class CurrentHallTreaningCubit extends Cubit<CurrentHallTreaningState> {
                 last: treaning,
                 currentAttempt: null,
                 lastAttempt: null,
+                currentRouteStatistic: null,
+                lastRouteStatistic: null,
               )));
     }
   }
@@ -188,12 +250,12 @@ class CurrentHallTreaningCubit extends Cubit<CurrentHallTreaningState> {
           start: true,
           route: route);
 
-      failureOrAttempt.fold(
-          (failure) => null,
-          (attempt) async => emit(state.copyWith(
-              currentAttempt: attempt,
-              current: (await currentHallTreaning())
-                  .fold((failure) => null, (treaning) => treaning))));
+      failureOrAttempt.fold((failure) => null, (attempt) async {
+        emit(state.copyWith(
+            currentAttempt: attempt,
+            current: (await currentHallTreaning())
+                .fold((failure) => null, (treaning) => treaning)));
+      });
     }
   }
 

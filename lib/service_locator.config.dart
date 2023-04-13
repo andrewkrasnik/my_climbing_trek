@@ -681,6 +681,7 @@ _i1.GetIt $initGetIt(
             finishHallTreaning: get<_i146.FinishHallTreaning>(),
             lastHallTreaning: get<_i100.LastHallTreaning>(),
             deleteHallAttempt: get<_i142.DeleteHallAttempt>(),
+            getGymRouteStatistic: get<_i151.GetGymRouteStatistic>(),
           ));
   gh.factory<_i164.CurrentIceTreaningCubit>(() => _i164.CurrentIceTreaningCubit(
         get<_i116.NewIceTreaning>(),

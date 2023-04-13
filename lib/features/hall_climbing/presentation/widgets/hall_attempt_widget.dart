@@ -1,4 +1,5 @@
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_attempt.dart';
+import 'package:my_climbing_trek/features/hall_climbing/domain/entities/gym_route_attempts_statistic.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/bloc/current_hall_treaning/current_hall_treaning_cubit.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/hall_attempt_dialog.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/hall_route_category_widget.dart';
@@ -9,10 +10,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class HallAttemptWidget extends StatelessWidget {
   final bool isCurrent;
   final ClimbingHallAttempt attempt;
+  final GymRouteAttemptsStatistic? statistic;
   const HallAttemptWidget({
     Key? key,
     required this.attempt,
     this.isCurrent = false,
+    this.statistic,
   }) : super(key: key);
 
   @override
@@ -27,7 +30,9 @@ class HallAttemptWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(attempt.style.name),
-            const Text('первая попытка'),
+            (statistic == null || statistic!.count == 1)
+                ? const Text('Первая попытка')
+                : Text('Попыток: ${statistic!.count}'),
           ],
         ),
         isCurrent

@@ -35,6 +35,7 @@ class HallHomePageWidget extends StatelessWidget {
                   HallAttemptWidget(
                     attempt: state.currentAttempt!,
                     isCurrent: true,
+                    statistic: state.currentRouteStatistic,
                   )
                 ],
                 if (state.lastAttempt != null) ...[
@@ -45,7 +46,10 @@ class HallHomePageWidget extends StatelessWidget {
                       style: titleTextStyle,
                     ),
                   ),
-                  HallAttemptWidget(attempt: state.lastAttempt!)
+                  HallAttemptWidget(
+                    attempt: state.lastAttempt!,
+                    statistic: state.lastRouteStatistic,
+                  )
                 ],
                 if (state.current != null) ...[
                   const Padding(

@@ -1,6 +1,7 @@
 import 'package:my_climbing_trek/core/failures/failure.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_attempt.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_treaning.dart';
+import 'package:my_climbing_trek/features/hall_climbing/domain/entities/gym_route_attempts_statistic.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/repositories/hall_treaning_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
@@ -21,8 +22,20 @@ class FinishHallAttempt {
     bool fail = false,
     int attemptCount = 0,
   }) async {
+    final GymRouteAttemptsStatistic? statistic;
+    if (attempt.route != null) {
+      final failureOrAttempts =
+          await treaningRepository.routeAttempts(route: attempt.route!);
+      statistic = failureOrAttempts.fold(
+        (l) => null,
+        (attempts) => GymRouteAttemptsStatistic(attempts: attempts),
+      );
+    } else {
+      statistic = null;
+    }
+
     attempt.finish(
-      attemptCount: suspensionCount,
+      statistic: statistic,
       downClimbing: downClimbing,
       fail: fail,
       fallCount: fallCount,

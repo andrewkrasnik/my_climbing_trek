@@ -147,6 +147,8 @@ class _AttemptBadgets extends StatelessWidget {
       topRight = const AttemptBudget(color: Colors.red, child: SizedBox());
     } else if (attempt?.ascentType == AscentType.onsite) {
       topRight = const AttemptBudget(color: Colors.amber, child: SizedBox());
+    } else if (attempt?.ascentType == AscentType.flash) {
+      topRight = const AttemptBudget(color: Colors.amber, child: SizedBox());
     } else if (attempt?.fail == true) {
       topRight = const AttemptBudget(
           color: Colors.red,

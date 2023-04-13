@@ -20,6 +20,10 @@ mixin _$CurrentHallTreaningState {
   ClimbingHallTreaning? get last => throw _privateConstructorUsedError;
   ClimbingHallAttempt? get currentAttempt => throw _privateConstructorUsedError;
   ClimbingHallAttempt? get lastAttempt => throw _privateConstructorUsedError;
+  GymRouteAttemptsStatistic? get currentRouteStatistic =>
+      throw _privateConstructorUsedError;
+  GymRouteAttemptsStatistic? get lastRouteStatistic =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CurrentHallTreaningStateCopyWith<CurrentHallTreaningState> get copyWith =>
@@ -36,7 +40,9 @@ abstract class $CurrentHallTreaningStateCopyWith<$Res> {
       {ClimbingHallTreaning? current,
       ClimbingHallTreaning? last,
       ClimbingHallAttempt? currentAttempt,
-      ClimbingHallAttempt? lastAttempt});
+      ClimbingHallAttempt? lastAttempt,
+      GymRouteAttemptsStatistic? currentRouteStatistic,
+      GymRouteAttemptsStatistic? lastRouteStatistic});
 }
 
 /// @nodoc
@@ -57,6 +63,8 @@ class _$CurrentHallTreaningStateCopyWithImpl<$Res,
     Object? last = freezed,
     Object? currentAttempt = freezed,
     Object? lastAttempt = freezed,
+    Object? currentRouteStatistic = freezed,
+    Object? lastRouteStatistic = freezed,
   }) {
     return _then(_value.copyWith(
       current: freezed == current
@@ -75,6 +83,14 @@ class _$CurrentHallTreaningStateCopyWithImpl<$Res,
           ? _value.lastAttempt
           : lastAttempt // ignore: cast_nullable_to_non_nullable
               as ClimbingHallAttempt?,
+      currentRouteStatistic: freezed == currentRouteStatistic
+          ? _value.currentRouteStatistic
+          : currentRouteStatistic // ignore: cast_nullable_to_non_nullable
+              as GymRouteAttemptsStatistic?,
+      lastRouteStatistic: freezed == lastRouteStatistic
+          ? _value.lastRouteStatistic
+          : lastRouteStatistic // ignore: cast_nullable_to_non_nullable
+              as GymRouteAttemptsStatistic?,
     ) as $Val);
   }
 }
@@ -92,7 +108,9 @@ abstract class _$$_CurrentHallTreaningStateCopyWith<$Res>
       {ClimbingHallTreaning? current,
       ClimbingHallTreaning? last,
       ClimbingHallAttempt? currentAttempt,
-      ClimbingHallAttempt? lastAttempt});
+      ClimbingHallAttempt? lastAttempt,
+      GymRouteAttemptsStatistic? currentRouteStatistic,
+      GymRouteAttemptsStatistic? lastRouteStatistic});
 }
 
 /// @nodoc
@@ -111,6 +129,8 @@ class __$$_CurrentHallTreaningStateCopyWithImpl<$Res>
     Object? last = freezed,
     Object? currentAttempt = freezed,
     Object? lastAttempt = freezed,
+    Object? currentRouteStatistic = freezed,
+    Object? lastRouteStatistic = freezed,
   }) {
     return _then(_$_CurrentHallTreaningState(
       current: freezed == current
@@ -129,6 +149,14 @@ class __$$_CurrentHallTreaningStateCopyWithImpl<$Res>
           ? _value.lastAttempt
           : lastAttempt // ignore: cast_nullable_to_non_nullable
               as ClimbingHallAttempt?,
+      currentRouteStatistic: freezed == currentRouteStatistic
+          ? _value.currentRouteStatistic
+          : currentRouteStatistic // ignore: cast_nullable_to_non_nullable
+              as GymRouteAttemptsStatistic?,
+      lastRouteStatistic: freezed == lastRouteStatistic
+          ? _value.lastRouteStatistic
+          : lastRouteStatistic // ignore: cast_nullable_to_non_nullable
+              as GymRouteAttemptsStatistic?,
     ));
   }
 }
@@ -137,7 +165,12 @@ class __$$_CurrentHallTreaningStateCopyWithImpl<$Res>
 
 class _$_CurrentHallTreaningState implements _CurrentHallTreaningState {
   const _$_CurrentHallTreaningState(
-      {this.current, this.last, this.currentAttempt, this.lastAttempt});
+      {this.current,
+      this.last,
+      this.currentAttempt,
+      this.lastAttempt,
+      this.currentRouteStatistic,
+      this.lastRouteStatistic});
 
   @override
   final ClimbingHallTreaning? current;
@@ -147,10 +180,14 @@ class _$_CurrentHallTreaningState implements _CurrentHallTreaningState {
   final ClimbingHallAttempt? currentAttempt;
   @override
   final ClimbingHallAttempt? lastAttempt;
+  @override
+  final GymRouteAttemptsStatistic? currentRouteStatistic;
+  @override
+  final GymRouteAttemptsStatistic? lastRouteStatistic;
 
   @override
   String toString() {
-    return 'CurrentHallTreaningState(current: $current, last: $last, currentAttempt: $currentAttempt, lastAttempt: $lastAttempt)';
+    return 'CurrentHallTreaningState(current: $current, last: $last, currentAttempt: $currentAttempt, lastAttempt: $lastAttempt, currentRouteStatistic: $currentRouteStatistic, lastRouteStatistic: $lastRouteStatistic)';
   }
 
   @override
@@ -163,12 +200,16 @@ class _$_CurrentHallTreaningState implements _CurrentHallTreaningState {
             (identical(other.currentAttempt, currentAttempt) ||
                 other.currentAttempt == currentAttempt) &&
             (identical(other.lastAttempt, lastAttempt) ||
-                other.lastAttempt == lastAttempt));
+                other.lastAttempt == lastAttempt) &&
+            (identical(other.currentRouteStatistic, currentRouteStatistic) ||
+                other.currentRouteStatistic == currentRouteStatistic) &&
+            (identical(other.lastRouteStatistic, lastRouteStatistic) ||
+                other.lastRouteStatistic == lastRouteStatistic));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, current, last, currentAttempt, lastAttempt);
+  int get hashCode => Object.hash(runtimeType, current, last, currentAttempt,
+      lastAttempt, currentRouteStatistic, lastRouteStatistic);
 
   @JsonKey(ignore: true)
   @override
@@ -180,10 +221,13 @@ class _$_CurrentHallTreaningState implements _CurrentHallTreaningState {
 
 abstract class _CurrentHallTreaningState implements CurrentHallTreaningState {
   const factory _CurrentHallTreaningState(
-      {final ClimbingHallTreaning? current,
-      final ClimbingHallTreaning? last,
-      final ClimbingHallAttempt? currentAttempt,
-      final ClimbingHallAttempt? lastAttempt}) = _$_CurrentHallTreaningState;
+          {final ClimbingHallTreaning? current,
+          final ClimbingHallTreaning? last,
+          final ClimbingHallAttempt? currentAttempt,
+          final ClimbingHallAttempt? lastAttempt,
+          final GymRouteAttemptsStatistic? currentRouteStatistic,
+          final GymRouteAttemptsStatistic? lastRouteStatistic}) =
+      _$_CurrentHallTreaningState;
 
   @override
   ClimbingHallTreaning? get current;
@@ -193,6 +237,10 @@ abstract class _CurrentHallTreaningState implements CurrentHallTreaningState {
   ClimbingHallAttempt? get currentAttempt;
   @override
   ClimbingHallAttempt? get lastAttempt;
+  @override
+  GymRouteAttemptsStatistic? get currentRouteStatistic;
+  @override
+  GymRouteAttemptsStatistic? get lastRouteStatistic;
   @override
   @JsonKey(ignore: true)
   _$$_CurrentHallTreaningStateCopyWith<_$_CurrentHallTreaningState>
