@@ -5,7 +5,6 @@ import 'package:my_climbing_trek/features/hall_climbing/presentation/bloc/curren
 import 'package:my_climbing_trek/features/hall_climbing/presentation/pages/hall_treaning_page.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/hall_attempt_dialog.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/hall_route_category_widget.dart';
-import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/hall_sector_number_widget.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/select_hall_route_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -203,10 +202,7 @@ class AttemptClickWidget extends StatelessWidget {
         context: context,
         builder: (context) => HallAttemptDialog(attempt: attempt),
       ),
-      child: HallSectorNumberWidget(
-        route: attempt.route,
-        child: HallRouteCategoryWidget.fromAttempt(attempt: attempt),
-      ),
+      child: HallRouteCategoryWidget.fromAttempt(attempt: attempt),
     );
   }
 }

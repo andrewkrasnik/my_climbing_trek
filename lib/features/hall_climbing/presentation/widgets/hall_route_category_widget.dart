@@ -13,12 +13,14 @@ class HallRouteCategoryWidget extends StatelessWidget {
   final Color? color;
   final bool planed;
   final ClimbingHallAttempt? _attempt;
+  final int sectorNumber;
 
   const HallRouteCategoryWidget({
     Key? key,
     required this.category,
     this.color,
     this.planed = false,
+    this.sectorNumber = 0,
   })  : _attempt = null,
         super(key: key);
 
@@ -29,6 +31,7 @@ class HallRouteCategoryWidget extends StatelessWidget {
   })  : _attempt = attempt,
         category = attempt.routeCategory,
         color = attempt.routeColor,
+        sectorNumber = attempt.route?.sectorNumber ?? 0,
         planed = attempt.planed;
 
   @override
@@ -41,6 +44,8 @@ class HallRouteCategoryWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(24),
         child: _AttemptBadgets(
           attempt: _attempt,
+          sectorNumber: sectorNumber,
+          textColor: Colors.black,
           child: CircleAvatar(
             backgroundColor: Colors.red.withOpacity(opacity),
             radius: radius,
@@ -77,6 +82,8 @@ class HallRouteCategoryWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(24),
         child: _AttemptBadgets(
           attempt: _attempt,
+          sectorNumber: sectorNumber,
+          textColor: textColor,
           child: CircleAvatar(
             backgroundColor: color?.withOpacity(opacity),
             radius: radius,
@@ -104,14 +111,36 @@ class HallRouteCategoryWidget extends StatelessWidget {
 class _AttemptBadgets extends StatelessWidget {
   final ClimbingHallAttempt? attempt;
   final Widget child;
+  final int sectorNumber;
+  final Color textColor;
 
-  const _AttemptBadgets({Key? key, required this.attempt, required this.child})
-      : super(key: key);
+  const _AttemptBadgets({
+    Key? key,
+    required this.attempt,
+    required this.child,
+    required this.sectorNumber,
+    required this.textColor,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (attempt == null) return child;
-
+    if (attempt == null) {
+      return Stack(
+        alignment: AlignmentDirectional.bottomCenter,
+        children: [
+          child,
+          if (sectorNumber > 0)
+            Text(
+              sectorNumber.toString(),
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+                color: textColor,
+              ),
+            ),
+        ],
+      );
+    }
     late Widget topRight;
 
     if (attempt?.ascentType == AscentType.redPoint) {
@@ -164,8 +193,18 @@ class _AttemptBadgets extends StatelessWidget {
       height: radius * 2,
       width: radius * 2,
       child: Stack(
+        alignment: AlignmentDirectional.bottomCenter,
         children: [
           child,
+          if (sectorNumber > 0)
+            Text(
+              sectorNumber.toString(),
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+                color: textColor,
+              ),
+            ),
           Align(
             alignment: Alignment.topRight,
             child: topRight,

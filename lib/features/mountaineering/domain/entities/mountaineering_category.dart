@@ -45,17 +45,17 @@ class MountaineeringCategory {
       id: 'sixB', russianName: '6Б', frenchName: 'ED3', uiaaName: 'VII');
 
   static const Map<String, MountaineeringCategory> _values = {
-    'oneB': oneB,
-    'twoA': twoA,
-    'twoB': twoB,
-    'treeA': treeA,
-    'treeB': treeB,
-    'fourA': fourA,
-    'fourB': fourB,
-    'fiveA': fiveA,
-    'fiveB': fiveB,
-    'sixA': sixA,
-    'sixB': sixB,
+    '1B': oneB,
+    '2A': twoA,
+    '2B': twoB,
+    '3A': treeA,
+    '3B': treeB,
+    '4A': fourA,
+    '4B': fourB,
+    '5A': fiveA,
+    '5B': fiveB,
+    '6A': sixA,
+    '6B': sixB,
   };
 
   static List<MountaineeringCategory> get values => _values.values.toList();

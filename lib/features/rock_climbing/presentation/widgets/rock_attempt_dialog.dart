@@ -42,9 +42,9 @@ class RockAttemptDialog extends HookWidget {
                     child: Text(
                       attempt.route!.number.toString(),
                       style: const TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                      ),
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
                     ),
                   )
               ],

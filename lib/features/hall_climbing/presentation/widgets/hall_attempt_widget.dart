@@ -5,7 +5,6 @@ import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/hal
 import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/hall_route_go_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/hall_sector_number_widget.dart';
 
 class HallAttemptWidget extends StatelessWidget {
   final bool isCurrent;
@@ -21,11 +20,8 @@ class HallAttemptWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        HallSectorNumberWidget(
-          route: attempt.route,
-          child: HallRouteCategoryWidget.fromAttempt(
-            attempt: attempt,
-          ),
+        HallRouteCategoryWidget.fromAttempt(
+          attempt: attempt,
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,

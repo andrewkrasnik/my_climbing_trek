@@ -3,7 +3,6 @@ import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing
 import 'package:my_climbing_trek/features/hall_climbing/presentation/bloc/current_hall_treaning/current_hall_treaning_cubit.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/bool_value_widget.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/hall_route_category_widget.dart';
-import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/hall_sector_number_widget.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/int_counter_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,12 +28,9 @@ class HallAttemptDialog extends HookWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            HallSectorNumberWidget(
-              route: attempt.route,
-              child: HallRouteCategoryWidget(
-                category: attempt.category,
-                color: attempt.routeColor,
-              ),
+            HallRouteCategoryWidget(
+              category: attempt.category,
+              color: attempt.routeColor,
             ),
             Text(attempt.style.toString()),
             BoolValueWidget(

@@ -2,7 +2,6 @@ import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_route.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/hall_route_category_widget.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/hall_route_go_button.dart';
-import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/hall_sector_number_widget.dart';
 import 'package:flutter/material.dart';
 
 class HallRouteWidget extends StatelessWidget {
@@ -31,12 +30,9 @@ class HallRouteWidget extends StatelessWidget {
           const SizedBox(
             width: 16,
           ),
-          HallSectorNumberWidget(
-            route: route,
-            child: HallRouteCategoryWidget(
-              category: route.category,
-              color: route.color.materialColor,
-            ),
+          HallRouteCategoryWidget(
+            category: route.category,
+            color: route.color.materialColor,
           ),
           const SizedBox(
             width: 8,
