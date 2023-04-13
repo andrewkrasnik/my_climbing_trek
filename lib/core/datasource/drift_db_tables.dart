@@ -69,6 +69,8 @@ class DriftHallTreaningsTable extends Table {
   TextColumn get hallId => text()();
   DateTimeColumn get date => dateTime()();
   DateTimeColumn get finish => dateTime().nullable()();
+  DateTimeColumn get start => dateTime().nullable()();
+  TextColumn get climbingHall => text()();
 
   @override
   Set<Column>? get primaryKey => {id};
@@ -76,19 +78,23 @@ class DriftHallTreaningsTable extends Table {
 
 @DataClassName('DriftHallAttempt')
 class DriftHallAttemptsTable extends Table {
-  IntColumn get id => integer().autoIncrement()();
+  TextColumn get id => text().unique()();
   TextColumn get treaningId =>
       text().references(DriftHallTreaningsTable, #id)();
-  TextColumn get categoryId => text()();
-  TextColumn get styleId => text()();
+  TextColumn get category => text()();
+  TextColumn get style => text()();
   TextColumn get routeId => text().nullable()();
-  DateTimeColumn get finish => dateTime().nullable()();
-  DateTimeColumn get start => dateTime().nullable()();
-  IntColumn get ascentTypeId => integer().nullable()();
+  TextColumn get route => text().nullable()();
+  DateTimeColumn get finishTime => dateTime().nullable()();
+  DateTimeColumn get startTime => dateTime().nullable()();
+  TextColumn get ascentType => text().nullable()();
   IntColumn get suspensionCount => integer()();
   IntColumn get fallCount => integer()();
   BoolColumn get downClimbing => boolean()();
   BoolColumn get fail => boolean()();
+
+  @override
+  Set<Column>? get primaryKey => {id};
 }
 
 @DataClassName('DriftIceTreanings')

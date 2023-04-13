@@ -43,7 +43,7 @@ class RouteColor {
       RouteColor(name: 'Бирюзовый', code: 0xFF009688, id: 'wave');
 
   static const Map<String, RouteColor> _values = {
-    '': red,
+    'red': red,
     'yellow': yellow,
     'blue': blue,
     'green': green,

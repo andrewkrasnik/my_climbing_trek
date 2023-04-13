@@ -265,11 +265,15 @@ class DriftHallTreaning extends DataClass
   final String hallId;
   final DateTime date;
   final DateTime? finish;
+  final DateTime? start;
+  final String climbingHall;
   const DriftHallTreaning(
       {required this.id,
       required this.hallId,
       required this.date,
-      this.finish});
+      this.finish,
+      this.start,
+      required this.climbingHall});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -279,6 +283,10 @@ class DriftHallTreaning extends DataClass
     if (!nullToAbsent || finish != null) {
       map['finish'] = Variable<DateTime>(finish);
     }
+    if (!nullToAbsent || start != null) {
+      map['start'] = Variable<DateTime>(start);
+    }
+    map['climbing_hall'] = Variable<String>(climbingHall);
     return map;
   }
 
@@ -289,6 +297,9 @@ class DriftHallTreaning extends DataClass
       date: Value(date),
       finish:
           finish == null && nullToAbsent ? const Value.absent() : Value(finish),
+      start:
+          start == null && nullToAbsent ? const Value.absent() : Value(start),
+      climbingHall: Value(climbingHall),
     );
   }
 
@@ -300,6 +311,8 @@ class DriftHallTreaning extends DataClass
       hallId: serializer.fromJson<String>(json['hallId']),
       date: serializer.fromJson<DateTime>(json['date']),
       finish: serializer.fromJson<DateTime?>(json['finish']),
+      start: serializer.fromJson<DateTime?>(json['start']),
+      climbingHall: serializer.fromJson<String>(json['climbingHall']),
     );
   }
   @override
@@ -310,6 +323,8 @@ class DriftHallTreaning extends DataClass
       'hallId': serializer.toJson<String>(hallId),
       'date': serializer.toJson<DateTime>(date),
       'finish': serializer.toJson<DateTime?>(finish),
+      'start': serializer.toJson<DateTime?>(start),
+      'climbingHall': serializer.toJson<String>(climbingHall),
     };
   }
 
@@ -317,12 +332,16 @@ class DriftHallTreaning extends DataClass
           {String? id,
           String? hallId,
           DateTime? date,
-          Value<DateTime?> finish = const Value.absent()}) =>
+          Value<DateTime?> finish = const Value.absent(),
+          Value<DateTime?> start = const Value.absent(),
+          String? climbingHall}) =>
       DriftHallTreaning(
         id: id ?? this.id,
         hallId: hallId ?? this.hallId,
         date: date ?? this.date,
         finish: finish.present ? finish.value : this.finish,
+        start: start.present ? start.value : this.start,
+        climbingHall: climbingHall ?? this.climbingHall,
       );
   @override
   String toString() {
@@ -330,13 +349,16 @@ class DriftHallTreaning extends DataClass
           ..write('id: $id, ')
           ..write('hallId: $hallId, ')
           ..write('date: $date, ')
-          ..write('finish: $finish')
+          ..write('finish: $finish, ')
+          ..write('start: $start, ')
+          ..write('climbingHall: $climbingHall')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, hallId, date, finish);
+  int get hashCode =>
+      Object.hash(id, hallId, date, finish, start, climbingHall);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -344,7 +366,9 @@ class DriftHallTreaning extends DataClass
           other.id == this.id &&
           other.hallId == this.hallId &&
           other.date == this.date &&
-          other.finish == this.finish);
+          other.finish == this.finish &&
+          other.start == this.start &&
+          other.climbingHall == this.climbingHall);
 }
 
 class DriftHallTreaningsTableCompanion
@@ -353,31 +377,42 @@ class DriftHallTreaningsTableCompanion
   final Value<String> hallId;
   final Value<DateTime> date;
   final Value<DateTime?> finish;
+  final Value<DateTime?> start;
+  final Value<String> climbingHall;
   const DriftHallTreaningsTableCompanion({
     this.id = const Value.absent(),
     this.hallId = const Value.absent(),
     this.date = const Value.absent(),
     this.finish = const Value.absent(),
+    this.start = const Value.absent(),
+    this.climbingHall = const Value.absent(),
   });
   DriftHallTreaningsTableCompanion.insert({
     required String id,
     required String hallId,
     required DateTime date,
     this.finish = const Value.absent(),
+    this.start = const Value.absent(),
+    required String climbingHall,
   })  : id = Value(id),
         hallId = Value(hallId),
-        date = Value(date);
+        date = Value(date),
+        climbingHall = Value(climbingHall);
   static Insertable<DriftHallTreaning> custom({
     Expression<String>? id,
     Expression<String>? hallId,
     Expression<DateTime>? date,
     Expression<DateTime>? finish,
+    Expression<DateTime>? start,
+    Expression<String>? climbingHall,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (hallId != null) 'hall_id': hallId,
       if (date != null) 'date': date,
       if (finish != null) 'finish': finish,
+      if (start != null) 'start': start,
+      if (climbingHall != null) 'climbing_hall': climbingHall,
     });
   }
 
@@ -385,12 +420,16 @@ class DriftHallTreaningsTableCompanion
       {Value<String>? id,
       Value<String>? hallId,
       Value<DateTime>? date,
-      Value<DateTime?>? finish}) {
+      Value<DateTime?>? finish,
+      Value<DateTime?>? start,
+      Value<String>? climbingHall}) {
     return DriftHallTreaningsTableCompanion(
       id: id ?? this.id,
       hallId: hallId ?? this.hallId,
       date: date ?? this.date,
       finish: finish ?? this.finish,
+      start: start ?? this.start,
+      climbingHall: climbingHall ?? this.climbingHall,
     );
   }
 
@@ -409,6 +448,12 @@ class DriftHallTreaningsTableCompanion
     if (finish.present) {
       map['finish'] = Variable<DateTime>(finish.value);
     }
+    if (start.present) {
+      map['start'] = Variable<DateTime>(start.value);
+    }
+    if (climbingHall.present) {
+      map['climbing_hall'] = Variable<String>(climbingHall.value);
+    }
     return map;
   }
 
@@ -418,7 +463,9 @@ class DriftHallTreaningsTableCompanion
           ..write('id: $id, ')
           ..write('hallId: $hallId, ')
           ..write('date: $date, ')
-          ..write('finish: $finish')
+          ..write('finish: $finish, ')
+          ..write('start: $start, ')
+          ..write('climbingHall: $climbingHall')
           ..write(')'))
         .toString();
   }
@@ -452,8 +499,20 @@ class $DriftHallTreaningsTableTable extends DriftHallTreaningsTable
   late final GeneratedColumn<DateTime> finish = GeneratedColumn<DateTime>(
       'finish', aliasedName, true,
       type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  final VerificationMeta _startMeta = const VerificationMeta('start');
   @override
-  List<GeneratedColumn> get $columns => [id, hallId, date, finish];
+  late final GeneratedColumn<DateTime> start = GeneratedColumn<DateTime>(
+      'start', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  final VerificationMeta _climbingHallMeta =
+      const VerificationMeta('climbingHall');
+  @override
+  late final GeneratedColumn<String> climbingHall = GeneratedColumn<String>(
+      'climbing_hall', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, hallId, date, finish, start, climbingHall];
   @override
   String get aliasedName => _alias ?? 'drift_hall_treanings_table';
   @override
@@ -484,6 +543,18 @@ class $DriftHallTreaningsTableTable extends DriftHallTreaningsTable
       context.handle(_finishMeta,
           finish.isAcceptableOrUnknown(data['finish']!, _finishMeta));
     }
+    if (data.containsKey('start')) {
+      context.handle(
+          _startMeta, start.isAcceptableOrUnknown(data['start']!, _startMeta));
+    }
+    if (data.containsKey('climbing_hall')) {
+      context.handle(
+          _climbingHallMeta,
+          climbingHall.isAcceptableOrUnknown(
+              data['climbing_hall']!, _climbingHallMeta));
+    } else if (isInserting) {
+      context.missing(_climbingHallMeta);
+    }
     return context;
   }
 
@@ -501,6 +572,10 @@ class $DriftHallTreaningsTableTable extends DriftHallTreaningsTable
           .read(DriftSqlType.dateTime, data['${effectivePrefix}date'])!,
       finish: attachedDatabase.options.types
           .read(DriftSqlType.dateTime, data['${effectivePrefix}finish']),
+      start: attachedDatabase.options.types
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}start']),
+      climbingHall: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}climbing_hall'])!,
     );
   }
 
@@ -512,14 +587,15 @@ class $DriftHallTreaningsTableTable extends DriftHallTreaningsTable
 
 class DriftHallAttempt extends DataClass
     implements Insertable<DriftHallAttempt> {
-  final int id;
+  final String id;
   final String treaningId;
-  final String categoryId;
-  final String styleId;
+  final String category;
+  final String style;
   final String? routeId;
-  final DateTime? finish;
-  final DateTime? start;
-  final int? ascentTypeId;
+  final String? route;
+  final DateTime? finishTime;
+  final DateTime? startTime;
+  final String? ascentType;
   final int suspensionCount;
   final int fallCount;
   final bool downClimbing;
@@ -527,12 +603,13 @@ class DriftHallAttempt extends DataClass
   const DriftHallAttempt(
       {required this.id,
       required this.treaningId,
-      required this.categoryId,
-      required this.styleId,
+      required this.category,
+      required this.style,
       this.routeId,
-      this.finish,
-      this.start,
-      this.ascentTypeId,
+      this.route,
+      this.finishTime,
+      this.startTime,
+      this.ascentType,
       required this.suspensionCount,
       required this.fallCount,
       required this.downClimbing,
@@ -540,21 +617,24 @@ class DriftHallAttempt extends DataClass
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
+    map['id'] = Variable<String>(id);
     map['treaning_id'] = Variable<String>(treaningId);
-    map['category_id'] = Variable<String>(categoryId);
-    map['style_id'] = Variable<String>(styleId);
+    map['category'] = Variable<String>(category);
+    map['style'] = Variable<String>(style);
     if (!nullToAbsent || routeId != null) {
       map['route_id'] = Variable<String>(routeId);
     }
-    if (!nullToAbsent || finish != null) {
-      map['finish'] = Variable<DateTime>(finish);
+    if (!nullToAbsent || route != null) {
+      map['route'] = Variable<String>(route);
     }
-    if (!nullToAbsent || start != null) {
-      map['start'] = Variable<DateTime>(start);
+    if (!nullToAbsent || finishTime != null) {
+      map['finish_time'] = Variable<DateTime>(finishTime);
     }
-    if (!nullToAbsent || ascentTypeId != null) {
-      map['ascent_type_id'] = Variable<int>(ascentTypeId);
+    if (!nullToAbsent || startTime != null) {
+      map['start_time'] = Variable<DateTime>(startTime);
+    }
+    if (!nullToAbsent || ascentType != null) {
+      map['ascent_type'] = Variable<String>(ascentType);
     }
     map['suspension_count'] = Variable<int>(suspensionCount);
     map['fall_count'] = Variable<int>(fallCount);
@@ -567,18 +647,22 @@ class DriftHallAttempt extends DataClass
     return DriftHallAttemptsTableCompanion(
       id: Value(id),
       treaningId: Value(treaningId),
-      categoryId: Value(categoryId),
-      styleId: Value(styleId),
+      category: Value(category),
+      style: Value(style),
       routeId: routeId == null && nullToAbsent
           ? const Value.absent()
           : Value(routeId),
-      finish:
-          finish == null && nullToAbsent ? const Value.absent() : Value(finish),
-      start:
-          start == null && nullToAbsent ? const Value.absent() : Value(start),
-      ascentTypeId: ascentTypeId == null && nullToAbsent
+      route:
+          route == null && nullToAbsent ? const Value.absent() : Value(route),
+      finishTime: finishTime == null && nullToAbsent
           ? const Value.absent()
-          : Value(ascentTypeId),
+          : Value(finishTime),
+      startTime: startTime == null && nullToAbsent
+          ? const Value.absent()
+          : Value(startTime),
+      ascentType: ascentType == null && nullToAbsent
+          ? const Value.absent()
+          : Value(ascentType),
       suspensionCount: Value(suspensionCount),
       fallCount: Value(fallCount),
       downClimbing: Value(downClimbing),
@@ -590,14 +674,15 @@ class DriftHallAttempt extends DataClass
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return DriftHallAttempt(
-      id: serializer.fromJson<int>(json['id']),
+      id: serializer.fromJson<String>(json['id']),
       treaningId: serializer.fromJson<String>(json['treaningId']),
-      categoryId: serializer.fromJson<String>(json['categoryId']),
-      styleId: serializer.fromJson<String>(json['styleId']),
+      category: serializer.fromJson<String>(json['category']),
+      style: serializer.fromJson<String>(json['style']),
       routeId: serializer.fromJson<String?>(json['routeId']),
-      finish: serializer.fromJson<DateTime?>(json['finish']),
-      start: serializer.fromJson<DateTime?>(json['start']),
-      ascentTypeId: serializer.fromJson<int?>(json['ascentTypeId']),
+      route: serializer.fromJson<String?>(json['route']),
+      finishTime: serializer.fromJson<DateTime?>(json['finishTime']),
+      startTime: serializer.fromJson<DateTime?>(json['startTime']),
+      ascentType: serializer.fromJson<String?>(json['ascentType']),
       suspensionCount: serializer.fromJson<int>(json['suspensionCount']),
       fallCount: serializer.fromJson<int>(json['fallCount']),
       downClimbing: serializer.fromJson<bool>(json['downClimbing']),
@@ -608,14 +693,15 @@ class DriftHallAttempt extends DataClass
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
+      'id': serializer.toJson<String>(id),
       'treaningId': serializer.toJson<String>(treaningId),
-      'categoryId': serializer.toJson<String>(categoryId),
-      'styleId': serializer.toJson<String>(styleId),
+      'category': serializer.toJson<String>(category),
+      'style': serializer.toJson<String>(style),
       'routeId': serializer.toJson<String?>(routeId),
-      'finish': serializer.toJson<DateTime?>(finish),
-      'start': serializer.toJson<DateTime?>(start),
-      'ascentTypeId': serializer.toJson<int?>(ascentTypeId),
+      'route': serializer.toJson<String?>(route),
+      'finishTime': serializer.toJson<DateTime?>(finishTime),
+      'startTime': serializer.toJson<DateTime?>(startTime),
+      'ascentType': serializer.toJson<String?>(ascentType),
       'suspensionCount': serializer.toJson<int>(suspensionCount),
       'fallCount': serializer.toJson<int>(fallCount),
       'downClimbing': serializer.toJson<bool>(downClimbing),
@@ -624,14 +710,15 @@ class DriftHallAttempt extends DataClass
   }
 
   DriftHallAttempt copyWith(
-          {int? id,
+          {String? id,
           String? treaningId,
-          String? categoryId,
-          String? styleId,
+          String? category,
+          String? style,
           Value<String?> routeId = const Value.absent(),
-          Value<DateTime?> finish = const Value.absent(),
-          Value<DateTime?> start = const Value.absent(),
-          Value<int?> ascentTypeId = const Value.absent(),
+          Value<String?> route = const Value.absent(),
+          Value<DateTime?> finishTime = const Value.absent(),
+          Value<DateTime?> startTime = const Value.absent(),
+          Value<String?> ascentType = const Value.absent(),
           int? suspensionCount,
           int? fallCount,
           bool? downClimbing,
@@ -639,13 +726,13 @@ class DriftHallAttempt extends DataClass
       DriftHallAttempt(
         id: id ?? this.id,
         treaningId: treaningId ?? this.treaningId,
-        categoryId: categoryId ?? this.categoryId,
-        styleId: styleId ?? this.styleId,
+        category: category ?? this.category,
+        style: style ?? this.style,
         routeId: routeId.present ? routeId.value : this.routeId,
-        finish: finish.present ? finish.value : this.finish,
-        start: start.present ? start.value : this.start,
-        ascentTypeId:
-            ascentTypeId.present ? ascentTypeId.value : this.ascentTypeId,
+        route: route.present ? route.value : this.route,
+        finishTime: finishTime.present ? finishTime.value : this.finishTime,
+        startTime: startTime.present ? startTime.value : this.startTime,
+        ascentType: ascentType.present ? ascentType.value : this.ascentType,
         suspensionCount: suspensionCount ?? this.suspensionCount,
         fallCount: fallCount ?? this.fallCount,
         downClimbing: downClimbing ?? this.downClimbing,
@@ -656,12 +743,13 @@ class DriftHallAttempt extends DataClass
     return (StringBuffer('DriftHallAttempt(')
           ..write('id: $id, ')
           ..write('treaningId: $treaningId, ')
-          ..write('categoryId: $categoryId, ')
-          ..write('styleId: $styleId, ')
+          ..write('category: $category, ')
+          ..write('style: $style, ')
           ..write('routeId: $routeId, ')
-          ..write('finish: $finish, ')
-          ..write('start: $start, ')
-          ..write('ascentTypeId: $ascentTypeId, ')
+          ..write('route: $route, ')
+          ..write('finishTime: $finishTime, ')
+          ..write('startTime: $startTime, ')
+          ..write('ascentType: $ascentType, ')
           ..write('suspensionCount: $suspensionCount, ')
           ..write('fallCount: $fallCount, ')
           ..write('downClimbing: $downClimbing, ')
@@ -674,12 +762,13 @@ class DriftHallAttempt extends DataClass
   int get hashCode => Object.hash(
       id,
       treaningId,
-      categoryId,
-      styleId,
+      category,
+      style,
       routeId,
-      finish,
-      start,
-      ascentTypeId,
+      route,
+      finishTime,
+      startTime,
+      ascentType,
       suspensionCount,
       fallCount,
       downClimbing,
@@ -690,12 +779,13 @@ class DriftHallAttempt extends DataClass
       (other is DriftHallAttempt &&
           other.id == this.id &&
           other.treaningId == this.treaningId &&
-          other.categoryId == this.categoryId &&
-          other.styleId == this.styleId &&
+          other.category == this.category &&
+          other.style == this.style &&
           other.routeId == this.routeId &&
-          other.finish == this.finish &&
-          other.start == this.start &&
-          other.ascentTypeId == this.ascentTypeId &&
+          other.route == this.route &&
+          other.finishTime == this.finishTime &&
+          other.startTime == this.startTime &&
+          other.ascentType == this.ascentType &&
           other.suspensionCount == this.suspensionCount &&
           other.fallCount == this.fallCount &&
           other.downClimbing == this.downClimbing &&
@@ -704,14 +794,15 @@ class DriftHallAttempt extends DataClass
 
 class DriftHallAttemptsTableCompanion
     extends UpdateCompanion<DriftHallAttempt> {
-  final Value<int> id;
+  final Value<String> id;
   final Value<String> treaningId;
-  final Value<String> categoryId;
-  final Value<String> styleId;
+  final Value<String> category;
+  final Value<String> style;
   final Value<String?> routeId;
-  final Value<DateTime?> finish;
-  final Value<DateTime?> start;
-  final Value<int?> ascentTypeId;
+  final Value<String?> route;
+  final Value<DateTime?> finishTime;
+  final Value<DateTime?> startTime;
+  final Value<String?> ascentType;
   final Value<int> suspensionCount;
   final Value<int> fallCount;
   final Value<bool> downClimbing;
@@ -719,46 +810,50 @@ class DriftHallAttemptsTableCompanion
   const DriftHallAttemptsTableCompanion({
     this.id = const Value.absent(),
     this.treaningId = const Value.absent(),
-    this.categoryId = const Value.absent(),
-    this.styleId = const Value.absent(),
+    this.category = const Value.absent(),
+    this.style = const Value.absent(),
     this.routeId = const Value.absent(),
-    this.finish = const Value.absent(),
-    this.start = const Value.absent(),
-    this.ascentTypeId = const Value.absent(),
+    this.route = const Value.absent(),
+    this.finishTime = const Value.absent(),
+    this.startTime = const Value.absent(),
+    this.ascentType = const Value.absent(),
     this.suspensionCount = const Value.absent(),
     this.fallCount = const Value.absent(),
     this.downClimbing = const Value.absent(),
     this.fail = const Value.absent(),
   });
   DriftHallAttemptsTableCompanion.insert({
-    this.id = const Value.absent(),
+    required String id,
     required String treaningId,
-    required String categoryId,
-    required String styleId,
+    required String category,
+    required String style,
     this.routeId = const Value.absent(),
-    this.finish = const Value.absent(),
-    this.start = const Value.absent(),
-    this.ascentTypeId = const Value.absent(),
+    this.route = const Value.absent(),
+    this.finishTime = const Value.absent(),
+    this.startTime = const Value.absent(),
+    this.ascentType = const Value.absent(),
     required int suspensionCount,
     required int fallCount,
     required bool downClimbing,
     required bool fail,
-  })  : treaningId = Value(treaningId),
-        categoryId = Value(categoryId),
-        styleId = Value(styleId),
+  })  : id = Value(id),
+        treaningId = Value(treaningId),
+        category = Value(category),
+        style = Value(style),
         suspensionCount = Value(suspensionCount),
         fallCount = Value(fallCount),
         downClimbing = Value(downClimbing),
         fail = Value(fail);
   static Insertable<DriftHallAttempt> custom({
-    Expression<int>? id,
+    Expression<String>? id,
     Expression<String>? treaningId,
-    Expression<String>? categoryId,
-    Expression<String>? styleId,
+    Expression<String>? category,
+    Expression<String>? style,
     Expression<String>? routeId,
-    Expression<DateTime>? finish,
-    Expression<DateTime>? start,
-    Expression<int>? ascentTypeId,
+    Expression<String>? route,
+    Expression<DateTime>? finishTime,
+    Expression<DateTime>? startTime,
+    Expression<String>? ascentType,
     Expression<int>? suspensionCount,
     Expression<int>? fallCount,
     Expression<bool>? downClimbing,
@@ -767,12 +862,13 @@ class DriftHallAttemptsTableCompanion
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (treaningId != null) 'treaning_id': treaningId,
-      if (categoryId != null) 'category_id': categoryId,
-      if (styleId != null) 'style_id': styleId,
+      if (category != null) 'category': category,
+      if (style != null) 'style': style,
       if (routeId != null) 'route_id': routeId,
-      if (finish != null) 'finish': finish,
-      if (start != null) 'start': start,
-      if (ascentTypeId != null) 'ascent_type_id': ascentTypeId,
+      if (route != null) 'route': route,
+      if (finishTime != null) 'finish_time': finishTime,
+      if (startTime != null) 'start_time': startTime,
+      if (ascentType != null) 'ascent_type': ascentType,
       if (suspensionCount != null) 'suspension_count': suspensionCount,
       if (fallCount != null) 'fall_count': fallCount,
       if (downClimbing != null) 'down_climbing': downClimbing,
@@ -781,14 +877,15 @@ class DriftHallAttemptsTableCompanion
   }
 
   DriftHallAttemptsTableCompanion copyWith(
-      {Value<int>? id,
+      {Value<String>? id,
       Value<String>? treaningId,
-      Value<String>? categoryId,
-      Value<String>? styleId,
+      Value<String>? category,
+      Value<String>? style,
       Value<String?>? routeId,
-      Value<DateTime?>? finish,
-      Value<DateTime?>? start,
-      Value<int?>? ascentTypeId,
+      Value<String?>? route,
+      Value<DateTime?>? finishTime,
+      Value<DateTime?>? startTime,
+      Value<String?>? ascentType,
       Value<int>? suspensionCount,
       Value<int>? fallCount,
       Value<bool>? downClimbing,
@@ -796,12 +893,13 @@ class DriftHallAttemptsTableCompanion
     return DriftHallAttemptsTableCompanion(
       id: id ?? this.id,
       treaningId: treaningId ?? this.treaningId,
-      categoryId: categoryId ?? this.categoryId,
-      styleId: styleId ?? this.styleId,
+      category: category ?? this.category,
+      style: style ?? this.style,
       routeId: routeId ?? this.routeId,
-      finish: finish ?? this.finish,
-      start: start ?? this.start,
-      ascentTypeId: ascentTypeId ?? this.ascentTypeId,
+      route: route ?? this.route,
+      finishTime: finishTime ?? this.finishTime,
+      startTime: startTime ?? this.startTime,
+      ascentType: ascentType ?? this.ascentType,
       suspensionCount: suspensionCount ?? this.suspensionCount,
       fallCount: fallCount ?? this.fallCount,
       downClimbing: downClimbing ?? this.downClimbing,
@@ -813,28 +911,31 @@ class DriftHallAttemptsTableCompanion
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     if (id.present) {
-      map['id'] = Variable<int>(id.value);
+      map['id'] = Variable<String>(id.value);
     }
     if (treaningId.present) {
       map['treaning_id'] = Variable<String>(treaningId.value);
     }
-    if (categoryId.present) {
-      map['category_id'] = Variable<String>(categoryId.value);
+    if (category.present) {
+      map['category'] = Variable<String>(category.value);
     }
-    if (styleId.present) {
-      map['style_id'] = Variable<String>(styleId.value);
+    if (style.present) {
+      map['style'] = Variable<String>(style.value);
     }
     if (routeId.present) {
       map['route_id'] = Variable<String>(routeId.value);
     }
-    if (finish.present) {
-      map['finish'] = Variable<DateTime>(finish.value);
+    if (route.present) {
+      map['route'] = Variable<String>(route.value);
     }
-    if (start.present) {
-      map['start'] = Variable<DateTime>(start.value);
+    if (finishTime.present) {
+      map['finish_time'] = Variable<DateTime>(finishTime.value);
     }
-    if (ascentTypeId.present) {
-      map['ascent_type_id'] = Variable<int>(ascentTypeId.value);
+    if (startTime.present) {
+      map['start_time'] = Variable<DateTime>(startTime.value);
+    }
+    if (ascentType.present) {
+      map['ascent_type'] = Variable<String>(ascentType.value);
     }
     if (suspensionCount.present) {
       map['suspension_count'] = Variable<int>(suspensionCount.value);
@@ -856,12 +957,13 @@ class DriftHallAttemptsTableCompanion
     return (StringBuffer('DriftHallAttemptsTableCompanion(')
           ..write('id: $id, ')
           ..write('treaningId: $treaningId, ')
-          ..write('categoryId: $categoryId, ')
-          ..write('styleId: $styleId, ')
+          ..write('category: $category, ')
+          ..write('style: $style, ')
           ..write('routeId: $routeId, ')
-          ..write('finish: $finish, ')
-          ..write('start: $start, ')
-          ..write('ascentTypeId: $ascentTypeId, ')
+          ..write('route: $route, ')
+          ..write('finishTime: $finishTime, ')
+          ..write('startTime: $startTime, ')
+          ..write('ascentType: $ascentType, ')
           ..write('suspensionCount: $suspensionCount, ')
           ..write('fallCount: $fallCount, ')
           ..write('downClimbing: $downClimbing, ')
@@ -879,11 +981,11 @@ class $DriftHallAttemptsTableTable extends DriftHallAttemptsTable
   $DriftHallAttemptsTableTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
   @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
       'id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      defaultConstraints: 'UNIQUE');
   final VerificationMeta _treaningIdMeta = const VerificationMeta('treaningId');
   @override
   late final GeneratedColumn<String> treaningId = GeneratedColumn<String>(
@@ -891,37 +993,41 @@ class $DriftHallAttemptsTableTable extends DriftHallAttemptsTable
       type: DriftSqlType.string,
       requiredDuringInsert: true,
       defaultConstraints: 'REFERENCES "drift_hall_treanings_table" ("id")');
-  final VerificationMeta _categoryIdMeta = const VerificationMeta('categoryId');
+  final VerificationMeta _categoryMeta = const VerificationMeta('category');
   @override
-  late final GeneratedColumn<String> categoryId = GeneratedColumn<String>(
-      'category_id', aliasedName, false,
+  late final GeneratedColumn<String> category = GeneratedColumn<String>(
+      'category', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _styleIdMeta = const VerificationMeta('styleId');
+  final VerificationMeta _styleMeta = const VerificationMeta('style');
   @override
-  late final GeneratedColumn<String> styleId = GeneratedColumn<String>(
-      'style_id', aliasedName, false,
+  late final GeneratedColumn<String> style = GeneratedColumn<String>(
+      'style', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
   final VerificationMeta _routeIdMeta = const VerificationMeta('routeId');
   @override
   late final GeneratedColumn<String> routeId = GeneratedColumn<String>(
       'route_id', aliasedName, true,
       type: DriftSqlType.string, requiredDuringInsert: false);
-  final VerificationMeta _finishMeta = const VerificationMeta('finish');
+  final VerificationMeta _routeMeta = const VerificationMeta('route');
   @override
-  late final GeneratedColumn<DateTime> finish = GeneratedColumn<DateTime>(
-      'finish', aliasedName, true,
+  late final GeneratedColumn<String> route = GeneratedColumn<String>(
+      'route', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  final VerificationMeta _finishTimeMeta = const VerificationMeta('finishTime');
+  @override
+  late final GeneratedColumn<DateTime> finishTime = GeneratedColumn<DateTime>(
+      'finish_time', aliasedName, true,
       type: DriftSqlType.dateTime, requiredDuringInsert: false);
-  final VerificationMeta _startMeta = const VerificationMeta('start');
+  final VerificationMeta _startTimeMeta = const VerificationMeta('startTime');
   @override
-  late final GeneratedColumn<DateTime> start = GeneratedColumn<DateTime>(
-      'start', aliasedName, true,
+  late final GeneratedColumn<DateTime> startTime = GeneratedColumn<DateTime>(
+      'start_time', aliasedName, true,
       type: DriftSqlType.dateTime, requiredDuringInsert: false);
-  final VerificationMeta _ascentTypeIdMeta =
-      const VerificationMeta('ascentTypeId');
+  final VerificationMeta _ascentTypeMeta = const VerificationMeta('ascentType');
   @override
-  late final GeneratedColumn<int> ascentTypeId = GeneratedColumn<int>(
-      'ascent_type_id', aliasedName, true,
-      type: DriftSqlType.int, requiredDuringInsert: false);
+  late final GeneratedColumn<String> ascentType = GeneratedColumn<String>(
+      'ascent_type', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   final VerificationMeta _suspensionCountMeta =
       const VerificationMeta('suspensionCount');
   @override
@@ -952,12 +1058,13 @@ class $DriftHallAttemptsTableTable extends DriftHallAttemptsTable
   List<GeneratedColumn> get $columns => [
         id,
         treaningId,
-        categoryId,
-        styleId,
+        category,
+        style,
         routeId,
-        finish,
-        start,
-        ascentTypeId,
+        route,
+        finishTime,
+        startTime,
+        ascentType,
         suspensionCount,
         fallCount,
         downClimbing,
@@ -974,6 +1081,8 @@ class $DriftHallAttemptsTableTable extends DriftHallAttemptsTable
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
     }
     if (data.containsKey('treaning_id')) {
       context.handle(
@@ -983,37 +1092,41 @@ class $DriftHallAttemptsTableTable extends DriftHallAttemptsTable
     } else if (isInserting) {
       context.missing(_treaningIdMeta);
     }
-    if (data.containsKey('category_id')) {
-      context.handle(
-          _categoryIdMeta,
-          categoryId.isAcceptableOrUnknown(
-              data['category_id']!, _categoryIdMeta));
+    if (data.containsKey('category')) {
+      context.handle(_categoryMeta,
+          category.isAcceptableOrUnknown(data['category']!, _categoryMeta));
     } else if (isInserting) {
-      context.missing(_categoryIdMeta);
+      context.missing(_categoryMeta);
     }
-    if (data.containsKey('style_id')) {
-      context.handle(_styleIdMeta,
-          styleId.isAcceptableOrUnknown(data['style_id']!, _styleIdMeta));
+    if (data.containsKey('style')) {
+      context.handle(
+          _styleMeta, style.isAcceptableOrUnknown(data['style']!, _styleMeta));
     } else if (isInserting) {
-      context.missing(_styleIdMeta);
+      context.missing(_styleMeta);
     }
     if (data.containsKey('route_id')) {
       context.handle(_routeIdMeta,
           routeId.isAcceptableOrUnknown(data['route_id']!, _routeIdMeta));
     }
-    if (data.containsKey('finish')) {
-      context.handle(_finishMeta,
-          finish.isAcceptableOrUnknown(data['finish']!, _finishMeta));
-    }
-    if (data.containsKey('start')) {
+    if (data.containsKey('route')) {
       context.handle(
-          _startMeta, start.isAcceptableOrUnknown(data['start']!, _startMeta));
+          _routeMeta, route.isAcceptableOrUnknown(data['route']!, _routeMeta));
     }
-    if (data.containsKey('ascent_type_id')) {
+    if (data.containsKey('finish_time')) {
       context.handle(
-          _ascentTypeIdMeta,
-          ascentTypeId.isAcceptableOrUnknown(
-              data['ascent_type_id']!, _ascentTypeIdMeta));
+          _finishTimeMeta,
+          finishTime.isAcceptableOrUnknown(
+              data['finish_time']!, _finishTimeMeta));
+    }
+    if (data.containsKey('start_time')) {
+      context.handle(_startTimeMeta,
+          startTime.isAcceptableOrUnknown(data['start_time']!, _startTimeMeta));
+    }
+    if (data.containsKey('ascent_type')) {
+      context.handle(
+          _ascentTypeMeta,
+          ascentType.isAcceptableOrUnknown(
+              data['ascent_type']!, _ascentTypeMeta));
     }
     if (data.containsKey('suspension_count')) {
       context.handle(
@@ -1053,21 +1166,23 @@ class $DriftHallAttemptsTableTable extends DriftHallAttemptsTable
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return DriftHallAttempt(
       id: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
       treaningId: attachedDatabase.options.types
           .read(DriftSqlType.string, data['${effectivePrefix}treaning_id'])!,
-      categoryId: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}category_id'])!,
-      styleId: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}style_id'])!,
+      category: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}category'])!,
+      style: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}style'])!,
       routeId: attachedDatabase.options.types
           .read(DriftSqlType.string, data['${effectivePrefix}route_id']),
-      finish: attachedDatabase.options.types
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}finish']),
-      start: attachedDatabase.options.types
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}start']),
-      ascentTypeId: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}ascent_type_id']),
+      route: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}route']),
+      finishTime: attachedDatabase.options.types
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}finish_time']),
+      startTime: attachedDatabase.options.types
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}start_time']),
+      ascentType: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}ascent_type']),
       suspensionCount: attachedDatabase.options.types
           .read(DriftSqlType.int, data['${effectivePrefix}suspension_count'])!,
       fallCount: attachedDatabase.options.types

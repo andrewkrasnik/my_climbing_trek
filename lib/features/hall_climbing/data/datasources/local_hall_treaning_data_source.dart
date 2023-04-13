@@ -99,15 +99,20 @@ class LocalHallTreaningDataSource implements HallTreaningDataSource {
   Future<Either<Failure, ClimbingHallAttempt>> saveAttempt(
       {required ClimbingHallTreaning treaning,
       required ClimbingHallAttempt attempt}) async {
-    // TODO: implement routeAttempts
-    throw UnimplementedError();
+    final failureOrUnit = await _localDatabase.updateById(
+        table: attemptsTable, data: _convertAttempt(attempt: attempt));
+
+    return failureOrUnit.fold(
+      (failure) => Left(failure),
+      (r) => Right(attempt),
+    );
   }
 
   @override
   Future<Either<Failure, Unit>> deleteAttempt(
       {required ClimbingHallAttempt attempt}) async {
     return await _localDatabase.deleteById(
-        table: table, data: _convertAttempt(attempt: attempt));
+        table: attemptsTable, data: _convertAttempt(attempt: attempt));
   }
 
   @override

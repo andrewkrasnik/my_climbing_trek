@@ -67,7 +67,7 @@ class ClimbingHallAttemptConverter
         style: object.style,
         treaningId: object.treaningId,
         downClimbing: object.downClimbing,
-        fail: object.downClimbing,
+        fail: object.fail,
         fallCount: object.fallCount,
         finishTime: object.finishTime,
         id: object.id,

@@ -106,13 +106,20 @@ class CurrentHallTreaningCubit extends Cubit<CurrentHallTreaningState> {
       );
 
       failureOrAttempt.fold(
-        (failure) => null,
-        (attempt) => emit(
-          state.copyWith(
-            currentAttempt: null,
-            lastAttempt: attempt,
-          ),
-        ),
+        (failure) async => null,
+        (attempt) async {
+          final failureOrTreaning = await currentHallTreaning();
+
+          failureOrTreaning.fold(
+            (l) => null,
+            (treaning) => emit(
+              state.copyWith(
+                  currentAttempt: null,
+                  lastAttempt: attempt,
+                  current: treaning),
+            ),
+          );
+        },
       );
     }
   }

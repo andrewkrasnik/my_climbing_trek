@@ -18,6 +18,8 @@ HallTreaningModel _$HallTreaningModelFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String? ?? '',
       finish: _$JsonConverterFromJson<int, DateTime>(
           json['finish'], const EpochDateTimeConverter().fromJson),
+      start: _$JsonConverterFromJson<int, DateTime>(
+          json['start'], const EpochDateTimeConverter().fromJson),
       hallId: json['hallId'] as String? ?? '',
     );
 
@@ -25,6 +27,8 @@ Map<String, dynamic> _$HallTreaningModelToJson(HallTreaningModel instance) =>
     <String, dynamic>{
       'date': const EpochDateTimeConverter().toJson(instance.date),
       'id': instance.id,
+      'start': _$JsonConverterToJson<int, DateTime>(
+          instance.start, const EpochDateTimeConverter().toJson),
       'finish': _$JsonConverterToJson<int, DateTime>(
           instance.finish, const EpochDateTimeConverter().toJson),
       'climbingHall': const GumStringConverter().toJson(instance.climbingHall),
