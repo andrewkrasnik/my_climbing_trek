@@ -229,8 +229,12 @@ class ClimbingHallPage extends StatelessWidget {
                                         )
                                       : null,
                                   child: HallRouteWidget(
-                                      climbingHall: climbingHall,
-                                      route: dataState.routes[index]),
+                                    climbingHall: climbingHall,
+                                    route: dataState.routes[index],
+                                    loadStatistic: dataState.statistic == null,
+                                    statistic: dataState
+                                        .statistic?[dataState.routes[index]],
+                                  ),
                                 ),
                               ),
                             ),

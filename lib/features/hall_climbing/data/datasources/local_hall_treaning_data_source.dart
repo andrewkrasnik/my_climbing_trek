@@ -166,8 +166,17 @@ class LocalHallTreaningDataSource implements HallTreaningDataSource {
 
   @override
   Future<Either<Failure, List<ClimbingHallAttempt>>> routeAttempts(
-      {required ClimbingHallRoute route}) {
-    // TODO: implement routeAttempts
-    throw UnimplementedError();
+      {required ClimbingHallRoute route}) async {
+    final failureOrLines = await _localDatabase.getData(
+      table: attemptsTable,
+      whereConditions: {'route_id': route.id},
+      orderByConditions: {'start_time': false},
+    );
+
+    return failureOrLines.fold(
+        (failure) => Left(failure),
+        (lines) => Right(lines
+            .map((line) => const ClimbingHallAttemptConverter().fromJson(line))
+            .toList()));
   }
 }

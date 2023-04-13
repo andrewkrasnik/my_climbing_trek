@@ -1,7 +1,5 @@
 import 'package:my_climbing_trek/core/data/climbing_category.dart';
-import 'package:my_climbing_trek/core/data/climbing_route_type.dart';
 import 'package:my_climbing_trek/core/data/climbing_style.dart';
-import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_route.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_treaning.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/hall_routes_filter.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/bloc/current_hall_treaning/current_hall_treaning_cubit.dart';
@@ -188,8 +186,12 @@ class SelectHallRouteWidget extends HookWidget {
                                       )
                                     : null,
                                 child: HallRouteWidget(
-                                    climbingHall: treaning.climbingHall,
-                                    route: dataState.routes[index]),
+                                  climbingHall: treaning.climbingHall,
+                                  route: dataState.routes[index],
+                                  loadStatistic: dataState.statistic == null,
+                                  statistic: dataState
+                                      .statistic?[dataState.routes[index]],
+                                ),
                               ),
                           separatorBuilder: (_, __) => const SizedBox(
                                 height: 8,
