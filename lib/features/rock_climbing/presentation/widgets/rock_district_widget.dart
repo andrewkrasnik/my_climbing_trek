@@ -24,7 +24,11 @@ class RockDistrictWidget extends StatelessWidget {
         child: Stack(
           fit: StackFit.expand,
           children: [
-            MyCachedNetworkImage(imageUrl: district.image, fit: BoxFit.cover),
+            DecoratedBox(
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(30)),
+                child: MyCachedNetworkImage(
+                    imageUrl: district.image, fit: BoxFit.cover)),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(

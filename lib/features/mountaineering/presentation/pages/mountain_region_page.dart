@@ -28,9 +28,12 @@ class MountainRegionPage extends StatelessWidget {
               pinned: true,
               snap: false,
               flexibleSpace: FlexibleSpaceBar(
-                background: MyCachedNetworkImage(
-                  imageUrl: region.image!,
-                  fit: BoxFit.cover,
+                background: Hero(
+                  tag: 'MountainRegion${region.id}',
+                  child: MyCachedNetworkImage(
+                    imageUrl: region.image!,
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 centerTitle: true,
                 title: Text(

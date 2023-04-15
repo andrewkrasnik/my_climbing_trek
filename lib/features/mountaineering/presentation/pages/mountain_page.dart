@@ -24,15 +24,18 @@ class MountainPage extends StatelessWidget {
         body: CustomScrollView(
           slivers: [
             SliverAppBar(
-              expandedHeight: 160,
+              expandedHeight: 260,
               stretch: true,
               floating: true,
               pinned: true,
               snap: false,
               flexibleSpace: FlexibleSpaceBar(
-                background: MyCachedNetworkImage(
-                  imageUrl: mountain.image,
-                  fit: BoxFit.cover,
+                background: Hero(
+                  tag: 'Mountain${mountain.id}',
+                  child: MyCachedNetworkImage(
+                    imageUrl: mountain.image,
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 centerTitle: true,
                 title: Text(

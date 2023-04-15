@@ -35,7 +35,8 @@ class RockRouteWidget extends StatelessWidget {
           ),
           title: Text(route.name),
           subtitle:
-              Text('${route.length} м., шлямбуров ${route.boltCount} шт.'),
+              Text('${route.length} м., шлямбуров ${route.boltCount} шт.\n'
+                  'onsite 15.06.2023'),
           trailing: onTapGo == null
               ? null
               : ElevatedButton(

@@ -95,30 +95,35 @@ class RockHomePageWidget extends StatelessWidget {
                         itemBuilder: (context, index) => Stack(
                               alignment: Alignment.bottomRight,
                               children: [
-                                RockDistrictWidget(
-                                  district: dataState.districts[index],
-                                  onTap: () {
-                                    final district = dataState.districts[index];
-                                    final bool showAddButton =
-                                        cubit.state.currentTreaning == null ||
-                                            cubit.state.currentTreaning
-                                                    ?.district ==
-                                                district;
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                RockDistrictPage(
-                                                    addSector: showAddButton
-                                                        ? (sector) {
-                                                            cubit.addIceSectorToTreaning(
-                                                                sector: sector,
-                                                                district:
-                                                                    district);
-                                                          }
-                                                        : null,
-                                                    district: dataState
-                                                        .districts[index])));
-                                  },
+                                Hero(
+                                  tag: 'rock${dataState.districts[index].id}',
+                                  child: RockDistrictWidget(
+                                    district: dataState.districts[index],
+                                    onTap: () {
+                                      final district =
+                                          dataState.districts[index];
+                                      final bool showAddButton =
+                                          cubit.state.currentTreaning == null ||
+                                              cubit.state.currentTreaning
+                                                      ?.district ==
+                                                  district;
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  RockDistrictPage(
+                                                      addSector: showAddButton
+                                                          ? (sector) {
+                                                              cubit.addIceSectorToTreaning(
+                                                                  sector:
+                                                                      sector,
+                                                                  district:
+                                                                      district);
+                                                            }
+                                                          : null,
+                                                      district: dataState
+                                                          .districts[index])));
+                                    },
+                                  ),
                                 ),
                               ],
                             ),

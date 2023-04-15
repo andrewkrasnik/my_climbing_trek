@@ -10,10 +10,13 @@ class MountainRouteType {
 
   static const ice = MountainRouteType(id: 'ice', name: 'Ледовый');
 
-  static const snow = MountainRouteType(id: 'snow', name: 'Снежный');
+  static const snow = MountainRouteType(id: 'snowice', name: 'Снежно-ледовый');
 
   static const multiPitch =
       MountainRouteType(id: 'multiPitch', name: 'Мультипитч');
+
+  static const tradMultiPitch =
+      MountainRouteType(id: 'tradMultiPitch', name: 'Тред-мультипитч');
 
   static const combine =
       MountainRouteType(id: 'combine', name: 'Комбинированный');
@@ -24,6 +27,7 @@ class MountainRouteType {
     'snow': snow,
     'combine': combine,
     'multiPitch': multiPitch,
+    'tradMultiPitch': tradMultiPitch,
   };
 
   static List<MountainRouteType> get values => _values.values.toList();
