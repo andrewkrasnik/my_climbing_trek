@@ -18,6 +18,12 @@ MountainRouteRoopModel _$MountainRouteRoopModelFromJson(
       anchor: json['anchor'] as String? ?? '',
       boltCount: json['boltCount'] as int? ?? 0,
       id: json['id'] as String? ?? '',
+      description: json['description'] as String? ?? '',
+      number: json['number'] as int,
+      pieces: (json['pieces'] as List<dynamic>?)
+          ?.map((e) => const MountainRoutePieceConverter()
+              .fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$MountainRouteRoopModelToJson(
@@ -28,10 +34,15 @@ Map<String, dynamic> _$MountainRouteRoopModelToJson(
           instance.climbingCategory, const ClimbingCategoryConverter().toJson),
       'iceCategory': _$JsonConverterToJson<String, IceCategory>(
           instance.iceCategory, const IceCategoryConverter().toJson),
+      'number': instance.number,
       'length': instance.length,
       'boltCount': instance.boltCount,
       'anchor': instance.anchor,
+      'description': instance.description,
       'slope': instance.slope,
+      'pieces': instance.pieces
+          ?.map(const MountainRoutePieceConverter().toJson)
+          .toList(),
     };
 
 Value? _$JsonConverterFromJson<Json, Value>(
@@ -45,3 +56,23 @@ Json? _$JsonConverterToJson<Json, Value>(
   Json? Function(Value value) toJson,
 ) =>
     value == null ? null : toJson(value);
+
+MountainRoutePieceModel _$MountainRoutePieceModelFromJson(
+        Map<String, dynamic> json) =>
+    MountainRoutePieceModel(
+      type: $enumDecode(_$RoutePieceTypeEnumMap, json['type']),
+      length: json['length'] as int,
+    );
+
+Map<String, dynamic> _$MountainRoutePieceModelToJson(
+        MountainRoutePieceModel instance) =>
+    <String, dynamic>{
+      'length': instance.length,
+      'type': _$RoutePieceTypeEnumMap[instance.type]!,
+    };
+
+const _$RoutePieceTypeEnumMap = {
+  RoutePieceType.ice: 'ice',
+  RoutePieceType.rock: 'rock',
+  RoutePieceType.mixed: 'mixed',
+};

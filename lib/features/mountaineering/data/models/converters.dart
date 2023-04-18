@@ -45,3 +45,17 @@ class MountainRouteRoopConverter
     return (object as MountainRouteRoopModel).toJson();
   }
 }
+
+class MountainRoutePieceConverter
+    implements JsonConverter<MountainRoutePiece, Map<String, dynamic>> {
+  const MountainRoutePieceConverter();
+  @override
+  MountainRoutePiece fromJson(Map<String, dynamic> json) {
+    return MountainRoutePieceModel.fromJson(json);
+  }
+
+  @override
+  Map<String, dynamic> toJson(MountainRoutePiece object) {
+    return (object as MountainRoutePieceModel).toJson();
+  }
+}

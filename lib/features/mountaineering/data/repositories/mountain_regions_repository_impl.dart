@@ -18,19 +18,19 @@ class MountainRegionsRepositoryImpl implements MountainRegionsRepository {
 
   @override
   Future<Either<Failure, List<Region>>> regions() async {
-    return await _regionsRemoteDataSource.regions();
+    return await _regionsLocalDataSource.regions();
   }
 
   @override
   Future<Either<Failure, List<Mountain>>> mountains(
       {required Region region}) async {
-    return await _regionsRemoteDataSource.mountains(region: region);
+    return await _regionsLocalDataSource.mountains(region: region);
   }
 
   @override
   Future<Either<Failure, List<MountainRoute>>> routes(
       {required Region region, required Mountain mountain}) async {
-    return await _regionsRemoteDataSource.routes(
+    return await _regionsLocalDataSource.routes(
         region: region, mountain: mountain);
   }
 }
