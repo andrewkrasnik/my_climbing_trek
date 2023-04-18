@@ -3580,6 +3580,7 @@ class DriftRockAttempt extends DataClass
   final int fallCount;
   final bool downClimbing;
   final bool fail;
+  final String? ascentType;
   const DriftRockAttempt(
       {required this.id,
       required this.sector,
@@ -3594,7 +3595,8 @@ class DriftRockAttempt extends DataClass
       required this.suspensionCount,
       required this.fallCount,
       required this.downClimbing,
-      required this.fail});
+      required this.fail,
+      this.ascentType});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -3620,6 +3622,9 @@ class DriftRockAttempt extends DataClass
     map['fall_count'] = Variable<int>(fallCount);
     map['down_climbing'] = Variable<bool>(downClimbing);
     map['fail'] = Variable<bool>(fail);
+    if (!nullToAbsent || ascentType != null) {
+      map['ascent_type'] = Variable<String>(ascentType);
+    }
     return map;
   }
 
@@ -3646,6 +3651,9 @@ class DriftRockAttempt extends DataClass
       fallCount: Value(fallCount),
       downClimbing: Value(downClimbing),
       fail: Value(fail),
+      ascentType: ascentType == null && nullToAbsent
+          ? const Value.absent()
+          : Value(ascentType),
     );
   }
 
@@ -3667,6 +3675,7 @@ class DriftRockAttempt extends DataClass
       fallCount: serializer.fromJson<int>(json['fallCount']),
       downClimbing: serializer.fromJson<bool>(json['downClimbing']),
       fail: serializer.fromJson<bool>(json['fail']),
+      ascentType: serializer.fromJson<String?>(json['ascentType']),
     );
   }
   @override
@@ -3687,6 +3696,7 @@ class DriftRockAttempt extends DataClass
       'fallCount': serializer.toJson<int>(fallCount),
       'downClimbing': serializer.toJson<bool>(downClimbing),
       'fail': serializer.toJson<bool>(fail),
+      'ascentType': serializer.toJson<String?>(ascentType),
     };
   }
 
@@ -3704,7 +3714,8 @@ class DriftRockAttempt extends DataClass
           int? suspensionCount,
           int? fallCount,
           bool? downClimbing,
-          bool? fail}) =>
+          bool? fail,
+          Value<String?> ascentType = const Value.absent()}) =>
       DriftRockAttempt(
         id: id ?? this.id,
         sector: sector ?? this.sector,
@@ -3720,6 +3731,7 @@ class DriftRockAttempt extends DataClass
         fallCount: fallCount ?? this.fallCount,
         downClimbing: downClimbing ?? this.downClimbing,
         fail: fail ?? this.fail,
+        ascentType: ascentType.present ? ascentType.value : this.ascentType,
       );
   @override
   String toString() {
@@ -3737,7 +3749,8 @@ class DriftRockAttempt extends DataClass
           ..write('suspensionCount: $suspensionCount, ')
           ..write('fallCount: $fallCount, ')
           ..write('downClimbing: $downClimbing, ')
-          ..write('fail: $fail')
+          ..write('fail: $fail, ')
+          ..write('ascentType: $ascentType')
           ..write(')'))
         .toString();
   }
@@ -3757,7 +3770,8 @@ class DriftRockAttempt extends DataClass
       suspensionCount,
       fallCount,
       downClimbing,
-      fail);
+      fail,
+      ascentType);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -3775,7 +3789,8 @@ class DriftRockAttempt extends DataClass
           other.suspensionCount == this.suspensionCount &&
           other.fallCount == this.fallCount &&
           other.downClimbing == this.downClimbing &&
-          other.fail == this.fail);
+          other.fail == this.fail &&
+          other.ascentType == this.ascentType);
 }
 
 class DriftRockAttemptsTableCompanion
@@ -3794,6 +3809,7 @@ class DriftRockAttemptsTableCompanion
   final Value<int> fallCount;
   final Value<bool> downClimbing;
   final Value<bool> fail;
+  final Value<String?> ascentType;
   const DriftRockAttemptsTableCompanion({
     this.id = const Value.absent(),
     this.sector = const Value.absent(),
@@ -3809,6 +3825,7 @@ class DriftRockAttemptsTableCompanion
     this.fallCount = const Value.absent(),
     this.downClimbing = const Value.absent(),
     this.fail = const Value.absent(),
+    this.ascentType = const Value.absent(),
   });
   DriftRockAttemptsTableCompanion.insert({
     required String id,
@@ -3825,6 +3842,7 @@ class DriftRockAttemptsTableCompanion
     required int fallCount,
     required bool downClimbing,
     required bool fail,
+    this.ascentType = const Value.absent(),
   })  : id = Value(id),
         sector = Value(sector),
         sectorId = Value(sectorId),
@@ -3850,6 +3868,7 @@ class DriftRockAttemptsTableCompanion
     Expression<int>? fallCount,
     Expression<bool>? downClimbing,
     Expression<bool>? fail,
+    Expression<String>? ascentType,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -3866,6 +3885,7 @@ class DriftRockAttemptsTableCompanion
       if (fallCount != null) 'fall_count': fallCount,
       if (downClimbing != null) 'down_climbing': downClimbing,
       if (fail != null) 'fail': fail,
+      if (ascentType != null) 'ascent_type': ascentType,
     });
   }
 
@@ -3883,7 +3903,8 @@ class DriftRockAttemptsTableCompanion
       Value<int>? suspensionCount,
       Value<int>? fallCount,
       Value<bool>? downClimbing,
-      Value<bool>? fail}) {
+      Value<bool>? fail,
+      Value<String?>? ascentType}) {
     return DriftRockAttemptsTableCompanion(
       id: id ?? this.id,
       sector: sector ?? this.sector,
@@ -3899,6 +3920,7 @@ class DriftRockAttemptsTableCompanion
       fallCount: fallCount ?? this.fallCount,
       downClimbing: downClimbing ?? this.downClimbing,
       fail: fail ?? this.fail,
+      ascentType: ascentType ?? this.ascentType,
     );
   }
 
@@ -3947,6 +3969,9 @@ class DriftRockAttemptsTableCompanion
     if (fail.present) {
       map['fail'] = Variable<bool>(fail.value);
     }
+    if (ascentType.present) {
+      map['ascent_type'] = Variable<String>(ascentType.value);
+    }
     return map;
   }
 
@@ -3966,7 +3991,8 @@ class DriftRockAttemptsTableCompanion
           ..write('suspensionCount: $suspensionCount, ')
           ..write('fallCount: $fallCount, ')
           ..write('downClimbing: $downClimbing, ')
-          ..write('fail: $fail')
+          ..write('fail: $fail, ')
+          ..write('ascentType: $ascentType')
           ..write(')'))
         .toString();
   }
@@ -4058,6 +4084,11 @@ class $DriftRockAttemptsTableTable extends DriftRockAttemptsTable
       type: DriftSqlType.bool,
       requiredDuringInsert: true,
       defaultConstraints: 'CHECK ("fail" IN (0, 1))');
+  final VerificationMeta _ascentTypeMeta = const VerificationMeta('ascentType');
+  @override
+  late final GeneratedColumn<String> ascentType = GeneratedColumn<String>(
+      'ascent_type', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -4073,7 +4104,8 @@ class $DriftRockAttemptsTableTable extends DriftRockAttemptsTable
         suspensionCount,
         fallCount,
         downClimbing,
-        fail
+        fail,
+        ascentType
       ];
   @override
   String get aliasedName => _alias ?? 'drift_rock_attempts_table';
@@ -4167,6 +4199,12 @@ class $DriftRockAttemptsTableTable extends DriftRockAttemptsTable
     } else if (isInserting) {
       context.missing(_failMeta);
     }
+    if (data.containsKey('ascent_type')) {
+      context.handle(
+          _ascentTypeMeta,
+          ascentType.isAcceptableOrUnknown(
+              data['ascent_type']!, _ascentTypeMeta));
+    }
     return context;
   }
 
@@ -4204,6 +4242,8 @@ class $DriftRockAttemptsTableTable extends DriftRockAttemptsTable
           .read(DriftSqlType.bool, data['${effectivePrefix}down_climbing'])!,
       fail: attachedDatabase.options.types
           .read(DriftSqlType.bool, data['${effectivePrefix}fail'])!,
+      ascentType: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}ascent_type']),
     );
   }
 

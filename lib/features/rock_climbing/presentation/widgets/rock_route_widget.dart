@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_route.dart';
+import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_route_attempts_statistic.dart';
 import 'package:my_climbing_trek/features/rock_climbing/presentation/widgets/rock_category_widget.dart';
 
 class RockRouteWidget extends StatelessWidget {
   final RockRoute route;
+  final RockRouteAttemptsStatistic? statistic;
   final void Function(RockRoute route)? onTapGo;
-  const RockRouteWidget({required this.route, this.onTapGo, Key? key})
+  const RockRouteWidget(
+      {required this.route, this.onTapGo, this.statistic, Key? key})
       : super(key: key);
 
   @override
@@ -34,9 +37,8 @@ class RockRouteWidget extends StatelessWidget {
             ],
           ),
           title: Text(route.name),
-          subtitle:
-              Text('${route.length} м., шлямбуров ${route.boltCount} шт.\n'
-                  'onsite 15.06.2023'),
+          subtitle: Text('${route.length} м., шлямбуров ${route.boltCount} шт.'
+              '\n${statistic?.routeTitle ?? ''}'),
           trailing: onTapGo == null
               ? null
               : ElevatedButton(

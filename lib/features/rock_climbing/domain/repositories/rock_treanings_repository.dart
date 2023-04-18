@@ -1,6 +1,8 @@
 import 'package:my_climbing_trek/core/failures/failure.dart';
 import 'package:dartz/dartz.dart';
+import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_route.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_treaning.dart';
+import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_treaning_attempt.dart';
 
 abstract class RockTreaningsRepository {
   Future<Either<Failure, RockTreaning>> saveTreaning(
@@ -11,4 +13,7 @@ abstract class RockTreaningsRepository {
 
   Future<Either<Failure, Unit>> deleteTreaning(
       {required RockTreaning treaning});
+
+  Future<Either<Failure, List<RockTreaningAttempt>>> routeAttempts(
+      {required RockRoute route});
 }

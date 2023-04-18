@@ -4,8 +4,11 @@ import 'package:my_climbing_trek/core/datasource/local_db_datasource.dart';
 import 'package:my_climbing_trek/core/failures/failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:my_climbing_trek/features/rock_climbing/data/datasources/rock_treanings_local_datasource.dart';
+import 'package:my_climbing_trek/features/rock_climbing/data/models/converters.dart';
 import 'package:my_climbing_trek/features/rock_climbing/data/models/rock_treaning_model.dart';
+import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_route.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_treaning.dart';
+import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_treaning_attempt.dart';
 
 @LazySingleton(as: RockTreaningsLocalDataSource)
 class DriftRockTreaningsLocalDataSource
@@ -130,5 +133,21 @@ class DriftRockTreaningsLocalDataSource
         sectors: treaning.sectors,
       ).toJson();
     }
+  }
+
+  @override
+  Future<Either<Failure, List<RockTreaningAttempt>>> routeAttempts(
+      {required RockRoute route}) async {
+    final failureOrLines = await _localDatabase.getData(
+      table: attemptsTable,
+      whereConditions: {'route_id': route.id},
+      orderByConditions: {'start_time': true},
+    );
+
+    return failureOrLines.fold(
+        (failure) => Left(failure),
+        (lines) => Right(lines
+            .map((line) => const RockTreaningAttemptConverter().fromJson(line))
+            .toList()));
   }
 }

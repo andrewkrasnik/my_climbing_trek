@@ -39,35 +39,6 @@ class LocalIceRegionsDataSource implements IceRegionsDataSource {
         .toList());
   }
 
-  Future<void> _loadData(Box<String> districtsBox) async {
-    final mockDataSource = MockIceRegionsDataSource();
-
-    final failureOrDistricts = await mockDataSource.getDistricts();
-
-    failureOrDistricts.fold((l) => null, (districts) async {
-      for (var district in districts) {
-        await districtsBox.put(
-            district.id, json.encode((district as IceDistrictModel).toJson()));
-
-        final failureOrSectors =
-            await mockDataSource.getSectors(district: district);
-
-        await failureOrSectors.fold(
-          (l) async => null,
-          (sectors) async {
-            final sectorsBox = await Hive.openBox<String>(
-                '${_sectorsName}distr${district.id}');
-
-            for (var sector in sectors) {
-              await sectorsBox.put(
-                  sector.id, json.encode((sector as IceSectorModel).toJson()));
-            }
-          },
-        );
-      }
-    });
-  }
-
   @override
   Future<Either<Failure, Unit>> saveDistricts(
       {required List<IceDistrict> districts}) async {

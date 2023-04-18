@@ -1,9 +1,6 @@
 import 'package:my_climbing_trek/core/data/climbing_style.dart';
-import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/hall_treaning_widget.dart';
 import 'package:flutter/material.dart';
 
-import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_treaning.dart';
-import 'package:my_climbing_trek/features/ice_climbing/presentation/widgets/ice_attempts_with_style.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_treaning.dart';
 import 'package:my_climbing_trek/features/rock_climbing/presentation/widgets/rock_attempts_with_style.dart';
 

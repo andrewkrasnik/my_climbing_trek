@@ -20,7 +20,9 @@ mixin _$RockRoutesState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<RockRoute> routes) data,
+    required TResult Function(List<RockRoute> routes,
+            Map<RockRoute, RockRouteAttemptsStatistic>? statistic)
+        data,
     required TResult Function(String description) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,7 +30,9 @@ mixin _$RockRoutesState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<RockRoute> routes)? data,
+    TResult? Function(List<RockRoute> routes,
+            Map<RockRoute, RockRouteAttemptsStatistic>? statistic)?
+        data,
     TResult? Function(String description)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -36,7 +40,9 @@ mixin _$RockRoutesState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<RockRoute> routes)? data,
+    TResult Function(List<RockRoute> routes,
+            Map<RockRoute, RockRouteAttemptsStatistic>? statistic)?
+        data,
     TResult Function(String description)? error,
     required TResult orElse(),
   }) =>
@@ -125,7 +131,9 @@ class _$_Initial implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<RockRoute> routes) data,
+    required TResult Function(List<RockRoute> routes,
+            Map<RockRoute, RockRouteAttemptsStatistic>? statistic)
+        data,
     required TResult Function(String description) error,
   }) {
     return initial();
@@ -136,7 +144,9 @@ class _$_Initial implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<RockRoute> routes)? data,
+    TResult? Function(List<RockRoute> routes,
+            Map<RockRoute, RockRouteAttemptsStatistic>? statistic)?
+        data,
     TResult? Function(String description)? error,
   }) {
     return initial?.call();
@@ -147,7 +157,9 @@ class _$_Initial implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<RockRoute> routes)? data,
+    TResult Function(List<RockRoute> routes,
+            Map<RockRoute, RockRouteAttemptsStatistic>? statistic)?
+        data,
     TResult Function(String description)? error,
     required TResult orElse(),
   }) {
@@ -238,7 +250,9 @@ class _$_Loading implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<RockRoute> routes) data,
+    required TResult Function(List<RockRoute> routes,
+            Map<RockRoute, RockRouteAttemptsStatistic>? statistic)
+        data,
     required TResult Function(String description) error,
   }) {
     return loading();
@@ -249,7 +263,9 @@ class _$_Loading implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<RockRoute> routes)? data,
+    TResult? Function(List<RockRoute> routes,
+            Map<RockRoute, RockRouteAttemptsStatistic>? statistic)?
+        data,
     TResult? Function(String description)? error,
   }) {
     return loading?.call();
@@ -260,7 +276,9 @@ class _$_Loading implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<RockRoute> routes)? data,
+    TResult Function(List<RockRoute> routes,
+            Map<RockRoute, RockRouteAttemptsStatistic>? statistic)?
+        data,
     TResult Function(String description)? error,
     required TResult orElse(),
   }) {
@@ -317,7 +335,9 @@ abstract class _$$_DataCopyWith<$Res> {
   factory _$$_DataCopyWith(_$_Data value, $Res Function(_$_Data) then) =
       __$$_DataCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<RockRoute> routes});
+  $Res call(
+      {List<RockRoute> routes,
+      Map<RockRoute, RockRouteAttemptsStatistic>? statistic});
 }
 
 /// @nodoc
@@ -331,12 +351,17 @@ class __$$_DataCopyWithImpl<$Res>
   @override
   $Res call({
     Object? routes = null,
+    Object? statistic = freezed,
   }) {
     return _then(_$_Data(
       routes: null == routes
           ? _value._routes
           : routes // ignore: cast_nullable_to_non_nullable
               as List<RockRoute>,
+      statistic: freezed == statistic
+          ? _value._statistic
+          : statistic // ignore: cast_nullable_to_non_nullable
+              as Map<RockRoute, RockRouteAttemptsStatistic>?,
     ));
   }
 }
@@ -344,7 +369,11 @@ class __$$_DataCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Data implements _Data {
-  const _$_Data({required final List<RockRoute> routes}) : _routes = routes;
+  const _$_Data(
+      {required final List<RockRoute> routes,
+      final Map<RockRoute, RockRouteAttemptsStatistic>? statistic})
+      : _routes = routes,
+        _statistic = statistic;
 
   final List<RockRoute> _routes;
   @override
@@ -353,9 +382,18 @@ class _$_Data implements _Data {
     return EqualUnmodifiableListView(_routes);
   }
 
+  final Map<RockRoute, RockRouteAttemptsStatistic>? _statistic;
+  @override
+  Map<RockRoute, RockRouteAttemptsStatistic>? get statistic {
+    final value = _statistic;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
   @override
   String toString() {
-    return 'RockRoutesState.data(routes: $routes)';
+    return 'RockRoutesState.data(routes: $routes, statistic: $statistic)';
   }
 
   @override
@@ -363,12 +401,16 @@ class _$_Data implements _Data {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Data &&
-            const DeepCollectionEquality().equals(other._routes, _routes));
+            const DeepCollectionEquality().equals(other._routes, _routes) &&
+            const DeepCollectionEquality()
+                .equals(other._statistic, _statistic));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_routes));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_routes),
+      const DeepCollectionEquality().hash(_statistic));
 
   @JsonKey(ignore: true)
   @override
@@ -381,10 +423,12 @@ class _$_Data implements _Data {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<RockRoute> routes) data,
+    required TResult Function(List<RockRoute> routes,
+            Map<RockRoute, RockRouteAttemptsStatistic>? statistic)
+        data,
     required TResult Function(String description) error,
   }) {
-    return data(routes);
+    return data(routes, statistic);
   }
 
   @override
@@ -392,10 +436,12 @@ class _$_Data implements _Data {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<RockRoute> routes)? data,
+    TResult? Function(List<RockRoute> routes,
+            Map<RockRoute, RockRouteAttemptsStatistic>? statistic)?
+        data,
     TResult? Function(String description)? error,
   }) {
-    return data?.call(routes);
+    return data?.call(routes, statistic);
   }
 
   @override
@@ -403,12 +449,14 @@ class _$_Data implements _Data {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<RockRoute> routes)? data,
+    TResult Function(List<RockRoute> routes,
+            Map<RockRoute, RockRouteAttemptsStatistic>? statistic)?
+        data,
     TResult Function(String description)? error,
     required TResult orElse(),
   }) {
     if (data != null) {
-      return data(routes);
+      return data(routes, statistic);
     }
     return orElse();
   }
@@ -452,9 +500,12 @@ class _$_Data implements _Data {
 }
 
 abstract class _Data implements RockRoutesState {
-  const factory _Data({required final List<RockRoute> routes}) = _$_Data;
+  const factory _Data(
+      {required final List<RockRoute> routes,
+      final Map<RockRoute, RockRouteAttemptsStatistic>? statistic}) = _$_Data;
 
   List<RockRoute> get routes;
+  Map<RockRoute, RockRouteAttemptsStatistic>? get statistic;
   @JsonKey(ignore: true)
   _$$_DataCopyWith<_$_Data> get copyWith => throw _privateConstructorUsedError;
 }
@@ -524,7 +575,9 @@ class _$_Error implements _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<RockRoute> routes) data,
+    required TResult Function(List<RockRoute> routes,
+            Map<RockRoute, RockRouteAttemptsStatistic>? statistic)
+        data,
     required TResult Function(String description) error,
   }) {
     return error(description);
@@ -535,7 +588,9 @@ class _$_Error implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<RockRoute> routes)? data,
+    TResult? Function(List<RockRoute> routes,
+            Map<RockRoute, RockRouteAttemptsStatistic>? statistic)?
+        data,
     TResult? Function(String description)? error,
   }) {
     return error?.call(description);
@@ -546,7 +601,9 @@ class _$_Error implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<RockRoute> routes)? data,
+    TResult Function(List<RockRoute> routes,
+            Map<RockRoute, RockRouteAttemptsStatistic>? statistic)?
+        data,
     TResult Function(String description)? error,
     required TResult orElse(),
   }) {

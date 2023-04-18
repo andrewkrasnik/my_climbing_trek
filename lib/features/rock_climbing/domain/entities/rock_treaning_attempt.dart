@@ -1,7 +1,9 @@
+import 'package:my_climbing_trek/core/data/ascent_type.dart';
 import 'package:my_climbing_trek/core/data/climbing_category.dart';
 import 'package:my_climbing_trek/core/data/climbing_style.dart';
 import 'package:my_climbing_trek/core/data/data_with_uuid.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_route.dart';
+import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_route_attempts_statistic.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_sector.dart';
 
 class RockTreaningAttempt extends DataWithUUID {
@@ -21,6 +23,8 @@ class RockTreaningAttempt extends DataWithUUID {
   bool downClimbing;
 
   bool fail;
+
+  AscentType? ascentType;
 
   DateTime? get startTime => _startTime;
   DateTime? get finishTime => _finishTime;
@@ -42,6 +46,7 @@ class RockTreaningAttempt extends DataWithUUID {
     this.fallCount = 0,
     this.fail = false,
     this.suspensionCount = 0,
+    this.ascentType,
   })  : _startTime = startTime,
         _finishTime = finishTime;
 
@@ -54,11 +59,25 @@ class RockTreaningAttempt extends DataWithUUID {
     int fallCount = 0,
     bool downClimbing = false,
     bool fail = false,
+    RockRouteAttemptsStatistic? statistic,
   }) {
     _finishTime = DateTime.now();
     this.suspensionCount = suspensionCount;
     this.fallCount = fallCount;
     this.downClimbing = downClimbing;
     this.fail = fail;
+
+    if (statistic?.done == false &&
+        !fail &&
+        style == ClimbingStyle.lead &&
+        route != null &&
+        fallCount == 0 &&
+        suspensionCount == 0) {
+      if (statistic?.count == 1) {
+        ascentType = AscentType.onsite;
+      } else {
+        ascentType = AscentType.redPoint;
+      }
+    }
   }
 }

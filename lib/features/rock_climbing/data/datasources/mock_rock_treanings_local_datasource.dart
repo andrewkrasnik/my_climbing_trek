@@ -3,7 +3,9 @@ import 'package:injectable/injectable.dart';
 import 'package:my_climbing_trek/core/failures/failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:my_climbing_trek/features/rock_climbing/data/datasources/rock_treanings_local_datasource.dart';
+import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_route.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_treaning.dart';
+import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_treaning_attempt.dart';
 
 // @LazySingleton(as: RockTreaningsLocalDataSource)
 class MockRockTreaningsLocalDataSource implements RockTreaningsLocalDataSource {
@@ -38,5 +40,11 @@ class MockRockTreaningsLocalDataSource implements RockTreaningsLocalDataSource {
       _treanings.add(treaning);
     }
     return Right(treaning);
+  }
+
+  @override
+  Future<Either<Failure, List<RockTreaningAttempt>>> routeAttempts(
+      {required RockRoute route}) async {
+    return const Right([]);
   }
 }

@@ -88,6 +88,7 @@ class RockSectorWidget extends StatelessWidget {
                                 child: RockRouteWidget(
                                   route: route,
                                   onTapGo: onTapGo,
+                                  statistic: dataState.statistic?[route],
                                 ),
                               ))
                           .toList(),

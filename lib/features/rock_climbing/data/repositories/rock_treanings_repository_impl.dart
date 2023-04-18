@@ -2,7 +2,9 @@ import 'package:injectable/injectable.dart';
 import 'package:my_climbing_trek/core/failures/failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:my_climbing_trek/features/rock_climbing/data/datasources/rock_treanings_local_datasource.dart';
+import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_route.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_treaning.dart';
+import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_treaning_attempt.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/repositories/rock_treanings_repository.dart';
 
 @LazySingleton(as: RockTreaningsRepository)
@@ -37,5 +39,11 @@ class RockTreaningsRepositoryImpl implements RockTreaningsRepository {
       {required RockTreaning treaning}) async {
     return await _rockTreaningsLocalDataSource.deleteTreaning(
         treaning: treaning);
+  }
+
+  @override
+  Future<Either<Failure, List<RockTreaningAttempt>>> routeAttempts(
+      {required RockRoute route}) {
+    return _rockTreaningsLocalDataSource.routeAttempts(route: route);
   }
 }

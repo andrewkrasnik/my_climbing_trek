@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_treaning.dart';
-import 'package:my_climbing_trek/features/ice_climbing/presentation/widgets/ice_treaning_picture_widget.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_treaning.dart';
 import 'package:my_climbing_trek/features/rock_climbing/presentation/widgets/rock_treaning_picture_widget.dart';
 import 'package:path_provider/path_provider.dart';

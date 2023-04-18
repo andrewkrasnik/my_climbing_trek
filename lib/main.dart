@@ -81,7 +81,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
           title: 'Flutter Demo',
           theme: ThemeData(
-              colorScheme: ColorScheme.light()
+              colorScheme: const ColorScheme.light()
                   .copyWith(primary: Colors.blueGrey, surface: Colors.black)),
           darkTheme: ThemeData.dark().copyWith(
               colorScheme: ColorScheme.fromSeed(

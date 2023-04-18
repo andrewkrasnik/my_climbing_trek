@@ -68,6 +68,8 @@ class RockAttemptDialog extends HookWidget {
                 title: 'Спуск лазаньем',
                 valueState: downClimbingState,
                 editing: editing),
+            if (attempt.finished && attempt.ascentType != null)
+              Text(attempt.ascentType!.toString()),
           ],
         ),
       ),

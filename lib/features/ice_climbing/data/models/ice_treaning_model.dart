@@ -1,9 +1,7 @@
 import 'package:my_climbing_trek/core/datasource/converters.dart';
 import 'package:my_climbing_trek/features/ice_climbing/data/models/converters.dart';
-import 'package:my_climbing_trek/features/ice_climbing/data/models/ice_treaning_attempt_model.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_sector.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_treaning.dart';
-import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_treaning_attempt.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'ice_treaning_model.g.dart';

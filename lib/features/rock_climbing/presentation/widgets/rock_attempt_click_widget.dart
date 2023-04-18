@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_climbing_trek/core/data/ascent_type.dart';
 import 'package:my_climbing_trek/core/widgets/attempt_budget.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_treaning_attempt.dart';
 import 'package:my_climbing_trek/features/rock_climbing/presentation/cubit/rock_treaning/rock_treaning_cubit.dart';
@@ -17,7 +18,13 @@ class RockAttemptClickWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     late Widget topRight;
 
-    if (attempt.fail == true) {
+    if (attempt.ascentType == AscentType.redPoint) {
+      topRight = const AttemptBudget(color: Colors.red, child: SizedBox());
+    } else if (attempt.ascentType == AscentType.onsite) {
+      topRight = const AttemptBudget(color: Colors.amber, child: SizedBox());
+    } else if (attempt.ascentType == AscentType.flash) {
+      topRight = const AttemptBudget(color: Colors.amber, child: SizedBox());
+    } else if (attempt.fail == true) {
       topRight = const AttemptBudget(
           color: Colors.red,
           child: Icon(
