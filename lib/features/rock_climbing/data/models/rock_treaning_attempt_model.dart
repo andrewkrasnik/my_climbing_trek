@@ -1,3 +1,4 @@
+import 'package:my_climbing_trek/core/data/ascent_type.dart';
 import 'package:my_climbing_trek/core/datasource/converters.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_route.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_treaning_attempt.dart';
@@ -12,6 +13,7 @@ part 'rock_treaning_attempt_model.g.dart';
   RockSectorStringConverter(),
   RockRouteStringConverter(),
   EpochDateTimeConverter(),
+  AscentTypeConverter(),
 ])
 class RockTreaningAttemptModel extends RockTreaningAttempt {
   RockTreaningAttemptModel({
@@ -27,6 +29,7 @@ class RockTreaningAttemptModel extends RockTreaningAttempt {
     super.fallCount = 0,
     super.fail = false,
     super.suspensionCount = 0,
+    super.ascentType,
     String sectorId = '',
     String routeId = '',
   });

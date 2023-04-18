@@ -35,15 +35,13 @@ class FirebaseMountainRegionsRemoteDataSource
             );
   }
 
-  // late final CollectionReference<IceDistrictModel> _districtsRef;
-
   @override
   Future<Either<Failure, List<Region>>> regions() async {
-    final districtsData = await _regionsRef.get(
-      const GetOptions(
-        serverTimestampBehavior: ServerTimestampBehavior.none,
-      ),
-    );
+    final districtsData = await _regionsRef.where('show', isEqualTo: true).get(
+          const GetOptions(
+            serverTimestampBehavior: ServerTimestampBehavior.none,
+          ),
+        );
 
     return Right(
         districtsData.docs.map((snapshot) => snapshot.data()).toList());

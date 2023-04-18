@@ -25,14 +25,17 @@ class RockDistrictPage extends StatelessWidget {
         body: CustomScrollView(
           slivers: [
             SliverAppBar(
-              expandedHeight: 160,
+              expandedHeight: 200,
               stretch: true,
               floating: true,
               pinned: true,
               snap: false,
               flexibleSpace: FlexibleSpaceBar(
-                background: MyCachedNetworkImage(
-                    imageUrl: district.image, fit: BoxFit.cover),
+                background: Hero(
+                  tag: 'rock${district.id}',
+                  child: MyCachedNetworkImage(
+                      imageUrl: district.image, fit: BoxFit.cover),
+                ),
                 centerTitle: true,
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -49,7 +52,9 @@ class RockDistrictPage extends StatelessWidget {
                       IconButton(
                           onPressed: () {
                             launchUrlString(
-                                'https://maps.yandex.ru/?ll=${district.mapPoint!.coordinates}&spn=2.124481,0.671008&z=15&l=map&pt=${district.mapPoint!.coordinates},pmrdm1');
+                              'https://maps.yandex.ru/?ll=${district.mapPoint!.coordinates}&spn=2.124481,0.671008&z=15&l=map&pt=${district.mapPoint!.coordinates},pmrdm1',
+                              mode: LaunchMode.externalApplication,
+                            );
                           },
                           icon: Icon(
                             Icons.place,

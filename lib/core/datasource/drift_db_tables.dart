@@ -165,6 +165,7 @@ class DriftRockAttemptsTable extends Table {
   IntColumn get fallCount => integer()();
   BoolColumn get downClimbing => boolean()();
   BoolColumn get fail => boolean()();
+  TextColumn get ascentType => text().nullable()();
 
   @override
   Set<Column>? get primaryKey => {id};

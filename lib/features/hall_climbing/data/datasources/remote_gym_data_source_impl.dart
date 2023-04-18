@@ -35,11 +35,11 @@ class RemoteGymDataSourceImpl implements RemoteGymDataSource {
 
   @override
   Future<Either<Failure, List<ClimbingHall>>> gyms() async {
-    final gyms = await _gymsRef.get(
-      const GetOptions(
-        serverTimestampBehavior: ServerTimestampBehavior.none,
-      ),
-    );
+    final gyms = await _gymsRef.where('show', isEqualTo: true).get(
+          const GetOptions(
+            serverTimestampBehavior: ServerTimestampBehavior.none,
+          ),
+        );
 
     List<ClimbingHall> gymsList = [];
 

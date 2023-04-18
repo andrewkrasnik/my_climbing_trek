@@ -26,6 +26,8 @@ RockTreaningAttemptModel _$RockTreaningAttemptModelFromJson(
       fallCount: json['fallCount'] as int? ?? 0,
       fail: json['fail'] as bool? ?? false,
       suspensionCount: json['suspensionCount'] as int? ?? 0,
+      ascentType: _$JsonConverterFromJson<String, AscentType>(
+          json['ascentType'], const AscentTypeConverter().fromJson),
       sectorId: json['sectorId'] as String? ?? '',
       routeId: json['routeId'] as String? ?? '',
     );
@@ -44,6 +46,8 @@ Map<String, dynamic> _$RockTreaningAttemptModelToJson(
       'fallCount': instance.fallCount,
       'downClimbing': instance.downClimbing,
       'fail': instance.fail,
+      'ascentType': _$JsonConverterToJson<String, AscentType>(
+          instance.ascentType, const AscentTypeConverter().toJson),
       'startTime': _$JsonConverterToJson<int, DateTime>(
           instance.startTime, const EpochDateTimeConverter().toJson),
       'finishTime': _$JsonConverterToJson<int, DateTime>(

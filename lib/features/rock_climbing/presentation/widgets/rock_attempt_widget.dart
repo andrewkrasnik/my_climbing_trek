@@ -1,25 +1,29 @@
-import 'package:my_climbing_trek/core/widgets/my_cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_route_attempts_statistic.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_treaning_attempt.dart';
 import 'package:my_climbing_trek/features/rock_climbing/presentation/cubit/rock_treaning/rock_treaning_cubit.dart';
 import 'package:my_climbing_trek/features/rock_climbing/presentation/widgets/rock_attempt_click_widget.dart';
 import 'package:my_climbing_trek/features/rock_climbing/presentation/widgets/rock_attempt_dialog.dart';
-import 'package:my_climbing_trek/features/rock_climbing/presentation/widgets/rock_category_widget.dart';
 
 class RockAttemptWidget extends StatelessWidget {
   final RockTreaningAttempt attempt;
   final bool isCurrent;
   final RockTreaningCubit cubit;
+  final RockRouteAttemptsStatistic? statistic;
 
   const RockAttemptWidget({
     required this.attempt,
     this.isCurrent = false,
     required this.cubit,
+    this.statistic,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final statisticTitle = (statistic == null || statistic!.count == 1)
+        ? 'Первая попытка'
+        : 'Попыток: ${statistic!.count}';
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Material(
@@ -31,7 +35,8 @@ class RockAttemptWidget extends StatelessWidget {
             subtitle: attempt.route == null
                 ? null
                 : Text(
-                    '${attempt.style.name} ${attempt.route!.length} м., шлямбуров ${attempt.route!.boltCount} шт.'),
+                    '${attempt.style.name} ${attempt.route!.length} м., шлямбуров ${attempt.route!.boltCount} шт.'
+                    '\n$statisticTitle'),
             trailing: isCurrent
                 ? ElevatedButton(
                     onPressed: () {

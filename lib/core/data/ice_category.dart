@@ -1,5 +1,3 @@
-import 'package:dartz/dartz.dart';
-
 class IceCategory {
   final String name;
   final String description;

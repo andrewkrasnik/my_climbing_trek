@@ -86,9 +86,12 @@ class ClimbingHallPage extends StatelessWidget {
                       background: Stack(
                         fit: StackFit.expand,
                         children: [
-                          MyCachedNetworkImage(
-                            imageUrl: climbingHall.image,
-                            fit: BoxFit.cover,
+                          Hero(
+                            tag: 'gym${climbingHall.id}',
+                            child: MyCachedNetworkImage(
+                              imageUrl: climbingHall.image,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                           Positioned(
                             top: 8,

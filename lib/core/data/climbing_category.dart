@@ -458,6 +458,32 @@ class ClimbingCategory {
     category8Aplus,
     category8B,
   ];
+  static const List<ClimbingCategory> rockValues = [
+    category4B,
+    category4C,
+    category5A,
+    category5B,
+    category5C,
+    category6A,
+    category6Aplus,
+    category6B,
+    category6Bplus,
+    category6C,
+    category6Cplus,
+    category7A,
+    category7Aplus,
+    category7B,
+    category7Bplus,
+    category7C,
+    category7Cplus,
+    category8A,
+    category8Aplus,
+    category8B,
+    category8Bplus,
+    category8C,
+    category8Cplus,
+    category9A,
+  ];
 
   double fontSize(String title) {
     double fontSize = 24;

@@ -6,6 +6,7 @@ import 'package:my_climbing_trek/features/rock_climbing/data/datasources/rock_re
 import 'package:my_climbing_trek/features/rock_climbing/data/datasources/rock_regions_remote_datasource.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_district.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_route.dart';
+import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_routes_filter.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_sector.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/repositories/rock_regions_repository.dart';
 
@@ -66,6 +67,7 @@ class RockRegionsRepositoryImpl implements RockRegionsRepository {
   Future<Either<Failure, List<RockRoute>>> routes({
     required RockDistrict district,
     required RockSector sector,
+    RockRouteFilter? filter,
   }) async {
     if (await _networkInfo.isConnected) {
       final failureOrRoutes = await _regionsRemoteDataSource.routes(
@@ -81,12 +83,26 @@ class RockRegionsRepositoryImpl implements RockRegionsRepository {
 
         return failureOrUnit.fold(
             (failure) async => Left(failure),
-            (_) async => await _regionsLocalDataSource.routes(
-                district: district, sector: sector));
+            (_) async => await _routesFromLocalStorage(
+                district: district, sector: sector, filter: filter));
       });
     }
+    return await _routesFromLocalStorage(
+        district: district, sector: sector, filter: filter);
+  }
 
-    return await _regionsLocalDataSource.routes(
+  Future<Either<Failure, List<RockRoute>>> _routesFromLocalStorage({
+    required RockDistrict district,
+    required RockSector sector,
+    RockRouteFilter? filter,
+  }) async {
+    final failureOrRoutes = await _regionsLocalDataSource.routes(
         district: district, sector: sector);
+
+    return failureOrRoutes.fold(
+        (failure) => Left(failure),
+        (routes) => Right(routes
+            .where((route) => filter == null ? true : filter.match(route))
+            .toList()));
   }
 }

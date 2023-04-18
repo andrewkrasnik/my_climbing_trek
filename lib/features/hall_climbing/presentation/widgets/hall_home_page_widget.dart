@@ -105,13 +105,16 @@ class HallHomePageWidget extends StatelessWidget {
                     itemBuilder: (context, index) => Stack(
                           alignment: Alignment.bottomRight,
                           children: [
-                            ClimbingHallWidget(
-                              climbingHall: dataState.halls[index],
-                              onTap: () => Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                      builder: (context) => ClimbingHallPage(
-                                          climbingHall:
-                                              dataState.halls[index]))),
+                            Hero(
+                              tag: 'gym${dataState.halls[index].id}',
+                              child: ClimbingHallWidget(
+                                climbingHall: dataState.halls[index],
+                                onTap: () => Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                        builder: (context) => ClimbingHallPage(
+                                            climbingHall:
+                                                dataState.halls[index]))),
+                              ),
                             ),
                             BlocBuilder<CurrentHallTreaningCubit,
                                 CurrentHallTreaningState>(

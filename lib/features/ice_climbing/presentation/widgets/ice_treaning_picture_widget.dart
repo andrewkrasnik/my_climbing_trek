@@ -1,5 +1,4 @@
 import 'package:my_climbing_trek/core/data/climbing_style.dart';
-import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/hall_treaning_widget.dart';
 import 'package:flutter/material.dart';
 
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_treaning.dart';

@@ -19,10 +19,6 @@ class LocalIceRegionsDataSource implements IceRegionsDataSource {
   Future<Either<Failure, List<IceDistrict>>> getDistricts() async {
     final districtsBox = await Hive.openBox<String>(_districtsName);
 
-    // if (districtsBox.isEmpty) {
-    //   await _loadData(districtsBox);
-    // }
-
     return Right(districtsBox.values
         .map((value) => IceDistrictModel.fromJson(json.decode(value)))
         .toList());
@@ -37,35 +33,6 @@ class LocalIceRegionsDataSource implements IceRegionsDataSource {
     return Right(sectorsBox.values
         .map((value) => IceSectorModel.fromJson(json.decode(value)))
         .toList());
-  }
-
-  Future<void> _loadData(Box<String> districtsBox) async {
-    final mockDataSource = MockIceRegionsDataSource();
-
-    final failureOrDistricts = await mockDataSource.getDistricts();
-
-    failureOrDistricts.fold((l) => null, (districts) async {
-      for (var district in districts) {
-        await districtsBox.put(
-            district.id, json.encode((district as IceDistrictModel).toJson()));
-
-        final failureOrSectors =
-            await mockDataSource.getSectors(district: district);
-
-        await failureOrSectors.fold(
-          (l) async => null,
-          (sectors) async {
-            final sectorsBox = await Hive.openBox<String>(
-                '${_sectorsName}distr${district.id}');
-
-            for (var sector in sectors) {
-              await sectorsBox.put(
-                  sector.id, json.encode((sector as IceSectorModel).toJson()));
-            }
-          },
-        );
-      }
-    });
   }
 
   @override

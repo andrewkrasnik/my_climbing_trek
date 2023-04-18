@@ -112,6 +112,7 @@ class RockTreaningAttemptConverter
         route: object.route,
         startTime: object.startTime,
         suspensionCount: object.suspensionCount,
+        ascentType: object.ascentType,
       ).toJson();
     }
   }

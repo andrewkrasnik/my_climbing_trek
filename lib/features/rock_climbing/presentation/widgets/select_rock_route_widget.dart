@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:my_climbing_trek/core/data/climbing_category.dart';
 
 import 'package:my_climbing_trek/core/data/climbing_style.dart';
+import 'package:my_climbing_trek/core/data/route_status.dart';
+import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_routes_filter.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_treaning.dart';
 import 'package:my_climbing_trek/features/rock_climbing/presentation/cubit/rock_treaning/rock_treaning_cubit.dart';
 import 'package:my_climbing_trek/features/rock_climbing/presentation/widgets/rock_sector_widget.dart';
+import 'package:my_climbing_trek/features/rock_climbing/presentation/widgets/select_rock_category_widget.dart';
 
-class SelectRockRouteWidget extends StatelessWidget {
+class SelectRockRouteWidget extends HookWidget {
   final RockTreaning treaning;
   final ClimbingStyle style;
   final RockTreaningCubit cubit;
@@ -19,14 +24,40 @@ class SelectRockRouteWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final roureFilter = useState<RockRouteFilter>(RockRouteFilter(
+      category: null,
+      type: style.type,
+    ));
+
     return Column(children: [
       Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16),
+        padding: const EdgeInsets.symmetric(vertical: 8),
         child: Text(
           style.name,
           style: Theme.of(context).textTheme.headlineSmall,
         ),
       ),
+      SelectRockCategoryWidget(
+        currentCategory: roureFilter.value.category,
+        onTap: (selectedCategory) {
+          roureFilter.value =
+              roureFilter.value.copyWith(category: selectedCategory);
+        },
+      ),
+      // SizedBox(
+      //   height: 30,
+      //   child: ListView(
+      //     scrollDirection: Axis.horizontal,
+      //     children: [
+      //       ...RouteStatus.values.map((status) => Chip(
+      //             label: Text(status.name),
+      //           )),
+      //       Chip(
+      //         label: Text('Все'),
+      //       ),
+      //     ],
+      //   ),
+      // ),
       Expanded(
         child: ListView.builder(
           itemCount: treaning.sectors.length,
@@ -37,6 +68,7 @@ class SelectRockRouteWidget extends StatelessWidget {
                 child: RockSectorWidget(
                   sector: sector,
                   district: treaning.district,
+                  filter: roureFilter.value,
                   onTapGo: (route) {
                     cubit.addAttempt(
                         sector: sector, style: style, route: route);

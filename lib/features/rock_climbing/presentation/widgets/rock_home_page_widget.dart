@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_district.dart';
 import 'package:my_climbing_trek/features/rock_climbing/presentation/cubit/rock_districts/rock_districts_cubit.dart';
 import 'package:my_climbing_trek/features/rock_climbing/presentation/cubit/rock_treaning/rock_treaning_cubit.dart';
 import 'package:my_climbing_trek/features/rock_climbing/presentation/pages/rock_district_page.dart';
@@ -35,6 +34,7 @@ class RockHomePageWidget extends StatelessWidget {
               attempt: state.currentAttempt!,
               isCurrent: true,
               cubit: cubit,
+              statistic: state.currentRouteStatistic,
             )
           ],
           if (state.lastAttempt != null) ...[
@@ -46,6 +46,7 @@ class RockHomePageWidget extends StatelessWidget {
             RockAttemptWidget(
               attempt: state.lastAttempt!,
               cubit: cubit,
+              statistic: state.lastRouteStatistic,
             )
           ],
           if (state.currentTreaning != null) ...[
@@ -95,30 +96,35 @@ class RockHomePageWidget extends StatelessWidget {
                         itemBuilder: (context, index) => Stack(
                               alignment: Alignment.bottomRight,
                               children: [
-                                RockDistrictWidget(
-                                  district: dataState.districts[index],
-                                  onTap: () {
-                                    final district = dataState.districts[index];
-                                    final bool showAddButton =
-                                        cubit.state.currentTreaning == null ||
-                                            cubit.state.currentTreaning
-                                                    ?.district ==
-                                                district;
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                RockDistrictPage(
-                                                    addSector: showAddButton
-                                                        ? (sector) {
-                                                            cubit.addIceSectorToTreaning(
-                                                                sector: sector,
-                                                                district:
-                                                                    district);
-                                                          }
-                                                        : null,
-                                                    district: dataState
-                                                        .districts[index])));
-                                  },
+                                Hero(
+                                  tag: 'rock${dataState.districts[index].id}',
+                                  child: RockDistrictWidget(
+                                    district: dataState.districts[index],
+                                    onTap: () {
+                                      final district =
+                                          dataState.districts[index];
+                                      final bool showAddButton =
+                                          cubit.state.currentTreaning == null ||
+                                              cubit.state.currentTreaning
+                                                      ?.district ==
+                                                  district;
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  RockDistrictPage(
+                                                      addSector: showAddButton
+                                                          ? (sector) {
+                                                              cubit.addRockSectorToTreaning(
+                                                                  sector:
+                                                                      sector,
+                                                                  district:
+                                                                      district);
+                                                            }
+                                                          : null,
+                                                      district: dataState
+                                                          .districts[index])));
+                                    },
+                                  ),
                                 ),
                               ],
                             ),

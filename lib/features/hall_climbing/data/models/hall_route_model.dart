@@ -1,10 +1,6 @@
-import 'package:my_climbing_trek/core/data/climbing_category.dart';
-import 'package:my_climbing_trek/core/data/climbing_route_type.dart';
 import 'package:my_climbing_trek/core/datasource/converters.dart';
 import 'package:my_climbing_trek/features/hall_climbing/data/models/converters.dart';
-import 'package:my_climbing_trek/features/hall_climbing/data/models/hall_model.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_route.dart';
-import 'package:my_climbing_trek/features/hall_climbing/domain/entities/route_color.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'hall_route_model.g.dart';
