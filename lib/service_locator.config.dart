@@ -556,6 +556,7 @@ _i1.GetIt $initGetIt(
         get<_i75.FinishRockTreaning>(),
         get<_i82.GetLastRockTreaning>(),
         get<_i79.GetCurrentRockTreaning>(),
+        get<_i88.GetRockRouteStatistic>(),
       ));
   gh.lazySingleton<_i126.SaveCardioTreaning>(() => _i126.SaveCardioTreaning(
       cardioTreaningsRepository: get<_i64.CardioTreaningsRepository>()));

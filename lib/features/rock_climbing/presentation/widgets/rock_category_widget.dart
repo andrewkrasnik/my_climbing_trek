@@ -5,14 +5,18 @@ import 'package:my_climbing_trek/features/settings/presentation/cubit/settings_c
 
 class RockCategoryWidget extends StatelessWidget {
   final ClimbingCategory category;
+  final bool planed;
 
   const RockCategoryWidget({
     Key? key,
     required this.category,
+    this.planed = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final double opacity = planed ? 0.5 : 1;
+
     return BlocBuilder<SettingsCubit, SettingsState>(
       buildWhen: (previous, current) =>
           previous.hallCategoryType != current.hallCategoryType,
@@ -27,7 +31,7 @@ class RockCategoryWidget extends StatelessWidget {
           fontSize = 20;
         }
         return CircleAvatar(
-          backgroundColor: Colors.orange,
+          backgroundColor: Colors.orange.withOpacity(opacity),
           radius: 24,
           child: CircleAvatar(
             backgroundColor: Colors.white,

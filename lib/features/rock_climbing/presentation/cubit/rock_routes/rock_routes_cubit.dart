@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_district.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_route.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_route_attempts_statistic.dart';
+import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_routes_filter.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_sector.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/usecases/get_rock_route_statistic.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/usecases/load_rock_routes.dart';
@@ -19,11 +20,17 @@ class RockRoutesCubit extends Cubit<RockRoutesState> {
   RockRoutesCubit(this._loadRockRoutes, this._getRockRouteStatistic)
       : super(const RockRoutesState.initial());
 
-  Future<void> loadData(
-      {required RockDistrict district, required RockSector sector}) async {
+  Future<void> loadData({
+    required RockDistrict district,
+    required RockSector sector,
+    RockRouteFilter? filter,
+  }) async {
     emit(const RockRoutesState.loading());
-    final failureOrRoutes =
-        await _loadRockRoutes(district: district, sector: sector);
+    final failureOrRoutes = await _loadRockRoutes(
+      district: district,
+      sector: sector,
+      filter: filter,
+    );
 
     await failureOrRoutes.fold(
         (failure) async =>

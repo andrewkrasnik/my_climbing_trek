@@ -20,6 +20,10 @@ mixin _$RockTreaningState {
   RockTreaning? get lastTreaning => throw _privateConstructorUsedError;
   RockTreaningAttempt? get currentAttempt => throw _privateConstructorUsedError;
   RockTreaningAttempt? get lastAttempt => throw _privateConstructorUsedError;
+  RockRouteAttemptsStatistic? get currentRouteStatistic =>
+      throw _privateConstructorUsedError;
+  RockRouteAttemptsStatistic? get lastRouteStatistic =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $RockTreaningStateCopyWith<RockTreaningState> get copyWith =>
@@ -36,7 +40,9 @@ abstract class $RockTreaningStateCopyWith<$Res> {
       {RockTreaning? currentTreaning,
       RockTreaning? lastTreaning,
       RockTreaningAttempt? currentAttempt,
-      RockTreaningAttempt? lastAttempt});
+      RockTreaningAttempt? lastAttempt,
+      RockRouteAttemptsStatistic? currentRouteStatistic,
+      RockRouteAttemptsStatistic? lastRouteStatistic});
 }
 
 /// @nodoc
@@ -56,6 +62,8 @@ class _$RockTreaningStateCopyWithImpl<$Res, $Val extends RockTreaningState>
     Object? lastTreaning = freezed,
     Object? currentAttempt = freezed,
     Object? lastAttempt = freezed,
+    Object? currentRouteStatistic = freezed,
+    Object? lastRouteStatistic = freezed,
   }) {
     return _then(_value.copyWith(
       currentTreaning: freezed == currentTreaning
@@ -74,6 +82,14 @@ class _$RockTreaningStateCopyWithImpl<$Res, $Val extends RockTreaningState>
           ? _value.lastAttempt
           : lastAttempt // ignore: cast_nullable_to_non_nullable
               as RockTreaningAttempt?,
+      currentRouteStatistic: freezed == currentRouteStatistic
+          ? _value.currentRouteStatistic
+          : currentRouteStatistic // ignore: cast_nullable_to_non_nullable
+              as RockRouteAttemptsStatistic?,
+      lastRouteStatistic: freezed == lastRouteStatistic
+          ? _value.lastRouteStatistic
+          : lastRouteStatistic // ignore: cast_nullable_to_non_nullable
+              as RockRouteAttemptsStatistic?,
     ) as $Val);
   }
 }
@@ -90,7 +106,9 @@ abstract class _$$_CurrentIceTreaningStateCopyWith<$Res>
       {RockTreaning? currentTreaning,
       RockTreaning? lastTreaning,
       RockTreaningAttempt? currentAttempt,
-      RockTreaningAttempt? lastAttempt});
+      RockTreaningAttempt? lastAttempt,
+      RockRouteAttemptsStatistic? currentRouteStatistic,
+      RockRouteAttemptsStatistic? lastRouteStatistic});
 }
 
 /// @nodoc
@@ -108,6 +126,8 @@ class __$$_CurrentIceTreaningStateCopyWithImpl<$Res>
     Object? lastTreaning = freezed,
     Object? currentAttempt = freezed,
     Object? lastAttempt = freezed,
+    Object? currentRouteStatistic = freezed,
+    Object? lastRouteStatistic = freezed,
   }) {
     return _then(_$_CurrentIceTreaningState(
       currentTreaning: freezed == currentTreaning
@@ -126,6 +146,14 @@ class __$$_CurrentIceTreaningStateCopyWithImpl<$Res>
           ? _value.lastAttempt
           : lastAttempt // ignore: cast_nullable_to_non_nullable
               as RockTreaningAttempt?,
+      currentRouteStatistic: freezed == currentRouteStatistic
+          ? _value.currentRouteStatistic
+          : currentRouteStatistic // ignore: cast_nullable_to_non_nullable
+              as RockRouteAttemptsStatistic?,
+      lastRouteStatistic: freezed == lastRouteStatistic
+          ? _value.lastRouteStatistic
+          : lastRouteStatistic // ignore: cast_nullable_to_non_nullable
+              as RockRouteAttemptsStatistic?,
     ));
   }
 }
@@ -137,7 +165,9 @@ class _$_CurrentIceTreaningState implements _CurrentIceTreaningState {
       {this.currentTreaning,
       this.lastTreaning,
       this.currentAttempt,
-      this.lastAttempt});
+      this.lastAttempt,
+      this.currentRouteStatistic,
+      this.lastRouteStatistic});
 
   @override
   final RockTreaning? currentTreaning;
@@ -147,10 +177,14 @@ class _$_CurrentIceTreaningState implements _CurrentIceTreaningState {
   final RockTreaningAttempt? currentAttempt;
   @override
   final RockTreaningAttempt? lastAttempt;
+  @override
+  final RockRouteAttemptsStatistic? currentRouteStatistic;
+  @override
+  final RockRouteAttemptsStatistic? lastRouteStatistic;
 
   @override
   String toString() {
-    return 'RockTreaningState(currentTreaning: $currentTreaning, lastTreaning: $lastTreaning, currentAttempt: $currentAttempt, lastAttempt: $lastAttempt)';
+    return 'RockTreaningState(currentTreaning: $currentTreaning, lastTreaning: $lastTreaning, currentAttempt: $currentAttempt, lastAttempt: $lastAttempt, currentRouteStatistic: $currentRouteStatistic, lastRouteStatistic: $lastRouteStatistic)';
   }
 
   @override
@@ -165,12 +199,16 @@ class _$_CurrentIceTreaningState implements _CurrentIceTreaningState {
             (identical(other.currentAttempt, currentAttempt) ||
                 other.currentAttempt == currentAttempt) &&
             (identical(other.lastAttempt, lastAttempt) ||
-                other.lastAttempt == lastAttempt));
+                other.lastAttempt == lastAttempt) &&
+            (identical(other.currentRouteStatistic, currentRouteStatistic) ||
+                other.currentRouteStatistic == currentRouteStatistic) &&
+            (identical(other.lastRouteStatistic, lastRouteStatistic) ||
+                other.lastRouteStatistic == lastRouteStatistic));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, currentTreaning, lastTreaning, currentAttempt, lastAttempt);
+  int get hashCode => Object.hash(runtimeType, currentTreaning, lastTreaning,
+      currentAttempt, lastAttempt, currentRouteStatistic, lastRouteStatistic);
 
   @JsonKey(ignore: true)
   @override
@@ -183,10 +221,13 @@ class _$_CurrentIceTreaningState implements _CurrentIceTreaningState {
 
 abstract class _CurrentIceTreaningState implements RockTreaningState {
   const factory _CurrentIceTreaningState(
-      {final RockTreaning? currentTreaning,
-      final RockTreaning? lastTreaning,
-      final RockTreaningAttempt? currentAttempt,
-      final RockTreaningAttempt? lastAttempt}) = _$_CurrentIceTreaningState;
+          {final RockTreaning? currentTreaning,
+          final RockTreaning? lastTreaning,
+          final RockTreaningAttempt? currentAttempt,
+          final RockTreaningAttempt? lastAttempt,
+          final RockRouteAttemptsStatistic? currentRouteStatistic,
+          final RockRouteAttemptsStatistic? lastRouteStatistic}) =
+      _$_CurrentIceTreaningState;
 
   @override
   RockTreaning? get currentTreaning;
@@ -196,6 +237,10 @@ abstract class _CurrentIceTreaningState implements RockTreaningState {
   RockTreaningAttempt? get currentAttempt;
   @override
   RockTreaningAttempt? get lastAttempt;
+  @override
+  RockRouteAttemptsStatistic? get currentRouteStatistic;
+  @override
+  RockRouteAttemptsStatistic? get lastRouteStatistic;
   @override
   @JsonKey(ignore: true)
   _$$_CurrentIceTreaningStateCopyWith<_$_CurrentIceTreaningState>

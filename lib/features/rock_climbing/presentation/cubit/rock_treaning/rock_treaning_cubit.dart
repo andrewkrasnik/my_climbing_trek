@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:my_climbing_trek/core/data/climbing_style.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_district.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_route.dart';
+import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_route_attempts_statistic.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_sector.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_treaning.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_treaning_attempt.dart';
@@ -11,6 +12,7 @@ import 'package:my_climbing_trek/features/rock_climbing/domain/usecases/finish_r
 import 'package:my_climbing_trek/features/rock_climbing/domain/usecases/finish_rock_treaning.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/usecases/get_current_rock_treaning.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/usecases/get_last_rock_treaning.dart';
+import 'package:my_climbing_trek/features/rock_climbing/domain/usecases/get_rock_route_statistic.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/usecases/new_rock_attempt.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/usecases/new_rock_treaning.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/usecases/rock_sector_to_treaning.dart';
@@ -27,6 +29,7 @@ class RockTreaningCubit extends Cubit<RockTreaningState> {
   final FinishRockTreaning _finishTreaning;
   final GetLastRockTreaning _getLastTreaning;
   final GetCurrentRockTreaning _getCurrentTreaning;
+  final GetRockRouteStatistic _getRockRouteStatistic;
 
   RockTreaningCubit(
     this._newTreaning,
@@ -36,6 +39,7 @@ class RockTreaningCubit extends Cubit<RockTreaningState> {
     this._finishTreaning,
     this._getLastTreaning,
     this._getCurrentTreaning,
+    this._getRockRouteStatistic,
   ) : super(RockTreaningState.initial());
 
   Future<void> loadData() async {
@@ -65,6 +69,28 @@ class RockTreaningCubit extends Cubit<RockTreaningState> {
       currentTreaning: currentTreaning,
       lastTreaning: lastTreaning,
     ));
+
+    if (currentTreaning?.currentAttempt != null &&
+        currentTreaning?.currentAttempt?.route != null) {
+      final route = currentTreaning!.currentAttempt!.route!;
+      final failureOrStatistic = await _getRockRouteStatistic(routes: [route]);
+
+      failureOrStatistic.fold(
+          (l) => null,
+          (statistic) =>
+              emit(state.copyWith(currentRouteStatistic: statistic[route])));
+    }
+
+    if (currentTreaning?.lastAttempt != null &&
+        currentTreaning?.lastAttempt?.route != null) {
+      final route = currentTreaning!.lastAttempt!.route!;
+      final failureOrStatistic = await _getRockRouteStatistic(routes: [route]);
+
+      failureOrStatistic.fold(
+          (l) => null,
+          (statistic) =>
+              emit(state.copyWith(lastRouteStatistic: statistic[route])));
+    }
   }
 
   Future<void> addNewTreaning({
@@ -80,7 +106,7 @@ class RockTreaningCubit extends Cubit<RockTreaningState> {
         (treaning) => emit(state.copyWith(currentTreaning: treaning)));
   }
 
-  Future<void> addIceSectorToTreaning({
+  Future<void> addRockSectorToTreaning({
     required RockSector sector,
     required RockDistrict district,
   }) async {
@@ -107,8 +133,19 @@ class RockTreaningCubit extends Cubit<RockTreaningState> {
           route: route,
           style: style);
 
-      failureOrAttempt.fold((failure) => null,
-          (attempt) => emit(state.copyWith(currentAttempt: attempt)));
+      failureOrAttempt.fold((failure) => null, (attempt) async {
+        emit(state.copyWith(currentAttempt: attempt));
+        if (attempt.route != null) {
+          final route = attempt.route!;
+          final failureOrStatistic =
+              await _getRockRouteStatistic(routes: [route]);
+
+          failureOrStatistic.fold(
+              (l) => null,
+              (statistic) => emit(
+                  state.copyWith(currentRouteStatistic: statistic[route])));
+        }
+      });
     }
   }
 
@@ -120,6 +157,8 @@ class RockTreaningCubit extends Cubit<RockTreaningState> {
     required int fallCount,
     required int suspensionCount,
   }) async {
+    final route = state.currentAttempt?.route;
+
     final failureOrAttempt = await _finishAttempt(
       attempt: state.currentAttempt!,
       treaning: state.currentTreaning!,
@@ -133,6 +172,22 @@ class RockTreaningCubit extends Cubit<RockTreaningState> {
         (failure) => null,
         (attempt) =>
             emit(state.copyWith(currentAttempt: null, lastAttempt: attempt)));
+
+    if (route != null) {
+      final failureOrStatistic = await _getRockRouteStatistic(routes: [route]);
+      failureOrStatistic.fold(
+        (l) => null,
+        (statistic) {
+          if (statistic.isNotEmpty) {
+            emit(
+              state.copyWith(
+                lastRouteStatistic: statistic[route],
+              ),
+            );
+          }
+        },
+      );
+    }
   }
 
   Future<void> deleteAttempt({required RockTreaningAttempt attempt}) async {}
@@ -148,6 +203,8 @@ class RockTreaningCubit extends Cubit<RockTreaningState> {
           currentTreaning: null,
           lastTreaning: treaning,
           lastAttempt: null,
+          currentRouteStatistic: null,
+          lastRouteStatistic: null,
         )),
       );
     }

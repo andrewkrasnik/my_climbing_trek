@@ -34,6 +34,7 @@ class RockHomePageWidget extends StatelessWidget {
               attempt: state.currentAttempt!,
               isCurrent: true,
               cubit: cubit,
+              statistic: state.currentRouteStatistic,
             )
           ],
           if (state.lastAttempt != null) ...[
@@ -45,6 +46,7 @@ class RockHomePageWidget extends StatelessWidget {
             RockAttemptWidget(
               attempt: state.lastAttempt!,
               cubit: cubit,
+              statistic: state.lastRouteStatistic,
             )
           ],
           if (state.currentTreaning != null) ...[
@@ -112,7 +114,7 @@ class RockHomePageWidget extends StatelessWidget {
                                                   RockDistrictPage(
                                                       addSector: showAddButton
                                                           ? (sector) {
-                                                              cubit.addIceSectorToTreaning(
+                                                              cubit.addRockSectorToTreaning(
                                                                   sector:
                                                                       sector,
                                                                   district:
