@@ -28,8 +28,12 @@ class Treaning {
         _start = start,
         _id = UniqueId.fromUniqueString(id);
 
-  void finishTreaning() {
-    _finish = DateTime.now();
+  void finishTreaning({DateTime? finish}) {
+    if (finish == null) {
+      _finish = DateTime.now();
+    } else {
+      _finish = finish;
+    }
   }
 
   void startTreaning() {

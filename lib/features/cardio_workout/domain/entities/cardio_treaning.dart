@@ -15,4 +15,9 @@ class CardioTreaning extends Treaning {
     super.finish,
     super.start,
   });
+
+  @override
+  void finishTreaning({DateTime? finish}) {
+    super.finishTreaning(finish: date);
+  }
 }
