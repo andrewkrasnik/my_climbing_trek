@@ -19,10 +19,6 @@ class LocalIceRegionsDataSource implements IceRegionsDataSource {
   Future<Either<Failure, List<IceDistrict>>> getDistricts() async {
     final districtsBox = await Hive.openBox<String>(_districtsName);
 
-    // if (districtsBox.isEmpty) {
-    //   await _loadData(districtsBox);
-    // }
-
     return Right(districtsBox.values
         .map((value) => IceDistrictModel.fromJson(json.decode(value)))
         .toList());

@@ -32,11 +32,12 @@ class FirebaseIceRegionsRemoteDataSource implements IceRegionsRemoteDataSource {
   }
   @override
   Future<Either<Failure, List<IceDistrictModel>>> districts() async {
-    final districtsData = await _districtsRef.get(
-      const GetOptions(
-        serverTimestampBehavior: ServerTimestampBehavior.none,
-      ),
-    );
+    final districtsData =
+        await _districtsRef.where('show', isEqualTo: true).get(
+              const GetOptions(
+                serverTimestampBehavior: ServerTimestampBehavior.none,
+              ),
+            );
 
     return Right(
         districtsData.docs.map((snapshot) => snapshot.data()).toList());

@@ -50,11 +50,11 @@ class LocalClimbingHallDataSource implements ClimbingHallDataSource {
   Future<Either<Failure, List<HallModel>>> climbingHalls() async {
     final hallsBox = await Hive.openBox<String>(_climbingHallsName);
 
-    if (hallsBox.isEmpty) {
-      for (var element in MockClimbingHallDataSource.climbingHallsList) {
-        await hallsBox.put(element.id, json.encode(element.toJson()));
-      }
-    }
+    // if (hallsBox.isEmpty) {
+    //   for (var element in MockClimbingHallDataSource.climbingHallsList) {
+    //     await hallsBox.put(element.id, json.encode(element.toJson()));
+    //   }
+    // }
     // late final Box<ClimbingHall> hallsBox;
     // if (await Hive.boxExists(_climbingHallsName)) {
     //   hallsBox = await Hive.openBox<ClimbingHall>(_climbingHallsName);
