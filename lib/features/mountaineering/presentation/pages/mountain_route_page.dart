@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_climbing_trek/core/widgets/my_cached_network_image.dart';
+import 'package:my_climbing_trek/core/widgets/scaled_image.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountain_route.dart';
 
 class MountainRoutePage extends StatelessWidget {
@@ -21,11 +21,7 @@ class MountainRoutePage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (route.image?.isNotEmpty == true)
-                Center(
-                  child: MyCachedNetworkImage(
-                    imageUrl: route.image!,
-                  ),
-                ),
+                ScaledImage(imageUrl: route.image!),
               if (route.description.isNotEmpty) ...[
                 Text(route.description),
                 const SizedBox(height: 4),
