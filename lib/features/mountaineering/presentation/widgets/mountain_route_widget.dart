@@ -31,7 +31,14 @@ class MountainRouteWidget extends StatelessWidget {
             ],
           ),
           title: Text(route.name),
-          subtitle: Text(route.type.name),
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(route.type.name),
+              if (route.author.isNotEmpty)
+                Text('${route.author}, ${route.firstAscentYear}')
+            ],
+          ),
           trailing: onTapGo == null
               ? IconButton(
                   onPressed: () {

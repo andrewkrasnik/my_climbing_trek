@@ -11,6 +11,11 @@ class UssrClimbingCategory extends DataWithUUID {
     required this.description,
     super.id,
   });
+  static final UssrClimbingCategory NC = UssrClimbingCategory(
+    name: 'Б/К',
+    description: 'Пешком',
+    id: 'NC',
+  );
 
   static final UssrClimbingCategory I = UssrClimbingCategory(
     name: 'I',
@@ -75,6 +80,7 @@ class UssrClimbingCategory extends DataWithUUID {
   );
 
   static final Map<String, UssrClimbingCategory> _values = {
+    NC.id: NC,
     I.id: I,
     II.id: II,
     III.id: III,

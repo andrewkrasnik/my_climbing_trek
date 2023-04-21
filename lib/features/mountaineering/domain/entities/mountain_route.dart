@@ -18,21 +18,31 @@ class MountainRoute extends DataWithUUID {
   final String description;
   final String passage;
   final String descent;
+  final List<String> _links;
+  final String author;
+  final String firstAscentYear;
+  final int length;
 
-  MountainRoute({
-    required this.category,
-    required this.type,
-    required this.roops,
-    required this.name,
-    super.id,
-    this.image,
-    this.descent = '',
-    this.description = '',
-    this.passage = '',
-    this.aidCategory,
-    this.climbingCategory,
-    this.ussrCategory,
-  });
+  List<String> get links => _links;
+
+  MountainRoute(
+      {required this.category,
+      required this.type,
+      required this.roops,
+      required this.name,
+      super.id,
+      this.image,
+      this.descent = '',
+      this.description = '',
+      this.firstAscentYear = '',
+      this.author = '',
+      this.passage = '',
+      this.length = 0,
+      this.aidCategory,
+      this.climbingCategory,
+      this.ussrCategory,
+      List<String>? links})
+      : _links = links ?? [];
 
   bool get isMultiPitch =>
       type == MountainRouteType.multiPitch ||

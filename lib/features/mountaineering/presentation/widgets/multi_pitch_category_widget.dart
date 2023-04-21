@@ -40,7 +40,7 @@ class MultiPitchCategoryWidget extends StatelessWidget {
           fontSize = 20;
         }
         return CircleAvatar(
-          backgroundColor: Colors.green,
+          backgroundColor: Colors.orange,
           radius: 24,
           child: CircleAvatar(
             backgroundColor: Colors.white,
