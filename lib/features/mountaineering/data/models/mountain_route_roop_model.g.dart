@@ -24,6 +24,7 @@ MountainRouteRoopModel _$MountainRouteRoopModelFromJson(
           ?.map((e) => const MountainRoutePieceConverter()
               .fromJson(e as Map<String, dynamic>))
           .toList(),
+      icePrefix: json['icePrefix'] as String?,
     );
 
 Map<String, dynamic> _$MountainRouteRoopModelToJson(
@@ -34,6 +35,7 @@ Map<String, dynamic> _$MountainRouteRoopModelToJson(
           instance.climbingCategory, const ClimbingCategoryConverter().toJson),
       'iceCategory': _$JsonConverterToJson<String, IceCategory>(
           instance.iceCategory, const IceCategoryConverter().toJson),
+      'icePrefix': instance.icePrefix,
       'number': instance.number,
       'length': instance.length,
       'boltCount': instance.boltCount,

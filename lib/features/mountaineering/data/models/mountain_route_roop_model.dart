@@ -26,6 +26,7 @@ class MountainRouteRoopModel extends MountainRouteRoop {
     super.description,
     required super.number,
     super.pieces,
+    super.icePrefix,
   });
 
   factory MountainRouteRoopModel.fromJson(Map<String, dynamic> json) =>

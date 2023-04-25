@@ -8,6 +8,7 @@ import 'package:my_climbing_trek/core/data/ussr_climbing_category.dart';
 class MountainRouteRoop extends DataWithUUID {
   final ClimbingCategory? climbingCategory;
   final IceCategory? iceCategory;
+  final String? icePrefix;
   final int number;
   final int length;
   final int boltCount;
@@ -26,6 +27,7 @@ class MountainRouteRoop extends DataWithUUID {
     this.anchor = '',
     this.boltCount = 0,
     this.pieces,
+    this.icePrefix,
     super.id,
   });
 
@@ -58,6 +60,10 @@ class MountainRouteRoop extends DataWithUUID {
 
     if (climbingCategory != null) {
       text += ' ${climbingCategory!.name}';
+    }
+
+    if (iceCategory != null) {
+      text += ' ${icePrefix ?? ''}${iceCategory!.name}';
     }
 
     text += ' $lengthм';
