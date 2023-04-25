@@ -43,15 +43,14 @@ class MountainRouteRoop extends DataWithUUID {
 
       if (piece is MountainRouteRockPiece) {
         value += ' ${piece.categoryText}';
+      }
 
-        if (piece.slope > 0) {
-          value += ' ${piece.slope}°';
-        }
+      if (piece.slope > 0) {
+        value += ' ${piece.slope}°';
       }
 
       text.add(value);
     }
-
     return text.join('; ');
   }
 
