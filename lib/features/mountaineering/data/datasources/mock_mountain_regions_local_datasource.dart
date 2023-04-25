@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:my_climbing_trek/core/data/aid_category.dart';
 import 'package:my_climbing_trek/core/data/climbing_category.dart';
+import 'package:my_climbing_trek/core/data/ice_category.dart';
 import 'package:my_climbing_trek/core/data/region.dart';
 import 'package:my_climbing_trek/core/data/ussr_climbing_category.dart';
 import 'package:my_climbing_trek/core/failures/failure.dart';
@@ -66,6 +67,20 @@ class MountainRegionsLocalDataSourceImpl
       altitude: 3972,
       image: 'https://alpinist.biz/wp-content/uploads/2018/10/0000.jpg');
 
+  static final crown2 = Mountain(
+      region: archa,
+      name: 'Корона (2-я)',
+      altitude: 4750,
+      image:
+          'https://ic.pics.livejournal.com/ls_online/34828672/626104/626104_original.jpg');
+
+  static final searcher = Mountain(
+      region: archa,
+      name: 'Изыскатель',
+      altitude: 4570,
+      image:
+          'http://mountainsfoto.ru/%D0%90%D0%BB%D0%B0-%D0%90%D1%80%D1%87%D0%B0/640x480/%D0%90%D0%BB%D0%B0-%D0%90%D1%80%D1%87%D0%B0[1138].jpg');
+
   static final kilimanjaro = Mountain(
       region: africa,
       name: 'Килиманджаро',
@@ -90,7 +105,7 @@ class MountainRegionsLocalDataSourceImpl
   final List<Region> _regions = [crimea, archa, stavr, africa];
 
   final Map<Region, List<Mountain>> _mountains = {
-    archa: [teacher, box, raceka],
+    archa: [teacher, box, raceka, crown2, searcher],
     africa: [kilimanjaro],
     stavr: [esenin],
     crimea: [socol],
@@ -105,6 +120,78 @@ class MountainRegionsLocalDataSourceImpl
           id: 'teacherOneB',
           name: 'По западному гребню'),
     ],
+    crown2: [
+      MountainRoute(
+        category: MountaineeringCategory.treeB,
+        type: MountainRouteType.ice,
+        ueaaSchemaImage:
+            'https://firebasestorage.googleapis.com/v0/b/my-climbing-trek.appspot.com/o/images%2Fmountaineering%2Farcha%2Fcrown2treeb.png?alt=media&token=7368381a-6fb4-468c-b933-6f14780e9a79',
+        roops: [
+          MountainRouteRoop(
+            length: 200,
+            iceCategory: IceCategory.i2,
+            slope: 50,
+            number: 1,
+            anchor: 'на двух бурах',
+            description:
+                'Маршрут начинается после берга. Подход под берг пешком, часто тропежка. Берг как правило проходится без проблем',
+          ),
+          MountainRouteRoop(
+            length: 20,
+            iceCategory: IceCategory.i3,
+            slope: 60,
+            number: 2,
+            anchor: 'на двух бурах',
+            description: 'Проходить в левой части ледника',
+          ),
+          MountainRouteRoop(
+            length: 170,
+            iceCategory: IceCategory.i2,
+            slope: 50,
+            number: 3,
+            description:
+                '3-4 верёвки 50-градусного льда до выполаживания. Про нему надо траверсировать под правые по ходу движения скалы. Финиш комфортный, но иногда надо преодолеть пару метров пологого зафирнованного наддува',
+            anchor: 'Станция на большой балде',
+          ),
+        ],
+        id: 'crown2treeB',
+        author: 'В. Акимов',
+        firstAscentYear: '2011',
+        name: 'По правому кулуару С стены',
+        description:
+            'Классическая ледовая тройка района. Подход под маршрут 1.5-2 часа. Надеть кошки и развесить снаряжение рекомендуется у основания ледника'
+            'Вариант набора железа: кошки, 8 ледобуров, ледовые фифы или инструменты, 4 оттяжки, 14 карабинов, 2 петли',
+        descent:
+            'Спуск на другую сторону по пешему осыпному склону практически прямо к Коронской хижине',
+        passage:
+            'Классическая ледовая тройка района. Подход под маршрут 1.5-2 часа. Надеть кошки и развесить снаряжение рекомендуется у основания ледника',
+      ),
+    ],
+    searcher: [
+      MountainRoute(
+        category: MountaineeringCategory.treeB,
+        type: MountainRouteType.ice,
+        ueaaSchemaImage:
+            'https://firebasestorage.googleapis.com/v0/b/my-climbing-trek.appspot.com/o/images%2Fmountaineering%2Farcha%2Fsearcher3b.png?alt=media&token=3d04e2c8-045d-4a84-9f03-0bab0f25cff9',
+        roops: [
+          MountainRouteRoop(
+            number: 1,
+            length: 300,
+            iceCategory: IceCategory.i2,
+            slope: 50,
+            description:
+                'Техническая часть начинается от бергшрунда, который обычно довольно легко пролазится. Маршрут равномерный, около 6 веревок 50-градусного льда. Ориентироваться на ледовую дорожку по центру между скал. Наверху последние 10 метров бывает несложный микст. Последняя станция за перегибом, чуть ниже, на полке. Выраженных ориентиров и ключевых участков на всём протяжении нет',
+          )
+        ],
+        id: 'searcherTreeB',
+        name: 'По северо-западной стене',
+        firstAscentYear: '1988',
+        author: 'А. Родиков',
+        passage:
+            'От Коронской хижины подняться на вторую ледовую подушку. От неё траверсировать по снежному полю напрямую под центр стены п. Изыскатель. Длина пути - 1600 метров. Осторожно, трещины!',
+        descent: 'по пути подъёма или по маршруту 2А',
+      ),
+    ],
     box: [
       MountainRoute(
         category: MountaineeringCategory.oneB,
@@ -116,9 +203,82 @@ class MountainRegionsLocalDataSourceImpl
       MountainRoute(
         category: MountaineeringCategory.twoA,
         type: MountainRouteType.rock,
-        roops: const [],
+        roops: [
+          MountainRouteRoop(
+            number: 1,
+            length: 400,
+            description:
+                'Техническая часть начинается на седловине. Жандарм обойти слева по ходу движения. Далее около двух веревок лазания по развальне в слабо выраженном широком кулуаре, движение в основном одновременноесо страховкой через рельеф. Пройти около 200 метров по гребню почти без набора высоты, упираемся в хорошо выраженный угол.',
+            pieces: [
+              MountainRouteRockPiece(
+                length: 400,
+                ussrCategory: UssrClimbingCategory.III,
+              ),
+            ],
+          ),
+          MountainRouteRoop(
+            number: 2,
+            length: 7,
+            description:
+                'Угол — 7 метров пятерочного лазания. Это ключ маршрута. Страховка через 1-2 френда примерно 4 размера в щели. Зимой проходится довольно напряженно, есть возможность пройти на 10 метров левее, через «инструкторский» ход (4 метра лазания IV, с облазом большой балды наверху)',
+            pieces: [
+              MountainRouteRockPiece(
+                length: 7,
+                ussrCategory: UssrClimbingCategory.V,
+              ),
+            ],
+          ),
+          MountainRouteRoop(
+            number: 3,
+            length: 210,
+            slope: 45,
+            description:
+                'Простое движение по гребню, заканчиваются дюльфером на левую сторону гребня. Плиты 4 метра 75 градусов, свободным лазанием спуск затруднён. Есть петля.',
+            pieces: [
+              MountainRouteRockPiece(
+                length: 210,
+                ussrCategory: UssrClimbingCategory.II,
+                slope: 45,
+              ),
+            ],
+          ),
+          MountainRouteRoop(
+            number: 4,
+            length: 230,
+            description:
+                'После дюльфера выходим снова на правый борт гребня, около 150 метров, движение одновременное. Спуск на перемычку, 80 метров, угол около 45 градусов.',
+            pieces: [
+              MountainRouteRockPiece(
+                length: 230,
+                ussrCategory: UssrClimbingCategory.II,
+              ),
+            ],
+          ),
+          MountainRouteRoop(
+            number: 5,
+            length: 90,
+            description:
+                'От перемычки движение пешком справа от жандарма, с выходом на очередную перемычку. С этого места наконец-то открывается вид  на вершину, до которой 30 метров пешком по полностью безопасному гребню с наборомвысоты 10 метров.',
+            pieces: [
+              MountainRouteRockPiece(
+                length: 90,
+                ussrCategory: UssrClimbingCategory.I,
+              ),
+            ],
+          ),
+        ],
+        descent:
+            'Спуск по маршруту 1Б. Для этого надо пройти по скальному гребешку вдоль ледника около 20 метров. На лёд спускаться не надо! Там в кулуаре начинается тропа , верхие 10-20 метров которой отлично видны при отсутствии снега. Спуск по кулуару в целом без проблем, но надо контролировать камни, можно друг друга засыпать. Пересечь ледник обратно к Крокодилу, так же в связках.',
         id: 'boxTwoA',
         name: 'По южному гребню с пер. Текетор',
+        links: const ['https://www.youtube.com/watch?v=nBEy6NCX9F4'],
+        image:
+            'https://firebasestorage.googleapis.com/v0/b/my-climbing-trek.appspot.com/o/images%2Fmountaineering%2Farcha%2Fbox2aimage.png?alt=media&token=43973100-3cf1-42d7-b809-9c9622ea0f72',
+        ueaaSchemaImage:
+            'https://firebasestorage.googleapis.com/v0/b/my-climbing-trek.appspot.com/o/images%2Fmountaineering%2Farcha%2Fbox2a.png?alt=media&token=e879dcdf-0111-4668-9b4a-e7c1427edf89',
+        passage:
+            'От хижины Light house подняться по морене «Крокодил» до самого верха. Далее пересечение ледника к заснеженному кулуару между п. Теке-Тор и гребнем п. Бокс. Ледник идти в связках, есть трещины'
+            'Кулуар выходит на пер. Теке-Тор и проходится пешком, обычно много тропежки. Наверху кулуар разбивается на три части. Наиболее безопасно идти по центральному',
       ),
     ],
     raceka: [

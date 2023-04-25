@@ -41,11 +41,26 @@ class MountainRouteRoop extends DataWithUUID {
 
       if (piece is MountainRouteRockPiece) {
         value += '${piece.categoryText}';
+
+        if (piece.slope > 0) {
+          value += ' ${piece.slope}°';
+        }
       }
+
       text.add(value);
     }
 
     return text.join('; ');
+  }
+
+  String get text {
+    String text = '$title: $lengthм';
+
+    if (slope > 0) {
+      text += ' $slope°';
+    }
+
+    return text;
   }
 }
 

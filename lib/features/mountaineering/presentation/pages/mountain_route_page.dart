@@ -23,6 +23,13 @@ class MountainRoutePage extends StatelessWidget {
             children: [
               if (route.image?.isNotEmpty == true)
                 ScaledImageWidget(imageUrl: route.image!),
+              if (route.ueaaSchemaImage?.isNotEmpty == true) ...[
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 4),
+                  child: Center(child: Text('Схема UEAA:')),
+                ),
+                ScaledImageWidget(imageUrl: route.ueaaSchemaImage!),
+              ],
               if (route.description.isNotEmpty) ...[
                 Text(route.description),
                 const SizedBox(height: 4),
@@ -42,7 +49,7 @@ class MountainRoutePage extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(vertical: 4),
                         child: Row(children: [
                           Text(
-                            '${roop.title}: ${roop.length}м',
+                            roop.text,
                             style: Theme.of(context)
                                 .textTheme
                                 .headlineSmall
