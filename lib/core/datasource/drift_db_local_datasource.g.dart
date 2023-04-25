@@ -2,11 +2,105 @@
 
 part of 'drift_db_local_datasource.dart';
 
-// **************************************************************************
-// DriftDatabaseGenerator
-// **************************************************************************
-
 // ignore_for_file: type=lint
+class $DriftStrengthExercisesTableTable extends DriftStrengthExercisesTable
+    with TableInfo<$DriftStrengthExercisesTableTable, DriftStrengthExercise> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $DriftStrengthExercisesTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _repetitionsMeta =
+      const VerificationMeta('repetitions');
+  @override
+  late final GeneratedColumn<int> repetitions = GeneratedColumn<int>(
+      'repetitions', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'));
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+      'name', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _selectedMeta =
+      const VerificationMeta('selected');
+  @override
+  late final GeneratedColumn<bool> selected =
+      GeneratedColumn<bool>('selected', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: false,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("selected" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }),
+          defaultValue: const Constant(false));
+  @override
+  List<GeneratedColumn> get $columns => [repetitions, id, name, selected];
+  @override
+  String get aliasedName => _alias ?? 'drift_strength_exercises_table';
+  @override
+  String get actualTableName => 'drift_strength_exercises_table';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<DriftStrengthExercise> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('repetitions')) {
+      context.handle(
+          _repetitionsMeta,
+          repetitions.isAcceptableOrUnknown(
+              data['repetitions']!, _repetitionsMeta));
+    } else if (isInserting) {
+      context.missing(_repetitionsMeta);
+    }
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    if (data.containsKey('selected')) {
+      context.handle(_selectedMeta,
+          selected.isAcceptableOrUnknown(data['selected']!, _selectedMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  DriftStrengthExercise map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return DriftStrengthExercise(
+      repetitions: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}repetitions'])!,
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      name: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+      selected: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}selected'])!,
+    );
+  }
+
+  @override
+  $DriftStrengthExercisesTableTable createAlias(String alias) {
+    return $DriftStrengthExercisesTableTable(attachedDatabase, alias);
+  }
+}
+
 class DriftStrengthExercise extends DataClass
     implements Insertable<DriftStrengthExercise> {
   final int repetitions;
@@ -95,17 +189,20 @@ class DriftStrengthExercisesTableCompanion
   final Value<String> id;
   final Value<String> name;
   final Value<bool> selected;
+  final Value<int> rowid;
   const DriftStrengthExercisesTableCompanion({
     this.repetitions = const Value.absent(),
     this.id = const Value.absent(),
     this.name = const Value.absent(),
     this.selected = const Value.absent(),
+    this.rowid = const Value.absent(),
   });
   DriftStrengthExercisesTableCompanion.insert({
     required int repetitions,
     required String id,
     required String name,
     this.selected = const Value.absent(),
+    this.rowid = const Value.absent(),
   })  : repetitions = Value(repetitions),
         id = Value(id),
         name = Value(name);
@@ -114,12 +211,14 @@ class DriftStrengthExercisesTableCompanion
     Expression<String>? id,
     Expression<String>? name,
     Expression<bool>? selected,
+    Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (repetitions != null) 'repetitions': repetitions,
       if (id != null) 'id': id,
       if (name != null) 'name': name,
       if (selected != null) 'selected': selected,
+      if (rowid != null) 'rowid': rowid,
     });
   }
 
@@ -127,12 +226,14 @@ class DriftStrengthExercisesTableCompanion
       {Value<int>? repetitions,
       Value<String>? id,
       Value<String>? name,
-      Value<bool>? selected}) {
+      Value<bool>? selected,
+      Value<int>? rowid}) {
     return DriftStrengthExercisesTableCompanion(
       repetitions: repetitions ?? this.repetitions,
       id: id ?? this.id,
       name: name ?? this.name,
       selected: selected ?? this.selected,
+      rowid: rowid ?? this.rowid,
     );
   }
 
@@ -151,6 +252,9 @@ class DriftStrengthExercisesTableCompanion
     if (selected.present) {
       map['selected'] = Variable<bool>(selected.value);
     }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
     return map;
   }
 
@@ -160,78 +264,96 @@ class DriftStrengthExercisesTableCompanion
           ..write('repetitions: $repetitions, ')
           ..write('id: $id, ')
           ..write('name: $name, ')
-          ..write('selected: $selected')
+          ..write('selected: $selected, ')
+          ..write('rowid: $rowid')
           ..write(')'))
         .toString();
   }
 }
 
-class $DriftStrengthExercisesTableTable extends DriftStrengthExercisesTable
-    with TableInfo<$DriftStrengthExercisesTableTable, DriftStrengthExercise> {
+class $DriftHallTreaningsTableTable extends DriftHallTreaningsTable
+    with TableInfo<$DriftHallTreaningsTableTable, DriftHallTreaning> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $DriftStrengthExercisesTableTable(this.attachedDatabase, [this._alias]);
-  final VerificationMeta _repetitionsMeta =
-      const VerificationMeta('repetitions');
-  @override
-  late final GeneratedColumn<int> repetitions = GeneratedColumn<int>(
-      'repetitions', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
+  $DriftHallTreaningsTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<String> id = GeneratedColumn<String>(
       'id', aliasedName, false,
       type: DriftSqlType.string,
       requiredDuringInsert: true,
-      defaultConstraints: 'UNIQUE');
-  final VerificationMeta _nameMeta = const VerificationMeta('name');
+      defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'));
+  static const VerificationMeta _hallIdMeta = const VerificationMeta('hallId');
   @override
-  late final GeneratedColumn<String> name = GeneratedColumn<String>(
-      'name', aliasedName, false,
+  late final GeneratedColumn<String> hallId = GeneratedColumn<String>(
+      'hall_id', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _selectedMeta = const VerificationMeta('selected');
+  static const VerificationMeta _dateMeta = const VerificationMeta('date');
   @override
-  late final GeneratedColumn<bool> selected = GeneratedColumn<bool>(
-      'selected', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: false,
-      defaultConstraints: 'CHECK ("selected" IN (0, 1))',
-      defaultValue: const Constant(false));
+  late final GeneratedColumn<DateTime> date = GeneratedColumn<DateTime>(
+      'date', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _finishMeta = const VerificationMeta('finish');
   @override
-  List<GeneratedColumn> get $columns => [repetitions, id, name, selected];
+  late final GeneratedColumn<DateTime> finish = GeneratedColumn<DateTime>(
+      'finish', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _startMeta = const VerificationMeta('start');
   @override
-  String get aliasedName => _alias ?? 'drift_strength_exercises_table';
+  late final GeneratedColumn<DateTime> start = GeneratedColumn<DateTime>(
+      'start', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _climbingHallMeta =
+      const VerificationMeta('climbingHall');
   @override
-  String get actualTableName => 'drift_strength_exercises_table';
+  late final GeneratedColumn<String> climbingHall = GeneratedColumn<String>(
+      'climbing_hall', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   @override
-  VerificationContext validateIntegrity(
-      Insertable<DriftStrengthExercise> instance,
+  List<GeneratedColumn> get $columns =>
+      [id, hallId, date, finish, start, climbingHall];
+  @override
+  String get aliasedName => _alias ?? 'drift_hall_treanings_table';
+  @override
+  String get actualTableName => 'drift_hall_treanings_table';
+  @override
+  VerificationContext validateIntegrity(Insertable<DriftHallTreaning> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
-    if (data.containsKey('repetitions')) {
-      context.handle(
-          _repetitionsMeta,
-          repetitions.isAcceptableOrUnknown(
-              data['repetitions']!, _repetitionsMeta));
-    } else if (isInserting) {
-      context.missing(_repetitionsMeta);
-    }
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     } else if (isInserting) {
       context.missing(_idMeta);
     }
-    if (data.containsKey('name')) {
-      context.handle(
-          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
+    if (data.containsKey('hall_id')) {
+      context.handle(_hallIdMeta,
+          hallId.isAcceptableOrUnknown(data['hall_id']!, _hallIdMeta));
     } else if (isInserting) {
-      context.missing(_nameMeta);
+      context.missing(_hallIdMeta);
     }
-    if (data.containsKey('selected')) {
-      context.handle(_selectedMeta,
-          selected.isAcceptableOrUnknown(data['selected']!, _selectedMeta));
+    if (data.containsKey('date')) {
+      context.handle(
+          _dateMeta, date.isAcceptableOrUnknown(data['date']!, _dateMeta));
+    } else if (isInserting) {
+      context.missing(_dateMeta);
+    }
+    if (data.containsKey('finish')) {
+      context.handle(_finishMeta,
+          finish.isAcceptableOrUnknown(data['finish']!, _finishMeta));
+    }
+    if (data.containsKey('start')) {
+      context.handle(
+          _startMeta, start.isAcceptableOrUnknown(data['start']!, _startMeta));
+    }
+    if (data.containsKey('climbing_hall')) {
+      context.handle(
+          _climbingHallMeta,
+          climbingHall.isAcceptableOrUnknown(
+              data['climbing_hall']!, _climbingHallMeta));
+    } else if (isInserting) {
+      context.missing(_climbingHallMeta);
     }
     return context;
   }
@@ -239,23 +361,27 @@ class $DriftStrengthExercisesTableTable extends DriftStrengthExercisesTable
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  DriftStrengthExercise map(Map<String, dynamic> data, {String? tablePrefix}) {
+  DriftHallTreaning map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return DriftStrengthExercise(
-      repetitions: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}repetitions'])!,
-      id: attachedDatabase.options.types
+    return DriftHallTreaning(
+      id: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
-      name: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
-      selected: attachedDatabase.options.types
-          .read(DriftSqlType.bool, data['${effectivePrefix}selected'])!,
+      hallId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}hall_id'])!,
+      date: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}date'])!,
+      finish: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}finish']),
+      start: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}start']),
+      climbingHall: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}climbing_hall'])!,
     );
   }
 
   @override
-  $DriftStrengthExercisesTableTable createAlias(String alias) {
-    return $DriftStrengthExercisesTableTable(attachedDatabase, alias);
+  $DriftHallTreaningsTableTable createAlias(String alias) {
+    return $DriftHallTreaningsTableTable(attachedDatabase, alias);
   }
 }
 
@@ -379,6 +505,7 @@ class DriftHallTreaningsTableCompanion
   final Value<DateTime?> finish;
   final Value<DateTime?> start;
   final Value<String> climbingHall;
+  final Value<int> rowid;
   const DriftHallTreaningsTableCompanion({
     this.id = const Value.absent(),
     this.hallId = const Value.absent(),
@@ -386,6 +513,7 @@ class DriftHallTreaningsTableCompanion
     this.finish = const Value.absent(),
     this.start = const Value.absent(),
     this.climbingHall = const Value.absent(),
+    this.rowid = const Value.absent(),
   });
   DriftHallTreaningsTableCompanion.insert({
     required String id,
@@ -394,6 +522,7 @@ class DriftHallTreaningsTableCompanion
     this.finish = const Value.absent(),
     this.start = const Value.absent(),
     required String climbingHall,
+    this.rowid = const Value.absent(),
   })  : id = Value(id),
         hallId = Value(hallId),
         date = Value(date),
@@ -405,6 +534,7 @@ class DriftHallTreaningsTableCompanion
     Expression<DateTime>? finish,
     Expression<DateTime>? start,
     Expression<String>? climbingHall,
+    Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -413,6 +543,7 @@ class DriftHallTreaningsTableCompanion
       if (finish != null) 'finish': finish,
       if (start != null) 'start': start,
       if (climbingHall != null) 'climbing_hall': climbingHall,
+      if (rowid != null) 'rowid': rowid,
     });
   }
 
@@ -422,7 +553,8 @@ class DriftHallTreaningsTableCompanion
       Value<DateTime>? date,
       Value<DateTime?>? finish,
       Value<DateTime?>? start,
-      Value<String>? climbingHall}) {
+      Value<String>? climbingHall,
+      Value<int>? rowid}) {
     return DriftHallTreaningsTableCompanion(
       id: id ?? this.id,
       hallId: hallId ?? this.hallId,
@@ -430,6 +562,7 @@ class DriftHallTreaningsTableCompanion
       finish: finish ?? this.finish,
       start: start ?? this.start,
       climbingHall: climbingHall ?? this.climbingHall,
+      rowid: rowid ?? this.rowid,
     );
   }
 
@@ -454,6 +587,9 @@ class DriftHallTreaningsTableCompanion
     if (climbingHall.present) {
       map['climbing_hall'] = Variable<String>(climbingHall.value);
     }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
     return map;
   }
 
@@ -465,60 +601,132 @@ class DriftHallTreaningsTableCompanion
           ..write('date: $date, ')
           ..write('finish: $finish, ')
           ..write('start: $start, ')
-          ..write('climbingHall: $climbingHall')
+          ..write('climbingHall: $climbingHall, ')
+          ..write('rowid: $rowid')
           ..write(')'))
         .toString();
   }
 }
 
-class $DriftHallTreaningsTableTable extends DriftHallTreaningsTable
-    with TableInfo<$DriftHallTreaningsTableTable, DriftHallTreaning> {
+class $DriftHallAttemptsTableTable extends DriftHallAttemptsTable
+    with TableInfo<$DriftHallAttemptsTableTable, DriftHallAttempt> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $DriftHallTreaningsTableTable(this.attachedDatabase, [this._alias]);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
+  $DriftHallAttemptsTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<String> id = GeneratedColumn<String>(
       'id', aliasedName, false,
       type: DriftSqlType.string,
       requiredDuringInsert: true,
-      defaultConstraints: 'UNIQUE');
-  final VerificationMeta _hallIdMeta = const VerificationMeta('hallId');
+      defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'));
+  static const VerificationMeta _treaningIdMeta =
+      const VerificationMeta('treaningId');
   @override
-  late final GeneratedColumn<String> hallId = GeneratedColumn<String>(
-      'hall_id', aliasedName, false,
+  late final GeneratedColumn<String> treaningId = GeneratedColumn<String>(
+      'treaning_id', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES drift_hall_treanings_table (id)'));
+  static const VerificationMeta _categoryMeta =
+      const VerificationMeta('category');
+  @override
+  late final GeneratedColumn<String> category = GeneratedColumn<String>(
+      'category', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _dateMeta = const VerificationMeta('date');
+  static const VerificationMeta _styleMeta = const VerificationMeta('style');
   @override
-  late final GeneratedColumn<DateTime> date = GeneratedColumn<DateTime>(
-      'date', aliasedName, false,
-      type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  final VerificationMeta _finishMeta = const VerificationMeta('finish');
-  @override
-  late final GeneratedColumn<DateTime> finish = GeneratedColumn<DateTime>(
-      'finish', aliasedName, true,
-      type: DriftSqlType.dateTime, requiredDuringInsert: false);
-  final VerificationMeta _startMeta = const VerificationMeta('start');
-  @override
-  late final GeneratedColumn<DateTime> start = GeneratedColumn<DateTime>(
-      'start', aliasedName, true,
-      type: DriftSqlType.dateTime, requiredDuringInsert: false);
-  final VerificationMeta _climbingHallMeta =
-      const VerificationMeta('climbingHall');
-  @override
-  late final GeneratedColumn<String> climbingHall = GeneratedColumn<String>(
-      'climbing_hall', aliasedName, false,
+  late final GeneratedColumn<String> style = GeneratedColumn<String>(
+      'style', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _routeIdMeta =
+      const VerificationMeta('routeId');
   @override
-  List<GeneratedColumn> get $columns =>
-      [id, hallId, date, finish, start, climbingHall];
+  late final GeneratedColumn<String> routeId = GeneratedColumn<String>(
+      'route_id', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _routeMeta = const VerificationMeta('route');
   @override
-  String get aliasedName => _alias ?? 'drift_hall_treanings_table';
+  late final GeneratedColumn<String> route = GeneratedColumn<String>(
+      'route', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _finishTimeMeta =
+      const VerificationMeta('finishTime');
   @override
-  String get actualTableName => 'drift_hall_treanings_table';
+  late final GeneratedColumn<DateTime> finishTime = GeneratedColumn<DateTime>(
+      'finish_time', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _startTimeMeta =
+      const VerificationMeta('startTime');
   @override
-  VerificationContext validateIntegrity(Insertable<DriftHallTreaning> instance,
+  late final GeneratedColumn<DateTime> startTime = GeneratedColumn<DateTime>(
+      'start_time', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _ascentTypeMeta =
+      const VerificationMeta('ascentType');
+  @override
+  late final GeneratedColumn<String> ascentType = GeneratedColumn<String>(
+      'ascent_type', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _suspensionCountMeta =
+      const VerificationMeta('suspensionCount');
+  @override
+  late final GeneratedColumn<int> suspensionCount = GeneratedColumn<int>(
+      'suspension_count', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _fallCountMeta =
+      const VerificationMeta('fallCount');
+  @override
+  late final GeneratedColumn<int> fallCount = GeneratedColumn<int>(
+      'fall_count', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _downClimbingMeta =
+      const VerificationMeta('downClimbing');
+  @override
+  late final GeneratedColumn<bool> downClimbing =
+      GeneratedColumn<bool>('down_climbing', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("down_climbing" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  static const VerificationMeta _failMeta = const VerificationMeta('fail');
+  @override
+  late final GeneratedColumn<bool> fail =
+      GeneratedColumn<bool>('fail', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("fail" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        treaningId,
+        category,
+        style,
+        routeId,
+        route,
+        finishTime,
+        startTime,
+        ascentType,
+        suspensionCount,
+        fallCount,
+        downClimbing,
+        fail
+      ];
+  @override
+  String get aliasedName => _alias ?? 'drift_hall_attempts_table';
+  @override
+  String get actualTableName => 'drift_hall_attempts_table';
+  @override
+  VerificationContext validateIntegrity(Insertable<DriftHallAttempt> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -527,33 +735,77 @@ class $DriftHallTreaningsTableTable extends DriftHallTreaningsTable
     } else if (isInserting) {
       context.missing(_idMeta);
     }
-    if (data.containsKey('hall_id')) {
-      context.handle(_hallIdMeta,
-          hallId.isAcceptableOrUnknown(data['hall_id']!, _hallIdMeta));
-    } else if (isInserting) {
-      context.missing(_hallIdMeta);
-    }
-    if (data.containsKey('date')) {
+    if (data.containsKey('treaning_id')) {
       context.handle(
-          _dateMeta, date.isAcceptableOrUnknown(data['date']!, _dateMeta));
+          _treaningIdMeta,
+          treaningId.isAcceptableOrUnknown(
+              data['treaning_id']!, _treaningIdMeta));
     } else if (isInserting) {
-      context.missing(_dateMeta);
+      context.missing(_treaningIdMeta);
     }
-    if (data.containsKey('finish')) {
-      context.handle(_finishMeta,
-          finish.isAcceptableOrUnknown(data['finish']!, _finishMeta));
-    }
-    if (data.containsKey('start')) {
-      context.handle(
-          _startMeta, start.isAcceptableOrUnknown(data['start']!, _startMeta));
-    }
-    if (data.containsKey('climbing_hall')) {
-      context.handle(
-          _climbingHallMeta,
-          climbingHall.isAcceptableOrUnknown(
-              data['climbing_hall']!, _climbingHallMeta));
+    if (data.containsKey('category')) {
+      context.handle(_categoryMeta,
+          category.isAcceptableOrUnknown(data['category']!, _categoryMeta));
     } else if (isInserting) {
-      context.missing(_climbingHallMeta);
+      context.missing(_categoryMeta);
+    }
+    if (data.containsKey('style')) {
+      context.handle(
+          _styleMeta, style.isAcceptableOrUnknown(data['style']!, _styleMeta));
+    } else if (isInserting) {
+      context.missing(_styleMeta);
+    }
+    if (data.containsKey('route_id')) {
+      context.handle(_routeIdMeta,
+          routeId.isAcceptableOrUnknown(data['route_id']!, _routeIdMeta));
+    }
+    if (data.containsKey('route')) {
+      context.handle(
+          _routeMeta, route.isAcceptableOrUnknown(data['route']!, _routeMeta));
+    }
+    if (data.containsKey('finish_time')) {
+      context.handle(
+          _finishTimeMeta,
+          finishTime.isAcceptableOrUnknown(
+              data['finish_time']!, _finishTimeMeta));
+    }
+    if (data.containsKey('start_time')) {
+      context.handle(_startTimeMeta,
+          startTime.isAcceptableOrUnknown(data['start_time']!, _startTimeMeta));
+    }
+    if (data.containsKey('ascent_type')) {
+      context.handle(
+          _ascentTypeMeta,
+          ascentType.isAcceptableOrUnknown(
+              data['ascent_type']!, _ascentTypeMeta));
+    }
+    if (data.containsKey('suspension_count')) {
+      context.handle(
+          _suspensionCountMeta,
+          suspensionCount.isAcceptableOrUnknown(
+              data['suspension_count']!, _suspensionCountMeta));
+    } else if (isInserting) {
+      context.missing(_suspensionCountMeta);
+    }
+    if (data.containsKey('fall_count')) {
+      context.handle(_fallCountMeta,
+          fallCount.isAcceptableOrUnknown(data['fall_count']!, _fallCountMeta));
+    } else if (isInserting) {
+      context.missing(_fallCountMeta);
+    }
+    if (data.containsKey('down_climbing')) {
+      context.handle(
+          _downClimbingMeta,
+          downClimbing.isAcceptableOrUnknown(
+              data['down_climbing']!, _downClimbingMeta));
+    } else if (isInserting) {
+      context.missing(_downClimbingMeta);
+    }
+    if (data.containsKey('fail')) {
+      context.handle(
+          _failMeta, fail.isAcceptableOrUnknown(data['fail']!, _failMeta));
+    } else if (isInserting) {
+      context.missing(_failMeta);
     }
     return context;
   }
@@ -561,27 +813,41 @@ class $DriftHallTreaningsTableTable extends DriftHallTreaningsTable
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  DriftHallTreaning map(Map<String, dynamic> data, {String? tablePrefix}) {
+  DriftHallAttempt map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return DriftHallTreaning(
-      id: attachedDatabase.options.types
+    return DriftHallAttempt(
+      id: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
-      hallId: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}hall_id'])!,
-      date: attachedDatabase.options.types
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}date'])!,
-      finish: attachedDatabase.options.types
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}finish']),
-      start: attachedDatabase.options.types
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}start']),
-      climbingHall: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}climbing_hall'])!,
+      treaningId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}treaning_id'])!,
+      category: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}category'])!,
+      style: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}style'])!,
+      routeId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}route_id']),
+      route: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}route']),
+      finishTime: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}finish_time']),
+      startTime: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}start_time']),
+      ascentType: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}ascent_type']),
+      suspensionCount: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}suspension_count'])!,
+      fallCount: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}fall_count'])!,
+      downClimbing: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}down_climbing'])!,
+      fail: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}fail'])!,
     );
   }
 
   @override
-  $DriftHallTreaningsTableTable createAlias(String alias) {
-    return $DriftHallTreaningsTableTable(attachedDatabase, alias);
+  $DriftHallAttemptsTableTable createAlias(String alias) {
+    return $DriftHallAttemptsTableTable(attachedDatabase, alias);
   }
 }
 
@@ -807,6 +1073,7 @@ class DriftHallAttemptsTableCompanion
   final Value<int> fallCount;
   final Value<bool> downClimbing;
   final Value<bool> fail;
+  final Value<int> rowid;
   const DriftHallAttemptsTableCompanion({
     this.id = const Value.absent(),
     this.treaningId = const Value.absent(),
@@ -821,6 +1088,7 @@ class DriftHallAttemptsTableCompanion
     this.fallCount = const Value.absent(),
     this.downClimbing = const Value.absent(),
     this.fail = const Value.absent(),
+    this.rowid = const Value.absent(),
   });
   DriftHallAttemptsTableCompanion.insert({
     required String id,
@@ -836,6 +1104,7 @@ class DriftHallAttemptsTableCompanion
     required int fallCount,
     required bool downClimbing,
     required bool fail,
+    this.rowid = const Value.absent(),
   })  : id = Value(id),
         treaningId = Value(treaningId),
         category = Value(category),
@@ -858,6 +1127,7 @@ class DriftHallAttemptsTableCompanion
     Expression<int>? fallCount,
     Expression<bool>? downClimbing,
     Expression<bool>? fail,
+    Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -873,6 +1143,7 @@ class DriftHallAttemptsTableCompanion
       if (fallCount != null) 'fall_count': fallCount,
       if (downClimbing != null) 'down_climbing': downClimbing,
       if (fail != null) 'fail': fail,
+      if (rowid != null) 'rowid': rowid,
     });
   }
 
@@ -889,7 +1160,8 @@ class DriftHallAttemptsTableCompanion
       Value<int>? suspensionCount,
       Value<int>? fallCount,
       Value<bool>? downClimbing,
-      Value<bool>? fail}) {
+      Value<bool>? fail,
+      Value<int>? rowid}) {
     return DriftHallAttemptsTableCompanion(
       id: id ?? this.id,
       treaningId: treaningId ?? this.treaningId,
@@ -904,6 +1176,7 @@ class DriftHallAttemptsTableCompanion
       fallCount: fallCount ?? this.fallCount,
       downClimbing: downClimbing ?? this.downClimbing,
       fail: fail ?? this.fail,
+      rowid: rowid ?? this.rowid,
     );
   }
 
@@ -949,6 +1222,9 @@ class DriftHallAttemptsTableCompanion
     if (fail.present) {
       map['fail'] = Variable<bool>(fail.value);
     }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
     return map;
   }
 
@@ -967,115 +1243,68 @@ class DriftHallAttemptsTableCompanion
           ..write('suspensionCount: $suspensionCount, ')
           ..write('fallCount: $fallCount, ')
           ..write('downClimbing: $downClimbing, ')
-          ..write('fail: $fail')
+          ..write('fail: $fail, ')
+          ..write('rowid: $rowid')
           ..write(')'))
         .toString();
   }
 }
 
-class $DriftHallAttemptsTableTable extends DriftHallAttemptsTable
-    with TableInfo<$DriftHallAttemptsTableTable, DriftHallAttempt> {
+class $DriftCardioTreaningsTableTable extends DriftCardioTreaningsTable
+    with TableInfo<$DriftCardioTreaningsTableTable, DriftCardioTreanings> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $DriftHallAttemptsTableTable(this.attachedDatabase, [this._alias]);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
+  $DriftCardioTreaningsTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<String> id = GeneratedColumn<String>(
       'id', aliasedName, false,
       type: DriftSqlType.string,
       requiredDuringInsert: true,
-      defaultConstraints: 'UNIQUE');
-  final VerificationMeta _treaningIdMeta = const VerificationMeta('treaningId');
+      defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'));
+  static const VerificationMeta _exerciseMeta =
+      const VerificationMeta('exercise');
   @override
-  late final GeneratedColumn<String> treaningId = GeneratedColumn<String>(
-      'treaning_id', aliasedName, false,
-      type: DriftSqlType.string,
-      requiredDuringInsert: true,
-      defaultConstraints: 'REFERENCES "drift_hall_treanings_table" ("id")');
-  final VerificationMeta _categoryMeta = const VerificationMeta('category');
-  @override
-  late final GeneratedColumn<String> category = GeneratedColumn<String>(
-      'category', aliasedName, false,
+  late final GeneratedColumn<String> exercise = GeneratedColumn<String>(
+      'exercise', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _styleMeta = const VerificationMeta('style');
+  static const VerificationMeta _dateMeta = const VerificationMeta('date');
   @override
-  late final GeneratedColumn<String> style = GeneratedColumn<String>(
-      'style', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _routeIdMeta = const VerificationMeta('routeId');
+  late final GeneratedColumn<DateTime> date = GeneratedColumn<DateTime>(
+      'date', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _finishMeta = const VerificationMeta('finish');
   @override
-  late final GeneratedColumn<String> routeId = GeneratedColumn<String>(
-      'route_id', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  final VerificationMeta _routeMeta = const VerificationMeta('route');
-  @override
-  late final GeneratedColumn<String> route = GeneratedColumn<String>(
-      'route', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  final VerificationMeta _finishTimeMeta = const VerificationMeta('finishTime');
-  @override
-  late final GeneratedColumn<DateTime> finishTime = GeneratedColumn<DateTime>(
-      'finish_time', aliasedName, true,
+  late final GeneratedColumn<DateTime> finish = GeneratedColumn<DateTime>(
+      'finish', aliasedName, true,
       type: DriftSqlType.dateTime, requiredDuringInsert: false);
-  final VerificationMeta _startTimeMeta = const VerificationMeta('startTime');
+  static const VerificationMeta _startMeta = const VerificationMeta('start');
   @override
-  late final GeneratedColumn<DateTime> startTime = GeneratedColumn<DateTime>(
-      'start_time', aliasedName, true,
+  late final GeneratedColumn<DateTime> start = GeneratedColumn<DateTime>(
+      'start', aliasedName, true,
       type: DriftSqlType.dateTime, requiredDuringInsert: false);
-  final VerificationMeta _ascentTypeMeta = const VerificationMeta('ascentType');
+  static const VerificationMeta _durationMeta =
+      const VerificationMeta('duration');
   @override
-  late final GeneratedColumn<String> ascentType = GeneratedColumn<String>(
-      'ascent_type', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  final VerificationMeta _suspensionCountMeta =
-      const VerificationMeta('suspensionCount');
-  @override
-  late final GeneratedColumn<int> suspensionCount = GeneratedColumn<int>(
-      'suspension_count', aliasedName, false,
+  late final GeneratedColumn<int> duration = GeneratedColumn<int>(
+      'duration', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
-  final VerificationMeta _fallCountMeta = const VerificationMeta('fallCount');
+  static const VerificationMeta _lengthMeta = const VerificationMeta('length');
   @override
-  late final GeneratedColumn<int> fallCount = GeneratedColumn<int>(
-      'fall_count', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  final VerificationMeta _downClimbingMeta =
-      const VerificationMeta('downClimbing');
+  late final GeneratedColumn<double> length = GeneratedColumn<double>(
+      'length', aliasedName, false,
+      type: DriftSqlType.double, requiredDuringInsert: true);
   @override
-  late final GeneratedColumn<bool> downClimbing = GeneratedColumn<bool>(
-      'down_climbing', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: true,
-      defaultConstraints: 'CHECK ("down_climbing" IN (0, 1))');
-  final VerificationMeta _failMeta = const VerificationMeta('fail');
+  List<GeneratedColumn> get $columns =>
+      [id, exercise, date, finish, start, duration, length];
   @override
-  late final GeneratedColumn<bool> fail = GeneratedColumn<bool>(
-      'fail', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: true,
-      defaultConstraints: 'CHECK ("fail" IN (0, 1))');
+  String get aliasedName => _alias ?? 'drift_cardio_treanings_table';
   @override
-  List<GeneratedColumn> get $columns => [
-        id,
-        treaningId,
-        category,
-        style,
-        routeId,
-        route,
-        finishTime,
-        startTime,
-        ascentType,
-        suspensionCount,
-        fallCount,
-        downClimbing,
-        fail
-      ];
+  String get actualTableName => 'drift_cardio_treanings_table';
   @override
-  String get aliasedName => _alias ?? 'drift_hall_attempts_table';
-  @override
-  String get actualTableName => 'drift_hall_attempts_table';
-  @override
-  VerificationContext validateIntegrity(Insertable<DriftHallAttempt> instance,
+  VerificationContext validateIntegrity(
+      Insertable<DriftCardioTreanings> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -1084,77 +1313,37 @@ class $DriftHallAttemptsTableTable extends DriftHallAttemptsTable
     } else if (isInserting) {
       context.missing(_idMeta);
     }
-    if (data.containsKey('treaning_id')) {
-      context.handle(
-          _treaningIdMeta,
-          treaningId.isAcceptableOrUnknown(
-              data['treaning_id']!, _treaningIdMeta));
+    if (data.containsKey('exercise')) {
+      context.handle(_exerciseMeta,
+          exercise.isAcceptableOrUnknown(data['exercise']!, _exerciseMeta));
     } else if (isInserting) {
-      context.missing(_treaningIdMeta);
+      context.missing(_exerciseMeta);
     }
-    if (data.containsKey('category')) {
-      context.handle(_categoryMeta,
-          category.isAcceptableOrUnknown(data['category']!, _categoryMeta));
+    if (data.containsKey('date')) {
+      context.handle(
+          _dateMeta, date.isAcceptableOrUnknown(data['date']!, _dateMeta));
     } else if (isInserting) {
-      context.missing(_categoryMeta);
+      context.missing(_dateMeta);
     }
-    if (data.containsKey('style')) {
+    if (data.containsKey('finish')) {
+      context.handle(_finishMeta,
+          finish.isAcceptableOrUnknown(data['finish']!, _finishMeta));
+    }
+    if (data.containsKey('start')) {
       context.handle(
-          _styleMeta, style.isAcceptableOrUnknown(data['style']!, _styleMeta));
+          _startMeta, start.isAcceptableOrUnknown(data['start']!, _startMeta));
+    }
+    if (data.containsKey('duration')) {
+      context.handle(_durationMeta,
+          duration.isAcceptableOrUnknown(data['duration']!, _durationMeta));
     } else if (isInserting) {
-      context.missing(_styleMeta);
+      context.missing(_durationMeta);
     }
-    if (data.containsKey('route_id')) {
-      context.handle(_routeIdMeta,
-          routeId.isAcceptableOrUnknown(data['route_id']!, _routeIdMeta));
-    }
-    if (data.containsKey('route')) {
-      context.handle(
-          _routeMeta, route.isAcceptableOrUnknown(data['route']!, _routeMeta));
-    }
-    if (data.containsKey('finish_time')) {
-      context.handle(
-          _finishTimeMeta,
-          finishTime.isAcceptableOrUnknown(
-              data['finish_time']!, _finishTimeMeta));
-    }
-    if (data.containsKey('start_time')) {
-      context.handle(_startTimeMeta,
-          startTime.isAcceptableOrUnknown(data['start_time']!, _startTimeMeta));
-    }
-    if (data.containsKey('ascent_type')) {
-      context.handle(
-          _ascentTypeMeta,
-          ascentType.isAcceptableOrUnknown(
-              data['ascent_type']!, _ascentTypeMeta));
-    }
-    if (data.containsKey('suspension_count')) {
-      context.handle(
-          _suspensionCountMeta,
-          suspensionCount.isAcceptableOrUnknown(
-              data['suspension_count']!, _suspensionCountMeta));
+    if (data.containsKey('length')) {
+      context.handle(_lengthMeta,
+          length.isAcceptableOrUnknown(data['length']!, _lengthMeta));
     } else if (isInserting) {
-      context.missing(_suspensionCountMeta);
-    }
-    if (data.containsKey('fall_count')) {
-      context.handle(_fallCountMeta,
-          fallCount.isAcceptableOrUnknown(data['fall_count']!, _fallCountMeta));
-    } else if (isInserting) {
-      context.missing(_fallCountMeta);
-    }
-    if (data.containsKey('down_climbing')) {
-      context.handle(
-          _downClimbingMeta,
-          downClimbing.isAcceptableOrUnknown(
-              data['down_climbing']!, _downClimbingMeta));
-    } else if (isInserting) {
-      context.missing(_downClimbingMeta);
-    }
-    if (data.containsKey('fail')) {
-      context.handle(
-          _failMeta, fail.isAcceptableOrUnknown(data['fail']!, _failMeta));
-    } else if (isInserting) {
-      context.missing(_failMeta);
+      context.missing(_lengthMeta);
     }
     return context;
   }
@@ -1162,41 +1351,29 @@ class $DriftHallAttemptsTableTable extends DriftHallAttemptsTable
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  DriftHallAttempt map(Map<String, dynamic> data, {String? tablePrefix}) {
+  DriftCardioTreanings map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return DriftHallAttempt(
-      id: attachedDatabase.options.types
+    return DriftCardioTreanings(
+      id: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
-      treaningId: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}treaning_id'])!,
-      category: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}category'])!,
-      style: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}style'])!,
-      routeId: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}route_id']),
-      route: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}route']),
-      finishTime: attachedDatabase.options.types
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}finish_time']),
-      startTime: attachedDatabase.options.types
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}start_time']),
-      ascentType: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}ascent_type']),
-      suspensionCount: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}suspension_count'])!,
-      fallCount: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}fall_count'])!,
-      downClimbing: attachedDatabase.options.types
-          .read(DriftSqlType.bool, data['${effectivePrefix}down_climbing'])!,
-      fail: attachedDatabase.options.types
-          .read(DriftSqlType.bool, data['${effectivePrefix}fail'])!,
+      exercise: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}exercise'])!,
+      date: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}date'])!,
+      finish: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}finish']),
+      start: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}start']),
+      duration: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}duration'])!,
+      length: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}length'])!,
     );
   }
 
   @override
-  $DriftHallAttemptsTableTable createAlias(String alias) {
-    return $DriftHallAttemptsTableTable(attachedDatabase, alias);
+  $DriftCardioTreaningsTableTable createAlias(String alias) {
+    return $DriftCardioTreaningsTableTable(attachedDatabase, alias);
   }
 }
 
@@ -1331,6 +1508,7 @@ class DriftCardioTreaningsTableCompanion
   final Value<DateTime?> start;
   final Value<int> duration;
   final Value<double> length;
+  final Value<int> rowid;
   const DriftCardioTreaningsTableCompanion({
     this.id = const Value.absent(),
     this.exercise = const Value.absent(),
@@ -1339,6 +1517,7 @@ class DriftCardioTreaningsTableCompanion
     this.start = const Value.absent(),
     this.duration = const Value.absent(),
     this.length = const Value.absent(),
+    this.rowid = const Value.absent(),
   });
   DriftCardioTreaningsTableCompanion.insert({
     required String id,
@@ -1348,6 +1527,7 @@ class DriftCardioTreaningsTableCompanion
     this.start = const Value.absent(),
     required int duration,
     required double length,
+    this.rowid = const Value.absent(),
   })  : id = Value(id),
         exercise = Value(exercise),
         date = Value(date),
@@ -1361,6 +1541,7 @@ class DriftCardioTreaningsTableCompanion
     Expression<DateTime>? start,
     Expression<int>? duration,
     Expression<double>? length,
+    Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -1370,6 +1551,7 @@ class DriftCardioTreaningsTableCompanion
       if (start != null) 'start': start,
       if (duration != null) 'duration': duration,
       if (length != null) 'length': length,
+      if (rowid != null) 'rowid': rowid,
     });
   }
 
@@ -1380,7 +1562,8 @@ class DriftCardioTreaningsTableCompanion
       Value<DateTime?>? finish,
       Value<DateTime?>? start,
       Value<int>? duration,
-      Value<double>? length}) {
+      Value<double>? length,
+      Value<int>? rowid}) {
     return DriftCardioTreaningsTableCompanion(
       id: id ?? this.id,
       exercise: exercise ?? this.exercise,
@@ -1389,6 +1572,7 @@ class DriftCardioTreaningsTableCompanion
       start: start ?? this.start,
       duration: duration ?? this.duration,
       length: length ?? this.length,
+      rowid: rowid ?? this.rowid,
     );
   }
 
@@ -1416,6 +1600,9 @@ class DriftCardioTreaningsTableCompanion
     if (length.present) {
       map['length'] = Variable<double>(length.value);
     }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
     return map;
   }
 
@@ -1428,65 +1615,50 @@ class DriftCardioTreaningsTableCompanion
           ..write('finish: $finish, ')
           ..write('start: $start, ')
           ..write('duration: $duration, ')
-          ..write('length: $length')
+          ..write('length: $length, ')
+          ..write('rowid: $rowid')
           ..write(')'))
         .toString();
   }
 }
 
-class $DriftCardioTreaningsTableTable extends DriftCardioTreaningsTable
-    with TableInfo<$DriftCardioTreaningsTableTable, DriftCardioTreanings> {
+class $DriftStrengthTreaningsTableTable extends DriftStrengthTreaningsTable
+    with TableInfo<$DriftStrengthTreaningsTableTable, DriftStrengthTreaning> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $DriftCardioTreaningsTableTable(this.attachedDatabase, [this._alias]);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
+  $DriftStrengthTreaningsTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<String> id = GeneratedColumn<String>(
       'id', aliasedName, false,
       type: DriftSqlType.string,
       requiredDuringInsert: true,
-      defaultConstraints: 'UNIQUE');
-  final VerificationMeta _exerciseMeta = const VerificationMeta('exercise');
-  @override
-  late final GeneratedColumn<String> exercise = GeneratedColumn<String>(
-      'exercise', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _dateMeta = const VerificationMeta('date');
+      defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'));
+  static const VerificationMeta _dateMeta = const VerificationMeta('date');
   @override
   late final GeneratedColumn<DateTime> date = GeneratedColumn<DateTime>(
       'date', aliasedName, false,
       type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  final VerificationMeta _finishMeta = const VerificationMeta('finish');
+  static const VerificationMeta _finishMeta = const VerificationMeta('finish');
   @override
   late final GeneratedColumn<DateTime> finish = GeneratedColumn<DateTime>(
       'finish', aliasedName, true,
       type: DriftSqlType.dateTime, requiredDuringInsert: false);
-  final VerificationMeta _startMeta = const VerificationMeta('start');
+  static const VerificationMeta _startMeta = const VerificationMeta('start');
   @override
   late final GeneratedColumn<DateTime> start = GeneratedColumn<DateTime>(
       'start', aliasedName, true,
       type: DriftSqlType.dateTime, requiredDuringInsert: false);
-  final VerificationMeta _durationMeta = const VerificationMeta('duration');
   @override
-  late final GeneratedColumn<int> duration = GeneratedColumn<int>(
-      'duration', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  final VerificationMeta _lengthMeta = const VerificationMeta('length');
+  List<GeneratedColumn> get $columns => [id, date, finish, start];
   @override
-  late final GeneratedColumn<double> length = GeneratedColumn<double>(
-      'length', aliasedName, false,
-      type: DriftSqlType.double, requiredDuringInsert: true);
+  String get aliasedName => _alias ?? 'drift_strength_treanings_table';
   @override
-  List<GeneratedColumn> get $columns =>
-      [id, exercise, date, finish, start, duration, length];
-  @override
-  String get aliasedName => _alias ?? 'drift_cardio_treanings_table';
-  @override
-  String get actualTableName => 'drift_cardio_treanings_table';
+  String get actualTableName => 'drift_strength_treanings_table';
   @override
   VerificationContext validateIntegrity(
-      Insertable<DriftCardioTreanings> instance,
+      Insertable<DriftStrengthTreaning> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -1494,12 +1666,6 @@ class $DriftCardioTreaningsTableTable extends DriftCardioTreaningsTable
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     } else if (isInserting) {
       context.missing(_idMeta);
-    }
-    if (data.containsKey('exercise')) {
-      context.handle(_exerciseMeta,
-          exercise.isAcceptableOrUnknown(data['exercise']!, _exerciseMeta));
-    } else if (isInserting) {
-      context.missing(_exerciseMeta);
     }
     if (data.containsKey('date')) {
       context.handle(
@@ -1515,47 +1681,29 @@ class $DriftCardioTreaningsTableTable extends DriftCardioTreaningsTable
       context.handle(
           _startMeta, start.isAcceptableOrUnknown(data['start']!, _startMeta));
     }
-    if (data.containsKey('duration')) {
-      context.handle(_durationMeta,
-          duration.isAcceptableOrUnknown(data['duration']!, _durationMeta));
-    } else if (isInserting) {
-      context.missing(_durationMeta);
-    }
-    if (data.containsKey('length')) {
-      context.handle(_lengthMeta,
-          length.isAcceptableOrUnknown(data['length']!, _lengthMeta));
-    } else if (isInserting) {
-      context.missing(_lengthMeta);
-    }
     return context;
   }
 
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  DriftCardioTreanings map(Map<String, dynamic> data, {String? tablePrefix}) {
+  DriftStrengthTreaning map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return DriftCardioTreanings(
-      id: attachedDatabase.options.types
+    return DriftStrengthTreaning(
+      id: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
-      exercise: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}exercise'])!,
-      date: attachedDatabase.options.types
+      date: attachedDatabase.typeMapping
           .read(DriftSqlType.dateTime, data['${effectivePrefix}date'])!,
-      finish: attachedDatabase.options.types
+      finish: attachedDatabase.typeMapping
           .read(DriftSqlType.dateTime, data['${effectivePrefix}finish']),
-      start: attachedDatabase.options.types
+      start: attachedDatabase.typeMapping
           .read(DriftSqlType.dateTime, data['${effectivePrefix}start']),
-      duration: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}duration'])!,
-      length: attachedDatabase.options.types
-          .read(DriftSqlType.double, data['${effectivePrefix}length'])!,
     );
   }
 
   @override
-  $DriftCardioTreaningsTableTable createAlias(String alias) {
-    return $DriftCardioTreaningsTableTable(attachedDatabase, alias);
+  $DriftStrengthTreaningsTableTable createAlias(String alias) {
+    return $DriftStrengthTreaningsTableTable(attachedDatabase, alias);
   }
 }
 
@@ -1653,17 +1801,20 @@ class DriftStrengthTreaningsTableCompanion
   final Value<DateTime> date;
   final Value<DateTime?> finish;
   final Value<DateTime?> start;
+  final Value<int> rowid;
   const DriftStrengthTreaningsTableCompanion({
     this.id = const Value.absent(),
     this.date = const Value.absent(),
     this.finish = const Value.absent(),
     this.start = const Value.absent(),
+    this.rowid = const Value.absent(),
   });
   DriftStrengthTreaningsTableCompanion.insert({
     required String id,
     required DateTime date,
     this.finish = const Value.absent(),
     this.start = const Value.absent(),
+    this.rowid = const Value.absent(),
   })  : id = Value(id),
         date = Value(date);
   static Insertable<DriftStrengthTreaning> custom({
@@ -1671,12 +1822,14 @@ class DriftStrengthTreaningsTableCompanion
     Expression<DateTime>? date,
     Expression<DateTime>? finish,
     Expression<DateTime>? start,
+    Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (date != null) 'date': date,
       if (finish != null) 'finish': finish,
       if (start != null) 'start': start,
+      if (rowid != null) 'rowid': rowid,
     });
   }
 
@@ -1684,12 +1837,14 @@ class DriftStrengthTreaningsTableCompanion
       {Value<String>? id,
       Value<DateTime>? date,
       Value<DateTime?>? finish,
-      Value<DateTime?>? start}) {
+      Value<DateTime?>? start,
+      Value<int>? rowid}) {
     return DriftStrengthTreaningsTableCompanion(
       id: id ?? this.id,
       date: date ?? this.date,
       finish: finish ?? this.finish,
       start: start ?? this.start,
+      rowid: rowid ?? this.rowid,
     );
   }
 
@@ -1708,6 +1863,9 @@ class DriftStrengthTreaningsTableCompanion
     if (start.present) {
       map['start'] = Variable<DateTime>(start.value);
     }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
     return map;
   }
 
@@ -1717,49 +1875,67 @@ class DriftStrengthTreaningsTableCompanion
           ..write('id: $id, ')
           ..write('date: $date, ')
           ..write('finish: $finish, ')
-          ..write('start: $start')
+          ..write('start: $start, ')
+          ..write('rowid: $rowid')
           ..write(')'))
         .toString();
   }
 }
 
-class $DriftStrengthTreaningsTableTable extends DriftStrengthTreaningsTable
-    with TableInfo<$DriftStrengthTreaningsTableTable, DriftStrengthTreaning> {
+class $DriftStrengthTreaningLinesTableTable
+    extends DriftStrengthTreaningLinesTable
+    with
+        TableInfo<$DriftStrengthTreaningLinesTableTable,
+            DriftStrengthTreaningLine> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $DriftStrengthTreaningsTableTable(this.attachedDatabase, [this._alias]);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
+  $DriftStrengthTreaningLinesTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<String> id = GeneratedColumn<String>(
       'id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _repetitionsMeta =
+      const VerificationMeta('repetitions');
+  @override
+  late final GeneratedColumn<String> repetitions = GeneratedColumn<String>(
+      'repetitions', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _treaningIdMeta =
+      const VerificationMeta('treaningId');
+  @override
+  late final GeneratedColumn<String> treaningId = GeneratedColumn<String>(
+      'treaning_id', aliasedName, false,
       type: DriftSqlType.string,
       requiredDuringInsert: true,
-      defaultConstraints: 'UNIQUE');
-  final VerificationMeta _dateMeta = const VerificationMeta('date');
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES drift_strength_treanings_table (id)'));
+  static const VerificationMeta _exerciseMeta =
+      const VerificationMeta('exercise');
   @override
-  late final GeneratedColumn<DateTime> date = GeneratedColumn<DateTime>(
-      'date', aliasedName, false,
-      type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  final VerificationMeta _finishMeta = const VerificationMeta('finish');
+  late final GeneratedColumn<String> exercise = GeneratedColumn<String>(
+      'exercise', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _exerciseIdMeta =
+      const VerificationMeta('exerciseId');
   @override
-  late final GeneratedColumn<DateTime> finish = GeneratedColumn<DateTime>(
-      'finish', aliasedName, true,
-      type: DriftSqlType.dateTime, requiredDuringInsert: false);
-  final VerificationMeta _startMeta = const VerificationMeta('start');
+  late final GeneratedColumn<String> exerciseId = GeneratedColumn<String>(
+      'exercise_id', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES drift_strength_exercises_table (id)'));
   @override
-  late final GeneratedColumn<DateTime> start = GeneratedColumn<DateTime>(
-      'start', aliasedName, true,
-      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  List<GeneratedColumn> get $columns =>
+      [id, repetitions, treaningId, exercise, exerciseId];
   @override
-  List<GeneratedColumn> get $columns => [id, date, finish, start];
+  String get aliasedName => _alias ?? 'drift_strength_treaning_lines_table';
   @override
-  String get aliasedName => _alias ?? 'drift_strength_treanings_table';
-  @override
-  String get actualTableName => 'drift_strength_treanings_table';
+  String get actualTableName => 'drift_strength_treaning_lines_table';
   @override
   VerificationContext validateIntegrity(
-      Insertable<DriftStrengthTreaning> instance,
+      Insertable<DriftStrengthTreaningLine> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -1768,19 +1944,35 @@ class $DriftStrengthTreaningsTableTable extends DriftStrengthTreaningsTable
     } else if (isInserting) {
       context.missing(_idMeta);
     }
-    if (data.containsKey('date')) {
+    if (data.containsKey('repetitions')) {
       context.handle(
-          _dateMeta, date.isAcceptableOrUnknown(data['date']!, _dateMeta));
+          _repetitionsMeta,
+          repetitions.isAcceptableOrUnknown(
+              data['repetitions']!, _repetitionsMeta));
     } else if (isInserting) {
-      context.missing(_dateMeta);
+      context.missing(_repetitionsMeta);
     }
-    if (data.containsKey('finish')) {
-      context.handle(_finishMeta,
-          finish.isAcceptableOrUnknown(data['finish']!, _finishMeta));
-    }
-    if (data.containsKey('start')) {
+    if (data.containsKey('treaning_id')) {
       context.handle(
-          _startMeta, start.isAcceptableOrUnknown(data['start']!, _startMeta));
+          _treaningIdMeta,
+          treaningId.isAcceptableOrUnknown(
+              data['treaning_id']!, _treaningIdMeta));
+    } else if (isInserting) {
+      context.missing(_treaningIdMeta);
+    }
+    if (data.containsKey('exercise')) {
+      context.handle(_exerciseMeta,
+          exercise.isAcceptableOrUnknown(data['exercise']!, _exerciseMeta));
+    } else if (isInserting) {
+      context.missing(_exerciseMeta);
+    }
+    if (data.containsKey('exercise_id')) {
+      context.handle(
+          _exerciseIdMeta,
+          exerciseId.isAcceptableOrUnknown(
+              data['exercise_id']!, _exerciseIdMeta));
+    } else if (isInserting) {
+      context.missing(_exerciseIdMeta);
     }
     return context;
   }
@@ -1788,23 +1980,26 @@ class $DriftStrengthTreaningsTableTable extends DriftStrengthTreaningsTable
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  DriftStrengthTreaning map(Map<String, dynamic> data, {String? tablePrefix}) {
+  DriftStrengthTreaningLine map(Map<String, dynamic> data,
+      {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return DriftStrengthTreaning(
-      id: attachedDatabase.options.types
+    return DriftStrengthTreaningLine(
+      id: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
-      date: attachedDatabase.options.types
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}date'])!,
-      finish: attachedDatabase.options.types
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}finish']),
-      start: attachedDatabase.options.types
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}start']),
+      repetitions: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}repetitions'])!,
+      treaningId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}treaning_id'])!,
+      exercise: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}exercise'])!,
+      exerciseId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}exercise_id'])!,
     );
   }
 
   @override
-  $DriftStrengthTreaningsTableTable createAlias(String alias) {
-    return $DriftStrengthTreaningsTableTable(attachedDatabase, alias);
+  $DriftStrengthTreaningLinesTableTable createAlias(String alias) {
+    return $DriftStrengthTreaningLinesTableTable(attachedDatabase, alias);
   }
 }
 
@@ -1911,12 +2106,14 @@ class DriftStrengthTreaningLinesTableCompanion
   final Value<String> treaningId;
   final Value<String> exercise;
   final Value<String> exerciseId;
+  final Value<int> rowid;
   const DriftStrengthTreaningLinesTableCompanion({
     this.id = const Value.absent(),
     this.repetitions = const Value.absent(),
     this.treaningId = const Value.absent(),
     this.exercise = const Value.absent(),
     this.exerciseId = const Value.absent(),
+    this.rowid = const Value.absent(),
   });
   DriftStrengthTreaningLinesTableCompanion.insert({
     required String id,
@@ -1924,6 +2121,7 @@ class DriftStrengthTreaningLinesTableCompanion
     required String treaningId,
     required String exercise,
     required String exerciseId,
+    this.rowid = const Value.absent(),
   })  : id = Value(id),
         repetitions = Value(repetitions),
         treaningId = Value(treaningId),
@@ -1935,6 +2133,7 @@ class DriftStrengthTreaningLinesTableCompanion
     Expression<String>? treaningId,
     Expression<String>? exercise,
     Expression<String>? exerciseId,
+    Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -1942,6 +2141,7 @@ class DriftStrengthTreaningLinesTableCompanion
       if (treaningId != null) 'treaning_id': treaningId,
       if (exercise != null) 'exercise': exercise,
       if (exerciseId != null) 'exercise_id': exerciseId,
+      if (rowid != null) 'rowid': rowid,
     });
   }
 
@@ -1950,13 +2150,15 @@ class DriftStrengthTreaningLinesTableCompanion
       Value<String>? repetitions,
       Value<String>? treaningId,
       Value<String>? exercise,
-      Value<String>? exerciseId}) {
+      Value<String>? exerciseId,
+      Value<int>? rowid}) {
     return DriftStrengthTreaningLinesTableCompanion(
       id: id ?? this.id,
       repetitions: repetitions ?? this.repetitions,
       treaningId: treaningId ?? this.treaningId,
       exercise: exercise ?? this.exercise,
       exerciseId: exerciseId ?? this.exerciseId,
+      rowid: rowid ?? this.rowid,
     );
   }
 
@@ -1978,6 +2180,9 @@ class DriftStrengthTreaningLinesTableCompanion
     if (exerciseId.present) {
       map['exercise_id'] = Variable<String>(exerciseId.value);
     }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
     return map;
   }
 
@@ -1988,61 +2193,68 @@ class DriftStrengthTreaningLinesTableCompanion
           ..write('repetitions: $repetitions, ')
           ..write('treaningId: $treaningId, ')
           ..write('exercise: $exercise, ')
-          ..write('exerciseId: $exerciseId')
+          ..write('exerciseId: $exerciseId, ')
+          ..write('rowid: $rowid')
           ..write(')'))
         .toString();
   }
 }
 
-class $DriftStrengthTreaningLinesTableTable
-    extends DriftStrengthTreaningLinesTable
-    with
-        TableInfo<$DriftStrengthTreaningLinesTableTable,
-            DriftStrengthTreaningLine> {
+class $DriftIceTreaningsTableTable extends DriftIceTreaningsTable
+    with TableInfo<$DriftIceTreaningsTableTable, DriftIceTreanings> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $DriftStrengthTreaningLinesTableTable(this.attachedDatabase, [this._alias]);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
+  $DriftIceTreaningsTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<String> id = GeneratedColumn<String>(
       'id', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _repetitionsMeta =
-      const VerificationMeta('repetitions');
-  @override
-  late final GeneratedColumn<String> repetitions = GeneratedColumn<String>(
-      'repetitions', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _treaningIdMeta = const VerificationMeta('treaningId');
-  @override
-  late final GeneratedColumn<String> treaningId = GeneratedColumn<String>(
-      'treaning_id', aliasedName, false,
       type: DriftSqlType.string,
       requiredDuringInsert: true,
-      defaultConstraints: 'REFERENCES "drift_strength_treanings_table" ("id")');
-  final VerificationMeta _exerciseMeta = const VerificationMeta('exercise');
+      defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'));
+  static const VerificationMeta _districtMeta =
+      const VerificationMeta('district');
   @override
-  late final GeneratedColumn<String> exercise = GeneratedColumn<String>(
-      'exercise', aliasedName, false,
+  late final GeneratedColumn<String> district = GeneratedColumn<String>(
+      'district', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _exerciseIdMeta = const VerificationMeta('exerciseId');
+  static const VerificationMeta _districtIdMeta =
+      const VerificationMeta('districtId');
   @override
-  late final GeneratedColumn<String> exerciseId = GeneratedColumn<String>(
-      'exercise_id', aliasedName, false,
-      type: DriftSqlType.string,
-      requiredDuringInsert: true,
-      defaultConstraints: 'REFERENCES "drift_strength_exercises_table" ("id")');
+  late final GeneratedColumn<String> districtId = GeneratedColumn<String>(
+      'district_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _dateMeta = const VerificationMeta('date');
+  @override
+  late final GeneratedColumn<DateTime> date = GeneratedColumn<DateTime>(
+      'date', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _finishMeta = const VerificationMeta('finish');
+  @override
+  late final GeneratedColumn<DateTime> finish = GeneratedColumn<DateTime>(
+      'finish', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _startMeta = const VerificationMeta('start');
+  @override
+  late final GeneratedColumn<DateTime> start = GeneratedColumn<DateTime>(
+      'start', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _sectorsMeta =
+      const VerificationMeta('sectors');
+  @override
+  late final GeneratedColumn<String> sectors = GeneratedColumn<String>(
+      'sectors', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns =>
-      [id, repetitions, treaningId, exercise, exerciseId];
+      [id, district, districtId, date, finish, start, sectors];
   @override
-  String get aliasedName => _alias ?? 'drift_strength_treaning_lines_table';
+  String get aliasedName => _alias ?? 'drift_ice_treanings_table';
   @override
-  String get actualTableName => 'drift_strength_treaning_lines_table';
+  String get actualTableName => 'drift_ice_treanings_table';
   @override
-  VerificationContext validateIntegrity(
-      Insertable<DriftStrengthTreaningLine> instance,
+  VerificationContext validateIntegrity(Insertable<DriftIceTreanings> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -2051,35 +2263,37 @@ class $DriftStrengthTreaningLinesTableTable
     } else if (isInserting) {
       context.missing(_idMeta);
     }
-    if (data.containsKey('repetitions')) {
-      context.handle(
-          _repetitionsMeta,
-          repetitions.isAcceptableOrUnknown(
-              data['repetitions']!, _repetitionsMeta));
+    if (data.containsKey('district')) {
+      context.handle(_districtMeta,
+          district.isAcceptableOrUnknown(data['district']!, _districtMeta));
     } else if (isInserting) {
-      context.missing(_repetitionsMeta);
+      context.missing(_districtMeta);
     }
-    if (data.containsKey('treaning_id')) {
+    if (data.containsKey('district_id')) {
       context.handle(
-          _treaningIdMeta,
-          treaningId.isAcceptableOrUnknown(
-              data['treaning_id']!, _treaningIdMeta));
+          _districtIdMeta,
+          districtId.isAcceptableOrUnknown(
+              data['district_id']!, _districtIdMeta));
     } else if (isInserting) {
-      context.missing(_treaningIdMeta);
+      context.missing(_districtIdMeta);
     }
-    if (data.containsKey('exercise')) {
-      context.handle(_exerciseMeta,
-          exercise.isAcceptableOrUnknown(data['exercise']!, _exerciseMeta));
-    } else if (isInserting) {
-      context.missing(_exerciseMeta);
-    }
-    if (data.containsKey('exercise_id')) {
+    if (data.containsKey('date')) {
       context.handle(
-          _exerciseIdMeta,
-          exerciseId.isAcceptableOrUnknown(
-              data['exercise_id']!, _exerciseIdMeta));
+          _dateMeta, date.isAcceptableOrUnknown(data['date']!, _dateMeta));
     } else if (isInserting) {
-      context.missing(_exerciseIdMeta);
+      context.missing(_dateMeta);
+    }
+    if (data.containsKey('finish')) {
+      context.handle(_finishMeta,
+          finish.isAcceptableOrUnknown(data['finish']!, _finishMeta));
+    }
+    if (data.containsKey('start')) {
+      context.handle(
+          _startMeta, start.isAcceptableOrUnknown(data['start']!, _startMeta));
+    }
+    if (data.containsKey('sectors')) {
+      context.handle(_sectorsMeta,
+          sectors.isAcceptableOrUnknown(data['sectors']!, _sectorsMeta));
     }
     return context;
   }
@@ -2087,26 +2301,29 @@ class $DriftStrengthTreaningLinesTableTable
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  DriftStrengthTreaningLine map(Map<String, dynamic> data,
-      {String? tablePrefix}) {
+  DriftIceTreanings map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return DriftStrengthTreaningLine(
-      id: attachedDatabase.options.types
+    return DriftIceTreanings(
+      id: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
-      repetitions: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}repetitions'])!,
-      treaningId: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}treaning_id'])!,
-      exercise: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}exercise'])!,
-      exerciseId: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}exercise_id'])!,
+      district: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}district'])!,
+      districtId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}district_id'])!,
+      date: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}date'])!,
+      finish: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}finish']),
+      start: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}start']),
+      sectors: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}sectors']),
     );
   }
 
   @override
-  $DriftStrengthTreaningLinesTableTable createAlias(String alias) {
-    return $DriftStrengthTreaningLinesTableTable(attachedDatabase, alias);
+  $DriftIceTreaningsTableTable createAlias(String alias) {
+    return $DriftIceTreaningsTableTable(attachedDatabase, alias);
   }
 }
 
@@ -2245,6 +2462,7 @@ class DriftIceTreaningsTableCompanion
   final Value<DateTime?> finish;
   final Value<DateTime?> start;
   final Value<String?> sectors;
+  final Value<int> rowid;
   const DriftIceTreaningsTableCompanion({
     this.id = const Value.absent(),
     this.district = const Value.absent(),
@@ -2253,6 +2471,7 @@ class DriftIceTreaningsTableCompanion
     this.finish = const Value.absent(),
     this.start = const Value.absent(),
     this.sectors = const Value.absent(),
+    this.rowid = const Value.absent(),
   });
   DriftIceTreaningsTableCompanion.insert({
     required String id,
@@ -2262,6 +2481,7 @@ class DriftIceTreaningsTableCompanion
     this.finish = const Value.absent(),
     this.start = const Value.absent(),
     this.sectors = const Value.absent(),
+    this.rowid = const Value.absent(),
   })  : id = Value(id),
         district = Value(district),
         districtId = Value(districtId),
@@ -2274,6 +2494,7 @@ class DriftIceTreaningsTableCompanion
     Expression<DateTime>? finish,
     Expression<DateTime>? start,
     Expression<String>? sectors,
+    Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -2283,6 +2504,7 @@ class DriftIceTreaningsTableCompanion
       if (finish != null) 'finish': finish,
       if (start != null) 'start': start,
       if (sectors != null) 'sectors': sectors,
+      if (rowid != null) 'rowid': rowid,
     });
   }
 
@@ -2293,7 +2515,8 @@ class DriftIceTreaningsTableCompanion
       Value<DateTime>? date,
       Value<DateTime?>? finish,
       Value<DateTime?>? start,
-      Value<String?>? sectors}) {
+      Value<String?>? sectors,
+      Value<int>? rowid}) {
     return DriftIceTreaningsTableCompanion(
       id: id ?? this.id,
       district: district ?? this.district,
@@ -2302,6 +2525,7 @@ class DriftIceTreaningsTableCompanion
       finish: finish ?? this.finish,
       start: start ?? this.start,
       sectors: sectors ?? this.sectors,
+      rowid: rowid ?? this.rowid,
     );
   }
 
@@ -2329,6 +2553,9 @@ class DriftIceTreaningsTableCompanion
     if (sectors.present) {
       map['sectors'] = Variable<String>(sectors.value);
     }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
     return map;
   }
 
@@ -2341,64 +2568,159 @@ class DriftIceTreaningsTableCompanion
           ..write('date: $date, ')
           ..write('finish: $finish, ')
           ..write('start: $start, ')
-          ..write('sectors: $sectors')
+          ..write('sectors: $sectors, ')
+          ..write('rowid: $rowid')
           ..write(')'))
         .toString();
   }
 }
 
-class $DriftIceTreaningsTableTable extends DriftIceTreaningsTable
-    with TableInfo<$DriftIceTreaningsTableTable, DriftIceTreanings> {
+class $DriftIceAttemptsTableTable extends DriftIceAttemptsTable
+    with TableInfo<$DriftIceAttemptsTableTable, DriftIceAttempt> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $DriftIceTreaningsTableTable(this.attachedDatabase, [this._alias]);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
+  $DriftIceAttemptsTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<String> id = GeneratedColumn<String>(
       'id', aliasedName, false,
       type: DriftSqlType.string,
       requiredDuringInsert: true,
-      defaultConstraints: 'UNIQUE');
-  final VerificationMeta _districtMeta = const VerificationMeta('district');
+      defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'));
+  static const VerificationMeta _sectorMeta = const VerificationMeta('sector');
   @override
-  late final GeneratedColumn<String> district = GeneratedColumn<String>(
-      'district', aliasedName, false,
+  late final GeneratedColumn<String> sector = GeneratedColumn<String>(
+      'sector', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _districtIdMeta = const VerificationMeta('districtId');
+  static const VerificationMeta _sectorIdMeta =
+      const VerificationMeta('sectorId');
   @override
-  late final GeneratedColumn<String> districtId = GeneratedColumn<String>(
-      'district_id', aliasedName, false,
+  late final GeneratedColumn<String> sectorId = GeneratedColumn<String>(
+      'sector_id', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _dateMeta = const VerificationMeta('date');
+  static const VerificationMeta _treaningIdMeta =
+      const VerificationMeta('treaningId');
   @override
-  late final GeneratedColumn<DateTime> date = GeneratedColumn<DateTime>(
-      'date', aliasedName, false,
-      type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  final VerificationMeta _finishMeta = const VerificationMeta('finish');
+  late final GeneratedColumn<String> treaningId = GeneratedColumn<String>(
+      'treaning_id', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES drift_ice_treanings_table (id)'));
+  static const VerificationMeta _categoryMeta =
+      const VerificationMeta('category');
   @override
-  late final GeneratedColumn<DateTime> finish = GeneratedColumn<DateTime>(
-      'finish', aliasedName, true,
+  late final GeneratedColumn<String> category = GeneratedColumn<String>(
+      'category', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _styleMeta = const VerificationMeta('style');
+  @override
+  late final GeneratedColumn<String> style = GeneratedColumn<String>(
+      'style', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _finishTimeMeta =
+      const VerificationMeta('finishTime');
+  @override
+  late final GeneratedColumn<DateTime> finishTime = GeneratedColumn<DateTime>(
+      'finish_time', aliasedName, true,
       type: DriftSqlType.dateTime, requiredDuringInsert: false);
-  final VerificationMeta _startMeta = const VerificationMeta('start');
+  static const VerificationMeta _startTimeMeta =
+      const VerificationMeta('startTime');
   @override
-  late final GeneratedColumn<DateTime> start = GeneratedColumn<DateTime>(
-      'start', aliasedName, true,
+  late final GeneratedColumn<DateTime> startTime = GeneratedColumn<DateTime>(
+      'start_time', aliasedName, true,
       type: DriftSqlType.dateTime, requiredDuringInsert: false);
-  final VerificationMeta _sectorsMeta = const VerificationMeta('sectors');
+  static const VerificationMeta _wayLengthMeta =
+      const VerificationMeta('wayLength');
   @override
-  late final GeneratedColumn<String> sectors = GeneratedColumn<String>(
-      'sectors', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
+  late final GeneratedColumn<int> wayLength = GeneratedColumn<int>(
+      'way_length', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _suspensionCountMeta =
+      const VerificationMeta('suspensionCount');
   @override
-  List<GeneratedColumn> get $columns =>
-      [id, district, districtId, date, finish, start, sectors];
+  late final GeneratedColumn<int> suspensionCount = GeneratedColumn<int>(
+      'suspension_count', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _fallCountMeta =
+      const VerificationMeta('fallCount');
   @override
-  String get aliasedName => _alias ?? 'drift_ice_treanings_table';
+  late final GeneratedColumn<int> fallCount = GeneratedColumn<int>(
+      'fall_count', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _downClimbingMeta =
+      const VerificationMeta('downClimbing');
   @override
-  String get actualTableName => 'drift_ice_treanings_table';
+  late final GeneratedColumn<bool> downClimbing =
+      GeneratedColumn<bool>('down_climbing', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("down_climbing" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  static const VerificationMeta _failMeta = const VerificationMeta('fail');
   @override
-  VerificationContext validateIntegrity(Insertable<DriftIceTreanings> instance,
+  late final GeneratedColumn<bool> fail =
+      GeneratedColumn<bool>('fail', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("fail" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  static const VerificationMeta _installedIceScrewsMeta =
+      const VerificationMeta('installedIceScrews');
+  @override
+  late final GeneratedColumn<bool> installedIceScrews =
+      GeneratedColumn<bool>('installed_ice_screws', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("installed_ice_screws" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  static const VerificationMeta _iceScrewsCountMeta =
+      const VerificationMeta('iceScrewsCount');
+  @override
+  late final GeneratedColumn<int> iceScrewsCount = GeneratedColumn<int>(
+      'ice_screws_count', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _toolsCountMeta =
+      const VerificationMeta('toolsCount');
+  @override
+  late final GeneratedColumn<int> toolsCount = GeneratedColumn<int>(
+      'tools_count', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        sector,
+        sectorId,
+        treaningId,
+        category,
+        style,
+        finishTime,
+        startTime,
+        wayLength,
+        suspensionCount,
+        fallCount,
+        downClimbing,
+        fail,
+        installedIceScrews,
+        iceScrewsCount,
+        toolsCount
+      ];
+  @override
+  String get aliasedName => _alias ?? 'drift_ice_attempts_table';
+  @override
+  String get actualTableName => 'drift_ice_attempts_table';
+  @override
+  VerificationContext validateIntegrity(Insertable<DriftIceAttempt> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -2407,37 +2729,103 @@ class $DriftIceTreaningsTableTable extends DriftIceTreaningsTable
     } else if (isInserting) {
       context.missing(_idMeta);
     }
-    if (data.containsKey('district')) {
-      context.handle(_districtMeta,
-          district.isAcceptableOrUnknown(data['district']!, _districtMeta));
+    if (data.containsKey('sector')) {
+      context.handle(_sectorMeta,
+          sector.isAcceptableOrUnknown(data['sector']!, _sectorMeta));
     } else if (isInserting) {
-      context.missing(_districtMeta);
+      context.missing(_sectorMeta);
     }
-    if (data.containsKey('district_id')) {
-      context.handle(
-          _districtIdMeta,
-          districtId.isAcceptableOrUnknown(
-              data['district_id']!, _districtIdMeta));
+    if (data.containsKey('sector_id')) {
+      context.handle(_sectorIdMeta,
+          sectorId.isAcceptableOrUnknown(data['sector_id']!, _sectorIdMeta));
     } else if (isInserting) {
-      context.missing(_districtIdMeta);
+      context.missing(_sectorIdMeta);
     }
-    if (data.containsKey('date')) {
+    if (data.containsKey('treaning_id')) {
       context.handle(
-          _dateMeta, date.isAcceptableOrUnknown(data['date']!, _dateMeta));
+          _treaningIdMeta,
+          treaningId.isAcceptableOrUnknown(
+              data['treaning_id']!, _treaningIdMeta));
     } else if (isInserting) {
-      context.missing(_dateMeta);
+      context.missing(_treaningIdMeta);
     }
-    if (data.containsKey('finish')) {
-      context.handle(_finishMeta,
-          finish.isAcceptableOrUnknown(data['finish']!, _finishMeta));
+    if (data.containsKey('category')) {
+      context.handle(_categoryMeta,
+          category.isAcceptableOrUnknown(data['category']!, _categoryMeta));
+    } else if (isInserting) {
+      context.missing(_categoryMeta);
     }
-    if (data.containsKey('start')) {
+    if (data.containsKey('style')) {
       context.handle(
-          _startMeta, start.isAcceptableOrUnknown(data['start']!, _startMeta));
+          _styleMeta, style.isAcceptableOrUnknown(data['style']!, _styleMeta));
+    } else if (isInserting) {
+      context.missing(_styleMeta);
     }
-    if (data.containsKey('sectors')) {
-      context.handle(_sectorsMeta,
-          sectors.isAcceptableOrUnknown(data['sectors']!, _sectorsMeta));
+    if (data.containsKey('finish_time')) {
+      context.handle(
+          _finishTimeMeta,
+          finishTime.isAcceptableOrUnknown(
+              data['finish_time']!, _finishTimeMeta));
+    }
+    if (data.containsKey('start_time')) {
+      context.handle(_startTimeMeta,
+          startTime.isAcceptableOrUnknown(data['start_time']!, _startTimeMeta));
+    }
+    if (data.containsKey('way_length')) {
+      context.handle(_wayLengthMeta,
+          wayLength.isAcceptableOrUnknown(data['way_length']!, _wayLengthMeta));
+    }
+    if (data.containsKey('suspension_count')) {
+      context.handle(
+          _suspensionCountMeta,
+          suspensionCount.isAcceptableOrUnknown(
+              data['suspension_count']!, _suspensionCountMeta));
+    } else if (isInserting) {
+      context.missing(_suspensionCountMeta);
+    }
+    if (data.containsKey('fall_count')) {
+      context.handle(_fallCountMeta,
+          fallCount.isAcceptableOrUnknown(data['fall_count']!, _fallCountMeta));
+    } else if (isInserting) {
+      context.missing(_fallCountMeta);
+    }
+    if (data.containsKey('down_climbing')) {
+      context.handle(
+          _downClimbingMeta,
+          downClimbing.isAcceptableOrUnknown(
+              data['down_climbing']!, _downClimbingMeta));
+    } else if (isInserting) {
+      context.missing(_downClimbingMeta);
+    }
+    if (data.containsKey('fail')) {
+      context.handle(
+          _failMeta, fail.isAcceptableOrUnknown(data['fail']!, _failMeta));
+    } else if (isInserting) {
+      context.missing(_failMeta);
+    }
+    if (data.containsKey('installed_ice_screws')) {
+      context.handle(
+          _installedIceScrewsMeta,
+          installedIceScrews.isAcceptableOrUnknown(
+              data['installed_ice_screws']!, _installedIceScrewsMeta));
+    } else if (isInserting) {
+      context.missing(_installedIceScrewsMeta);
+    }
+    if (data.containsKey('ice_screws_count')) {
+      context.handle(
+          _iceScrewsCountMeta,
+          iceScrewsCount.isAcceptableOrUnknown(
+              data['ice_screws_count']!, _iceScrewsCountMeta));
+    } else if (isInserting) {
+      context.missing(_iceScrewsCountMeta);
+    }
+    if (data.containsKey('tools_count')) {
+      context.handle(
+          _toolsCountMeta,
+          toolsCount.isAcceptableOrUnknown(
+              data['tools_count']!, _toolsCountMeta));
+    } else if (isInserting) {
+      context.missing(_toolsCountMeta);
     }
     return context;
   }
@@ -2445,29 +2833,47 @@ class $DriftIceTreaningsTableTable extends DriftIceTreaningsTable
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  DriftIceTreanings map(Map<String, dynamic> data, {String? tablePrefix}) {
+  DriftIceAttempt map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return DriftIceTreanings(
-      id: attachedDatabase.options.types
+    return DriftIceAttempt(
+      id: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
-      district: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}district'])!,
-      districtId: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}district_id'])!,
-      date: attachedDatabase.options.types
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}date'])!,
-      finish: attachedDatabase.options.types
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}finish']),
-      start: attachedDatabase.options.types
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}start']),
-      sectors: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}sectors']),
+      sector: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}sector'])!,
+      sectorId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}sector_id'])!,
+      treaningId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}treaning_id'])!,
+      category: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}category'])!,
+      style: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}style'])!,
+      finishTime: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}finish_time']),
+      startTime: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}start_time']),
+      wayLength: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}way_length']),
+      suspensionCount: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}suspension_count'])!,
+      fallCount: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}fall_count'])!,
+      downClimbing: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}down_climbing'])!,
+      fail: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}fail'])!,
+      installedIceScrews: attachedDatabase.typeMapping.read(
+          DriftSqlType.bool, data['${effectivePrefix}installed_ice_screws'])!,
+      iceScrewsCount: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}ice_screws_count'])!,
+      toolsCount: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}tools_count'])!,
     );
   }
 
   @override
-  $DriftIceTreaningsTableTable createAlias(String alias) {
-    return $DriftIceTreaningsTableTable(attachedDatabase, alias);
+  $DriftIceAttemptsTableTable createAlias(String alias) {
+    return $DriftIceAttemptsTableTable(attachedDatabase, alias);
   }
 }
 
@@ -2720,6 +3126,7 @@ class DriftIceAttemptsTableCompanion extends UpdateCompanion<DriftIceAttempt> {
   final Value<bool> installedIceScrews;
   final Value<int> iceScrewsCount;
   final Value<int> toolsCount;
+  final Value<int> rowid;
   const DriftIceAttemptsTableCompanion({
     this.id = const Value.absent(),
     this.sector = const Value.absent(),
@@ -2737,6 +3144,7 @@ class DriftIceAttemptsTableCompanion extends UpdateCompanion<DriftIceAttempt> {
     this.installedIceScrews = const Value.absent(),
     this.iceScrewsCount = const Value.absent(),
     this.toolsCount = const Value.absent(),
+    this.rowid = const Value.absent(),
   });
   DriftIceAttemptsTableCompanion.insert({
     required String id,
@@ -2755,6 +3163,7 @@ class DriftIceAttemptsTableCompanion extends UpdateCompanion<DriftIceAttempt> {
     required bool installedIceScrews,
     required int iceScrewsCount,
     required int toolsCount,
+    this.rowid = const Value.absent(),
   })  : id = Value(id),
         sector = Value(sector),
         sectorId = Value(sectorId),
@@ -2785,6 +3194,7 @@ class DriftIceAttemptsTableCompanion extends UpdateCompanion<DriftIceAttempt> {
     Expression<bool>? installedIceScrews,
     Expression<int>? iceScrewsCount,
     Expression<int>? toolsCount,
+    Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -2804,6 +3214,7 @@ class DriftIceAttemptsTableCompanion extends UpdateCompanion<DriftIceAttempt> {
         'installed_ice_screws': installedIceScrews,
       if (iceScrewsCount != null) 'ice_screws_count': iceScrewsCount,
       if (toolsCount != null) 'tools_count': toolsCount,
+      if (rowid != null) 'rowid': rowid,
     });
   }
 
@@ -2823,7 +3234,8 @@ class DriftIceAttemptsTableCompanion extends UpdateCompanion<DriftIceAttempt> {
       Value<bool>? fail,
       Value<bool>? installedIceScrews,
       Value<int>? iceScrewsCount,
-      Value<int>? toolsCount}) {
+      Value<int>? toolsCount,
+      Value<int>? rowid}) {
     return DriftIceAttemptsTableCompanion(
       id: id ?? this.id,
       sector: sector ?? this.sector,
@@ -2841,6 +3253,7 @@ class DriftIceAttemptsTableCompanion extends UpdateCompanion<DriftIceAttempt> {
       installedIceScrews: installedIceScrews ?? this.installedIceScrews,
       iceScrewsCount: iceScrewsCount ?? this.iceScrewsCount,
       toolsCount: toolsCount ?? this.toolsCount,
+      rowid: rowid ?? this.rowid,
     );
   }
 
@@ -2895,6 +3308,9 @@ class DriftIceAttemptsTableCompanion extends UpdateCompanion<DriftIceAttempt> {
     if (toolsCount.present) {
       map['tools_count'] = Variable<int>(toolsCount.value);
     }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
     return map;
   }
 
@@ -2916,137 +3332,68 @@ class DriftIceAttemptsTableCompanion extends UpdateCompanion<DriftIceAttempt> {
           ..write('fail: $fail, ')
           ..write('installedIceScrews: $installedIceScrews, ')
           ..write('iceScrewsCount: $iceScrewsCount, ')
-          ..write('toolsCount: $toolsCount')
+          ..write('toolsCount: $toolsCount, ')
+          ..write('rowid: $rowid')
           ..write(')'))
         .toString();
   }
 }
 
-class $DriftIceAttemptsTableTable extends DriftIceAttemptsTable
-    with TableInfo<$DriftIceAttemptsTableTable, DriftIceAttempt> {
+class $DriftRockTreaningsTableTable extends DriftRockTreaningsTable
+    with TableInfo<$DriftRockTreaningsTableTable, DriftRockTreanings> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $DriftIceAttemptsTableTable(this.attachedDatabase, [this._alias]);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
+  $DriftRockTreaningsTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<String> id = GeneratedColumn<String>(
       'id', aliasedName, false,
       type: DriftSqlType.string,
       requiredDuringInsert: true,
-      defaultConstraints: 'UNIQUE');
-  final VerificationMeta _sectorMeta = const VerificationMeta('sector');
+      defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'));
+  static const VerificationMeta _districtIdMeta =
+      const VerificationMeta('districtId');
   @override
-  late final GeneratedColumn<String> sector = GeneratedColumn<String>(
-      'sector', aliasedName, false,
+  late final GeneratedColumn<String> districtId = GeneratedColumn<String>(
+      'district_id', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _sectorIdMeta = const VerificationMeta('sectorId');
+  static const VerificationMeta _districtMeta =
+      const VerificationMeta('district');
   @override
-  late final GeneratedColumn<String> sectorId = GeneratedColumn<String>(
-      'sector_id', aliasedName, false,
+  late final GeneratedColumn<String> district = GeneratedColumn<String>(
+      'district', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _treaningIdMeta = const VerificationMeta('treaningId');
+  static const VerificationMeta _dateMeta = const VerificationMeta('date');
   @override
-  late final GeneratedColumn<String> treaningId = GeneratedColumn<String>(
-      'treaning_id', aliasedName, false,
-      type: DriftSqlType.string,
-      requiredDuringInsert: true,
-      defaultConstraints: 'REFERENCES "drift_ice_treanings_table" ("id")');
-  final VerificationMeta _categoryMeta = const VerificationMeta('category');
+  late final GeneratedColumn<DateTime> date = GeneratedColumn<DateTime>(
+      'date', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _finishMeta = const VerificationMeta('finish');
   @override
-  late final GeneratedColumn<String> category = GeneratedColumn<String>(
-      'category', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _styleMeta = const VerificationMeta('style');
-  @override
-  late final GeneratedColumn<String> style = GeneratedColumn<String>(
-      'style', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _finishTimeMeta = const VerificationMeta('finishTime');
-  @override
-  late final GeneratedColumn<DateTime> finishTime = GeneratedColumn<DateTime>(
-      'finish_time', aliasedName, true,
+  late final GeneratedColumn<DateTime> finish = GeneratedColumn<DateTime>(
+      'finish', aliasedName, true,
       type: DriftSqlType.dateTime, requiredDuringInsert: false);
-  final VerificationMeta _startTimeMeta = const VerificationMeta('startTime');
+  static const VerificationMeta _startMeta = const VerificationMeta('start');
   @override
-  late final GeneratedColumn<DateTime> startTime = GeneratedColumn<DateTime>(
-      'start_time', aliasedName, true,
+  late final GeneratedColumn<DateTime> start = GeneratedColumn<DateTime>(
+      'start', aliasedName, true,
       type: DriftSqlType.dateTime, requiredDuringInsert: false);
-  final VerificationMeta _wayLengthMeta = const VerificationMeta('wayLength');
+  static const VerificationMeta _sectorsMeta =
+      const VerificationMeta('sectors');
   @override
-  late final GeneratedColumn<int> wayLength = GeneratedColumn<int>(
-      'way_length', aliasedName, true,
-      type: DriftSqlType.int, requiredDuringInsert: false);
-  final VerificationMeta _suspensionCountMeta =
-      const VerificationMeta('suspensionCount');
+  late final GeneratedColumn<String> sectors = GeneratedColumn<String>(
+      'sectors', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   @override
-  late final GeneratedColumn<int> suspensionCount = GeneratedColumn<int>(
-      'suspension_count', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  final VerificationMeta _fallCountMeta = const VerificationMeta('fallCount');
+  List<GeneratedColumn> get $columns =>
+      [id, districtId, district, date, finish, start, sectors];
   @override
-  late final GeneratedColumn<int> fallCount = GeneratedColumn<int>(
-      'fall_count', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  final VerificationMeta _downClimbingMeta =
-      const VerificationMeta('downClimbing');
+  String get aliasedName => _alias ?? 'drift_rock_treanings_table';
   @override
-  late final GeneratedColumn<bool> downClimbing = GeneratedColumn<bool>(
-      'down_climbing', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: true,
-      defaultConstraints: 'CHECK ("down_climbing" IN (0, 1))');
-  final VerificationMeta _failMeta = const VerificationMeta('fail');
+  String get actualTableName => 'drift_rock_treanings_table';
   @override
-  late final GeneratedColumn<bool> fail = GeneratedColumn<bool>(
-      'fail', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: true,
-      defaultConstraints: 'CHECK ("fail" IN (0, 1))');
-  final VerificationMeta _installedIceScrewsMeta =
-      const VerificationMeta('installedIceScrews');
-  @override
-  late final GeneratedColumn<bool> installedIceScrews = GeneratedColumn<bool>(
-      'installed_ice_screws', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: true,
-      defaultConstraints: 'CHECK ("installed_ice_screws" IN (0, 1))');
-  final VerificationMeta _iceScrewsCountMeta =
-      const VerificationMeta('iceScrewsCount');
-  @override
-  late final GeneratedColumn<int> iceScrewsCount = GeneratedColumn<int>(
-      'ice_screws_count', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  final VerificationMeta _toolsCountMeta = const VerificationMeta('toolsCount');
-  @override
-  late final GeneratedColumn<int> toolsCount = GeneratedColumn<int>(
-      'tools_count', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  @override
-  List<GeneratedColumn> get $columns => [
-        id,
-        sector,
-        sectorId,
-        treaningId,
-        category,
-        style,
-        finishTime,
-        startTime,
-        wayLength,
-        suspensionCount,
-        fallCount,
-        downClimbing,
-        fail,
-        installedIceScrews,
-        iceScrewsCount,
-        toolsCount
-      ];
-  @override
-  String get aliasedName => _alias ?? 'drift_ice_attempts_table';
-  @override
-  String get actualTableName => 'drift_ice_attempts_table';
-  @override
-  VerificationContext validateIntegrity(Insertable<DriftIceAttempt> instance,
+  VerificationContext validateIntegrity(Insertable<DriftRockTreanings> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -3055,103 +3402,37 @@ class $DriftIceAttemptsTableTable extends DriftIceAttemptsTable
     } else if (isInserting) {
       context.missing(_idMeta);
     }
-    if (data.containsKey('sector')) {
-      context.handle(_sectorMeta,
-          sector.isAcceptableOrUnknown(data['sector']!, _sectorMeta));
-    } else if (isInserting) {
-      context.missing(_sectorMeta);
-    }
-    if (data.containsKey('sector_id')) {
-      context.handle(_sectorIdMeta,
-          sectorId.isAcceptableOrUnknown(data['sector_id']!, _sectorIdMeta));
-    } else if (isInserting) {
-      context.missing(_sectorIdMeta);
-    }
-    if (data.containsKey('treaning_id')) {
+    if (data.containsKey('district_id')) {
       context.handle(
-          _treaningIdMeta,
-          treaningId.isAcceptableOrUnknown(
-              data['treaning_id']!, _treaningIdMeta));
+          _districtIdMeta,
+          districtId.isAcceptableOrUnknown(
+              data['district_id']!, _districtIdMeta));
     } else if (isInserting) {
-      context.missing(_treaningIdMeta);
+      context.missing(_districtIdMeta);
     }
-    if (data.containsKey('category')) {
-      context.handle(_categoryMeta,
-          category.isAcceptableOrUnknown(data['category']!, _categoryMeta));
+    if (data.containsKey('district')) {
+      context.handle(_districtMeta,
+          district.isAcceptableOrUnknown(data['district']!, _districtMeta));
     } else if (isInserting) {
-      context.missing(_categoryMeta);
+      context.missing(_districtMeta);
     }
-    if (data.containsKey('style')) {
+    if (data.containsKey('date')) {
       context.handle(
-          _styleMeta, style.isAcceptableOrUnknown(data['style']!, _styleMeta));
+          _dateMeta, date.isAcceptableOrUnknown(data['date']!, _dateMeta));
     } else if (isInserting) {
-      context.missing(_styleMeta);
+      context.missing(_dateMeta);
     }
-    if (data.containsKey('finish_time')) {
+    if (data.containsKey('finish')) {
+      context.handle(_finishMeta,
+          finish.isAcceptableOrUnknown(data['finish']!, _finishMeta));
+    }
+    if (data.containsKey('start')) {
       context.handle(
-          _finishTimeMeta,
-          finishTime.isAcceptableOrUnknown(
-              data['finish_time']!, _finishTimeMeta));
+          _startMeta, start.isAcceptableOrUnknown(data['start']!, _startMeta));
     }
-    if (data.containsKey('start_time')) {
-      context.handle(_startTimeMeta,
-          startTime.isAcceptableOrUnknown(data['start_time']!, _startTimeMeta));
-    }
-    if (data.containsKey('way_length')) {
-      context.handle(_wayLengthMeta,
-          wayLength.isAcceptableOrUnknown(data['way_length']!, _wayLengthMeta));
-    }
-    if (data.containsKey('suspension_count')) {
-      context.handle(
-          _suspensionCountMeta,
-          suspensionCount.isAcceptableOrUnknown(
-              data['suspension_count']!, _suspensionCountMeta));
-    } else if (isInserting) {
-      context.missing(_suspensionCountMeta);
-    }
-    if (data.containsKey('fall_count')) {
-      context.handle(_fallCountMeta,
-          fallCount.isAcceptableOrUnknown(data['fall_count']!, _fallCountMeta));
-    } else if (isInserting) {
-      context.missing(_fallCountMeta);
-    }
-    if (data.containsKey('down_climbing')) {
-      context.handle(
-          _downClimbingMeta,
-          downClimbing.isAcceptableOrUnknown(
-              data['down_climbing']!, _downClimbingMeta));
-    } else if (isInserting) {
-      context.missing(_downClimbingMeta);
-    }
-    if (data.containsKey('fail')) {
-      context.handle(
-          _failMeta, fail.isAcceptableOrUnknown(data['fail']!, _failMeta));
-    } else if (isInserting) {
-      context.missing(_failMeta);
-    }
-    if (data.containsKey('installed_ice_screws')) {
-      context.handle(
-          _installedIceScrewsMeta,
-          installedIceScrews.isAcceptableOrUnknown(
-              data['installed_ice_screws']!, _installedIceScrewsMeta));
-    } else if (isInserting) {
-      context.missing(_installedIceScrewsMeta);
-    }
-    if (data.containsKey('ice_screws_count')) {
-      context.handle(
-          _iceScrewsCountMeta,
-          iceScrewsCount.isAcceptableOrUnknown(
-              data['ice_screws_count']!, _iceScrewsCountMeta));
-    } else if (isInserting) {
-      context.missing(_iceScrewsCountMeta);
-    }
-    if (data.containsKey('tools_count')) {
-      context.handle(
-          _toolsCountMeta,
-          toolsCount.isAcceptableOrUnknown(
-              data['tools_count']!, _toolsCountMeta));
-    } else if (isInserting) {
-      context.missing(_toolsCountMeta);
+    if (data.containsKey('sectors')) {
+      context.handle(_sectorsMeta,
+          sectors.isAcceptableOrUnknown(data['sectors']!, _sectorsMeta));
     }
     return context;
   }
@@ -3159,47 +3440,29 @@ class $DriftIceAttemptsTableTable extends DriftIceAttemptsTable
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  DriftIceAttempt map(Map<String, dynamic> data, {String? tablePrefix}) {
+  DriftRockTreanings map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return DriftIceAttempt(
-      id: attachedDatabase.options.types
+    return DriftRockTreanings(
+      id: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
-      sector: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}sector'])!,
-      sectorId: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}sector_id'])!,
-      treaningId: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}treaning_id'])!,
-      category: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}category'])!,
-      style: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}style'])!,
-      finishTime: attachedDatabase.options.types
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}finish_time']),
-      startTime: attachedDatabase.options.types
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}start_time']),
-      wayLength: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}way_length']),
-      suspensionCount: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}suspension_count'])!,
-      fallCount: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}fall_count'])!,
-      downClimbing: attachedDatabase.options.types
-          .read(DriftSqlType.bool, data['${effectivePrefix}down_climbing'])!,
-      fail: attachedDatabase.options.types
-          .read(DriftSqlType.bool, data['${effectivePrefix}fail'])!,
-      installedIceScrews: attachedDatabase.options.types.read(
-          DriftSqlType.bool, data['${effectivePrefix}installed_ice_screws'])!,
-      iceScrewsCount: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}ice_screws_count'])!,
-      toolsCount: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}tools_count'])!,
+      districtId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}district_id'])!,
+      district: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}district'])!,
+      date: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}date'])!,
+      finish: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}finish']),
+      start: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}start']),
+      sectors: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}sectors']),
     );
   }
 
   @override
-  $DriftIceAttemptsTableTable createAlias(String alias) {
-    return $DriftIceAttemptsTableTable(attachedDatabase, alias);
+  $DriftRockTreaningsTableTable createAlias(String alias) {
+    return $DriftRockTreaningsTableTable(attachedDatabase, alias);
   }
 }
 
@@ -3338,6 +3601,7 @@ class DriftRockTreaningsTableCompanion
   final Value<DateTime?> finish;
   final Value<DateTime?> start;
   final Value<String?> sectors;
+  final Value<int> rowid;
   const DriftRockTreaningsTableCompanion({
     this.id = const Value.absent(),
     this.districtId = const Value.absent(),
@@ -3346,6 +3610,7 @@ class DriftRockTreaningsTableCompanion
     this.finish = const Value.absent(),
     this.start = const Value.absent(),
     this.sectors = const Value.absent(),
+    this.rowid = const Value.absent(),
   });
   DriftRockTreaningsTableCompanion.insert({
     required String id,
@@ -3355,6 +3620,7 @@ class DriftRockTreaningsTableCompanion
     this.finish = const Value.absent(),
     this.start = const Value.absent(),
     this.sectors = const Value.absent(),
+    this.rowid = const Value.absent(),
   })  : id = Value(id),
         districtId = Value(districtId),
         district = Value(district),
@@ -3367,6 +3633,7 @@ class DriftRockTreaningsTableCompanion
     Expression<DateTime>? finish,
     Expression<DateTime>? start,
     Expression<String>? sectors,
+    Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -3376,6 +3643,7 @@ class DriftRockTreaningsTableCompanion
       if (finish != null) 'finish': finish,
       if (start != null) 'start': start,
       if (sectors != null) 'sectors': sectors,
+      if (rowid != null) 'rowid': rowid,
     });
   }
 
@@ -3386,7 +3654,8 @@ class DriftRockTreaningsTableCompanion
       Value<DateTime>? date,
       Value<DateTime?>? finish,
       Value<DateTime?>? start,
-      Value<String?>? sectors}) {
+      Value<String?>? sectors,
+      Value<int>? rowid}) {
     return DriftRockTreaningsTableCompanion(
       id: id ?? this.id,
       districtId: districtId ?? this.districtId,
@@ -3395,6 +3664,7 @@ class DriftRockTreaningsTableCompanion
       finish: finish ?? this.finish,
       start: start ?? this.start,
       sectors: sectors ?? this.sectors,
+      rowid: rowid ?? this.rowid,
     );
   }
 
@@ -3422,6 +3692,9 @@ class DriftRockTreaningsTableCompanion
     if (sectors.present) {
       map['sectors'] = Variable<String>(sectors.value);
     }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
     return map;
   }
 
@@ -3434,64 +3707,145 @@ class DriftRockTreaningsTableCompanion
           ..write('date: $date, ')
           ..write('finish: $finish, ')
           ..write('start: $start, ')
-          ..write('sectors: $sectors')
+          ..write('sectors: $sectors, ')
+          ..write('rowid: $rowid')
           ..write(')'))
         .toString();
   }
 }
 
-class $DriftRockTreaningsTableTable extends DriftRockTreaningsTable
-    with TableInfo<$DriftRockTreaningsTableTable, DriftRockTreanings> {
+class $DriftRockAttemptsTableTable extends DriftRockAttemptsTable
+    with TableInfo<$DriftRockAttemptsTableTable, DriftRockAttempt> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $DriftRockTreaningsTableTable(this.attachedDatabase, [this._alias]);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
+  $DriftRockAttemptsTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<String> id = GeneratedColumn<String>(
       'id', aliasedName, false,
       type: DriftSqlType.string,
       requiredDuringInsert: true,
-      defaultConstraints: 'UNIQUE');
-  final VerificationMeta _districtIdMeta = const VerificationMeta('districtId');
+      defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'));
+  static const VerificationMeta _sectorMeta = const VerificationMeta('sector');
   @override
-  late final GeneratedColumn<String> districtId = GeneratedColumn<String>(
-      'district_id', aliasedName, false,
+  late final GeneratedColumn<String> sector = GeneratedColumn<String>(
+      'sector', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _districtMeta = const VerificationMeta('district');
+  static const VerificationMeta _sectorIdMeta =
+      const VerificationMeta('sectorId');
   @override
-  late final GeneratedColumn<String> district = GeneratedColumn<String>(
-      'district', aliasedName, false,
+  late final GeneratedColumn<String> sectorId = GeneratedColumn<String>(
+      'sector_id', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _dateMeta = const VerificationMeta('date');
+  static const VerificationMeta _treaningIdMeta =
+      const VerificationMeta('treaningId');
   @override
-  late final GeneratedColumn<DateTime> date = GeneratedColumn<DateTime>(
-      'date', aliasedName, false,
-      type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  final VerificationMeta _finishMeta = const VerificationMeta('finish');
+  late final GeneratedColumn<String> treaningId = GeneratedColumn<String>(
+      'treaning_id', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES drift_rock_treanings_table (id)'));
+  static const VerificationMeta _categoryMeta =
+      const VerificationMeta('category');
   @override
-  late final GeneratedColumn<DateTime> finish = GeneratedColumn<DateTime>(
-      'finish', aliasedName, true,
+  late final GeneratedColumn<String> category = GeneratedColumn<String>(
+      'category', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _routeMeta = const VerificationMeta('route');
+  @override
+  late final GeneratedColumn<String> route = GeneratedColumn<String>(
+      'route', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _routeIdMeta =
+      const VerificationMeta('routeId');
+  @override
+  late final GeneratedColumn<String> routeId = GeneratedColumn<String>(
+      'route_id', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _styleMeta = const VerificationMeta('style');
+  @override
+  late final GeneratedColumn<String> style = GeneratedColumn<String>(
+      'style', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _finishTimeMeta =
+      const VerificationMeta('finishTime');
+  @override
+  late final GeneratedColumn<DateTime> finishTime = GeneratedColumn<DateTime>(
+      'finish_time', aliasedName, true,
       type: DriftSqlType.dateTime, requiredDuringInsert: false);
-  final VerificationMeta _startMeta = const VerificationMeta('start');
+  static const VerificationMeta _startTimeMeta =
+      const VerificationMeta('startTime');
   @override
-  late final GeneratedColumn<DateTime> start = GeneratedColumn<DateTime>(
-      'start', aliasedName, true,
+  late final GeneratedColumn<DateTime> startTime = GeneratedColumn<DateTime>(
+      'start_time', aliasedName, true,
       type: DriftSqlType.dateTime, requiredDuringInsert: false);
-  final VerificationMeta _sectorsMeta = const VerificationMeta('sectors');
+  static const VerificationMeta _suspensionCountMeta =
+      const VerificationMeta('suspensionCount');
   @override
-  late final GeneratedColumn<String> sectors = GeneratedColumn<String>(
-      'sectors', aliasedName, true,
+  late final GeneratedColumn<int> suspensionCount = GeneratedColumn<int>(
+      'suspension_count', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _fallCountMeta =
+      const VerificationMeta('fallCount');
+  @override
+  late final GeneratedColumn<int> fallCount = GeneratedColumn<int>(
+      'fall_count', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _downClimbingMeta =
+      const VerificationMeta('downClimbing');
+  @override
+  late final GeneratedColumn<bool> downClimbing =
+      GeneratedColumn<bool>('down_climbing', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("down_climbing" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  static const VerificationMeta _failMeta = const VerificationMeta('fail');
+  @override
+  late final GeneratedColumn<bool> fail =
+      GeneratedColumn<bool>('fail', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("fail" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  static const VerificationMeta _ascentTypeMeta =
+      const VerificationMeta('ascentType');
+  @override
+  late final GeneratedColumn<String> ascentType = GeneratedColumn<String>(
+      'ascent_type', aliasedName, true,
       type: DriftSqlType.string, requiredDuringInsert: false);
   @override
-  List<GeneratedColumn> get $columns =>
-      [id, districtId, district, date, finish, start, sectors];
+  List<GeneratedColumn> get $columns => [
+        id,
+        sector,
+        sectorId,
+        treaningId,
+        category,
+        route,
+        routeId,
+        style,
+        finishTime,
+        startTime,
+        suspensionCount,
+        fallCount,
+        downClimbing,
+        fail,
+        ascentType
+      ];
   @override
-  String get aliasedName => _alias ?? 'drift_rock_treanings_table';
+  String get aliasedName => _alias ?? 'drift_rock_attempts_table';
   @override
-  String get actualTableName => 'drift_rock_treanings_table';
+  String get actualTableName => 'drift_rock_attempts_table';
   @override
-  VerificationContext validateIntegrity(Insertable<DriftRockTreanings> instance,
+  VerificationContext validateIntegrity(Insertable<DriftRockAttempt> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -3500,37 +3854,89 @@ class $DriftRockTreaningsTableTable extends DriftRockTreaningsTable
     } else if (isInserting) {
       context.missing(_idMeta);
     }
-    if (data.containsKey('district_id')) {
-      context.handle(
-          _districtIdMeta,
-          districtId.isAcceptableOrUnknown(
-              data['district_id']!, _districtIdMeta));
+    if (data.containsKey('sector')) {
+      context.handle(_sectorMeta,
+          sector.isAcceptableOrUnknown(data['sector']!, _sectorMeta));
     } else if (isInserting) {
-      context.missing(_districtIdMeta);
+      context.missing(_sectorMeta);
     }
-    if (data.containsKey('district')) {
-      context.handle(_districtMeta,
-          district.isAcceptableOrUnknown(data['district']!, _districtMeta));
+    if (data.containsKey('sector_id')) {
+      context.handle(_sectorIdMeta,
+          sectorId.isAcceptableOrUnknown(data['sector_id']!, _sectorIdMeta));
     } else if (isInserting) {
-      context.missing(_districtMeta);
+      context.missing(_sectorIdMeta);
     }
-    if (data.containsKey('date')) {
+    if (data.containsKey('treaning_id')) {
       context.handle(
-          _dateMeta, date.isAcceptableOrUnknown(data['date']!, _dateMeta));
+          _treaningIdMeta,
+          treaningId.isAcceptableOrUnknown(
+              data['treaning_id']!, _treaningIdMeta));
     } else if (isInserting) {
-      context.missing(_dateMeta);
+      context.missing(_treaningIdMeta);
     }
-    if (data.containsKey('finish')) {
-      context.handle(_finishMeta,
-          finish.isAcceptableOrUnknown(data['finish']!, _finishMeta));
+    if (data.containsKey('category')) {
+      context.handle(_categoryMeta,
+          category.isAcceptableOrUnknown(data['category']!, _categoryMeta));
+    } else if (isInserting) {
+      context.missing(_categoryMeta);
     }
-    if (data.containsKey('start')) {
+    if (data.containsKey('route')) {
       context.handle(
-          _startMeta, start.isAcceptableOrUnknown(data['start']!, _startMeta));
+          _routeMeta, route.isAcceptableOrUnknown(data['route']!, _routeMeta));
     }
-    if (data.containsKey('sectors')) {
-      context.handle(_sectorsMeta,
-          sectors.isAcceptableOrUnknown(data['sectors']!, _sectorsMeta));
+    if (data.containsKey('route_id')) {
+      context.handle(_routeIdMeta,
+          routeId.isAcceptableOrUnknown(data['route_id']!, _routeIdMeta));
+    }
+    if (data.containsKey('style')) {
+      context.handle(
+          _styleMeta, style.isAcceptableOrUnknown(data['style']!, _styleMeta));
+    } else if (isInserting) {
+      context.missing(_styleMeta);
+    }
+    if (data.containsKey('finish_time')) {
+      context.handle(
+          _finishTimeMeta,
+          finishTime.isAcceptableOrUnknown(
+              data['finish_time']!, _finishTimeMeta));
+    }
+    if (data.containsKey('start_time')) {
+      context.handle(_startTimeMeta,
+          startTime.isAcceptableOrUnknown(data['start_time']!, _startTimeMeta));
+    }
+    if (data.containsKey('suspension_count')) {
+      context.handle(
+          _suspensionCountMeta,
+          suspensionCount.isAcceptableOrUnknown(
+              data['suspension_count']!, _suspensionCountMeta));
+    } else if (isInserting) {
+      context.missing(_suspensionCountMeta);
+    }
+    if (data.containsKey('fall_count')) {
+      context.handle(_fallCountMeta,
+          fallCount.isAcceptableOrUnknown(data['fall_count']!, _fallCountMeta));
+    } else if (isInserting) {
+      context.missing(_fallCountMeta);
+    }
+    if (data.containsKey('down_climbing')) {
+      context.handle(
+          _downClimbingMeta,
+          downClimbing.isAcceptableOrUnknown(
+              data['down_climbing']!, _downClimbingMeta));
+    } else if (isInserting) {
+      context.missing(_downClimbingMeta);
+    }
+    if (data.containsKey('fail')) {
+      context.handle(
+          _failMeta, fail.isAcceptableOrUnknown(data['fail']!, _failMeta));
+    } else if (isInserting) {
+      context.missing(_failMeta);
+    }
+    if (data.containsKey('ascent_type')) {
+      context.handle(
+          _ascentTypeMeta,
+          ascentType.isAcceptableOrUnknown(
+              data['ascent_type']!, _ascentTypeMeta));
     }
     return context;
   }
@@ -3538,29 +3944,45 @@ class $DriftRockTreaningsTableTable extends DriftRockTreaningsTable
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  DriftRockTreanings map(Map<String, dynamic> data, {String? tablePrefix}) {
+  DriftRockAttempt map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return DriftRockTreanings(
-      id: attachedDatabase.options.types
+    return DriftRockAttempt(
+      id: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
-      districtId: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}district_id'])!,
-      district: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}district'])!,
-      date: attachedDatabase.options.types
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}date'])!,
-      finish: attachedDatabase.options.types
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}finish']),
-      start: attachedDatabase.options.types
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}start']),
-      sectors: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}sectors']),
+      sector: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}sector'])!,
+      sectorId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}sector_id'])!,
+      treaningId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}treaning_id'])!,
+      category: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}category'])!,
+      route: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}route']),
+      routeId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}route_id']),
+      style: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}style'])!,
+      finishTime: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}finish_time']),
+      startTime: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}start_time']),
+      suspensionCount: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}suspension_count'])!,
+      fallCount: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}fall_count'])!,
+      downClimbing: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}down_climbing'])!,
+      fail: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}fail'])!,
+      ascentType: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}ascent_type']),
     );
   }
 
   @override
-  $DriftRockTreaningsTableTable createAlias(String alias) {
-    return $DriftRockTreaningsTableTable(attachedDatabase, alias);
+  $DriftRockAttemptsTableTable createAlias(String alias) {
+    return $DriftRockAttemptsTableTable(attachedDatabase, alias);
   }
 }
 
@@ -3810,6 +4232,7 @@ class DriftRockAttemptsTableCompanion
   final Value<bool> downClimbing;
   final Value<bool> fail;
   final Value<String?> ascentType;
+  final Value<int> rowid;
   const DriftRockAttemptsTableCompanion({
     this.id = const Value.absent(),
     this.sector = const Value.absent(),
@@ -3826,6 +4249,7 @@ class DriftRockAttemptsTableCompanion
     this.downClimbing = const Value.absent(),
     this.fail = const Value.absent(),
     this.ascentType = const Value.absent(),
+    this.rowid = const Value.absent(),
   });
   DriftRockAttemptsTableCompanion.insert({
     required String id,
@@ -3843,6 +4267,7 @@ class DriftRockAttemptsTableCompanion
     required bool downClimbing,
     required bool fail,
     this.ascentType = const Value.absent(),
+    this.rowid = const Value.absent(),
   })  : id = Value(id),
         sector = Value(sector),
         sectorId = Value(sectorId),
@@ -3869,6 +4294,7 @@ class DriftRockAttemptsTableCompanion
     Expression<bool>? downClimbing,
     Expression<bool>? fail,
     Expression<String>? ascentType,
+    Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -3886,6 +4312,7 @@ class DriftRockAttemptsTableCompanion
       if (downClimbing != null) 'down_climbing': downClimbing,
       if (fail != null) 'fail': fail,
       if (ascentType != null) 'ascent_type': ascentType,
+      if (rowid != null) 'rowid': rowid,
     });
   }
 
@@ -3904,7 +4331,8 @@ class DriftRockAttemptsTableCompanion
       Value<int>? fallCount,
       Value<bool>? downClimbing,
       Value<bool>? fail,
-      Value<String?>? ascentType}) {
+      Value<String?>? ascentType,
+      Value<int>? rowid}) {
     return DriftRockAttemptsTableCompanion(
       id: id ?? this.id,
       sector: sector ?? this.sector,
@@ -3921,6 +4349,7 @@ class DriftRockAttemptsTableCompanion
       downClimbing: downClimbing ?? this.downClimbing,
       fail: fail ?? this.fail,
       ascentType: ascentType ?? this.ascentType,
+      rowid: rowid ?? this.rowid,
     );
   }
 
@@ -3972,6 +4401,9 @@ class DriftRockAttemptsTableCompanion
     if (ascentType.present) {
       map['ascent_type'] = Variable<String>(ascentType.value);
     }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
     return map;
   }
 
@@ -3992,264 +4424,10 @@ class DriftRockAttemptsTableCompanion
           ..write('fallCount: $fallCount, ')
           ..write('downClimbing: $downClimbing, ')
           ..write('fail: $fail, ')
-          ..write('ascentType: $ascentType')
+          ..write('ascentType: $ascentType, ')
+          ..write('rowid: $rowid')
           ..write(')'))
         .toString();
-  }
-}
-
-class $DriftRockAttemptsTableTable extends DriftRockAttemptsTable
-    with TableInfo<$DriftRockAttemptsTableTable, DriftRockAttempt> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  $DriftRockAttemptsTableTable(this.attachedDatabase, [this._alias]);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedColumn<String> id = GeneratedColumn<String>(
-      'id', aliasedName, false,
-      type: DriftSqlType.string,
-      requiredDuringInsert: true,
-      defaultConstraints: 'UNIQUE');
-  final VerificationMeta _sectorMeta = const VerificationMeta('sector');
-  @override
-  late final GeneratedColumn<String> sector = GeneratedColumn<String>(
-      'sector', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _sectorIdMeta = const VerificationMeta('sectorId');
-  @override
-  late final GeneratedColumn<String> sectorId = GeneratedColumn<String>(
-      'sector_id', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _treaningIdMeta = const VerificationMeta('treaningId');
-  @override
-  late final GeneratedColumn<String> treaningId = GeneratedColumn<String>(
-      'treaning_id', aliasedName, false,
-      type: DriftSqlType.string,
-      requiredDuringInsert: true,
-      defaultConstraints: 'REFERENCES "drift_rock_treanings_table" ("id")');
-  final VerificationMeta _categoryMeta = const VerificationMeta('category');
-  @override
-  late final GeneratedColumn<String> category = GeneratedColumn<String>(
-      'category', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _routeMeta = const VerificationMeta('route');
-  @override
-  late final GeneratedColumn<String> route = GeneratedColumn<String>(
-      'route', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  final VerificationMeta _routeIdMeta = const VerificationMeta('routeId');
-  @override
-  late final GeneratedColumn<String> routeId = GeneratedColumn<String>(
-      'route_id', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  final VerificationMeta _styleMeta = const VerificationMeta('style');
-  @override
-  late final GeneratedColumn<String> style = GeneratedColumn<String>(
-      'style', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _finishTimeMeta = const VerificationMeta('finishTime');
-  @override
-  late final GeneratedColumn<DateTime> finishTime = GeneratedColumn<DateTime>(
-      'finish_time', aliasedName, true,
-      type: DriftSqlType.dateTime, requiredDuringInsert: false);
-  final VerificationMeta _startTimeMeta = const VerificationMeta('startTime');
-  @override
-  late final GeneratedColumn<DateTime> startTime = GeneratedColumn<DateTime>(
-      'start_time', aliasedName, true,
-      type: DriftSqlType.dateTime, requiredDuringInsert: false);
-  final VerificationMeta _suspensionCountMeta =
-      const VerificationMeta('suspensionCount');
-  @override
-  late final GeneratedColumn<int> suspensionCount = GeneratedColumn<int>(
-      'suspension_count', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  final VerificationMeta _fallCountMeta = const VerificationMeta('fallCount');
-  @override
-  late final GeneratedColumn<int> fallCount = GeneratedColumn<int>(
-      'fall_count', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  final VerificationMeta _downClimbingMeta =
-      const VerificationMeta('downClimbing');
-  @override
-  late final GeneratedColumn<bool> downClimbing = GeneratedColumn<bool>(
-      'down_climbing', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: true,
-      defaultConstraints: 'CHECK ("down_climbing" IN (0, 1))');
-  final VerificationMeta _failMeta = const VerificationMeta('fail');
-  @override
-  late final GeneratedColumn<bool> fail = GeneratedColumn<bool>(
-      'fail', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: true,
-      defaultConstraints: 'CHECK ("fail" IN (0, 1))');
-  final VerificationMeta _ascentTypeMeta = const VerificationMeta('ascentType');
-  @override
-  late final GeneratedColumn<String> ascentType = GeneratedColumn<String>(
-      'ascent_type', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  @override
-  List<GeneratedColumn> get $columns => [
-        id,
-        sector,
-        sectorId,
-        treaningId,
-        category,
-        route,
-        routeId,
-        style,
-        finishTime,
-        startTime,
-        suspensionCount,
-        fallCount,
-        downClimbing,
-        fail,
-        ascentType
-      ];
-  @override
-  String get aliasedName => _alias ?? 'drift_rock_attempts_table';
-  @override
-  String get actualTableName => 'drift_rock_attempts_table';
-  @override
-  VerificationContext validateIntegrity(Insertable<DriftRockAttempt> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    } else if (isInserting) {
-      context.missing(_idMeta);
-    }
-    if (data.containsKey('sector')) {
-      context.handle(_sectorMeta,
-          sector.isAcceptableOrUnknown(data['sector']!, _sectorMeta));
-    } else if (isInserting) {
-      context.missing(_sectorMeta);
-    }
-    if (data.containsKey('sector_id')) {
-      context.handle(_sectorIdMeta,
-          sectorId.isAcceptableOrUnknown(data['sector_id']!, _sectorIdMeta));
-    } else if (isInserting) {
-      context.missing(_sectorIdMeta);
-    }
-    if (data.containsKey('treaning_id')) {
-      context.handle(
-          _treaningIdMeta,
-          treaningId.isAcceptableOrUnknown(
-              data['treaning_id']!, _treaningIdMeta));
-    } else if (isInserting) {
-      context.missing(_treaningIdMeta);
-    }
-    if (data.containsKey('category')) {
-      context.handle(_categoryMeta,
-          category.isAcceptableOrUnknown(data['category']!, _categoryMeta));
-    } else if (isInserting) {
-      context.missing(_categoryMeta);
-    }
-    if (data.containsKey('route')) {
-      context.handle(
-          _routeMeta, route.isAcceptableOrUnknown(data['route']!, _routeMeta));
-    }
-    if (data.containsKey('route_id')) {
-      context.handle(_routeIdMeta,
-          routeId.isAcceptableOrUnknown(data['route_id']!, _routeIdMeta));
-    }
-    if (data.containsKey('style')) {
-      context.handle(
-          _styleMeta, style.isAcceptableOrUnknown(data['style']!, _styleMeta));
-    } else if (isInserting) {
-      context.missing(_styleMeta);
-    }
-    if (data.containsKey('finish_time')) {
-      context.handle(
-          _finishTimeMeta,
-          finishTime.isAcceptableOrUnknown(
-              data['finish_time']!, _finishTimeMeta));
-    }
-    if (data.containsKey('start_time')) {
-      context.handle(_startTimeMeta,
-          startTime.isAcceptableOrUnknown(data['start_time']!, _startTimeMeta));
-    }
-    if (data.containsKey('suspension_count')) {
-      context.handle(
-          _suspensionCountMeta,
-          suspensionCount.isAcceptableOrUnknown(
-              data['suspension_count']!, _suspensionCountMeta));
-    } else if (isInserting) {
-      context.missing(_suspensionCountMeta);
-    }
-    if (data.containsKey('fall_count')) {
-      context.handle(_fallCountMeta,
-          fallCount.isAcceptableOrUnknown(data['fall_count']!, _fallCountMeta));
-    } else if (isInserting) {
-      context.missing(_fallCountMeta);
-    }
-    if (data.containsKey('down_climbing')) {
-      context.handle(
-          _downClimbingMeta,
-          downClimbing.isAcceptableOrUnknown(
-              data['down_climbing']!, _downClimbingMeta));
-    } else if (isInserting) {
-      context.missing(_downClimbingMeta);
-    }
-    if (data.containsKey('fail')) {
-      context.handle(
-          _failMeta, fail.isAcceptableOrUnknown(data['fail']!, _failMeta));
-    } else if (isInserting) {
-      context.missing(_failMeta);
-    }
-    if (data.containsKey('ascent_type')) {
-      context.handle(
-          _ascentTypeMeta,
-          ascentType.isAcceptableOrUnknown(
-              data['ascent_type']!, _ascentTypeMeta));
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  DriftRockAttempt map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return DriftRockAttempt(
-      id: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
-      sector: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}sector'])!,
-      sectorId: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}sector_id'])!,
-      treaningId: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}treaning_id'])!,
-      category: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}category'])!,
-      route: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}route']),
-      routeId: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}route_id']),
-      style: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}style'])!,
-      finishTime: attachedDatabase.options.types
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}finish_time']),
-      startTime: attachedDatabase.options.types
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}start_time']),
-      suspensionCount: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}suspension_count'])!,
-      fallCount: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}fall_count'])!,
-      downClimbing: attachedDatabase.options.types
-          .read(DriftSqlType.bool, data['${effectivePrefix}down_climbing'])!,
-      fail: attachedDatabase.options.types
-          .read(DriftSqlType.bool, data['${effectivePrefix}fail'])!,
-      ascentType: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}ascent_type']),
-    );
-  }
-
-  @override
-  $DriftRockAttemptsTableTable createAlias(String alias) {
-    return $DriftRockAttemptsTableTable(attachedDatabase, alias);
   }
 }
 
@@ -4277,7 +4455,7 @@ abstract class _$DriftDBLocalDataSource extends GeneratedDatabase {
   late final $DriftRockAttemptsTableTable driftRockAttemptsTable =
       $DriftRockAttemptsTableTable(this);
   @override
-  Iterable<TableInfo<Table, dynamic>> get allTables =>
+  Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [
