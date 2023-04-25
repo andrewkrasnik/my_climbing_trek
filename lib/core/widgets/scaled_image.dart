@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:my_climbing_trek/core/widgets/my_cached_network_image.dart';
 
-class ScaledImage extends StatelessWidget {
+class ScaledImageWidget extends StatelessWidget {
   final String imageUrl;
-  ScaledImage({required this.imageUrl, Key? key}) : super(key: key);
-
-  OverlayEntry? _entry;
+  const ScaledImageWidget({required this.imageUrl, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onDoubleTap: () {
-        showOverlay(context);
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => ScaledImageViewWidget(imageUrl: imageUrl),
+        ));
       },
       child: SizedBox(
         width: MediaQuery.of(context).size.width,
@@ -19,33 +19,30 @@ class ScaledImage extends StatelessWidget {
       ),
     );
   }
+}
 
-  void showOverlay(BuildContext context) {
-    _entry = OverlayEntry(
-        builder: (context) => GestureDetector(
-              onDoubleTap: () {
-                removeOverlay();
-              },
-              child: Scaffold(
-                body: InteractiveViewer(
-                  clipBehavior: Clip.none,
-                  constrained: false,
-                  maxScale: 10,
-                  child: MyCachedNetworkImage(
-                    imageUrl: imageUrl,
-                    height: MediaQuery.of(context).size.height,
-                    width: MediaQuery.of(context).size.width,
-                  ),
-                ),
-              ),
-            ));
-    final overlay = Overlay.of(context);
+class ScaledImageViewWidget extends StatelessWidget {
+  final String imageUrl;
 
-    overlay.insert(_entry!);
-  }
+  const ScaledImageViewWidget({required this.imageUrl, Key? key})
+      : super(key: key);
 
-  void removeOverlay() {
-    _entry?.remove();
-    _entry = null;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: GestureDetector(
+        onTap: () => Navigator.of(context).pop(),
+        child: InteractiveViewer(
+          clipBehavior: Clip.none,
+          constrained: false,
+          maxScale: 10,
+          child: MyCachedNetworkImage(
+            imageUrl: imageUrl,
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+          ),
+        ),
+      ),
+    );
   }
 }

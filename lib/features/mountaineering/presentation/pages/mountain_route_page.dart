@@ -22,7 +22,7 @@ class MountainRoutePage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (route.image?.isNotEmpty == true)
-                ScaledImage(imageUrl: route.image!),
+                ScaledImageWidget(imageUrl: route.image!),
               if (route.description.isNotEmpty) ...[
                 Text(route.description),
                 const SizedBox(height: 4),
