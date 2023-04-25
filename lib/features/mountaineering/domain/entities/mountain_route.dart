@@ -23,6 +23,7 @@ class MountainRoute extends DataWithUUID {
   final String firstAscentYear;
   final int length;
   final String? ueaaSchemaImage;
+  final String? farLink;
 
   List<String> get links => _links;
 
@@ -43,6 +44,7 @@ class MountainRoute extends DataWithUUID {
       this.climbingCategory,
       this.ussrCategory,
       this.ueaaSchemaImage,
+      this.farLink,
       List<String>? links})
       : _links = links ?? [];
 

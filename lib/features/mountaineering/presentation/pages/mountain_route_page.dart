@@ -92,6 +92,19 @@ class MountainRoutePage extends StatelessWidget {
                 ),
                 Text(route.descent),
               ],
+              if (route.farLink?.isNotEmpty == true) ...[
+                const SizedBox(height: 8),
+                InkWell(
+                  onTap: () {
+                    launchUrlString(route.farLink!,
+                        mode: LaunchMode.externalApplication);
+                  },
+                  child: const Text(
+                    'В базе ФАР',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ],
               if (route.links.isNotEmpty) ...[
                 const SizedBox(height: 8),
                 const Text(
