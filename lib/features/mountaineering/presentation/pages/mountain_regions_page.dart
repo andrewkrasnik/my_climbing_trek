@@ -1,6 +1,3 @@
-import 'package:my_climbing_trek/features/ice_climbing/presentation/bloc/ice_districts/ice_districts_cubit.dart';
-import 'package:my_climbing_trek/features/ice_climbing/presentation/pages/ice_district_page.dart';
-import 'package:my_climbing_trek/features/ice_climbing/presentation/widgets/ice_district_widget.dart';
 import 'package:my_climbing_trek/features/mountaineering/presentation/bloc/mountain_regions/mountain_regions_cubit.dart';
 import 'package:my_climbing_trek/features/mountaineering/presentation/pages/mountain_region_page.dart';
 import 'package:my_climbing_trek/features/mountaineering/presentation/widgets/mountain_region_widget.dart';

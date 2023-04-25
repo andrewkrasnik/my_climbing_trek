@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:my_climbing_trek/core/data/aid_category.dart';
 import 'package:my_climbing_trek/core/data/ascent_type.dart';
 import 'package:my_climbing_trek/core/data/city.dart';
 import 'package:my_climbing_trek/core/data/climbing_category.dart';
@@ -6,7 +7,9 @@ import 'package:my_climbing_trek/core/data/climbing_route_type.dart';
 import 'package:my_climbing_trek/core/data/climbing_style.dart';
 import 'package:my_climbing_trek/core/data/ice_category.dart';
 import 'package:my_climbing_trek/core/data/map_point.dart';
+import 'package:my_climbing_trek/core/data/mixed_category.dart';
 import 'package:my_climbing_trek/core/data/region.dart';
+import 'package:my_climbing_trek/core/data/ussr_climbing_category.dart';
 import 'package:my_climbing_trek/features/settings/domain/repositories/places_repository.dart';
 import 'package:my_climbing_trek/service_locator.dart';
 
@@ -128,4 +131,44 @@ class EpochDateTimeConverter implements JsonConverter<DateTime, int> {
 
   @override
   int toJson(DateTime object) => object.millisecondsSinceEpoch;
+}
+
+class AidCategoryConverter implements JsonConverter<AidCategory, String> {
+  const AidCategoryConverter();
+  @override
+  AidCategory fromJson(String json) {
+    return AidCategory.getById(json);
+  }
+
+  @override
+  String toJson(AidCategory object) {
+    return object.id;
+  }
+}
+
+class UssrClimbingCategoryConverter
+    implements JsonConverter<UssrClimbingCategory, String> {
+  const UssrClimbingCategoryConverter();
+  @override
+  UssrClimbingCategory fromJson(String json) {
+    return UssrClimbingCategory.getById(json);
+  }
+
+  @override
+  String toJson(UssrClimbingCategory object) {
+    return object.id;
+  }
+}
+
+class MixedCategoryConverter implements JsonConverter<MixedCategory, String> {
+  const MixedCategoryConverter();
+  @override
+  MixedCategory fromJson(String json) {
+    return MixedCategory.getById(json);
+  }
+
+  @override
+  String toJson(MixedCategory object) {
+    return object.id;
+  }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountain_route.dart';
+import 'package:my_climbing_trek/features/mountaineering/presentation/pages/mountain_route_page.dart';
 import 'package:my_climbing_trek/features/mountaineering/presentation/widgets/mountaineering_category_widget.dart';
+import 'package:my_climbing_trek/features/mountaineering/presentation/widgets/multi_pitch_category_widget.dart';
 
 class MountainRouteWidget extends StatelessWidget {
   final MountainRoute route;
@@ -18,13 +20,33 @@ class MountainRouteWidget extends StatelessWidget {
             fit: StackFit.loose,
             alignment: AlignmentDirectional.bottomCenter,
             children: [
-              MountaineeringCategoryWidget(category: route.category),
+              if (!route.isMultiPitch)
+                MountaineeringCategoryWidget(category: route.category),
+              if (route.isMultiPitch)
+                MultiPitchCategoryWidget(
+                  aidCategory: route.aidCategory,
+                  climbingCategory: route.climbingCategory,
+                  ussrCategory: route.ussrCategory,
+                ),
             ],
           ),
           title: Text(route.name),
-          subtitle: Text('${route.type.name}'),
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(route.type.name),
+              if (route.author.isNotEmpty)
+                Text('${route.author}, ${route.firstAscentYear}')
+            ],
+          ),
           trailing: onTapGo == null
-              ? null
+              ? IconButton(
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => MountainRoutePage(route: route)));
+                  },
+                  icon: const Icon(Icons.arrow_forward_ios),
+                )
               : ElevatedButton(onPressed: () => null, child: const Text('GO!')),
         ));
   }

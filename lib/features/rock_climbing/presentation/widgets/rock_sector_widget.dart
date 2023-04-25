@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_climbing_trek/core/widgets/my_cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:my_climbing_trek/core/widgets/scaled_image.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_district.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_route.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_routes_filter.dart';
@@ -43,7 +44,7 @@ class RockSectorWidget extends StatelessWidget {
             child: Stack(
               fit: StackFit.expand,
               children: [
-                MyCachedNetworkImage(imageUrl: sector.image, fit: BoxFit.cover),
+                ScaledImageWidget(imageUrl: sector.image),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(

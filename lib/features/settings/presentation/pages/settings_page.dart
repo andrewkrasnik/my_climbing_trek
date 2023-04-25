@@ -1,10 +1,14 @@
 import 'package:my_climbing_trek/core/data/category_type.dart';
 import 'package:my_climbing_trek/features/authentication/presentation/widgets/auth_button.dart';
 import 'package:my_climbing_trek/features/settings/presentation/cubit/settings_cubit.dart';
+import 'package:my_climbing_trek/features/settings/presentation/pages/aid_categories_page.dart';
 import 'package:my_climbing_trek/features/settings/presentation/pages/all_categories_page.dart';
 import 'package:my_climbing_trek/features/settings/presentation/pages/ice_categories_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_climbing_trek/features/settings/presentation/pages/mixed_categories_page.dart';
+import 'package:my_climbing_trek/features/settings/presentation/pages/mountaineering_categories_page.dart';
+import 'package:my_climbing_trek/features/settings/presentation/pages/ussr_categories_page.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -28,6 +32,7 @@ class SettingsPage extends StatelessWidget {
                         style: titleTextStyle,
                       ),
                     ),
+                    const AuthButton(),
                     // const Text('Настройка темного режима'),
                     // const Text('Выбор языка'),
                     // const Text('Выбор категорий трасс'),
@@ -142,7 +147,35 @@ class SettingsPage extends StatelessWidget {
                       },
                       child: const Text('Категории ледолазанья'),
                     ),
-                    const AuthButton(),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const MixedCategoriesPage()));
+                      },
+                      child: const Text('Категории микста'),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const UssrCategoriesPage()));
+                      },
+                      child: const Text('Категории скал СССР'),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const AidCategoriesPage()));
+                      },
+                      child: const Text('Категории ИТО'),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) =>
+                                const MountaineeringCategoriesPage()));
+                      },
+                      child: const Text('Категории восхождений'),
+                    ),
                   ],
                 ),
               ),

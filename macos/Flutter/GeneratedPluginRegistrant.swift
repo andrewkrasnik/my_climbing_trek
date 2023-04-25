@@ -10,7 +10,7 @@ import firebase_analytics
 import firebase_auth
 import firebase_core
 import firebase_crashlytics
-import path_provider_macos
+import path_provider_foundation
 import share_plus
 import sqflite
 import sqlite3_flutter_libs
