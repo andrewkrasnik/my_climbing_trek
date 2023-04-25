@@ -37,10 +37,10 @@ class MountainRouteRoop extends DataWithUUID {
     for (var piece in pieces ?? <MountainRoutePiece>[]) {
       String value = '';
 
-      value += '${piece.length}м ';
+      value += '${piece.length}м';
 
       if (piece is MountainRouteRockPiece) {
-        value += '${piece.categoryText}';
+        value += ' ${piece.categoryText}';
 
         if (piece.slope > 0) {
           value += ' ${piece.slope}°';
@@ -54,7 +54,13 @@ class MountainRouteRoop extends DataWithUUID {
   }
 
   String get text {
-    String text = '$title: $lengthм';
+    String text = '$title:';
+
+    if (climbingCategory != null) {
+      text += ' ${climbingCategory!.name}';
+    }
+
+    text += ' $lengthм';
 
     if (slope > 0) {
       text += ' $slope°';
