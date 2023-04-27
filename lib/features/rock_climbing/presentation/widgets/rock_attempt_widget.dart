@@ -35,7 +35,7 @@ class RockAttemptWidget extends StatelessWidget {
             subtitle: attempt.route == null
                 ? null
                 : Text(
-                    '${attempt.style.name} ${attempt.route!.length} м., шлямбуров ${attempt.route!.boltCount} шт.'
+                    '${attempt.style.name} ${attempt.route?.description ?? ''}'
                     '\n$statisticTitle'),
             trailing: isCurrent
                 ? ElevatedButton(

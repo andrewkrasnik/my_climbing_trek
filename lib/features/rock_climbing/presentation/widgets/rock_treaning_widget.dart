@@ -17,71 +17,95 @@ class RockTreaningWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
-      child: Material(
-        elevation: 2,
-        borderRadius: BorderRadius.circular(8),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return BlocBuilder<RockTreaningCubit, RockTreaningState>(
+      builder: (context, state) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4),
+          child: Material(
+            elevation: 2,
+            borderRadius: BorderRadius.circular(8),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(DateFormat('dd.MM.yyyy').format(treaning.date)),
-                  const Spacer(),
-                  Text(treaning.district.name),
-                  IconButton(
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => RockTreaningPage(
-                                treaning: treaning,
-                              )));
-                    },
-                    icon: const Icon(
-                      Icons.share,
-                      size: 16,
-                    ),
+                  Row(
+                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(DateFormat('dd.MM.yyyy').format(treaning.date)),
+                      const Spacer(),
+                      Text(treaning.district.name),
+                      IconButton(
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => RockTreaningPage(
+                                    treaning: treaning,
+                                  )));
+                        },
+                        icon: const Icon(
+                          Icons.share,
+                          size: 16,
+                        ),
+                      ),
+                    ],
                   ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  if ((isCurrent && treaning.sectorsHasTrad) ||
+                      treaning.hasTrad)
+                    RockAttemptsWithStyle(
+                      attempts: treaning.tradAttempts,
+                      treaning: treaning,
+                      isCurrent: isCurrent,
+                      climbingStyle: ClimbingStyle.trad,
+                      child: const Text('Трэд:'),
+                    ),
+                  if ((isCurrent && treaning.sectorsHasRope) ||
+                      treaning.hasLead)
+                    RockAttemptsWithStyle(
+                      attempts: treaning.leadAttempts,
+                      treaning: treaning,
+                      isCurrent: isCurrent,
+                      climbingStyle: ClimbingStyle.lead,
+                      child: const Text('Нижняя:'),
+                    ),
+                  if ((isCurrent && treaning.sectorsHasRope) ||
+                      treaning.hasTopRope)
+                    RockAttemptsWithStyle(
+                      attempts: treaning.topRopeAttempts,
+                      treaning: treaning,
+                      isCurrent: isCurrent,
+                      climbingStyle: ClimbingStyle.topRope,
+                      child: const Text('Верхняя:'),
+                    ),
+                  if ((isCurrent && treaning.sectorsHasBouldering) ||
+                      treaning.hasBouldering)
+                    RockAttemptsWithStyle(
+                      attempts: treaning.boulderingAttempts,
+                      treaning: treaning,
+                      isCurrent: isCurrent,
+                      climbingStyle: ClimbingStyle.bouldering,
+                      child: const Text('Болдеринг:'),
+                    ),
+                  if (isCurrent &&
+                      BlocProvider.of<RockTreaningCubit>(context)
+                              .state
+                              .currentAttempt ==
+                          null)
+                    TextButton(
+                      child: const Text('Завершить'),
+                      onPressed: () {
+                        BlocProvider.of<RockTreaningCubit>(context)
+                            .finishTreaning();
+                      },
+                    )
                 ],
               ),
-              const SizedBox(
-                height: 8,
-              ),
-              if (isCurrent || treaning.hasLead)
-                RockAttemptsWithStyle(
-                  attempts: treaning.leadAttempts,
-                  treaning: treaning,
-                  isCurrent: isCurrent,
-                  climbingStyle: ClimbingStyle.lead,
-                  child: const Text('Нижняя:'),
-                ),
-              if (isCurrent || treaning.hasTopRope)
-                RockAttemptsWithStyle(
-                  attempts: treaning.topRopeAttempts,
-                  treaning: treaning,
-                  isCurrent: isCurrent,
-                  climbingStyle: ClimbingStyle.topRope,
-                  child: const Text('Верхняя:'),
-                ),
-              if (isCurrent &&
-                  BlocProvider.of<RockTreaningCubit>(context)
-                          .state
-                          .currentAttempt ==
-                      null)
-                TextButton(
-                  child: const Text('Завершить'),
-                  onPressed: () {
-                    BlocProvider.of<RockTreaningCubit>(context)
-                        .finishTreaning();
-                  },
-                )
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

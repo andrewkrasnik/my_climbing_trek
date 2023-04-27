@@ -1,4 +1,5 @@
 import 'package:my_climbing_trek/core/data/climbing_route.dart';
+import 'package:my_climbing_trek/core/data/climbing_route_type.dart';
 
 class RockRoute extends ClimbingRoute {
   final String author;
@@ -21,4 +22,8 @@ class RockRoute extends ClimbingRoute {
     this.remark = '',
     this.author = '',
   });
+
+  String get description => type == ClimbingRouteType.bouldering
+      ? ''
+      : '$length м., шлямбуров $boltCount шт.';
 }

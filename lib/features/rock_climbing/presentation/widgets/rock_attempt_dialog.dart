@@ -1,3 +1,4 @@
+import 'package:my_climbing_trek/core/data/climbing_route_type.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/bool_value_widget.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/int_counter_widget.dart';
 import 'package:flutter/material.dart';
@@ -54,20 +55,22 @@ class RockAttemptDialog extends HookWidget {
             Text(attempt.style.toString()),
             BoolValueWidget(
                 title: 'Недолез', valueState: failState, editing: editing),
-            IntCounterWidget(
-              title: 'Зависаний:',
-              valueState: suspensionCountState,
-              editing: editing,
-            ),
-            IntCounterWidget(
-              title: 'Срывов:',
-              valueState: fallCountState,
-              editing: editing,
-            ),
-            BoolValueWidget(
-                title: 'Спуск лазаньем',
-                valueState: downClimbingState,
-                editing: editing),
+            if (attempt.style.type == ClimbingRouteType.rope) ...[
+              IntCounterWidget(
+                title: 'Зависаний:',
+                valueState: suspensionCountState,
+                editing: editing,
+              ),
+              IntCounterWidget(
+                title: 'Срывов:',
+                valueState: fallCountState,
+                editing: editing,
+              ),
+              BoolValueWidget(
+                  title: 'Спуск лазаньем',
+                  valueState: downClimbingState,
+                  editing: editing),
+            ],
             if (attempt.finished && attempt.ascentType != null)
               Text(attempt.ascentType!.toString()),
           ],

@@ -45,7 +45,10 @@ class MountainRouteWidget extends StatelessWidget {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => MountainRoutePage(route: route)));
                   },
-                  icon: const Icon(Icons.arrow_forward_ios),
+                  icon: Icon(
+                    Icons.arrow_forward_ios,
+                    color: Theme.of(context).colorScheme.surface,
+                  ),
                 )
               : ElevatedButton(onPressed: () => null, child: const Text('GO!')),
         ));

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_climbing_trek/core/data/climbing_route_type.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_route.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_route_attempts_statistic.dart';
 import 'package:my_climbing_trek/features/rock_climbing/presentation/widgets/rock_category_widget.dart';
@@ -37,7 +38,7 @@ class RockRouteWidget extends StatelessWidget {
             ],
           ),
           title: Text(route.name),
-          subtitle: Text('${route.length} м., шлямбуров ${route.boltCount} шт.'
+          subtitle: Text('${route.type.name} ${route.description}'
               '\n${statistic?.routeTitle ?? ''}'),
           trailing: onTapGo == null
               ? null

@@ -14,6 +14,15 @@ class RockTreaning extends Treaning {
 
   List<RockTreaningAttempt> get attempts => _attempts;
 
+  bool get sectorsHasRope =>
+      sectors.firstWhereOrNull((element) => element.hasRope) != null;
+
+  bool get sectorsHasBouldering =>
+      sectors.firstWhereOrNull((element) => element.hasBouldering) != null;
+
+  bool get sectorsHasTrad =>
+      sectors.firstWhereOrNull((element) => element.hasTrad) != null;
+
   bool get hasLead => leadAttempts.isNotEmpty;
 
   List<RockTreaningAttempt> get leadAttempts =>

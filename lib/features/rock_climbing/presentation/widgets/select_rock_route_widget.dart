@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:my_climbing_trek/core/data/climbing_category.dart';
 
 import 'package:my_climbing_trek/core/data/climbing_style.dart';
-import 'package:my_climbing_trek/core/data/route_status.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_routes_filter.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_treaning.dart';
 import 'package:my_climbing_trek/features/rock_climbing/presentation/cubit/rock_treaning/rock_treaning_cubit.dart';
