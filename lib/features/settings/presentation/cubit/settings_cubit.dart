@@ -5,7 +5,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:my_climbing_trek/features/settings/domain/entities/treanings_settings.dart';
 import 'package:my_climbing_trek/features/settings/domain/usecases/load_places.dart';
+import 'package:my_climbing_trek/features/settings/domain/usecases/load_simple_settings_usecase.dart';
 import 'package:my_climbing_trek/features/settings/domain/usecases/load_treanings_settings.dart';
+import 'package:my_climbing_trek/features/settings/domain/usecases/save_simple_settings_usecase.dart';
 import 'package:my_climbing_trek/features/settings/domain/usecases/save_treanings_settings.dart';
 
 part 'settings_state.dart';
@@ -16,15 +18,30 @@ class SettingsCubit extends Cubit<SettingsState> {
   final LoadTreaningsSettings _loadTreaningsSettings;
   final SaveTreaningsSettings _saveTreaningsSettings;
   final LoadPlaces _loadPlaces;
+  final LoadSimpleSettingsUsecase _loadSimpleSettingsUsecase;
+  final SaveSimpleSettingsUsecase _saveSimpleSettingsUsecase;
 
   SettingsCubit(
     this._loadTreaningsSettings,
     this._saveTreaningsSettings,
     this._loadPlaces,
+    this._loadSimpleSettingsUsecase,
+    this._saveSimpleSettingsUsecase,
   ) : super(SettingsState.initial());
 
   Future<void> loadData() async {
     await _loadPlaces();
+
+    final failureOrString =
+        await _loadSimpleSettingsUsecase(key: 'HallCategoryType');
+
+    failureOrString.fold((l) => null, (hallCategoryTypeId) async {
+      if (hallCategoryTypeId != null) {
+        emit(state.copyWith(
+            hallCategoryType:
+                CategoryType.getById(int.parse(hallCategoryTypeId))));
+      }
+    });
 
     final failureOrSettings = await _loadTreaningsSettings();
 
@@ -70,7 +87,13 @@ class SettingsCubit extends Cubit<SettingsState> {
     );
   }
 
-  void selectHallCategoryType({required CategoryType type}) {
-    emit(state.copyWith(hallCategoryType: type));
+  Future<void> selectHallCategoryType({required CategoryType type}) async {
+    final failureOrUnit = await _saveSimpleSettingsUsecase(
+      key: 'HallCategoryType',
+      value: type.id.toString(),
+    );
+
+    failureOrUnit.fold(
+        (l) => null, (r) => emit(state.copyWith(hallCategoryType: type)));
   }
 }

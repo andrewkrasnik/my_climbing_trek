@@ -34,4 +34,25 @@ class SettingsDataSourceImpl implements SettingsDataSource {
 
     return const Right(unit);
   }
+
+  @override
+  Future<Either<Failure, String?>> getStringValue({required String key}) async {
+    final treaningsBox = await Hive.openBox<String>(_settingsName);
+
+    return Right(treaningsBox.get(key));
+  }
+
+  @override
+  Future<Either<Failure, Unit>> saveStringValue(
+      {required String key, required String? value}) async {
+    final treaningsBox = await Hive.openBox<String>(_settingsName);
+
+    if (value != null) {
+      await treaningsBox.put(key, value);
+    } else {
+      await treaningsBox.delete(key);
+    }
+
+    return const Right(unit);
+  }
 }

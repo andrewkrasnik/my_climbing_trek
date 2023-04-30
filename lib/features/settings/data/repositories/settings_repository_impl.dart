@@ -22,4 +22,17 @@ class SettingsRepositoryImpl implements SettingsRepository {
       {required TreaningsSettings settings}) async {
     return await _settingsDataSource.saveTreaningsSettings(settings: settings);
   }
+
+  @override
+  Future<Either<Failure, String?>> getStringValue({required String key}) async {
+    return await _settingsDataSource.getStringValue(key: key);
+  }
+
+  @override
+  Future<Either<Failure, Unit>> saveStringValue({
+    required String key,
+    required String? value,
+  }) async {
+    return await _settingsDataSource.saveStringValue(key: key, value: value);
+  }
 }

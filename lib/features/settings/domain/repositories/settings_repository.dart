@@ -4,6 +4,12 @@ import 'package:my_climbing_trek/features/settings/domain/entities/treanings_set
 
 abstract class SettingsRepository {
   Future<Either<Failure, TreaningsSettings?>> getTreaningsSettings();
+
   Future<Either<Failure, Unit>> saveTreaningsSettings(
       {required TreaningsSettings settings});
+
+  Future<Either<Failure, String?>> getStringValue({required String key});
+
+  Future<Either<Failure, Unit>> saveStringValue(
+      {required String key, required String? value});
 }

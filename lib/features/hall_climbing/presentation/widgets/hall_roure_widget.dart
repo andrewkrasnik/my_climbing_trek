@@ -37,7 +37,7 @@ class HallRouteWidget extends StatelessWidget {
     } else {
       if (statistic!.done) {
         routeTitle =
-            '${statistic!.ascentType!} ${statistic!.doneDate!.dayString()} '
+            '${statistic!.ascentType ?? 'Первый пролаз'} ${statistic!.doneDate!.dayString()} '
             '(${statistic!.count})';
       } else {
         routeTitle = 'Проект, попыток: ${statistic!.count}';
