@@ -29,12 +29,17 @@ class HallRoutePage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ClimbingRouteType routeType =
+        (!climbingHall.hasBigWall && climbingHall.hasBouldering)
+            ? ClimbingRouteType.bouldering
+            : ClimbingRouteType.rope;
+
     final category = useState<ClimbingCategory?>(initialCategory);
 
     final color = useState<RouteColor?>(null);
 
-    final type = useState<ClimbingRouteType>(
-        route?.type ?? initialType ?? ClimbingRouteType.rope);
+    final type =
+        useState<ClimbingRouteType>(route?.type ?? initialType ?? routeType);
 
     final autoBelayState = useState<bool>(route?.autoBelay ?? autoBelay);
 
@@ -42,6 +47,8 @@ class HallRoutePage extends HookWidget {
         useTextEditingController(text: route?.sectorNumber.toString() ?? '');
 
     final colorsMap = RouteColor.colorsMap;
+
+    bool showSwitch = climbingHall.hasBigWall && climbingHall.hasBouldering;
 
     return BlocProvider(
       create: (context) => getIt<HallRouteCubit>(),
@@ -82,44 +89,48 @@ class HallRoutePage extends HookWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Rope',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineMedium
-                              ?.copyWith(
-                                  fontWeight:
-                                      type.value == ClimbingRouteType.bouldering
-                                          ? FontWeight.normal
-                                          : FontWeight.bold),
-                        ),
-                        Switch(
-                            value: type.value == ClimbingRouteType.bouldering,
-                            activeColor: Theme.of(context).primaryColor,
-                            inactiveThumbColor: Theme.of(context).primaryColor,
-                            inactiveTrackColor:
-                                Theme.of(context).primaryColor.withOpacity(0.5),
-                            onChanged: (value) {
-                              type.value = value
-                                  ? ClimbingRouteType.bouldering
-                                  : ClimbingRouteType.rope;
-                            }),
-                        Text(
-                          'Bouldering',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineMedium
-                              ?.copyWith(
-                                  fontWeight:
-                                      type.value == ClimbingRouteType.bouldering
-                                          ? FontWeight.bold
-                                          : FontWeight.normal),
-                        ),
-                      ],
-                    ),
+                    if (showSwitch)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Rope',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineMedium
+                                ?.copyWith(
+                                    fontWeight: type.value ==
+                                            ClimbingRouteType.bouldering
+                                        ? FontWeight.normal
+                                        : FontWeight.bold),
+                          ),
+                          Switch(
+                              value: type.value == ClimbingRouteType.bouldering,
+                              activeColor:
+                                  Theme.of(context).colorScheme.surface,
+                              inactiveThumbColor:
+                                  Theme.of(context).colorScheme.surface,
+                              inactiveTrackColor: Theme.of(context)
+                                  .primaryColor
+                                  .withOpacity(0.5),
+                              onChanged: (value) {
+                                type.value = value
+                                    ? ClimbingRouteType.bouldering
+                                    : ClimbingRouteType.rope;
+                              }),
+                          Text(
+                            'Bouldering',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineMedium
+                                ?.copyWith(
+                                    fontWeight: type.value ==
+                                            ClimbingRouteType.bouldering
+                                        ? FontWeight.bold
+                                        : FontWeight.normal),
+                          ),
+                        ],
+                      ),
                     if (climbingHall.hasAutoBelay &&
                         type.value == ClimbingRouteType.rope)
                       Row(
