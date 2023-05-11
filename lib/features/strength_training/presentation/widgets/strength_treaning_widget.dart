@@ -27,6 +27,7 @@ class StrengthTreaningWidget extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -124,13 +125,14 @@ class StrengthTreaningExerciseLineWidget extends HookWidget {
       return Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.25,
-                    child: Text('${item.exercise.name}:')),
-                if (editing) ...[
+            if (editing)
+              Row(
+                children: [
+                  SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.25,
+                      child: Text('${item.exercise.name}:')),
                   IntCounterWidget(valueState: countController),
                   IconButton(
                     onPressed: () {
@@ -156,25 +158,33 @@ class StrengthTreaningExerciseLineWidget extends HookWidget {
                     icon: const Icon(
                       Icons.delete,
                     ),
-                  )
+                  ),
                 ],
-              ],
-            ),
+              ),
             Wrap(
-              children: item.repetitions
-                  .map(
-                    (count) => Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 6.0),
-                      child: SizedBox(
-                        width: 24,
-                        child: Text(
-                          count.toString(),
-                          textAlign: TextAlign.center,
-                        ),
+              runSpacing: 8,
+              children: [
+                if (!editing) ...[
+                  SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.25,
+                      child: Text(
+                        '${item.exercise.name}:',
+                        textAlign: TextAlign.start,
+                      )),
+                ],
+                ...item.repetitions.map(
+                  (count) => Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                    child: SizedBox(
+                      width: 24,
+                      child: Text(
+                        count.toString(),
+                        textAlign: TextAlign.center,
                       ),
                     ),
-                  )
-                  .toList(),
+                  ),
+                )
+              ],
             )
           ],
         ),

@@ -3,6 +3,7 @@ import 'package:my_climbing_trek/core/widgets/my_modal_bottom_sheet.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_attempt.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_treaning.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/bloc/current_hall_treaning/current_hall_treaning_cubit.dart';
+import 'package:my_climbing_trek/features/hall_climbing/presentation/pages/climbing_hall_page.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/pages/hall_treaning_page.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/hall_attempt_dialog.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/hall_route_category_widget.dart';
@@ -37,7 +38,12 @@ class HallTreaningWidget extends StatelessWidget {
                 children: [
                   Text(DateFormat('dd.MM.yyyy').format(treaning.date)),
                   const Spacer(),
-                  Text(treaning.climbingHall.name),
+                  InkWell(
+                      onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => ClimbingHallPage(
+                                climbingHall: treaning.climbingHall,
+                              ))),
+                      child: Text(treaning.climbingHall.name)),
                   IconButton(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(

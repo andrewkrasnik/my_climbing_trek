@@ -1,6 +1,7 @@
 import 'package:my_climbing_trek/core/data/climbing_style.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_treaning.dart';
 import 'package:my_climbing_trek/features/ice_climbing/presentation/bloc/current_ice_treaning/current_ice_treaning_cubit.dart';
+import 'package:my_climbing_trek/features/ice_climbing/presentation/pages/ice_district_page.dart';
 import 'package:my_climbing_trek/features/ice_climbing/presentation/pages/ice_treaning_page.dart';
 import 'package:my_climbing_trek/features/ice_climbing/presentation/widgets/ice_attempts_with_style.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +33,22 @@ class IceTreaningWidget extends StatelessWidget {
                 children: [
                   Text(DateFormat('dd.MM.yyyy').format(treaning.date)),
                   const Spacer(),
-                  Text(treaning.district.name),
+                  InkWell(
+                      onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => IceDistrictPage(
+                                district: treaning.district,
+                                addSector: isCurrent
+                                    ? (sector) {
+                                        BlocProvider.of<
+                                                    CurrentIceTreaningCubit>(
+                                                context)
+                                            .addIceSectorToTreaning(
+                                                sector: sector,
+                                                district: treaning.district);
+                                      }
+                                    : null,
+                              ))),
+                      child: Text(treaning.district.name)),
                   IconButton(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(

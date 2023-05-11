@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_treaning.dart';
 import 'package:my_climbing_trek/features/rock_climbing/presentation/cubit/rock_treaning/rock_treaning_cubit.dart';
+import 'package:my_climbing_trek/features/rock_climbing/presentation/pages/rock_district_page.dart';
 import 'package:my_climbing_trek/features/rock_climbing/presentation/pages/rock_treaning_page.dart';
 import 'package:my_climbing_trek/features/rock_climbing/presentation/widgets/rock_attempts_with_style.dart';
 
@@ -34,7 +35,24 @@ class RockTreaningWidget extends StatelessWidget {
                     children: [
                       Text(DateFormat('dd.MM.yyyy').format(treaning.date)),
                       const Spacer(),
-                      Text(treaning.district.name),
+                      InkWell(
+                          onTap: () =>
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => RockDistrictPage(
+                                        district: treaning.district,
+                                        addSector: isCurrent
+                                            ? (sector) {
+                                                BlocProvider.of<
+                                                            RockTreaningCubit>(
+                                                        context)
+                                                    .addRockSectorToTreaning(
+                                                        sector: sector,
+                                                        district:
+                                                            treaning.district);
+                                              }
+                                            : null,
+                                      ))),
+                          child: Text(treaning.district.name)),
                       IconButton(
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
