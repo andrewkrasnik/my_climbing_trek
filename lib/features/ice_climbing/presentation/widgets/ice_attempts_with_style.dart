@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_climbing_trek/core/data/climbing_style.dart';
 import 'package:my_climbing_trek/core/widgets/attempt_budget.dart';
+import 'package:my_climbing_trek/core/widgets/my_modal_bottom_sheet.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_treaning.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_treaning_attempt.dart';
 import 'package:my_climbing_trek/features/ice_climbing/presentation/bloc/current_ice_treaning/current_ice_treaning_cubit.dart';
@@ -46,15 +47,14 @@ class IceAttemptsWithStyle extends StatelessWidget {
             if (showAddButton)
               IconButton(
                 onPressed: () {
-                  showModalBottomSheet<void>(
+                  showMyModalBottomSheet<void>(
                     context: context,
-                    builder: (context) {
-                      return SelectIceRouteWidget(
-                        treaning: treaning,
-                        style: climbingStyle,
-                        cubit: cubit,
-                      );
-                    },
+                    heightPersent: 0.7,
+                    child: SelectIceRouteWidget(
+                      treaning: treaning,
+                      style: climbingStyle,
+                      cubit: cubit,
+                    ),
                   );
                 },
                 icon: const Icon(

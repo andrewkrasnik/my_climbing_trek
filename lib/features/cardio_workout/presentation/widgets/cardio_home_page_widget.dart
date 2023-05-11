@@ -1,3 +1,4 @@
+import 'package:my_climbing_trek/core/widgets/my_modal_bottom_sheet.dart';
 import 'package:my_climbing_trek/features/cardio_workout/presentation/cubit/cardio_treaning/cardio_treaning_cubit.dart';
 import 'package:my_climbing_trek/features/cardio_workout/presentation/widgets/cardio_parameters_widget.dart';
 import 'package:my_climbing_trek/features/cardio_workout/presentation/widgets/cardio_treaning_widget.dart';
@@ -21,11 +22,10 @@ class CardioHomePageWidget extends StatelessWidget {
             ),
             OutlinedButton(
               onPressed: () {
-                showModalBottomSheet<void>(
+                showMyModalBottomSheet<void>(
                   context: context,
-                  builder: (context) {
-                    return const CardioParametersWidget();
-                  },
+                  heightPersent: 0.6,
+                  child: const CardioParametersWidget(),
                 );
               },
               child: const Text('Добавить тренировку'),

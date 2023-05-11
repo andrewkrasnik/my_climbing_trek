@@ -73,18 +73,19 @@ class RockDistrictPage extends StatelessWidget {
                 builder: (context, state) {
                   return state.maybeMap(
                     data: (dataState) => SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        childCount: dataState.sectors.length,
-                        (context, index) => Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: RockSectorWidget(
-                            district: district,
-                            sector: dataState.sectors[index],
-                            addSector: addSector,
-                          ),
-                        ),
-                      ),
-                    ),
+                        delegate: SliverChildListDelegate([
+                      Column(
+                          children: dataState.sectors
+                              .map((sector) => Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: RockSectorWidget(
+                                      district: district,
+                                      sector: sector,
+                                      addSector: addSector,
+                                    ),
+                                  ))
+                              .toList()),
+                    ])),
                     orElse: () => SliverList(
                       delegate: SliverChildListDelegate(
                           [const Center(child: Text('Нет секторов'))]),
