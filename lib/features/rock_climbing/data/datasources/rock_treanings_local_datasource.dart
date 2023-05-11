@@ -16,4 +16,7 @@ abstract class RockTreaningsLocalDataSource {
 
   Future<Either<Failure, List<RockTreaningAttempt>>> routeAttempts(
       {required RockRoute route});
+
+  Future<Either<Failure, Unit>> deleteAttempt(
+      {required RockTreaningAttempt attempt});
 }

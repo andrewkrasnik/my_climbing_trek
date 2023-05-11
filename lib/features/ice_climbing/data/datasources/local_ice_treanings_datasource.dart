@@ -2,10 +2,12 @@ import 'package:my_climbing_trek/core/datasource/db_tables.dart';
 import 'package:my_climbing_trek/core/datasource/local_db_datasource.dart';
 import 'package:my_climbing_trek/core/failures/failure.dart';
 import 'package:my_climbing_trek/features/ice_climbing/data/datasources/ice_treanings_datasource.dart';
+import 'package:my_climbing_trek/features/ice_climbing/data/models/converters.dart';
 import 'package:my_climbing_trek/features/ice_climbing/data/models/ice_treaning_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_treaning.dart';
 import 'package:injectable/injectable.dart';
+import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_treaning_attempt.dart';
 
 @LazySingleton(as: IceTreaningsDataSource)
 class LocalIceTreaningsDataSource implements IceTreaningsDataSource {
@@ -129,5 +131,13 @@ class LocalIceTreaningsDataSource implements IceTreaningsDataSource {
         sectors: treaning.sectors,
       ).toJson();
     }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> deleteAttempt(
+      {required IceTreaningAttempt attempt}) async {
+    return await _localDatabase.deleteById(
+        table: attemptsTable,
+        data: const IceTreaningAttemptConverter().toJson(attempt));
   }
 }

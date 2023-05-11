@@ -150,4 +150,12 @@ class DriftRockTreaningsLocalDataSource
             .map((line) => const RockTreaningAttemptConverter().fromJson(line))
             .toList()));
   }
+
+  @override
+  Future<Either<Failure, Unit>> deleteAttempt(
+      {required RockTreaningAttempt attempt}) async {
+    return await _localDatabase.deleteById(
+        table: attemptsTable,
+        data: const RockTreaningAttemptConverter().toJson(attempt));
+  }
 }

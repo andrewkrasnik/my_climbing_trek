@@ -46,4 +46,10 @@ class RockTreaningsRepositoryImpl implements RockTreaningsRepository {
       {required RockRoute route}) {
     return _rockTreaningsLocalDataSource.routeAttempts(route: route);
   }
+
+  @override
+  Future<Either<Failure, Unit>> deleteAttempt(
+      {required RockTreaningAttempt attempt}) async {
+    return await _rockTreaningsLocalDataSource.deleteAttempt(attempt: attempt);
+  }
 }

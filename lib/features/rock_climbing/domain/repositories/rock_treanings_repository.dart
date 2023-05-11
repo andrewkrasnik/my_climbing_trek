@@ -14,6 +14,9 @@ abstract class RockTreaningsRepository {
   Future<Either<Failure, Unit>> deleteTreaning(
       {required RockTreaning treaning});
 
+  Future<Either<Failure, Unit>> deleteAttempt(
+      {required RockTreaningAttempt attempt});
+
   Future<Either<Failure, List<RockTreaningAttempt>>> routeAttempts(
       {required RockRoute route});
 }

@@ -47,4 +47,11 @@ class MockRockTreaningsLocalDataSource implements RockTreaningsLocalDataSource {
       {required RockRoute route}) async {
     return const Right([]);
   }
+
+  @override
+  Future<Either<Failure, Unit>> deleteAttempt(
+      {required RockTreaningAttempt attempt}) {
+    // TODO: implement deleteAttempt
+    throw UnimplementedError();
+  }
 }

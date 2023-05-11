@@ -1,9 +1,6 @@
 import 'dart:convert';
 
 import 'package:json_annotation/json_annotation.dart';
-import 'package:my_climbing_trek/core/data/climbing_category.dart';
-import 'package:my_climbing_trek/core/data/climbing_route_type.dart';
-import 'package:my_climbing_trek/core/data/climbing_style.dart';
 import 'package:my_climbing_trek/core/data/district.dart';
 import 'package:my_climbing_trek/features/rock_climbing/data/models/rock_district_model.dart';
 import 'package:my_climbing_trek/features/rock_climbing/data/models/rock_route_model.dart';

@@ -1,6 +1,7 @@
 import 'package:my_climbing_trek/core/data/climbing_style.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_district.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_sector.dart';
+import 'package:my_climbing_trek/features/ice_climbing/domain/usecases/delete_ice_attempt.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/usecases/finish_ice_attempt.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/usecases/finish_ice_treaning.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/usecases/get_current_ice_treaning.dart';
@@ -27,6 +28,7 @@ class CurrentIceTreaningCubit extends Cubit<CurrentIceTreaningState> {
   final FinishIceTreaning _finishIceTreaning;
   final GetLastIceTreaning _getLastIceTreaning;
   final GetCurrentIceTreaning _getCurrentIceTreaning;
+  final DeleteIceAttempt _deleteIceAttempt;
 
   CurrentIceTreaningCubit(
     this._newIceTreaning,
@@ -36,6 +38,7 @@ class CurrentIceTreaningCubit extends Cubit<CurrentIceTreaningState> {
     this._finishIceTreaning,
     this._getCurrentIceTreaning,
     this._getLastIceTreaning,
+    this._deleteIceAttempt,
   ) : super(CurrentIceTreaningState.initial());
 
   Future<void> loadData() async {
@@ -135,7 +138,11 @@ class CurrentIceTreaningCubit extends Cubit<CurrentIceTreaningState> {
             emit(state.copyWith(currentAttempt: null, lastAttempt: attempt)));
   }
 
-  Future<void> deleteAttempt({required IceTreaningAttempt attempt}) async {}
+  Future<void> deleteAttempt({required IceTreaningAttempt attempt}) async {
+    final failureOrUnit = await _deleteIceAttempt(attempt: attempt);
+
+    failureOrUnit.fold((failure) => null, (_) => loadData());
+  }
 
   Future<void> finishTreaning() async {
     if (state.currentAttempt == null) {

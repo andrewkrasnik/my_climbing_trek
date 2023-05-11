@@ -8,6 +8,7 @@ import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_rou
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_sector.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_treaning.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_treaning_attempt.dart';
+import 'package:my_climbing_trek/features/rock_climbing/domain/usecases/delete_rock_attempt.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/usecases/finish_rock_attempt.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/usecases/finish_rock_treaning.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/usecases/get_current_rock_treaning.dart';
@@ -30,6 +31,7 @@ class RockTreaningCubit extends Cubit<RockTreaningState> {
   final GetLastRockTreaning _getLastTreaning;
   final GetCurrentRockTreaning _getCurrentTreaning;
   final GetRockRouteStatistic _getRockRouteStatistic;
+  final DeleteRockAttempt _deleteRockAttempt;
 
   RockTreaningCubit(
     this._newTreaning,
@@ -40,6 +42,7 @@ class RockTreaningCubit extends Cubit<RockTreaningState> {
     this._getLastTreaning,
     this._getCurrentTreaning,
     this._getRockRouteStatistic,
+    this._deleteRockAttempt,
   ) : super(RockTreaningState.initial());
 
   Future<void> loadData() async {
@@ -190,7 +193,11 @@ class RockTreaningCubit extends Cubit<RockTreaningState> {
     }
   }
 
-  Future<void> deleteAttempt({required RockTreaningAttempt attempt}) async {}
+  Future<void> deleteAttempt({required RockTreaningAttempt attempt}) async {
+    final failureOrUnit = await _deleteRockAttempt(attempt: attempt);
+
+    failureOrUnit.fold((failure) => null, (_) => loadData());
+  }
 
   Future<void> finishTreaning() async {
     if (state.currentAttempt == null) {
