@@ -14,6 +14,7 @@ class RockSectorModel extends RockSector {
     super.hasDryTooling,
     super.hasRope,
     super.hasTrad,
+    super.hasAid,
   });
 
   factory RockSectorModel.fromJson(Map<String, dynamic> json) =>

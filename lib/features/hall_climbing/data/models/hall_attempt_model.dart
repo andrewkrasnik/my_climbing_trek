@@ -9,7 +9,7 @@ import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing
 part 'hall_attempt_model.g.dart';
 
 @JsonSerializable(converters: [
-  ClimbingCategoryConverter(),
+  DifficultyCategoryConverter(),
   ClimbingStyleConverter(),
   GumRouteStringConverter(),
   EpochDateTimeConverter(),

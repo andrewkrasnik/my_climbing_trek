@@ -1,15 +1,17 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:my_climbing_trek/core/data/data_with_uuid.dart';
+import 'package:my_climbing_trek/core/data/difficulty_category.dart';
 
-class AidCategory extends DataWithUUID {
+class AidCategory extends DifficultyCategory {
   final String name;
   final String description;
+  @override
+  final String id;
 
   AidCategory({
     required this.name,
     required this.description,
-    super.id,
+    required this.id,
   });
 
   static final A1 = AidCategory(

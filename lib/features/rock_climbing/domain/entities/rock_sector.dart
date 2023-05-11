@@ -5,6 +5,7 @@ class RockSector extends Sector {
   final bool hasRope;
   final bool hasTrad;
   final bool hasDryTooling;
+  final bool hasAid;
 
   RockSector({
     required super.name,
@@ -14,5 +15,6 @@ class RockSector extends Sector {
     this.hasDryTooling = false,
     this.hasRope = false,
     this.hasTrad = false,
+    this.hasAid = false,
   });
 }

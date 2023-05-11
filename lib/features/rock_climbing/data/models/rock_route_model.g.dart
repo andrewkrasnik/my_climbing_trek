@@ -9,7 +9,7 @@ part of 'rock_route_model.dart';
 RockRouteModel _$RockRouteModelFromJson(Map<String, dynamic> json) =>
     RockRouteModel(
       name: json['name'] as String,
-      category: const ClimbingCategoryConverter()
+      category: const DifficultyCategoryConverter()
           .fromJson(json['category'] as String),
       type: const ClimbingRouteTypeConverter().fromJson(json['type'] as String),
       id: json['id'] as String? ?? '',
@@ -24,7 +24,7 @@ RockRouteModel _$RockRouteModelFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$RockRouteModelToJson(RockRouteModel instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'category': const ClimbingCategoryConverter().toJson(instance.category),
+      'category': const DifficultyCategoryConverter().toJson(instance.category),
       'type': const ClimbingRouteTypeConverter().toJson(instance.type),
       'author': instance.author,
       'boltCount': instance.boltCount,

@@ -5,7 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'rock_route_model.g.dart';
 
 @JsonSerializable(converters: [
-  ClimbingCategoryConverter(),
+  DifficultyCategoryConverter(),
   ClimbingRouteTypeConverter(),
 ])
 class RockRouteModel extends RockRoute {

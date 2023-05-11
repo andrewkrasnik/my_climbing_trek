@@ -2,13 +2,14 @@ import 'package:my_climbing_trek/core/data/ascent_type.dart';
 import 'package:my_climbing_trek/core/data/climbing_category.dart';
 import 'package:my_climbing_trek/core/data/climbing_style.dart';
 import 'package:my_climbing_trek/core/data/data_with_uuid.dart';
+import 'package:my_climbing_trek/core/data/difficulty_category.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_route.dart';
 import 'package:flutter/material.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/gym_route_attempts_statistic.dart';
 
 class ClimbingHallAttempt extends DataWithUUID {
   final ClimbingHallRoute? route;
-  final ClimbingCategory category;
+  final DifficultyCategory category;
   final String treaningId;
   DateTime? startTime;
   DateTime? finishTime;
@@ -20,7 +21,7 @@ class ClimbingHallAttempt extends DataWithUUID {
 
   final ClimbingStyle style;
 
-  ClimbingCategory get routeCategory => category;
+  DifficultyCategory get routeCategory => category;
   Color? get routeColor => route?.color.materialColor;
 
   bool get planed => startTime == null;

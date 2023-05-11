@@ -3,6 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
 import 'package:my_climbing_trek/core/data/climbing_style.dart';
+import 'package:my_climbing_trek/core/data/difficulty_category.dart';
 import 'package:my_climbing_trek/core/failures/failure.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_route.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_sector.dart';
@@ -21,7 +22,7 @@ class NewRockAttempt {
   Future<Either<Failure, RockTreaningAttempt>> call({
     required RockTreaning treaning,
     required RockSector sector,
-    required ClimbingCategory category,
+    required DifficultyCategory category,
     required ClimbingStyle style,
     RockRoute? route,
   }) async {

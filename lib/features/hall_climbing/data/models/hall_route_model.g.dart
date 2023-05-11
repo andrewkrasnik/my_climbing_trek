@@ -8,7 +8,7 @@ part of 'hall_route_model.dart';
 
 HallRouteModel _$HallRouteModelFromJson(Map<String, dynamic> json) =>
     HallRouteModel(
-      category: const ClimbingCategoryConverter()
+      category: const DifficultyCategoryConverter()
           .fromJson(json['category'] as String),
       color: const RouteColorConverter().fromJson(json['color'] as String),
       type: const ClimbingRouteTypeConverter().fromJson(json['type'] as String),
@@ -21,7 +21,7 @@ HallRouteModel _$HallRouteModelFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$HallRouteModelToJson(HallRouteModel instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'category': const ClimbingCategoryConverter().toJson(instance.category),
+      'category': const DifficultyCategoryConverter().toJson(instance.category),
       'type': const ClimbingRouteTypeConverter().toJson(instance.type),
       'color': const RouteColorConverter().toJson(instance.color),
       'sectorNumber': instance.sectorNumber,

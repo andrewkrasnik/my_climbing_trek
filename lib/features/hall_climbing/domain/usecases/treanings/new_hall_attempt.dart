@@ -1,5 +1,5 @@
-import 'package:my_climbing_trek/core/data/climbing_category.dart';
 import 'package:my_climbing_trek/core/data/climbing_style.dart';
+import 'package:my_climbing_trek/core/data/difficulty_category.dart';
 import 'package:my_climbing_trek/core/failures/failure.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_attempt.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_route.dart';
@@ -17,7 +17,7 @@ class NewHallAttempt {
 
   Future<Either<Failure, ClimbingHallAttempt>> call({
     required ClimbingHallTreaning treaning,
-    required ClimbingCategory category,
+    required DifficultyCategory category,
     required ClimbingStyle style,
     ClimbingHallRoute? route,
     bool start = false,

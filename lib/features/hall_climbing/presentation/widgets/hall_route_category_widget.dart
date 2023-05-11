@@ -1,5 +1,6 @@
 import 'package:my_climbing_trek/core/data/ascent_type.dart';
 import 'package:my_climbing_trek/core/data/climbing_category.dart';
+import 'package:my_climbing_trek/core/data/difficulty_category.dart';
 import 'package:my_climbing_trek/core/widgets/attempt_budget.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_attempt.dart';
 import 'package:my_climbing_trek/features/settings/presentation/cubit/settings_cubit.dart';
@@ -9,7 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 const double radius = 24;
 
 class HallRouteCategoryWidget extends StatelessWidget {
-  final ClimbingCategory category;
+  final DifficultyCategory category;
   final Color? color;
   final bool planed;
   final ClimbingHallAttempt? _attempt;

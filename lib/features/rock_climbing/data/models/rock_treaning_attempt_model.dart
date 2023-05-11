@@ -8,7 +8,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'rock_treaning_attempt_model.g.dart';
 
 @JsonSerializable(converters: [
-  ClimbingCategoryConverter(),
+  DifficultyCategoryConverter(),
   ClimbingStyleConverter(),
   RockSectorStringConverter(),
   RockRouteStringConverter(),

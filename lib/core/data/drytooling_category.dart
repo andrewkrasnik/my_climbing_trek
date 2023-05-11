@@ -1,100 +1,108 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'package:flutter/material.dart';
+import 'package:my_climbing_trek/core/data/category_type.dart';
 import 'package:my_climbing_trek/core/data/difficulty_category.dart';
 
-class MixedCategory extends DifficultyCategory {
+class DrytoolingCategory extends DifficultyCategory {
   final String name;
   final String description;
   @override
   final String id;
 
-  MixedCategory({
+  DrytoolingCategory({
     required this.name,
     required this.description,
     required this.id,
   });
 
-  static final M3 = MixedCategory(
-    name: 'M3',
+  @override
+  MaterialColor get color => Colors.teal;
+
+  @override
+  String title(CategoryType hallCategoryType) => name;
+
+  static final D3 = DrytoolingCategory(
+    name: 'D3',
     description: 'Легко. Небольшой уклон, обычно инструменты не обязательны',
-    id: 'M3',
+    id: 'D3',
   );
 
-  static final M4 = MixedCategory(
-    name: 'M4',
+  static final D4 = DrytoolingCategory(
+    name: 'D4',
     description:
         'Рельеф от покатого до вертикального, требующий простой техники с инструментами',
-    id: 'M4',
+    id: 'D4',
   );
 
-  static final M5 = MixedCategory(
-    name: 'M5',
+  static final D5 = DrytoolingCategory(
+    name: 'D5',
     description: 'Напряженные продолжительные участки работы с инструментами',
-    id: 'M5',
+    id: 'D5',
   );
 
-  static final M6 = MixedCategory(
-    name: 'M6',
+  static final D6 = DrytoolingCategory(
+    name: 'D6',
     description:
         'Вертикальные и нависающие участки, требующие нетривиальной работы с инструментами',
-    id: 'M6',
+    id: 'D6',
   );
 
-  static final M7 = MixedCategory(
-    name: 'M7',
+  static final D7 = DrytoolingCategory(
+    name: 'D7',
     description:
         'Силовое и техническое лазание на нависаниях. Не более 10 метров сложного лазания',
-    id: 'M7',
+    id: 'D7',
   );
 
-  static final M8 = MixedCategory(
-    name: 'M8',
+  static final D8 = DrytoolingCategory(
+    name: 'D8',
     description:
         'Наличие практически горизонтальных нависаний (потолков), требующих силовых и техничных движений. Ключевые участки очень сложные и более длинные, чем на М7',
-    id: 'M8',
+    id: 'D8',
   );
 
-  static final M9 = MixedCategory(
-    name: 'M9',
+  static final D9 = DrytoolingCategory(
+    name: 'D9',
     description:
         'Продолжительные вертикальные или немного нависающие участки с мелкими, требующими высокой техники зацепками или потолки длиной в два–три роста человека с хорошими «ручками»',
-    id: 'M9',
+    id: 'D9',
   );
 
-  static final M10 = MixedCategory(
-    name: 'M10',
+  static final D10 = DrytoolingCategory(
+    name: 'D10',
     description:
         'Как минимум десятиметровые потолки или тридцатиметровые нависающие участки с силовыми движениями и без возможностей отдыха',
-    id: 'M10',
+    id: 'D10',
   );
 
-  static final M11 = MixedCategory(
-    name: 'M11',
+  static final D11 = DrytoolingCategory(
+    name: 'D11',
     description:
         'Полная веревка нависающего гимнастического лазанья или потолки до 15 метров длиной',
-    id: 'M11',
+    id: 'D11',
   );
 
-  static final M12 = MixedCategory(
-    name: 'M12',
+  static final D12 = DrytoolingCategory(
+    name: 'D12',
     description:
-        'Как М11 с предельно сложными, динамическими движениями и нетривиальными зацепками, требующими тонкой техники',
-    id: 'M12',
+        'Как D11 с предельно сложными, динамическими движениями и нетривиальными зацепками, требующими тонкой техники',
+    id: 'D12',
   );
 
-  static final Map<String, MixedCategory> _values = {
-    M3.id: M3,
-    M4.id: M4,
-    M5.id: M5,
-    M6.id: M6,
-    M8.id: M8,
-    M9.id: M9,
-    M10.id: M10,
-    M11.id: M11,
-    M12.id: M12,
+  static final Map<String, DrytoolingCategory> _values = {
+    D3.id: D3,
+    D4.id: D4,
+    D5.id: D5,
+    D6.id: D6,
+    D8.id: D8,
+    D9.id: D9,
+    D10.id: D10,
+    D11.id: D11,
+    D12.id: D12,
   };
 
-  static List<MixedCategory> get values => _values.values.toList();
+  static List<DrytoolingCategory> get values => _values.values.toList();
 
-  static MixedCategory getById(String id) => _values[id]!;
+  static DrytoolingCategory getById(String id) => _values[id]!;
 }
