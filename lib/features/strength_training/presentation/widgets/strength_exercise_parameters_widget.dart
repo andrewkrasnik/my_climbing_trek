@@ -14,8 +14,11 @@ class StrengthExerciseParametersWidget extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final nameController = useTextEditingController(text: exercise?.name);
+
     final repetitionsController =
         useTextEditingController(text: exercise?.repetitions.toString());
+
+    final repetitionsFocusNode = useFocusNode();
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -27,6 +30,9 @@ class StrengthExerciseParametersWidget extends HookWidget {
               keyboardType: TextInputType.name,
               decoration: const InputDecoration(
                   labelText: 'Наименование', border: OutlineInputBorder()),
+              onEditingComplete: () {
+                repetitionsFocusNode.requestFocus();
+              },
             ),
             const SizedBox(
               height: 16,
@@ -34,6 +40,7 @@ class StrengthExerciseParametersWidget extends HookWidget {
             TextFormField(
               controller: repetitionsController,
               keyboardType: TextInputType.number,
+              focusNode: repetitionsFocusNode,
               decoration: const InputDecoration(
                   labelText: 'Количество повторений',
                   border: OutlineInputBorder()),

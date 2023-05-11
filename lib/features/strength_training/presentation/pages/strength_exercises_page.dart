@@ -1,3 +1,4 @@
+import 'package:my_climbing_trek/core/widgets/my_modal_bottom_sheet.dart';
 import 'package:my_climbing_trek/features/strength_training/presentation/cubit/strength_exercises/strength_exercises_cubit.dart';
 import 'package:my_climbing_trek/features/strength_training/presentation/widgets/strength_exercise_parameters_widget.dart';
 import 'package:my_climbing_trek/service_locator.dart';
@@ -23,11 +24,9 @@ class StrengthExercisesPage extends StatelessWidget {
               onPressed: () async {
                 final cubit = BlocProvider.of<StrengthExercisesCubit>(context);
 
-                showModalBottomSheet<void>(
+                showMyModalBottomSheet<void>(
                   context: context,
-                  builder: (context) {
-                    return StrengthExerciseParametersWidget(cubit: cubit);
-                  },
+                  child: StrengthExerciseParametersWidget(cubit: cubit),
                 );
               },
               child: const Icon(
@@ -48,15 +47,13 @@ class StrengthExercisesPage extends StatelessWidget {
                           final cubit =
                               BlocProvider.of<StrengthExercisesCubit>(context);
 
-                          showModalBottomSheet<void>(
+                          showMyModalBottomSheet<void>(
                             context: context,
-                            builder: (context) {
-                              return StrengthExerciseParametersWidget(
-                                cubit: cubit,
-                                exercise:
-                                    dataState.exercises.keys.elementAt(index),
-                              );
-                            },
+                            child: StrengthExerciseParametersWidget(
+                              cubit: cubit,
+                              exercise:
+                                  dataState.exercises.keys.elementAt(index),
+                            ),
                           );
                         },
                         backgroundColor: Colors.orange.shade400,

@@ -1,4 +1,5 @@
 import 'package:my_climbing_trek/core/data/climbing_style.dart';
+import 'package:my_climbing_trek/core/widgets/my_modal_bottom_sheet.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_attempt.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_treaning.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/bloc/current_hall_treaning/current_hall_treaning_cubit.dart';
@@ -167,14 +168,13 @@ class AttemptsWithStyle extends StatelessWidget {
             if (showAddButton)
               IconButton(
                 onPressed: () {
-                  showModalBottomSheet<void>(
+                  showMyModalBottomSheet<void>(
                     context: context,
-                    builder: (context) {
-                      return SelectHallRouteWidget(
-                        treaning: treaning,
-                        style: climbingStyle,
-                      );
-                    },
+                    heightPersent: 0.7,
+                    child: SelectHallRouteWidget(
+                      treaning: treaning,
+                      style: climbingStyle,
+                    ),
                   );
                 },
                 icon: const Icon(

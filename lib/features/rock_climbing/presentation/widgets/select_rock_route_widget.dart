@@ -57,24 +57,26 @@ class SelectRockRouteWidget extends HookWidget {
       //   ),
       // ),
       Expanded(
-        child: ListView.builder(
-          itemCount: treaning.sectors.length,
-          itemBuilder: (context, index) {
-            final sector = treaning.sectors[index];
-            return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: RockSectorWidget(
-                  sector: sector,
-                  district: treaning.district,
-                  filter: roureFilter.value,
-                  onTapGo: (route) {
-                    cubit.addAttempt(
-                        sector: sector, style: style, route: route);
-                    Navigator.of(context).pop();
-                  },
-                ));
-          },
-        ),
+        child: ListView(children: [
+          Column(
+            children: treaning.sectors.map(
+              (sector) {
+                return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: RockSectorWidget(
+                      sector: sector,
+                      district: treaning.district,
+                      filter: roureFilter.value,
+                      onTapGo: (route) {
+                        cubit.addAttempt(
+                            sector: sector, style: style, route: route);
+                        Navigator.of(context).pop();
+                      },
+                    ));
+              },
+            ).toList(),
+          ),
+        ]),
       ),
     ]);
   }

@@ -17,9 +17,13 @@ class CardioParametersWidget extends HookWidget {
         useState<CardioExercise>(treaning?.exercise ?? CardioExercise.jogging);
     final lengthController =
         useTextEditingController(text: treaning?.length.toString());
+
     final durationController =
         useTextEditingController(text: treaning?.duration.toString());
+
     final date = useState<DateTime>(treaning?.date ?? DateTime.now());
+
+    final durationFocusNode = useFocusNode();
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -96,6 +100,9 @@ class CardioParametersWidget extends HookWidget {
               decoration: InputDecoration(
                   labelText: 'Расстояние, ${exercise.value.lengthUnit} ',
                   border: const OutlineInputBorder()),
+              onEditingComplete: () {
+                durationFocusNode.requestFocus();
+              },
             ),
             const SizedBox(
               height: 16,
@@ -103,6 +110,7 @@ class CardioParametersWidget extends HookWidget {
             TextFormField(
               controller: durationController,
               keyboardType: TextInputType.number,
+              focusNode: durationFocusNode,
               decoration: const InputDecoration(
                   labelText: 'Продолжительность, минут ',
                   border: OutlineInputBorder()),

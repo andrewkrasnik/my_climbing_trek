@@ -1,4 +1,5 @@
 import 'package:my_climbing_trek/core/data/category_type.dart';
+import 'package:my_climbing_trek/core/widgets/my_modal_bottom_sheet.dart';
 import 'package:my_climbing_trek/features/authentication/presentation/widgets/auth_button.dart';
 import 'package:my_climbing_trek/features/settings/presentation/cubit/settings_cubit.dart';
 import 'package:my_climbing_trek/features/settings/presentation/pages/aid_categories_page.dart';
@@ -99,31 +100,30 @@ class SettingsPage extends StatelessWidget {
                         const Text('Классификация категорий трудности:'),
                         InkWell(
                           onTap: () {
-                            showModalBottomSheet<void>(
+                            showMyModalBottomSheet<void>(
                               context: context,
-                              builder: (context) {
-                                return Scaffold(
-                                  body: ListView(
-                                      children: CategoryType.values
-                                          .map((type) => Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: InkWell(
-                                                  onTap: () {
-                                                    BlocProvider.of<
-                                                                SettingsCubit>(
-                                                            context)
-                                                        .selectHallCategoryType(
-                                                            type: type);
-                                                    Navigator.of(context).pop();
-                                                  },
-                                                  child: Center(
-                                                      child: Text(type.name)),
-                                                ),
-                                              ))
-                                          .toList()),
-                                );
-                              },
+                              heightPersent: 0.7,
+                              child: ListView(
+                                  padding: const EdgeInsets.only(top: 24),
+                                  children: CategoryType.values
+                                      .map((type) => Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: InkWell(
+                                              onTap: () {
+                                                BlocProvider.of<SettingsCubit>(
+                                                        context)
+                                                    .selectHallCategoryType(
+                                                        type: type);
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: Center(
+                                                  child: Text(
+                                                type.name,
+                                                style: titleTextStyle,
+                                              )),
+                                            ),
+                                          ))
+                                      .toList()),
                             );
                           },
                           child: Text(state.hallCategoryType.name),
