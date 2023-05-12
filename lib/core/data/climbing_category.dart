@@ -1,8 +1,10 @@
 // https://ru.wikipedia.org/wiki/%D0%9A%D0%B0%D1%82%D0%B5%D0%B3%D0%BE%D1%80%D0%B8%D1%8F_%D1%81%D0%BB%D0%BE%D0%B6%D0%BD%D0%BE%D1%81%D1%82%D0%B8_(%D1%81%D0%BA%D0%B0%D0%BB%D0%BE%D0%BB%D0%B0%D0%B7%D0%B0%D0%BD%D0%B8%D0%B5)#UIAA
 
+import 'package:flutter/material.dart';
 import 'package:my_climbing_trek/core/data/category_type.dart';
+import 'package:my_climbing_trek/core/data/difficulty_category.dart';
 
-class ClimbingCategory {
+class ClimbingCategory extends DifficultyCategory {
   final String french;
   final String usa;
   final String uiaa;
@@ -11,6 +13,7 @@ class ClimbingCategory {
   final String nord;
   final String ewbank;
   final String brasilian;
+  @override
   final String id;
 
   String get name => french;
@@ -25,8 +28,9 @@ class ClimbingCategory {
     required this.ewbank,
     required this.brasilian,
     required this.id,
-  });
+  }) : super();
 
+  @override
   String title(CategoryType type) {
     switch (type) {
       case CategoryType.french:
@@ -49,6 +53,9 @@ class ClimbingCategory {
         return french;
     }
   }
+
+  @override
+  MaterialColor get color => Colors.orange;
 
   static ClimbingCategory getById(String id) => values[id]!;
 

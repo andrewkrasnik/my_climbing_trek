@@ -12,7 +12,7 @@ RockTreaningAttemptModel _$RockTreaningAttemptModelFromJson(
       treaningId: json['treaningId'] as String,
       sector:
           const RockSectorStringConverter().fromJson(json['sector'] as String),
-      category: const ClimbingCategoryConverter()
+      category: const DifficultyCategoryConverter()
           .fromJson(json['category'] as String),
       style: const ClimbingStyleConverter().fromJson(json['style'] as String),
       startTime: _$JsonConverterFromJson<int, DateTime>(
@@ -37,7 +37,7 @@ Map<String, dynamic> _$RockTreaningAttemptModelToJson(
     <String, dynamic>{
       'id': instance.id,
       'sector': const RockSectorStringConverter().toJson(instance.sector),
-      'category': const ClimbingCategoryConverter().toJson(instance.category),
+      'category': const DifficultyCategoryConverter().toJson(instance.category),
       'style': const ClimbingStyleConverter().toJson(instance.style),
       'route': _$JsonConverterToJson<String, RockRoute>(
           instance.route, const RockRouteStringConverter().toJson),

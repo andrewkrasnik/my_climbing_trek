@@ -1,10 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_climbing_trek/core/data/climbing_category.dart';
 import 'package:flutter/material.dart';
+import 'package:my_climbing_trek/core/data/difficulty_category.dart';
 import 'package:my_climbing_trek/features/settings/presentation/cubit/settings_cubit.dart';
 
 class RockCategoryWidget extends StatelessWidget {
-  final ClimbingCategory category;
+  final DifficultyCategory category;
   final bool planed;
 
   const RockCategoryWidget({
@@ -31,7 +32,7 @@ class RockCategoryWidget extends StatelessWidget {
           fontSize = 20;
         }
         return CircleAvatar(
-          backgroundColor: Colors.orange.withOpacity(opacity),
+          backgroundColor: category.color.withOpacity(opacity),
           radius: 24,
           child: CircleAvatar(
             backgroundColor: Colors.white,

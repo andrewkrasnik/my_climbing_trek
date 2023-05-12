@@ -157,7 +157,8 @@ class HallRoutePage extends HookWidget {
                     ),
                     Center(
                       child: SelectCategoryWidget(
-                        currentCategory: route?.category ?? category.value,
+                        currentCategory: route?.category as ClimbingCategory? ??
+                            category.value,
                         color: route?.color ?? color.value,
                         onTap: (selectCategory) {
                           category.value = selectCategory;

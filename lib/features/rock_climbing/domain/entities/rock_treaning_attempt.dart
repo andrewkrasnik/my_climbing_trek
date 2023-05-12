@@ -1,14 +1,14 @@
 import 'package:my_climbing_trek/core/data/ascent_type.dart';
-import 'package:my_climbing_trek/core/data/climbing_category.dart';
 import 'package:my_climbing_trek/core/data/climbing_style.dart';
 import 'package:my_climbing_trek/core/data/data_with_uuid.dart';
+import 'package:my_climbing_trek/core/data/difficulty_category.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_route.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_route_attempts_statistic.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_sector.dart';
 
 class RockTreaningAttempt extends DataWithUUID {
   final RockSector sector;
-  final ClimbingCategory category;
+  final DifficultyCategory category;
   final ClimbingStyle style;
   final RockRoute? route;
   final String treaningId;

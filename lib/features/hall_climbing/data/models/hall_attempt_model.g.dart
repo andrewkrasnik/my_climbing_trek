@@ -8,7 +8,7 @@ part of 'hall_attempt_model.dart';
 
 HallAttemptModel _$HallAttemptModelFromJson(Map<String, dynamic> json) =>
     HallAttemptModel(
-      category: const ClimbingCategoryConverter()
+      category: const DifficultyCategoryConverter()
           .fromJson(json['category'] as String),
       style: const ClimbingStyleConverter().fromJson(json['style'] as String),
       treaningId: json['treaningId'] as String,
@@ -33,7 +33,7 @@ Map<String, dynamic> _$HallAttemptModelToJson(HallAttemptModel instance) =>
       'id': instance.id,
       'route': _$JsonConverterToJson<String, ClimbingHallRoute>(
           instance.route, const GumRouteStringConverter().toJson),
-      'category': const ClimbingCategoryConverter().toJson(instance.category),
+      'category': const DifficultyCategoryConverter().toJson(instance.category),
       'treaningId': instance.treaningId,
       'startTime': _$JsonConverterToJson<int, DateTime>(
           instance.startTime, const EpochDateTimeConverter().toJson),

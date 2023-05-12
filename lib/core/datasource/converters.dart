@@ -5,6 +5,8 @@ import 'package:my_climbing_trek/core/data/city.dart';
 import 'package:my_climbing_trek/core/data/climbing_category.dart';
 import 'package:my_climbing_trek/core/data/climbing_route_type.dart';
 import 'package:my_climbing_trek/core/data/climbing_style.dart';
+import 'package:my_climbing_trek/core/data/difficulty_category.dart';
+import 'package:my_climbing_trek/core/data/drytooling_category.dart';
 import 'package:my_climbing_trek/core/data/ice_category.dart';
 import 'package:my_climbing_trek/core/data/map_point.dart';
 import 'package:my_climbing_trek/core/data/mixed_category.dart';
@@ -52,6 +54,30 @@ class CityConverter implements JsonConverter<City, String> {
 
   @override
   String toJson(City object) {
+    return object.id;
+  }
+}
+
+class DifficultyCategoryConverter
+    implements JsonConverter<DifficultyCategory, String> {
+  const DifficultyCategoryConverter();
+  @override
+  DifficultyCategory fromJson(String json) {
+    if (json.startsWith('A')) {
+      return const AidCategoryConverter().fromJson(json);
+    } else if (json.startsWith('D')) {
+      return const DrytoolingCategoryConverter().fromJson(json);
+    } else if (json.startsWith('I')) {
+      return const IceCategoryConverter().fromJson(json);
+    } else if (json.startsWith('M')) {
+      return const MixedCategoryConverter().fromJson(json);
+    } else {
+      return ClimbingCategory.getById(json);
+    }
+  }
+
+  @override
+  String toJson(DifficultyCategory object) {
     return object.id;
   }
 }
@@ -169,6 +195,20 @@ class MixedCategoryConverter implements JsonConverter<MixedCategory, String> {
 
   @override
   String toJson(MixedCategory object) {
+    return object.id;
+  }
+}
+
+class DrytoolingCategoryConverter
+    implements JsonConverter<DrytoolingCategory, String> {
+  const DrytoolingCategoryConverter();
+  @override
+  DrytoolingCategory fromJson(String json) {
+    return DrytoolingCategory.getById(json);
+  }
+
+  @override
+  String toJson(DrytoolingCategory object) {
     return object.id;
   }
 }

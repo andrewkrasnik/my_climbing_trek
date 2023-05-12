@@ -6,7 +6,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'hall_route_model.g.dart';
 
 @JsonSerializable(converters: [
-  ClimbingCategoryConverter(),
+  DifficultyCategoryConverter(),
   ClimbingRouteTypeConverter(),
   RouteColorConverter(),
 ])

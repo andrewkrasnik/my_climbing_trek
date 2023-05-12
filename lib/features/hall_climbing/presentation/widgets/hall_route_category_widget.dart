@@ -1,5 +1,7 @@
 import 'package:my_climbing_trek/core/data/ascent_type.dart';
 import 'package:my_climbing_trek/core/data/climbing_category.dart';
+import 'package:my_climbing_trek/core/data/difficulty_category.dart';
+import 'package:my_climbing_trek/core/data/drytooling_category.dart';
 import 'package:my_climbing_trek/core/widgets/attempt_budget.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_attempt.dart';
 import 'package:my_climbing_trek/features/settings/presentation/cubit/settings_cubit.dart';
@@ -9,7 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 const double radius = 24;
 
 class HallRouteCategoryWidget extends StatelessWidget {
-  final ClimbingCategory category;
+  final DifficultyCategory category;
   final Color? color;
   final bool planed;
   final ClimbingHallAttempt? _attempt;
@@ -38,7 +40,7 @@ class HallRouteCategoryWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final double opacity = planed ? 0.5 : 1;
 
-    if (color == null) {
+    if (color == null || category is DrytoolingCategory) {
       return Material(
         elevation: 5,
         borderRadius: BorderRadius.circular(24),
@@ -47,7 +49,7 @@ class HallRouteCategoryWidget extends StatelessWidget {
           sectorNumber: sectorNumber,
           textColor: Colors.black,
           child: CircleAvatar(
-            backgroundColor: Colors.red.withOpacity(opacity),
+            backgroundColor: _categoryColor(category).withOpacity(opacity),
             radius: radius,
             child: CircleAvatar(
               backgroundColor: Colors.white,
@@ -105,6 +107,13 @@ class HallRouteCategoryWidget extends StatelessWidget {
         ),
       );
     }
+  }
+
+  MaterialColor _categoryColor(DifficultyCategory category) {
+    if (category is DrytoolingCategory) {
+      return category.color;
+    }
+    return Colors.red;
   }
 }
 

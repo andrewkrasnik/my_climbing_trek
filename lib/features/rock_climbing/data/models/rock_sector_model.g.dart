@@ -15,6 +15,7 @@ RockSectorModel _$RockSectorModelFromJson(Map<String, dynamic> json) =>
       hasDryTooling: json['hasDryTooling'] as bool? ?? false,
       hasRope: json['hasRope'] as bool? ?? false,
       hasTrad: json['hasTrad'] as bool? ?? false,
+      hasAid: json['hasAid'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$RockSectorModelToJson(RockSectorModel instance) =>
@@ -26,4 +27,5 @@ Map<String, dynamic> _$RockSectorModelToJson(RockSectorModel instance) =>
       'hasRope': instance.hasRope,
       'hasTrad': instance.hasTrad,
       'hasDryTooling': instance.hasDryTooling,
+      'hasAid': instance.hasAid,
     };
