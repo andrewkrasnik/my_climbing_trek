@@ -20,6 +20,15 @@ class DrytoolingCategory extends DifficultyCategory {
   MaterialColor get color => Colors.teal;
 
   @override
+  double fontSize(String title) {
+    if (name.length > 2) {
+      return 20;
+    } else {
+      return 24;
+    }
+  }
+
+  @override
   String title(CategoryType hallCategoryType) => name;
 
   static final D3 = DrytoolingCategory(
@@ -90,16 +99,25 @@ class DrytoolingCategory extends DifficultyCategory {
     id: 'D12',
   );
 
+  static final D13 = DrytoolingCategory(
+    name: 'D13',
+    description:
+        'Как D12 с предельно сложными, динамическими движениями и нетривиальными зацепками, требующими тонкой техники',
+    id: 'D13',
+  );
+
   static final Map<String, DrytoolingCategory> _values = {
     D3.id: D3,
     D4.id: D4,
     D5.id: D5,
     D6.id: D6,
+    D7.id: D7,
     D8.id: D8,
     D9.id: D9,
     D10.id: D10,
     D11.id: D11,
     D12.id: D12,
+    D13.id: D13,
   };
 
   static List<DrytoolingCategory> get values => _values.values.toList();

@@ -87,6 +87,7 @@ class MixedCategory extends DifficultyCategory {
     M4.id: M4,
     M5.id: M5,
     M6.id: M6,
+    M7.id: M7,
     M8.id: M8,
     M9.id: M9,
     M10.id: M10,
