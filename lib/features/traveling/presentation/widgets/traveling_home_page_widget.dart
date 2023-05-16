@@ -5,6 +5,19 @@ class TravelingHomePageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    const titleTextStyle = TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
+    return Column(children: [
+      const Text(
+        'Альпсборы в Арче 2023',
+        style: titleTextStyle,
+      ),
+      Text(
+        'День 5 с 01.05.2023',
+        style: titleTextStyle.copyWith(fontSize: 16),
+      ),
+      Text('Применить фильтр'),
+      Text('Добавить расход'),
+      Text('Подробнее'),
+    ]);
   }
 }

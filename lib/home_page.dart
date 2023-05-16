@@ -7,6 +7,7 @@ import 'package:my_climbing_trek/features/rock_climbing/presentation/widgets/roc
 import 'package:my_climbing_trek/features/settings/presentation/cubit/settings_cubit.dart';
 import 'package:my_climbing_trek/features/strength_training/presentation/widgets/strength_home_page_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:my_climbing_trek/features/traveling/presentation/widgets/traveling_home_page_widget.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -21,6 +22,8 @@ class HomePage extends StatelessWidget {
             builder: (context, state) {
               return Column(
                 children: [
+                  const TravelingHomePageWidget(),
+                  const SizedBox(height: 16),
                   if (state.treaningsSettings.useGymTreanings) ...[
                     const HallHomePageWidget(),
                     const SizedBox(height: 16),
