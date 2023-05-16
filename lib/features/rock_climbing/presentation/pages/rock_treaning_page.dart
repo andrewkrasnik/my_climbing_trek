@@ -2,11 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_treaning.dart';
-import 'package:my_climbing_trek/features/rock_climbing/presentation/widgets/rock_treaning_picture_widget.dart';
+import 'package:my_climbing_trek/core/data/system_enums.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
+
+import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_treaning.dart';
+import 'package:my_climbing_trek/features/rock_climbing/presentation/widgets/rock_treaning_picture_widget.dart';
 
 class RockTreaningPage extends StatefulWidget {
   final RockTreaning treaning;
@@ -25,6 +27,11 @@ class _RockTreaningPageState extends State<RockTreaningPage> {
 
   final ImagePicker _picker = ImagePicker();
   final List<String> _imageFileList = [];
+
+  MyPictureSize _currentSize = MyPictureSize.o_3_2;
+
+  ContentVerticalAligment _contentVerticalAligment =
+      ContentVerticalAligment.top;
 
   int _currentImageIndex = 0;
 
@@ -45,15 +52,60 @@ class _RockTreaningPageState extends State<RockTreaningPage> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(children: [
+            SizedBox(
+              height: 80,
+              child: ListView(
+                  padding: const EdgeInsets.all(8.0),
+                  scrollDirection: Axis.horizontal,
+                  children: MyPictureSize.values
+                      .map(
+                        (size) => IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _currentSize = size;
+                            });
+                          },
+                          icon: Icon(
+                            size.icon,
+                            size: 60,
+                            color: _currentSize == size
+                                ? Colors.black
+                                : Colors.black38,
+                          ),
+                        ),
+                      )
+                      .toList()),
+            ),
+            Row(
+              children: [
+                ...ContentVerticalAligment.values.map((aligment) => IconButton(
+                    onPressed: () {
+                      setState(() {
+                        _contentVerticalAligment = aligment;
+                      });
+                    },
+                    icon: Icon(
+                      aligment.icon,
+                      color: _contentVerticalAligment == aligment
+                          ? Colors.black
+                          : Colors.black38,
+                    )))
+              ],
+            ),
             Screenshot(
               controller: screenshotController,
-              child: SizedBox(
-                height: 500,
-                width: 500,
-                child: RockTreaningPictureWidget(
-                  treaning: widget.treaning,
-                  imageProvider:
-                      _myImageProvider(_imageFileList[_currentImageIndex]),
+              child: AspectRatio(
+                aspectRatio: _currentSize.aspectRatio,
+                child: SizedBox(
+                  // height:
+                  //     _currentSize.formWidth(MediaQuery.of(context).size.width),
+                  width: MediaQuery.of(context).size.width,
+                  child: RockTreaningPictureWidget(
+                    treaning: widget.treaning,
+                    contentVerticalAligment: _contentVerticalAligment,
+                    imageProvider:
+                        _myImageProvider(_imageFileList[_currentImageIndex]),
+                  ),
                 ),
               ),
             ),
@@ -163,4 +215,65 @@ ImageProvider _myImageProvider(String imageSource) {
   } else {
     return FileImage(File(imageSource));
   }
+}
+
+class MyPictureSize {
+  final IconData icon;
+  final String name;
+  final double heightPart;
+  final double widthPart;
+
+  const MyPictureSize({
+    required this.icon,
+    required this.name,
+    required this.heightPart,
+    required this.widthPart,
+  });
+
+  static const MyPictureSize o_16_9 = MyPictureSize(
+    icon: Icons.crop_16_9,
+    name: '16 на 9',
+    heightPart: 9,
+    widthPart: 16,
+  );
+
+  static const MyPictureSize o_3_2 = MyPictureSize(
+    icon: Icons.crop_3_2,
+    name: '3 на 2',
+    heightPart: 2,
+    widthPart: 3,
+  );
+
+  static const MyPictureSize landscape = MyPictureSize(
+    icon: Icons.crop_landscape,
+    name: 'Альбом',
+    heightPart: 3,
+    widthPart: 4,
+  );
+
+  static const MyPictureSize square = MyPictureSize(
+    icon: Icons.crop_square,
+    name: 'Kвадрат',
+    heightPart: 1,
+    widthPart: 1,
+  );
+
+  static const MyPictureSize din = MyPictureSize(
+    icon: Icons.crop_din,
+    name: 'Instagram',
+    heightPart: 5,
+    widthPart: 4,
+  );
+
+  static const MyPictureSize portrait = MyPictureSize(
+    icon: Icons.crop_portrait,
+    name: 'Портрет',
+    heightPart: 3,
+    widthPart: 2,
+  );
+
+  static List<MyPictureSize> get values =>
+      [o_16_9, o_3_2, landscape, square, din, portrait];
+
+  get aspectRatio => widthPart / heightPart;
 }

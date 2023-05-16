@@ -1,5 +1,6 @@
 import 'package:my_climbing_trek/core/data/climbing_style.dart';
 import 'package:flutter/material.dart';
+import 'package:my_climbing_trek/core/data/system_enums.dart';
 
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_treaning.dart';
 import 'package:my_climbing_trek/features/rock_climbing/presentation/widgets/rock_attempts_with_style.dart';
@@ -7,10 +8,12 @@ import 'package:my_climbing_trek/features/rock_climbing/presentation/widgets/roc
 class RockTreaningPictureWidget extends StatelessWidget {
   final RockTreaning treaning;
   final ImageProvider imageProvider;
+  final ContentVerticalAligment contentVerticalAligment;
   const RockTreaningPictureWidget({
     Key? key,
     required this.treaning,
     required this.imageProvider,
+    required this.contentVerticalAligment,
   }) : super(key: key);
 
   @override
@@ -49,6 +52,7 @@ class RockTreaningPictureWidget extends StatelessWidget {
         const SizedBox(
           height: 24,
         ),
+        if (contentVerticalAligment.showFirstSpaicer) const Spacer(),
         if (treaning.hasLead)
           RockAttemptsWithStyle(
             attempts: treaning.leadAttempts,
@@ -71,6 +75,7 @@ class RockTreaningPictureWidget extends StatelessWidget {
               style: textStyle,
             ),
           ),
+        if (contentVerticalAligment.showSecondSpaicer) const Spacer(),
         const SizedBox(
           height: 12,
         ),
