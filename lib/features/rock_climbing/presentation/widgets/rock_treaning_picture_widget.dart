@@ -6,11 +6,11 @@ import 'package:my_climbing_trek/features/rock_climbing/presentation/widgets/roc
 
 class RockTreaningPictureWidget extends StatelessWidget {
   final RockTreaning treaning;
-  final String imageSource;
+  final ImageProvider imageProvider;
   const RockTreaningPictureWidget({
     Key? key,
     required this.treaning,
-    required this.imageSource,
+    required this.imageProvider,
   }) : super(key: key);
 
   @override
@@ -28,9 +28,7 @@ class RockTreaningPictureWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
         image: DecorationImage(
           opacity: 0.6,
-          image: NetworkImage(
-            imageSource,
-          ),
+          image: imageProvider,
           fit: BoxFit.cover,
         ),
       ),

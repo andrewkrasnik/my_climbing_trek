@@ -55,6 +55,9 @@ dependencies:
   internet_connection_checker: ^1.0.0+1
   #Аунтификация
   firebase_auth: ^4.6.0
+
+  #Выбор изображения с устройства
+  image_picker: ^0.8.7+5
   
 
 
