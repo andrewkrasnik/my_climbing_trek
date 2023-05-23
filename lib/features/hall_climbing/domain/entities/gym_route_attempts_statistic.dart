@@ -18,6 +18,8 @@ class GymRouteAttemptsStatistic {
     for (final attempt in _attempts) {
       if (attempt.finished &&
           !attempt.fail &&
+          attempt.fallCount == 0 &&
+          attempt.suspensionCount == 0 &&
           attempt.style != ClimbingStyle.topRope) {
         done = true;
         doneDate = attempt.finishTime;

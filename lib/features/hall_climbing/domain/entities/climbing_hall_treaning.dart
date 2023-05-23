@@ -13,7 +13,7 @@ class ClimbingHallTreaning extends Treaning {
   ClimbingHallAttempt? get currentAttempt =>
       attempts.firstWhereOrNull((element) => element.started);
   ClimbingHallAttempt? get lastAttempt =>
-      attempts.firstWhereOrNull((element) => element.finished);
+      attempts.lastWhereOrNull((element) => element.finished);
 
   List<ClimbingHallAttempt> get leadAttempts =>
       attempts.where((element) => element.style == ClimbingStyle.lead).toList();
@@ -45,7 +45,14 @@ class ClimbingHallTreaning extends Treaning {
     super.id,
   });
 
+  @override
   String get title => '${climbingHall.name} $dateString';
+
+  @override
+  String get place => climbingHall.name;
+
+  @override
+  String get image => climbingHall.image;
 
   ClimbingHallTreaning copy() => ClimbingHallTreaning(
         date: DateTime.now(),
