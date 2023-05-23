@@ -6,11 +6,10 @@ import 'package:my_climbing_trek/features/ice_climbing/presentation/widgets/ice_
 
 class IceTreaningPictureWidget extends StatelessWidget {
   final IceTreaning treaning;
-  final String imageSource;
+
   const IceTreaningPictureWidget({
     Key? key,
     required this.treaning,
-    required this.imageSource,
   }) : super(key: key);
 
   @override
@@ -21,62 +20,29 @@ class IceTreaningPictureWidget extends StatelessWidget {
       fontWeight: FontWeight.bold,
       shadows: [Shadow(offset: Offset.fromDirection(1, 1))],
     );
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        image: DecorationImage(
-          opacity: 0.6,
-          image: NetworkImage(
-            imageSource,
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      if (treaning.hasLead)
+        IceAttemptsWithStyle(
+          attempts: treaning.leadAttempts,
+          treaning: treaning,
+          isCurrent: false,
+          climbingStyle: ClimbingStyle.lead,
+          child: Text(
+            'Нижняя:',
+            style: textStyle,
           ),
-          fit: BoxFit.cover,
         ),
-      ),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              treaning.district.name,
-              style: textStyle,
-            ),
-            Text(
-              treaning.dateString,
-              style: textStyle,
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: 24,
-        ),
-        if (treaning.hasLead)
-          IceAttemptsWithStyle(
-            attempts: treaning.leadAttempts,
-            treaning: treaning,
-            isCurrent: false,
-            climbingStyle: ClimbingStyle.lead,
-            child: Text(
-              'Нижняя:',
-              style: textStyle,
-            ),
+      if (treaning.hasTopRope)
+        IceAttemptsWithStyle(
+          attempts: treaning.topRopeAttempts,
+          treaning: treaning,
+          isCurrent: false,
+          climbingStyle: ClimbingStyle.topRope,
+          child: Text(
+            'Верхняя:',
+            style: textStyle,
           ),
-        if (treaning.hasTopRope)
-          IceAttemptsWithStyle(
-            attempts: treaning.topRopeAttempts,
-            treaning: treaning,
-            isCurrent: false,
-            climbingStyle: ClimbingStyle.topRope,
-            child: Text(
-              'Верхняя:',
-              style: textStyle,
-            ),
-          ),
-        const SizedBox(
-          height: 12,
         ),
-      ]),
-    );
+    ]);
   }
 }

@@ -45,7 +45,14 @@ class ClimbingHallTreaning extends Treaning {
     super.id,
   });
 
+  @override
   String get title => '${climbingHall.name} $dateString';
+
+  @override
+  String get place => climbingHall.name;
+
+  @override
+  String get image => climbingHall.image;
 
   ClimbingHallTreaning copy() => ClimbingHallTreaning(
         date: DateTime.now(),
