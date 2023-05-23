@@ -62,8 +62,13 @@ class RockTreaning extends Treaning {
     super.start,
   }) : _attempts = attempts ?? [];
 
+  @override
   String get title => '${district.name} ${date.dayString()}';
 
+  @override
   String get image =>
       sectors.length == 1 ? sectors.first.image : district.image;
+
+  @override
+  String get place => district.name;
 }

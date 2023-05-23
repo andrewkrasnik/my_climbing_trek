@@ -28,6 +28,12 @@ class Treaning {
         _start = start,
         _id = UniqueId.fromUniqueString(id);
 
+  String get image => '';
+
+  String get title => '';
+
+  String get place => '';
+
   void finishTreaning({DateTime? finish}) {
     if (finish == null) {
       _finish = DateTime.now();

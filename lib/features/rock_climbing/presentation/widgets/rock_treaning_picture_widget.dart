@@ -6,11 +6,10 @@ import 'package:my_climbing_trek/features/rock_climbing/presentation/widgets/roc
 
 class RockTreaningPictureWidget extends StatelessWidget {
   final RockTreaning treaning;
-  final String imageSource;
+
   const RockTreaningPictureWidget({
     Key? key,
     required this.treaning,
-    required this.imageSource,
   }) : super(key: key);
 
   @override
@@ -21,36 +20,20 @@ class RockTreaningPictureWidget extends StatelessWidget {
       fontWeight: FontWeight.bold,
       shadows: [Shadow(offset: Offset.fromDirection(1, 1))],
     );
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        image: DecorationImage(
-          opacity: 0.6,
-          image: NetworkImage(
-            imageSource,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (treaning.hasTrad)
+          RockAttemptsWithStyle(
+            attempts: treaning.tradAttempts,
+            treaning: treaning,
+            isCurrent: false,
+            climbingStyle: ClimbingStyle.trad,
+            child: Text(
+              'Трэд:',
+              style: textStyle,
+            ),
           ),
-          fit: BoxFit.cover,
-        ),
-      ),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              treaning.district.name,
-              style: textStyle,
-            ),
-            Text(
-              treaning.dateString,
-              style: textStyle,
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: 24,
-        ),
         if (treaning.hasLead)
           RockAttemptsWithStyle(
             attempts: treaning.leadAttempts,
@@ -59,6 +42,17 @@ class RockTreaningPictureWidget extends StatelessWidget {
             climbingStyle: ClimbingStyle.lead,
             child: Text(
               'Нижняя:',
+              style: textStyle,
+            ),
+          ),
+        if (treaning.hasBouldering)
+          RockAttemptsWithStyle(
+            attempts: treaning.boulderingAttempts,
+            treaning: treaning,
+            isCurrent: false,
+            climbingStyle: ClimbingStyle.bouldering,
+            child: Text(
+              'Болдер:',
               style: textStyle,
             ),
           ),
@@ -73,10 +67,7 @@ class RockTreaningPictureWidget extends StatelessWidget {
               style: textStyle,
             ),
           ),
-        const SizedBox(
-          height: 12,
-        ),
-      ]),
+      ],
     );
   }
 }
