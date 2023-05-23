@@ -219,8 +219,10 @@ class _TreaningPictureWidgetState extends State<TreaningPictureWidget> {
                 child: Stack(
                   children: [
                     Image(
+                      height: double.infinity,
+                      width: double.infinity,
                       image: _myImageProvider(_imageFileList[index]),
-                      fit: BoxFit.fill,
+                      fit: BoxFit.cover,
                     ),
                     if (_currentImageIndex == index) ...[
                       SizedBox(
