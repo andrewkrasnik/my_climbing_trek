@@ -142,7 +142,7 @@ class HallHomePageWidget extends StatelessWidget {
                           ],
                         ),
                     separatorBuilder: (_, __) => const SizedBox(
-                          width: 16,
+                          width: 8,
                         ),
                     itemCount: dataState.halls.length),
                 orElse: () => const SizedBox(),
