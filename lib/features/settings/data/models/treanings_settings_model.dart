@@ -11,6 +11,7 @@ class TreaningsSettingsModel extends TreaningsSettings {
     required super.useIceTreanings,
     required super.useStrengthTraining,
     required super.useRockTraining,
+    super.useTraveling,
     super.useMountaineering,
   });
 

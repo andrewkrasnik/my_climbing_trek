@@ -1,6 +1,5 @@
 import 'package:my_climbing_trek/core/widgets/my_cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_district.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel.dart';
 
 class TravelWidget extends StatelessWidget {

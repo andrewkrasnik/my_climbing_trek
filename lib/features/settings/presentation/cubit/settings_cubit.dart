@@ -75,6 +75,9 @@ class SettingsCubit extends Cubit<SettingsState> {
       case 6:
         newSettings = newSettings.copyWith(useMountaineering: value);
         break;
+      case 7:
+        newSettings = newSettings.copyWith(useTraveling: value);
+        break;
       default:
         throw 'unknown settings';
     }

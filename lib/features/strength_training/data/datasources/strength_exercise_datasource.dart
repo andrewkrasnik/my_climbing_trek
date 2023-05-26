@@ -1,7 +1,6 @@
 import 'package:my_climbing_trek/core/failures/failure.dart';
 import 'package:my_climbing_trek/features/strength_training/domain/entities/strength_exercise.dart';
 import 'package:dartz/dartz.dart';
-import 'package:injectable/injectable.dart';
 
 abstract class StrengthExerciseDataSource {
   Future<Either<Failure, List<StrengthExercise>>> getExercises();

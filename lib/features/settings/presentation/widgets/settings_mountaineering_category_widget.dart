@@ -1,4 +1,3 @@
-import 'package:my_climbing_trek/core/data/ice_category.dart';
 import 'package:flutter/material.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountaineering_category.dart';
 

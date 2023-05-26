@@ -23,8 +23,10 @@ class HomePage extends StatelessWidget {
             builder: (context, state) {
               return Column(
                 children: [
-                  const CurrentTravelHomePageWidget(),
-                  const SizedBox(height: 16),
+                  if (state.treaningsSettings.useTraveling) ...[
+                    const CurrentTravelHomePageWidget(),
+                    const SizedBox(height: 16),
+                  ],
                   if (state.treaningsSettings.useGymTreanings) ...[
                     const HallHomePageWidget(),
                     const SizedBox(height: 16),
@@ -49,7 +51,8 @@ class HomePage extends StatelessWidget {
                     const MountaineeringHomeWidget(),
                     const SizedBox(height: 16),
                   ],
-                  const TravelHomePageWidget(),
+                  if (state.treaningsSettings.useTraveling)
+                    const TravelHomePageWidget(),
                 ],
               );
             },

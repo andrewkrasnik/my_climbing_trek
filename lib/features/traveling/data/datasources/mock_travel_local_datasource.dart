@@ -13,6 +13,7 @@ class MockTravelLocalDatasource implements TravelLocalDatasource {
           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1axUAphSxg3bOqphsxHDN8Ohgp-E5JM_12w&usqp=CAU',
       date: DateTime(2023, 5, 1),
       start: DateTime(2023, 5, 1),
+      finish: DateTime(2023, 5, 12),
       regions: [],
     ),
     Travel(
@@ -21,6 +22,7 @@ class MockTravelLocalDatasource implements TravelLocalDatasource {
           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1axUAphSxg3bOqphsxHDN8Ohgp-E5JM_12w&usqp=CAU',
       date: DateTime(2023, 2, 22),
       start: DateTime(2023, 2, 22),
+      finish: DateTime(2023, 2, 28),
       regions: [],
     ),
     Travel(
@@ -29,6 +31,7 @@ class MockTravelLocalDatasource implements TravelLocalDatasource {
           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1axUAphSxg3bOqphsxHDN8Ohgp-E5JM_12w&usqp=CAU',
       date: DateTime(2023, 7, 16),
       start: DateTime(2023, 7, 16),
+      finish: DateTime(2023, 7, 31),
       regions: [],
     ),
   ];
@@ -50,5 +53,15 @@ class MockTravelLocalDatasource implements TravelLocalDatasource {
   @override
   Future<Either<Failure, Unit>> saveTravel({required Travel travel}) async {
     return const Right(unit);
+  }
+
+  @override
+  Future<Either<Failure, List<Travel>>> getPlanedTravels() async {
+    return Right(_list);
+  }
+
+  @override
+  Future<Either<Failure, List<Travel>>> getTravels() async {
+    return Right(_list);
   }
 }

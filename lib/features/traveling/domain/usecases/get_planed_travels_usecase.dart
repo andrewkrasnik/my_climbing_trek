@@ -5,12 +5,12 @@ import 'package:my_climbing_trek/features/traveling/domain/entities/travel.dart'
 import 'package:my_climbing_trek/features/traveling/domain/repositories/travel_repository.dart';
 
 @LazySingleton()
-class GetTravelsUsecase {
+class GetPlanedTravelsUsecase {
   final TravelRepository _travelRepository;
 
-  GetTravelsUsecase(this._travelRepository);
+  GetPlanedTravelsUsecase(this._travelRepository);
 
   Future<Either<Failure, List<Travel>>> call() async {
-    return await _travelRepository.getTravels();
+    return await _travelRepository.getPlanedTravels();
   }
 }

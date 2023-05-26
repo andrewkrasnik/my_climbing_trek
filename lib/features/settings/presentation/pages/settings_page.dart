@@ -91,6 +91,14 @@ class SettingsPage extends StatelessWidget {
                                   settingsId: 6, value: value),
                       title: const Text('Восхождения и мультипитчи'),
                     ),
+                    SwitchListTile(
+                      value: state.treaningsSettings.useTraveling,
+                      onChanged: (value) =>
+                          BlocProvider.of<SettingsCubit>(context)
+                              .changeTreaningSettings(
+                                  settingsId: 7, value: value),
+                      title: const Text('Путешествия'),
+                    ),
                     const SizedBox(
                       height: 16,
                     ),

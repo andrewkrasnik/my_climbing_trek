@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/cubit/current_travel/current_travel_cubit.dart';
+import 'package:my_climbing_trek/features/traveling/presentation/pages/travel_page.dart';
 import 'package:my_climbing_trek/service_locator.dart';
 
 class CurrentTravelHomePageWidget extends StatelessWidget {
@@ -8,7 +9,7 @@ class CurrentTravelHomePageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const titleTextStyle = TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
+    const titleTextStyle = TextStyle(fontSize: 24, fontWeight: FontWeight.bold);
     return BlocProvider(
       create: (context) => getIt<CurrentTravelCubit>()..loadData(),
       child: BlocBuilder<CurrentTravelCubit, CurrentTravelState>(
@@ -24,9 +25,32 @@ class CurrentTravelHomePageWidget extends StatelessWidget {
                     state.travel!.period,
                     style: titleTextStyle.copyWith(fontSize: 16),
                   ),
-                  Text('Применить фильтр'),
-                  Text('Добавить расход'),
-                  Text('Подробнее'),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      IconButton.outlined(
+                        onPressed: () {},
+                        icon: const Icon(Icons.filter_alt),
+                      ),
+                      IconButton.outlined(
+                        onPressed: () {},
+                        icon: const Icon(Icons.add),
+                      ),
+                      IconButton.outlined(
+                        onPressed: () {},
+                        icon: const Icon(Icons.remove),
+                      ),
+                      IconButton.outlined(
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => TravelPage(
+                                    travel: state.travel!,
+                                  )));
+                        },
+                        icon: const Icon(Icons.info),
+                      ),
+                    ],
+                  ),
                 ]);
         },
       ),

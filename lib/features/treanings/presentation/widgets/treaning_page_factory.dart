@@ -8,6 +8,8 @@ import 'package:my_climbing_trek/features/ice_climbing/presentation/widgets/ice_
 import 'package:my_climbing_trek/features/strength_training/domain/entities/strength_treaning.dart';
 import 'package:my_climbing_trek/features/strength_training/presentation/widgets/strength_treaning_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:my_climbing_trek/features/traveling/domain/entities/travel.dart';
+import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_widget.dart';
 
 class TreaningPageFactory extends StatelessWidget {
   final Treaning treaning;
@@ -24,6 +26,8 @@ class TreaningPageFactory extends StatelessWidget {
       return CardioTreaningWidget(treaning: treaning as CardioTreaning);
     } else if (treaning is StrengthTreaning) {
       return StrengthTreaningWidget(treaning: treaning as StrengthTreaning);
+    } else if (treaning is Travel) {
+      return TravelWidget(travel: treaning as Travel);
     } else {
       return Container();
     }

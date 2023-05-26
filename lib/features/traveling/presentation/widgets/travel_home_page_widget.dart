@@ -31,7 +31,7 @@ class TravelHomePageWidget extends StatelessWidget {
         ],
       ),
       BlocProvider(
-        create: (context) => getIt<TravelsCubit>()..loadData(),
+        create: (context) => getIt<TravelsCubit>()..loadPlanedData(),
         child: SizedBox(
           height: 120,
           child: BlocBuilder<TravelsCubit, TravelsState>(

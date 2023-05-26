@@ -33,8 +33,8 @@ class StrengthExercisesWidget extends StatelessWidget {
                                   SlidableAction(
                                     flex: 1,
                                     onPressed: (context) async {
-                                      final cubit = BlocProvider.of<
-                                          StrengthTrainingsCubit>(context);
+                                      // final cubit = BlocProvider.of<
+                                      //     StrengthTrainingsCubit>(context);
 
                                       // await showModalBottomSheet<
                                       //     void>(

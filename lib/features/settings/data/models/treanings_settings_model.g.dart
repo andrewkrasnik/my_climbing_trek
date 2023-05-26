@@ -14,6 +14,7 @@ TreaningsSettingsModel _$TreaningsSettingsModelFromJson(
       useIceTreanings: json['useIceTreanings'] as bool,
       useStrengthTraining: json['useStrengthTraining'] as bool,
       useRockTraining: json['useRockTraining'] as bool,
+      useTraveling: json['useTraveling'] as bool?,
       useMountaineering: json['useMountaineering'] as bool?,
     );
 
@@ -26,4 +27,5 @@ Map<String, dynamic> _$TreaningsSettingsModelToJson(
       'useStrengthTraining': instance.useStrengthTraining,
       'useRockTraining': instance.useRockTraining,
       'useMountaineering': instance.useMountaineering,
+      'useTraveling': instance.useTraveling,
     };
