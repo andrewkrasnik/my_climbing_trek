@@ -1,4 +1,3 @@
-import 'package:my_climbing_trek/core/data/climbing_category.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 

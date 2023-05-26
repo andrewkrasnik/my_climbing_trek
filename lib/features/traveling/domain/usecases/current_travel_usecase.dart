@@ -10,7 +10,7 @@ class CurrentTravelUsecase {
 
   CurrentTravelUsecase(this._travelRepository);
 
-  Future<Either<Failure, Travel>> call() async {
+  Future<Either<Failure, Travel?>> call() async {
     return await _travelRepository.currentTravel();
   }
 }

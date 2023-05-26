@@ -37,7 +37,6 @@ class HomePage extends StatelessWidget {
                     const StrengthHomePageWidget(),
                     const SizedBox(height: 16),
                   ],
-                  const TravelHomePageWidget(),
                   if (state.treaningsSettings.useRockTraining) ...[
                     const RockHomePageWidget(),
                     const SizedBox(height: 16),
@@ -46,8 +45,11 @@ class HomePage extends StatelessWidget {
                     const IceHomePageWidget(),
                     const SizedBox(height: 16),
                   ],
-                  if (state.treaningsSettings.useMountaineering)
+                  if (state.treaningsSettings.useMountaineering) ...[
                     const MountaineeringHomeWidget(),
+                    const SizedBox(height: 16),
+                  ],
+                  const TravelHomePageWidget(),
                 ],
               );
             },

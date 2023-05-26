@@ -12,7 +12,7 @@ class TravelRepositoryImpl implements TravelRepository {
   TravelRepositoryImpl(this._travelLocalDatasource);
 
   @override
-  Future<Either<Failure, Travel>> currentTravel() async {
+  Future<Either<Failure, Travel?>> currentTravel() async {
     return await _travelLocalDatasource.currentTravel();
   }
 

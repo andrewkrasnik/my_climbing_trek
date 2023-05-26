@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_climbing_trek/features/traveling/presentation/cubit/cubit/travels_cubit.dart';
+import 'package:my_climbing_trek/features/traveling/presentation/cubit/travels/travels_cubit.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/pages/travel_page.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_widget.dart';
 import 'package:my_climbing_trek/service_locator.dart';

@@ -33,7 +33,7 @@ class MockTravelLocalDatasource implements TravelLocalDatasource {
     ),
   ];
   @override
-  Future<Either<Failure, Travel>> currentTravel() async {
+  Future<Either<Failure, Travel?>> currentTravel() async {
     return Right(_list.first);
   }
 
