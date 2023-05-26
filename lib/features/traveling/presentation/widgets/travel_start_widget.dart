@@ -8,15 +8,12 @@ class TravelStartWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          Divider(),
-          SizedBox(height: 8),
-          Center(child: Text('Начало путешествия')),
-        ],
-      ),
+    return const Column(
+      children: [
+        Divider(),
+        SizedBox(height: 8),
+        Center(child: Text('Начало путешествия')),
+      ],
     );
   }
 }

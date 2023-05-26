@@ -7,16 +7,13 @@ class TravelDayWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text('День ${travelDay.number}: '),
-          const SizedBox(width: 4),
-          Text(travelDay.dateString),
-        ],
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text('День ${travelDay.number}: '),
+        const SizedBox(width: 4),
+        Text(travelDay.dateString),
+      ],
     );
   }
 }
