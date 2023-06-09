@@ -13,7 +13,6 @@ class TrekWidget extends StatelessWidget {
       child: Container(
         height: 240,
         width: 180,
-        padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4.0),
         ),
@@ -22,8 +21,7 @@ class TrekWidget extends StatelessWidget {
           child: Stack(
             fit: StackFit.expand,
             children: [
-              MyCachedNetworkImage(
-                  imageUrl: trek.imageUrl, fit: BoxFit.fitWidth),
+              MyCachedNetworkImage(imageUrl: trek.imageUrl, fit: BoxFit.cover),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -37,14 +35,14 @@ class TrekWidget extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           shadows: [Shadow(offset: Offset.fromDirection(1))]),
                     ),
-                    Text(
-                      trek.region.name,
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          shadows: [Shadow(offset: Offset.fromDirection(1))]),
-                    )
+                    // Text(
+                    //   trek.region.name,
+                    //   style: TextStyle(
+                    //       color: Colors.white,
+                    //       fontSize: 12,
+                    //       fontWeight: FontWeight.bold,
+                    //       shadows: [Shadow(offset: Offset.fromDirection(1))]),
+                    // )
                   ],
                 ),
               ),

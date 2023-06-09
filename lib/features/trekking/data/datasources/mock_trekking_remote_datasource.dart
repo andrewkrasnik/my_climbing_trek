@@ -19,7 +19,14 @@ class MockTrekkingRemoteDataSource implements TrekkingRemoteDataSource {
         'https://biomehanika-ekb.ru/wp-content/uploads/2016/02/p0608_06-150x150.jpg',
   );
 
-  final List<Region> _regions = [archa];
+  static final nepal = Region(
+    name: 'Гималаи ',
+    state: 'Непал',
+    id: 'nepal',
+    image: 'https://touristam.com/wp-content/uploads/2019/04/gimalai-1.jpg',
+  );
+
+  final List<Region> _regions = [archa, nepal];
 
   final Map<Region, List<Trek>> _treks = {
     archa: [
@@ -106,7 +113,33 @@ class MockTrekkingRemoteDataSource implements TrekkingRemoteDataSource {
               'https://putevye-istorii.ru/wp-content/uploads/2023/02/ala_archa-9-min.jpg',
           links: const [
             'https://putevye-istorii.ru/ala-archa-marshrut-do-vodopada-ak-saj-i-xizhiny-raceka/'
-          ])
+          ]),
+    ],
+    nepal: [
+      Trek(
+        name: 'Трек вокруг Аннапурны',
+        image:
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Tourists_ascending_to_Lake_Tilicho.jpg/1200px-Tourists_ascending_to_Lake_Tilicho.jpg',
+        sections: [],
+        region: nepal,
+        id: 'AnnapurnaCircuit',
+      ),
+      Trek(
+        name: 'Трек вокруг Манаслу',
+        image:
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHz7kRyi75-zOqbAGhs-mySIpqB4A3Jd_AaVfpU2JgCMwagKivinwQEikbUrNykmYFrls&usqp=CAU',
+        sections: [],
+        region: nepal,
+        id: 'ManaslyCircuit',
+      ),
+      Trek(
+        name: 'Базовый лагерь Эвереста',
+        image:
+            'https://www.nepalhightrek.com/wp-content/uploads/2022/02/Everest-Base-Camp-Trek-Difficulty.jpg',
+        sections: [],
+        region: nepal,
+        id: 'EverestBaseCamp',
+      ),
     ]
   };
 
