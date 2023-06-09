@@ -13,7 +13,7 @@ class Trek extends DataWithUUID {
 
   TrekPoint get start => sections.first.start;
 
-  TrekPoint get finist => sections.last.finish;
+  TrekPoint get finish => sections.last.finish;
 
   Trek({
     required this.name,
@@ -24,4 +24,6 @@ class Trek extends DataWithUUID {
     super.id,
     List<String>? links,
   }) : links = links ?? [];
+
+  String get imageUrl => image ?? finish.image!;
 }

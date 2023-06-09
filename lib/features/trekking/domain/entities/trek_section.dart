@@ -12,4 +12,16 @@ class TrekSection {
     required this.length,
     this.description = '',
   });
+
+  String get climb {
+    final climbAltitude = finish.altitude - start.altitude;
+
+    if (climbAltitude > 0) {
+      return ', набор высоты $climbAltitude м.';
+    } else if (climbAltitude > 0) {
+      return ', сброс высоты ${-climbAltitude} м.';
+    } else {
+      return '';
+    }
+  }
 }

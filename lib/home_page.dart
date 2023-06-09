@@ -9,6 +9,7 @@ import 'package:my_climbing_trek/features/strength_training/presentation/widgets
 import 'package:flutter/material.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/widgets/current_travel_home_page_widget.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_home_page_widget.dart';
+import 'package:my_climbing_trek/features/trekking/presentation/widgets/trekking_home_page_widget.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -51,6 +52,8 @@ class HomePage extends StatelessWidget {
                     const MountaineeringHomeWidget(),
                     const SizedBox(height: 16),
                   ],
+                  const TrekkingHomePageWidget(),
+                  const SizedBox(height: 16),
                   if (state.treaningsSettings.useTraveling)
                     const TravelHomePageWidget(),
                 ],
