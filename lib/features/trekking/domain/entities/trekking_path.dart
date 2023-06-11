@@ -2,6 +2,7 @@ import 'package:my_climbing_trek/core/data/region.dart';
 import 'package:my_climbing_trek/core/data/treaning.dart';
 import 'package:my_climbing_trek/features/trekking/domain/entities/trek.dart';
 import 'package:my_climbing_trek/features/trekking/domain/entities/trek_section.dart';
+import 'package:my_climbing_trek/features/trekking/domain/entities/trekking_event_type.dart';
 import 'package:my_climbing_trek/features/trekking/domain/entities/trekking_path_event.dart';
 import 'package:my_climbing_trek/features/trekking/domain/entities/trekking_type.dart';
 
@@ -12,6 +13,9 @@ class TrekkingPath extends Treaning {
   final TrekkingType type;
   double length;
   TrekSection? currentSection;
+
+  List<TrekkingEventType> get actions =>
+      events.lastOrNull?.type.actions ?? [TrekkingEventType.startMoving];
 
   TrekkingPath({
     required super.date,

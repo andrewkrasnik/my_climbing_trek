@@ -20,7 +20,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart'
 
 import 'core/datasource/drift_db_local_datasource.dart' as _i15;
 import 'core/datasource/local_db_datasource.dart' as _i14;
-import 'core/injectable_module.dart' as _i196;
+import 'core/injectable_module.dart' as _i197;
 import 'core/services/analitics/analitics_service.dart' as _i69;
 import 'core/services/analitics/firebase_analitics_service.dart' as _i70;
 import 'core/services/crash_log_service/crash_log_service.dart' as _i81;
@@ -33,11 +33,11 @@ import 'features/authentication/data/repositories/auth_repository_impl.dart'
     as _i74;
 import 'features/authentication/domain/repositories/auth_repository.dart'
     as _i73;
-import 'features/authentication/domain/usecases/auth_get_user.dart' as _i163;
-import 'features/authentication/domain/usecases/auth_login.dart' as _i164;
-import 'features/authentication/domain/usecases/auth_logout.dart' as _i165;
+import 'features/authentication/domain/usecases/auth_get_user.dart' as _i164;
+import 'features/authentication/domain/usecases/auth_login.dart' as _i165;
+import 'features/authentication/domain/usecases/auth_logout.dart' as _i166;
 import 'features/authentication/presentation/cubit/authentication_cubit.dart'
-    as _i166;
+    as _i167;
 import 'features/cardio_workout/data/datasources/cardio_treanings_datasource.dart'
     as _i75;
 import 'features/cardio_workout/data/datasources/local_cardio_treanings_datasource.dart'
@@ -55,9 +55,9 @@ import 'features/cardio_workout/domain/usecases/get_last_cardio_treaning.dart'
 import 'features/cardio_workout/domain/usecases/save_cardio_treaning.dart'
     as _i148;
 import 'features/cardio_workout/presentation/cubit/cardio_treaning/cardio_treaning_cubit.dart'
-    as _i167;
-import 'features/cardio_workout/presentation/cubit/cardio_treanings/cardio_treanings_cubit.dart'
     as _i168;
+import 'features/cardio_workout/presentation/cubit/cardio_treanings/cardio_treanings_cubit.dart'
+    as _i169;
 import 'features/hall_climbing/data/datasources/climbing_hall_data_source.dart'
     as _i3;
 import 'features/hall_climbing/data/datasources/hall_treaning_data_source.dart'
@@ -79,28 +79,28 @@ import 'features/hall_climbing/domain/repositories/climbing_hall_repository.dart
 import 'features/hall_climbing/domain/repositories/hall_treaning_repository.dart'
     as _i114;
 import 'features/hall_climbing/domain/usecases/all_climbing_halls.dart'
-    as _i161;
+    as _i162;
 import 'features/hall_climbing/domain/usecases/get_climbing_hall_routes.dart'
     as _i94;
 import 'features/hall_climbing/domain/usecases/get_gym_route_statistic.dart'
-    as _i182;
-import 'features/hall_climbing/domain/usecases/get_hall_route_attempts.dart'
     as _i183;
+import 'features/hall_climbing/domain/usecases/get_hall_route_attempts.dart'
+    as _i184;
 import 'features/hall_climbing/domain/usecases/hall_route_to_archive.dart'
     as _i111;
 import 'features/hall_climbing/domain/usecases/new_hall_route.dart' as _i136;
 import 'features/hall_climbing/domain/usecases/treanings/all_hall_treanings.dart'
-    as _i162;
+    as _i163;
 import 'features/hall_climbing/domain/usecases/treanings/current_hall_treaning.dart'
-    as _i170;
+    as _i171;
 import 'features/hall_climbing/domain/usecases/treanings/delete_hall_attempt.dart'
-    as _i172;
-import 'features/hall_climbing/domain/usecases/treanings/delete_hall_treaning.dart'
     as _i173;
+import 'features/hall_climbing/domain/usecases/treanings/delete_hall_treaning.dart'
+    as _i174;
 import 'features/hall_climbing/domain/usecases/treanings/finish_hall_attempt.dart'
-    as _i176;
-import 'features/hall_climbing/domain/usecases/treanings/finish_hall_treaning.dart'
     as _i177;
+import 'features/hall_climbing/domain/usecases/treanings/finish_hall_treaning.dart'
+    as _i178;
 import 'features/hall_climbing/domain/usecases/treanings/last_hall_treaning.dart'
     as _i122;
 import 'features/hall_climbing/domain/usecases/treanings/new_hall_attempt.dart'
@@ -110,19 +110,19 @@ import 'features/hall_climbing/domain/usecases/treanings/new_hall_attempt_from_r
 import 'features/hall_climbing/domain/usecases/treanings/new_hall_treaning.dart'
     as _i137;
 import 'features/hall_climbing/presentation/bloc/climbing_hall/climbing_hall_cubit.dart'
-    as _i193;
-import 'features/hall_climbing/presentation/bloc/climbing_halls/climbing_halls_cubit.dart'
-    as _i169;
-import 'features/hall_climbing/presentation/bloc/current_hall_treaning/current_hall_treaning_cubit.dart'
     as _i194;
+import 'features/hall_climbing/presentation/bloc/climbing_halls/climbing_halls_cubit.dart'
+    as _i170;
+import 'features/hall_climbing/presentation/bloc/current_hall_treaning/current_hall_treaning_cubit.dart'
+    as _i195;
 import 'features/hall_climbing/presentation/bloc/hall_route/hall_route_cubit.dart'
-    as _i186;
-import 'features/hall_climbing/presentation/bloc/hall_route_attempts/hall_route_attempts_cubit.dart'
-    as _i185;
-import 'features/hall_climbing/presentation/bloc/hall_treanings/hall_treanings_cubit.dart'
     as _i187;
-import 'features/hall_climbing/presentation/bloc/home_page/home_page_cubit.dart'
+import 'features/hall_climbing/presentation/bloc/hall_route_attempts/hall_route_attempts_cubit.dart'
+    as _i186;
+import 'features/hall_climbing/presentation/bloc/hall_treanings/hall_treanings_cubit.dart'
     as _i188;
+import 'features/hall_climbing/presentation/bloc/home_page/home_page_cubit.dart'
+    as _i189;
 import 'features/ice_climbing/data/datasources/firebase_ice_regions_remote_datasource.dart'
     as _i12;
 import 'features/ice_climbing/data/datasources/ice_regions_datasource.dart'
@@ -143,16 +143,16 @@ import 'features/ice_climbing/domain/repositories/ice_regions_repository.dart'
     as _i116;
 import 'features/ice_climbing/domain/repositories/ice_treanings_repository.dart'
     as _i120;
-import 'features/ice_climbing/domain/usecases/delete_ice_attempt.dart' as _i174;
-import 'features/ice_climbing/domain/usecases/finish_ice_attempt.dart' as _i178;
+import 'features/ice_climbing/domain/usecases/delete_ice_attempt.dart' as _i175;
+import 'features/ice_climbing/domain/usecases/finish_ice_attempt.dart' as _i179;
 import 'features/ice_climbing/domain/usecases/finish_ice_treaning.dart'
-    as _i179;
+    as _i180;
 import 'features/ice_climbing/domain/usecases/get_current_ice_treaning.dart'
-    as _i181;
+    as _i182;
 import 'features/ice_climbing/domain/usecases/get_last_ice_treaning.dart'
-    as _i184;
+    as _i185;
 import 'features/ice_climbing/domain/usecases/ice_sector_to_treaning.dart'
-    as _i190;
+    as _i191;
 import 'features/ice_climbing/domain/usecases/load_disrtricts_usecase.dart'
     as _i123;
 import 'features/ice_climbing/domain/usecases/load_sectors_usecase.dart'
@@ -160,11 +160,11 @@ import 'features/ice_climbing/domain/usecases/load_sectors_usecase.dart'
 import 'features/ice_climbing/domain/usecases/new_ice_attempt.dart' as _i138;
 import 'features/ice_climbing/domain/usecases/new_ice_treaning.dart' as _i139;
 import 'features/ice_climbing/presentation/bloc/current_ice_treaning/current_ice_treaning_cubit.dart'
-    as _i195;
+    as _i196;
 import 'features/ice_climbing/presentation/bloc/ice_districts/ice_districts_cubit.dart'
-    as _i189;
+    as _i190;
 import 'features/ice_climbing/presentation/bloc/ice_sectors/ice_sectors_cubit.dart'
-    as _i191;
+    as _i192;
 import 'features/mountaineering/data/datasources/firebase_mountain_regions_remote_datasource.dart'
     as _i19;
 import 'features/mountaineering/data/datasources/mock_mountain_regions_local_datasource.dart'
@@ -324,12 +324,12 @@ import 'features/traveling/domain/usecases/get_planed_travels_usecase.dart'
     as _i102;
 import 'features/traveling/domain/usecases/get_travels_usecase.dart' as _i108;
 import 'features/traveling/presentation/cubit/current_travel/current_travel_cubit.dart'
-    as _i171;
+    as _i172;
 import 'features/traveling/presentation/cubit/travels/travels_cubit.dart'
     as _i158;
-import 'features/treanings/domain/usecases/delete_treaning.dart' as _i175;
-import 'features/treanings/domain/usecases/get_all_treanings.dart' as _i180;
-import 'features/treanings/presentation/cubit/treanings_cubit.dart' as _i192;
+import 'features/treanings/domain/usecases/delete_treaning.dart' as _i176;
+import 'features/treanings/domain/usecases/get_all_treanings.dart' as _i181;
+import 'features/treanings/presentation/cubit/treanings_cubit.dart' as _i193;
 import 'features/trekking/data/datasources/mock_trekking_path_local_datasource.dart'
     as _i58;
 import 'features/trekking/data/datasources/mock_trekking_remote_datasource.dart'
@@ -353,9 +353,11 @@ import 'features/trekking/domain/usecases/get_treks.dart' as _i110;
 import 'features/trekking/domain/usecases/previos_trekking_path_usecase.dart'
     as _i142;
 import 'features/trekking/domain/usecases/start_trek_usecase.dart' as _i154;
-import 'features/trekking/presentation/bloc/trekking_regions/trekking_regions_cubit.dart'
+import 'features/trekking/presentation/bloc/trekking/trekking_cubit.dart'
     as _i159;
-import 'features/trekking/presentation/bloc/treks/treks_cubit.dart' as _i160;
+import 'features/trekking/presentation/bloc/trekking_regions/trekking_regions_cubit.dart'
+    as _i160;
+import 'features/trekking/presentation/bloc/treks/treks_cubit.dart' as _i161;
 
 // ignore_for_file: unnecessary_lambdas
 // ignore_for_file: lines_longer_than_80_chars
@@ -680,63 +682,69 @@ _i1.GetIt $initGetIt(
         gh<_i108.GetTravelsUsecase>(),
         gh<_i102.GetPlanedTravelsUsecase>(),
       ));
-  gh.factory<_i159.TrekkingRegionsCubit>(
-      () => _i159.TrekkingRegionsCubit(gh<_i109.GetTrekkingRegions>()));
-  gh.factory<_i160.TreksCubit>(() => _i160.TreksCubit(gh<_i110.GetTreks>()));
-  gh.lazySingleton<_i161.AllClimbingHalls>(
-      () => _i161.AllClimbingHalls(gh<_i79.ClimbingHallRepository>()));
-  gh.lazySingleton<_i162.AllHallTreanings>(
-      () => _i162.AllHallTreanings(gh<_i114.HallTreaningRepository>()));
-  gh.factory<_i163.AuthGetUser>(
-      () => _i163.AuthGetUser(authRepository: gh<_i73.AuthRepository>()));
-  gh.factory<_i164.AuthLogin>(
-      () => _i164.AuthLogin(authRepository: gh<_i73.AuthRepository>()));
-  gh.factory<_i165.AuthLogout>(
-      () => _i165.AuthLogout(authRepository: gh<_i73.AuthRepository>()));
-  gh.factory<_i166.AuthenticationCubit>(() => _i166.AuthenticationCubit(
-        gh<_i164.AuthLogin>(),
-        gh<_i165.AuthLogout>(),
-        gh<_i163.AuthGetUser>(),
+  gh.factory<_i159.TrekkingCubit>(() => _i159.TrekkingCubit(
+        gh<_i84.CurrentTrekkingPathUsecase>(),
+        gh<_i142.PreviosTrekkingPathUsecase>(),
+        gh<_i154.StartTrekUsecase>(),
+        gh<_i68.AddTrekEventUsecase>(),
       ));
-  gh.factory<_i167.CardioTreaningCubit>(() => _i167.CardioTreaningCubit(
+  gh.factory<_i160.TrekkingRegionsCubit>(
+      () => _i160.TrekkingRegionsCubit(gh<_i109.GetTrekkingRegions>()));
+  gh.factory<_i161.TreksCubit>(() => _i161.TreksCubit(gh<_i110.GetTreks>()));
+  gh.lazySingleton<_i162.AllClimbingHalls>(
+      () => _i162.AllClimbingHalls(gh<_i79.ClimbingHallRepository>()));
+  gh.lazySingleton<_i163.AllHallTreanings>(
+      () => _i163.AllHallTreanings(gh<_i114.HallTreaningRepository>()));
+  gh.factory<_i164.AuthGetUser>(
+      () => _i164.AuthGetUser(authRepository: gh<_i73.AuthRepository>()));
+  gh.factory<_i165.AuthLogin>(
+      () => _i165.AuthLogin(authRepository: gh<_i73.AuthRepository>()));
+  gh.factory<_i166.AuthLogout>(
+      () => _i166.AuthLogout(authRepository: gh<_i73.AuthRepository>()));
+  gh.factory<_i167.AuthenticationCubit>(() => _i167.AuthenticationCubit(
+        gh<_i165.AuthLogin>(),
+        gh<_i166.AuthLogout>(),
+        gh<_i164.AuthGetUser>(),
+      ));
+  gh.factory<_i168.CardioTreaningCubit>(() => _i168.CardioTreaningCubit(
         gh<_i97.GetLastCardioTreaning>(),
         gh<_i148.SaveCardioTreaning>(),
       ));
-  gh.factory<_i168.CardioTreaningsCubit>(() => _i168.CardioTreaningsCubit(
+  gh.factory<_i169.CardioTreaningsCubit>(() => _i169.CardioTreaningsCubit(
         gh<_i93.GetCardioTreanings>(),
         gh<_i85.DeleteCardioTreaning>(),
         gh<_i148.SaveCardioTreaning>(),
       ));
-  gh.factory<_i169.ClimbingHallsCubit>(() =>
-      _i169.ClimbingHallsCubit(allClimbingHalls: gh<_i161.AllClimbingHalls>()));
-  gh.lazySingleton<_i170.CurrentHallTreaning>(
-      () => _i170.CurrentHallTreaning(gh<_i114.HallTreaningRepository>()));
-  gh.factory<_i171.CurrentTravelCubit>(() => _i171.CurrentTravelCubit(
+  gh.factory<_i170.ClimbingHallsCubit>(() =>
+      _i170.ClimbingHallsCubit(allClimbingHalls: gh<_i162.AllClimbingHalls>()));
+  gh.lazySingleton<_i171.CurrentHallTreaning>(
+      () => _i171.CurrentHallTreaning(gh<_i114.HallTreaningRepository>()));
+  gh.factory<_i172.CurrentTravelCubit>(() => _i172.CurrentTravelCubit(
         gh<_i83.CurrentTravelUsecase>(),
         gh<_i102.GetPlanedTravelsUsecase>(),
       ));
-  gh.lazySingleton<_i172.DeleteHallAttempt>(() => _i172.DeleteHallAttempt(
+  gh.lazySingleton<_i173.DeleteHallAttempt>(() => _i173.DeleteHallAttempt(
       treaningRepository: gh<_i114.HallTreaningRepository>()));
-  gh.lazySingleton<_i173.DeleteHallTreaning>(() => _i173.DeleteHallTreaning(
+  gh.lazySingleton<_i174.DeleteHallTreaning>(() => _i174.DeleteHallTreaning(
       treaningRepository: gh<_i114.HallTreaningRepository>()));
-  gh.lazySingleton<_i174.DeleteIceAttempt>(
-      () => _i174.DeleteIceAttempt(gh<_i120.IceTreaningsRepository>()));
-  gh.lazySingleton<_i175.DeleteTreaning>(() => _i175.DeleteTreaning(
+  gh.lazySingleton<_i175.DeleteIceAttempt>(
+      () => _i175.DeleteIceAttempt(gh<_i120.IceTreaningsRepository>()));
+  gh.lazySingleton<_i176.DeleteTreaning>(() => _i176.DeleteTreaning(
         gh<_i114.HallTreaningRepository>(),
         gh<_i120.IceTreaningsRepository>(),
         gh<_i51.StrengthTreaningsRepository>(),
         gh<_i77.CardioTreaningsRepository>(),
         gh<_i39.RockTreaningsRepository>(),
       ));
-  gh.lazySingleton<_i176.FinishHallAttempt>(() => _i176.FinishHallAttempt(
+  gh.lazySingleton<_i177.FinishHallAttempt>(() => _i177.FinishHallAttempt(
       treaningRepository: gh<_i114.HallTreaningRepository>()));
-  gh.lazySingleton<_i177.FinishHallTreaning>(() => _i177.FinishHallTreaning(
+  gh.lazySingleton<_i178.FinishHallTreaning>(() => _i178.FinishHallTreaning(
       treaningRepository: gh<_i114.HallTreaningRepository>()));
-  gh.lazySingleton<_i178.FinishIceAttempt>(
-      () => _i178.FinishIceAttempt(gh<_i120.IceTreaningsRepository>()));
-  gh.lazySingleton<_i179.FinishIceTreaning>(() => _i179.FinishIceTreaning(
+  gh.lazySingleton<_i179.FinishIceAttempt>(
+      () => _i179.FinishIceAttempt(gh<_i120.IceTreaningsRepository>()));
+  gh.lazySingleton<_i180.FinishIceTreaning>(() => _i180.FinishIceTreaning(
       iceTreaningsRepository: gh<_i120.IceTreaningsRepository>()));
-  gh.lazySingleton<_i180.GetAllTreanings>(() => _i180.GetAllTreanings(
+  gh.lazySingleton<_i181.GetAllTreanings>(() => _i181.GetAllTreanings(
         gh<_i114.HallTreaningRepository>(),
         gh<_i120.IceTreaningsRepository>(),
         gh<_i51.StrengthTreaningsRepository>(),
@@ -744,63 +752,63 @@ _i1.GetIt $initGetIt(
         gh<_i39.RockTreaningsRepository>(),
         gh<_i55.TravelRepository>(),
       ));
-  gh.lazySingleton<_i181.GetCurrentIceTreaning>(() =>
-      _i181.GetCurrentIceTreaning(
+  gh.lazySingleton<_i182.GetCurrentIceTreaning>(() =>
+      _i182.GetCurrentIceTreaning(
           iceTreaningsRepository: gh<_i120.IceTreaningsRepository>()));
-  gh.lazySingleton<_i182.GetGymRouteStatistic>(
-      () => _i182.GetGymRouteStatistic(gh<_i114.HallTreaningRepository>()));
-  gh.lazySingleton<_i183.GetHallRouteAttempts>(() => _i183.GetHallRouteAttempts(
+  gh.lazySingleton<_i183.GetGymRouteStatistic>(
+      () => _i183.GetGymRouteStatistic(gh<_i114.HallTreaningRepository>()));
+  gh.lazySingleton<_i184.GetHallRouteAttempts>(() => _i184.GetHallRouteAttempts(
       repository: gh<_i114.HallTreaningRepository>()));
-  gh.lazySingleton<_i184.GetLastIceTreaning>(() => _i184.GetLastIceTreaning(
+  gh.lazySingleton<_i185.GetLastIceTreaning>(() => _i185.GetLastIceTreaning(
       iceTreaningsRepository: gh<_i120.IceTreaningsRepository>()));
-  gh.factory<_i185.HallRouteAttemptsCubit>(() => _i185.HallRouteAttemptsCubit(
-      getHallRouteAttempts: gh<_i183.GetHallRouteAttempts>()));
-  gh.factory<_i186.HallRouteCubit>(
-      () => _i186.HallRouteCubit(gh<_i136.NewHallRoute>()));
-  gh.factory<_i187.HallTreaningsCubit>(() => _i187.HallTreaningsCubit(
-        allHallTreanings: gh<_i162.AllHallTreanings>(),
-        deleteHallTreaning: gh<_i173.DeleteHallTreaning>(),
+  gh.factory<_i186.HallRouteAttemptsCubit>(() => _i186.HallRouteAttemptsCubit(
+      getHallRouteAttempts: gh<_i184.GetHallRouteAttempts>()));
+  gh.factory<_i187.HallRouteCubit>(
+      () => _i187.HallRouteCubit(gh<_i136.NewHallRoute>()));
+  gh.factory<_i188.HallTreaningsCubit>(() => _i188.HallTreaningsCubit(
+        allHallTreanings: gh<_i163.AllHallTreanings>(),
+        deleteHallTreaning: gh<_i174.DeleteHallTreaning>(),
       ));
-  gh.factory<_i188.HomePageCubit>(() =>
-      _i188.HomePageCubit(allClimbingHalls: gh<_i161.AllClimbingHalls>()));
-  gh.factory<_i189.IceDistrictsCubit>(() => _i189.IceDistrictsCubit(
+  gh.factory<_i189.HomePageCubit>(() =>
+      _i189.HomePageCubit(allClimbingHalls: gh<_i162.AllClimbingHalls>()));
+  gh.factory<_i190.IceDistrictsCubit>(() => _i190.IceDistrictsCubit(
       loadDistrictsUseCase: gh<_i123.LoadDistrictsUseCase>()));
-  gh.lazySingleton<_i190.IceSectorToTreaning>(() => _i190.IceSectorToTreaning(
+  gh.lazySingleton<_i191.IceSectorToTreaning>(() => _i191.IceSectorToTreaning(
       iceTreaningsRepository: gh<_i120.IceTreaningsRepository>()));
-  gh.factory<_i191.IceSectorsCubit>(() => _i191.IceSectorsCubit(
+  gh.factory<_i192.IceSectorsCubit>(() => _i192.IceSectorsCubit(
       loadSectorsUseCase: gh<_i128.LoadSectorsUseCase>()));
-  gh.factory<_i192.TreaningsCubit>(() => _i192.TreaningsCubit(
-        gh<_i180.GetAllTreanings>(),
-        gh<_i175.DeleteTreaning>(),
+  gh.factory<_i193.TreaningsCubit>(() => _i193.TreaningsCubit(
+        gh<_i181.GetAllTreanings>(),
+        gh<_i176.DeleteTreaning>(),
       ));
-  gh.factory<_i193.ClimbingHallCubit>(() => _i193.ClimbingHallCubit(
+  gh.factory<_i194.ClimbingHallCubit>(() => _i194.ClimbingHallCubit(
         gh<_i94.GetClimbingHallRoures>(),
         gh<_i111.HallRouteToArchive>(),
-        gh<_i182.GetGymRouteStatistic>(),
+        gh<_i183.GetGymRouteStatistic>(),
       ));
-  gh.factory<_i194.CurrentHallTreaningCubit>(
-      () => _i194.CurrentHallTreaningCubit(
+  gh.factory<_i195.CurrentHallTreaningCubit>(
+      () => _i195.CurrentHallTreaningCubit(
             newHallAttemptFromRoute: gh<_i135.NewHallAttemptFromRoute>(),
             newHallTreaning: gh<_i137.NewHallTreaning>(),
             newHallAttempt: gh<_i134.NewHallAttempt>(),
-            currentHallTreaning: gh<_i170.CurrentHallTreaning>(),
-            finishHallAttempt: gh<_i176.FinishHallAttempt>(),
-            finishHallTreaning: gh<_i177.FinishHallTreaning>(),
+            currentHallTreaning: gh<_i171.CurrentHallTreaning>(),
+            finishHallAttempt: gh<_i177.FinishHallAttempt>(),
+            finishHallTreaning: gh<_i178.FinishHallTreaning>(),
             lastHallTreaning: gh<_i122.LastHallTreaning>(),
-            deleteHallAttempt: gh<_i172.DeleteHallAttempt>(),
-            getGymRouteStatistic: gh<_i182.GetGymRouteStatistic>(),
+            deleteHallAttempt: gh<_i173.DeleteHallAttempt>(),
+            getGymRouteStatistic: gh<_i183.GetGymRouteStatistic>(),
           ));
-  gh.factory<_i195.CurrentIceTreaningCubit>(() => _i195.CurrentIceTreaningCubit(
+  gh.factory<_i196.CurrentIceTreaningCubit>(() => _i196.CurrentIceTreaningCubit(
         gh<_i139.NewIceTreaning>(),
-        gh<_i190.IceSectorToTreaning>(),
+        gh<_i191.IceSectorToTreaning>(),
         gh<_i138.NewIceAttempt>(),
-        gh<_i178.FinishIceAttempt>(),
-        gh<_i179.FinishIceTreaning>(),
-        gh<_i181.GetCurrentIceTreaning>(),
-        gh<_i184.GetLastIceTreaning>(),
-        gh<_i174.DeleteIceAttempt>(),
+        gh<_i179.FinishIceAttempt>(),
+        gh<_i180.FinishIceTreaning>(),
+        gh<_i182.GetCurrentIceTreaning>(),
+        gh<_i185.GetLastIceTreaning>(),
+        gh<_i175.DeleteIceAttempt>(),
       ));
   return getIt;
 }
 
-class _$InjectableModule extends _i196.InjectableModule {}
+class _$InjectableModule extends _i197.InjectableModule {}

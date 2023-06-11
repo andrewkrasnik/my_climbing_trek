@@ -8,6 +8,14 @@ class TrekkingEventType extends DataWithUUID {
     super.id,
   });
 
+  List<TrekkingEventType> get actions {
+    if (this == startMoving) {
+      return [meal, brake, photo, end, transport];
+    } else {
+      return [startMoving];
+    }
+  }
+
   static TrekkingEventType startMoving =
       TrekkingEventType(name: 'Старт', id: 'start');
 

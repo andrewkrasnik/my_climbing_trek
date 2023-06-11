@@ -1,14 +1,11 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_climbing_trek/core/data/region.dart';
 import 'package:my_climbing_trek/core/widgets/my_cached_network_image.dart';
 import 'package:my_climbing_trek/core/widgets/scaled_image.dart';
-import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountain.dart';
-import 'package:my_climbing_trek/features/mountaineering/presentation/bloc/mountain_routes/mountain_routes_cubit.dart';
-import 'package:my_climbing_trek/features/mountaineering/presentation/widgets/mountain_route_widget.dart';
 import 'package:my_climbing_trek/features/trekking/domain/entities/trek.dart';
+import 'package:my_climbing_trek/features/trekking/presentation/bloc/trekking/trekking_cubit.dart';
 import 'package:my_climbing_trek/features/trekking/presentation/widgets/trek_point_widget.dart';
-import 'package:my_climbing_trek/service_locator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TrekPage extends StatelessWidget {
   final Trek trek;
@@ -24,6 +21,19 @@ class TrekPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        floatingActionButton: BlocBuilder<TrekkingCubit, TrekkingState>(
+          builder: (context, state) {
+            if (state.currentPath == null && state.previosPath == null) {
+              return FloatingActionButton(
+                onPressed: () {
+                  BlocProvider.of<TrekkingCubit>(context).startTrek(trek: trek);
+                },
+                child: const Text('Старт'),
+              );
+            }
+            return const SizedBox();
+          },
+        ),
         body: CustomScrollView(
           slivers: [
             SliverAppBar(
