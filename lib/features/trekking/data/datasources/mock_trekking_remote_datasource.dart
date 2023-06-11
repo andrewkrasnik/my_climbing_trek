@@ -8,6 +8,7 @@ import 'package:my_climbing_trek/features/trekking/domain/entities/trek_poin_fea
 import 'package:my_climbing_trek/features/trekking/domain/entities/trek_point.dart';
 import 'package:my_climbing_trek/features/trekking/domain/entities/trek_point_type.dart';
 import 'package:my_climbing_trek/features/trekking/domain/entities/trek_section.dart';
+import 'package:my_climbing_trek/features/trekking/domain/entities/trekking_type.dart';
 
 @LazySingleton(as: TrekkingRemoteDataSource)
 class MockTrekkingRemoteDataSource implements TrekkingRemoteDataSource {
@@ -109,6 +110,7 @@ class MockTrekkingRemoteDataSource implements TrekkingRemoteDataSource {
             ),
           ],
           region: archa,
+          type: TrekkingType.walking,
           mapImage:
               'https://putevye-istorii.ru/wp-content/uploads/2023/02/ala_archa-9-min.jpg',
           links: const [
@@ -121,6 +123,7 @@ class MockTrekkingRemoteDataSource implements TrekkingRemoteDataSource {
         image:
             'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Tourists_ascending_to_Lake_Tilicho.jpg/1200px-Tourists_ascending_to_Lake_Tilicho.jpg',
         sections: [],
+        type: TrekkingType.walking,
         region: nepal,
         id: 'AnnapurnaCircuit',
       ),
@@ -129,6 +132,7 @@ class MockTrekkingRemoteDataSource implements TrekkingRemoteDataSource {
         image:
             'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHz7kRyi75-zOqbAGhs-mySIpqB4A3Jd_AaVfpU2JgCMwagKivinwQEikbUrNykmYFrls&usqp=CAU',
         sections: [],
+        type: TrekkingType.walking,
         region: nepal,
         id: 'ManaslyCircuit',
       ),
@@ -137,6 +141,7 @@ class MockTrekkingRemoteDataSource implements TrekkingRemoteDataSource {
         image:
             'https://www.nepalhightrek.com/wp-content/uploads/2022/02/Everest-Base-Camp-Trek-Difficulty.jpg',
         sections: [],
+        type: TrekkingType.walking,
         region: nepal,
         id: 'EverestBaseCamp',
       ),

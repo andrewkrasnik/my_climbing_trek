@@ -29,6 +29,9 @@ class TrekPointFeature extends DataWithUUID {
   static TrekPointFeature transport = TrekPointFeature(
       name: 'Транспорт', icon: Icons.airport_shuttle, id: 'transport');
 
+  static TrekPointFeature checkPoint = TrekPointFeature(
+      name: 'Чекпоинт', icon: Icons.shopping_basket, id: 'checkPoint');
+
   static final Map<String, TrekPointFeature> _values = {
     phone.id: phone,
     lodge.id: lodge,
