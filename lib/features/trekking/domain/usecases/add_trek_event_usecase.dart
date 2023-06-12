@@ -29,6 +29,18 @@ class AddTrekEventUsecase {
     final failureOrUnit =
         await _trekkingPathRepository.savePathEvent(event: event);
 
-    return failureOrUnit.fold((failure) => Left(failure), (_) => Right(event));
+    return failureOrUnit.fold((failure) => Left(failure), (_) async {
+      if (TrekkingEventType.endActions.contains(type)) {
+        path.finishTreaning();
+
+        final failureOrPathUnit =
+            await _trekkingPathRepository.savePath(path: path);
+
+        return failureOrPathUnit.fold(
+            (failure) => Left(failure), (r) => Right(event));
+      } else {
+        return Right(event);
+      }
+    });
   }
 }

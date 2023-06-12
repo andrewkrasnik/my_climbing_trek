@@ -18,6 +18,8 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$TrekkingState {
   TrekkingPath? get currentPath => throw _privateConstructorUsedError;
   TrekkingPath? get previosPath => throw _privateConstructorUsedError;
+  TrekkingPathEvent? get currentEvent => throw _privateConstructorUsedError;
+  TrekPoint? get currentPoint => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $TrekkingStateCopyWith<TrekkingState> get copyWith =>
@@ -30,7 +32,11 @@ abstract class $TrekkingStateCopyWith<$Res> {
           TrekkingState value, $Res Function(TrekkingState) then) =
       _$TrekkingStateCopyWithImpl<$Res, TrekkingState>;
   @useResult
-  $Res call({TrekkingPath? currentPath, TrekkingPath? previosPath});
+  $Res call(
+      {TrekkingPath? currentPath,
+      TrekkingPath? previosPath,
+      TrekkingPathEvent? currentEvent,
+      TrekPoint? currentPoint});
 }
 
 /// @nodoc
@@ -48,6 +54,8 @@ class _$TrekkingStateCopyWithImpl<$Res, $Val extends TrekkingState>
   $Res call({
     Object? currentPath = freezed,
     Object? previosPath = freezed,
+    Object? currentEvent = freezed,
+    Object? currentPoint = freezed,
   }) {
     return _then(_value.copyWith(
       currentPath: freezed == currentPath
@@ -58,6 +66,14 @@ class _$TrekkingStateCopyWithImpl<$Res, $Val extends TrekkingState>
           ? _value.previosPath
           : previosPath // ignore: cast_nullable_to_non_nullable
               as TrekkingPath?,
+      currentEvent: freezed == currentEvent
+          ? _value.currentEvent
+          : currentEvent // ignore: cast_nullable_to_non_nullable
+              as TrekkingPathEvent?,
+      currentPoint: freezed == currentPoint
+          ? _value.currentPoint
+          : currentPoint // ignore: cast_nullable_to_non_nullable
+              as TrekPoint?,
     ) as $Val);
   }
 }
@@ -70,7 +86,11 @@ abstract class _$$_TrekkingStateCopyWith<$Res>
       __$$_TrekkingStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({TrekkingPath? currentPath, TrekkingPath? previosPath});
+  $Res call(
+      {TrekkingPath? currentPath,
+      TrekkingPath? previosPath,
+      TrekkingPathEvent? currentEvent,
+      TrekPoint? currentPoint});
 }
 
 /// @nodoc
@@ -86,6 +106,8 @@ class __$$_TrekkingStateCopyWithImpl<$Res>
   $Res call({
     Object? currentPath = freezed,
     Object? previosPath = freezed,
+    Object? currentEvent = freezed,
+    Object? currentPoint = freezed,
   }) {
     return _then(_$_TrekkingState(
       currentPath: freezed == currentPath
@@ -96,6 +118,14 @@ class __$$_TrekkingStateCopyWithImpl<$Res>
           ? _value.previosPath
           : previosPath // ignore: cast_nullable_to_non_nullable
               as TrekkingPath?,
+      currentEvent: freezed == currentEvent
+          ? _value.currentEvent
+          : currentEvent // ignore: cast_nullable_to_non_nullable
+              as TrekkingPathEvent?,
+      currentPoint: freezed == currentPoint
+          ? _value.currentPoint
+          : currentPoint // ignore: cast_nullable_to_non_nullable
+              as TrekPoint?,
     ));
   }
 }
@@ -103,16 +133,24 @@ class __$$_TrekkingStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_TrekkingState implements _TrekkingState {
-  const _$_TrekkingState({this.currentPath, this.previosPath});
+  const _$_TrekkingState(
+      {this.currentPath,
+      this.previosPath,
+      this.currentEvent,
+      this.currentPoint});
 
   @override
   final TrekkingPath? currentPath;
   @override
   final TrekkingPath? previosPath;
+  @override
+  final TrekkingPathEvent? currentEvent;
+  @override
+  final TrekPoint? currentPoint;
 
   @override
   String toString() {
-    return 'TrekkingState(currentPath: $currentPath, previosPath: $previosPath)';
+    return 'TrekkingState(currentPath: $currentPath, previosPath: $previosPath, currentEvent: $currentEvent, currentPoint: $currentPoint)';
   }
 
   @override
@@ -123,11 +161,16 @@ class _$_TrekkingState implements _TrekkingState {
             (identical(other.currentPath, currentPath) ||
                 other.currentPath == currentPath) &&
             (identical(other.previosPath, previosPath) ||
-                other.previosPath == previosPath));
+                other.previosPath == previosPath) &&
+            (identical(other.currentEvent, currentEvent) ||
+                other.currentEvent == currentEvent) &&
+            (identical(other.currentPoint, currentPoint) ||
+                other.currentPoint == currentPoint));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, currentPath, previosPath);
+  int get hashCode => Object.hash(
+      runtimeType, currentPath, previosPath, currentEvent, currentPoint);
 
   @JsonKey(ignore: true)
   @override
@@ -139,12 +182,18 @@ class _$_TrekkingState implements _TrekkingState {
 abstract class _TrekkingState implements TrekkingState {
   const factory _TrekkingState(
       {final TrekkingPath? currentPath,
-      final TrekkingPath? previosPath}) = _$_TrekkingState;
+      final TrekkingPath? previosPath,
+      final TrekkingPathEvent? currentEvent,
+      final TrekPoint? currentPoint}) = _$_TrekkingState;
 
   @override
   TrekkingPath? get currentPath;
   @override
   TrekkingPath? get previosPath;
+  @override
+  TrekkingPathEvent? get currentEvent;
+  @override
+  TrekPoint? get currentPoint;
   @override
   @JsonKey(ignore: true)
   _$$_TrekkingStateCopyWith<_$_TrekkingState> get copyWith =>

@@ -8,16 +8,19 @@ class TrekkingEventType extends DataWithUUID {
     super.id,
   });
 
+  static List<TrekkingEventType> get endActions =>
+      [end, transport, overnightStay];
+
   List<TrekkingEventType> get actions {
     if (this == startMoving) {
-      return [meal, brake, photo, end, transport];
+      return [meal, brake, photo, end, transport, overnightStay];
     } else {
       return [startMoving];
     }
   }
 
   static TrekkingEventType startMoving =
-      TrekkingEventType(name: 'Старт', id: 'start');
+      TrekkingEventType(name: 'Движение', id: 'startMoving');
 
   static TrekkingEventType overnightStay =
       TrekkingEventType(name: 'Остановка на ночь', id: 'overnightStay');

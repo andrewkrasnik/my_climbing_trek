@@ -19,7 +19,10 @@ class StartTrekUsecase {
       region: trek.region,
       type: type ?? trek.type,
       trek: trek,
+      currentSection: trek.sections.firstOrNull,
     );
+
+    path.startTreaning();
 
     final failureOrUnit = await _trekkingPathRepository.savePath(path: path);
 

@@ -5,6 +5,7 @@ import 'package:my_climbing_trek/features/trekking/domain/entities/trek.dart';
 import 'package:my_climbing_trek/features/trekking/domain/entities/trek_point.dart';
 import 'package:my_climbing_trek/features/trekking/domain/entities/trekking_event_type.dart';
 import 'package:my_climbing_trek/features/trekking/domain/entities/trekking_path.dart';
+import 'package:my_climbing_trek/features/trekking/domain/entities/trekking_path_event.dart';
 import 'package:my_climbing_trek/features/trekking/domain/usecases/add_trek_event_usecase.dart';
 import 'package:my_climbing_trek/features/trekking/domain/usecases/current_trekking_path_usecase.dart';
 import 'package:my_climbing_trek/features/trekking/domain/usecases/previos_trekking_path_usecase.dart';
@@ -34,6 +35,7 @@ class TrekkingCubit extends Cubit<TrekkingState> {
       emit(state.copyWith(
         currentPath: currentPath,
         previosPath: null,
+        currentEvent: currentPath?.events.lastOrNull,
       ));
 
       final failureOrPath = await _previosTrekkingPathUsecase();
@@ -52,6 +54,7 @@ class TrekkingCubit extends Cubit<TrekkingState> {
         (path) => emit(state.copyWith(
               currentPath: path,
               previosPath: null,
+              currentPoint: path.currentSection?.start,
             )));
   }
 
@@ -68,6 +71,14 @@ class TrekkingCubit extends Cubit<TrekkingState> {
       time: time,
     );
 
+    if (point != null) {
+      emit(state.copyWith(currentPoint: null));
+    }
+
     failureOrUnit.fold((failure) => null, (_) => loadData());
+  }
+
+  Future<void> setCurrentPoint({required TrekPoint point}) async {
+    emit(state.copyWith(currentPoint: point));
   }
 }
