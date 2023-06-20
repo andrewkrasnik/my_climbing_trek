@@ -23,6 +23,9 @@ class TrekPointFeature extends DataWithUUID {
   static TrekPointFeature shop = TrekPointFeature(
       name: 'Магазин', icon: Icons.shopping_basket, id: 'shop');
 
+  static TrekPointFeature water =
+      TrekPointFeature(name: 'Вода', icon: Icons.water, id: 'water');
+
   static TrekPointFeature eatery =
       TrekPointFeature(name: 'Питание', icon: Icons.restaurant, id: 'eatery');
 
@@ -38,6 +41,8 @@ class TrekPointFeature extends DataWithUUID {
     shop.id: shop,
     eatery.id: eatery,
     transport.id: transport,
+    water.id: water,
+    checkPoint.id: checkPoint,
   };
 
   static List<TrekPointFeature> get values => _values.values.toList();

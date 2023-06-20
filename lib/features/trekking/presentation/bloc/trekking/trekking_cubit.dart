@@ -78,7 +78,7 @@ class TrekkingCubit extends Cubit<TrekkingState> {
     failureOrUnit.fold((failure) => null, (_) => loadData());
   }
 
-  Future<void> setCurrentPoint({required TrekPoint point}) async {
+  Future<void> setCurrentPoint({required TrekPoint? point}) async {
     emit(state.copyWith(currentPoint: point));
   }
 }

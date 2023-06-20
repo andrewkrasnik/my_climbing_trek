@@ -27,6 +27,7 @@ class TrekPage extends StatelessWidget {
               return FloatingActionButton(
                 onPressed: () {
                   BlocProvider.of<TrekkingCubit>(context).startTrek(trek: trek);
+                  Navigator.of(context).popUntil((route) => route.isFirst);
                 },
                 child: const Text('Старт'),
               );

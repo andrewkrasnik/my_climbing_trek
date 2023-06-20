@@ -21,6 +21,8 @@ class MockTrekkingPathLocalDataSource implements TrekkingPathLocalDataSource {
     if (!_treanings.contains(path)) {
       _treanings.add(path);
       _currentTreaning = path;
+    } else if (_currentTreaning?.finished == true) {
+      _currentTreaning = null;
     }
 
     return const Right(unit);

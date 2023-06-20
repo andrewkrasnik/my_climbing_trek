@@ -13,6 +13,8 @@ class TrekSection {
     this.description = '',
   });
 
+  int get climbLength => finish.altitude - start.altitude;
+
   String get climb {
     final climbAltitude = finish.altitude - start.altitude;
 

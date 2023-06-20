@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:my_climbing_trek/core/data/data_with_uuid.dart';
 import 'package:my_climbing_trek/core/data/region.dart';
 import 'package:my_climbing_trek/features/trekking/domain/entities/trek_point.dart';
@@ -16,6 +17,9 @@ class Trek extends DataWithUUID {
   TrekPoint get start => sections.first.start;
 
   TrekPoint get finish => sections.last.finish;
+
+  TrekSection? nextSection(TrekPoint point) =>
+      sections.firstWhereOrNull((element) => element.start == point);
 
   Trek({
     required this.name,

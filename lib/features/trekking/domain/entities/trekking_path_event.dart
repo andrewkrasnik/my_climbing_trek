@@ -14,4 +14,6 @@ class TrekkingPathEvent {
     required this.time,
     this.point,
   });
+
+  get isMooving => type == TrekkingEventType.startMoving;
 }
