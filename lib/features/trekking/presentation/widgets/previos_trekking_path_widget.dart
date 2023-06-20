@@ -74,11 +74,11 @@ class PreviosTrekkingPathWidget extends StatelessWidget {
                 Text(path.currentSection!.finish.name),
                 const SizedBox(width: 4),
                 Text(
-                    '${path.currentSection!.length} км ${path.currentSection!.climb}'),
+                    '${path.currentSection!.length} км ${path.currentSectionClimb}'),
               ],
             ),
             const SizedBox(height: 8),
-            if (editing)
+            if (editing) ...[
               InkWell(
                   onTap: () {
                     BlocProvider.of<TrekkingCubit>(context).continueTrek(
@@ -86,6 +86,16 @@ class PreviosTrekkingPathWidget extends StatelessWidget {
                     );
                   },
                   child: const Chip(label: Text('Продолжить путь'))),
+              const SizedBox(height: 4),
+              InkWell(
+                  onTap: () {
+                    BlocProvider.of<TrekkingCubit>(context).continueTrek(
+                      path: path,
+                      turn: !path.turn,
+                    );
+                  },
+                  child: const Chip(label: Text('Развернуться'))),
+            ],
             const SizedBox(height: 8),
           ],
         ),
