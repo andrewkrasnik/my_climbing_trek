@@ -13,7 +13,7 @@ class TrekkingPathRepositoryImpl implements TrekkingPathRepository {
   TrekkingPathRepositoryImpl(this._pathLocalDataSource);
 
   @override
-  Future<Either<Failure, List<TrekkingPath>>> treanings() async {
+  Future<Either<Failure, List<TrekkingPath>>> getTreanings() async {
     return await _pathLocalDataSource.treanings();
   }
 

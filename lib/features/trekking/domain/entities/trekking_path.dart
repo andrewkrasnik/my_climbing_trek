@@ -32,8 +32,7 @@ class TrekkingPath extends Treaning {
 
   bool visitPoint(TrekPoint point) {
     if (events.isNotEmpty && trek != null && currentSection != null) {
-      final nextSection = trek!.nextSection(point);
-      if (nextSection != null) {
+      if (point == currentSection!.finish) {
         length += currentSection!.length;
 
         if (currentSection!.climbLength > 0) {
@@ -42,7 +41,10 @@ class TrekkingPath extends Treaning {
           climbDown += -currentSection!.climbLength;
         }
 
-        currentSection = nextSection;
+        final nextSection = trek!.nextSection(point);
+        if (nextSection != null) {
+          currentSection = nextSection;
+        }
 
         return true;
       }

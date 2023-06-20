@@ -8,6 +8,7 @@ import 'package:my_climbing_trek/features/strength_training/domain/repositories/
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:my_climbing_trek/features/traveling/domain/repositories/travel_repository.dart';
+import 'package:my_climbing_trek/features/trekking/domain/repositories/trekking_path_repository.dart';
 
 @LazySingleton()
 class GetAllTreanings {
@@ -17,6 +18,7 @@ class GetAllTreanings {
   final CardioTreaningsRepository _cardioTreaningsRepository;
   final RockTreaningsRepository _rockTreaningsRepository;
   final TravelRepository _travelRepository;
+  final TrekkingPathRepository _trekkingPathRepository;
 
   GetAllTreanings(
     this._hallTreaningRepository,
@@ -25,6 +27,7 @@ class GetAllTreanings {
     this._cardioTreaningsRepository,
     this._rockTreaningsRepository,
     this._travelRepository,
+    this._trekkingPathRepository,
   );
 
   Future<Either<Failure, List<Treaning>>> call({
@@ -34,6 +37,7 @@ class GetAllTreanings {
     required bool cardio,
     required bool strength,
     required bool travel,
+    required bool trekking,
   }) async {
     final List<Treaning> treanings = [];
 
@@ -89,6 +93,15 @@ class GetAllTreanings {
 
     if (travel) {
       final failureOrTravels = await _travelRepository.getTreanings();
+
+      failureOrTravels.fold(
+        (failure) => null,
+        (travels) => treanings.addAll(travels),
+      );
+    }
+
+    if (trekking) {
+      final failureOrTravels = await _trekkingPathRepository.getTreanings();
 
       failureOrTravels.fold(
         (failure) => null,

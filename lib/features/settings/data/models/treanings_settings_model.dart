@@ -13,6 +13,7 @@ class TreaningsSettingsModel extends TreaningsSettings {
     required super.useRockTraining,
     super.useTraveling,
     super.useMountaineering,
+    super.useTrekking,
   });
 
   factory TreaningsSettingsModel.fromJson(Map<String, dynamic> json) =>
@@ -31,6 +32,8 @@ class TreaningsSettingsModel extends TreaningsSettings {
         useStrengthTraining: settings.useStrengthTraining,
         useRockTraining: settings.useRockTraining,
         useMountaineering: settings.useMountaineering,
+        useTraveling: settings.useTraveling,
+        useTrekking: settings.useTrekking,
       );
     }
   }

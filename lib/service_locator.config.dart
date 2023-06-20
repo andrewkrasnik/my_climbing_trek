@@ -751,6 +751,7 @@ _i1.GetIt $initGetIt(
         gh<_i77.CardioTreaningsRepository>(),
         gh<_i39.RockTreaningsRepository>(),
         gh<_i55.TravelRepository>(),
+        gh<_i59.TrekkingPathRepository>(),
       ));
   gh.lazySingleton<_i182.GetCurrentIceTreaning>(() =>
       _i182.GetCurrentIceTreaning(

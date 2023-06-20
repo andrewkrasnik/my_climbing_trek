@@ -26,7 +26,10 @@ class TrekkingHomePageWidget extends StatelessWidget {
           return Column(
             children: [
               if (state.currentPath != null)
-                TrekkingPathWidget(path: state.currentPath!),
+                TrekkingPathWidget(
+                  path: state.currentPath!,
+                  editing: true,
+                ),
               const SizedBox(height: 8),
             ],
           );

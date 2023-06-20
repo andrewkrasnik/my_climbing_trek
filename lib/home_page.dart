@@ -52,8 +52,10 @@ class HomePage extends StatelessWidget {
                     const MountaineeringHomeWidget(),
                     const SizedBox(height: 16),
                   ],
-                  const TrekkingHomePageWidget(),
-                  const SizedBox(height: 16),
+                  if (state.treaningsSettings.useTrekking) ...[
+                    const TrekkingHomePageWidget(),
+                    const SizedBox(height: 16),
+                  ],
                   if (state.treaningsSettings.useTraveling)
                     const TravelHomePageWidget(),
                 ],

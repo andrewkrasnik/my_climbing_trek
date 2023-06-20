@@ -4,7 +4,7 @@ import 'package:my_climbing_trek/features/trekking/domain/entities/trekking_path
 import 'package:my_climbing_trek/features/trekking/domain/entities/trekking_path_event.dart';
 
 abstract class TrekkingPathRepository {
-  Future<Either<Failure, List<TrekkingPath>>> treanings();
+  Future<Either<Failure, List<TrekkingPath>>> getTreanings();
 
   Future<Either<Failure, Unit>> savePath({required TrekkingPath path});
 

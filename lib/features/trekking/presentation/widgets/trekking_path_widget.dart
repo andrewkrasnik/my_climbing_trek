@@ -84,18 +84,20 @@ class TrekkingPathWidget extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Checkbox(
-                      value: state.currentPoint == path.currentSection!.finish,
-                      onChanged: (value) {
-                        if (state.currentPoint == null) {
-                          BlocProvider.of<TrekkingCubit>(context)
-                              .setCurrentPoint(
-                                  point: path.currentSection!.finish);
-                        } else {
-                          BlocProvider.of<TrekkingCubit>(context)
-                              .setCurrentPoint(point: null);
-                        }
-                      }),
+                  if (editing)
+                    Checkbox(
+                        value:
+                            state.currentPoint == path.currentSection!.finish,
+                        onChanged: (value) {
+                          if (state.currentPoint == null) {
+                            BlocProvider.of<TrekkingCubit>(context)
+                                .setCurrentPoint(
+                                    point: path.currentSection!.finish);
+                          } else {
+                            BlocProvider.of<TrekkingCubit>(context)
+                                .setCurrentPoint(point: null);
+                          }
+                        }),
                   const SizedBox(width: 4),
                   Text(path.currentSection!.finish.name),
                   const SizedBox(width: 4),
@@ -105,7 +107,7 @@ class TrekkingPathWidget extends StatelessWidget {
               ),
               const SizedBox(height: 8),
             ],
-            if (!path.finished)
+            if (editing && !path.finished)
               Wrap(
                 children: path.actions
                     .map((type) => Padding(

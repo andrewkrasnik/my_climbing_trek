@@ -18,6 +18,8 @@ import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_
 import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_finish_widget.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_start_widget.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_widget.dart';
+import 'package:my_climbing_trek/features/trekking/domain/entities/trekking_path.dart';
+import 'package:my_climbing_trek/features/trekking/presentation/widgets/trekking_path_widget.dart';
 
 class TreaningWidgetFactory extends StatelessWidget {
   final Treaning treaning;
@@ -44,6 +46,8 @@ class TreaningWidgetFactory extends StatelessWidget {
       return TravelStartWidget(travelStart: treaning as TravelStart);
     } else if (treaning is TravelDay) {
       return TravelDayWidget(travelDay: treaning as TravelDay);
+    } else if (treaning is TrekkingPath) {
+      return TrekkingPathWidget(path: treaning as TrekkingPath);
     } else {
       return Container();
     }
