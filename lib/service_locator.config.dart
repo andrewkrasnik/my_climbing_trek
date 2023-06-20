@@ -330,10 +330,10 @@ import 'features/traveling/presentation/cubit/travels/travels_cubit.dart'
 import 'features/treanings/domain/usecases/delete_treaning.dart' as _i177;
 import 'features/treanings/domain/usecases/get_all_treanings.dart' as _i182;
 import 'features/treanings/presentation/cubit/treanings_cubit.dart' as _i194;
+import 'features/trekking/data/datasources/firebase_trekking_remote_datasource.dart'
+    as _i62;
 import 'features/trekking/data/datasources/mock_trekking_path_local_datasource.dart'
     as _i58;
-import 'features/trekking/data/datasources/mock_trekking_remote_datasource.dart'
-    as _i62;
 import 'features/trekking/data/datasources/trekking_path_local_datasource.dart'
     as _i57;
 import 'features/trekking/data/datasources/trekking_remote_datasource.dart'
@@ -453,7 +453,7 @@ _i1.GetIt $initGetIt(
   gh.lazySingleton<_i59.TrekkingPathRepository>(() =>
       _i60.TrekkingPathRepositoryImpl(gh<_i57.TrekkingPathLocalDataSource>()));
   gh.lazySingleton<_i61.TrekkingRemoteDataSource>(
-      () => _i62.MockTrekkingRemoteDataSource());
+      () => _i62.FirebaseTrekkingRemoteDatasource(gh<_i8.FirebaseFirestore>()));
   gh.lazySingleton<_i63.TrekkingRepository>(
       () => _i64.TrekkingRepositoryImpl(gh<_i61.TrekkingRemoteDataSource>()));
   gh.lazySingleton<_i65.UpdateStrengthTreaningExercises>(

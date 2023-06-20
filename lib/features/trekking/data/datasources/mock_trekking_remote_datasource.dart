@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
+import 'package:my_climbing_trek/core/data/map_point.dart';
 import 'package:my_climbing_trek/core/data/region.dart';
 import 'package:my_climbing_trek/core/failures/failure.dart';
 import 'package:my_climbing_trek/features/trekking/data/datasources/trekking_remote_datasource.dart';
@@ -10,7 +11,7 @@ import 'package:my_climbing_trek/features/trekking/domain/entities/trek_point_ty
 import 'package:my_climbing_trek/features/trekking/domain/entities/trek_section.dart';
 import 'package:my_climbing_trek/features/trekking/domain/entities/trekking_type.dart';
 
-@LazySingleton(as: TrekkingRemoteDataSource)
+// @LazySingleton(as: TrekkingRemoteDataSource)
 class MockTrekkingRemoteDataSource implements TrekkingRemoteDataSource {
   static final archa = Region(
     name: 'Ала-Арча',
@@ -95,6 +96,10 @@ class MockTrekkingRemoteDataSource implements TrekkingRemoteDataSource {
               finish: TrekPoint(
                 name: 'Xижина Рацека',
                 type: TrekPointType.camp,
+                mapPoint: const MapPoint(
+                  latitude: 42.53482328804921,
+                  longitude: 74.52907716743859,
+                ),
                 altitude: 3300,
                 id: 'ArchaHizhinaRaceka',
                 image:
@@ -157,4 +162,8 @@ class MockTrekkingRemoteDataSource implements TrekkingRemoteDataSource {
   Future<Either<Failure, List<Trek>>> treks({required Region region}) async {
     return Right(_treks[region]!);
   }
+
+  @override
+  // TODO: implement points
+  List<TrekPoint> get points => throw UnimplementedError();
 }

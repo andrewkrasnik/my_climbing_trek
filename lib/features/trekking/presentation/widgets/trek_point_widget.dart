@@ -1,6 +1,7 @@
 import 'package:my_climbing_trek/core/widgets/my_cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:my_climbing_trek/features/trekking/domain/entities/trek_point.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class TrekPointWidget extends StatelessWidget {
   final TrekPoint point;
@@ -65,7 +66,24 @@ class TrekPointWidget extends StatelessWidget {
                               ),
                             ))
                         .toList(),
-                  ))
+                  )),
+              if (point.mapPoint != null)
+                Align(
+                  alignment: Alignment.topRight,
+                  child: IconButton(
+                      onPressed: () {
+                        launchUrlString(
+                          'https://maps.yandex.ru/?ll=${point.mapPoint!.coordinates}&spn=2.124481,0.671008&z=15&l=map&pt=${point.mapPoint!.coordinates},pmrdm1',
+                          mode: LaunchMode.externalApplication,
+                        );
+                      },
+                      icon: Icon(
+                        Icons.place,
+                        color: Colors.white,
+                        shadows: [Shadow(offset: Offset.fromDirection(1))],
+                        size: 40,
+                      )),
+                ),
             ],
           ),
         ),

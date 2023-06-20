@@ -16,7 +16,7 @@ class TrekPointType extends DataWithUUID {
       TrekPointType(name: 'Населенный пункт', id: 'populatedLocality');
 
   static TrekPointType referencePoint =
-      TrekPointType(name: 'Ориентир', id: 'referenceЗoint');
+      TrekPointType(name: 'Ориентир', id: 'referencePoint');
 
   static TrekPointType waterfall =
       TrekPointType(name: 'Водопад', id: 'waterfall');

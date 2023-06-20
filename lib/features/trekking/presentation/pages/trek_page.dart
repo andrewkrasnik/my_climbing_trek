@@ -79,13 +79,14 @@ class TrekPage extends StatelessWidget {
             ),
             SliverList(
                 delegate: SliverChildListDelegate([
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ScaledImageWidget(
-                  imageUrl: trek.mapImage!,
+              if (trek.mapImage != null)
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ScaledImageWidget(
+                    imageUrl: trek.mapImage!,
+                  ),
                 ),
-              ),
-              TrekPointWidget(point: trek.start),
+              if (trek.sections.isNotEmpty) TrekPointWidget(point: trek.start),
               ...trek.sections.map((section) => Column(
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.start,
