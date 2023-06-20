@@ -1,4 +1,3 @@
-import 'package:my_climbing_trek/features/mountaineering/presentation/pages/mountain_region_page.dart';
 import 'package:my_climbing_trek/features/trekking/presentation/bloc/trekking_regions/trekking_regions_cubit.dart';
 import 'package:my_climbing_trek/features/trekking/presentation/pages/trekking_region_page.dart';
 import 'package:my_climbing_trek/features/trekking/presentation/widgets/trekking_region_widget.dart';

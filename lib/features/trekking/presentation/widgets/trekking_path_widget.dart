@@ -86,23 +86,22 @@ class TrekkingPathWidget extends StatelessWidget {
                 children: [
                   if (editing)
                     Checkbox(
-                        value:
-                            state.currentPoint == path.currentSection!.finish,
+                        value: state.currentPoint == path.currentSectionFinish,
                         onChanged: (value) {
                           if (state.currentPoint == null) {
                             BlocProvider.of<TrekkingCubit>(context)
                                 .setCurrentPoint(
-                                    point: path.currentSection!.finish);
+                                    point: path.currentSectionFinish);
                           } else {
                             BlocProvider.of<TrekkingCubit>(context)
                                 .setCurrentPoint(point: null);
                           }
                         }),
                   const SizedBox(width: 4),
-                  Text(path.currentSection!.finish.name),
+                  Text(path.currentSectionFinish.name),
                   const SizedBox(width: 4),
                   Text(
-                      '${path.currentSection!.length} км ${path.currentSection!.climb}'),
+                      '${path.currentSection!.length} км ${path.currentSectionClimb}'),
                 ],
               ),
               const SizedBox(height: 8),

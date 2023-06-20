@@ -18,9 +18,6 @@ class Trek extends DataWithUUID {
 
   TrekPoint get finish => sections.last.finish;
 
-  TrekSection? nextSection(TrekPoint point) =>
-      sections.firstWhereOrNull((element) => element.start == point);
-
   Trek({
     required this.name,
     required this.sections,
@@ -33,4 +30,10 @@ class Trek extends DataWithUUID {
   }) : links = links ?? [];
 
   String get imageUrl => image ?? finish.image!;
+
+  TrekSection? nextSection(TrekPoint point) =>
+      sections.firstWhereOrNull((element) => element.start == point);
+
+  TrekSection? previosSection(TrekPoint point) =>
+      sections.firstWhereOrNull((element) => element.finish == point);
 }

@@ -15,12 +15,17 @@ class TrekSection {
 
   int get climbLength => finish.altitude - start.altitude;
 
-  String get climb {
-    final climbAltitude = finish.altitude - start.altitude;
+  String climb(turn) {
+    final int climbAltitude;
+    if (turn) {
+      climbAltitude = start.altitude - finish.altitude;
+    } else {
+      climbAltitude = finish.altitude - start.altitude;
+    }
 
     if (climbAltitude > 0) {
       return ', набор высоты $climbAltitude м.';
-    } else if (climbAltitude > 0) {
+    } else if (climbAltitude < 0) {
       return ', сброс высоты ${-climbAltitude} м.';
     } else {
       return '';

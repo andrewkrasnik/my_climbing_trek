@@ -16,6 +16,7 @@ class TrekkingPath extends Treaning {
   int climbUp;
   int climbDown;
   TrekSection? currentSection;
+  bool turn;
 
   double get time {
     double pathTime = 0;
@@ -30,22 +31,55 @@ class TrekkingPath extends Treaning {
     return pathTime;
   }
 
+  TrekPoint? get currentPoint =>
+      turn ? currentSection?.finish : currentSection?.start;
+
+  TrekPoint? get trekStart => turn ? trek?.finish : trek?.start;
+
+  TrekPoint? get trekFinish => turn ? trek?.start : trek?.finish;
+
+  TrekPoint get currentSectionFinish =>
+      turn ? currentSection!.start : currentSection!.finish;
+
+  TrekPoint get currentSectionStart =>
+      turn ? currentSection!.finish : currentSection!.start;
+
+  String get currentSectionClimb => currentSection!.climb(turn);
+
   bool visitPoint(TrekPoint point) {
     if (events.isNotEmpty && trek != null && currentSection != null) {
-      if (point == currentSection!.finish) {
-        length += currentSection!.length;
+      if (turn) {
+        if (point == currentSection!.start) {
+          length += currentSection!.length;
 
-        if (currentSection!.climbLength > 0) {
-          climbUp += currentSection!.climbLength;
-        } else {
-          climbDown += -currentSection!.climbLength;
+          if (currentSection!.climbLength < 0) {
+            climbUp += -currentSection!.climbLength;
+          } else {
+            climbDown += currentSection!.climbLength;
+          }
+
+          final nextSection = trek!.previosSection(point);
+
+          currentSection = nextSection;
+
+          return true;
         }
+      } else {
+        if (point == currentSection!.finish) {
+          length += currentSection!.length;
 
-        final nextSection = trek!.nextSection(point);
+          if (currentSection!.climbLength > 0) {
+            climbUp += currentSection!.climbLength;
+          } else {
+            climbDown += -currentSection!.climbLength;
+          }
 
-        currentSection = nextSection;
+          final nextSection = trek!.nextSection(point);
 
-        return true;
+          currentSection = nextSection;
+
+          return true;
+        }
       }
     }
 
@@ -68,6 +102,7 @@ class TrekkingPath extends Treaning {
     this.climbUp = 0,
     List<TrekkingPathEvent>? events,
     this.currentSection,
+    this.turn = false,
   }) : events = events ?? [];
 
   @override

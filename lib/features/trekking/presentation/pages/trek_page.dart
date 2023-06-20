@@ -24,12 +24,27 @@ class TrekPage extends StatelessWidget {
         floatingActionButton: BlocBuilder<TrekkingCubit, TrekkingState>(
           builder: (context, state) {
             if (state.currentPath == null && state.previosPath == null) {
-              return FloatingActionButton(
-                onPressed: () {
-                  BlocProvider.of<TrekkingCubit>(context).startTrek(trek: trek);
-                  Navigator.of(context).popUntil((route) => route.isFirst);
-                },
-                child: const Text('Старт'),
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  FloatingActionButton(
+                    onPressed: () {
+                      BlocProvider.of<TrekkingCubit>(context)
+                          .startTrek(trek: trek);
+                      Navigator.of(context).popUntil((route) => route.isFirst);
+                    },
+                    child: const Text('Туда'),
+                  ),
+                  const SizedBox(width: 8),
+                  FloatingActionButton(
+                    onPressed: () {
+                      BlocProvider.of<TrekkingCubit>(context)
+                          .startTrek(trek: trek, turn: true);
+                      Navigator.of(context).popUntil((route) => route.isFirst);
+                    },
+                    child: const Text('Назад'),
+                  ),
+                ],
               );
             }
             return const SizedBox();

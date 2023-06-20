@@ -30,9 +30,7 @@ class AddTrekEventUsecase {
         await _trekkingPathRepository.savePathEvent(event: event);
 
     return failureOrUnit.fold((failure) => Left(failure), (_) async {
-      if (point != null &&
-          point != path.trek?.start &&
-          path.visitPoint(point)) {
+      if (point != null && point != path.trekStart && path.visitPoint(point)) {
         final failureOrPathUnit =
             await _trekkingPathRepository.savePath(path: path);
 
@@ -43,7 +41,7 @@ class AddTrekEventUsecase {
       }
 
       if (TrekkingEventType.endActions.contains(type) ||
-          (point != null && point == path.trek?.finish)) {
+          (point != null && point == path.trekFinish)) {
         path.finishTreaning();
 
         final failureOrPathUnit =

@@ -49,15 +49,15 @@ class TrekkingCubit extends Cubit<TrekkingState> {
     });
   }
 
-  Future<void> startTrek({required Trek trek}) async {
-    final failureOrPath = await _startTrekUsecase(trek: trek);
+  Future<void> startTrek({required Trek trek, bool turn = false}) async {
+    final failureOrPath = await _startTrekUsecase(trek: trek, turn: turn);
 
     failureOrPath.fold(
         (failure) => null,
         (path) => emit(state.copyWith(
               currentPath: path,
               previosPath: null,
-              currentPoint: path.currentSection?.start,
+              currentPoint: path.currentPoint,
             )));
   }
 

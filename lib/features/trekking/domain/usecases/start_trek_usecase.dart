@@ -13,13 +13,15 @@ class StartTrekUsecase {
   StartTrekUsecase(this._trekkingPathRepository);
 
   Future<Either<Failure, TrekkingPath>> call(
-      {required Trek trek, TrekkingType? type}) async {
+      {required Trek trek, TrekkingType? type, required bool turn}) async {
     final TrekkingPath path = TrekkingPath(
       date: DateTime.now(),
       region: trek.region,
       type: type ?? trek.type,
       trek: trek,
-      currentSection: trek.sections.firstOrNull,
+      currentSection:
+          turn ? trek.sections.lastOrNull : trek.sections.firstOrNull,
+      turn: turn,
     );
 
     path.startTreaning();
