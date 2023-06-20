@@ -7,6 +7,7 @@ import 'package:my_climbing_trek/features/trekking/domain/entities/trekking_even
 import 'package:my_climbing_trek/features/trekking/domain/entities/trekking_path.dart';
 import 'package:my_climbing_trek/features/trekking/domain/entities/trekking_path_event.dart';
 import 'package:my_climbing_trek/features/trekking/domain/usecases/add_trek_event_usecase.dart';
+import 'package:my_climbing_trek/features/trekking/domain/usecases/continue_trek_usecase.dart';
 import 'package:my_climbing_trek/features/trekking/domain/usecases/current_trekking_path_usecase.dart';
 import 'package:my_climbing_trek/features/trekking/domain/usecases/previos_trekking_path_usecase.dart';
 import 'package:my_climbing_trek/features/trekking/domain/usecases/start_trek_usecase.dart';
@@ -20,12 +21,14 @@ class TrekkingCubit extends Cubit<TrekkingState> {
   final PreviosTrekkingPathUsecase _previosTrekkingPathUsecase;
   final StartTrekUsecase _startTrekUsecase;
   final AddTrekEventUsecase _addTrekEventUsecase;
+  final ContinueTrekUsecase _continueTrekUsecase;
 
   TrekkingCubit(
     this._currentTrekkingPathUsecase,
     this._previosTrekkingPathUsecase,
     this._startTrekUsecase,
     this._addTrekEventUsecase,
+    this._continueTrekUsecase,
   ) : super(TrekkingState.initial());
 
   Future<void> loadData() async {
@@ -48,6 +51,18 @@ class TrekkingCubit extends Cubit<TrekkingState> {
 
   Future<void> startTrek({required Trek trek}) async {
     final failureOrPath = await _startTrekUsecase(trek: trek);
+
+    failureOrPath.fold(
+        (failure) => null,
+        (path) => emit(state.copyWith(
+              currentPath: path,
+              previosPath: null,
+              currentPoint: path.currentSection?.start,
+            )));
+  }
+
+  Future<void> continueTrek({required TrekkingPath path}) async {
+    final failureOrPath = await _continueTrekUsecase(path: path);
 
     failureOrPath.fold(
         (failure) => null,

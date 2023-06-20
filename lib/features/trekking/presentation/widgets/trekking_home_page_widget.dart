@@ -4,6 +4,7 @@ import 'package:my_climbing_trek/features/trekking/presentation/bloc/trekking/tr
 import 'package:my_climbing_trek/features/trekking/presentation/bloc/trekking_regions/trekking_regions_cubit.dart';
 import 'package:my_climbing_trek/features/trekking/presentation/pages/trekking_region_page.dart';
 import 'package:my_climbing_trek/features/trekking/presentation/pages/trekking_regions_page.dart';
+import 'package:my_climbing_trek/features/trekking/presentation/widgets/previos_trekking_path_widget.dart';
 import 'package:my_climbing_trek/features/trekking/presentation/widgets/trekking_path_widget.dart';
 import 'package:my_climbing_trek/features/trekking/presentation/widgets/trekking_region_widget.dart';
 import 'package:my_climbing_trek/service_locator.dart';
@@ -25,12 +26,20 @@ class TrekkingHomePageWidget extends StatelessWidget {
         builder: (context, state) {
           return Column(
             children: [
-              if (state.currentPath != null)
+              if (state.currentPath != null) ...[
                 TrekkingPathWidget(
                   path: state.currentPath!,
                   editing: true,
                 ),
-              const SizedBox(height: 8),
+                const SizedBox(height: 8),
+              ],
+              if (state.currentPath == null && state.previosPath != null) ...[
+                PreviosTrekkingPathWidget(
+                  path: state.previosPath!,
+                  editing: true,
+                ),
+                const SizedBox(height: 8),
+              ],
             ],
           );
         },

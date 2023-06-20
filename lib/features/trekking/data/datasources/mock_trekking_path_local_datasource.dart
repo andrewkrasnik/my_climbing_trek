@@ -43,7 +43,12 @@ class MockTrekkingPathLocalDataSource implements TrekkingPathLocalDataSource {
 
   @override
   Future<Either<Failure, TrekkingPath?>> previosPath() async {
-    return Right(
-        _treanings.lastWhereOrNull((element) => element != _currentTreaning));
+    TrekkingPath? treaning =
+        _treanings.lastWhereOrNull((element) => element != _currentTreaning);
+
+    if (treaning?.currentSection == null) {
+      treaning = null;
+    }
+    return Right(treaning);
   }
 }

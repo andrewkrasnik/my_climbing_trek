@@ -42,9 +42,8 @@ class TrekkingPath extends Treaning {
         }
 
         final nextSection = trek!.nextSection(point);
-        if (nextSection != null) {
-          currentSection = nextSection;
-        }
+
+        currentSection = nextSection;
 
         return true;
       }
@@ -73,7 +72,6 @@ class TrekkingPath extends Treaning {
 
   @override
   void finishTreaning({DateTime? finish}) {
-    currentSection = null;
     super.finishTreaning(finish: finish);
   }
 }
