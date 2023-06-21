@@ -3,7 +3,7 @@ description: My Climbing Trek
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.9+11
+version: 1.0.10+12
 
 
 environment:
@@ -32,7 +32,7 @@ dependencies:
   equatable: ^2.0.5
   freezed: ^2.3.5
   json_serializable: ^6.7.0
-  json_annotation: ^4.7.0
+  json_annotation: ^4.8.1
   freezed_annotation: ^2.2.0
   # Для функции поделиться данными тренировки
   screenshot: ^2.1.0
@@ -41,23 +41,23 @@ dependencies:
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   # Локальное хранение данных в SQL базе
-  drift: ^2.8.2
+  drift: ^2.9.0
   sqlite3_flutter_libs: ^0.5.15
   path_provider: ^2.0.15
-  path: ^1.8.2
+  path: ^1.8.3
   #Интеграция со службами Firebase 
-  firebase_core: ^2.13.1
-  firebase_analytics: ^10.4.2
-  firebase_crashlytics: ^3.3.2
+  firebase_core: ^2.14.0
+  firebase_analytics: ^10.4.3
+  firebase_crashlytics: ^3.3.3
   #Удаленная база данных
-  cloud_firestore: ^4.8.0
+  cloud_firestore: ^4.8.1
   #Проверка интернет соединения
   internet_connection_checker: ^1.0.0+1
   #Аунтификация
-  firebase_auth: ^4.6.2
+  firebase_auth: ^4.6.3
 
   #Выбор изображения с устройства
-  image_picker: ^0.8.7+5
+  image_picker: ^0.8.9
   
 
 
