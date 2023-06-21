@@ -154,7 +154,7 @@ class IceHomePageWidget extends StatelessWidget {
                                 ],
                               ),
                           separatorBuilder: (_, __) => const SizedBox(
-                                width: 16,
+                                width: 8,
                               ),
                           itemCount: dataState.districts.length),
                       orElse: () => const SizedBox(),

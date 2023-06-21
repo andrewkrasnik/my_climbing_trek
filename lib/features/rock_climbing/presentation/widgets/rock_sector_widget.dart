@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_climbing_trek/core/widgets/my_cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:my_climbing_trek/core/widgets/scaled_image.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_district.dart';

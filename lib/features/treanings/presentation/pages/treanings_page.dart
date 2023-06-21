@@ -27,6 +27,8 @@ class TreaningsPage extends StatelessWidget {
               ice: settingsState.treaningsSettings.useIceTreanings,
               rock: settingsState.treaningsSettings.useRockTraining,
               strength: settingsState.treaningsSettings.useStrengthTraining,
+              travel: settingsState.treaningsSettings.useTraveling,
+              trekking: settingsState.treaningsSettings.useTrekking,
             ),
           child: BlocBuilder<TreaningsCubit, TreaningsState>(
             builder: (context, state) {
@@ -107,6 +109,12 @@ class TreaningsPage extends StatelessWidget {
                                                 strength: settingsState
                                                     .treaningsSettings
                                                     .useStrengthTraining,
+                                                travel: settingsState
+                                                    .treaningsSettings
+                                                    .useTraveling,
+                                                trekking: settingsState
+                                                    .treaningsSettings
+                                                    .useTrekking,
                                               );
                                             }
                                           },
@@ -129,30 +137,30 @@ class TreaningsPage extends StatelessWidget {
                                     ),
                                   ),
                               separatorBuilder: (_, index) {
-                                if (index < dataState.treanings.length) {
-                                  final month = dataState
-                                      .treanings[index + 1].date
-                                      .monthStart();
+                                // if (index < dataState.treanings.length) {
+                                //   final month = dataState
+                                //       .treanings[index + 1].date
+                                //       .monthStart();
 
-                                  if (cuttentMonth != month) {
-                                    cuttentMonth = month;
-                                    return Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 24),
-                                      child: Center(
-                                          child: Text(
-                                        cuttentMonth.monthString(),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headlineSmall,
-                                      )),
-                                    );
-                                  } else {
-                                    return const SizedBox(
-                                      height: 32,
-                                    );
-                                  }
-                                }
+                                //   if (cuttentMonth != month) {
+                                //     cuttentMonth = month;
+                                //     return Padding(
+                                //       padding: const EdgeInsets.symmetric(
+                                //           vertical: 24),
+                                //       child: Center(
+                                //           child: Text(
+                                //         cuttentMonth.monthString(),
+                                //         style: Theme.of(context)
+                                //             .textTheme
+                                //             .headlineSmall,
+                                //       )),
+                                //     );
+                                //   } else {
+                                //     return const SizedBox(
+                                //       height: 32,
+                                //     );
+                                //   }
+                                // }
                                 return const SizedBox(
                                   height: 32,
                                 );

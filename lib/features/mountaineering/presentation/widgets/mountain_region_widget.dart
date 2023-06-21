@@ -21,7 +21,6 @@ class MountainRegionWidget extends StatelessWidget {
       child: Container(
         height: height,
         width: 180,
-        padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4.0),
         ),

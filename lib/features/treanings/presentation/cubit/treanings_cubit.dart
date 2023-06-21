@@ -24,6 +24,8 @@ class TreaningsCubit extends Cubit<TreaningsState> {
     required bool ice,
     required bool cardio,
     required bool strength,
+    required bool travel,
+    required bool trekking,
   }) async {
     emit(const TreaningsState.loading());
 
@@ -33,6 +35,8 @@ class TreaningsCubit extends Cubit<TreaningsState> {
       ice: ice,
       rock: rock,
       strength: strength,
+      travel: travel,
+      trekking: trekking,
     );
 
     failureOrTreanings.fold(
@@ -51,6 +55,8 @@ class TreaningsCubit extends Cubit<TreaningsState> {
     required bool ice,
     required bool cardio,
     required bool strength,
+    required bool travel,
+    required bool trekking,
   }) async {
     final failureOrUnit = await _deleteTreaning(treaning: treaning);
 
@@ -59,12 +65,13 @@ class TreaningsCubit extends Cubit<TreaningsState> {
         description: failure.toString(),
       )),
       (_) => loadData(
-        rock: rock,
-        gym: gym,
-        ice: ice,
-        cardio: cardio,
-        strength: strength,
-      ),
+          rock: rock,
+          gym: gym,
+          ice: ice,
+          cardio: cardio,
+          strength: strength,
+          travel: travel,
+          trekking: trekking),
     );
 
     // loadData();

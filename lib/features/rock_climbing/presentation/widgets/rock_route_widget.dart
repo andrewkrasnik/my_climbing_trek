@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:my_climbing_trek/core/data/climbing_route_type.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_route.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_route_attempts_statistic.dart';
 import 'package:my_climbing_trek/features/rock_climbing/presentation/widgets/rock_category_widget.dart';

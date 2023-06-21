@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_climbing_trek/core/data/climbing_category.dart';
 import 'package:flutter/material.dart';
 import 'package:my_climbing_trek/core/data/difficulty_category.dart';
 import 'package:my_climbing_trek/features/settings/presentation/cubit/settings_cubit.dart';

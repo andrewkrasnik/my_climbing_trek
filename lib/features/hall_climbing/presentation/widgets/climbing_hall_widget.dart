@@ -18,7 +18,6 @@ class ClimbingHallWidget extends StatelessWidget {
       child: Container(
         height: 160,
         width: 180,
-        padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4.0),
         ),

@@ -10,6 +10,16 @@ import 'package:my_climbing_trek/features/rock_climbing/presentation/widgets/roc
 import 'package:my_climbing_trek/features/strength_training/domain/entities/strength_treaning.dart';
 import 'package:my_climbing_trek/features/strength_training/presentation/widgets/strength_treaning_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:my_climbing_trek/features/traveling/domain/entities/travel.dart';
+import 'package:my_climbing_trek/features/traveling/domain/entities/travel_day.dart';
+import 'package:my_climbing_trek/features/traveling/domain/entities/travel_finish.dart';
+import 'package:my_climbing_trek/features/traveling/domain/entities/travel_start.dart';
+import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_day_widget.dart';
+import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_finish_widget.dart';
+import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_start_widget.dart';
+import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_widget.dart';
+import 'package:my_climbing_trek/features/trekking/domain/entities/trekking_path.dart';
+import 'package:my_climbing_trek/features/trekking/presentation/widgets/trekking_path_widget.dart';
 
 class TreaningWidgetFactory extends StatelessWidget {
   final Treaning treaning;
@@ -28,6 +38,16 @@ class TreaningWidgetFactory extends StatelessWidget {
       return StrengthTreaningWidget(treaning: treaning as StrengthTreaning);
     } else if (treaning is RockTreaning) {
       return RockTreaningWidget(treaning: treaning as RockTreaning);
+    } else if (treaning is Travel) {
+      return TravelWidget(travel: treaning as Travel);
+    } else if (treaning is TravelFinish) {
+      return TravelFinishWidget(travelFinish: treaning as TravelFinish);
+    } else if (treaning is TravelStart) {
+      return TravelStartWidget(travelStart: treaning as TravelStart);
+    } else if (treaning is TravelDay) {
+      return TravelDayWidget(travelDay: treaning as TravelDay);
+    } else if (treaning is TrekkingPath) {
+      return TrekkingPathWidget(path: treaning as TrekkingPath);
     } else {
       return Container();
     }

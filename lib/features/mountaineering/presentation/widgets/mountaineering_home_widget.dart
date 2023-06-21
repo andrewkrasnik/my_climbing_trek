@@ -68,7 +68,7 @@ class MountaineeringHomeWidget extends StatelessWidget {
                                 region: dataState.regions[index]),
                           ),
                       separatorBuilder: (_, __) => const SizedBox(
-                            width: 16,
+                            width: 8,
                           ),
                       itemCount: dataState.regions.length),
                   orElse: () => const SizedBox(),
