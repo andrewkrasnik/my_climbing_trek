@@ -11,7 +11,8 @@ class MockTechniquesRemoteDataSource implements TechniquesRemoteDataSource {
     TechniqueGroup(
       name: 'Базовые альпинистские',
       description: '',
-      image: '',
+      image:
+          'https://static.tildacdn.com/tild6262-3161-4066-b662-383466363964/nxi5EX9QHC0.jpg',
     ): [
       Technique(name: 'Мультипитч', description: ''),
       Technique(name: 'Жумаринг', description: ''),
@@ -19,7 +20,8 @@ class MockTechniquesRemoteDataSource implements TechniquesRemoteDataSource {
     TechniqueGroup(
       name: 'Узлы',
       description: '',
-      image: '',
+      image:
+          'https://extrim.ironws.com/wp-content/uploads/2016/05/climbing_knots-245x300.jpg',
     ): [
       Technique(name: 'Восьмерка', description: ''),
       Technique(name: 'Булинь', description: ''),
@@ -27,14 +29,15 @@ class MockTechniquesRemoteDataSource implements TechniquesRemoteDataSource {
     TechniqueGroup(
       name: 'Спасработы в малой группе',
       description: '',
-      image: '',
+      image: 'https://risk.ru/u/img/343/342746.jpg',
     ): [
       Technique(name: 'Спасение лидера', description: ''),
       Technique(name: 'Капризный клиент', description: ''),
     ],
     TechniqueGroup(
       name: 'Первая помощь',
-      description: '',
+      description:
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZce8tz-V8NxYOfSbblz6HgV4HfVxNSg6emg&usqp=CAU',
       image: '',
     ): [
       Technique(name: 'Сердечно-легочная реанимация', description: ''),

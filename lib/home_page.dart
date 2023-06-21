@@ -7,6 +7,7 @@ import 'package:my_climbing_trek/features/rock_climbing/presentation/widgets/roc
 import 'package:my_climbing_trek/features/settings/presentation/cubit/settings_cubit.dart';
 import 'package:my_climbing_trek/features/strength_training/presentation/widgets/strength_home_page_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:my_climbing_trek/features/techniques/presentation/widgets/techniques_home_page_widget.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/widgets/current_travel_home_page_widget.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_home_page_widget.dart';
 import 'package:my_climbing_trek/features/trekking/presentation/widgets/trekking_home_page_widget.dart';
@@ -40,6 +41,8 @@ class HomePage extends StatelessWidget {
                     const StrengthHomePageWidget(),
                     const SizedBox(height: 16),
                   ],
+                  const TechniquesHomePageWidget(),
+                  const SizedBox(height: 16),
                   if (state.treaningsSettings.useRockTraining) ...[
                     const RockHomePageWidget(),
                     const SizedBox(height: 16),
