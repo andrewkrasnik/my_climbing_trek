@@ -739,6 +739,7 @@ _i1.GetIt $initGetIt(
         gh<_i51.StrengthTreaningsRepository>(),
         gh<_i77.CardioTreaningsRepository>(),
         gh<_i39.RockTreaningsRepository>(),
+        gh<_i59.TrekkingPathRepository>(),
       ));
   gh.lazySingleton<_i178.FinishHallAttempt>(() => _i178.FinishHallAttempt(
       treaningRepository: gh<_i115.HallTreaningRepository>()));
