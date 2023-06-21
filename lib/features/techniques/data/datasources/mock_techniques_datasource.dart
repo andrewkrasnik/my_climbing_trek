@@ -44,6 +44,33 @@ class MockTechniquesRemoteDataSource implements TechniquesRemoteDataSource {
       Technique(name: 'Иммобилизация', description: ''),
       Technique(name: 'Остановка кровотечений', description: ''),
     ],
+    TechniqueGroup(
+      name: 'Лавинная подготовка',
+      description: '',
+      image: 'https://risk.ru/u/img/343/342746.jpg',
+    ): [
+      Technique(name: 'Поиск по биперу', description: ''),
+      Technique(name: 'Поиск с щупами', description: ''),
+    ],
+    TechniqueGroup(
+      name: 'Ледовые занятия',
+      description: '',
+      image: 'https://risk.ru/u/img/343/342746.jpg',
+    ): [
+      Technique(name: 'Станции на льду', description: ''),
+      Technique(name: 'Спасение из ледовой трещины', description: ''),
+    ],
+    TechniqueGroup(
+      name: 'Снежные занятия',
+      description: '',
+      image: 'https://risk.ru/u/img/343/342746.jpg',
+    ): [
+      Technique(name: 'Тропежка', description: ''),
+      Technique(name: 'Снежная пещера', description: ''),
+      Technique(name: 'Снежная хижина', description: ''),
+      Technique(name: 'Станции на снегу', description: ''),
+      Technique(name: 'Спасение из ледовой трещины', description: ''),
+    ],
   };
 
   @override

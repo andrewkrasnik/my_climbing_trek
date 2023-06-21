@@ -14,11 +14,7 @@ class TechniqueWidget extends StatelessWidget {
         elevation: 0,
         borderRadius: BorderRadius.circular(8),
         child: Column(
-          children: [
-            Row(
-              children: [],
-            ),
-          ],
+          children: [Text(technique.name)],
         ),
       ),
     );

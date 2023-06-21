@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_climbing_trek/features/techniques/presentation/bloc/technique_groups/technique_groups_cubit.dart';
 import 'package:my_climbing_trek/features/techniques/presentation/bloc/techniques/techniques_cubit.dart';
+import 'package:my_climbing_trek/features/techniques/presentation/pages/technique_group_page.dart';
 import 'package:my_climbing_trek/features/techniques/presentation/pages/technique_groups_page.dart';
 import 'package:my_climbing_trek/features/techniques/presentation/widgets/technique_group_widget.dart';
 import 'package:my_climbing_trek/service_locator.dart';
@@ -98,28 +99,12 @@ class TechniquesHomePageWidget extends StatelessWidget {
                                   child: TechniqueGroupWidget(
                                     group: dataState.groups[index],
                                     onTap: () {
-                                      // final district =
-                                      //     dataState.groups[index];
-                                      // final bool showAddButton =
-                                      //     cubit.state.currentTreaning == null ||
-                                      //         cubit.state.currentTreaning
-                                      //                 ?.district ==
-                                      //             district;
-                                      // Navigator.of(context).push(
-                                      //     MaterialPageRoute(
-                                      //         builder: (context) =>
-                                      //             RockDistrictPage(
-                                      //                 addSector: showAddButton
-                                      //                     ? (sector) {
-                                      //                         cubit.addRockSectorToTreaning(
-                                      //                             sector:
-                                      //                                 sector,
-                                      //                             district:
-                                      //                                 district);
-                                      //                       }
-                                      //                     : null,
-                                      //                 district: dataState
-                                      //                     .districts[index])));
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  TechniqueGroupPage(
+                                                      group: dataState
+                                                          .groups[index])));
                                     },
                                   ),
                                 ),

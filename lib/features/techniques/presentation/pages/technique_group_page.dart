@@ -2,7 +2,6 @@ import 'package:my_climbing_trek/core/widgets/my_cached_network_image.dart';
 import 'package:my_climbing_trek/features/techniques/domain/entities/technique_group.dart';
 import 'package:my_climbing_trek/features/techniques/presentation/bloc/techniques/techniques_cubit.dart';
 import 'package:my_climbing_trek/features/techniques/presentation/widgets/technique_widget.dart';
-import 'package:my_climbing_trek/features/trekking/presentation/pages/trek_page.dart';
 import 'package:my_climbing_trek/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
