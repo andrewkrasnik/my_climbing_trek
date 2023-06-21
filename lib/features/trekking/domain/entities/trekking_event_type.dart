@@ -46,6 +46,7 @@ class TrekkingEventType extends DataWithUUID {
     meal.id: meal,
     brake.id: brake,
     transport.id: transport,
+    end.id: end,
   };
 
   static List<TrekkingEventType> get values => _values.values.toList();

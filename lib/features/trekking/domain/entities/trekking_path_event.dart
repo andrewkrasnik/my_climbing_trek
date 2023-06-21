@@ -1,18 +1,19 @@
+import 'package:my_climbing_trek/core/data/data_with_uuid.dart';
 import 'package:my_climbing_trek/features/trekking/domain/entities/trek_point.dart';
 import 'package:my_climbing_trek/features/trekking/domain/entities/trekking_event_type.dart';
-import 'package:my_climbing_trek/features/trekking/domain/entities/trekking_path.dart';
 
-class TrekkingPathEvent {
-  final TrekkingPath path;
+class TrekkingPathEvent extends DataWithUUID {
   final TrekkingEventType type;
   final TrekPoint? point;
   final DateTime time;
+  final String pathId;
 
   TrekkingPathEvent({
-    required this.path,
+    required this.pathId,
     required this.type,
     required this.time,
     this.point,
+    super.id,
   });
 
   get isMooving => type == TrekkingEventType.startMoving;

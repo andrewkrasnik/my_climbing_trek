@@ -6,6 +6,9 @@ import 'package:my_climbing_trek/features/trekking/domain/entities/trekking_path
 abstract class TrekkingPathRepository {
   Future<Either<Failure, List<TrekkingPath>>> getTreanings();
 
+  Future<Either<Failure, Unit>> deleteTreaning(
+      {required TrekkingPath treaning});
+
   Future<Either<Failure, Unit>> savePath({required TrekkingPath path});
 
   Future<Either<Failure, Unit>> savePathEvent(

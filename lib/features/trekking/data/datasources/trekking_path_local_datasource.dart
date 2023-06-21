@@ -14,4 +14,7 @@ abstract class TrekkingPathLocalDataSource {
   Future<Either<Failure, TrekkingPath?>> currentPath();
 
   Future<Either<Failure, TrekkingPath?>> previosPath();
+
+  Future<Either<Failure, Unit>> deleteTreaning(
+      {required TrekkingPath treaning});
 }

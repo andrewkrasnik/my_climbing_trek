@@ -9,4 +9,6 @@ enum DBTables {
   iceAttempts,
   rockTreanings,
   rockAttempts,
+  trekkingPaths,
+  trekkingPathEvents,
 }

@@ -4,7 +4,7 @@ import 'package:my_climbing_trek/features/trekking/domain/entities/trek_section.
 
 part 'trek_section_model.g.dart';
 
-@JsonSerializable(converters: [TrekPointStringConverter()])
+@JsonSerializable(converters: [TrekPointIdConverter()])
 class TrekSectionModel extends TrekSection {
   TrekSectionModel({
     required super.start,

@@ -20,7 +20,7 @@ class AddTrekEventUsecase {
     TrekPoint? point,
   }) async {
     final TrekkingPathEvent event = TrekkingPathEvent(
-      path: path,
+      pathId: path.id,
       time: time ?? DateTime.now(),
       type: type,
       point: point,

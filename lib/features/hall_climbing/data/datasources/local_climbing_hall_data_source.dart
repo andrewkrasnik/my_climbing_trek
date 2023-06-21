@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:my_climbing_trek/core/failures/failure.dart';
 import 'package:my_climbing_trek/features/hall_climbing/data/datasources/climbing_hall_data_source.dart';
-import 'package:my_climbing_trek/features/hall_climbing/data/datasources/mock_climbing_hall_data_source.dart';
 import 'package:my_climbing_trek/features/hall_climbing/data/models/hall_model.dart';
 import 'package:my_climbing_trek/features/hall_climbing/data/models/hall_route_model.dart';
 import 'package:dartz/dartz.dart';

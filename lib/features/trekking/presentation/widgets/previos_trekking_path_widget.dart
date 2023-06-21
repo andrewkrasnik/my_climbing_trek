@@ -67,16 +67,17 @@ class PreviosTrekkingPathWidget extends StatelessWidget {
             ],
             const Text('Пункт назначения:'),
             const SizedBox(height: 4),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(width: 4),
-                Text(path.currentSection!.finish.name),
-                const SizedBox(width: 4),
-                Text(
-                    '${path.currentSection!.length} км ${path.currentSectionClimb}'),
-              ],
-            ),
+            if (path.currentSection != null)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(width: 4),
+                  Text(path.currentSection!.finish.name),
+                  const SizedBox(width: 4),
+                  Text(
+                      '${path.currentSection!.length} км ${path.currentSectionClimb}'),
+                ],
+              ),
             const SizedBox(height: 8),
             if (editing) ...[
               InkWell(

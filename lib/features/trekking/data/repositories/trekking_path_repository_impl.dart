@@ -37,4 +37,10 @@ class TrekkingPathRepositoryImpl implements TrekkingPathRepository {
   Future<Either<Failure, TrekkingPath?>> previosPath() async {
     return await _pathLocalDataSource.previosPath();
   }
+
+  @override
+  Future<Either<Failure, Unit>> deleteTreaning(
+      {required TrekkingPath treaning}) async {
+    return await _pathLocalDataSource.deleteTreaning(treaning: treaning);
+  }
 }

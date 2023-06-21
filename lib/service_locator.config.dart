@@ -330,10 +330,10 @@ import 'features/traveling/presentation/cubit/travels/travels_cubit.dart'
 import 'features/treanings/domain/usecases/delete_treaning.dart' as _i177;
 import 'features/treanings/domain/usecases/get_all_treanings.dart' as _i182;
 import 'features/treanings/presentation/cubit/treanings_cubit.dart' as _i194;
+import 'features/trekking/data/datasources/drift_trekking_path_local_datasource.dart'
+    as _i58;
 import 'features/trekking/data/datasources/firebase_trekking_remote_datasource.dart'
     as _i62;
-import 'features/trekking/data/datasources/mock_trekking_path_local_datasource.dart'
-    as _i58;
 import 'features/trekking/data/datasources/trekking_path_local_datasource.dart'
     as _i57;
 import 'features/trekking/data/datasources/trekking_remote_datasource.dart'
@@ -448,8 +448,8 @@ _i1.GetIt $initGetIt(
       () => _i54.MockTravelLocalDatasource());
   gh.lazySingleton<_i55.TravelRepository>(
       () => _i56.TravelRepositoryImpl(gh<_i53.TravelLocalDatasource>()));
-  gh.lazySingleton<_i57.TrekkingPathLocalDataSource>(
-      () => _i58.MockTrekkingPathLocalDataSource());
+  gh.lazySingleton<_i57.TrekkingPathLocalDataSource>(() =>
+      _i58.DriftTrekkingPathLocalDataSource(gh<_i14.LocalDBDatasource>()));
   gh.lazySingleton<_i59.TrekkingPathRepository>(() =>
       _i60.TrekkingPathRepositoryImpl(gh<_i57.TrekkingPathLocalDataSource>()));
   gh.lazySingleton<_i61.TrekkingRemoteDataSource>(

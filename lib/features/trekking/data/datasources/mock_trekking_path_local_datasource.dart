@@ -6,7 +6,7 @@ import 'package:my_climbing_trek/features/trekking/data/datasources/trekking_pat
 import 'package:my_climbing_trek/features/trekking/domain/entities/trekking_path.dart';
 import 'package:my_climbing_trek/features/trekking/domain/entities/trekking_path_event.dart';
 
-@LazySingleton(as: TrekkingPathLocalDataSource)
+// @LazySingleton(as: TrekkingPathLocalDataSource)
 class MockTrekkingPathLocalDataSource implements TrekkingPathLocalDataSource {
   final List<TrekkingPath> _treanings = [];
   TrekkingPath? _currentTreaning;
@@ -50,5 +50,12 @@ class MockTrekkingPathLocalDataSource implements TrekkingPathLocalDataSource {
       treaning = null;
     }
     return Right(treaning);
+  }
+
+  @override
+  Future<Either<Failure, Unit>> deleteTreaning(
+      {required TrekkingPath treaning}) {
+    // TODO: implement deleteTreaning
+    throw UnimplementedError();
   }
 }

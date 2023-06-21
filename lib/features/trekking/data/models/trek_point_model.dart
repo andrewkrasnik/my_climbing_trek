@@ -8,8 +8,9 @@ part 'trek_point_model.g.dart';
 
 @JsonSerializable(converters: [
   TrekPointTypeConverter(),
-  MapPointConverter(),
+  TrekPointIdConverter(),
   TrekPointFeatureConverter(),
+  MapPointConverter(),
 ])
 class TrekPointModel extends TrekPoint {
   TrekPointModel({
