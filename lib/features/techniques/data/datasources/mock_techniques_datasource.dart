@@ -4,6 +4,7 @@ import 'package:my_climbing_trek/core/failures/failure.dart';
 import 'package:my_climbing_trek/features/techniques/data/datasources/techniques_remote_datasource.dart';
 import 'package:my_climbing_trek/features/techniques/domain/entities/technique.dart';
 import 'package:my_climbing_trek/features/techniques/domain/entities/technique_group.dart';
+import 'package:my_climbing_trek/features/techniques/domain/entities/technique_option.dart';
 
 @LazySingleton(as: TechniquesRemoteDataSource)
 class MockTechniquesRemoteDataSource implements TechniquesRemoteDataSource {
@@ -15,7 +16,58 @@ class MockTechniquesRemoteDataSource implements TechniquesRemoteDataSource {
           'https://static.tildacdn.com/tild6262-3161-4066-b662-383466363964/nxi5EX9QHC0.jpg',
     ): [
       Technique(name: 'Мультипитч', description: ''),
-      Technique(name: 'Жумаринг', description: ''),
+      Technique(
+        name: 'Жумаринг',
+        description: '',
+        options: [
+          TechniqueOption(name: 'Косые перила'),
+          TechniqueOption(name: 'Два жумара'),
+          TechniqueOption(name: 'Один жумар'),
+          TechniqueOption(name: 'На прусиках'),
+        ],
+      ),
+      Technique(name: 'Укорачивание связки', description: ''),
+      Technique(
+        name: 'Установка точек',
+        description: '',
+        options: [
+          TechniqueOption(name: 'Френды'),
+          TechniqueOption(name: 'Закладки'),
+          TechniqueOption(name: 'Крючья'),
+          TechniqueOption(name: 'Трикамы'),
+          TechniqueOption(name: 'Гексы'),
+          TechniqueOption(name: 'Болнаты'),
+        ],
+      ),
+      Technique(
+        name: 'Организация станции',
+        description: '',
+        links: const [
+          'https://risk.ru/blog/6626',
+          'https://alplager.kz/fixed/',
+          'https://alplager.kz/sliding-x/',
+        ],
+        options: [
+          TechniqueOption(name: 'Две точки'),
+          TechniqueOption(name: 'Три точки'),
+          TechniqueOption(name: 'Четыре и более точек'),
+          TechniqueOption(name: 'На дереве'),
+          TechniqueOption(name: 'На выступе'),
+          TechniqueOption(name: 'Фиксированная'),
+          TechniqueOption(name: 'Компенсационная'),
+          TechniqueOption(name: 'Из основной веревки'),
+          TechniqueOption(name: 'Оппозитная точка'),
+        ],
+      ),
+    ],
+    TechniqueGroup(
+      name: 'Бухтовка веревки',
+      description: '',
+      image:
+          'https://static.tildacdn.com/tild6262-3161-4066-b662-383466363964/nxi5EX9QHC0.jpg',
+    ): [
+      Technique(name: 'На руку', description: ''),
+      Technique(name: 'На шею', description: ''),
     ],
     TechniqueGroup(
       name: 'Узлы',
@@ -25,6 +77,11 @@ class MockTechniquesRemoteDataSource implements TechniquesRemoteDataSource {
     ): [
       Technique(name: 'Восьмерка', description: ''),
       Technique(name: 'Булинь', description: ''),
+      Technique(name: 'Двойной булинь', description: ''),
+      Technique(name: 'Стремя', description: ''),
+      Technique(name: 'Австрийский проводник', description: ''),
+      Technique(name: 'Грейпвайн', description: ''),
+      Technique(name: 'UEAA', description: ''),
     ],
     TechniqueGroup(
       name: 'Спасработы в малой группе',
@@ -33,6 +90,8 @@ class MockTechniquesRemoteDataSource implements TechniquesRemoteDataSource {
     ): [
       Technique(name: 'Спасение лидера', description: ''),
       Technique(name: 'Капризный клиент', description: ''),
+      Technique(name: 'Тандем-противовес', description: ''),
+      Technique(name: 'Спасение с перил', description: ''),
     ],
     TechniqueGroup(
       name: 'Первая помощь',
@@ -68,7 +127,17 @@ class MockTechniquesRemoteDataSource implements TechniquesRemoteDataSource {
       Technique(name: 'Тропежка', description: ''),
       Technique(name: 'Снежная пещера', description: ''),
       Technique(name: 'Снежная хижина', description: ''),
-      Technique(name: 'Станции на снегу', description: ''),
+      Technique(
+        name: 'Станции на снегу',
+        description: '',
+        options: [
+          TechniqueOption(name: 'На ледорубе'),
+          TechniqueOption(name: 'На рюкзаке'),
+          TechniqueOption(name: 'На лопате'),
+          TechniqueOption(name: 'Через ледоруб'),
+          TechniqueOption(name: 'Страховка через яму'),
+        ],
+      ),
       Technique(name: 'Спасение из ледовой трещины', description: ''),
     ],
   };

@@ -14,7 +14,18 @@ class TechniqueWidget extends StatelessWidget {
         elevation: 0,
         borderRadius: BorderRadius.circular(8),
         child: Column(
-          children: [Text(technique.name)],
+          children: [
+            Text(technique.name),
+            if (technique.options.isNotEmpty)
+              Wrap(
+                children: technique.options
+                    .map((option) => Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 2),
+                          child: Chip(label: Text(option.name)),
+                        ))
+                    .toList(),
+              )
+          ],
         ),
       ),
     );
