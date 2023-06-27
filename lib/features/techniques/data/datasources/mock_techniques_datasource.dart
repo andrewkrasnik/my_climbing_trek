@@ -59,15 +59,10 @@ class MockTechniquesRemoteDataSource implements TechniquesRemoteDataSource {
           TechniqueOption(name: 'Оппозитная точка'),
         ],
       ),
-    ],
-    TechniqueGroup(
-      name: 'Бухтовка веревки',
-      description: '',
-      image:
-          'https://static.tildacdn.com/tild6262-3161-4066-b662-383466363964/nxi5EX9QHC0.jpg',
-    ): [
-      Technique(name: 'На руку', description: ''),
-      Technique(name: 'На шею', description: ''),
+      Technique(name: 'Бухтовка веревки', description: '', options: [
+        TechniqueOption(name: 'На руку'),
+        TechniqueOption(name: 'На шею'),
+      ]),
     ],
     TechniqueGroup(
       name: 'Узлы',

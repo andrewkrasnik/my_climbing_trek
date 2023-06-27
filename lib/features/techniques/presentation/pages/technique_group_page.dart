@@ -1,5 +1,6 @@
 import 'package:my_climbing_trek/core/widgets/my_cached_network_image.dart';
 import 'package:my_climbing_trek/features/techniques/domain/entities/technique_group.dart';
+import 'package:my_climbing_trek/features/techniques/presentation/bloc/technique_treaning/technique_treaning_cubit.dart';
 import 'package:my_climbing_trek/features/techniques/presentation/bloc/techniques/techniques_cubit.dart';
 import 'package:my_climbing_trek/features/techniques/presentation/widgets/technique_widget.dart';
 import 'package:my_climbing_trek/service_locator.dart';
@@ -56,17 +57,16 @@ class TechniqueGroupPage extends StatelessWidget {
                         childCount: dataState.techniques.length,
                         (context, index) => Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              // Navigator.of(context).push(MaterialPageRoute(
-                              //     builder: (context) => TrekPage(
-                              //           trek: dataState.techniques[index],
-                              //           region: region,
-                              //         )));
+                          child: TechniqueWidget(
+                            technique: dataState.techniques[index],
+                            onPressed: () {
+                              BlocProvider.of<TechniqueTreaningCubit>(context)
+                                  .addTechniqueGroup(
+                                group: group,
+                                technique: dataState.techniques[index],
+                              );
+                              Navigator.of(context).pop();
                             },
-                            child: TechniqueWidget(
-                              technique: dataState.techniques[index],
-                            ),
                           ),
                         ),
                       ),

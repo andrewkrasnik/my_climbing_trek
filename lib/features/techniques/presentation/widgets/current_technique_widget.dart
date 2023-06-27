@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:my_climbing_trek/features/techniques/domain/entities/technique.dart';
 
-class TechniqueWidget extends StatelessWidget {
+class CurrentTechniqueWidget extends StatelessWidget {
   final Technique technique;
-  final void Function()? onPressed;
 
-  const TechniqueWidget({required this.technique, this.onPressed, Key? key})
+  const CurrentTechniqueWidget({required this.technique, Key? key})
       : super(key: key);
 
   @override
@@ -17,22 +16,7 @@ class TechniqueWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  technique.name,
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: IconButton(
-                    icon: const Icon(Icons.add_box, color: Colors.white),
-                    onPressed: onPressed,
-                  ),
-                )
-              ],
-            ),
+            Text(technique.name),
             if (technique.options.isNotEmpty)
               Wrap(
                 children: technique.options

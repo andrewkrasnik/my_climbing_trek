@@ -34,15 +34,9 @@ class SettingsPage extends StatelessWidget {
                       ),
                     ),
                     const AuthButton(),
-                    // const Text('Настройка темного режима'),
-                    // const Text('Выбор языка'),
-                    // const Text('Выбор категорий трасс'),
-                    // const Text('Выбор видов лазанья'),
-                    // const Text('Соглашение на уведомления'),
                     const SizedBox(
                       height: 16,
                     ),
-
                     SwitchListTile(
                       value: state.treaningsSettings.useGymTreanings,
                       onChanged: (value) =>
@@ -73,7 +67,7 @@ class SettingsPage extends StatelessWidget {
                           BlocProvider.of<SettingsCubit>(context)
                               .changeTreaningSettings(
                                   settingsId: 9, value: value),
-                      title: const Text('Технические тернировки'),
+                      title: const Text('Технические тренировки'),
                     ),
                     SwitchListTile(
                       value: state.treaningsSettings.useRockTraining,

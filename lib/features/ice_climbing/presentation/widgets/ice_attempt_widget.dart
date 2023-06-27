@@ -65,6 +65,5 @@ class IceAttemptWidget extends StatelessWidget {
         ]),
       ),
     );
-    ;
   }
 }
