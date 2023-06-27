@@ -9,18 +9,21 @@ class TreaningsSettings extends Equatable {
   final bool useMountaineering;
   final bool useTraveling;
   final bool useTrekking;
+  final bool useTechniques;
 
-  const TreaningsSettings({
-    required this.useGymTreanings,
-    required this.useCardioTreanings,
-    required this.useIceTreanings,
-    required this.useStrengthTraining,
-    required this.useRockTraining,
-    bool? useTraveling,
-    bool? useMountaineering,
-    bool? useTrekking,
-  })  : useMountaineering = useMountaineering ?? true,
+  const TreaningsSettings(
+      {required this.useGymTreanings,
+      required this.useCardioTreanings,
+      required this.useIceTreanings,
+      required this.useStrengthTraining,
+      required this.useRockTraining,
+      bool? useTraveling,
+      bool? useMountaineering,
+      bool? useTrekking,
+      bool? useTechniques})
+      : useMountaineering = useMountaineering ?? true,
         useTraveling = useTraveling ?? true,
+        useTechniques = useTechniques ?? true,
         useTrekking = useTrekking ?? true;
 
   TreaningsSettings copyWith({
@@ -32,6 +35,7 @@ class TreaningsSettings extends Equatable {
     bool? useMountaineering,
     bool? useTraveling,
     bool? useTrekking,
+    bool? useTechniques,
   }) {
     return TreaningsSettings(
       useGymTreanings: useGymTreanings ?? this.useGymTreanings,
@@ -42,6 +46,7 @@ class TreaningsSettings extends Equatable {
       useMountaineering: useMountaineering ?? this.useMountaineering,
       useTraveling: useTraveling ?? this.useTraveling,
       useTrekking: useTrekking ?? this.useTrekking,
+      useTechniques: useTechniques ?? this.useTechniques,
     );
   }
 
@@ -54,6 +59,7 @@ class TreaningsSettings extends Equatable {
         useMountaineering: true,
         useTraveling: true,
         useTrekking: true,
+        useTechniques: true,
       );
 
   @override
@@ -66,5 +72,6 @@ class TreaningsSettings extends Equatable {
         useMountaineering,
         useTraveling,
         useTrekking,
+        useTechniques,
       ];
 }

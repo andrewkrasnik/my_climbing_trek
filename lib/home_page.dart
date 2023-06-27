@@ -41,8 +41,10 @@ class HomePage extends StatelessWidget {
                     const StrengthHomePageWidget(),
                     const SizedBox(height: 16),
                   ],
-                  const TechniquesHomePageWidget(),
-                  const SizedBox(height: 16),
+                  if (state.treaningsSettings.useTechniques) ...[
+                    const TechniquesHomePageWidget(),
+                    const SizedBox(height: 16),
+                  ],
                   if (state.treaningsSettings.useRockTraining) ...[
                     const RockHomePageWidget(),
                     const SizedBox(height: 16),

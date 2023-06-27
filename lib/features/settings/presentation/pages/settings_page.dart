@@ -68,6 +68,14 @@ class SettingsPage extends StatelessWidget {
                       title: const Text('Силовые тренировки'),
                     ),
                     SwitchListTile(
+                      value: state.treaningsSettings.useTechniques,
+                      onChanged: (value) =>
+                          BlocProvider.of<SettingsCubit>(context)
+                              .changeTreaningSettings(
+                                  settingsId: 9, value: value),
+                      title: const Text('Технические тернировки'),
+                    ),
+                    SwitchListTile(
                       value: state.treaningsSettings.useRockTraining,
                       onChanged: (value) =>
                           BlocProvider.of<SettingsCubit>(context)

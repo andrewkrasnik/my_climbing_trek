@@ -80,6 +80,8 @@ class SettingsCubit extends Cubit<SettingsState> {
         break;
       case 8:
         newSettings = newSettings.copyWith(useTrekking: value);
+      case 9:
+        newSettings = newSettings.copyWith(useTechniques: value);
         break;
       default:
         throw 'unknown settings';
