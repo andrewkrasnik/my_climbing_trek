@@ -32,6 +32,7 @@ class StrengthTreaningWidget extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        const Spacer(),
                         Text(treaning.date.dayString()),
                         if (editing)
                           Row(

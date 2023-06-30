@@ -38,7 +38,7 @@ class TechniquesHomePageWidget extends StatelessWidget {
             const SizedBox(height: 8),
             TechniqueTreaningWidget(
               treaning: state.currentTreaning!,
-              isCurrent: true,
+              editing: true,
             )
           ],
           if (state.previosTreaning != null) ...[

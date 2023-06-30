@@ -27,7 +27,10 @@ class TechniqueWidget extends StatelessWidget {
                 Align(
                   alignment: Alignment.bottomRight,
                   child: IconButton(
-                    icon: const Icon(Icons.add_box, color: Colors.white),
+                    icon: Icon(
+                      Icons.add_box,
+                      color: Theme.of(context).colorScheme.surface,
+                    ),
                     onPressed: onPressed,
                   ),
                 )

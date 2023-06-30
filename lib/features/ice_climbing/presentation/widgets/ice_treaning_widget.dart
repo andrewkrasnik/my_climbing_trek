@@ -31,8 +31,6 @@ class IceTreaningWidget extends StatelessWidget {
               Row(
                 // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(DateFormat('dd.MM.yyyy').format(treaning.date)),
-                  const Spacer(),
                   InkWell(
                       onTap: () => Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => IceDistrictPage(
@@ -49,6 +47,8 @@ class IceTreaningWidget extends StatelessWidget {
                                     : null,
                               ))),
                       child: Text(treaning.district.name)),
+                  const Spacer(),
+                  Text(DateFormat('dd.MM.yyyy').format(treaning.date)),
                   IconButton(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(

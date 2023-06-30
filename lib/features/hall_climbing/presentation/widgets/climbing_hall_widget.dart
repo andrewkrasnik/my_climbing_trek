@@ -26,6 +26,7 @@ class ClimbingHallWidget extends StatelessWidget {
           children: [
             MyCachedNetworkImage(
               imageUrl: climbingHall.image,
+              fit: BoxFit.cover,
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),

@@ -36,14 +36,14 @@ class HallTreaningWidget extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(DateFormat('dd.MM.yyyy').format(treaning.date)),
-                  const Spacer(),
                   InkWell(
                       onTap: () => Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => ClimbingHallPage(
                                 climbingHall: treaning.climbingHall,
                               ))),
                       child: Text(treaning.climbingHall.name)),
+                  const Spacer(),
+                  Text(DateFormat('dd.MM.yyyy').format(treaning.date)),
                   IconButton(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
