@@ -59,6 +59,14 @@ class MockTechniquesRemoteDataSource implements TechniquesRemoteDataSource {
           TechniqueOption(name: 'Оппозитная точка'),
         ],
       ),
+      Technique(
+        name: 'Полиспаст',
+        description: '',
+        options: [
+          TechniqueOption(name: 'Три к одному'),
+          TechniqueOption(name: 'Пять к одному'),
+        ],
+      ),
       Technique(name: 'Бухтовка веревки', description: '', options: [
         TechniqueOption(name: 'На руку'),
         TechniqueOption(name: 'На шею'),
@@ -90,9 +98,9 @@ class MockTechniquesRemoteDataSource implements TechniquesRemoteDataSource {
     ],
     TechniqueGroup(
       name: 'Первая помощь',
-      description:
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZce8tz-V8NxYOfSbblz6HgV4HfVxNSg6emg&usqp=CAU',
-      image: '',
+      description: '',
+      image:
+          'https://informugra.ru/upload/iblock/7e6/vdwbbka0ndu12lqf95kjfoul8u4njs3h.jpg',
     ): [
       Technique(name: 'Сердечно-легочная реанимация', description: ''),
       Technique(name: 'Иммобилизация', description: ''),
@@ -101,7 +109,8 @@ class MockTechniquesRemoteDataSource implements TechniquesRemoteDataSource {
     TechniqueGroup(
       name: 'Лавинная подготовка',
       description: '',
-      image: 'https://risk.ru/u/img/343/342746.jpg',
+      image:
+          'https://thumb.tildacdn.com/tild6630-3036-4431-a564-613664656434/-/format/webp/photo_2020-02-04_15-.jpg',
     ): [
       Technique(name: 'Поиск по биперу', description: ''),
       Technique(name: 'Поиск с щупами', description: ''),
@@ -109,19 +118,35 @@ class MockTechniquesRemoteDataSource implements TechniquesRemoteDataSource {
     TechniqueGroup(
       name: 'Ледовые занятия',
       description: '',
-      image: 'https://risk.ru/u/img/343/342746.jpg',
+      image: 'https://www.kant.ru/upload/img/articles/18_ledoclimbing.jpg',
     ): [
-      Technique(name: 'Станции на льду', description: ''),
-      Technique(name: 'Спасение из ледовой трещины', description: ''),
+      Technique(
+        name: 'Станции на льду',
+        description: '',
+        options: [
+          TechniqueOption(name: 'Самовыкрут'),
+          TechniqueOption(name: 'Проушина Абалакова'),
+        ],
+      ),
+      Technique(
+        name: 'Спасение из ледовой трещины',
+        description: '',
+        options: [
+          TechniqueOption(name: 'Связка двойка'),
+          TechniqueOption(name: 'Связка тройка'),
+        ],
+      ),
     ],
     TechniqueGroup(
       name: 'Снежные занятия',
       description: '',
-      image: 'https://risk.ru/u/img/343/342746.jpg',
+      image:
+          'https://turclub-pik.ru/crop/170/140/uploads/track_img/582/d56926ada9ddb7959f852b0e92773d99.jpg.webp',
     ): [
       Technique(name: 'Тропежка', description: ''),
       Technique(name: 'Снежная пещера', description: ''),
       Technique(name: 'Снежная хижина', description: ''),
+      Technique(name: 'Самозадержание', description: ''),
       Technique(
         name: 'Станции на снегу',
         description: '',
