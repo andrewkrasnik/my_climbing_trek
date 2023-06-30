@@ -34,13 +34,14 @@ class SelectTechniqueWidget extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: TechniqueWidget(
                       technique: dataState.techniques[index],
-                      onPressed: () {
+                      selectMode: true,
+                      onPressed: (options) {
                         BlocProvider.of<TechniqueTreaningCubit>(context)
                             .addTechniqueGroup(
-                          group: group,
-                          technique: dataState.techniques[index],
-                        );
-                        Navigator.of(context).pop();
+                                group: group,
+                                technique: dataState.techniques[index],
+                                options: options);
+                        // Navigator.of(context).pop();
                       },
                     ),
                   ),
@@ -52,7 +53,7 @@ class SelectTechniqueWidget extends StatelessWidget {
             );
           },
         ),
-      )
+      ),
     ]);
   }
 }

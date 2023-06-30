@@ -5,6 +5,8 @@ import 'package:my_climbing_trek/core/widgets/my_modal_bottom_sheet.dart';
 import 'package:my_climbing_trek/features/techniques/domain/entities/technique_group.dart';
 import 'package:my_climbing_trek/features/techniques/domain/entities/technique_treaning.dart';
 import 'package:my_climbing_trek/features/techniques/presentation/bloc/technique_treaning/technique_treaning_cubit.dart';
+import 'package:my_climbing_trek/features/techniques/presentation/pages/technique_group_page.dart';
+import 'package:my_climbing_trek/features/techniques/presentation/widgets/edit_technique_item_widget.dart';
 import 'package:my_climbing_trek/features/techniques/presentation/widgets/select_technique_widget.dart';
 
 class TechniqueTreaningWidget extends StatelessWidget {
@@ -54,16 +56,34 @@ class TechniqueTreaningWidget extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('${group.name}:'),
+                          InkWell(
+                              onTap: () =>
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (_) =>
+                                        TechniqueGroupPage(group: group),
+                                  )),
+                              child: Text('${group.name}:')),
                           Wrap(
                             children: [
                               ...value
-                                  .map((tech) => Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 2),
-                                      child: Chip(
-                                        label: Text(tech.technique.name),
-                                      )))
+                                  .map((tech) => InkWell(
+                                        onTap: () {
+                                          showMyModalBottomSheet<void>(
+                                            context: context,
+                                            heightPersent: 0.7,
+                                            child: EditTechniqueItemWidget(
+                                              item: tech,
+                                              editing: editing,
+                                            ),
+                                          );
+                                        },
+                                        child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 2),
+                                            child: Chip(
+                                              label: Text(tech.technique.name),
+                                            )),
+                                      ))
                                   .toList(),
                               if (editing)
                                 Padding(

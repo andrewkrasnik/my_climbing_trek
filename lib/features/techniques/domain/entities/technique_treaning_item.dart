@@ -4,13 +4,30 @@ import 'package:my_climbing_trek/features/techniques/domain/entities/technique_o
 
 class TechniqueTreaningItem extends DataWithUUID {
   final Technique technique;
-  final String comment;
-  final List<TechniqueOption> options;
+  final String treaningId;
+  String comment;
+  List<TechniqueOption> options;
+  DateTime? startTime;
+  DateTime? finishTime;
+
+  bool get finished => finishTime != null && startTime != null;
+  bool get started => startTime != null && finishTime == null;
 
   TechniqueTreaningItem({
     required this.technique,
+    required this.treaningId,
     this.comment = '',
     super.id,
     List<TechniqueOption>? options,
+    this.startTime,
+    this.finishTime,
   }) : options = options ?? [];
+
+  void start(DateTime? time) {
+    startTime = time ?? DateTime.now();
+  }
+
+  void finish(DateTime? time) {
+    finishTime = time ?? DateTime.now();
+  }
 }

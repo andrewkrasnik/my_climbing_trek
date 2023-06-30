@@ -26,12 +26,14 @@ class AddTechniqueToTreaningUseCase {
           : [
               TechniqueTreaningItem(
                 technique: technique,
+                treaningId: treaning.id,
                 options: options,
               )
             ];
     } else if (technique != null) {
       treaning.items[group]!.add(TechniqueTreaningItem(
         technique: technique,
+        treaningId: treaning.id,
         options: options,
       ));
     }

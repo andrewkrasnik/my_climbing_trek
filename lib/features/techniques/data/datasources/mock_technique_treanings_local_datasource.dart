@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:my_climbing_trek/core/failures/failure.dart';
 import 'package:my_climbing_trek/features/techniques/data/datasources/technique_treanings_local_datasource.dart';
 import 'package:my_climbing_trek/features/techniques/domain/entities/technique_treaning.dart';
+import 'package:my_climbing_trek/features/techniques/domain/entities/technique_treaning_item.dart';
 
 @LazySingleton(as: TechniqueTreaningsLocalDataSource)
 class MockTechniqueTreaningsLocalDataSource
@@ -41,5 +42,11 @@ class MockTechniqueTreaningsLocalDataSource
   @override
   Future<Either<Failure, TechniqueTreaning?>> previosTreaning() async {
     return Right(_treanings.lastWhereOrNull((element) => element.finished));
+  }
+
+  @override
+  Future<Either<Failure, Unit>> saveTreaningItem(
+      {required TechniqueTreaningItem item}) async {
+    return const Right(unit);
   }
 }

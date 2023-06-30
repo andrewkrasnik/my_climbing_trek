@@ -24,12 +24,12 @@ class TechniquesHomePageWidget extends StatelessWidget {
             style: titleTextStyle,
           ),
           const SizedBox(height: 16),
-          if (state.currentTechnique != null) ...[
-            CurrentTechniqueWidget(
-              technique: state.currentTechnique!,
-            ),
-            const SizedBox(height: 8),
-          ],
+          // if (state.currentTechnique != null) ...[
+          //   CurrentTechniqueWidget(
+          //     technique: state.currentTechnique!,
+          //   ),
+          //   const SizedBox(height: 8),
+          // ],
           if (state.currentTreaning != null) ...[
             const Text(
               'Текущая тренировка',

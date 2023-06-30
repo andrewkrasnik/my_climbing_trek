@@ -20,8 +20,14 @@ class AddTechniqueTreaningUseCase {
     final TechniqueTreaning treaning = TechniqueTreaning(date: DateTime.now());
     treaning.startTreaning();
 
-    treaning.items[group] =
-        technique == null ? [] : [TechniqueTreaningItem(technique: technique)];
+    treaning.items[group] = technique == null
+        ? []
+        : [
+            TechniqueTreaningItem(
+              technique: technique,
+              treaningId: treaning.id,
+            )
+          ];
 
     final failureOrUnit =
         await _techniqueTreaningsRepository.saveTreaning(treaning: treaning);
