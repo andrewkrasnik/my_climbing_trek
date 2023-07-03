@@ -29,6 +29,7 @@ class TreaningsPage extends StatelessWidget {
               strength: settingsState.treaningsSettings.useStrengthTraining,
               travel: settingsState.treaningsSettings.useTraveling,
               trekking: settingsState.treaningsSettings.useTrekking,
+              techniques: settingsState.treaningsSettings.useTechniques,
             ),
           child: BlocBuilder<TreaningsCubit, TreaningsState>(
             builder: (context, state) {
@@ -115,6 +116,9 @@ class TreaningsPage extends StatelessWidget {
                                                 trekking: settingsState
                                                     .treaningsSettings
                                                     .useTrekking,
+                                                techniques: settingsState
+                                                    .treaningsSettings
+                                                    .useTechniques,
                                               );
                                             }
                                           },

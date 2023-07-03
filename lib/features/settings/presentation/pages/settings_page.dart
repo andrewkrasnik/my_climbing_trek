@@ -34,15 +34,9 @@ class SettingsPage extends StatelessWidget {
                       ),
                     ),
                     const AuthButton(),
-                    // const Text('Настройка темного режима'),
-                    // const Text('Выбор языка'),
-                    // const Text('Выбор категорий трасс'),
-                    // const Text('Выбор видов лазанья'),
-                    // const Text('Соглашение на уведомления'),
                     const SizedBox(
                       height: 16,
                     ),
-
                     SwitchListTile(
                       value: state.treaningsSettings.useGymTreanings,
                       onChanged: (value) =>
@@ -66,6 +60,14 @@ class SettingsPage extends StatelessWidget {
                               .changeTreaningSettings(
                                   settingsId: 3, value: value),
                       title: const Text('Силовые тренировки'),
+                    ),
+                    SwitchListTile(
+                      value: state.treaningsSettings.useTechniques,
+                      onChanged: (value) =>
+                          BlocProvider.of<SettingsCubit>(context)
+                              .changeTreaningSettings(
+                                  settingsId: 9, value: value),
+                      title: const Text('Технические тренировки'),
                     ),
                     SwitchListTile(
                       value: state.treaningsSettings.useRockTraining,
@@ -146,52 +148,82 @@ class SettingsPage extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 16,
+                    const SizedBox(height: 16),
+                    Text(
+                      'Описание категорий трудности:',
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const AllCategoriesPage()));
-                      },
-                      child: const Text('Категории скалолазанья'),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const IceCategoriesPage()));
-                      },
-                      child: const Text('Категории ледолазанья'),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const MixedCategoriesPage()));
-                      },
-                      child: const Text('Категории микста'),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const UssrCategoriesPage()));
-                      },
-                      child: const Text('Категории скал СССР'),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const AidCategoriesPage()));
-                      },
-                      child: const Text('Категории ИТО'),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) =>
-                                const MountaineeringCategoriesPage()));
-                      },
-                      child: const Text('Категории восхождений'),
-                    ),
+                    const SizedBox(height: 8),
+                    Wrap(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 4),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      const AllCategoriesPage()));
+                            },
+                            child: const Text('Скалолазанье'),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 4),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      const IceCategoriesPage()));
+                            },
+                            child: const Text('Ледолазанье'),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 4),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      const MixedCategoriesPage()));
+                            },
+                            child: const Text('Микст'),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 4),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      const UssrCategoriesPage()));
+                            },
+                            child: const Text('Скал СССР'),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 4),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      const AidCategoriesPage()));
+                            },
+                            child: const Text('ИТО'),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 4),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      const MountaineeringCategoriesPage()));
+                            },
+                            child: const Text('Восхождений'),
+                          ),
+                        ),
+                      ],
+                    )
                   ],
                 ),
               ),

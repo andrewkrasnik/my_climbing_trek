@@ -12,6 +12,10 @@ import 'package:my_climbing_trek/features/strength_training/domain/entities/stre
 import 'package:my_climbing_trek/features/strength_training/domain/repositories/strength_treanings_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
+import 'package:my_climbing_trek/features/techniques/domain/entities/technique_treaning.dart';
+import 'package:my_climbing_trek/features/techniques/domain/repositories/technique_treanings_repository.dart';
+import 'package:my_climbing_trek/features/trekking/domain/entities/trekking_path.dart';
+import 'package:my_climbing_trek/features/trekking/domain/repositories/trekking_path_repository.dart';
 
 @LazySingleton()
 class DeleteTreaning {
@@ -20,6 +24,8 @@ class DeleteTreaning {
   final StrengthTreaningsRepository _strengthTreaningsRepository;
   final CardioTreaningsRepository _cardioTreaningsRepository;
   final RockTreaningsRepository _rockTreaningsRepository;
+  final TrekkingPathRepository _trekkingPathRepository;
+  final TechniqueTreaningsRepository _techniqueTreaningsRepository;
 
   DeleteTreaning(
     this._hallTreaningRepository,
@@ -27,6 +33,8 @@ class DeleteTreaning {
     this._strengthTreaningsRepository,
     this._cardioTreaningsRepository,
     this._rockTreaningsRepository,
+    this._trekkingPathRepository,
+    this._techniqueTreaningsRepository,
   );
 
   Future<Either<Failure, Unit>> call({required Treaning treaning}) async {
@@ -40,6 +48,10 @@ class DeleteTreaning {
       return _strengthTreaningsRepository.deleteTreaning(treaning: treaning);
     } else if (treaning is RockTreaning) {
       return _rockTreaningsRepository.deleteTreaning(treaning: treaning);
+    } else if (treaning is TrekkingPath) {
+      return _trekkingPathRepository.deleteTreaning(treaning: treaning);
+    } else if (treaning is TechniqueTreaning) {
+      return _techniqueTreaningsRepository.deleteTreaning(treaning: treaning);
     } else {
       return Left(UseCaseFailure());
     }

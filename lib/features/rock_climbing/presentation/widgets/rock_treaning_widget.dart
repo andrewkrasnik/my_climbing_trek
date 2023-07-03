@@ -33,8 +33,6 @@ class RockTreaningWidget extends StatelessWidget {
                   Row(
                     // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(DateFormat('dd.MM.yyyy').format(treaning.date)),
-                      const Spacer(),
                       InkWell(
                           onTap: () =>
                               Navigator.of(context).push(MaterialPageRoute(
@@ -53,6 +51,8 @@ class RockTreaningWidget extends StatelessWidget {
                                             : null,
                                       ))),
                           child: Text(treaning.district.name)),
+                      const Spacer(),
+                      Text(DateFormat('dd.MM.yyyy').format(treaning.date)),
                       IconButton(
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
@@ -117,7 +117,7 @@ class RockTreaningWidget extends StatelessWidget {
                         BlocProvider.of<RockTreaningCubit>(context)
                             .finishTreaning();
                       },
-                    )
+                    ),
                 ],
               ),
             ),

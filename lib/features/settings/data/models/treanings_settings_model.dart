@@ -14,6 +14,7 @@ class TreaningsSettingsModel extends TreaningsSettings {
     super.useTraveling,
     super.useMountaineering,
     super.useTrekking,
+    super.useTechniques,
   });
 
   factory TreaningsSettingsModel.fromJson(Map<String, dynamic> json) =>
@@ -34,6 +35,7 @@ class TreaningsSettingsModel extends TreaningsSettings {
         useMountaineering: settings.useMountaineering,
         useTraveling: settings.useTraveling,
         useTrekking: settings.useTrekking,
+        useTechniques: settings.useTechniques,
       );
     }
   }

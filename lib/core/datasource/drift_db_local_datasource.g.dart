@@ -5372,6 +5372,812 @@ class DriftTrekkingPathEventsTableCompanion
   }
 }
 
+class $DriftTechniqueTreaningsTableTable extends DriftTechniqueTreaningsTable
+    with TableInfo<$DriftTechniqueTreaningsTableTable, DriftTechniqueTreaning> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $DriftTechniqueTreaningsTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'));
+  static const VerificationMeta _commentMeta =
+      const VerificationMeta('comment');
+  @override
+  late final GeneratedColumn<String> comment = GeneratedColumn<String>(
+      'comment', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _dateMeta = const VerificationMeta('date');
+  @override
+  late final GeneratedColumn<DateTime> date = GeneratedColumn<DateTime>(
+      'date', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _finishMeta = const VerificationMeta('finish');
+  @override
+  late final GeneratedColumn<DateTime> finish = GeneratedColumn<DateTime>(
+      'finish', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _startMeta = const VerificationMeta('start');
+  @override
+  late final GeneratedColumn<DateTime> start = GeneratedColumn<DateTime>(
+      'start', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  @override
+  List<GeneratedColumn> get $columns => [id, comment, date, finish, start];
+  @override
+  String get aliasedName => _alias ?? 'drift_technique_treanings_table';
+  @override
+  String get actualTableName => 'drift_technique_treanings_table';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<DriftTechniqueTreaning> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('comment')) {
+      context.handle(_commentMeta,
+          comment.isAcceptableOrUnknown(data['comment']!, _commentMeta));
+    } else if (isInserting) {
+      context.missing(_commentMeta);
+    }
+    if (data.containsKey('date')) {
+      context.handle(
+          _dateMeta, date.isAcceptableOrUnknown(data['date']!, _dateMeta));
+    } else if (isInserting) {
+      context.missing(_dateMeta);
+    }
+    if (data.containsKey('finish')) {
+      context.handle(_finishMeta,
+          finish.isAcceptableOrUnknown(data['finish']!, _finishMeta));
+    }
+    if (data.containsKey('start')) {
+      context.handle(
+          _startMeta, start.isAcceptableOrUnknown(data['start']!, _startMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  DriftTechniqueTreaning map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return DriftTechniqueTreaning(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      comment: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}comment'])!,
+      date: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}date'])!,
+      finish: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}finish']),
+      start: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}start']),
+    );
+  }
+
+  @override
+  $DriftTechniqueTreaningsTableTable createAlias(String alias) {
+    return $DriftTechniqueTreaningsTableTable(attachedDatabase, alias);
+  }
+}
+
+class DriftTechniqueTreaning extends DataClass
+    implements Insertable<DriftTechniqueTreaning> {
+  final String id;
+  final String comment;
+  final DateTime date;
+  final DateTime? finish;
+  final DateTime? start;
+  const DriftTechniqueTreaning(
+      {required this.id,
+      required this.comment,
+      required this.date,
+      this.finish,
+      this.start});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['comment'] = Variable<String>(comment);
+    map['date'] = Variable<DateTime>(date);
+    if (!nullToAbsent || finish != null) {
+      map['finish'] = Variable<DateTime>(finish);
+    }
+    if (!nullToAbsent || start != null) {
+      map['start'] = Variable<DateTime>(start);
+    }
+    return map;
+  }
+
+  DriftTechniqueTreaningsTableCompanion toCompanion(bool nullToAbsent) {
+    return DriftTechniqueTreaningsTableCompanion(
+      id: Value(id),
+      comment: Value(comment),
+      date: Value(date),
+      finish:
+          finish == null && nullToAbsent ? const Value.absent() : Value(finish),
+      start:
+          start == null && nullToAbsent ? const Value.absent() : Value(start),
+    );
+  }
+
+  factory DriftTechniqueTreaning.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return DriftTechniqueTreaning(
+      id: serializer.fromJson<String>(json['id']),
+      comment: serializer.fromJson<String>(json['comment']),
+      date: serializer.fromJson<DateTime>(json['date']),
+      finish: serializer.fromJson<DateTime?>(json['finish']),
+      start: serializer.fromJson<DateTime?>(json['start']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'comment': serializer.toJson<String>(comment),
+      'date': serializer.toJson<DateTime>(date),
+      'finish': serializer.toJson<DateTime?>(finish),
+      'start': serializer.toJson<DateTime?>(start),
+    };
+  }
+
+  DriftTechniqueTreaning copyWith(
+          {String? id,
+          String? comment,
+          DateTime? date,
+          Value<DateTime?> finish = const Value.absent(),
+          Value<DateTime?> start = const Value.absent()}) =>
+      DriftTechniqueTreaning(
+        id: id ?? this.id,
+        comment: comment ?? this.comment,
+        date: date ?? this.date,
+        finish: finish.present ? finish.value : this.finish,
+        start: start.present ? start.value : this.start,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('DriftTechniqueTreaning(')
+          ..write('id: $id, ')
+          ..write('comment: $comment, ')
+          ..write('date: $date, ')
+          ..write('finish: $finish, ')
+          ..write('start: $start')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, comment, date, finish, start);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is DriftTechniqueTreaning &&
+          other.id == this.id &&
+          other.comment == this.comment &&
+          other.date == this.date &&
+          other.finish == this.finish &&
+          other.start == this.start);
+}
+
+class DriftTechniqueTreaningsTableCompanion
+    extends UpdateCompanion<DriftTechniqueTreaning> {
+  final Value<String> id;
+  final Value<String> comment;
+  final Value<DateTime> date;
+  final Value<DateTime?> finish;
+  final Value<DateTime?> start;
+  final Value<int> rowid;
+  const DriftTechniqueTreaningsTableCompanion({
+    this.id = const Value.absent(),
+    this.comment = const Value.absent(),
+    this.date = const Value.absent(),
+    this.finish = const Value.absent(),
+    this.start = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  DriftTechniqueTreaningsTableCompanion.insert({
+    required String id,
+    required String comment,
+    required DateTime date,
+    this.finish = const Value.absent(),
+    this.start = const Value.absent(),
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        comment = Value(comment),
+        date = Value(date);
+  static Insertable<DriftTechniqueTreaning> custom({
+    Expression<String>? id,
+    Expression<String>? comment,
+    Expression<DateTime>? date,
+    Expression<DateTime>? finish,
+    Expression<DateTime>? start,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (comment != null) 'comment': comment,
+      if (date != null) 'date': date,
+      if (finish != null) 'finish': finish,
+      if (start != null) 'start': start,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  DriftTechniqueTreaningsTableCompanion copyWith(
+      {Value<String>? id,
+      Value<String>? comment,
+      Value<DateTime>? date,
+      Value<DateTime?>? finish,
+      Value<DateTime?>? start,
+      Value<int>? rowid}) {
+    return DriftTechniqueTreaningsTableCompanion(
+      id: id ?? this.id,
+      comment: comment ?? this.comment,
+      date: date ?? this.date,
+      finish: finish ?? this.finish,
+      start: start ?? this.start,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (comment.present) {
+      map['comment'] = Variable<String>(comment.value);
+    }
+    if (date.present) {
+      map['date'] = Variable<DateTime>(date.value);
+    }
+    if (finish.present) {
+      map['finish'] = Variable<DateTime>(finish.value);
+    }
+    if (start.present) {
+      map['start'] = Variable<DateTime>(start.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DriftTechniqueTreaningsTableCompanion(')
+          ..write('id: $id, ')
+          ..write('comment: $comment, ')
+          ..write('date: $date, ')
+          ..write('finish: $finish, ')
+          ..write('start: $start, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $DriftTechniqueTreaningItemsTableTable
+    extends DriftTechniqueTreaningItemsTable
+    with
+        TableInfo<$DriftTechniqueTreaningItemsTableTable,
+            DriftTechniqueTreaningItem> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $DriftTechniqueTreaningItemsTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _commentMeta =
+      const VerificationMeta('comment');
+  @override
+  late final GeneratedColumn<String> comment = GeneratedColumn<String>(
+      'comment', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _treaningIdMeta =
+      const VerificationMeta('treaningId');
+  @override
+  late final GeneratedColumn<String> treaningId = GeneratedColumn<String>(
+      'treaning_id', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES drift_technique_treanings_table (id)'));
+  static const VerificationMeta _optionsMeta =
+      const VerificationMeta('options');
+  @override
+  late final GeneratedColumn<String> options = GeneratedColumn<String>(
+      'options', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _finishTimeMeta =
+      const VerificationMeta('finishTime');
+  @override
+  late final GeneratedColumn<DateTime> finishTime = GeneratedColumn<DateTime>(
+      'finish_time', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _startTimeMeta =
+      const VerificationMeta('startTime');
+  @override
+  late final GeneratedColumn<DateTime> startTime = GeneratedColumn<DateTime>(
+      'start_time', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _groupMeta = const VerificationMeta('group');
+  @override
+  late final GeneratedColumn<String> group = GeneratedColumn<String>(
+      'group', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _techniqueMeta =
+      const VerificationMeta('technique');
+  @override
+  late final GeneratedColumn<String> technique = GeneratedColumn<String>(
+      'technique', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _techniqueIdMeta =
+      const VerificationMeta('techniqueId');
+  @override
+  late final GeneratedColumn<String> techniqueId = GeneratedColumn<String>(
+      'technique_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _groupIdMeta =
+      const VerificationMeta('groupId');
+  @override
+  late final GeneratedColumn<String> groupId = GeneratedColumn<String>(
+      'group_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        comment,
+        treaningId,
+        options,
+        finishTime,
+        startTime,
+        group,
+        technique,
+        techniqueId,
+        groupId
+      ];
+  @override
+  String get aliasedName => _alias ?? 'drift_technique_treaning_items_table';
+  @override
+  String get actualTableName => 'drift_technique_treaning_items_table';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<DriftTechniqueTreaningItem> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('comment')) {
+      context.handle(_commentMeta,
+          comment.isAcceptableOrUnknown(data['comment']!, _commentMeta));
+    } else if (isInserting) {
+      context.missing(_commentMeta);
+    }
+    if (data.containsKey('treaning_id')) {
+      context.handle(
+          _treaningIdMeta,
+          treaningId.isAcceptableOrUnknown(
+              data['treaning_id']!, _treaningIdMeta));
+    } else if (isInserting) {
+      context.missing(_treaningIdMeta);
+    }
+    if (data.containsKey('options')) {
+      context.handle(_optionsMeta,
+          options.isAcceptableOrUnknown(data['options']!, _optionsMeta));
+    }
+    if (data.containsKey('finish_time')) {
+      context.handle(
+          _finishTimeMeta,
+          finishTime.isAcceptableOrUnknown(
+              data['finish_time']!, _finishTimeMeta));
+    }
+    if (data.containsKey('start_time')) {
+      context.handle(_startTimeMeta,
+          startTime.isAcceptableOrUnknown(data['start_time']!, _startTimeMeta));
+    }
+    if (data.containsKey('group')) {
+      context.handle(
+          _groupMeta, group.isAcceptableOrUnknown(data['group']!, _groupMeta));
+    } else if (isInserting) {
+      context.missing(_groupMeta);
+    }
+    if (data.containsKey('technique')) {
+      context.handle(_techniqueMeta,
+          technique.isAcceptableOrUnknown(data['technique']!, _techniqueMeta));
+    } else if (isInserting) {
+      context.missing(_techniqueMeta);
+    }
+    if (data.containsKey('technique_id')) {
+      context.handle(
+          _techniqueIdMeta,
+          techniqueId.isAcceptableOrUnknown(
+              data['technique_id']!, _techniqueIdMeta));
+    } else if (isInserting) {
+      context.missing(_techniqueIdMeta);
+    }
+    if (data.containsKey('group_id')) {
+      context.handle(_groupIdMeta,
+          groupId.isAcceptableOrUnknown(data['group_id']!, _groupIdMeta));
+    } else if (isInserting) {
+      context.missing(_groupIdMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  DriftTechniqueTreaningItem map(Map<String, dynamic> data,
+      {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return DriftTechniqueTreaningItem(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      comment: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}comment'])!,
+      treaningId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}treaning_id'])!,
+      options: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}options']),
+      finishTime: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}finish_time']),
+      startTime: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}start_time']),
+      group: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}group'])!,
+      technique: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}technique'])!,
+      techniqueId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}technique_id'])!,
+      groupId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}group_id'])!,
+    );
+  }
+
+  @override
+  $DriftTechniqueTreaningItemsTableTable createAlias(String alias) {
+    return $DriftTechniqueTreaningItemsTableTable(attachedDatabase, alias);
+  }
+}
+
+class DriftTechniqueTreaningItem extends DataClass
+    implements Insertable<DriftTechniqueTreaningItem> {
+  final String id;
+  final String comment;
+  final String treaningId;
+  final String? options;
+  final DateTime? finishTime;
+  final DateTime? startTime;
+  final String group;
+  final String technique;
+  final String techniqueId;
+  final String groupId;
+  const DriftTechniqueTreaningItem(
+      {required this.id,
+      required this.comment,
+      required this.treaningId,
+      this.options,
+      this.finishTime,
+      this.startTime,
+      required this.group,
+      required this.technique,
+      required this.techniqueId,
+      required this.groupId});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['comment'] = Variable<String>(comment);
+    map['treaning_id'] = Variable<String>(treaningId);
+    if (!nullToAbsent || options != null) {
+      map['options'] = Variable<String>(options);
+    }
+    if (!nullToAbsent || finishTime != null) {
+      map['finish_time'] = Variable<DateTime>(finishTime);
+    }
+    if (!nullToAbsent || startTime != null) {
+      map['start_time'] = Variable<DateTime>(startTime);
+    }
+    map['group'] = Variable<String>(group);
+    map['technique'] = Variable<String>(technique);
+    map['technique_id'] = Variable<String>(techniqueId);
+    map['group_id'] = Variable<String>(groupId);
+    return map;
+  }
+
+  DriftTechniqueTreaningItemsTableCompanion toCompanion(bool nullToAbsent) {
+    return DriftTechniqueTreaningItemsTableCompanion(
+      id: Value(id),
+      comment: Value(comment),
+      treaningId: Value(treaningId),
+      options: options == null && nullToAbsent
+          ? const Value.absent()
+          : Value(options),
+      finishTime: finishTime == null && nullToAbsent
+          ? const Value.absent()
+          : Value(finishTime),
+      startTime: startTime == null && nullToAbsent
+          ? const Value.absent()
+          : Value(startTime),
+      group: Value(group),
+      technique: Value(technique),
+      techniqueId: Value(techniqueId),
+      groupId: Value(groupId),
+    );
+  }
+
+  factory DriftTechniqueTreaningItem.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return DriftTechniqueTreaningItem(
+      id: serializer.fromJson<String>(json['id']),
+      comment: serializer.fromJson<String>(json['comment']),
+      treaningId: serializer.fromJson<String>(json['treaningId']),
+      options: serializer.fromJson<String?>(json['options']),
+      finishTime: serializer.fromJson<DateTime?>(json['finishTime']),
+      startTime: serializer.fromJson<DateTime?>(json['startTime']),
+      group: serializer.fromJson<String>(json['group']),
+      technique: serializer.fromJson<String>(json['technique']),
+      techniqueId: serializer.fromJson<String>(json['techniqueId']),
+      groupId: serializer.fromJson<String>(json['groupId']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'comment': serializer.toJson<String>(comment),
+      'treaningId': serializer.toJson<String>(treaningId),
+      'options': serializer.toJson<String?>(options),
+      'finishTime': serializer.toJson<DateTime?>(finishTime),
+      'startTime': serializer.toJson<DateTime?>(startTime),
+      'group': serializer.toJson<String>(group),
+      'technique': serializer.toJson<String>(technique),
+      'techniqueId': serializer.toJson<String>(techniqueId),
+      'groupId': serializer.toJson<String>(groupId),
+    };
+  }
+
+  DriftTechniqueTreaningItem copyWith(
+          {String? id,
+          String? comment,
+          String? treaningId,
+          Value<String?> options = const Value.absent(),
+          Value<DateTime?> finishTime = const Value.absent(),
+          Value<DateTime?> startTime = const Value.absent(),
+          String? group,
+          String? technique,
+          String? techniqueId,
+          String? groupId}) =>
+      DriftTechniqueTreaningItem(
+        id: id ?? this.id,
+        comment: comment ?? this.comment,
+        treaningId: treaningId ?? this.treaningId,
+        options: options.present ? options.value : this.options,
+        finishTime: finishTime.present ? finishTime.value : this.finishTime,
+        startTime: startTime.present ? startTime.value : this.startTime,
+        group: group ?? this.group,
+        technique: technique ?? this.technique,
+        techniqueId: techniqueId ?? this.techniqueId,
+        groupId: groupId ?? this.groupId,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('DriftTechniqueTreaningItem(')
+          ..write('id: $id, ')
+          ..write('comment: $comment, ')
+          ..write('treaningId: $treaningId, ')
+          ..write('options: $options, ')
+          ..write('finishTime: $finishTime, ')
+          ..write('startTime: $startTime, ')
+          ..write('group: $group, ')
+          ..write('technique: $technique, ')
+          ..write('techniqueId: $techniqueId, ')
+          ..write('groupId: $groupId')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, comment, treaningId, options, finishTime,
+      startTime, group, technique, techniqueId, groupId);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is DriftTechniqueTreaningItem &&
+          other.id == this.id &&
+          other.comment == this.comment &&
+          other.treaningId == this.treaningId &&
+          other.options == this.options &&
+          other.finishTime == this.finishTime &&
+          other.startTime == this.startTime &&
+          other.group == this.group &&
+          other.technique == this.technique &&
+          other.techniqueId == this.techniqueId &&
+          other.groupId == this.groupId);
+}
+
+class DriftTechniqueTreaningItemsTableCompanion
+    extends UpdateCompanion<DriftTechniqueTreaningItem> {
+  final Value<String> id;
+  final Value<String> comment;
+  final Value<String> treaningId;
+  final Value<String?> options;
+  final Value<DateTime?> finishTime;
+  final Value<DateTime?> startTime;
+  final Value<String> group;
+  final Value<String> technique;
+  final Value<String> techniqueId;
+  final Value<String> groupId;
+  final Value<int> rowid;
+  const DriftTechniqueTreaningItemsTableCompanion({
+    this.id = const Value.absent(),
+    this.comment = const Value.absent(),
+    this.treaningId = const Value.absent(),
+    this.options = const Value.absent(),
+    this.finishTime = const Value.absent(),
+    this.startTime = const Value.absent(),
+    this.group = const Value.absent(),
+    this.technique = const Value.absent(),
+    this.techniqueId = const Value.absent(),
+    this.groupId = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  DriftTechniqueTreaningItemsTableCompanion.insert({
+    required String id,
+    required String comment,
+    required String treaningId,
+    this.options = const Value.absent(),
+    this.finishTime = const Value.absent(),
+    this.startTime = const Value.absent(),
+    required String group,
+    required String technique,
+    required String techniqueId,
+    required String groupId,
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        comment = Value(comment),
+        treaningId = Value(treaningId),
+        group = Value(group),
+        technique = Value(technique),
+        techniqueId = Value(techniqueId),
+        groupId = Value(groupId);
+  static Insertable<DriftTechniqueTreaningItem> custom({
+    Expression<String>? id,
+    Expression<String>? comment,
+    Expression<String>? treaningId,
+    Expression<String>? options,
+    Expression<DateTime>? finishTime,
+    Expression<DateTime>? startTime,
+    Expression<String>? group,
+    Expression<String>? technique,
+    Expression<String>? techniqueId,
+    Expression<String>? groupId,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (comment != null) 'comment': comment,
+      if (treaningId != null) 'treaning_id': treaningId,
+      if (options != null) 'options': options,
+      if (finishTime != null) 'finish_time': finishTime,
+      if (startTime != null) 'start_time': startTime,
+      if (group != null) 'group': group,
+      if (technique != null) 'technique': technique,
+      if (techniqueId != null) 'technique_id': techniqueId,
+      if (groupId != null) 'group_id': groupId,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  DriftTechniqueTreaningItemsTableCompanion copyWith(
+      {Value<String>? id,
+      Value<String>? comment,
+      Value<String>? treaningId,
+      Value<String?>? options,
+      Value<DateTime?>? finishTime,
+      Value<DateTime?>? startTime,
+      Value<String>? group,
+      Value<String>? technique,
+      Value<String>? techniqueId,
+      Value<String>? groupId,
+      Value<int>? rowid}) {
+    return DriftTechniqueTreaningItemsTableCompanion(
+      id: id ?? this.id,
+      comment: comment ?? this.comment,
+      treaningId: treaningId ?? this.treaningId,
+      options: options ?? this.options,
+      finishTime: finishTime ?? this.finishTime,
+      startTime: startTime ?? this.startTime,
+      group: group ?? this.group,
+      technique: technique ?? this.technique,
+      techniqueId: techniqueId ?? this.techniqueId,
+      groupId: groupId ?? this.groupId,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (comment.present) {
+      map['comment'] = Variable<String>(comment.value);
+    }
+    if (treaningId.present) {
+      map['treaning_id'] = Variable<String>(treaningId.value);
+    }
+    if (options.present) {
+      map['options'] = Variable<String>(options.value);
+    }
+    if (finishTime.present) {
+      map['finish_time'] = Variable<DateTime>(finishTime.value);
+    }
+    if (startTime.present) {
+      map['start_time'] = Variable<DateTime>(startTime.value);
+    }
+    if (group.present) {
+      map['group'] = Variable<String>(group.value);
+    }
+    if (technique.present) {
+      map['technique'] = Variable<String>(technique.value);
+    }
+    if (techniqueId.present) {
+      map['technique_id'] = Variable<String>(techniqueId.value);
+    }
+    if (groupId.present) {
+      map['group_id'] = Variable<String>(groupId.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DriftTechniqueTreaningItemsTableCompanion(')
+          ..write('id: $id, ')
+          ..write('comment: $comment, ')
+          ..write('treaningId: $treaningId, ')
+          ..write('options: $options, ')
+          ..write('finishTime: $finishTime, ')
+          ..write('startTime: $startTime, ')
+          ..write('group: $group, ')
+          ..write('technique: $technique, ')
+          ..write('techniqueId: $techniqueId, ')
+          ..write('groupId: $groupId, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$DriftDBLocalDataSource extends GeneratedDatabase {
   _$DriftDBLocalDataSource(QueryExecutor e) : super(e);
   late final $DriftStrengthExercisesTableTable driftStrengthExercisesTable =
@@ -5399,6 +6205,11 @@ abstract class _$DriftDBLocalDataSource extends GeneratedDatabase {
       $DriftTrekkingPathsTableTable(this);
   late final $DriftTrekkingPathEventsTableTable driftTrekkingPathEventsTable =
       $DriftTrekkingPathEventsTableTable(this);
+  late final $DriftTechniqueTreaningsTableTable driftTechniqueTreaningsTable =
+      $DriftTechniqueTreaningsTableTable(this);
+  late final $DriftTechniqueTreaningItemsTableTable
+      driftTechniqueTreaningItemsTable =
+      $DriftTechniqueTreaningItemsTableTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -5415,6 +6226,8 @@ abstract class _$DriftDBLocalDataSource extends GeneratedDatabase {
         driftRockTreaningsTable,
         driftRockAttemptsTable,
         driftTrekkingPathsTable,
-        driftTrekkingPathEventsTable
+        driftTrekkingPathEventsTable,
+        driftTechniqueTreaningsTable,
+        driftTechniqueTreaningItemsTable
       ];
 }
