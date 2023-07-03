@@ -1,12 +1,12 @@
 import 'package:dartz/dartz.dart';
-import 'package:injectable/injectable.dart';
+// import 'package:injectable/injectable.dart';
 import 'package:my_climbing_trek/core/failures/failure.dart';
 import 'package:my_climbing_trek/features/techniques/data/datasources/techniques_remote_datasource.dart';
 import 'package:my_climbing_trek/features/techniques/domain/entities/technique.dart';
 import 'package:my_climbing_trek/features/techniques/domain/entities/technique_group.dart';
 import 'package:my_climbing_trek/features/techniques/domain/entities/technique_option.dart';
 
-@LazySingleton(as: TechniquesRemoteDataSource)
+// @LazySingleton(as: TechniquesRemoteDataSource)
 class MockTechniquesRemoteDataSource implements TechniquesRemoteDataSource {
   final Map<TechniqueGroup, List<Technique>> _groups = {
     TechniqueGroup(
