@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_climbing_trek/core/data/place_filter.dart';
 import 'package:my_climbing_trek/features/trekking/presentation/bloc/trekking/trekking_cubit.dart';
 import 'package:my_climbing_trek/features/trekking/presentation/bloc/trekking_regions/trekking_regions_cubit.dart';
+import 'package:my_climbing_trek/features/trekking/presentation/bloc/treks/treks_cubit.dart';
+import 'package:my_climbing_trek/features/trekking/presentation/pages/trek_page.dart';
 import 'package:my_climbing_trek/features/trekking/presentation/pages/trekking_region_page.dart';
 import 'package:my_climbing_trek/features/trekking/presentation/pages/trekking_regions_page.dart';
 import 'package:my_climbing_trek/features/trekking/presentation/widgets/previos_trekking_path_widget.dart';
+import 'package:my_climbing_trek/features/trekking/presentation/widgets/trek_widget.dart';
 import 'package:my_climbing_trek/features/trekking/presentation/widgets/trekking_path_widget.dart';
 import 'package:my_climbing_trek/features/trekking/presentation/widgets/trekking_region_widget.dart';
 import 'package:my_climbing_trek/service_locator.dart';
 
 class TrekkingHomePageWidget extends StatelessWidget {
-  const TrekkingHomePageWidget({Key? key}) : super(key: key);
+  final PlaceFilter? filter;
+  const TrekkingHomePageWidget({
+    this.filter,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -45,54 +53,112 @@ class TrekkingHomePageWidget extends StatelessWidget {
         },
       ),
       const SizedBox(height: 8),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Text('Регионы:'),
-          TextButton(
-            child: const Text('Смотреть все'),
-            onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const TrekkingRegionsPage())),
-          ),
-        ],
-      ),
-      BlocProvider(
-        create: (context) => getIt<TrekkingRegionsCubit>()..loadData(),
-        child: SizedBox(
-          height: 120,
-          child: BlocBuilder<TrekkingRegionsCubit, TrekkingRegionsState>(
-            builder: (context, state) {
-              return state.maybeMap(
-                loading: (_) => const Center(
-                  child: CircularProgressIndicator(),
-                ),
-                data: (dataState) => ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) => Stack(
-                          alignment: Alignment.bottomRight,
-                          children: [
-                            TrekkingRegionWidget(
-                              region: dataState.regions[index],
-                              onTap: () {
-                                final region = dataState.regions[index];
+      if (filter?.region == null) ...[
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(filter?.region == null ? 'Регионы:' : 'Маршруты: '),
+            TextButton(
+              child: const Text('Смотреть все'),
+              onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const TrekkingRegionsPage())),
+            ),
+          ],
+        ),
+        BlocProvider(
+          create: (context) => getIt<TrekkingRegionsCubit>()..loadData(),
+          child: SizedBox(
+            height: 120,
+            child: BlocBuilder<TrekkingRegionsCubit, TrekkingRegionsState>(
+              builder: (context, state) {
+                return state.maybeMap(
+                  loading: (_) => const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                  data: (dataState) => ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) => Stack(
+                            alignment: Alignment.bottomRight,
+                            children: [
+                              TrekkingRegionWidget(
+                                region: dataState.regions[index],
+                                onTap: () {
+                                  final region = dataState.regions[index];
 
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) =>
-                                        TrekkingRegionPage(region: region)));
-                              },
-                            ),
-                          ],
-                        ),
-                    separatorBuilder: (_, __) => const SizedBox(
-                          width: 8,
-                        ),
-                    itemCount: dataState.regions.length),
-                orElse: () => const SizedBox(),
-              );
-            },
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          TrekkingRegionPage(region: region)));
+                                },
+                              ),
+                            ],
+                          ),
+                      separatorBuilder: (_, __) => const SizedBox(
+                            width: 8,
+                          ),
+                      itemCount: dataState.regions.length),
+                  orElse: () => const SizedBox(),
+                );
+              },
+            ),
           ),
         ),
-      ),
+      ],
+      if (filter?.region != null) ...[
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text('Маршруты: '),
+            TextButton(
+              child: const Text('Смотреть все'),
+              onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => TrekkingRegionPage(
+                        region: filter!.region!,
+                      ))),
+            ),
+          ],
+        ),
+        BlocProvider(
+          create: (context) =>
+              getIt<TreksCubit>()..loadData(region: filter!.region!),
+          child: SizedBox(
+            height: 120,
+            child: BlocBuilder<TreksCubit, TreksState>(
+              builder: (context, state) {
+                return state.maybeMap(
+                  loading: (_) => const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                  data: (dataState) => ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) => Stack(
+                            alignment: Alignment.bottomRight,
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  final trek = dataState.treks[index];
+
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => TrekPage(
+                                          region: filter!.region!,
+                                          trek: trek)));
+                                },
+                                child: TrekWidget(
+                                  trek: dataState.treks[index],
+                                ),
+                              ),
+                            ],
+                          ),
+                      separatorBuilder: (_, __) => const SizedBox(
+                            width: 8,
+                          ),
+                      itemCount: dataState.treks.length),
+                  orElse: () => const SizedBox(),
+                );
+              },
+            ),
+          ),
+        ),
+      ],
     ]);
   }
 }

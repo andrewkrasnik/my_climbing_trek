@@ -14,6 +14,7 @@ import 'package:my_climbing_trek/features/rock_climbing/presentation/cubit/rock_
 import 'package:my_climbing_trek/features/settings/presentation/cubit/settings_cubit.dart';
 import 'package:my_climbing_trek/features/strength_training/presentation/cubit/strength_training/strength_training_cubit.dart';
 import 'package:my_climbing_trek/features/techniques/presentation/bloc/technique_treaning/technique_treaning_cubit.dart';
+import 'package:my_climbing_trek/features/traveling/presentation/cubit/current_travel/current_travel_cubit.dart';
 import 'package:my_climbing_trek/features/trekking/presentation/bloc/trekking/trekking_cubit.dart';
 import 'package:my_climbing_trek/service_locator.dart' as di;
 import 'package:flutter/material.dart';
@@ -59,6 +60,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<HomePageCubit>(
           create: (context) => di.getIt<HomePageCubit>(), //..loadData(),
+        ),
+        BlocProvider<CurrentTravelCubit>(
+          create: (context) => di.getIt<CurrentTravelCubit>()..loadData(),
         ),
         BlocProvider<CurrentHallTreaningCubit>(
           create: (context) =>

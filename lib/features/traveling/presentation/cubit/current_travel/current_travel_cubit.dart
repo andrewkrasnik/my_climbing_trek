@@ -19,14 +19,29 @@ class CurrentTravelCubit extends Cubit<CurrentTravelState> {
   Future<void> loadData() async {
     final failureOrTravel = await _currentTravelUsecase();
 
-    failureOrTravel.fold((failure) => null,
-        (travel) => emit(CurrentTravelState(travel: travel)));
+    failureOrTravel.fold(
+      (failure) => null,
+      (travel) => emit(
+        CurrentTravelState(
+          travel: travel,
+          useFilter: false,
+        ),
+      ),
+    );
+  }
+
+  Future<void> changeUseFilter() async {
+    emit(state.copyWith(useFilter: !state.useFilter));
   }
 
   Future<void> loadPlanedData() async {
     final failureOrTravel = await _currentTravelUsecase();
 
-    failureOrTravel.fold((failure) => null,
-        (travel) => emit(CurrentTravelState(travel: travel)));
+    failureOrTravel.fold(
+        (failure) => null,
+        (travel) => emit(CurrentTravelState(
+              travel: travel,
+              useFilter: false,
+            )));
   }
 }

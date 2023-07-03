@@ -2,6 +2,7 @@ import 'package:my_climbing_trek/core/data/region.dart';
 import 'package:my_climbing_trek/core/data/treaning.dart';
 import 'package:my_climbing_trek/core/extentions/date_time_extention.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel_day.dart';
+import 'package:my_climbing_trek/features/traveling/domain/entities/travel_filter.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel_finish.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel_start.dart';
 
@@ -9,6 +10,16 @@ class Travel extends Treaning {
   final List<Region> regions;
   final String name;
   final String description;
+
+  TravelFilter get filter {
+    Region? region;
+
+    if (regions.length == 1) {
+      region = regions.first;
+    }
+
+    return TravelFilter(region: region);
+  }
 
   TravelStart get travelStart =>
       TravelStart(date: start!.toDayStart(), start: start!);

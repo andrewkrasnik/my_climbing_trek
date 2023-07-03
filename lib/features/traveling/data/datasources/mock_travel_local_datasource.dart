@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
+import 'package:my_climbing_trek/core/data/region.dart';
 import 'package:my_climbing_trek/core/failures/failure.dart';
 import 'package:my_climbing_trek/features/traveling/data/datasources/travel_local_datasource.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel.dart';
@@ -14,7 +15,15 @@ class MockTravelLocalDatasource implements TravelLocalDatasource {
       date: DateTime(2023, 5, 1),
       start: DateTime(2023, 5, 1),
       finish: DateTime(2023, 5, 12),
-      regions: [],
+      regions: [
+        Region(
+          name: 'Ала-Арча',
+          state: 'Киргизия',
+          id: 'archa',
+          image:
+              'https://biomehanika-ekb.ru/wp-content/uploads/2016/02/p0608_06-150x150.jpg',
+        )
+      ],
     ),
     Travel(
       name: 'Хибины 2023',

@@ -10,50 +10,58 @@ class CurrentTravelHomePageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const titleTextStyle = TextStyle(fontSize: 24, fontWeight: FontWeight.bold);
-    return BlocProvider(
-      create: (context) => getIt<CurrentTravelCubit>()..loadData(),
-      child: BlocBuilder<CurrentTravelCubit, CurrentTravelState>(
-        builder: (context, state) {
-          return state.travel == null
-              ? const SizedBox.shrink()
-              : Column(children: [
-                  Text(
-                    state.travel!.name,
-                    style: titleTextStyle,
-                  ),
-                  Text(
-                    state.travel!.period,
-                    style: titleTextStyle.copyWith(fontSize: 16),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      IconButton.outlined(
-                        onPressed: () {},
-                        icon: const Icon(Icons.filter_alt),
+    return BlocBuilder<CurrentTravelCubit, CurrentTravelState>(
+      builder: (context, state) {
+        return state.travel == null
+            ? const SizedBox.shrink()
+            : Column(children: [
+                Text(
+                  state.travel!.name,
+                  style: titleTextStyle,
+                ),
+                Text(
+                  state.travel!.period,
+                  style: titleTextStyle.copyWith(fontSize: 16),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButton.outlined(
+                      onPressed: () {
+                        BlocProvider.of<CurrentTravelCubit>(context)
+                            .changeUseFilter();
+                      },
+                      icon: Icon(
+                        Icons.filter_alt,
+                        color: state.useFilter
+                            ? Theme.of(context).colorScheme.surface
+                            : Theme.of(context)
+                                .colorScheme
+                                .surface
+                                .withOpacity(0.5),
                       ),
-                      IconButton.outlined(
-                        onPressed: () {},
-                        icon: const Icon(Icons.add),
-                      ),
-                      IconButton.outlined(
-                        onPressed: () {},
-                        icon: const Icon(Icons.remove),
-                      ),
-                      IconButton.outlined(
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => TravelPage(
-                                    travel: state.travel!,
-                                  )));
-                        },
-                        icon: const Icon(Icons.info),
-                      ),
-                    ],
-                  ),
-                ]);
-        },
-      ),
+                    ),
+                    IconButton.outlined(
+                      onPressed: () {},
+                      icon: const Icon(Icons.add),
+                    ),
+                    IconButton.outlined(
+                      onPressed: () {},
+                      icon: const Icon(Icons.remove),
+                    ),
+                    IconButton.outlined(
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => TravelPage(
+                                  travel: state.travel!,
+                                )));
+                      },
+                      icon: const Icon(Icons.info),
+                    ),
+                  ],
+                ),
+              ]);
+      },
     );
   }
 }
