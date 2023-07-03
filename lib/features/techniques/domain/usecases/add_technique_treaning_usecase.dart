@@ -20,14 +20,23 @@ class AddTechniqueTreaningUseCase {
     final TechniqueTreaning treaning = TechniqueTreaning(date: DateTime.now());
     treaning.startTreaning();
 
-    treaning.items[group] = technique == null
-        ? []
-        : [
-            TechniqueTreaningItem(
-              technique: technique,
-              treaningId: treaning.id,
-            )
-          ];
+    if (technique != null) {
+      final newItem = TechniqueTreaningItem(
+        group: group,
+        technique: technique,
+        treaningId: treaning.id,
+      );
+
+      treaning.items.add(newItem);
+
+      final failureOrItemUnit =
+          await _techniqueTreaningsRepository.saveTreaningItem(item: newItem);
+
+      if (failureOrItemUnit.isLeft()) {
+        return Left(
+            failureOrItemUnit.fold((failure) => failure, (_) => Failure()));
+      }
+    }
 
     final failureOrUnit =
         await _techniqueTreaningsRepository.saveTreaning(treaning: treaning);

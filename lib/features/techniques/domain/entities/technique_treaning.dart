@@ -3,15 +3,32 @@ import 'package:my_climbing_trek/features/techniques/domain/entities/technique_g
 import 'package:my_climbing_trek/features/techniques/domain/entities/technique_treaning_item.dart';
 
 class TechniqueTreaning extends Treaning {
-  final Map<TechniqueGroup, List<TechniqueTreaningItem>> items;
+  final List<TechniqueTreaningItem> _items;
+
   final String comment;
 
+  List<TechniqueTreaningItem> get items => _items;
+
+  Map<TechniqueGroup, List<TechniqueTreaningItem>> get itemsMap {
+    final Map<TechniqueGroup, List<TechniqueTreaningItem>> map = {};
+
+    for (var item in _items) {
+      if (map.containsKey(item.group)) {
+        map[item.group]!.add(item);
+      } else {
+        map[item.group] = [item];
+      }
+    }
+
+    return map;
+  }
+
   TechniqueTreaning({
-    Map<TechniqueGroup, List<TechniqueTreaningItem>>? items,
+    List<TechniqueTreaningItem>? items,
     required super.date,
     super.finish,
     super.id,
     super.start,
     this.comment = '',
-  }) : items = items ?? {};
+  }) : _items = items ?? [];
 }

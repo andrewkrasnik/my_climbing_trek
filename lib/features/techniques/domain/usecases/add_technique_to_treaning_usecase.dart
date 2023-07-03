@@ -20,22 +20,23 @@ class AddTechniqueToTreaningUseCase {
     Technique? technique,
     List<TechniqueOption>? options,
   }) async {
-    if (treaning.items[group] == null) {
-      treaning.items[group] = technique == null
-          ? []
-          : [
-              TechniqueTreaningItem(
-                technique: technique,
-                treaningId: treaning.id,
-                options: options,
-              )
-            ];
-    } else if (technique != null) {
-      treaning.items[group]!.add(TechniqueTreaningItem(
+    if (technique != null) {
+      final newItem = TechniqueTreaningItem(
+        group: group,
         technique: technique,
         treaningId: treaning.id,
         options: options,
-      ));
+      );
+
+      treaning.items.add(newItem);
+
+      final failureOrItemUnit =
+          await _techniqueTreaningsRepository.saveTreaningItem(item: newItem);
+
+      if (failureOrItemUnit.isLeft()) {
+        return Left(
+            failureOrItemUnit.fold((failure) => failure, (_) => Failure()));
+      }
     }
 
     final failureOrUnit =

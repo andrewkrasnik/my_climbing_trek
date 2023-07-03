@@ -50,7 +50,7 @@ class TechniqueTreaningWidget extends StatelessWidget {
                   ),
                 ],
               ),
-              ...treaning.items
+              ...treaning.itemsMap
                   .map<TechniqueGroup, Widget>((group, value) => MapEntry(
                       group,
                       Column(
@@ -81,7 +81,13 @@ class TechniqueTreaningWidget extends StatelessWidget {
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 2),
                                             child: Chip(
-                                              label: Text(tech.technique.name),
+                                              label: Text(
+                                                tech.technique.name,
+                                                style: TextStyle(
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .surface),
+                                              ),
                                             )),
                                       ))
                                   .toList(),

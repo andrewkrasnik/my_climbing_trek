@@ -1,8 +1,10 @@
 import 'package:my_climbing_trek/core/data/data_with_uuid.dart';
 import 'package:my_climbing_trek/features/techniques/domain/entities/technique.dart';
+import 'package:my_climbing_trek/features/techniques/domain/entities/technique_group.dart';
 import 'package:my_climbing_trek/features/techniques/domain/entities/technique_option.dart';
 
 class TechniqueTreaningItem extends DataWithUUID {
+  final TechniqueGroup group;
   final Technique technique;
   final String treaningId;
   String comment;
@@ -14,6 +16,7 @@ class TechniqueTreaningItem extends DataWithUUID {
   bool get started => startTime != null && finishTime == null;
 
   TechniqueTreaningItem({
+    required this.group,
     required this.technique,
     required this.treaningId,
     this.comment = '',

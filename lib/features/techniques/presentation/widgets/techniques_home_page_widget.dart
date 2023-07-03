@@ -8,8 +8,6 @@ import 'package:my_climbing_trek/features/techniques/presentation/widgets/techni
 import 'package:my_climbing_trek/features/techniques/presentation/widgets/technique_treaning_widget.dart';
 import 'package:my_climbing_trek/service_locator.dart';
 
-import 'current_technique_widget.dart';
-
 class TechniquesHomePageWidget extends StatelessWidget {
   const TechniquesHomePageWidget({Key? key}) : super(key: key);
 
@@ -92,20 +90,20 @@ class TechniquesHomePageWidget extends StatelessWidget {
                                     },
                                   ),
                                 ),
-                                Align(
-                                  alignment: Alignment.bottomRight,
-                                  child: IconButton(
-                                    icon: const Icon(Icons.add_box,
-                                        color: Colors.white),
-                                    onPressed: () {
-                                      BlocProvider.of<TechniqueTreaningCubit>(
-                                              context)
-                                          .addTechniqueGroup(
-                                        group: dataState.groups[index],
-                                      );
-                                    },
-                                  ),
-                                )
+                                // Align(
+                                //   alignment: Alignment.bottomRight,
+                                //   child: IconButton(
+                                //     icon: const Icon(Icons.add_box,
+                                //         color: Colors.white),
+                                //     onPressed: () {
+                                //       BlocProvider.of<TechniqueTreaningCubit>(
+                                //               context)
+                                //           .addTechniqueGroup(
+                                //         group: dataState.groups[index],
+                                //       );
+                                //     },
+                                //   ),
+                                // ),
                               ],
                             ),
                         separatorBuilder: (_, __) => const SizedBox(

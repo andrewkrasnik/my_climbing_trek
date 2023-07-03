@@ -313,10 +313,10 @@ import 'features/strength_training/presentation/cubit/strength_training/strength
     as _i174;
 import 'features/strength_training/presentation/cubit/strength_trainings/strength_trainings_cubit.dart'
     as _i175;
+import 'features/techniques/data/datasources/drift_technique_treanings_local_datasource.dart'
+    as _i54;
 import 'features/techniques/data/datasources/firebase_techniques_remote_datasource.dart'
     as _i58;
-import 'features/techniques/data/datasources/mock_technique_treanings_local_datasource.dart'
-    as _i54;
 import 'features/techniques/data/datasources/technique_treanings_local_datasource.dart'
     as _i53;
 import 'features/techniques/data/datasources/techniques_remote_datasource.dart'
@@ -484,8 +484,9 @@ _i1.GetIt $initGetIt(
   gh.lazySingleton<_i51.StrengthTreaningsRepository>(() =>
       _i52.StrengthTreaningsRepositoryImpl(
           strengthTreaningsDataSource: gh<_i49.StrengthTreaningsDataSource>()));
-  gh.lazySingleton<_i53.TechniqueTreaningsLocalDataSource>(
-      () => _i54.MockTechniqueTreaningsLocalDataSource());
+  gh.lazySingleton<_i53.TechniqueTreaningsLocalDataSource>(() =>
+      _i54.DriftTechniqueTreaningsLocalDataSource(
+          gh<_i14.LocalDBDatasource>()));
   gh.lazySingleton<_i55.TechniqueTreaningsRepository>(() =>
       _i56.TechniqueTreaningsRepositoryImpl(
           gh<_i53.TechniqueTreaningsLocalDataSource>()));

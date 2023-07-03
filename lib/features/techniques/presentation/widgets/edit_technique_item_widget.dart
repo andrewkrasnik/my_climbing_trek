@@ -47,7 +47,8 @@ class EditTechniqueItemWidget extends HookWidget {
                           option.name,
                           style: optionsState.value.contains(option)
                               ? const TextStyle(color: Colors.white)
-                              : null,
+                              : TextStyle(
+                                  color: Theme.of(context).colorScheme.surface),
                         ),
                         backgroundColor: optionsState.value.contains(option)
                             ? Theme.of(context).hintColor
