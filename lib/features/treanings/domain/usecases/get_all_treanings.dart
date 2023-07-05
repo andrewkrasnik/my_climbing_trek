@@ -3,6 +3,7 @@ import 'package:my_climbing_trek/core/failures/failure.dart';
 import 'package:my_climbing_trek/features/cardio_workout/domain/repositories/cardio_treanings_repository.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/repositories/hall_treaning_repository.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/repositories/ice_treanings_repository.dart';
+import 'package:my_climbing_trek/features/mountaineering/domain/repositories/ascension_repository.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/repositories/rock_treanings_repository.dart';
 import 'package:my_climbing_trek/features/strength_training/domain/repositories/strength_treanings_repository.dart';
 import 'package:dartz/dartz.dart';
@@ -21,6 +22,7 @@ class GetAllTreanings {
   final TravelRepository _travelRepository;
   final TrekkingPathRepository _trekkingPathRepository;
   final TechniqueTreaningsRepository _techniqueTreaningsRepository;
+  final AscensionRepository _ascensionRepository;
 
   GetAllTreanings(
     this._hallTreaningRepository,
@@ -31,6 +33,7 @@ class GetAllTreanings {
     this._travelRepository,
     this._trekkingPathRepository,
     this._techniqueTreaningsRepository,
+    this._ascensionRepository,
   );
 
   Future<Either<Failure, List<Treaning>>> call({
@@ -42,6 +45,7 @@ class GetAllTreanings {
     required bool travel,
     required bool trekking,
     required bool techniques,
+    required bool mountaneering,
   }) async {
     final List<Treaning> treanings = [];
 
@@ -120,6 +124,15 @@ class GetAllTreanings {
       failureOrTechniques.fold(
         (failure) => null,
         (techniques) => treanings.addAll(techniques),
+      );
+    }
+
+    if (mountaneering) {
+      final failureOrAscentions = await _ascensionRepository.getTreanings();
+
+      failureOrAscentions.fold(
+        (failure) => null,
+        (ascentions) => treanings.addAll(ascentions),
       );
     }
 

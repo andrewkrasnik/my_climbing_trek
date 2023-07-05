@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_climbing_trek/core/widgets/scaled_image.dart';
+import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountain.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountain_route.dart';
+import 'package:my_climbing_trek/features/mountaineering/presentation/bloc/ascension/ascension_cubit.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class MountainRoutePage extends StatelessWidget {
+  final Mountain mountain;
   final MountainRoute route;
 
-  const MountainRoutePage({required this.route, Key? key}) : super(key: key);
+  const MountainRoutePage(
+      {required this.route, required this.mountain, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +20,22 @@ class MountainRoutePage extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: Text(route.name),
+      ),
+      floatingActionButton: BlocBuilder<AscensionCubit, AscensionState>(
+        buildWhen: (previous, current) => current.ascension == null,
+        builder: (context, state) {
+          return FloatingActionButton(
+              child: const Icon(
+                Icons.hiking,
+                size: 40,
+              ),
+              onPressed: () {
+                BlocProvider.of<AscensionCubit>(context)
+                    .addAscension(mountain: mountain, route: route);
+
+                Navigator.of(context).popUntil((route) => route.isFirst);
+              });
+        },
       ),
       body: SingleChildScrollView(
         child: Padding(

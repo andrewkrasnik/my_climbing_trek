@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountain.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountain_route.dart';
 import 'package:my_climbing_trek/features/mountaineering/presentation/pages/mountain_route_page.dart';
 import 'package:my_climbing_trek/features/mountaineering/presentation/widgets/mountaineering_category_widget.dart';
@@ -6,8 +7,10 @@ import 'package:my_climbing_trek/features/mountaineering/presentation/widgets/mu
 
 class MountainRouteWidget extends StatelessWidget {
   final MountainRoute route;
+  final Mountain mountain;
   final void Function(MountainRoute route)? onTapGo;
-  const MountainRouteWidget({required this.route, this.onTapGo, Key? key})
+  const MountainRouteWidget(
+      {required this.route, required this.mountain, this.onTapGo, Key? key})
       : super(key: key);
 
   @override
@@ -43,7 +46,8 @@ class MountainRouteWidget extends StatelessWidget {
               ? IconButton(
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => MountainRoutePage(route: route)));
+                        builder: (context) => MountainRoutePage(
+                            mountain: mountain, route: route)));
                   },
                   icon: Icon(
                     Icons.arrow_forward_ios,

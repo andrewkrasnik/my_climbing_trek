@@ -6,6 +6,8 @@ import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing
 import 'package:my_climbing_trek/features/hall_climbing/domain/repositories/hall_treaning_repository.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_treaning.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/repositories/ice_treanings_repository.dart';
+import 'package:my_climbing_trek/features/mountaineering/domain/entities/ascension.dart';
+import 'package:my_climbing_trek/features/mountaineering/domain/repositories/ascension_repository.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_treaning.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/repositories/rock_treanings_repository.dart';
 import 'package:my_climbing_trek/features/strength_training/domain/entities/strength_treaning.dart';
@@ -26,6 +28,7 @@ class DeleteTreaning {
   final RockTreaningsRepository _rockTreaningsRepository;
   final TrekkingPathRepository _trekkingPathRepository;
   final TechniqueTreaningsRepository _techniqueTreaningsRepository;
+  final AscensionRepository _ascensionRepository;
 
   DeleteTreaning(
     this._hallTreaningRepository,
@@ -35,6 +38,7 @@ class DeleteTreaning {
     this._rockTreaningsRepository,
     this._trekkingPathRepository,
     this._techniqueTreaningsRepository,
+    this._ascensionRepository,
   );
 
   Future<Either<Failure, Unit>> call({required Treaning treaning}) async {
@@ -52,6 +56,8 @@ class DeleteTreaning {
       return _trekkingPathRepository.deleteTreaning(treaning: treaning);
     } else if (treaning is TechniqueTreaning) {
       return _techniqueTreaningsRepository.deleteTreaning(treaning: treaning);
+    } else if (treaning is Ascension) {
+      return _ascensionRepository.deleteAscention(ascension: treaning);
     } else {
       return Left(UseCaseFailure());
     }
