@@ -1,10 +1,12 @@
 import 'package:my_climbing_trek/core/data/treaning.dart';
+import 'package:my_climbing_trek/features/mountaineering/domain/entities/ascension_event.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountain.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountain_route.dart';
 
 class Ascension extends Treaning {
   final Mountain mountain;
   final MountainRoute route;
+  final List<AscensionEvent> events;
 
   Ascension({
     required super.date,
@@ -13,5 +15,6 @@ class Ascension extends Treaning {
     super.finish,
     super.id,
     super.start,
-  });
+    List<AscensionEvent>? events,
+  }) : events = events ?? [];
 }

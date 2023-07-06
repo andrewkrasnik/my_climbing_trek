@@ -6,6 +6,7 @@ import 'package:my_climbing_trek/features/mountaineering/presentation/pages/moun
 import 'package:my_climbing_trek/features/mountaineering/presentation/pages/mountain_regions_page.dart';
 import 'package:my_climbing_trek/features/mountaineering/presentation/widgets/ascension_widget.dart';
 import 'package:my_climbing_trek/features/mountaineering/presentation/widgets/mountain_region_widget.dart';
+import 'package:my_climbing_trek/features/mountaineering/presentation/widgets/mountain_route_details_widget.dart';
 import 'package:my_climbing_trek/service_locator.dart';
 
 class MountaineeringHomeWidget extends StatelessWidget {
@@ -40,7 +41,12 @@ class MountaineeringHomeWidget extends StatelessWidget {
           builder: (context, state) {
             return state.ascension == null
                 ? const SizedBox()
-                : AscensionWidget(ascension: state.ascension!);
+                : Column(
+                    children: [
+                      AscensionWidget(ascension: state.ascension!),
+                      MountainRouteDetailsWidget(route: state.ascension!.route)
+                    ],
+                  );
           },
         ),
         Row(

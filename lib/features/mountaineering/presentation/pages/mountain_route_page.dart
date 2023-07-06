@@ -4,6 +4,7 @@ import 'package:my_climbing_trek/core/widgets/scaled_image.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountain.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountain_route.dart';
 import 'package:my_climbing_trek/features/mountaineering/presentation/bloc/ascension/ascension_cubit.dart';
+import 'package:my_climbing_trek/features/mountaineering/presentation/widgets/mountain_roop_widget.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class MountainRoutePage extends StatelessWidget {
@@ -22,19 +23,20 @@ class MountainRoutePage extends StatelessWidget {
         title: Text(route.name),
       ),
       floatingActionButton: BlocBuilder<AscensionCubit, AscensionState>(
-        buildWhen: (previous, current) => current.ascension == null,
         builder: (context, state) {
-          return FloatingActionButton(
-              child: const Icon(
-                Icons.hiking,
-                size: 40,
-              ),
-              onPressed: () {
-                BlocProvider.of<AscensionCubit>(context)
-                    .addAscension(mountain: mountain, route: route);
+          return state.ascension == null
+              ? FloatingActionButton(
+                  child: const Icon(
+                    Icons.hiking,
+                    size: 40,
+                  ),
+                  onPressed: () {
+                    BlocProvider.of<AscensionCubit>(context)
+                        .addAscension(mountain: mountain, route: route);
 
-                Navigator.of(context).popUntil((route) => route.isFirst);
-              });
+                    Navigator.of(context).popUntil((route) => route.isFirst);
+                  })
+              : const SizedBox();
         },
       ),
       body: SingleChildScrollView(
@@ -64,48 +66,7 @@ class MountainRoutePage extends StatelessWidget {
                 Text(route.passage),
                 const SizedBox(height: 4),
               ],
-              ...route.roops.map((roop) => Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 4),
-                        child: Row(children: [
-                          Text(
-                            roop.text,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineSmall
-                                ?.copyWith(
-                                  color: Colors.red,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                          ),
-                          if (roop.pieces?.isNotEmpty == true) ...[
-                            const SizedBox(width: 4),
-                            Text('(${roop.piecesText})',
-                                style: Theme.of(context).textTheme.bodyLarge),
-                          ],
-                        ]),
-                      ),
-                      if (roop.boltCount > 0)
-                        Row(children: [
-                          const Text(
-                            'Шлямбуров:',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          Text(roop.boltCount.toString()),
-                        ]),
-                      Text(roop.description),
-                      const SizedBox(height: 4),
-                      if (roop.anchor.isNotEmpty) ...[
-                        const Text(
-                          'Станция:',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        Text(roop.anchor),
-                      ],
-                    ],
-                  )),
+              ...route.roops.map((roop) => MountainRoopWidget(roop: roop)),
               if (route.descent.isNotEmpty) ...[
                 const SizedBox(height: 4),
                 const Text(
