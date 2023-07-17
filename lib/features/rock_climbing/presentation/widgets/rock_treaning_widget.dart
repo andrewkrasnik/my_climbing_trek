@@ -2,11 +2,12 @@ import 'package:my_climbing_trek/core/data/climbing_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:my_climbing_trek/core/widgets/treaning_picture_page.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_treaning.dart';
 import 'package:my_climbing_trek/features/rock_climbing/presentation/cubit/rock_treaning/rock_treaning_cubit.dart';
 import 'package:my_climbing_trek/features/rock_climbing/presentation/pages/rock_district_page.dart';
-import 'package:my_climbing_trek/features/rock_climbing/presentation/pages/rock_treaning_page.dart';
 import 'package:my_climbing_trek/features/rock_climbing/presentation/widgets/rock_attempts_with_style.dart';
+import 'package:my_climbing_trek/features/rock_climbing/presentation/widgets/rock_treaning_picture_widget.dart';
 
 class RockTreaningWidget extends StatelessWidget {
   final RockTreaning treaning;
@@ -56,8 +57,11 @@ class RockTreaningWidget extends StatelessWidget {
                       IconButton(
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => RockTreaningPage(
+                              builder: (context) => TreaningPicturePage(
                                     treaning: treaning,
+                                    child: RockTreaningPictureWidget(
+                                      treaning: treaning,
+                                    ),
                                   )));
                         },
                         icon: const Icon(

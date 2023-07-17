@@ -1,5 +1,6 @@
 import 'package:my_climbing_trek/core/data/treaning.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/ascension_event.dart';
+import 'package:my_climbing_trek/features/mountaineering/domain/entities/ascension_event_type.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountain.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountain_route.dart';
 
@@ -16,5 +17,14 @@ class Ascension extends Treaning {
     super.id,
     super.start,
     List<AscensionEvent>? events,
-  }) : events = events ?? [];
+  }) : events = events ??
+            AscensionEventType.mainValues
+                .map((type) => AscensionEvent(ascentId: id, type: type))
+                .toList();
+
+  @override
+  String get image => mountain.image;
+
+  @override
+  String get title => '${mountain.name}, ${route.name}';
 }

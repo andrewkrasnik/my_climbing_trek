@@ -30,6 +30,8 @@ class AscensionEventType extends DataWithUUID {
     // end.id: end,
   };
 
+  static final mainValues = [start, onRoute, top, finish];
+
   static List<AscensionEventType> get values => _values.values.toList();
 
   static AscensionEventType getById(String id) => _values[id]!;

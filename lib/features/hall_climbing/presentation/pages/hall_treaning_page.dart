@@ -26,6 +26,7 @@ class HallTreaningPage extends StatelessWidget {
         child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: TreaningPictureWidget(
+              screenshotController: ScreenshotController(),
               treaning: treaning,
               child: HallTreaningPictureWidget(
                 treaning: treaning,

@@ -4,6 +4,7 @@ import 'package:my_climbing_trek/features/mountaineering/presentation/bloc/ascen
 import 'package:my_climbing_trek/features/mountaineering/presentation/bloc/mountain_regions/mountain_regions_cubit.dart';
 import 'package:my_climbing_trek/features/mountaineering/presentation/pages/mountain_region_page.dart';
 import 'package:my_climbing_trek/features/mountaineering/presentation/pages/mountain_regions_page.dart';
+import 'package:my_climbing_trek/features/mountaineering/presentation/widgets/ascension_events_widget.dart';
 import 'package:my_climbing_trek/features/mountaineering/presentation/widgets/ascension_widget.dart';
 import 'package:my_climbing_trek/features/mountaineering/presentation/widgets/mountain_region_widget.dart';
 import 'package:my_climbing_trek/features/mountaineering/presentation/widgets/mountain_route_details_widget.dart';
@@ -44,7 +45,19 @@ class MountaineeringHomeWidget extends StatelessWidget {
                 : Column(
                     children: [
                       AscensionWidget(ascension: state.ascension!),
-                      MountainRouteDetailsWidget(route: state.ascension!.route)
+                      MountainRouteDetailsWidget(route: state.ascension!.route),
+                      AscensionEventsWidget(
+                        ascension: state.ascension!,
+                        editing: true,
+                      ),
+                      // if (state.ascension?.started == true)
+                      TextButton(
+                        child: const Text('Завершить'),
+                        onPressed: () {
+                          BlocProvider.of<AscensionCubit>(context)
+                              .finishAscension(ascension: state.ascension!);
+                        },
+                      ),
                     ],
                   );
           },
