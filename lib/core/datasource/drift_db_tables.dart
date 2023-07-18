@@ -15,6 +15,8 @@ const tables = [
   DriftTrekkingPathEventsTable,
   DriftTechniqueTreaningsTable,
   DriftTechniqueTreaningItemsTable,
+  DriftAscensionsTable,
+  DriftAscensionEventsTable,
 ];
 
 @DataClassName('DriftStrengthExercise')
@@ -233,6 +235,33 @@ class DriftTechniqueTreaningItemsTable extends Table {
   TextColumn get technique => text()();
   TextColumn get techniqueId => text()();
   TextColumn get groupId => text()();
+
+  @override
+  Set<Column>? get primaryKey => {id};
+}
+
+@DataClassName('DriftAscension')
+class DriftAscensionsTable extends Table {
+  TextColumn get id => text().unique()();
+  TextColumn get mountain => text()();
+  TextColumn get mountainId => text()();
+  TextColumn get routeId => text().nullable()();
+  TextColumn get route => text().nullable()();
+  DateTimeColumn get date => dateTime()();
+  DateTimeColumn get finish => dateTime().nullable()();
+  DateTimeColumn get start => dateTime().nullable()();
+
+  @override
+  Set<Column>? get primaryKey => {id};
+}
+
+@DataClassName('DriftAscensionEvent')
+class DriftAscensionEventsTable extends Table {
+  TextColumn get id => text()();
+  TextColumn get type => text()();
+  TextColumn get ascensionId => text().references(DriftAscensionsTable, #id)();
+  DateTimeColumn get time => dateTime().nullable()();
+  DateTimeColumn get planedTime => dateTime().nullable()();
 
   @override
   Set<Column>? get primaryKey => {id};

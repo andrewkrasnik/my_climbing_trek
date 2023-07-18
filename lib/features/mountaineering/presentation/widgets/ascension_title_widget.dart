@@ -23,6 +23,7 @@ class AscensionTitleWidget extends StatelessWidget {
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Text(
               ascension.finish?.dayString() ??
@@ -38,9 +39,11 @@ class AscensionTitleWidget extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   shadows: [Shadow(offset: Offset.fromDirection(1))]),
             ),
-            Text(
-              '${ascension.route.name}, ${ascension.route.type.name}',
-              style: textStyle,
+            Flexible(
+              child: Text(
+                '${ascension.route.name}, ${ascension.route.type.name}',
+                style: textStyle,
+              ),
             ),
           ],
         ),

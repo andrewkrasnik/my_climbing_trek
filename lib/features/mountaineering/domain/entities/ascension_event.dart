@@ -5,13 +5,13 @@ class AscensionEvent extends DataWithUUID {
   final AscensionEventType type;
   DateTime? time;
   DateTime? planedTime;
-  final String ascentId;
+  final String ascensionId;
 
   bool get showInWidget => AscensionEventType.mainValues.contains(type);
 
   AscensionEvent({
     required this.type,
-    required this.ascentId,
+    required this.ascensionId,
     this.time,
     this.planedTime,
     super.id,

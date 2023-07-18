@@ -23,7 +23,7 @@ class DriftDBLocalDataSource extends _$DriftDBLocalDataSource
   DriftDBLocalDataSource() : super(_openConnection());
 
   @override
-  int get schemaVersion => 17;
+  int get schemaVersion => 18;
 
   @override
   MigrationStrategy get migration {
@@ -100,6 +100,10 @@ class DriftDBLocalDataSource extends _$DriftDBLocalDataSource
         if (from < 17) {
           await m.createTable(driftTechniqueTreaningsTable);
           await m.createTable(driftTechniqueTreaningItemsTable);
+        }
+        if (from < 18) {
+          await m.createTable(driftAscensionsTable);
+          await m.createTable(driftAscensionEventsTable);
         }
       },
     );
@@ -324,6 +328,12 @@ class DriftDBLocalDataSource extends _$DriftDBLocalDataSource
       case DBTables.techniqueTreaningsItems:
         return Right(driftTechniqueTreaningItemsTable);
 
+      case DBTables.ascensions:
+        return Right(driftAscensionsTable);
+
+      case DBTables.ascensionEvents:
+        return Right(driftAscensionEventsTable);
+
       default:
         return Left(DataBaseFailure(
             description: 'Drift DB - неизвестная таблица: $table'));
@@ -374,6 +384,12 @@ class DriftDBLocalDataSource extends _$DriftDBLocalDataSource
 
       case DBTables.techniqueTreaningsItems:
         return DriftTechniqueTreaningItem.fromJson(json);
+
+      case DBTables.ascensions:
+        return DriftAscension.fromJson(json);
+
+      case DBTables.ascensionEvents:
+        return DriftAscensionEvent.fromJson(json);
 
       default:
         return throw 'Drift DB - неизвестная таблица: $table';

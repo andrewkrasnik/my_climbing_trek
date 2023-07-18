@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/ascension.dart';
@@ -20,6 +21,9 @@ class AscensionEventsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ascension.events.sort(
+      (a, b) => a.type.orderBy.compareTo(b.type.orderBy),
+    );
     return Table(
       columnWidths: const {
         0: FlexColumnWidth(3),

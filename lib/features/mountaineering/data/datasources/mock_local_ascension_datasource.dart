@@ -6,7 +6,7 @@ import 'package:my_climbing_trek/features/mountaineering/data/datasources/local_
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/ascension.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/ascension_event.dart';
 
-@LazySingleton(as: LocalAscensionDataSource)
+// @LazySingleton(as: LocalAscensionDataSource)
 class MockLocalAscensionDataSource implements LocalAscensionDataSource {
   final List<Ascension> _ascensions = [];
 

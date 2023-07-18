@@ -6178,6 +6178,720 @@ class DriftTechniqueTreaningItemsTableCompanion
   }
 }
 
+class $DriftAscensionsTableTable extends DriftAscensionsTable
+    with TableInfo<$DriftAscensionsTableTable, DriftAscension> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $DriftAscensionsTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'));
+  static const VerificationMeta _mountainMeta =
+      const VerificationMeta('mountain');
+  @override
+  late final GeneratedColumn<String> mountain = GeneratedColumn<String>(
+      'mountain', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _mountainIdMeta =
+      const VerificationMeta('mountainId');
+  @override
+  late final GeneratedColumn<String> mountainId = GeneratedColumn<String>(
+      'mountain_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _routeIdMeta =
+      const VerificationMeta('routeId');
+  @override
+  late final GeneratedColumn<String> routeId = GeneratedColumn<String>(
+      'route_id', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _routeMeta = const VerificationMeta('route');
+  @override
+  late final GeneratedColumn<String> route = GeneratedColumn<String>(
+      'route', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _dateMeta = const VerificationMeta('date');
+  @override
+  late final GeneratedColumn<DateTime> date = GeneratedColumn<DateTime>(
+      'date', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _finishMeta = const VerificationMeta('finish');
+  @override
+  late final GeneratedColumn<DateTime> finish = GeneratedColumn<DateTime>(
+      'finish', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _startMeta = const VerificationMeta('start');
+  @override
+  late final GeneratedColumn<DateTime> start = GeneratedColumn<DateTime>(
+      'start', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, mountain, mountainId, routeId, route, date, finish, start];
+  @override
+  String get aliasedName => _alias ?? 'drift_ascensions_table';
+  @override
+  String get actualTableName => 'drift_ascensions_table';
+  @override
+  VerificationContext validateIntegrity(Insertable<DriftAscension> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('mountain')) {
+      context.handle(_mountainMeta,
+          mountain.isAcceptableOrUnknown(data['mountain']!, _mountainMeta));
+    } else if (isInserting) {
+      context.missing(_mountainMeta);
+    }
+    if (data.containsKey('mountain_id')) {
+      context.handle(
+          _mountainIdMeta,
+          mountainId.isAcceptableOrUnknown(
+              data['mountain_id']!, _mountainIdMeta));
+    } else if (isInserting) {
+      context.missing(_mountainIdMeta);
+    }
+    if (data.containsKey('route_id')) {
+      context.handle(_routeIdMeta,
+          routeId.isAcceptableOrUnknown(data['route_id']!, _routeIdMeta));
+    }
+    if (data.containsKey('route')) {
+      context.handle(
+          _routeMeta, route.isAcceptableOrUnknown(data['route']!, _routeMeta));
+    }
+    if (data.containsKey('date')) {
+      context.handle(
+          _dateMeta, date.isAcceptableOrUnknown(data['date']!, _dateMeta));
+    } else if (isInserting) {
+      context.missing(_dateMeta);
+    }
+    if (data.containsKey('finish')) {
+      context.handle(_finishMeta,
+          finish.isAcceptableOrUnknown(data['finish']!, _finishMeta));
+    }
+    if (data.containsKey('start')) {
+      context.handle(
+          _startMeta, start.isAcceptableOrUnknown(data['start']!, _startMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  DriftAscension map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return DriftAscension(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      mountain: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}mountain'])!,
+      mountainId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}mountain_id'])!,
+      routeId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}route_id']),
+      route: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}route']),
+      date: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}date'])!,
+      finish: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}finish']),
+      start: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}start']),
+    );
+  }
+
+  @override
+  $DriftAscensionsTableTable createAlias(String alias) {
+    return $DriftAscensionsTableTable(attachedDatabase, alias);
+  }
+}
+
+class DriftAscension extends DataClass implements Insertable<DriftAscension> {
+  final String id;
+  final String mountain;
+  final String mountainId;
+  final String? routeId;
+  final String? route;
+  final DateTime date;
+  final DateTime? finish;
+  final DateTime? start;
+  const DriftAscension(
+      {required this.id,
+      required this.mountain,
+      required this.mountainId,
+      this.routeId,
+      this.route,
+      required this.date,
+      this.finish,
+      this.start});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['mountain'] = Variable<String>(mountain);
+    map['mountain_id'] = Variable<String>(mountainId);
+    if (!nullToAbsent || routeId != null) {
+      map['route_id'] = Variable<String>(routeId);
+    }
+    if (!nullToAbsent || route != null) {
+      map['route'] = Variable<String>(route);
+    }
+    map['date'] = Variable<DateTime>(date);
+    if (!nullToAbsent || finish != null) {
+      map['finish'] = Variable<DateTime>(finish);
+    }
+    if (!nullToAbsent || start != null) {
+      map['start'] = Variable<DateTime>(start);
+    }
+    return map;
+  }
+
+  DriftAscensionsTableCompanion toCompanion(bool nullToAbsent) {
+    return DriftAscensionsTableCompanion(
+      id: Value(id),
+      mountain: Value(mountain),
+      mountainId: Value(mountainId),
+      routeId: routeId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(routeId),
+      route:
+          route == null && nullToAbsent ? const Value.absent() : Value(route),
+      date: Value(date),
+      finish:
+          finish == null && nullToAbsent ? const Value.absent() : Value(finish),
+      start:
+          start == null && nullToAbsent ? const Value.absent() : Value(start),
+    );
+  }
+
+  factory DriftAscension.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return DriftAscension(
+      id: serializer.fromJson<String>(json['id']),
+      mountain: serializer.fromJson<String>(json['mountain']),
+      mountainId: serializer.fromJson<String>(json['mountainId']),
+      routeId: serializer.fromJson<String?>(json['routeId']),
+      route: serializer.fromJson<String?>(json['route']),
+      date: serializer.fromJson<DateTime>(json['date']),
+      finish: serializer.fromJson<DateTime?>(json['finish']),
+      start: serializer.fromJson<DateTime?>(json['start']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'mountain': serializer.toJson<String>(mountain),
+      'mountainId': serializer.toJson<String>(mountainId),
+      'routeId': serializer.toJson<String?>(routeId),
+      'route': serializer.toJson<String?>(route),
+      'date': serializer.toJson<DateTime>(date),
+      'finish': serializer.toJson<DateTime?>(finish),
+      'start': serializer.toJson<DateTime?>(start),
+    };
+  }
+
+  DriftAscension copyWith(
+          {String? id,
+          String? mountain,
+          String? mountainId,
+          Value<String?> routeId = const Value.absent(),
+          Value<String?> route = const Value.absent(),
+          DateTime? date,
+          Value<DateTime?> finish = const Value.absent(),
+          Value<DateTime?> start = const Value.absent()}) =>
+      DriftAscension(
+        id: id ?? this.id,
+        mountain: mountain ?? this.mountain,
+        mountainId: mountainId ?? this.mountainId,
+        routeId: routeId.present ? routeId.value : this.routeId,
+        route: route.present ? route.value : this.route,
+        date: date ?? this.date,
+        finish: finish.present ? finish.value : this.finish,
+        start: start.present ? start.value : this.start,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('DriftAscension(')
+          ..write('id: $id, ')
+          ..write('mountain: $mountain, ')
+          ..write('mountainId: $mountainId, ')
+          ..write('routeId: $routeId, ')
+          ..write('route: $route, ')
+          ..write('date: $date, ')
+          ..write('finish: $finish, ')
+          ..write('start: $start')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id, mountain, mountainId, routeId, route, date, finish, start);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is DriftAscension &&
+          other.id == this.id &&
+          other.mountain == this.mountain &&
+          other.mountainId == this.mountainId &&
+          other.routeId == this.routeId &&
+          other.route == this.route &&
+          other.date == this.date &&
+          other.finish == this.finish &&
+          other.start == this.start);
+}
+
+class DriftAscensionsTableCompanion extends UpdateCompanion<DriftAscension> {
+  final Value<String> id;
+  final Value<String> mountain;
+  final Value<String> mountainId;
+  final Value<String?> routeId;
+  final Value<String?> route;
+  final Value<DateTime> date;
+  final Value<DateTime?> finish;
+  final Value<DateTime?> start;
+  final Value<int> rowid;
+  const DriftAscensionsTableCompanion({
+    this.id = const Value.absent(),
+    this.mountain = const Value.absent(),
+    this.mountainId = const Value.absent(),
+    this.routeId = const Value.absent(),
+    this.route = const Value.absent(),
+    this.date = const Value.absent(),
+    this.finish = const Value.absent(),
+    this.start = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  DriftAscensionsTableCompanion.insert({
+    required String id,
+    required String mountain,
+    required String mountainId,
+    this.routeId = const Value.absent(),
+    this.route = const Value.absent(),
+    required DateTime date,
+    this.finish = const Value.absent(),
+    this.start = const Value.absent(),
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        mountain = Value(mountain),
+        mountainId = Value(mountainId),
+        date = Value(date);
+  static Insertable<DriftAscension> custom({
+    Expression<String>? id,
+    Expression<String>? mountain,
+    Expression<String>? mountainId,
+    Expression<String>? routeId,
+    Expression<String>? route,
+    Expression<DateTime>? date,
+    Expression<DateTime>? finish,
+    Expression<DateTime>? start,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (mountain != null) 'mountain': mountain,
+      if (mountainId != null) 'mountain_id': mountainId,
+      if (routeId != null) 'route_id': routeId,
+      if (route != null) 'route': route,
+      if (date != null) 'date': date,
+      if (finish != null) 'finish': finish,
+      if (start != null) 'start': start,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  DriftAscensionsTableCompanion copyWith(
+      {Value<String>? id,
+      Value<String>? mountain,
+      Value<String>? mountainId,
+      Value<String?>? routeId,
+      Value<String?>? route,
+      Value<DateTime>? date,
+      Value<DateTime?>? finish,
+      Value<DateTime?>? start,
+      Value<int>? rowid}) {
+    return DriftAscensionsTableCompanion(
+      id: id ?? this.id,
+      mountain: mountain ?? this.mountain,
+      mountainId: mountainId ?? this.mountainId,
+      routeId: routeId ?? this.routeId,
+      route: route ?? this.route,
+      date: date ?? this.date,
+      finish: finish ?? this.finish,
+      start: start ?? this.start,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (mountain.present) {
+      map['mountain'] = Variable<String>(mountain.value);
+    }
+    if (mountainId.present) {
+      map['mountain_id'] = Variable<String>(mountainId.value);
+    }
+    if (routeId.present) {
+      map['route_id'] = Variable<String>(routeId.value);
+    }
+    if (route.present) {
+      map['route'] = Variable<String>(route.value);
+    }
+    if (date.present) {
+      map['date'] = Variable<DateTime>(date.value);
+    }
+    if (finish.present) {
+      map['finish'] = Variable<DateTime>(finish.value);
+    }
+    if (start.present) {
+      map['start'] = Variable<DateTime>(start.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DriftAscensionsTableCompanion(')
+          ..write('id: $id, ')
+          ..write('mountain: $mountain, ')
+          ..write('mountainId: $mountainId, ')
+          ..write('routeId: $routeId, ')
+          ..write('route: $route, ')
+          ..write('date: $date, ')
+          ..write('finish: $finish, ')
+          ..write('start: $start, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $DriftAscensionEventsTableTable extends DriftAscensionEventsTable
+    with TableInfo<$DriftAscensionEventsTableTable, DriftAscensionEvent> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $DriftAscensionEventsTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _typeMeta = const VerificationMeta('type');
+  @override
+  late final GeneratedColumn<String> type = GeneratedColumn<String>(
+      'type', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _ascensionIdMeta =
+      const VerificationMeta('ascensionId');
+  @override
+  late final GeneratedColumn<String> ascensionId = GeneratedColumn<String>(
+      'ascension_id', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES drift_ascensions_table (id)'));
+  static const VerificationMeta _timeMeta = const VerificationMeta('time');
+  @override
+  late final GeneratedColumn<DateTime> time = GeneratedColumn<DateTime>(
+      'time', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _planedTimeMeta =
+      const VerificationMeta('planedTime');
+  @override
+  late final GeneratedColumn<DateTime> planedTime = GeneratedColumn<DateTime>(
+      'planed_time', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, type, ascensionId, time, planedTime];
+  @override
+  String get aliasedName => _alias ?? 'drift_ascension_events_table';
+  @override
+  String get actualTableName => 'drift_ascension_events_table';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<DriftAscensionEvent> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('type')) {
+      context.handle(
+          _typeMeta, type.isAcceptableOrUnknown(data['type']!, _typeMeta));
+    } else if (isInserting) {
+      context.missing(_typeMeta);
+    }
+    if (data.containsKey('ascension_id')) {
+      context.handle(
+          _ascensionIdMeta,
+          ascensionId.isAcceptableOrUnknown(
+              data['ascension_id']!, _ascensionIdMeta));
+    } else if (isInserting) {
+      context.missing(_ascensionIdMeta);
+    }
+    if (data.containsKey('time')) {
+      context.handle(
+          _timeMeta, time.isAcceptableOrUnknown(data['time']!, _timeMeta));
+    }
+    if (data.containsKey('planed_time')) {
+      context.handle(
+          _planedTimeMeta,
+          planedTime.isAcceptableOrUnknown(
+              data['planed_time']!, _planedTimeMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  DriftAscensionEvent map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return DriftAscensionEvent(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      type: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}type'])!,
+      ascensionId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}ascension_id'])!,
+      time: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}time']),
+      planedTime: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}planed_time']),
+    );
+  }
+
+  @override
+  $DriftAscensionEventsTableTable createAlias(String alias) {
+    return $DriftAscensionEventsTableTable(attachedDatabase, alias);
+  }
+}
+
+class DriftAscensionEvent extends DataClass
+    implements Insertable<DriftAscensionEvent> {
+  final String id;
+  final String type;
+  final String ascensionId;
+  final DateTime? time;
+  final DateTime? planedTime;
+  const DriftAscensionEvent(
+      {required this.id,
+      required this.type,
+      required this.ascensionId,
+      this.time,
+      this.planedTime});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['type'] = Variable<String>(type);
+    map['ascension_id'] = Variable<String>(ascensionId);
+    if (!nullToAbsent || time != null) {
+      map['time'] = Variable<DateTime>(time);
+    }
+    if (!nullToAbsent || planedTime != null) {
+      map['planed_time'] = Variable<DateTime>(planedTime);
+    }
+    return map;
+  }
+
+  DriftAscensionEventsTableCompanion toCompanion(bool nullToAbsent) {
+    return DriftAscensionEventsTableCompanion(
+      id: Value(id),
+      type: Value(type),
+      ascensionId: Value(ascensionId),
+      time: time == null && nullToAbsent ? const Value.absent() : Value(time),
+      planedTime: planedTime == null && nullToAbsent
+          ? const Value.absent()
+          : Value(planedTime),
+    );
+  }
+
+  factory DriftAscensionEvent.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return DriftAscensionEvent(
+      id: serializer.fromJson<String>(json['id']),
+      type: serializer.fromJson<String>(json['type']),
+      ascensionId: serializer.fromJson<String>(json['ascensionId']),
+      time: serializer.fromJson<DateTime?>(json['time']),
+      planedTime: serializer.fromJson<DateTime?>(json['planedTime']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'type': serializer.toJson<String>(type),
+      'ascensionId': serializer.toJson<String>(ascensionId),
+      'time': serializer.toJson<DateTime?>(time),
+      'planedTime': serializer.toJson<DateTime?>(planedTime),
+    };
+  }
+
+  DriftAscensionEvent copyWith(
+          {String? id,
+          String? type,
+          String? ascensionId,
+          Value<DateTime?> time = const Value.absent(),
+          Value<DateTime?> planedTime = const Value.absent()}) =>
+      DriftAscensionEvent(
+        id: id ?? this.id,
+        type: type ?? this.type,
+        ascensionId: ascensionId ?? this.ascensionId,
+        time: time.present ? time.value : this.time,
+        planedTime: planedTime.present ? planedTime.value : this.planedTime,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('DriftAscensionEvent(')
+          ..write('id: $id, ')
+          ..write('type: $type, ')
+          ..write('ascensionId: $ascensionId, ')
+          ..write('time: $time, ')
+          ..write('planedTime: $planedTime')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, type, ascensionId, time, planedTime);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is DriftAscensionEvent &&
+          other.id == this.id &&
+          other.type == this.type &&
+          other.ascensionId == this.ascensionId &&
+          other.time == this.time &&
+          other.planedTime == this.planedTime);
+}
+
+class DriftAscensionEventsTableCompanion
+    extends UpdateCompanion<DriftAscensionEvent> {
+  final Value<String> id;
+  final Value<String> type;
+  final Value<String> ascensionId;
+  final Value<DateTime?> time;
+  final Value<DateTime?> planedTime;
+  final Value<int> rowid;
+  const DriftAscensionEventsTableCompanion({
+    this.id = const Value.absent(),
+    this.type = const Value.absent(),
+    this.ascensionId = const Value.absent(),
+    this.time = const Value.absent(),
+    this.planedTime = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  DriftAscensionEventsTableCompanion.insert({
+    required String id,
+    required String type,
+    required String ascensionId,
+    this.time = const Value.absent(),
+    this.planedTime = const Value.absent(),
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        type = Value(type),
+        ascensionId = Value(ascensionId);
+  static Insertable<DriftAscensionEvent> custom({
+    Expression<String>? id,
+    Expression<String>? type,
+    Expression<String>? ascensionId,
+    Expression<DateTime>? time,
+    Expression<DateTime>? planedTime,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (type != null) 'type': type,
+      if (ascensionId != null) 'ascension_id': ascensionId,
+      if (time != null) 'time': time,
+      if (planedTime != null) 'planed_time': planedTime,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  DriftAscensionEventsTableCompanion copyWith(
+      {Value<String>? id,
+      Value<String>? type,
+      Value<String>? ascensionId,
+      Value<DateTime?>? time,
+      Value<DateTime?>? planedTime,
+      Value<int>? rowid}) {
+    return DriftAscensionEventsTableCompanion(
+      id: id ?? this.id,
+      type: type ?? this.type,
+      ascensionId: ascensionId ?? this.ascensionId,
+      time: time ?? this.time,
+      planedTime: planedTime ?? this.planedTime,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (type.present) {
+      map['type'] = Variable<String>(type.value);
+    }
+    if (ascensionId.present) {
+      map['ascension_id'] = Variable<String>(ascensionId.value);
+    }
+    if (time.present) {
+      map['time'] = Variable<DateTime>(time.value);
+    }
+    if (planedTime.present) {
+      map['planed_time'] = Variable<DateTime>(planedTime.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DriftAscensionEventsTableCompanion(')
+          ..write('id: $id, ')
+          ..write('type: $type, ')
+          ..write('ascensionId: $ascensionId, ')
+          ..write('time: $time, ')
+          ..write('planedTime: $planedTime, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$DriftDBLocalDataSource extends GeneratedDatabase {
   _$DriftDBLocalDataSource(QueryExecutor e) : super(e);
   late final $DriftStrengthExercisesTableTable driftStrengthExercisesTable =
@@ -6210,6 +6924,10 @@ abstract class _$DriftDBLocalDataSource extends GeneratedDatabase {
   late final $DriftTechniqueTreaningItemsTableTable
       driftTechniqueTreaningItemsTable =
       $DriftTechniqueTreaningItemsTableTable(this);
+  late final $DriftAscensionsTableTable driftAscensionsTable =
+      $DriftAscensionsTableTable(this);
+  late final $DriftAscensionEventsTableTable driftAscensionEventsTable =
+      $DriftAscensionEventsTableTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -6228,6 +6946,8 @@ abstract class _$DriftDBLocalDataSource extends GeneratedDatabase {
         driftTrekkingPathsTable,
         driftTrekkingPathEventsTable,
         driftTechniqueTreaningsTable,
-        driftTechniqueTreaningItemsTable
+        driftTechniqueTreaningItemsTable,
+        driftAscensionsTable,
+        driftAscensionEventsTable
       ];
 }

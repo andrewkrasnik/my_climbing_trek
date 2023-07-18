@@ -40,12 +40,18 @@ class AscensionWidget extends StatelessWidget {
                   fit: BoxFit.fitWidth,
                 ),
               ),
-            if (!ascension.finished)
-              ScaledImageWidget(
-                imageUrl: ascension.route.ueaaSchemaImage ??
-                    ascension.route.image ??
-                    ascension.mountain.image,
-              ),
+            if (!ascension.finished) ...[
+              if (ascension.route.ueaaSchemaImage != null &&
+                  ascension.route.ueaaSchemaImage!.isNotEmpty)
+                ScaledImageWidget(
+                  imageUrl: ascension.route.ueaaSchemaImage!,
+                ),
+              if (ascension.route.ueaaSchemaImage == null ||
+                  ascension.route.ueaaSchemaImage?.isEmpty == true)
+                ScaledImageWidget(
+                  imageUrl: ascension.mountain.image,
+                ),
+            ],
             Positioned(
               left: 8,
               top: 8,

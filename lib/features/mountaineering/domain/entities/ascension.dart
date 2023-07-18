@@ -17,10 +17,7 @@ class Ascension extends Treaning {
     super.id,
     super.start,
     List<AscensionEvent>? events,
-  }) : events = events ??
-            AscensionEventType.mainValues
-                .map((type) => AscensionEvent(ascentId: id, type: type))
-                .toList();
+  }) : events = events ?? [];
 
   @override
   String get image => mountain.image;
