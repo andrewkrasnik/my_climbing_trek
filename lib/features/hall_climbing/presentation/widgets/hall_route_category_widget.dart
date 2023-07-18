@@ -1,5 +1,4 @@
 import 'package:my_climbing_trek/core/data/ascent_type.dart';
-import 'package:my_climbing_trek/core/data/climbing_category.dart';
 import 'package:my_climbing_trek/core/data/difficulty_category.dart';
 import 'package:my_climbing_trek/core/data/drytooling_category.dart';
 import 'package:my_climbing_trek/core/widgets/attempt_budget.dart';

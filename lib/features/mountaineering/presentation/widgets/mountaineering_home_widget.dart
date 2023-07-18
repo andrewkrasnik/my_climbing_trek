@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_climbing_trek/features/mountaineering/presentation/bloc/ascension/ascension_cubit.dart';
 import 'package:my_climbing_trek/features/mountaineering/presentation/bloc/mountain_regions/mountain_regions_cubit.dart';
 import 'package:my_climbing_trek/features/mountaineering/presentation/pages/mountain_region_page.dart';
 import 'package:my_climbing_trek/features/mountaineering/presentation/pages/mountain_regions_page.dart';
+import 'package:my_climbing_trek/features/mountaineering/presentation/widgets/ascension_events_widget.dart';
+import 'package:my_climbing_trek/features/mountaineering/presentation/widgets/ascension_widget.dart';
 import 'package:my_climbing_trek/features/mountaineering/presentation/widgets/mountain_region_widget.dart';
+import 'package:my_climbing_trek/features/mountaineering/presentation/widgets/mountain_route_details_widget.dart';
 import 'package:my_climbing_trek/service_locator.dart';
 
 class MountaineeringHomeWidget extends StatelessWidget {
@@ -34,6 +38,30 @@ class MountaineeringHomeWidget extends StatelessWidget {
         //   style: titleTextStyle,
         // ),
         // const SizedBox(height: 16),
+        BlocBuilder<AscensionCubit, AscensionState>(
+          builder: (context, state) {
+            return state.ascension == null
+                ? const SizedBox()
+                : Column(
+                    children: [
+                      AscensionWidget(ascension: state.ascension!),
+                      MountainRouteDetailsWidget(route: state.ascension!.route),
+                      AscensionEventsWidget(
+                        ascension: state.ascension!,
+                        editing: true,
+                      ),
+                      // if (state.ascension?.started == true)
+                      TextButton(
+                        child: const Text('Завершить'),
+                        onPressed: () {
+                          BlocProvider.of<AscensionCubit>(context)
+                              .finishAscension(ascension: state.ascension!);
+                        },
+                      ),
+                    ],
+                  );
+          },
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

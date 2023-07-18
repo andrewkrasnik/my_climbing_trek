@@ -14,7 +14,7 @@ class MountaineeringCategory {
   });
 
   static const oneB = MountaineeringCategory(
-    id: 'oneB',
+    id: '1B',
     russianName: '1Б',
     frenchName: 'F',
     uiaaName: 'I',
@@ -23,7 +23,7 @@ class MountaineeringCategory {
   );
 
   static const twoA = MountaineeringCategory(
-    id: 'twoA',
+    id: '2A',
     russianName: '2А',
     frenchName: 'PD',
     uiaaName: 'II',
@@ -32,7 +32,7 @@ class MountaineeringCategory {
   );
 
   static const twoB = MountaineeringCategory(
-    id: 'twoB',
+    id: '2B',
     russianName: '2Б',
     frenchName: 'PD+',
     uiaaName: 'II/III',
@@ -41,7 +41,7 @@ class MountaineeringCategory {
   );
 
   static const treeA = MountaineeringCategory(
-    id: 'treeA',
+    id: '3A',
     russianName: '3А',
     frenchName: 'AD',
     uiaaName: 'III',
@@ -50,7 +50,7 @@ class MountaineeringCategory {
   );
 
   static const treeB = MountaineeringCategory(
-    id: 'treeB',
+    id: '3B',
     russianName: '3Б',
     frenchName: 'AD+',
     uiaaName: 'III/IV',
@@ -59,7 +59,7 @@ class MountaineeringCategory {
   );
 
   static const fourA = MountaineeringCategory(
-    id: 'fourA',
+    id: '4A',
     russianName: '4А',
     frenchName: 'D',
     uiaaName: 'IV',
@@ -68,7 +68,7 @@ class MountaineeringCategory {
   );
 
   static const fourB = MountaineeringCategory(
-    id: 'fourB',
+    id: '4B',
     russianName: '4Б',
     frenchName: 'D+',
     uiaaName: 'IV/V',
@@ -77,7 +77,7 @@ class MountaineeringCategory {
   );
 
   static const fiveA = MountaineeringCategory(
-    id: 'fiveA',
+    id: '5A',
     russianName: '5А',
     frenchName: 'TD/ED',
     uiaaName: 'V',
@@ -86,7 +86,7 @@ class MountaineeringCategory {
   );
 
   static const fiveB = MountaineeringCategory(
-    id: 'fiveB',
+    id: '5B',
     russianName: '5Б',
     frenchName: 'TD+/ED',
     uiaaName: 'V/VI',
@@ -95,7 +95,7 @@ class MountaineeringCategory {
   );
 
   static const sixA = MountaineeringCategory(
-    id: 'sixA',
+    id: '6A',
     russianName: '6А',
     frenchName: 'ED/ED+',
     uiaaName: 'VI',
@@ -104,7 +104,7 @@ class MountaineeringCategory {
   );
 
   static const sixB = MountaineeringCategory(
-    id: 'sixB',
+    id: '6B',
     russianName: '6Б',
     frenchName: 'ED3',
     uiaaName: 'VII',
