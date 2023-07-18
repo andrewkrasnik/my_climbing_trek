@@ -9,6 +9,7 @@ import 'package:my_climbing_trek/features/cardio_workout/presentation/cubit/card
 import 'package:my_climbing_trek/features/hall_climbing/presentation/bloc/current_hall_treaning/current_hall_treaning_cubit.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/bloc/home_page/home_page_cubit.dart';
 import 'package:my_climbing_trek/features/ice_climbing/presentation/bloc/current_ice_treaning/current_ice_treaning_cubit.dart';
+import 'package:my_climbing_trek/features/mountaineering/presentation/bloc/ascension/ascension_cubit.dart';
 import 'package:my_climbing_trek/features/rock_climbing/presentation/cubit/rock_treaning/rock_treaning_cubit.dart';
 
 import 'package:my_climbing_trek/features/settings/presentation/cubit/settings_cubit.dart';
@@ -87,8 +88,11 @@ class MyApp extends StatelessWidget {
           create: (context) => di.getIt<TrekkingCubit>()..loadData(),
         ),
         BlocProvider<TechniqueTreaningCubit>(
-            create: (context) =>
-                di.getIt<TechniqueTreaningCubit>()..loadData()),
+          create: (context) => di.getIt<TechniqueTreaningCubit>()..loadData(),
+        ),
+        BlocProvider<AscensionCubit>(
+          create: (context) => di.getIt<AscensionCubit>()..loadData(),
+        ),
       ],
       child: MaterialApp(
           title: 'Flutter Demo',

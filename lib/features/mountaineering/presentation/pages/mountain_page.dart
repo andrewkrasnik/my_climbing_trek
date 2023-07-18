@@ -61,6 +61,7 @@ class MountainPage extends StatelessWidget {
                           padding: const EdgeInsets.all(8.0),
                           child: MountainRouteWidget(
                             route: dataState.routes[index],
+                            mountain: mountain,
                           ),
                         ),
                       ),

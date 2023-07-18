@@ -1,12 +1,13 @@
 import 'package:my_climbing_trek/core/data/climbing_style.dart';
 import 'package:my_climbing_trek/core/widgets/my_modal_bottom_sheet.dart';
+import 'package:my_climbing_trek/core/widgets/treaning_picture_page.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_attempt.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_treaning.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/bloc/current_hall_treaning/current_hall_treaning_cubit.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/pages/climbing_hall_page.dart';
-import 'package:my_climbing_trek/features/hall_climbing/presentation/pages/hall_treaning_page.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/hall_attempt_dialog.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/hall_route_category_widget.dart';
+import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/hall_treaning_picture_widget.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/select_hall_route_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -47,8 +48,11 @@ class HallTreaningWidget extends StatelessWidget {
                   IconButton(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => HallTreaningPage(
+                          builder: (context) => TreaningPicturePage(
                                 treaning: treaning,
+                                child: HallTreaningPictureWidget(
+                                  treaning: treaning,
+                                ),
                               )));
                     },
                     icon: const Icon(

@@ -13,4 +13,6 @@ enum DBTables {
   trekkingPathEvents,
   techniqueTreanings,
   techniqueTreaningsItems,
+  ascensions,
+  ascensionEvents,
 }

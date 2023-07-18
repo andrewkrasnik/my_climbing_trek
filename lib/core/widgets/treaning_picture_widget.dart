@@ -4,18 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_climbing_trek/core/data/system_enums.dart';
 import 'package:my_climbing_trek/core/data/treaning.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
-import 'package:share_plus/share_plus.dart';
 
 class TreaningPictureWidget extends StatefulWidget {
   final Treaning treaning;
   final Widget child;
+  final Widget? titleWidget;
+  final ScreenshotController screenshotController;
 
   const TreaningPictureWidget({
     Key? key,
     required this.treaning,
     required this.child,
+    required this.screenshotController,
+    this.titleWidget,
   }) : super(key: key);
 
   @override
@@ -23,8 +25,6 @@ class TreaningPictureWidget extends StatefulWidget {
 }
 
 class _TreaningPictureWidgetState extends State<TreaningPictureWidget> {
-  final ScreenshotController screenshotController = ScreenshotController();
-
   final ImagePicker _picker = ImagePicker();
   final List<String> _imageFileList = [];
 
@@ -53,15 +53,18 @@ class _TreaningPictureWidgetState extends State<TreaningPictureWidget> {
       shadows: [Shadow(offset: Offset.fromDirection(1, 1))],
     );
 
+    final color = Theme.of(context).colorScheme.surface;
+
     return Column(children: [
       SizedBox(
-        height: 80,
-        child: ListView(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            scrollDirection: Axis.horizontal,
+        height: 60,
+        child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: MyPictureSize.values
                 .map(
                   (size) => IconButton(
+                    padding: EdgeInsets.zero,
                     onPressed: () {
                       setState(() {
                         _currentSize = size;
@@ -71,12 +74,13 @@ class _TreaningPictureWidgetState extends State<TreaningPictureWidget> {
                       size.icon,
                       size: 60,
                       color:
-                          _currentSize == size ? Colors.black : Colors.black38,
+                          _currentSize == size ? color : color.withOpacity(0.4),
                     ),
                   ),
                 )
                 .toList()),
       ),
+      const SizedBox(height: 8),
       Wrap(
         children: [
           Row(
@@ -91,12 +95,12 @@ class _TreaningPictureWidgetState extends State<TreaningPictureWidget> {
                   icon: Icon(
                     aligment.icon,
                     color: _contentVerticalAligment == aligment
-                        ? Colors.black
-                        : Colors.black38,
+                        ? color
+                        : color.withOpacity(0.3),
                   ))),
             ],
           ),
-          const SizedBox(width: 16),
+          const SizedBox(width: 20),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -109,15 +113,15 @@ class _TreaningPictureWidgetState extends State<TreaningPictureWidget> {
                   icon: Icon(
                     aligment.icon,
                     color: _contentHorisontalAligment == aligment
-                        ? Colors.black
-                        : Colors.black38,
+                        ? color
+                        : color.withOpacity(0.3),
                   ))),
             ],
           ),
         ],
       ),
       Screenshot(
-        controller: screenshotController,
+        controller: widget.screenshotController,
         child: AspectRatio(
           aspectRatio: _currentSize.aspectRatio,
           child: SizedBox(
@@ -137,19 +141,21 @@ class _TreaningPictureWidgetState extends State<TreaningPictureWidget> {
                     ),
                   ),
                   child: Column(children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          widget.treaning.place,
-                          style: textStyle,
-                        ),
-                        Text(
-                          widget.treaning.dateString,
-                          style: textStyle,
-                        ),
-                      ],
-                    ),
+                    if (widget.titleWidget == null)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            widget.treaning.place,
+                            style: textStyle,
+                          ),
+                          Text(
+                            widget.treaning.dateString,
+                            style: textStyle,
+                          ),
+                        ],
+                      ),
+                    if (widget.titleWidget != null) widget.titleWidget!,
                     const SizedBox(
                       height: 24,
                     ),
@@ -247,22 +253,6 @@ class _TreaningPictureWidgetState extends State<TreaningPictureWidget> {
             ),
           ),
         ),
-      ElevatedButton.icon(
-        onPressed: () async {
-          final directory = (await getApplicationDocumentsDirectory())
-              .path; //from path_provide package
-          String fileName =
-              '${DateTime.now().microsecondsSinceEpoch.toString()}.png';
-
-          final res = await screenshotController.captureAndSave(
-              directory, //set path where screenshot will be saved
-              fileName: fileName);
-
-          Share.shareXFiles([XFile(res!)], text: 'Новая тренировка!');
-        },
-        icon: const Icon(Icons.share),
-        label: const Text('Поделиться'),
-      ),
     ]);
   }
 }

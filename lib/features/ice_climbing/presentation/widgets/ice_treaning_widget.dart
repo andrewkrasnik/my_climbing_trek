@@ -1,12 +1,13 @@
 import 'package:my_climbing_trek/core/data/climbing_style.dart';
+import 'package:my_climbing_trek/core/widgets/treaning_picture_page.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_treaning.dart';
 import 'package:my_climbing_trek/features/ice_climbing/presentation/bloc/current_ice_treaning/current_ice_treaning_cubit.dart';
 import 'package:my_climbing_trek/features/ice_climbing/presentation/pages/ice_district_page.dart';
-import 'package:my_climbing_trek/features/ice_climbing/presentation/pages/ice_treaning_page.dart';
 import 'package:my_climbing_trek/features/ice_climbing/presentation/widgets/ice_attempts_with_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:my_climbing_trek/features/ice_climbing/presentation/widgets/ice_treaning_picture_widget.dart';
 
 class IceTreaningWidget extends StatelessWidget {
   final IceTreaning treaning;
@@ -52,8 +53,11 @@ class IceTreaningWidget extends StatelessWidget {
                   IconButton(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => IceTreaningPage(
+                          builder: (context) => TreaningPicturePage(
                                 treaning: treaning,
+                                child: IceTreaningPictureWidget(
+                                  treaning: treaning,
+                                ),
                               )));
                     },
                     icon: const Icon(

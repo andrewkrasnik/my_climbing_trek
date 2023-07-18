@@ -15,6 +15,8 @@ class Treaning {
 
   DateTime? get finish => _finish;
 
+  bool get started => _start != null && _finish == null;
+
   bool get finished => _finish != null;
 
   String get dateString => DateFormat('dd.MM.yyyy').format(date);

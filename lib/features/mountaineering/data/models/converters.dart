@@ -1,5 +1,16 @@
+import 'dart:convert';
+
 import 'package:json_annotation/json_annotation.dart';
+import 'package:my_climbing_trek/features/mountaineering/data/models/ascension_event_model.dart';
+import 'package:my_climbing_trek/features/mountaineering/data/models/ascension_model.dart';
+import 'package:my_climbing_trek/features/mountaineering/data/models/mountain_model.dart';
+import 'package:my_climbing_trek/features/mountaineering/data/models/mountain_route_model.dart';
 import 'package:my_climbing_trek/features/mountaineering/data/models/mountain_route_roop_model.dart';
+import 'package:my_climbing_trek/features/mountaineering/domain/entities/ascension.dart';
+import 'package:my_climbing_trek/features/mountaineering/domain/entities/ascension_event.dart';
+import 'package:my_climbing_trek/features/mountaineering/domain/entities/ascension_event_type.dart';
+import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountain.dart';
+import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountain_route.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountain_route_roop.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountain_route_type.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountaineering_category.dart';
@@ -97,6 +108,134 @@ class MountainRoutePieceConverter
         return (this as MountainRouteMixedPieceModel).toJson();
       default:
         throw 'No converter for MountainRoutePiece with type: ${object.type}';
+    }
+  }
+}
+
+class AscensionEventTypeConverter
+    implements JsonConverter<AscensionEventType, String> {
+  const AscensionEventTypeConverter();
+  @override
+  AscensionEventType fromJson(String json) {
+    return AscensionEventType.getById(json);
+  }
+
+  @override
+  String toJson(AscensionEventType object) {
+    return object.id;
+  }
+}
+
+class MountainStringConverter implements JsonConverter<Mountain, String> {
+  const MountainStringConverter();
+
+  @override
+  Mountain fromJson(String json) {
+    return MountainModel.fromJson(jsonDecode(json));
+  }
+
+  @override
+  String toJson(Mountain object) {
+    if (object is MountainModel) {
+      return jsonEncode(object.toJson());
+    } else {
+      return jsonEncode(MountainModel(
+        altitude: object.altitude,
+        image: object.image,
+        name: object.name,
+        region: object.region,
+        id: object.id,
+      ).toJson());
+    }
+  }
+}
+
+class MountainRouteStringConverter
+    implements JsonConverter<MountainRoute, String> {
+  const MountainRouteStringConverter();
+
+  @override
+  MountainRoute fromJson(String json) {
+    return MountainRouteModel.fromJson(jsonDecode(json));
+  }
+
+  @override
+  String toJson(MountainRoute object) {
+    if (object is MountainRouteModel) {
+      return jsonEncode(object.toJson());
+    } else {
+      return jsonEncode(MountainRouteModel(
+        category: object.category,
+        image: object.image,
+        name: object.name,
+        type: object.type,
+        aidCategory: object.aidCategory,
+        author: object.author,
+        climbingCategory: object.climbingCategory,
+        descent: object.descent,
+        description: object.description,
+        farLink: object.farLink,
+        firstAscentYear: object.firstAscentYear,
+        length: object.length,
+        links: object.links,
+        passage: object.passage,
+        roops: object.roops,
+        ueaaSchemaImage: object.ueaaSchemaImage,
+        ussrCategory: object.ussrCategory,
+        id: object.id,
+      ).toJson());
+    }
+  }
+}
+
+class AscensionEventConverter
+    implements JsonConverter<AscensionEvent, Map<String, dynamic>> {
+  const AscensionEventConverter();
+  @override
+  AscensionEvent fromJson(Map<String, dynamic> json) {
+    return AscensionEventModel.fromJson(json);
+  }
+
+  @override
+  Map<String, dynamic> toJson(AscensionEvent object) {
+    if (object is AscensionEventModel) {
+      return (object).toJson();
+    } else {
+      return AscensionEventModel(
+        ascensionId: object.ascensionId,
+        type: object.type,
+        id: object.id,
+        planedTime: object.planedTime,
+        time: object.time,
+      ).toJson();
+    }
+  }
+}
+
+class AscensionConverter
+    implements JsonConverter<Ascension, Map<String, dynamic>> {
+  const AscensionConverter();
+  @override
+  Ascension fromJson(Map<String, dynamic> json) {
+    return AscensionModel.fromJson(json);
+  }
+
+  @override
+  Map<String, dynamic> toJson(Ascension object) {
+    if (object is AscensionModel) {
+      return (object).toJson();
+    } else {
+      return AscensionModel(
+        date: object.date,
+        mountain: object.mountain,
+        route: object.route,
+        events: object.events,
+        finish: object.finish,
+        id: object.id,
+        start: object.start,
+        mountainId: object.mountain.id,
+        routeId: object.route.id,
+      ).toJson();
     }
   }
 }
