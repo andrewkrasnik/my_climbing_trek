@@ -1,6 +1,9 @@
 import 'package:my_climbing_trek/core/data/region.dart';
 import 'package:my_climbing_trek/core/data/treaning.dart';
 import 'package:my_climbing_trek/core/extentions/date_time_extention.dart';
+import 'package:my_climbing_trek/features/traveling/domain/entities/cost_line.dart';
+import 'package:my_climbing_trek/features/traveling/domain/entities/insurance_line.dart';
+import 'package:my_climbing_trek/features/traveling/domain/entities/travel_budget.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel_day.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel_filter.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel_finish.dart';
@@ -10,6 +13,24 @@ class Travel extends Treaning {
   final List<Region> regions;
   final String name;
   final String description;
+  final TravelBudget? budget;
+  final List<CostLine> costs;
+  final List<InsuranceLine> insurances;
+
+  Travel({
+    required super.date,
+    required super.start,
+    super.finish,
+    required this.regions,
+    required this.name,
+    required this.image,
+    this.description = '',
+    super.id,
+    this.budget,
+    List<CostLine>? costs,
+    List<InsuranceLine>? insurances,
+  })  : insurances = insurances ?? [],
+        costs = costs ?? [];
 
   TravelFilter get filter {
     Region? region;
@@ -42,16 +63,6 @@ class Travel extends Treaning {
 
   @override
   final String image;
-  Travel({
-    required super.date,
-    required super.start,
-    super.finish,
-    required this.regions,
-    required this.name,
-    required this.image,
-    this.description = '',
-    super.id,
-  });
 
   String get period => 'c 1 по 12 мая 2023';
 }
