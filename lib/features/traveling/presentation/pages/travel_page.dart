@@ -5,6 +5,8 @@ import 'package:my_climbing_trek/core/widgets/my_modal_bottom_sheet.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/cost_line.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/cubit/travel_page/travel_page_cubit.dart';
+import 'package:my_climbing_trek/features/traveling/presentation/pages/travel_day_page.dart';
+import 'package:my_climbing_trek/features/traveling/presentation/widgets/contact_line_widget.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_day_parameters_widget.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_day_widget.dart';
 import 'package:my_climbing_trek/service_locator.dart';
@@ -105,12 +107,11 @@ class TravelPage extends StatelessWidget {
                               padding: const EdgeInsets.all(8.0),
                               child: InkWell(
                                   onTap: () {
-                                    showMyModalBottomSheet<void>(
-                                      context: context,
-                                      heightPersent: 0.6,
-                                      child:
-                                          TravelDayParametersWidget(day: day),
-                                    );
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          TravelDayPage(day: day),
+                                    ));
                                   },
                                   child: TravelDayWidget(travelDay: day)),
                             ),
@@ -136,6 +137,19 @@ class TravelPage extends StatelessWidget {
                               ),
                             ),
                           ),
+                        if (state.tabIndex == 2)
+                          if (travel.budget != null) ...[
+                            Text(
+                                '${travel.budget!.amount.toString()} ${travel.budget!.currency.name}'),
+                            ...travel.budget!.lines.map((line) => ListTile(
+                                  title: Text(line.type.name),
+                                  subtitle: Text(line.description),
+                                  trailing: Text(
+                                    line.amount.toString(),
+                                    style: const TextStyle(fontSize: 20),
+                                  ),
+                                )),
+                          ],
                         if (state.tabIndex == 3)
                           ...travel.insurances.map((insurance) => Column(
                                 children: [
@@ -143,19 +157,8 @@ class TravelPage extends StatelessWidget {
                                   Text(insurance.description),
                                   SelectableText(insurance.number),
                                   Text(insurance.insurant),
-                                  ...insurance.contacts
-                                      .map((contact) => ListTile(
-                                            title: SelectableText(contact.data),
-                                            subtitle: Text(contact.description),
-                                            trailing: IconButton(
-                                                icon: Icon(
-                                                  Icons.phone,
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .surface,
-                                                ),
-                                                onPressed: () {}),
-                                          ))
+                                  ...insurance.contacts.map((contact) =>
+                                      ContactLineWidget(contact: contact))
                                 ],
                               )),
                       ],

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/cubit/current_travel/current_travel_cubit.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/pages/travel_page.dart';
-import 'package:my_climbing_trek/service_locator.dart';
+import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_day_lines_widget.dart';
 
 class CurrentTravelHomePageWidget extends StatelessWidget {
   const CurrentTravelHomePageWidget({Key? key}) : super(key: key);
@@ -60,6 +60,7 @@ class CurrentTravelHomePageWidget extends StatelessWidget {
                     ),
                   ],
                 ),
+                TravelDayLinesWidget(travelDay: state.travel!.travelDays.first),
               ]);
       },
     );

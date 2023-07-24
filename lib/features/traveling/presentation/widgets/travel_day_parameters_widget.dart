@@ -17,8 +17,6 @@ class TravelDayParametersWidget extends HookWidget {
 
     final finishState = useState<TimeOfDay?>(null);
 
-    final transportController = useTextEditingController(text: '');
-
     final descriptionController =
         useTextEditingController(text: day.description);
 

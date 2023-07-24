@@ -1,18 +1,19 @@
-import 'package:my_climbing_trek/features/traveling/domain/entities/contact_line.dart';
+import 'package:flutter/material.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/transport_type.dart';
+import 'package:my_climbing_trek/features/traveling/domain/entities/travel_day_line.dart';
 
-class TransportLine {
+class TransportLine extends TravelDayLine {
   final TransportType type;
-  final DateTime start;
   final DateTime? finish;
-  final String description;
-  final List<ContactLine> contacts;
 
-  TransportLine({
-    required this.type,
-    required this.start,
-    this.finish,
-    required this.description,
-    List<ContactLine>? contacts,
-  }) : contacts = contacts ?? [];
+  @override
+  IconData? get icon => type.icon;
+
+  TransportLine(
+      {required this.type,
+      required super.name,
+      required super.description,
+      required super.date,
+      super.contacts,
+      this.finish});
 }
