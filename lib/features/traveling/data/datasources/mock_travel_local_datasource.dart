@@ -23,6 +23,11 @@ class MockTravelLocalDatasource implements TravelLocalDatasource {
       date: DateTime(2023, 5, 1),
       start: DateTime(2023, 5, 1),
       finish: DateTime(2023, 5, 12),
+      currencies: [
+        Currency.rub,
+        Currency.kgs,
+        Currency.usd,
+      ],
       regions: [
         Region(
           name: 'Ала-Арча',

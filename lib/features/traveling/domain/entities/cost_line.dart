@@ -22,3 +22,14 @@ class CostLine {
 }
 
 enum IncomeExpense { income, expense }
+
+extension IncomeExpenseExtension on IncomeExpense {
+  String get description {
+    switch (this) {
+      case IncomeExpense.income:
+        return 'Доход';
+      case IncomeExpense.expense:
+        return 'Расход';
+    }
+  }
+}

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_climbing_trek/core/widgets/my_modal_bottom_sheet.dart';
+import 'package:my_climbing_trek/features/traveling/domain/entities/cost_line.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/cubit/current_travel/current_travel_cubit.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/pages/travel_day_page.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/pages/travel_page.dart';
+import 'package:my_climbing_trek/features/traveling/presentation/widgets/cost_parameters_widget.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_day_lines_widget.dart';
 
 class CurrentTravelHomePageWidget extends StatelessWidget {
@@ -43,11 +46,29 @@ class CurrentTravelHomePageWidget extends StatelessWidget {
                       ),
                     ),
                     IconButton.outlined(
-                      onPressed: () {},
+                      onPressed: () {
+                        showMyModalBottomSheet<void>(
+                          context: context,
+                          heightPersent: 0.8,
+                          child: CostParametersWidget(
+                            incomeExpense: IncomeExpense.income,
+                            currencies: state.travel!.currencies,
+                          ),
+                        );
+                      },
                       icon: const Icon(Icons.add),
                     ),
                     IconButton.outlined(
-                      onPressed: () {},
+                      onPressed: () {
+                        showMyModalBottomSheet<void>(
+                          context: context,
+                          heightPersent: 0.8,
+                          child: CostParametersWidget(
+                            incomeExpense: IncomeExpense.expense,
+                            currencies: state.travel!.currencies,
+                          ),
+                        );
+                      },
                       icon: const Icon(Icons.remove),
                     ),
                     IconButton.outlined(

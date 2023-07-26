@@ -2,6 +2,7 @@ import 'package:my_climbing_trek/core/data/region.dart';
 import 'package:my_climbing_trek/core/data/treaning.dart';
 import 'package:my_climbing_trek/core/extentions/date_time_extention.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/cost_line.dart';
+import 'package:my_climbing_trek/features/traveling/domain/entities/currency.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/insurance_line.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel_budget.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel_day.dart';
@@ -16,6 +17,7 @@ class Travel extends Treaning {
   final TravelBudget? budget;
   final List<CostLine> costs;
   final List<InsuranceLine> insurances;
+  final List<Currency> currencies;
 
   Travel({
     required super.date,
@@ -29,8 +31,10 @@ class Travel extends Treaning {
     this.budget,
     List<CostLine>? costs,
     List<InsuranceLine>? insurances,
+    List<Currency>? currencies,
   })  : insurances = insurances ?? [],
-        costs = costs ?? [];
+        costs = costs ?? [],
+        currencies = [Currency.rub];
 
   TravelFilter get filter {
     Region? region;

@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:my_climbing_trek/core/widgets/my_cached_network_image.dart';
 import 'package:my_climbing_trek/core/widgets/my_modal_bottom_sheet.dart';
+import 'package:my_climbing_trek/core/widgets/slidable_data_line_widget.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/cost_line.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/cubit/travel_page/travel_page_cubit.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/pages/travel_day_page.dart';
+import 'package:my_climbing_trek/features/traveling/presentation/widgets/budget_parameters_widget.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/widgets/contact_line_widget.dart';
-import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_day_parameters_widget.dart';
+import 'package:my_climbing_trek/features/traveling/presentation/widgets/cost_parameters_widget.dart';
+import 'package:my_climbing_trek/features/traveling/presentation/widgets/insurance_parameters_widget.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_day_widget.dart';
 import 'package:my_climbing_trek/service_locator.dart';
 
@@ -89,14 +93,18 @@ class TravelPage extends StatelessWidget {
                                   BlocProvider.of<TravelPageCubit>(context)
                                       .selectTab(tabIndex: index);
                                 },
-                                child: Chip(
-                                    label: Text(
-                                  tabs[index],
-                                  style: TextStyle(
-                                      color: selected
-                                          ? color
-                                          : color.withOpacity(0.5)),
-                                )),
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 2),
+                                  child: Chip(
+                                      label: Text(
+                                    tabs[index],
+                                    style: TextStyle(
+                                        color: selected
+                                            ? color
+                                            : color.withOpacity(0.5)),
+                                  )),
+                                ),
                               );
                             },
                           ),
@@ -116,11 +124,23 @@ class TravelPage extends StatelessWidget {
                                   child: TravelDayWidget(travelDay: day)),
                             ),
                           ),
-                        if (state.tabIndex == 1)
-                          ...travel.costs.map(
-                            (cost) => ListTile(
-                              leading:
-                                  cost.incomeExpense == IncomeExpense.expense
+                        if (state.tabIndex == 1) ...[
+                          ...travel.costs.map((cost) => SlidableDataLineWidget(
+                                onDelete: (context) {},
+                                onEdit: (context) {
+                                  showMyModalBottomSheet<void>(
+                                    context: context,
+                                    heightPersent: 0.8,
+                                    child: CostParametersWidget(
+                                      incomeExpense: cost.incomeExpense,
+                                      line: cost,
+                                      currencies: travel.currencies,
+                                    ),
+                                  );
+                                },
+                                child: ListTile(
+                                  leading: cost.incomeExpense ==
+                                          IncomeExpense.expense
                                       ? const Icon(
                                           Icons.remove,
                                           color: Colors.red,
@@ -129,38 +149,125 @@ class TravelPage extends StatelessWidget {
                                           Icons.add,
                                           color: Colors.green,
                                         ),
-                              title: Text(cost.type.name),
-                              subtitle: Text(cost.description),
-                              trailing: Text(
-                                cost.sum.toString(),
-                                style: const TextStyle(fontSize: 20),
-                              ),
-                            ),
+                                  title: Text(cost.type.name),
+                                  subtitle: Text(cost.description),
+                                  trailing: Text(
+                                    cost.sum.toString(),
+                                    style: const TextStyle(fontSize: 20),
+                                  ),
+                                ),
+                              )),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              OutlinedButton(
+                                  onPressed: () {
+                                    showMyModalBottomSheet<void>(
+                                      context: context,
+                                      heightPersent: 0.8,
+                                      child: CostParametersWidget(
+                                        incomeExpense: IncomeExpense.income,
+                                        currencies: travel.currencies,
+                                      ),
+                                    );
+                                  },
+                                  child: const Text('Доход')),
+                              OutlinedButton(
+                                  onPressed: () {
+                                    showMyModalBottomSheet<void>(
+                                      context: context,
+                                      heightPersent: 0.8,
+                                      child: CostParametersWidget(
+                                        incomeExpense: IncomeExpense.expense,
+                                        currencies: travel.currencies,
+                                      ),
+                                    );
+                                  },
+                                  child: const Text('Расход')),
+                            ],
                           ),
+                        ],
                         if (state.tabIndex == 2)
                           if (travel.budget != null) ...[
                             Text(
                                 '${travel.budget!.amount.toString()} ${travel.budget!.currency.name}'),
-                            ...travel.budget!.lines.map((line) => ListTile(
-                                  title: Text(line.type.name),
-                                  subtitle: Text(line.description),
-                                  trailing: Text(
-                                    line.amount.toString(),
-                                    style: const TextStyle(fontSize: 20),
+                            ...travel.budget!.lines.map(
+                              (line) => Slidable(
+                                child: SlidableDataLineWidget(
+                                  onDelete: (context) {},
+                                  onEdit: (context) {
+                                    showMyModalBottomSheet<void>(
+                                      context: context,
+                                      heightPersent: 0.8,
+                                      child: BudgetParametersWidget(line: line),
+                                    );
+                                  },
+                                  child: ListTile(
+                                    title: Text(line.type.name),
+                                    subtitle: Text(line.description),
+                                    trailing: Text(
+                                      line.amount.toString(),
+                                      style: const TextStyle(fontSize: 20),
+                                    ),
                                   ),
-                                )),
+                                ),
+                              ),
+                            ),
+                            OutlinedButton(
+                                onPressed: () {
+                                  showMyModalBottomSheet<void>(
+                                    context: context,
+                                    heightPersent: 0.8,
+                                    child: const BudgetParametersWidget(),
+                                  );
+                                },
+                                child: const Text('Добавить')),
                           ],
-                        if (state.tabIndex == 3)
-                          ...travel.insurances.map((insurance) => Column(
-                                children: [
-                                  Text(insurance.insurer),
-                                  Text(insurance.description),
-                                  SelectableText(insurance.number),
-                                  Text(insurance.insurant),
-                                  ...insurance.contacts.map((contact) =>
-                                      ContactLineWidget(contact: contact))
-                                ],
-                              )),
+                        if (state.tabIndex == 3) ...[
+                          ...travel.insurances
+                              .map((insurance) => SlidableDataLineWidget(
+                                    onDelete: (context) {},
+                                    onEdit: (context) {
+                                      showMyModalBottomSheet<void>(
+                                        context: context,
+                                        heightPersent: 0.8,
+                                        child: InsuranceParametersWidget(
+                                            line: insurance),
+                                      );
+                                    },
+                                    child: Column(
+                                      children: [
+                                        Text(insurance.insurer),
+                                        Text(insurance.description),
+                                        SelectableText(insurance.number),
+                                        Text(insurance.insurant),
+                                        ...insurance.contacts.map((contact) =>
+                                            SlidableDataLineWidget(
+                                                onDelete: (context) {},
+                                                onEdit: (context) {
+                                                  showMyModalBottomSheet<void>(
+                                                    context: context,
+                                                    heightPersent: 0.8,
+                                                    child:
+                                                        ContactParametersWidget(
+                                                            line: contact),
+                                                  );
+                                                },
+                                                child: ContactLineWidget(
+                                                    contact: contact)))
+                                      ],
+                                    ),
+                                  )),
+                          OutlinedButton(
+                              onPressed: () {
+                                showMyModalBottomSheet<void>(
+                                  context: context,
+                                  heightPersent: 0.8,
+                                  child: const InsuranceParametersWidget(),
+                                );
+                              },
+                              child: const Text('Добавить')),
+                        ]
                       ],
                     ),
                   );

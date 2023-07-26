@@ -31,4 +31,7 @@ class Currency {
   static List<Currency> get values => _values.values.toList();
 
   static Currency getById(String id) => _values[id]!;
+
+  @override
+  String toString() => name;
 }

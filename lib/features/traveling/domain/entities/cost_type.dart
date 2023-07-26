@@ -42,4 +42,7 @@ class CostType extends DataWithUUID {
   static List<CostType> get values => _values.values.toList();
 
   static CostType getById(String id) => _values[id]!;
+
+  @override
+  String toString() => name;
 }
