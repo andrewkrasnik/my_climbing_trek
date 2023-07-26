@@ -95,6 +95,9 @@ class ContactParametersWidget extends HookWidget {
             const SizedBox(height: 16),
             TextFormField(
               controller: dataController,
+              keyboardType: contactType.value == ContactType.phone
+                  ? TextInputType.phone
+                  : null,
               decoration: InputDecoration(
                   labelText: contactType.value.name,
                   border: const OutlineInputBorder()),

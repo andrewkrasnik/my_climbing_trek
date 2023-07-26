@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/cubit/current_travel/current_travel_cubit.dart';
+import 'package:my_climbing_trek/features/traveling/presentation/pages/travel_day_page.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/pages/travel_page.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_day_lines_widget.dart';
 
@@ -59,6 +60,22 @@ class CurrentTravelHomePageWidget extends StatelessWidget {
                       icon: const Icon(Icons.info),
                     ),
                   ],
+                ),
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) =>
+                          TravelDayPage(day: state.travel!.travelDays.first),
+                    ));
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('День ${state.travel!.travelDays.first.number}: '),
+                      const SizedBox(width: 4),
+                      Text(state.travel!.travelDays.first.dateString),
+                    ],
+                  ),
                 ),
                 TravelDayLinesWidget(travelDay: state.travel!.travelDays.first),
               ]);
