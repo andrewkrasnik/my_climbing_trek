@@ -9,6 +9,7 @@ class TravelPageState with _$TravelPageState {
     required List<TravelBudgetLine> budgetLines,
     required List<TravelDay> days,
     required bool loading,
+    required String errorMessage,
   }) = _TravelPageState;
 
   factory TravelPageState.initial() => const TravelPageState(
@@ -18,5 +19,6 @@ class TravelPageState with _$TravelPageState {
         days: [],
         insurances: [],
         loading: false,
+        errorMessage: '',
       );
 }

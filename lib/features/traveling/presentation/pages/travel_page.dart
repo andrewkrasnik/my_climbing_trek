@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:my_climbing_trek/core/extentions/date_time_extention.dart';
 import 'package:my_climbing_trek/core/widgets/my_cached_network_image.dart';
 import 'package:my_climbing_trek/core/widgets/my_modal_bottom_sheet.dart';
 import 'package:my_climbing_trek/core/widgets/slidable_data_line_widget.dart';
@@ -35,10 +36,12 @@ class TravelPage extends StatelessWidget {
       'Фильтры',
     ];
     return BlocProvider(
-      create: (context) => getIt<TravelPageCubit>(),
+      create: (context) => getIt<TravelPageCubit>()..loadData(travel: travel),
       child: BlocBuilder<TravelPageCubit, TravelPageState>(
         builder: (context, state) {
           final color = Theme.of(context).colorScheme.surface;
+
+          final cubit = BlocProvider.of<TravelPageCubit>(context);
           return SafeArea(
             child: Scaffold(
                 body: CustomScrollView(
@@ -126,7 +129,7 @@ class TravelPage extends StatelessWidget {
                         ),
                       ),
                       if (state.tabIndex == 0)
-                        ...travel.travelDays.map(
+                        ...state.days.map(
                           (day) => Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: InkWell(
@@ -140,16 +143,21 @@ class TravelPage extends StatelessWidget {
                           ),
                         ),
                       if (state.tabIndex == 1) ...[
-                        ...travel.costs.map((cost) => SlidableDataLineWidget(
-                              onDelete: (context) {},
+                        ...state.costs.map((cost) => SlidableDataLineWidget(
+                              onDelete: (context) {
+                                cubit.deleteCostLine(
+                                    travel: travel, line: cost);
+                              },
                               onEdit: (context) {
                                 showMyModalBottomSheet<void>(
                                   context: context,
                                   heightPersent: 0.8,
                                   child: CostParametersWidget(
+                                    travel: travel,
                                     incomeExpense: cost.incomeExpense,
                                     line: cost,
                                     currencies: travel.currencies,
+                                    cubit: cubit,
                                   ),
                                 );
                               },
@@ -164,7 +172,13 @@ class TravelPage extends StatelessWidget {
                                             Icons.add,
                                             color: Colors.green,
                                           ),
-                                title: Text(cost.type.name),
+                                title: Row(
+                                  children: [
+                                    Text(cost.date.dayString()),
+                                    const SizedBox(width: 4),
+                                    Text(cost.type.name),
+                                  ],
+                                ),
                                 subtitle: Text(cost.description),
                                 trailing: Text(
                                   cost.sum.toString(),
@@ -173,7 +187,7 @@ class TravelPage extends StatelessWidget {
                               ),
                             )),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             OutlinedButton(
                                 onPressed: () {
@@ -181,8 +195,10 @@ class TravelPage extends StatelessWidget {
                                     context: context,
                                     heightPersent: 0.8,
                                     child: CostParametersWidget(
+                                      travel: travel,
                                       incomeExpense: IncomeExpense.income,
                                       currencies: travel.currencies,
+                                      cubit: cubit,
                                     ),
                                   );
                                 },
@@ -193,8 +209,10 @@ class TravelPage extends StatelessWidget {
                                     context: context,
                                     heightPersent: 0.8,
                                     child: CostParametersWidget(
+                                      travel: travel,
                                       incomeExpense: IncomeExpense.expense,
                                       currencies: travel.currencies,
+                                      cubit: cubit,
                                     ),
                                   );
                                 },
@@ -206,7 +224,7 @@ class TravelPage extends StatelessWidget {
                         if (travel.budget != null) ...[
                           Text(
                               '${travel.budget!.amount.toString()} ${travel.budget!.currency.name}'),
-                          ...travel.budget!.lines.map(
+                          ...state.budgetLines.map(
                             (line) => Slidable(
                               child: SlidableDataLineWidget(
                                 onDelete: (context) {},
@@ -239,7 +257,7 @@ class TravelPage extends StatelessWidget {
                               child: const Text('Добавить')),
                         ],
                       if (state.tabIndex == 3) ...[
-                        ...travel.insurances.map((insurance) =>
+                        ...state.insurances.map((insurance) =>
                             SlidableDataLineWidget(
                               onDelete: (context) {},
                               onEdit: (context) {

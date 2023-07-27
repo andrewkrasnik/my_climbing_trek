@@ -12,8 +12,10 @@ class TravelDay extends Treaning {
   List<TransportLine> transportLines;
   List<FeedingLine> feedingsLines;
   List<StayLine> stayLines;
+  final String travelId;
 
   TravelDay({
+    required this.travelId,
     required super.date,
     required this.number,
     this.description = '',

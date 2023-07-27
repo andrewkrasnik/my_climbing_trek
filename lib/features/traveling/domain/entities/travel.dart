@@ -20,6 +20,7 @@ class Travel extends Treaning {
   final List<InsuranceLine> insurances;
   final List<Currency> currencies;
   final TravelStatus status;
+  final Currency budgetCurrency;
 
   Travel({
     required super.date,
@@ -35,9 +36,11 @@ class Travel extends Treaning {
     List<CostLine>? costs,
     List<InsuranceLine>? insurances,
     List<Currency>? currencies,
+    Currency? budgetCurrency,
   })  : insurances = insurances ?? [],
         costs = costs ?? [],
-        currencies = [Currency.rub];
+        currencies = [Currency.rub],
+        budgetCurrency = budgetCurrency ?? Currency.rub;
 
   TravelFilter get filter {
     Region? region;
@@ -61,6 +64,7 @@ class Travel extends Treaning {
   List<TravelDay> get travelDays => List.generate(
       finish!.difference(start!).inDays + 1,
       (index) => TravelDay(
+            travelId: id,
             date: start!
                 .add(Duration(days: index))
                 .toDayEnd()

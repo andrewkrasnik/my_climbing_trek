@@ -12,9 +12,12 @@ import 'package:my_climbing_trek/features/traveling/domain/entities/insurance_li
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel_budget.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel_budget_line.dart';
+import 'package:my_climbing_trek/features/traveling/domain/entities/travel_day.dart';
 
 @LazySingleton(as: TravelLocalDatasource)
 class MockTravelLocalDatasource implements TravelLocalDatasource {
+  final List<CostLine> _costs = [];
+
   final List<Travel> _list = [
     Travel(
       name: 'Ала-Арча 2023',
@@ -23,6 +26,7 @@ class MockTravelLocalDatasource implements TravelLocalDatasource {
       date: DateTime(2023, 5, 1),
       start: DateTime(2023, 5, 1),
       finish: DateTime(2023, 5, 12),
+      id: '1',
       currencies: [
         Currency.rub,
         Currency.kgs,
@@ -41,28 +45,31 @@ class MockTravelLocalDatasource implements TravelLocalDatasource {
         currency: Currency.rub,
         amount: 100000,
         lines: [
-          TravelBudgetLine(type: CostType.organization, amount: 35000),
-          TravelBudgetLine(type: CostType.transport, amount: 30000),
+          TravelBudgetLine(
+              type: CostType.organization, amount: 35000, travelId: '1'),
+          TravelBudgetLine(
+              type: CostType.transport, amount: 30000, travelId: '1'),
         ],
       ),
       costs: [
         CostLine(
-          date: DateTime.now(),
-          type: CostType.transport,
-          currency: Currency.rub,
-          incomeExpense: IncomeExpense.expense,
-          sum: 35000,
-        ),
+            date: DateTime.now(),
+            type: CostType.transport,
+            currency: Currency.rub,
+            incomeExpense: IncomeExpense.expense,
+            sum: 35000,
+            travelId: '1'),
         CostLine(
-          date: DateTime.now(),
-          type: CostType.transport,
-          currency: Currency.rub,
-          incomeExpense: IncomeExpense.income,
-          sum: 5000,
-        ),
+            date: DateTime.now(),
+            type: CostType.transport,
+            currency: Currency.rub,
+            incomeExpense: IncomeExpense.income,
+            sum: 5000,
+            travelId: '1'),
       ],
       insurances: [
         InsuranceLine(
+          travelId: '1',
           insurer: 'Согласие',
           description: 'на весь период, с эвакуацией',
           insurant: 'Андрей',
@@ -127,5 +134,90 @@ class MockTravelLocalDatasource implements TravelLocalDatasource {
   @override
   Future<Either<Failure, List<Travel>>> getTravels() async {
     return Right(_list);
+  }
+
+  @override
+  Future<Either<Failure, Unit>> editBudgetLine(
+      {required TravelBudgetLine line}) async {
+    return const Right(unit);
+  }
+
+  @override
+  Future<Either<Failure, Unit>> editCostLine({required CostLine line}) async {
+    final index = _costs.indexOf(line);
+    if (index < 0) {
+      _costs.add(line);
+    } else {
+      _costs[index] = line;
+    }
+    return const Right(unit);
+  }
+
+  @override
+  Future<Either<Failure, Unit>> editInsuranceLine(
+      {required InsuranceLine line}) async {
+    return const Right(unit);
+  }
+
+  @override
+  Future<Either<Failure, Unit>> editTravelDay({required TravelDay line}) async {
+    // TODO: implement editTravelDay
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, List<TravelBudgetLine>>> getBudgetLines(
+      {required Travel travel}) async {
+    // TODO: implement getBudgetLines
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, List<CostLine>>> getCostLines(
+      {required Travel travel}) async {
+    return Right(
+        _costs.where((element) => element.travelId == travel.id).toList());
+  }
+
+  @override
+  Future<Either<Failure, List<InsuranceLine>>> getInsuranceLines(
+      {required Travel travel}) async {
+    // TODO: implement getInsuranceLines
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, List<TravelDay>>> getTravelDays(
+      {required Travel travel}) async {
+    // TODO: implement getTravelDays
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, Unit>> deleteBudgetLine(
+      {required TravelBudgetLine line}) async {
+    // TODO: implement deleteBudgetLine
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, Unit>> deleteCostLine({required CostLine line}) async {
+    _costs.remove(line);
+
+    return const Right(unit);
+  }
+
+  @override
+  Future<Either<Failure, Unit>> deleteInsuranceLine(
+      {required InsuranceLine line}) async {
+    // TODO: implement deleteInsuranceLine
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, Unit>> deleteTravelDay(
+      {required TravelDay line}) async {
+    // TODO: implement deleteTravelDay
+    throw UnimplementedError();
   }
 }

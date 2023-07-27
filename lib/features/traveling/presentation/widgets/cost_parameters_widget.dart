@@ -4,15 +4,21 @@ import 'package:my_climbing_trek/core/widgets/selectable_chip_group_widget.dart'
 import 'package:my_climbing_trek/features/traveling/domain/entities/cost_line.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/cost_type.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/currency.dart';
+import 'package:my_climbing_trek/features/traveling/domain/entities/travel.dart';
+import 'package:my_climbing_trek/features/traveling/presentation/cubit/travel_page/travel_page_cubit.dart';
 
 class CostParametersWidget extends HookWidget {
   final CostLine? line;
+  final Travel travel;
   final IncomeExpense incomeExpense;
   final List<Currency> currencies;
+  final TravelPageCubit cubit;
 
   const CostParametersWidget({
+    required this.travel,
     required this.incomeExpense,
     required this.currencies,
+    required this.cubit,
     this.line,
     Key? key,
   }) : super(key: key);
@@ -27,8 +33,7 @@ class CostParametersWidget extends HookWidget {
     final descriptionController =
         useTextEditingController(text: line?.description);
 
-    final amountController =
-        useTextEditingController(text: line?.sum.toString());
+    final sumController = useTextEditingController(text: line?.sum.toString());
 
     final descriptionFocusNode = useFocusNode();
 
@@ -53,7 +58,7 @@ class CostParametersWidget extends HookWidget {
               TextFormField(
                 keyboardType:
                     const TextInputType.numberWithOptions(decimal: true),
-                controller: amountController,
+                controller: sumController,
                 decoration: const InputDecoration(
                     labelText: 'Сумма', border: OutlineInputBorder()),
               ),
@@ -78,6 +83,15 @@ class CostParametersWidget extends HookWidget {
               ),
               ElevatedButton(
                   onPressed: () {
+                    cubit.editCostLine(
+                      currency: currencyController.value,
+                      incomeExpense: incomeExpense,
+                      travel: travel,
+                      description: descriptionController.text,
+                      type: typeController.value,
+                      sum: double.tryParse(sumController.text) ?? 0,
+                      id: line?.id ?? '',
+                    );
                     Navigator.of(context).pop();
                   },
                   child: const Text('Сохранить'))

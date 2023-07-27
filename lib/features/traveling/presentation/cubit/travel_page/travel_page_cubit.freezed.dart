@@ -22,6 +22,7 @@ mixin _$TravelPageState {
   List<TravelBudgetLine> get budgetLines => throw _privateConstructorUsedError;
   List<TravelDay> get days => throw _privateConstructorUsedError;
   bool get loading => throw _privateConstructorUsedError;
+  String get errorMessage => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $TravelPageStateCopyWith<TravelPageState> get copyWith =>
@@ -40,7 +41,8 @@ abstract class $TravelPageStateCopyWith<$Res> {
       List<InsuranceLine> insurances,
       List<TravelBudgetLine> budgetLines,
       List<TravelDay> days,
-      bool loading});
+      bool loading,
+      String errorMessage});
 }
 
 /// @nodoc
@@ -62,6 +64,7 @@ class _$TravelPageStateCopyWithImpl<$Res, $Val extends TravelPageState>
     Object? budgetLines = null,
     Object? days = null,
     Object? loading = null,
+    Object? errorMessage = null,
   }) {
     return _then(_value.copyWith(
       tabIndex: null == tabIndex
@@ -88,6 +91,10 @@ class _$TravelPageStateCopyWithImpl<$Res, $Val extends TravelPageState>
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
               as bool,
+      errorMessage: null == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -106,7 +113,8 @@ abstract class _$$_TravelPageStateCopyWith<$Res>
       List<InsuranceLine> insurances,
       List<TravelBudgetLine> budgetLines,
       List<TravelDay> days,
-      bool loading});
+      bool loading,
+      String errorMessage});
 }
 
 /// @nodoc
@@ -126,6 +134,7 @@ class __$$_TravelPageStateCopyWithImpl<$Res>
     Object? budgetLines = null,
     Object? days = null,
     Object? loading = null,
+    Object? errorMessage = null,
   }) {
     return _then(_$_TravelPageState(
       tabIndex: null == tabIndex
@@ -152,6 +161,10 @@ class __$$_TravelPageStateCopyWithImpl<$Res>
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
               as bool,
+      errorMessage: null == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -165,7 +178,8 @@ class _$_TravelPageState implements _TravelPageState {
       required final List<InsuranceLine> insurances,
       required final List<TravelBudgetLine> budgetLines,
       required final List<TravelDay> days,
-      required this.loading})
+      required this.loading,
+      required this.errorMessage})
       : _costs = costs,
         _insurances = insurances,
         _budgetLines = budgetLines,
@@ -207,10 +221,12 @@ class _$_TravelPageState implements _TravelPageState {
 
   @override
   final bool loading;
+  @override
+  final String errorMessage;
 
   @override
   String toString() {
-    return 'TravelPageState(tabIndex: $tabIndex, costs: $costs, insurances: $insurances, budgetLines: $budgetLines, days: $days, loading: $loading)';
+    return 'TravelPageState(tabIndex: $tabIndex, costs: $costs, insurances: $insurances, budgetLines: $budgetLines, days: $days, loading: $loading, errorMessage: $errorMessage)';
   }
 
   @override
@@ -226,7 +242,9 @@ class _$_TravelPageState implements _TravelPageState {
             const DeepCollectionEquality()
                 .equals(other._budgetLines, _budgetLines) &&
             const DeepCollectionEquality().equals(other._days, _days) &&
-            (identical(other.loading, loading) || other.loading == loading));
+            (identical(other.loading, loading) || other.loading == loading) &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage));
   }
 
   @override
@@ -237,7 +255,8 @@ class _$_TravelPageState implements _TravelPageState {
       const DeepCollectionEquality().hash(_insurances),
       const DeepCollectionEquality().hash(_budgetLines),
       const DeepCollectionEquality().hash(_days),
-      loading);
+      loading,
+      errorMessage);
 
   @JsonKey(ignore: true)
   @override
@@ -253,7 +272,8 @@ abstract class _TravelPageState implements TravelPageState {
       required final List<InsuranceLine> insurances,
       required final List<TravelBudgetLine> budgetLines,
       required final List<TravelDay> days,
-      required final bool loading}) = _$_TravelPageState;
+      required final bool loading,
+      required final String errorMessage}) = _$_TravelPageState;
 
   @override
   int get tabIndex;
@@ -267,6 +287,8 @@ abstract class _TravelPageState implements TravelPageState {
   List<TravelDay> get days;
   @override
   bool get loading;
+  @override
+  String get errorMessage;
   @override
   @JsonKey(ignore: true)
   _$$_TravelPageStateCopyWith<_$_TravelPageState> get copyWith =>
