@@ -113,6 +113,9 @@ class MockTravelLocalDatasource implements TravelLocalDatasource {
 
   @override
   Future<Either<Failure, Unit>> saveTravel({required Travel travel}) async {
+    if (!_list.contains(travel)) {
+      _list.add(travel);
+    }
     return const Right(unit);
   }
 

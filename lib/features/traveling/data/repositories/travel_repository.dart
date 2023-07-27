@@ -51,7 +51,8 @@ class TravelRepositoryImpl implements TravelRepository {
   }
 
   @override
-  Future<Either<Failure, List<Travel>>> getTravels() async {
+  Future<Either<Failure, List<Travel>>> getTravels(
+      {TravelStatus? status}) async {
     return await _travelLocalDatasource.getTravels();
   }
 }

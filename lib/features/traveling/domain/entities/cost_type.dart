@@ -23,7 +23,7 @@ class CostType extends DataWithUUID {
   static final CostType insurance =
       CostType(name: 'Страхование', id: 'insurance');
 
-  static final CostType others = CostType(name: 'Прочие расходы', id: 'others');
+  static final CostType others = CostType(name: 'Прочее', id: 'others');
 
   static final CostType currencyExchange =
       CostType(name: 'Обмен валюты', id: 'currencyExchange');

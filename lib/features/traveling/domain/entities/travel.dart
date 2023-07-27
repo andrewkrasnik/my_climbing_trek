@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:my_climbing_trek/core/data/region.dart';
 import 'package:my_climbing_trek/core/data/treaning.dart';
 import 'package:my_climbing_trek/core/extentions/date_time_extention.dart';
@@ -18,6 +19,7 @@ class Travel extends Treaning {
   final List<CostLine> costs;
   final List<InsuranceLine> insurances;
   final List<Currency> currencies;
+  final TravelStatus status;
 
   Travel({
     required super.date,
@@ -26,6 +28,7 @@ class Travel extends Treaning {
     required this.regions,
     required this.name,
     required this.image,
+    this.status = TravelStatus.planed,
     this.description = '',
     super.id,
     this.budget,
@@ -68,5 +71,33 @@ class Travel extends Treaning {
   @override
   final String image;
 
-  String get period => 'c 1 по 12 мая 2023';
+  String get period {
+    String result = 'не указан';
+    if (start != null && finish != null) {
+      if (start!.month == finish!.month) {
+        return 'с ${start!.day} по ${DateFormat('dd MMMM yyyy').format(finish!)}';
+      } else {
+        return 'с ${DateFormat('dd MM').format(start!)} по ${DateFormat('dd MM yyyy').format(finish!)}';
+      }
+    }
+
+    return result;
+  }
+}
+
+enum TravelStatus { planed, started, finished, canceled }
+
+extension TravelStatusExtension on TravelStatus {
+  String get description {
+    switch (this) {
+      case TravelStatus.planed:
+        return 'Запланировано';
+      case TravelStatus.started:
+        return 'Начато';
+      case TravelStatus.finished:
+        return 'Завершено';
+      case TravelStatus.canceled:
+        return 'Отменено';
+    }
+  }
 }
