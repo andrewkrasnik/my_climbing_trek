@@ -16,10 +16,12 @@ import 'package:my_climbing_trek/features/traveling/domain/entities/travel_day.d
 
 @LazySingleton(as: TravelLocalDatasource)
 class MockTravelLocalDatasource implements TravelLocalDatasource {
+  MockTravelLocalDatasource() {
+    _days.addAll(_list.first.travelDays);
+  }
   final List<CostLine> _costs = [];
   final List<TravelBudgetLine> _budgetLines = [];
   final List<InsuranceLine> _insurances = [];
-  final List<TravelDay> _days = [];
 
   final List<Travel> _list = [
     Travel(
@@ -106,6 +108,9 @@ class MockTravelLocalDatasource implements TravelLocalDatasource {
       regions: [],
     ),
   ];
+
+  final List<TravelDay> _days = [];
+
   @override
   Future<Either<Failure, Travel?>> currentTravel() async {
     return Right(_list.first);

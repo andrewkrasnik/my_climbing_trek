@@ -15,9 +15,11 @@ import 'package:my_climbing_trek/features/traveling/domain/usecases/travel_page/
 import 'package:my_climbing_trek/features/traveling/domain/usecases/travel_page/delete_insurance_line_usecase.dart';
 import 'package:my_climbing_trek/features/traveling/domain/usecases/travel_page/edit_budget_line_usecase.dart';
 import 'package:my_climbing_trek/features/traveling/domain/usecases/travel_page/edit_cost_line_usecase.dart';
+import 'package:my_climbing_trek/features/traveling/domain/usecases/travel_page/edit_day_line_usecase.dart';
 import 'package:my_climbing_trek/features/traveling/domain/usecases/travel_page/edit_insurance_line_usecase.dart';
 import 'package:my_climbing_trek/features/traveling/domain/usecases/travel_page/get_budget_line_usecase.dart';
 import 'package:my_climbing_trek/features/traveling/domain/usecases/travel_page/get_cost_lines_usecase.dart';
+import 'package:my_climbing_trek/features/traveling/domain/usecases/travel_page/get_day_lines_usecase.dart';
 import 'package:my_climbing_trek/features/traveling/domain/usecases/travel_page/get_insurance_lines_usecase.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/cubit/add_travel_interface.dart';
 
@@ -36,6 +38,8 @@ class TravelPageCubit extends Cubit<TravelPageState>
   final EditBudgetLineUsecase _editBudgetLineUsecase;
   final DeleteInsuranceLineUsecase _deleteInsuranceLineUsecase;
   final DeleteBudgetLineUsecase _deleteBudgetLineUsecase;
+  final GetDayLinesUsecase _getDayLinesUsecase;
+  final EditDayLineUsecase _editDayLineUsecase;
 
   TravelPageCubit(
     this._deleteCostLineUsecase,
@@ -47,6 +51,8 @@ class TravelPageCubit extends Cubit<TravelPageState>
     this._editBudgetLineUsecase,
     this._deleteInsuranceLineUsecase,
     this._deleteBudgetLineUsecase,
+    this._getDayLinesUsecase,
+    this._editDayLineUsecase,
   ) : super(TravelPageState.initial());
 
   void selectTab({required int tabIndex}) {
@@ -67,6 +73,16 @@ class TravelPageCubit extends Cubit<TravelPageState>
 
   Future<void> loadData({required Travel travel}) async {
     emit(state.copyWith(loading: true));
+
+    final failureOrDays = await _getDayLinesUsecase(travel: travel);
+
+    failureOrDays.fold(
+      (failure) => state.copyWith(
+        errorMessage: failure.toString(),
+        loading: false,
+      ),
+      (days) => emit(state.copyWith(days: days, loading: false)),
+    );
 
     final failureOrCostList = await _getCostLinesUsecase(travel: travel);
 
