@@ -17,6 +17,9 @@ import 'package:my_climbing_trek/features/traveling/domain/entities/travel_day.d
 @LazySingleton(as: TravelLocalDatasource)
 class MockTravelLocalDatasource implements TravelLocalDatasource {
   final List<CostLine> _costs = [];
+  final List<TravelBudgetLine> _budgetLines = [];
+  final List<InsuranceLine> _insurances = [];
+  final List<TravelDay> _days = [];
 
   final List<Travel> _list = [
     Travel(
@@ -139,6 +142,12 @@ class MockTravelLocalDatasource implements TravelLocalDatasource {
   @override
   Future<Either<Failure, Unit>> editBudgetLine(
       {required TravelBudgetLine line}) async {
+    final index = _budgetLines.indexOf(line);
+    if (index < 0) {
+      _budgetLines.add(line);
+    } else {
+      _budgetLines[index] = line;
+    }
     return const Right(unit);
   }
 
@@ -156,20 +165,32 @@ class MockTravelLocalDatasource implements TravelLocalDatasource {
   @override
   Future<Either<Failure, Unit>> editInsuranceLine(
       {required InsuranceLine line}) async {
+    final index = _insurances.indexOf(line);
+    if (index < 0) {
+      _insurances.add(line);
+    } else {
+      _insurances[index] = line;
+    }
     return const Right(unit);
   }
 
   @override
   Future<Either<Failure, Unit>> editTravelDay({required TravelDay line}) async {
-    // TODO: implement editTravelDay
-    throw UnimplementedError();
+    final index = _days.indexOf(line);
+    if (index < 0) {
+      _days.add(line);
+    } else {
+      _days[index] = line;
+    }
+    return const Right(unit);
   }
 
   @override
   Future<Either<Failure, List<TravelBudgetLine>>> getBudgetLines(
       {required Travel travel}) async {
-    // TODO: implement getBudgetLines
-    throw UnimplementedError();
+    return Right(_budgetLines
+        .where((element) => element.travelId == travel.id)
+        .toList());
   }
 
   @override
@@ -182,22 +203,23 @@ class MockTravelLocalDatasource implements TravelLocalDatasource {
   @override
   Future<Either<Failure, List<InsuranceLine>>> getInsuranceLines(
       {required Travel travel}) async {
-    // TODO: implement getInsuranceLines
-    throw UnimplementedError();
+    return Right(
+        _insurances.where((element) => element.travelId == travel.id).toList());
   }
 
   @override
   Future<Either<Failure, List<TravelDay>>> getTravelDays(
       {required Travel travel}) async {
-    // TODO: implement getTravelDays
-    throw UnimplementedError();
+    return Right(
+        _days.where((element) => element.travelId == travel.id).toList());
   }
 
   @override
   Future<Either<Failure, Unit>> deleteBudgetLine(
       {required TravelBudgetLine line}) async {
-    // TODO: implement deleteBudgetLine
-    throw UnimplementedError();
+    _budgetLines.remove(line);
+
+    return const Right(unit);
   }
 
   @override
@@ -210,14 +232,16 @@ class MockTravelLocalDatasource implements TravelLocalDatasource {
   @override
   Future<Either<Failure, Unit>> deleteInsuranceLine(
       {required InsuranceLine line}) async {
-    // TODO: implement deleteInsuranceLine
-    throw UnimplementedError();
+    _insurances.remove(line);
+
+    return const Right(unit);
   }
 
   @override
   Future<Either<Failure, Unit>> deleteTravelDay(
       {required TravelDay line}) async {
-    // TODO: implement deleteTravelDay
-    throw UnimplementedError();
+    _days.remove(line);
+
+    return const Right(unit);
   }
 }

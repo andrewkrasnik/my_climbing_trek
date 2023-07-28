@@ -41,7 +41,13 @@ class ContactLineWidget extends StatelessWidget {
 
 class ContactParametersWidget extends HookWidget {
   final ContactLine? line;
-  const ContactParametersWidget({this.line, Key? key}) : super(key: key);
+  final void Function(
+      {required String data,
+      required String description,
+      required ContactType type,
+      required String id})? onTap;
+  const ContactParametersWidget({this.line, this.onTap, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -116,6 +122,14 @@ class ContactParametersWidget extends HookWidget {
             ),
             ElevatedButton(
                 onPressed: () {
+                  if (onTap != null) {
+                    onTap!(
+                      data: dataController.text,
+                      description: descriptionController.text,
+                      type: contactType.value,
+                      id: line?.id ?? '',
+                    );
+                  }
                   Navigator.of(context).pop();
                 },
                 child: const Text('Сохранить'))

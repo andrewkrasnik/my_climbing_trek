@@ -96,6 +96,7 @@ class TravelPage extends StatelessWidget {
                       ),
                     ),
                   ),
+                  actions: [],
                 ),
                 SliverList(
                   delegate: SliverChildListDelegate(
@@ -227,12 +228,19 @@ class TravelPage extends StatelessWidget {
                           ...state.budgetLines.map(
                             (line) => Slidable(
                               child: SlidableDataLineWidget(
-                                onDelete: (context) {},
+                                onDelete: (context) {
+                                  cubit.deleteBudgetLine(
+                                      travel: travel, line: line);
+                                },
                                 onEdit: (context) {
                                   showMyModalBottomSheet<void>(
                                     context: context,
                                     heightPersent: 0.8,
-                                    child: BudgetParametersWidget(line: line),
+                                    child: BudgetParametersWidget(
+                                      travel: travel,
+                                      cubit: cubit,
+                                      line: line,
+                                    ),
                                   );
                                 },
                                 child: ListTile(
@@ -251,7 +259,10 @@ class TravelPage extends StatelessWidget {
                                 showMyModalBottomSheet<void>(
                                   context: context,
                                   heightPersent: 0.8,
-                                  child: const BudgetParametersWidget(),
+                                  child: BudgetParametersWidget(
+                                    travel: travel,
+                                    cubit: cubit,
+                                  ),
                                 );
                               },
                               child: const Text('Добавить')),
@@ -259,45 +270,94 @@ class TravelPage extends StatelessWidget {
                       if (state.tabIndex == 3) ...[
                         ...state.insurances.map((insurance) =>
                             SlidableDataLineWidget(
-                              onDelete: (context) {},
+                              onDelete: (context) {
+                                cubit.deleteInsuranceLine(
+                                    travel: travel, line: insurance);
+                              },
                               onEdit: (context) {
                                 showMyModalBottomSheet<void>(
                                   context: context,
                                   heightPersent: 0.8,
                                   child: InsuranceParametersWidget(
-                                      line: insurance),
+                                    cubit: cubit,
+                                    travel: travel,
+                                    line: insurance,
+                                  ),
                                 );
                               },
-                              child: Column(
-                                children: [
-                                  Text(insurance.insurer),
-                                  Text(insurance.description),
-                                  SelectableText(insurance.number),
-                                  Text(insurance.insurant),
-                                  OutlinedButton(
-                                      onPressed: () {
-                                        showMyModalBottomSheet<void>(
-                                          context: context,
-                                          heightPersent: 0.6,
-                                          child:
-                                              const ContactParametersWidget(),
-                                        );
-                                      },
-                                      child: const Text('Добавить контакт')),
-                                  ...insurance.contacts.map((contact) =>
-                                      SlidableDataLineWidget(
-                                          onDelete: (context) {},
-                                          onEdit: (context) {
-                                            showMyModalBottomSheet<void>(
-                                              context: context,
-                                              heightPersent: 0.8,
-                                              child: ContactParametersWidget(
-                                                  line: contact),
-                                            );
-                                          },
-                                          child: ContactLineWidget(
-                                              contact: contact)))
-                                ],
+                              child: SizedBox(
+                                width: double.infinity,
+                                child: Column(
+                                  children: [
+                                    Text(insurance.insurer),
+                                    Text(insurance.description),
+                                    SelectableText(insurance.number),
+                                    Text(insurance.insurant),
+                                    OutlinedButton(
+                                        onPressed: () {
+                                          showMyModalBottomSheet<void>(
+                                            context: context,
+                                            heightPersent: 0.6,
+                                            child: ContactParametersWidget(
+                                              onTap: (
+                                                  {required data,
+                                                  required description,
+                                                  required id,
+                                                  required type}) {
+                                                cubit
+                                                    .editContactForInsuranceLine(
+                                                  line: insurance,
+                                                  travel: travel,
+                                                  contactData: data,
+                                                  contactType: type,
+                                                  contactDescription:
+                                                      description,
+                                                  contactId: id,
+                                                );
+                                              },
+                                            ),
+                                          );
+                                        },
+                                        child: const Text('Добавить контакт')),
+                                    ...insurance.contacts.map(
+                                        (contact) => SlidableDataLineWidget(
+                                            onDelete: (context) {
+                                              cubit
+                                                  .deleteContactForInsuranceLine(
+                                                      line: insurance,
+                                                      travel: travel,
+                                                      contact: contact);
+                                            },
+                                            onEdit: (context) {
+                                              showMyModalBottomSheet<void>(
+                                                context: context,
+                                                heightPersent: 0.8,
+                                                child: ContactParametersWidget(
+                                                  line: contact,
+                                                  onTap: (
+                                                      {required data,
+                                                      required description,
+                                                      required id,
+                                                      required type}) {
+                                                    cubit
+                                                        .editContactForInsuranceLine(
+                                                      line: insurance,
+                                                      travel: travel,
+                                                      contactData: data,
+                                                      contactType: type,
+                                                      contactDescription:
+                                                          description,
+                                                      contactId: id,
+                                                    );
+                                                  },
+                                                ),
+                                              );
+                                            },
+                                            child: ContactLineWidget(
+                                              contact: contact,
+                                            )))
+                                  ],
+                                ),
                               ),
                             )),
                         OutlinedButton(
@@ -305,7 +365,10 @@ class TravelPage extends StatelessWidget {
                               showMyModalBottomSheet<void>(
                                 context: context,
                                 heightPersent: 0.8,
-                                child: const InsuranceParametersWidget(),
+                                child: InsuranceParametersWidget(
+                                  cubit: cubit,
+                                  travel: travel,
+                                ),
                               );
                             },
                             child: const Text('Добавить')),

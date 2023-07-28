@@ -1,6 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:my_climbing_trek/features/traveling/domain/entities/contact_line.dart';
+import 'package:my_climbing_trek/features/traveling/domain/entities/contact_type.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/cost_line.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/cost_type.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/currency.dart';
@@ -8,9 +10,15 @@ import 'package:my_climbing_trek/features/traveling/domain/entities/insurance_li
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel_budget_line.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel_day.dart';
+import 'package:my_climbing_trek/features/traveling/domain/usecases/travel_page/delete_budget_line_usecase.dart';
 import 'package:my_climbing_trek/features/traveling/domain/usecases/travel_page/delete_cost_line_usecase.dart';
+import 'package:my_climbing_trek/features/traveling/domain/usecases/travel_page/delete_insurance_line_usecase.dart';
+import 'package:my_climbing_trek/features/traveling/domain/usecases/travel_page/edit_budget_line_usecase.dart';
 import 'package:my_climbing_trek/features/traveling/domain/usecases/travel_page/edit_cost_line_usecase.dart';
+import 'package:my_climbing_trek/features/traveling/domain/usecases/travel_page/edit_insurance_line_usecase.dart';
+import 'package:my_climbing_trek/features/traveling/domain/usecases/travel_page/get_budget_line_usecase.dart';
 import 'package:my_climbing_trek/features/traveling/domain/usecases/travel_page/get_cost_lines_usecase.dart';
+import 'package:my_climbing_trek/features/traveling/domain/usecases/travel_page/get_insurance_lines_usecase.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/cubit/add_travel_interface.dart';
 
 part 'travel_page_state.dart';
@@ -22,11 +30,23 @@ class TravelPageCubit extends Cubit<TravelPageState>
   final DeleteCostLineUsecase _deleteCostLineUsecase;
   final EditCostLineUsecase _editCostLineUsecase;
   final GetCostLinesUsecase _getCostLinesUsecase;
+  final GetInsuranceLineUsecase _getInsuranceLineUsecase;
+  final GetBudgetLinesUsecase _getBudgetLinesUsecase;
+  final EditInsuranceLineUsecase _editInsuranceLineUsecase;
+  final EditBudgetLineUsecase _editBudgetLineUsecase;
+  final DeleteInsuranceLineUsecase _deleteInsuranceLineUsecase;
+  final DeleteBudgetLineUsecase _deleteBudgetLineUsecase;
 
   TravelPageCubit(
     this._deleteCostLineUsecase,
     this._editCostLineUsecase,
     this._getCostLinesUsecase,
+    this._getInsuranceLineUsecase,
+    this._getBudgetLinesUsecase,
+    this._editInsuranceLineUsecase,
+    this._editBudgetLineUsecase,
+    this._deleteInsuranceLineUsecase,
+    this._deleteBudgetLineUsecase,
   ) : super(TravelPageState.initial());
 
   void selectTab({required int tabIndex}) {
@@ -48,14 +68,37 @@ class TravelPageCubit extends Cubit<TravelPageState>
   Future<void> loadData({required Travel travel}) async {
     emit(state.copyWith(loading: true));
 
-    final failureOrList = await _getCostLinesUsecase(travel: travel);
+    final failureOrCostList = await _getCostLinesUsecase(travel: travel);
 
-    failureOrList.fold(
+    failureOrCostList.fold(
       (failure) => state.copyWith(
         errorMessage: failure.toString(),
         loading: false,
       ),
       (costs) => emit(state.copyWith(costs: costs, loading: false)),
+    );
+
+    final failureOrBubgetList = await _getBudgetLinesUsecase(travel: travel);
+
+    failureOrBubgetList.fold(
+      (failure) => state.copyWith(
+        errorMessage: failure.toString(),
+        loading: false,
+      ),
+      (budgetLines) =>
+          emit(state.copyWith(budgetLines: budgetLines, loading: false)),
+    );
+
+    final failureOrInsuranceList =
+        await _getInsuranceLineUsecase(travel: travel);
+
+    failureOrInsuranceList.fold(
+      (failure) => state.copyWith(
+        errorMessage: failure.toString(),
+        loading: false,
+      ),
+      (insurances) =>
+          emit(state.copyWith(insurances: insurances, loading: false)),
     );
   }
 
@@ -123,6 +166,235 @@ class TravelPageCubit extends Cubit<TravelPageState>
             loading: false,
           ),
           (costs) => emit(state.copyWith(costs: costs, loading: false)),
+        );
+      },
+    );
+  }
+
+  Future<void> editInsuranceLine({
+    required String insurer,
+    required String number,
+    required String insurant,
+    required Travel travel,
+    required String description,
+    List<ContactLine>? contacts,
+    String id = '',
+  }) async {
+    emit(state.copyWith(loading: true));
+
+    final failureOrUnit = await _editInsuranceLineUsecase(
+      description: description,
+      travel: travel,
+      id: id,
+      insurant: insurant,
+      insurer: insurer,
+      number: number,
+      contacts: contacts,
+    );
+
+    failureOrUnit.fold(
+      (failure) => state.copyWith(
+        errorMessage: failure.toString(),
+        loading: false,
+      ),
+      (_) async {
+        final failureOrList = await _getInsuranceLineUsecase(travel: travel);
+
+        failureOrList.fold(
+          (failure) => state.copyWith(
+            errorMessage: failure.toString(),
+            loading: false,
+          ),
+          (costs) => emit(state.copyWith(insurances: costs, loading: false)),
+        );
+      },
+    );
+  }
+
+  Future<void> editContactForInsuranceLine({
+    required InsuranceLine line,
+    required Travel travel,
+    required String contactData,
+    required ContactType contactType,
+    required String contactDescription,
+    String contactId = '',
+  }) async {
+    emit(state.copyWith(loading: true));
+
+    final contact = ContactLine(
+      type: contactType,
+      data: contactData,
+      description: contactDescription,
+      id: contactId,
+    );
+
+    final contacts = line.contacts;
+
+    final int index = contacts.indexOf(contact);
+
+    if (index < 0) {
+      contacts.add(contact);
+    } else {
+      contacts[index] = contact;
+    }
+
+    final failureOrUnit = await _editInsuranceLineUsecase(
+      description: line.description,
+      travel: travel,
+      id: line.id,
+      insurant: line.insurant,
+      insurer: line.insurer,
+      number: line.number,
+      contacts: contacts,
+    );
+
+    failureOrUnit.fold(
+      (failure) => state.copyWith(
+        errorMessage: failure.toString(),
+        loading: false,
+      ),
+      (_) async {
+        final failureOrList = await _getInsuranceLineUsecase(travel: travel);
+
+        failureOrList.fold(
+          (failure) => state.copyWith(
+            errorMessage: failure.toString(),
+            loading: false,
+          ),
+          (costs) => emit(state.copyWith(insurances: costs, loading: false)),
+        );
+      },
+    );
+  }
+
+  Future<void> deleteContactForInsuranceLine({
+    required InsuranceLine line,
+    required Travel travel,
+    required ContactLine contact,
+  }) async {
+    emit(state.copyWith(loading: true));
+
+    final contacts = line.contacts;
+
+    contacts.remove(contact);
+
+    final failureOrUnit = await _editInsuranceLineUsecase(
+      description: line.description,
+      travel: travel,
+      id: line.id,
+      insurant: line.insurant,
+      insurer: line.insurer,
+      number: line.number,
+      contacts: contacts,
+    );
+
+    failureOrUnit.fold(
+      (failure) => state.copyWith(
+        errorMessage: failure.toString(),
+        loading: false,
+      ),
+      (_) async {
+        final failureOrList = await _getInsuranceLineUsecase(travel: travel);
+
+        failureOrList.fold(
+          (failure) => state.copyWith(
+            errorMessage: failure.toString(),
+            loading: false,
+          ),
+          (costs) => emit(state.copyWith(insurances: costs, loading: false)),
+        );
+      },
+    );
+  }
+
+  Future<void> deleteInsuranceLine({
+    required Travel travel,
+    required InsuranceLine line,
+  }) async {
+    emit(state.copyWith(loading: true));
+
+    final failureOrUnit = await _deleteInsuranceLineUsecase(line: line);
+
+    failureOrUnit.fold(
+      (failure) => state.copyWith(
+        errorMessage: failure.toString(),
+        loading: false,
+      ),
+      (_) async {
+        final failureOrList = await _getInsuranceLineUsecase(travel: travel);
+
+        failureOrList.fold(
+          (failure) => state.copyWith(
+            errorMessage: failure.toString(),
+            loading: false,
+          ),
+          (insurances) =>
+              emit(state.copyWith(insurances: insurances, loading: false)),
+        );
+      },
+    );
+  }
+
+  Future<void> editBudgetLine({
+    required Travel travel,
+    required String description,
+    required CostType type,
+    double amount = 0,
+    String id = '',
+  }) async {
+    emit(state.copyWith(loading: true));
+
+    final failureOrUnit = await _editBudgetLineUsecase(
+      description: description,
+      travel: travel,
+      type: type,
+      id: id,
+      amount: amount,
+    );
+
+    failureOrUnit.fold(
+      (failure) => state.copyWith(
+        errorMessage: failure.toString(),
+        loading: false,
+      ),
+      (_) async {
+        final failureOrList = await _getBudgetLinesUsecase(travel: travel);
+
+        failureOrList.fold(
+          (failure) => state.copyWith(
+            errorMessage: failure.toString(),
+            loading: false,
+          ),
+          (budgetLines) =>
+              emit(state.copyWith(budgetLines: budgetLines, loading: false)),
+        );
+      },
+    );
+  }
+
+  Future<void> deleteBudgetLine({
+    required Travel travel,
+    required TravelBudgetLine line,
+  }) async {
+    emit(state.copyWith(loading: true));
+
+    final failureOrUnit = await _deleteBudgetLineUsecase(line: line);
+
+    failureOrUnit.fold(
+      (failure) => state.copyWith(
+        errorMessage: failure.toString(),
+        loading: false,
+      ),
+      (_) async {
+        final failureOrList = await _getBudgetLinesUsecase(travel: travel);
+
+        failureOrList.fold(
+          (failure) => state.copyWith(
+            errorMessage: failure.toString(),
+            loading: false,
+          ),
+          (budgetLines) =>
+              emit(state.copyWith(budgetLines: budgetLines, loading: false)),
         );
       },
     );

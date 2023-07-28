@@ -2,12 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:my_climbing_trek/core/widgets/selectable_chip_group_widget.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/cost_type.dart';
+import 'package:my_climbing_trek/features/traveling/domain/entities/travel.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel_budget_line.dart';
+import 'package:my_climbing_trek/features/traveling/presentation/cubit/travel_page/travel_page_cubit.dart';
 
 class BudgetParametersWidget extends HookWidget {
   final TravelBudgetLine? line;
+  final TravelPageCubit cubit;
+  final Travel travel;
 
-  const BudgetParametersWidget({this.line, Key? key}) : super(key: key);
+  const BudgetParametersWidget({
+    required this.travel,
+    required this.cubit,
+    this.line,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +69,13 @@ class BudgetParametersWidget extends HookWidget {
               ),
               ElevatedButton(
                   onPressed: () {
+                    cubit.editBudgetLine(
+                      travel: travel,
+                      description: descriptionController.text,
+                      type: typeController.value,
+                      amount: double.tryParse(amountController.text) ?? 0,
+                      id: line?.id ?? '',
+                    );
                     Navigator.of(context).pop();
                   },
                   child: const Text('Сохранить'))

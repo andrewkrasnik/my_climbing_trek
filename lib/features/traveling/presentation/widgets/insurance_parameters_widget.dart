@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+
 import 'package:my_climbing_trek/features/traveling/domain/entities/insurance_line.dart';
+import 'package:my_climbing_trek/features/traveling/domain/entities/travel.dart';
+import 'package:my_climbing_trek/features/traveling/presentation/cubit/travel_page/travel_page_cubit.dart';
 
 class InsuranceParametersWidget extends HookWidget {
   final InsuranceLine? line;
+  final TravelPageCubit cubit;
+  final Travel travel;
 
-  const InsuranceParametersWidget({this.line, Key? key}) : super(key: key);
+  const InsuranceParametersWidget({
+    this.line,
+    required this.cubit,
+    required this.travel,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -72,6 +82,14 @@ class InsuranceParametersWidget extends HookWidget {
               ),
               ElevatedButton(
                   onPressed: () {
+                    cubit.editInsuranceLine(
+                      insurer: insurerController.text,
+                      number: numberController.text,
+                      insurant: insurantController.text,
+                      travel: travel,
+                      description: descriptionController.text,
+                      id: line?.id ?? '',
+                    );
                     Navigator.of(context).pop();
                   },
                   child: const Text('Сохранить')),

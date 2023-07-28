@@ -12,5 +12,6 @@ class TravelBudgetLine extends DataWithUUID {
     required this.amount,
     required this.travelId,
     this.description = '',
+    super.id,
   });
 }

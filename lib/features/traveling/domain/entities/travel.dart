@@ -87,6 +87,17 @@ class Travel extends Treaning {
 
     return result;
   }
+
+  List<TravelStatus> get nextStatuses {
+    switch (status) {
+      case TravelStatus.planed:
+        return [TravelStatus.canceled, TravelStatus.started];
+      case TravelStatus.started:
+        return [TravelStatus.finished];
+      default:
+        return [];
+    }
+  }
 }
 
 enum TravelStatus { planed, started, finished, canceled }
