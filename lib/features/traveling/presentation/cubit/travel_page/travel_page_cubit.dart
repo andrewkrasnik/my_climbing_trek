@@ -22,13 +22,14 @@ import 'package:my_climbing_trek/features/traveling/domain/usecases/travel_page/
 import 'package:my_climbing_trek/features/traveling/domain/usecases/travel_page/get_day_lines_usecase.dart';
 import 'package:my_climbing_trek/features/traveling/domain/usecases/travel_page/get_insurance_lines_usecase.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/cubit/add_travel_interface.dart';
+import 'package:my_climbing_trek/features/traveling/presentation/cubit/edit_cost_line_interface.dart';
 
 part 'travel_page_state.dart';
 part 'travel_page_cubit.freezed.dart';
 
 @Injectable()
 class TravelPageCubit extends Cubit<TravelPageState>
-    implements AddTravelInterface {
+    implements AddTravelInterface, EditCostLineIntreface {
   final DeleteCostLineUsecase _deleteCostLineUsecase;
   final EditCostLineUsecase _editCostLineUsecase;
   final GetCostLinesUsecase _getCostLinesUsecase;
@@ -39,7 +40,6 @@ class TravelPageCubit extends Cubit<TravelPageState>
   final DeleteInsuranceLineUsecase _deleteInsuranceLineUsecase;
   final DeleteBudgetLineUsecase _deleteBudgetLineUsecase;
   final GetDayLinesUsecase _getDayLinesUsecase;
-  final EditDayLineUsecase _editDayLineUsecase;
 
   TravelPageCubit(
     this._deleteCostLineUsecase,
@@ -52,7 +52,6 @@ class TravelPageCubit extends Cubit<TravelPageState>
     this._deleteInsuranceLineUsecase,
     this._deleteBudgetLineUsecase,
     this._getDayLinesUsecase,
-    this._editDayLineUsecase,
   ) : super(TravelPageState.initial());
 
   void selectTab({required int tabIndex}) {

@@ -851,7 +851,6 @@ _i1.GetIt $initGetIt(
         gh<_i102.DeleteInsuranceLineUsecase>(),
         gh<_i99.DeleteBudgetLineUsecase>(),
         gh<_i123.GetDayLinesUsecase>(),
-        gh<_i110.EditDayLineUsecase>(),
       ));
   gh.factory<_i195.TravelsCubit>(() => _i195.TravelsCubit(
         gh<_i138.GetTravelsUsecase>(),
@@ -900,7 +899,7 @@ _i1.GetIt $initGetIt(
       () => _i210.CurrentHallTreaning(gh<_i144.HallTreaningRepository>()));
   gh.factory<_i211.CurrentTravelCubit>(() => _i211.CurrentTravelCubit(
         gh<_i97.CurrentTravelUsecase>(),
-        gh<_i130.GetPlanedTravelsUsecase>(),
+        gh<_i109.EditCostLineUsecase>(),
       ));
   gh.lazySingleton<_i212.DeleteHallAttempt>(() => _i212.DeleteHallAttempt(
       treaningRepository: gh<_i144.HallTreaningRepository>()));

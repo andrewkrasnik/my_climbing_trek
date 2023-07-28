@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$CurrentTravelState {
   Travel? get travel => throw _privateConstructorUsedError;
   bool get useFilter => throw _privateConstructorUsedError;
+  String get errorMessage => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CurrentTravelStateCopyWith<CurrentTravelState> get copyWith =>
@@ -30,7 +31,7 @@ abstract class $CurrentTravelStateCopyWith<$Res> {
           CurrentTravelState value, $Res Function(CurrentTravelState) then) =
       _$CurrentTravelStateCopyWithImpl<$Res, CurrentTravelState>;
   @useResult
-  $Res call({Travel? travel, bool useFilter});
+  $Res call({Travel? travel, bool useFilter, String errorMessage});
 }
 
 /// @nodoc
@@ -48,6 +49,7 @@ class _$CurrentTravelStateCopyWithImpl<$Res, $Val extends CurrentTravelState>
   $Res call({
     Object? travel = freezed,
     Object? useFilter = null,
+    Object? errorMessage = null,
   }) {
     return _then(_value.copyWith(
       travel: freezed == travel
@@ -58,6 +60,10 @@ class _$CurrentTravelStateCopyWithImpl<$Res, $Val extends CurrentTravelState>
           ? _value.useFilter
           : useFilter // ignore: cast_nullable_to_non_nullable
               as bool,
+      errorMessage: null == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -70,7 +76,7 @@ abstract class _$$_CurrentTravelStateCopyWith<$Res>
       __$$_CurrentTravelStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Travel? travel, bool useFilter});
+  $Res call({Travel? travel, bool useFilter, String errorMessage});
 }
 
 /// @nodoc
@@ -86,6 +92,7 @@ class __$$_CurrentTravelStateCopyWithImpl<$Res>
   $Res call({
     Object? travel = freezed,
     Object? useFilter = null,
+    Object? errorMessage = null,
   }) {
     return _then(_$_CurrentTravelState(
       travel: freezed == travel
@@ -96,6 +103,10 @@ class __$$_CurrentTravelStateCopyWithImpl<$Res>
           ? _value.useFilter
           : useFilter // ignore: cast_nullable_to_non_nullable
               as bool,
+      errorMessage: null == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -103,16 +114,19 @@ class __$$_CurrentTravelStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_CurrentTravelState implements _CurrentTravelState {
-  const _$_CurrentTravelState({this.travel, required this.useFilter});
+  const _$_CurrentTravelState(
+      {this.travel, required this.useFilter, required this.errorMessage});
 
   @override
   final Travel? travel;
   @override
   final bool useFilter;
+  @override
+  final String errorMessage;
 
   @override
   String toString() {
-    return 'CurrentTravelState(travel: $travel, useFilter: $useFilter)';
+    return 'CurrentTravelState(travel: $travel, useFilter: $useFilter, errorMessage: $errorMessage)';
   }
 
   @override
@@ -122,11 +136,13 @@ class _$_CurrentTravelState implements _CurrentTravelState {
             other is _$_CurrentTravelState &&
             (identical(other.travel, travel) || other.travel == travel) &&
             (identical(other.useFilter, useFilter) ||
-                other.useFilter == useFilter));
+                other.useFilter == useFilter) &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, travel, useFilter);
+  int get hashCode => Object.hash(runtimeType, travel, useFilter, errorMessage);
 
   @JsonKey(ignore: true)
   @override
@@ -139,12 +155,15 @@ class _$_CurrentTravelState implements _CurrentTravelState {
 abstract class _CurrentTravelState implements CurrentTravelState {
   const factory _CurrentTravelState(
       {final Travel? travel,
-      required final bool useFilter}) = _$_CurrentTravelState;
+      required final bool useFilter,
+      required final String errorMessage}) = _$_CurrentTravelState;
 
   @override
   Travel? get travel;
   @override
   bool get useFilter;
+  @override
+  String get errorMessage;
   @override
   @JsonKey(ignore: true)
   _$$_CurrentTravelStateCopyWith<_$_CurrentTravelState> get copyWith =>

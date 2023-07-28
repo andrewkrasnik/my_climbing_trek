@@ -47,29 +47,31 @@ class CurrentTravelHomePageWidget extends StatelessWidget {
                     ),
                     IconButton.outlined(
                       onPressed: () {
-                        // showMyModalBottomSheet<void>(
-                        //   context: context,
-                        //   heightPersent: 0.8,
-                        //   child: CostParametersWidget(
-                        //     incomeExpense: IncomeExpense.income,
-                        //     currencies: state.travel!.currencies,
-                        //     cubit: ,
-                        //   ),
-                        // );
+                        showMyModalBottomSheet<void>(
+                          context: context,
+                          heightPersent: 0.8,
+                          child: CostParametersWidget(
+                            incomeExpense: IncomeExpense.income,
+                            currencies: state.travel!.currencies,
+                            travel: state.travel!,
+                            cubit: BlocProvider.of<CurrentTravelCubit>(context),
+                          ),
+                        );
                       },
                       icon: const Icon(Icons.add),
                     ),
                     IconButton.outlined(
                       onPressed: () {
-                        // showMyModalBottomSheet<void>(
-                        //   context: context,
-                        //   heightPersent: 0.8,
-                        //   child: CostParametersWidget(
-                        //     incomeExpense: IncomeExpense.expense,
-                        //     currencies: state.travel!.currencies,
-                        //     cubit: ,
-                        //   ),
-                        // );
+                        showMyModalBottomSheet<void>(
+                          context: context,
+                          heightPersent: 0.8,
+                          child: CostParametersWidget(
+                            incomeExpense: IncomeExpense.expense,
+                            currencies: state.travel!.currencies,
+                            travel: state.travel!,
+                            cubit: BlocProvider.of<CurrentTravelCubit>(context),
+                          ),
+                        );
                       },
                       icon: const Icon(Icons.remove),
                     ),

@@ -5,14 +5,14 @@ import 'package:my_climbing_trek/features/traveling/domain/entities/cost_line.da
 import 'package:my_climbing_trek/features/traveling/domain/entities/cost_type.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/currency.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel.dart';
-import 'package:my_climbing_trek/features/traveling/presentation/cubit/travel_page/travel_page_cubit.dart';
+import 'package:my_climbing_trek/features/traveling/presentation/cubit/edit_cost_line_interface.dart';
 
 class CostParametersWidget extends HookWidget {
   final CostLine? line;
   final Travel travel;
   final IncomeExpense incomeExpense;
   final List<Currency> currencies;
-  final TravelPageCubit cubit;
+  final EditCostLineIntreface cubit;
 
   const CostParametersWidget({
     required this.travel,
