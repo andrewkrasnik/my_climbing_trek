@@ -19,6 +19,9 @@ class SlidableDataLineWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (!delete && !edit) {
+      return child;
+    }
     return Slidable(
         endActionPane: ActionPane(
           motion: const ScrollMotion(),

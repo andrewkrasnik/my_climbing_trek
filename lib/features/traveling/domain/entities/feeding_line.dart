@@ -33,7 +33,7 @@ enum FeedingType {
   baseCampCooking,
   campCooking,
   snacks,
-  lunchBox,
+  organization,
 }
 
 extension FeedingTypeExtension on FeedingType {
@@ -49,8 +49,8 @@ extension FeedingTypeExtension on FeedingType {
         return 'Готовка на выходе';
       case FeedingType.snacks:
         return 'Перекус';
-      case FeedingType.lunchBox:
-        return 'Ланч бокс';
+      case FeedingType.organization:
+        return 'Организатор';
     }
   }
 }
