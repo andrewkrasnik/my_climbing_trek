@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:my_climbing_trek/core/extentions/date_time_extention.dart';
+import 'package:my_climbing_trek/core/extentions/time_of_day_extention.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/transport_line.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/transport_type.dart';
+import 'package:my_climbing_trek/features/traveling/presentation/cubit/travel_day/travel_day_cubit.dart';
 
 class TransportParametersWidget extends HookWidget {
   final TransportLine? line;
-  final DateTime date;
-  const TransportParametersWidget({required this.date, this.line, Key? key})
+  final TravelDayCubit? cubit;
+  const TransportParametersWidget({this.cubit, this.line, Key? key})
       : super(key: key);
 
   @override
@@ -15,9 +16,10 @@ class TransportParametersWidget extends HookWidget {
     final contactType =
         useState<TransportType>(line?.type ?? TransportType.airplane);
 
-    final dateController = useState<DateTime>(line?.date ?? date.toDayStart());
+    final timeController =
+        useState<TimeOfDay>(line?.time ?? const TimeOfDay(hour: 12, minute: 0));
 
-    final finishController = useState<DateTime?>(line?.finish);
+    final finishTimeController = useState<TimeOfDay?>(line?.finishTime);
 
     final descriptionController =
         useTextEditingController(text: line?.description);
@@ -77,25 +79,18 @@ class TransportParametersWidget extends HookWidget {
               onTap: () async {
                 final newTime = await showTimePicker(
                   context: context,
-                  initialTime: TimeOfDay.fromDateTime(
-                    dateController.value,
-                  ),
+                  initialTime: timeController.value,
                 );
 
                 if (newTime != null) {
-                  dateController.value = date.toDayStart().add(
-                        Duration(
-                          hours: newTime.hour,
-                          minutes: newTime.minute,
-                        ),
-                      );
+                  timeController.value = newTime;
                 }
               },
               child: Row(
                 children: [
                   const Text('Отправление:'),
                   const SizedBox(width: 16),
-                  Text(dateController.value.timeString()),
+                  Text(timeController.value.timeString()),
                 ],
               ),
             ),
@@ -106,25 +101,19 @@ class TransportParametersWidget extends HookWidget {
               onTap: () async {
                 final newTime = await showTimePicker(
                   context: context,
-                  initialTime: TimeOfDay.fromDateTime(
-                    finishController.value ?? date.toDayStart(),
-                  ),
+                  initialTime: finishTimeController.value ??
+                      const TimeOfDay(hour: 12, minute: 0),
                 );
 
                 if (newTime != null) {
-                  finishController.value = date.toDayStart().add(
-                        Duration(
-                          hours: newTime.hour,
-                          minutes: newTime.minute,
-                        ),
-                      );
+                  finishTimeController.value = newTime;
                 }
               },
               child: Row(
                 children: [
                   const Text('Прибытие:'),
                   const SizedBox(width: 16),
-                  Text(finishController.value?.timeString() ?? ''),
+                  Text(finishTimeController.value?.timeString() ?? ''),
                 ],
               ),
             ),
@@ -133,6 +122,15 @@ class TransportParametersWidget extends HookWidget {
             ),
             ElevatedButton(
                 onPressed: () {
+                  if (cubit != null) {
+                    cubit!.editTransportLine(
+                      description: descriptionController.text,
+                      type: contactType.value,
+                      time: timeController.value,
+                      finishTime: finishTimeController.value,
+                      line: line,
+                    );
+                  }
                   Navigator.of(context).pop();
                 },
                 child: const Text('Сохранить'))

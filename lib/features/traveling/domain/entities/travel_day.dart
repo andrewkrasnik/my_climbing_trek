@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:my_climbing_trek/core/data/treaning.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/contact_line.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/contact_type.dart';
@@ -36,7 +37,7 @@ class TravelDay extends Treaning {
       this.transportLines.add(
             TransportLine(
               type: TransportType.airplane,
-              date: date,
+              time: const TimeOfDay(hour: 6, minute: 0),
               description: 'Рейс 234 213',
               name: 'Москва-Бишкек',
             ),
@@ -45,7 +46,7 @@ class TravelDay extends Treaning {
       this.transportLines.add(
             TransportLine(
                 type: TransportType.taxi,
-                date: date,
+                time: const TimeOfDay(hour: 12, minute: 0),
                 description: 'через яндекс такси',
                 name: 'Трансфер до офиса',
                 contacts: [
@@ -64,7 +65,7 @@ class TravelDay extends Treaning {
               type: StayType.sleep,
               name: 'Гостевой дом',
               description: 'Бронирование 123',
-              date: date,
+              time: const TimeOfDay(hour: 16, minute: 0),
               contacts: [
                 ContactLine(
                   type: ContactType.address,

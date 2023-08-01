@@ -102,7 +102,10 @@ class CurrentTravelHomePageWidget extends StatelessWidget {
                     ],
                   ),
                 ),
-                TravelDayLinesWidget(travelDay: state.travel!.travelDays.first),
+                TravelDayLinesWidget(
+                  stayLines: state.travel!.travelDays.first.stayLines,
+                  transportLines: state.travel!.travelDays.first.transportLines,
+                ),
               ]);
       },
     );

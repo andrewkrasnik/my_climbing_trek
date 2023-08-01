@@ -19,7 +19,10 @@ class TravelDayWidget extends StatelessWidget {
             Text(travelDay.dateString),
           ],
         ),
-        TravelDayLinesWidget(travelDay: travelDay),
+        TravelDayLinesWidget(
+          stayLines: travelDay.stayLines,
+          transportLines: travelDay.transportLines,
+        ),
         FeedingLinesWidget(travelDay: travelDay),
       ],
     );

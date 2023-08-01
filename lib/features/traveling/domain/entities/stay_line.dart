@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel_day_line.dart';
 
 class StayLine extends TravelDayLine {
@@ -11,7 +12,7 @@ class StayLine extends TravelDayLine {
     required this.type,
     required super.name,
     required super.description,
-    required super.date,
+    required super.time,
     super.contacts,
   });
 }

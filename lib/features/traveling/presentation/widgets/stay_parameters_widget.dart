@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:my_climbing_trek/core/extentions/date_time_extention.dart';
+import 'package:my_climbing_trek/core/extentions/time_of_day_extention.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/stay_line.dart';
+import 'package:my_climbing_trek/features/traveling/presentation/cubit/travel_day/travel_day_cubit.dart';
 
 class StayParametersWidget extends HookWidget {
   final StayLine? line;
-  final DateTime date;
-  const StayParametersWidget({required this.date, this.line, Key? key})
+  final TravelDayCubit? cubit;
+
+  const StayParametersWidget({this.cubit, this.line, Key? key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final contactType = useState<StayType>(line?.type ?? StayType.sleep);
+    final typeController = useState<StayType>(line?.type ?? StayType.sleep);
 
-    final dateController = useState<DateTime>(line?.date ?? date.toDayStart());
+    final timeController =
+        useState<TimeOfDay>(line?.time ?? const TimeOfDay(hour: 12, minute: 0));
 
     final descriptionController =
         useTextEditingController(text: line?.description);
@@ -26,7 +29,7 @@ class StayParametersWidget extends HookWidget {
         child: Column(
           children: [
             Text(
-              contactType.value.description,
+              typeController.value.description,
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(
@@ -37,12 +40,12 @@ class StayParametersWidget extends HookWidget {
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: StayType.values.map((type) {
-                    final current = type == contactType.value;
+                    final current = type == typeController.value;
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: IconButton(
                           onPressed: () {
-                            contactType.value = type;
+                            typeController.value = type;
                           },
                           color: current
                               ? Theme.of(context).colorScheme.surface
@@ -73,25 +76,18 @@ class StayParametersWidget extends HookWidget {
               onTap: () async {
                 final newTime = await showTimePicker(
                   context: context,
-                  initialTime: TimeOfDay.fromDateTime(
-                    dateController.value,
-                  ),
+                  initialTime: timeController.value,
                 );
 
                 if (newTime != null) {
-                  dateController.value = date.toDayStart().add(
-                        Duration(
-                          hours: newTime.hour,
-                          minutes: newTime.minute,
-                        ),
-                      );
+                  timeController.value = newTime;
                 }
               },
               child: Row(
                 children: [
                   const Text('Прибытие:'),
                   const SizedBox(width: 16),
-                  Text(dateController.value.timeString()),
+                  Text(timeController.value.timeString()),
                 ],
               ),
             ),
@@ -100,6 +96,15 @@ class StayParametersWidget extends HookWidget {
             ),
             ElevatedButton(
                 onPressed: () {
+                  if (cubit != null) {
+                    cubit!.editStayLine(
+                      description: descriptionController.text,
+                      type: typeController.value,
+                      time: timeController.value,
+                      line: line,
+                    );
+                  }
+
                   Navigator.of(context).pop();
                 },
                 child: const Text('Сохранить'))

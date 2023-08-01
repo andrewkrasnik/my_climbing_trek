@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:my_climbing_trek/core/widgets/my_modal_bottom_sheet.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel_day.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/cubit/travel_day/travel_day_cubit.dart';
@@ -10,21 +9,17 @@ import 'package:my_climbing_trek/features/traveling/presentation/widgets/transpo
 import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_day_lines_widget.dart';
 import 'package:my_climbing_trek/service_locator.dart';
 
-class TravelDayPage extends HookWidget {
+class TravelDayPage extends StatelessWidget {
   final TravelDay day;
   const TravelDayPage({required this.day, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final descriptionController =
-        useTextEditingController(text: day.description);
-
-    final descriptionFocusNode = useFocusNode();
-
     return BlocProvider(
       create: (context) => getIt<TravelDayCubit>()..loadData(day: day),
       child: BlocBuilder<TravelDayCubit, TravelDayState>(
         builder: (context, state) {
+          final cubit = BlocProvider.of<TravelDayCubit>(context);
           return Scaffold(
               appBar: AppBar(
                 centerTitle: true,
@@ -52,11 +47,14 @@ class TravelDayPage extends HookWidget {
                         TextFormField(
                           minLines: 3,
                           maxLines: 5,
-                          controller: descriptionController,
-                          focusNode: descriptionFocusNode,
+                          initialValue: state.description,
                           decoration: const InputDecoration(
-                              labelText: 'Описание',
-                              border: OutlineInputBorder()),
+                            labelText: 'Описание',
+                            border: OutlineInputBorder(),
+                          ),
+                          onChanged: (value) {
+                            cubit.editTravelDay(description: value);
+                          },
                         ),
                         const SizedBox(
                           height: 16,
@@ -69,8 +67,8 @@ class TravelDayPage extends HookWidget {
                                   showMyModalBottomSheet<void>(
                                     context: context,
                                     heightPersent: 0.6,
-                                    child: TransportParametersWidget(
-                                        date: day.date),
+                                    child:
+                                        TransportParametersWidget(cubit: cubit),
                                   );
                                 },
                                 child: const Text('Транспорт')),
@@ -79,7 +77,7 @@ class TravelDayPage extends HookWidget {
                                   showMyModalBottomSheet<void>(
                                     context: context,
                                     heightPersent: 0.6,
-                                    child: StayParametersWidget(date: day.date),
+                                    child: StayParametersWidget(cubit: cubit),
                                   );
                                 },
                                 child: const Text('Остановка')),
@@ -88,7 +86,11 @@ class TravelDayPage extends HookWidget {
                         const SizedBox(
                           height: 16,
                         ),
-                        TravelDayLinesWidget(travelDay: day, editing: true),
+                        TravelDayLinesWidget(
+                          stayLines: state.stayLines,
+                          transportLines: state.transportLines,
+                          editing: true,
+                        ),
                         FeedingLinesWidget(
                           travelDay: day,
                           editing: true,

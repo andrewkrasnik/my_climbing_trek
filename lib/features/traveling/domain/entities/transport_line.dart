@@ -4,16 +4,17 @@ import 'package:my_climbing_trek/features/traveling/domain/entities/travel_day_l
 
 class TransportLine extends TravelDayLine {
   final TransportType type;
-  final DateTime? finish;
+  final TimeOfDay? finishTime;
 
   @override
   IconData? get icon => type.icon;
 
-  TransportLine(
-      {required this.type,
-      required super.name,
-      required super.description,
-      required super.date,
-      super.contacts,
-      this.finish});
+  TransportLine({
+    required this.type,
+    required super.name,
+    required super.description,
+    required super.time,
+    super.contacts,
+    this.finishTime,
+  });
 }
