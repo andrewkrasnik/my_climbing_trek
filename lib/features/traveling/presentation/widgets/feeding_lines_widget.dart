@@ -1,46 +1,48 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/feeding_line.dart';
-import 'package:my_climbing_trek/features/traveling/domain/entities/travel_day.dart';
 
 class FeedingLinesWidget extends StatelessWidget {
-  final TravelDay travelDay;
+  final List<FeedingLine> lines;
   final bool editing;
+  final Function(FeedingLine line, FeedingType type)? onTap;
 
   const FeedingLinesWidget(
-      {required this.travelDay, this.editing = false, Key? key})
+      {required this.lines, this.editing = false, this.onTap, Key? key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: travelDay.feedingsLines
+      children: lines
           .map((line) => editing
-              ? FeedingLineWidget(line: line)
+              ? FeedingLineWidget(line: line, onTap: onTap)
               : Text('${line.meal.description}: ${line.type.description}'))
           .toList(),
     );
   }
 }
 
-class FeedingLineWidget extends HookWidget {
+class FeedingLineWidget extends StatelessWidget {
   final FeedingLine line;
+  final Function(FeedingLine line, FeedingType type)? onTap;
 
-  const FeedingLineWidget({required this.line, Key? key}) : super(key: key);
+  const FeedingLineWidget({required this.line, this.onTap, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final typeController = useState<FeedingType>(line.type);
     return Wrap(
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
         Text('${line.meal.description}:'),
         const SizedBox(width: 4),
         ...FeedingType.values.map((value) {
-          final bool current = typeController.value == value;
+          final bool current = line.type == value;
           return InkWell(
             onTap: () {
-              typeController.value = value;
+              if (onTap != null) {
+                onTap!(line, value);
+              }
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 2),

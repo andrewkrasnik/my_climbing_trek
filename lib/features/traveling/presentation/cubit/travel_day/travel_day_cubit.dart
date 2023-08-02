@@ -8,15 +8,19 @@ import 'package:my_climbing_trek/features/traveling/domain/entities/feeding_line
 import 'package:my_climbing_trek/features/traveling/domain/entities/stay_line.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/transport_line.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/transport_type.dart';
+import 'package:my_climbing_trek/features/traveling/domain/entities/travel.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel_day.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel_day_line.dart';
+import 'package:my_climbing_trek/features/traveling/domain/usecases/travel_page/edit_day_line_usecase.dart';
 
 part 'travel_day_state.dart';
 part 'travel_day_cubit.freezed.dart';
 
 @Injectable()
 class TravelDayCubit extends Cubit<TravelDayState> {
-  TravelDayCubit() : super(TravelDayState.initial());
+  final EditDayLineUsecase _editDayLineUsecase;
+
+  TravelDayCubit(this._editDayLineUsecase) : super(TravelDayState.initial());
 
   void loadData({required TravelDay day}) {
     emit(
@@ -190,6 +194,47 @@ class TravelDayCubit extends Cubit<TravelDayState> {
 
       emit(state.copyWith(stayLines: lines, loading: false));
     }
+  }
+
+  Future<void> editFeedingLine({
+    required FeedingLine line,
+    required FeedingType type,
+  }) async {
+    emit(state.copyWith(loading: true));
+
+    final newLine = FeedingLine(meal: line.meal, type: type);
+
+    final lines = [...state.feedingsLines];
+
+    final index = lines.indexOf(line);
+
+    lines[index] = newLine;
+
+    emit(state.copyWith(feedingsLines: lines, loading: false));
+  }
+
+  Future<bool> saveTravelDay({required TravelDay day}) async {
+    emit(state.copyWith(loading: true));
+
+    final failureOrUnit = await _editDayLineUsecase(
+      id: day.id,
+      date: day.date,
+      number: day.number,
+      travelId: day.travelId,
+      description: state.description,
+      feedingsLines: state.feedingsLines,
+      stayLines: state.stayLines,
+      transportLines: state.transportLines,
+      start: day.start,
+    );
+
+    return failureOrUnit.fold(
+      (failure) {
+        emit(state.copyWith(errorMessage: failure.toString(), loading: false));
+        return false;
+      },
+      (r) => true,
+    );
   }
 
   void clearErrorMessage() {

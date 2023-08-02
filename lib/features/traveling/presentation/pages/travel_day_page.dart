@@ -11,13 +11,20 @@ import 'package:my_climbing_trek/service_locator.dart';
 
 class TravelDayPage extends StatelessWidget {
   final TravelDay day;
+
   const TravelDayPage({required this.day, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<TravelDayCubit>()..loadData(day: day),
-      child: BlocBuilder<TravelDayCubit, TravelDayState>(
+      child: BlocConsumer<TravelDayCubit, TravelDayState>(
+        listenWhen: (previous, current) => current.errorMessage.isNotEmpty,
+        buildWhen: (previous, current) => current.errorMessage.isEmpty,
+        listener: (context, state) {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(state.errorMessage)));
+        },
         builder: (context, state) {
           final cubit = BlocProvider.of<TravelDayCubit>(context);
           return Scaffold(
@@ -33,8 +40,10 @@ class TravelDayPage extends StatelessWidget {
                 ),
               ),
               floatingActionButton: FloatingActionButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
+                onPressed: () async {
+                  if (await cubit.saveTravelDay(day: day)) {
+                    Navigator.of(context).pop();
+                  }
                 },
                 child: const Icon(Icons.save),
               ),
@@ -92,8 +101,11 @@ class TravelDayPage extends StatelessWidget {
                           editing: true,
                         ),
                         FeedingLinesWidget(
-                          travelDay: day,
+                          lines: state.feedingsLines,
                           editing: true,
+                          onTap: (line, type) {
+                            cubit.editFeedingLine(line: line, type: type);
+                          },
                         ),
                       ],
                     )),

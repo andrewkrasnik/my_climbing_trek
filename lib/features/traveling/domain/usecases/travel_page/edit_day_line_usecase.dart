@@ -1,13 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:my_climbing_trek/core/failures/failure.dart';
-import 'package:my_climbing_trek/features/traveling/domain/entities/cost_line.dart';
-import 'package:my_climbing_trek/features/traveling/domain/entities/cost_type.dart';
-import 'package:my_climbing_trek/features/traveling/domain/entities/currency.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/feeding_line.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/stay_line.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/transport_line.dart';
-import 'package:my_climbing_trek/features/traveling/domain/entities/travel.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel_day.dart';
 import 'package:my_climbing_trek/features/traveling/domain/repositories/travel_repository.dart';
 
@@ -18,7 +14,7 @@ class EditDayLineUsecase {
   EditDayLineUsecase(this._travelRepository);
 
   Future<Either<Failure, Unit>> call({
-    required Travel travel,
+    required String travelId,
     required DateTime date,
     required int number,
     String description = '',
@@ -35,7 +31,7 @@ class EditDayLineUsecase {
       start: start,
       stayLines: stayLines,
       transportLines: transportLines,
-      travelId: travel.id,
+      travelId: travelId,
       description: description,
       id: id,
     );

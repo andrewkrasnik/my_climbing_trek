@@ -7,6 +7,7 @@ import 'package:my_climbing_trek/features/traveling/presentation/pages/travel_da
 import 'package:my_climbing_trek/features/traveling/presentation/pages/travel_page.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/widgets/cost_parameters_widget.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_day_lines_widget.dart';
+import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_day_title_widget.dart';
 
 class CurrentTravelHomePageWidget extends StatelessWidget {
   const CurrentTravelHomePageWidget({Key? key}) : super(key: key);
@@ -87,20 +88,16 @@ class CurrentTravelHomePageWidget extends StatelessWidget {
                   ],
                 ),
                 InkWell(
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
+                  onTap: () async {
+                    await Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) =>
                           TravelDayPage(day: state.travel!.travelDays.first),
                     ));
+
+                    BlocProvider.of<CurrentTravelCubit>(context).loadData();
                   },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('День ${state.travel!.travelDays.first.number}: '),
-                      const SizedBox(width: 4),
-                      Text(state.travel!.travelDays.first.dateString),
-                    ],
-                  ),
+                  child: TravelDayTitleWidget(
+                      travelDay: state.travel!.travelDays.first),
                 ),
                 TravelDayLinesWidget(
                   stayLines: state.travel!.travelDays.first.stayLines,

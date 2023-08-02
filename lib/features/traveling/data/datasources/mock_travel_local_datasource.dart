@@ -181,7 +181,7 @@ class MockTravelLocalDatasource implements TravelLocalDatasource {
 
   @override
   Future<Either<Failure, Unit>> editTravelDay({required TravelDay line}) async {
-    final index = _days.indexOf(line);
+    final index = _days.indexWhere((element) => element.id == line.id);
     if (index < 0) {
       _days.add(line);
     } else {

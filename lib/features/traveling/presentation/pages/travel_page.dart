@@ -134,11 +134,14 @@ class TravelPage extends StatelessWidget {
                           (day) => Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: InkWell(
-                                onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
+                                onTap: () async {
+                                  await Navigator.of(context)
+                                      .push(MaterialPageRoute(
                                     builder: (context) =>
                                         TravelDayPage(day: day),
                                   ));
+
+                                  cubit.loadData(travel: travel);
                                 },
                                 child: TravelDayWidget(travelDay: day)),
                           ),
