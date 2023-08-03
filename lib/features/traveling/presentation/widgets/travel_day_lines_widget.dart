@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:my_climbing_trek/core/extentions/date_time_extention.dart';
 import 'package:my_climbing_trek/core/extentions/time_of_day_extention.dart';
 import 'package:my_climbing_trek/core/widgets/my_modal_bottom_sheet.dart';
 import 'package:my_climbing_trek/core/widgets/slidable_data_line_widget.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/stay_line.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/transport_line.dart';
-import 'package:my_climbing_trek/features/traveling/domain/entities/travel_day.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel_day_line.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/cubit/travel_day/travel_day_cubit.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/widgets/contact_line_widget.dart';

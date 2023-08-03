@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$CurrentTravelState {
   Travel? get travel => throw _privateConstructorUsedError;
+  TravelDay? get travelDay => throw _privateConstructorUsedError;
   bool get useFilter => throw _privateConstructorUsedError;
   String get errorMessage => throw _privateConstructorUsedError;
 
@@ -31,7 +32,11 @@ abstract class $CurrentTravelStateCopyWith<$Res> {
           CurrentTravelState value, $Res Function(CurrentTravelState) then) =
       _$CurrentTravelStateCopyWithImpl<$Res, CurrentTravelState>;
   @useResult
-  $Res call({Travel? travel, bool useFilter, String errorMessage});
+  $Res call(
+      {Travel? travel,
+      TravelDay? travelDay,
+      bool useFilter,
+      String errorMessage});
 }
 
 /// @nodoc
@@ -48,6 +53,7 @@ class _$CurrentTravelStateCopyWithImpl<$Res, $Val extends CurrentTravelState>
   @override
   $Res call({
     Object? travel = freezed,
+    Object? travelDay = freezed,
     Object? useFilter = null,
     Object? errorMessage = null,
   }) {
@@ -56,6 +62,10 @@ class _$CurrentTravelStateCopyWithImpl<$Res, $Val extends CurrentTravelState>
           ? _value.travel
           : travel // ignore: cast_nullable_to_non_nullable
               as Travel?,
+      travelDay: freezed == travelDay
+          ? _value.travelDay
+          : travelDay // ignore: cast_nullable_to_non_nullable
+              as TravelDay?,
       useFilter: null == useFilter
           ? _value.useFilter
           : useFilter // ignore: cast_nullable_to_non_nullable
@@ -76,7 +86,11 @@ abstract class _$$_CurrentTravelStateCopyWith<$Res>
       __$$_CurrentTravelStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Travel? travel, bool useFilter, String errorMessage});
+  $Res call(
+      {Travel? travel,
+      TravelDay? travelDay,
+      bool useFilter,
+      String errorMessage});
 }
 
 /// @nodoc
@@ -91,6 +105,7 @@ class __$$_CurrentTravelStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? travel = freezed,
+    Object? travelDay = freezed,
     Object? useFilter = null,
     Object? errorMessage = null,
   }) {
@@ -99,6 +114,10 @@ class __$$_CurrentTravelStateCopyWithImpl<$Res>
           ? _value.travel
           : travel // ignore: cast_nullable_to_non_nullable
               as Travel?,
+      travelDay: freezed == travelDay
+          ? _value.travelDay
+          : travelDay // ignore: cast_nullable_to_non_nullable
+              as TravelDay?,
       useFilter: null == useFilter
           ? _value.useFilter
           : useFilter // ignore: cast_nullable_to_non_nullable
@@ -115,10 +134,15 @@ class __$$_CurrentTravelStateCopyWithImpl<$Res>
 
 class _$_CurrentTravelState implements _CurrentTravelState {
   const _$_CurrentTravelState(
-      {this.travel, required this.useFilter, required this.errorMessage});
+      {this.travel,
+      this.travelDay,
+      required this.useFilter,
+      required this.errorMessage});
 
   @override
   final Travel? travel;
+  @override
+  final TravelDay? travelDay;
   @override
   final bool useFilter;
   @override
@@ -126,7 +150,7 @@ class _$_CurrentTravelState implements _CurrentTravelState {
 
   @override
   String toString() {
-    return 'CurrentTravelState(travel: $travel, useFilter: $useFilter, errorMessage: $errorMessage)';
+    return 'CurrentTravelState(travel: $travel, travelDay: $travelDay, useFilter: $useFilter, errorMessage: $errorMessage)';
   }
 
   @override
@@ -135,6 +159,8 @@ class _$_CurrentTravelState implements _CurrentTravelState {
         (other.runtimeType == runtimeType &&
             other is _$_CurrentTravelState &&
             (identical(other.travel, travel) || other.travel == travel) &&
+            (identical(other.travelDay, travelDay) ||
+                other.travelDay == travelDay) &&
             (identical(other.useFilter, useFilter) ||
                 other.useFilter == useFilter) &&
             (identical(other.errorMessage, errorMessage) ||
@@ -142,7 +168,8 @@ class _$_CurrentTravelState implements _CurrentTravelState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, travel, useFilter, errorMessage);
+  int get hashCode =>
+      Object.hash(runtimeType, travel, travelDay, useFilter, errorMessage);
 
   @JsonKey(ignore: true)
   @override
@@ -155,11 +182,14 @@ class _$_CurrentTravelState implements _CurrentTravelState {
 abstract class _CurrentTravelState implements CurrentTravelState {
   const factory _CurrentTravelState(
       {final Travel? travel,
+      final TravelDay? travelDay,
       required final bool useFilter,
       required final String errorMessage}) = _$_CurrentTravelState;
 
   @override
   Travel? get travel;
+  @override
+  TravelDay? get travelDay;
   @override
   bool get useFilter;
   @override

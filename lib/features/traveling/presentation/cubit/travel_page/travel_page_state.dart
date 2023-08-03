@@ -10,6 +10,7 @@ class TravelPageState with _$TravelPageState {
     required List<TravelDay> days,
     required bool loading,
     required String errorMessage,
+    FeedingStatistic? feedingStatistic,
   }) = _TravelPageState;
 
   factory TravelPageState.initial() => const TravelPageState(

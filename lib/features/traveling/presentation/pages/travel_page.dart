@@ -6,6 +6,7 @@ import 'package:my_climbing_trek/core/widgets/my_cached_network_image.dart';
 import 'package:my_climbing_trek/core/widgets/my_modal_bottom_sheet.dart';
 import 'package:my_climbing_trek/core/widgets/slidable_data_line_widget.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/cost_line.dart';
+import 'package:my_climbing_trek/features/traveling/domain/entities/feeding_line.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/cubit/travel_page/travel_page_cubit.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/pages/travel_day_page.dart';
@@ -323,42 +324,43 @@ class TravelPage extends StatelessWidget {
                                         },
                                         child: const Text('Добавить контакт')),
                                     ...insurance.contacts.map(
-                                        (contact) => SlidableDataLineWidget(
-                                            onDelete: (context) {
-                                              cubit
-                                                  .deleteContactForInsuranceLine(
-                                                      line: insurance,
-                                                      travel: travel,
-                                                      contact: contact);
-                                            },
-                                            onEdit: (context) {
-                                              showMyModalBottomSheet<void>(
-                                                context: context,
-                                                heightPersent: 0.8,
-                                                child: ContactParametersWidget(
-                                                  line: contact,
-                                                  onTap: (
-                                                      {required data,
-                                                      required description,
-                                                      required id,
-                                                      required type}) {
-                                                    cubit
-                                                        .editContactForInsuranceLine(
-                                                      line: insurance,
-                                                      travel: travel,
-                                                      contactData: data,
-                                                      contactType: type,
-                                                      contactDescription:
-                                                          description,
-                                                      contactId: id,
-                                                    );
-                                                  },
-                                                ),
-                                              );
-                                            },
-                                            child: ContactLineWidget(
-                                              contact: contact,
-                                            )))
+                                      (contact) => SlidableDataLineWidget(
+                                        onDelete: (context) {
+                                          cubit.deleteContactForInsuranceLine(
+                                              line: insurance,
+                                              travel: travel,
+                                              contact: contact);
+                                        },
+                                        onEdit: (context) {
+                                          showMyModalBottomSheet<void>(
+                                            context: context,
+                                            heightPersent: 0.8,
+                                            child: ContactParametersWidget(
+                                              line: contact,
+                                              onTap: (
+                                                  {required data,
+                                                  required description,
+                                                  required id,
+                                                  required type}) {
+                                                cubit
+                                                    .editContactForInsuranceLine(
+                                                  line: insurance,
+                                                  travel: travel,
+                                                  contactData: data,
+                                                  contactType: type,
+                                                  contactDescription:
+                                                      description,
+                                                  contactId: id,
+                                                );
+                                              },
+                                            ),
+                                          );
+                                        },
+                                        child: ContactLineWidget(
+                                          contact: contact,
+                                        ),
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -375,7 +377,21 @@ class TravelPage extends StatelessWidget {
                               );
                             },
                             child: const Text('Добавить')),
-                      ]
+                      ],
+                      if (state.tabIndex == 4 && state.feedingStatistic != null)
+                        ...state.feedingStatistic!.statistic.keys.map((meal) =>
+                            Column(
+                              children: [
+                                Text(meal.description),
+                                ...state.feedingStatistic!.statistic[meal]!.keys
+                                    .map((type) {
+                                  final count = state.feedingStatistic!
+                                      .statistic[meal]![type]!;
+                                  return Text('${type.description}: $count');
+                                }),
+                                const SizedBox(height: 8)
+                              ],
+                            )),
                     ],
                   ),
                 ),

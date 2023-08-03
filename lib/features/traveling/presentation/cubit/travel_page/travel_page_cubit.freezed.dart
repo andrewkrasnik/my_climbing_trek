@@ -23,6 +23,7 @@ mixin _$TravelPageState {
   List<TravelDay> get days => throw _privateConstructorUsedError;
   bool get loading => throw _privateConstructorUsedError;
   String get errorMessage => throw _privateConstructorUsedError;
+  FeedingStatistic? get feedingStatistic => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $TravelPageStateCopyWith<TravelPageState> get copyWith =>
@@ -42,7 +43,8 @@ abstract class $TravelPageStateCopyWith<$Res> {
       List<TravelBudgetLine> budgetLines,
       List<TravelDay> days,
       bool loading,
-      String errorMessage});
+      String errorMessage,
+      FeedingStatistic? feedingStatistic});
 }
 
 /// @nodoc
@@ -65,6 +67,7 @@ class _$TravelPageStateCopyWithImpl<$Res, $Val extends TravelPageState>
     Object? days = null,
     Object? loading = null,
     Object? errorMessage = null,
+    Object? feedingStatistic = freezed,
   }) {
     return _then(_value.copyWith(
       tabIndex: null == tabIndex
@@ -95,6 +98,10 @@ class _$TravelPageStateCopyWithImpl<$Res, $Val extends TravelPageState>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String,
+      feedingStatistic: freezed == feedingStatistic
+          ? _value.feedingStatistic
+          : feedingStatistic // ignore: cast_nullable_to_non_nullable
+              as FeedingStatistic?,
     ) as $Val);
   }
 }
@@ -114,7 +121,8 @@ abstract class _$$_TravelPageStateCopyWith<$Res>
       List<TravelBudgetLine> budgetLines,
       List<TravelDay> days,
       bool loading,
-      String errorMessage});
+      String errorMessage,
+      FeedingStatistic? feedingStatistic});
 }
 
 /// @nodoc
@@ -135,6 +143,7 @@ class __$$_TravelPageStateCopyWithImpl<$Res>
     Object? days = null,
     Object? loading = null,
     Object? errorMessage = null,
+    Object? feedingStatistic = freezed,
   }) {
     return _then(_$_TravelPageState(
       tabIndex: null == tabIndex
@@ -165,6 +174,10 @@ class __$$_TravelPageStateCopyWithImpl<$Res>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String,
+      feedingStatistic: freezed == feedingStatistic
+          ? _value.feedingStatistic
+          : feedingStatistic // ignore: cast_nullable_to_non_nullable
+              as FeedingStatistic?,
     ));
   }
 }
@@ -179,7 +192,8 @@ class _$_TravelPageState implements _TravelPageState {
       required final List<TravelBudgetLine> budgetLines,
       required final List<TravelDay> days,
       required this.loading,
-      required this.errorMessage})
+      required this.errorMessage,
+      this.feedingStatistic})
       : _costs = costs,
         _insurances = insurances,
         _budgetLines = budgetLines,
@@ -223,10 +237,12 @@ class _$_TravelPageState implements _TravelPageState {
   final bool loading;
   @override
   final String errorMessage;
+  @override
+  final FeedingStatistic? feedingStatistic;
 
   @override
   String toString() {
-    return 'TravelPageState(tabIndex: $tabIndex, costs: $costs, insurances: $insurances, budgetLines: $budgetLines, days: $days, loading: $loading, errorMessage: $errorMessage)';
+    return 'TravelPageState(tabIndex: $tabIndex, costs: $costs, insurances: $insurances, budgetLines: $budgetLines, days: $days, loading: $loading, errorMessage: $errorMessage, feedingStatistic: $feedingStatistic)';
   }
 
   @override
@@ -244,7 +260,9 @@ class _$_TravelPageState implements _TravelPageState {
             const DeepCollectionEquality().equals(other._days, _days) &&
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.errorMessage, errorMessage) ||
-                other.errorMessage == errorMessage));
+                other.errorMessage == errorMessage) &&
+            (identical(other.feedingStatistic, feedingStatistic) ||
+                other.feedingStatistic == feedingStatistic));
   }
 
   @override
@@ -256,7 +274,8 @@ class _$_TravelPageState implements _TravelPageState {
       const DeepCollectionEquality().hash(_budgetLines),
       const DeepCollectionEquality().hash(_days),
       loading,
-      errorMessage);
+      errorMessage,
+      feedingStatistic);
 
   @JsonKey(ignore: true)
   @override
@@ -273,7 +292,8 @@ abstract class _TravelPageState implements TravelPageState {
       required final List<TravelBudgetLine> budgetLines,
       required final List<TravelDay> days,
       required final bool loading,
-      required final String errorMessage}) = _$_TravelPageState;
+      required final String errorMessage,
+      final FeedingStatistic? feedingStatistic}) = _$_TravelPageState;
 
   @override
   int get tabIndex;
@@ -289,6 +309,8 @@ abstract class _TravelPageState implements TravelPageState {
   bool get loading;
   @override
   String get errorMessage;
+  @override
+  FeedingStatistic? get feedingStatistic;
   @override
   @JsonKey(ignore: true)
   _$$_TravelPageStateCopyWith<_$_TravelPageState> get copyWith =>

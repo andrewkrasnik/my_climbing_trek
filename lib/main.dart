@@ -95,7 +95,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-          title: 'Flutter Demo',
+          title: 'My Climbing Trek',
           theme: ThemeData(
               colorScheme: const ColorScheme.light()
                   .copyWith(primary: Colors.blueGrey, surface: Colors.black)),

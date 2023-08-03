@@ -6,6 +6,7 @@ import 'package:my_climbing_trek/features/traveling/domain/entities/contact_type
 import 'package:my_climbing_trek/features/traveling/domain/entities/cost_line.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/cost_type.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/currency.dart';
+import 'package:my_climbing_trek/features/traveling/domain/entities/feeding_statistic.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/insurance_line.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel_budget_line.dart';
@@ -15,11 +16,11 @@ import 'package:my_climbing_trek/features/traveling/domain/usecases/travel_page/
 import 'package:my_climbing_trek/features/traveling/domain/usecases/travel_page/delete_insurance_line_usecase.dart';
 import 'package:my_climbing_trek/features/traveling/domain/usecases/travel_page/edit_budget_line_usecase.dart';
 import 'package:my_climbing_trek/features/traveling/domain/usecases/travel_page/edit_cost_line_usecase.dart';
-import 'package:my_climbing_trek/features/traveling/domain/usecases/travel_page/edit_day_line_usecase.dart';
 import 'package:my_climbing_trek/features/traveling/domain/usecases/travel_page/edit_insurance_line_usecase.dart';
 import 'package:my_climbing_trek/features/traveling/domain/usecases/travel_page/get_budget_line_usecase.dart';
 import 'package:my_climbing_trek/features/traveling/domain/usecases/travel_page/get_cost_lines_usecase.dart';
 import 'package:my_climbing_trek/features/traveling/domain/usecases/travel_page/get_day_lines_usecase.dart';
+import 'package:my_climbing_trek/features/traveling/domain/usecases/travel_page/get_feeding_statistic_usecase.dart';
 import 'package:my_climbing_trek/features/traveling/domain/usecases/travel_page/get_insurance_lines_usecase.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/cubit/add_travel_interface.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/cubit/edit_cost_line_interface.dart';
@@ -40,6 +41,7 @@ class TravelPageCubit extends Cubit<TravelPageState>
   final DeleteInsuranceLineUsecase _deleteInsuranceLineUsecase;
   final DeleteBudgetLineUsecase _deleteBudgetLineUsecase;
   final GetDayLinesUsecase _getDayLinesUsecase;
+  final GetFeedingStatisticUsecase _getFeedingStatisticUsecase;
 
   TravelPageCubit(
     this._deleteCostLineUsecase,
@@ -52,6 +54,7 @@ class TravelPageCubit extends Cubit<TravelPageState>
     this._deleteInsuranceLineUsecase,
     this._deleteBudgetLineUsecase,
     this._getDayLinesUsecase,
+    this._getFeedingStatisticUsecase,
   ) : super(TravelPageState.initial());
 
   void selectTab({required int tabIndex}) {
@@ -80,7 +83,19 @@ class TravelPageCubit extends Cubit<TravelPageState>
         errorMessage: failure.toString(),
         loading: false,
       ),
-      (days) => emit(state.copyWith(days: days, loading: false)),
+      (days) async {
+        emit(state.copyWith(days: days, loading: false));
+
+        final failureOrStatistic =
+            await _getFeedingStatisticUsecase(lines: days);
+
+        failureOrStatistic.fold(
+          (failure) => state.copyWith(
+            errorMessage: failure.toString(),
+          ),
+          (statistic) => emit(state.copyWith(feedingStatistic: statistic)),
+        );
+      },
     );
 
     final failureOrCostList = await _getCostLinesUsecase(travel: travel);

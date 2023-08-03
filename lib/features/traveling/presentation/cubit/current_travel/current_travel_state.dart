@@ -4,6 +4,7 @@ part of 'current_travel_cubit.dart';
 class CurrentTravelState with _$CurrentTravelState {
   const factory CurrentTravelState({
     Travel? travel,
+    TravelDay? travelDay,
     required bool useFilter,
     required String errorMessage,
   }) = _CurrentTravelState;

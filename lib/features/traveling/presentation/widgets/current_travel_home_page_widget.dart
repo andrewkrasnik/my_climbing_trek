@@ -87,22 +87,24 @@ class CurrentTravelHomePageWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-                InkWell(
-                  onTap: () async {
-                    await Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) =>
-                          TravelDayPage(day: state.travel!.travelDays.first),
-                    ));
+                if (state.travelDay != null) ...[
+                  InkWell(
+                    onTap: () async {
+                      await Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            TravelDayPage(day: state.travelDay!),
+                      ));
 
-                    BlocProvider.of<CurrentTravelCubit>(context).loadData();
-                  },
-                  child: TravelDayTitleWidget(
-                      travelDay: state.travel!.travelDays.first),
-                ),
-                TravelDayLinesWidget(
-                  stayLines: state.travel!.travelDays.first.stayLines,
-                  transportLines: state.travel!.travelDays.first.transportLines,
-                ),
+                      BlocProvider.of<CurrentTravelCubit>(context).loadData();
+                    },
+                    child: TravelDayTitleWidget(
+                        travelDay: state.travel!.travelDays.first),
+                  ),
+                  TravelDayLinesWidget(
+                    stayLines: state.travelDay!.stayLines,
+                    transportLines: state.travelDay!.transportLines,
+                  ),
+                ]
               ]);
       },
     );
