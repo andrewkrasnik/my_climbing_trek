@@ -70,8 +70,8 @@ class InsuranceParametersWidget extends HookWidget {
                 height: 16,
               ),
               TextFormField(
-                minLines: 1,
-                maxLines: 3,
+                minLines: 3,
+                maxLines: 5,
                 controller: descriptionController,
                 focusNode: descriptionFocusNode,
                 decoration: const InputDecoration(

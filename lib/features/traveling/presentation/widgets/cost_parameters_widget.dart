@@ -51,7 +51,10 @@ class CostParametersWidget extends HookWidget {
                 height: 16,
               ),
               SelectableChipGroupWidget<CostType>(
-                controller: typeController,
+                onTap: (value) {
+                  typeController.value = value;
+                },
+                currentValue: typeController.value,
                 lines: CostType.values,
               ),
               const SizedBox(height: 16),
@@ -65,7 +68,10 @@ class CostParametersWidget extends HookWidget {
               const SizedBox(height: 16),
               if (currencies.length > 1) ...[
                 SelectableChipGroupWidget<Currency>(
-                  controller: currencyController,
+                  onTap: (value) {
+                    currencyController.value = value;
+                  },
+                  currentValue: currencyController.value,
                   lines: currencies,
                 ),
                 const SizedBox(height: 16),

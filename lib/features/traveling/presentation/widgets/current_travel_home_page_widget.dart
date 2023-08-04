@@ -77,11 +77,13 @@ class CurrentTravelHomePageWidget extends StatelessWidget {
                       icon: const Icon(Icons.remove),
                     ),
                     IconButton.outlined(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
+                      onPressed: () async {
+                        await Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => TravelPage(
                                   travel: state.travel!,
                                 )));
+
+                        BlocProvider.of<CurrentTravelCubit>(context).loadData();
                       },
                       icon: const Icon(Icons.info),
                     ),
@@ -97,8 +99,7 @@ class CurrentTravelHomePageWidget extends StatelessWidget {
 
                       BlocProvider.of<CurrentTravelCubit>(context).loadData();
                     },
-                    child: TravelDayTitleWidget(
-                        travelDay: state.travel!.travelDays.first),
+                    child: TravelDayTitleWidget(travelDay: state.travelDay!),
                   ),
                   TravelDayLinesWidget(
                     stayLines: state.travelDay!.stayLines,

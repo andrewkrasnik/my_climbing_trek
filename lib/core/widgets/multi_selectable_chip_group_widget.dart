@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class SelectableChipGroupWidget<T> extends StatelessWidget {
-  final T? currentValue;
+class MultiSelectableChipGroupWidget<T> extends StatelessWidget {
   final List<T> lines;
+  final List<T> selectedLines;
   final Widget? title;
-  final void Function(T value) onTap;
+  final void Function(bool selected, T value) onTap;
 
-  const SelectableChipGroupWidget({
+  const MultiSelectableChipGroupWidget({
     required this.lines,
     required this.onTap,
-    this.currentValue,
+    required this.selectedLines,
     this.title,
     Key? key,
   }) : super(key: key);
@@ -24,20 +24,20 @@ class SelectableChipGroupWidget<T> extends StatelessWidget {
           const SizedBox(width: 4),
         ],
         ...lines.map((value) {
-          final bool current = currentValue == value;
+          final bool selected = selectedLines.contains(value);
           return InkWell(
             onTap: () {
-              onTap(value);
+              onTap(selected, value);
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 2),
               child: Chip(
-                backgroundColor: current
+                backgroundColor: selected
                     ? Theme.of(context).hintColor
                     : Theme.of(context).hintColor.withOpacity(0.1),
                 label: Text(
                   value.toString(),
-                  style: current
+                  style: selected
                       ? const TextStyle(color: Colors.white)
                       : TextStyle(color: Theme.of(context).colorScheme.surface),
                 ),

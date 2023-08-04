@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:my_climbing_trek/core/extentions/date_time_extention.dart';
+import 'package:my_climbing_trek/core/widgets/multi_selectable_chip_group_widget.dart';
 import 'package:my_climbing_trek/core/widgets/my_cached_network_image.dart';
 import 'package:my_climbing_trek/core/widgets/my_modal_bottom_sheet.dart';
+import 'package:my_climbing_trek/core/widgets/selectable_chip_group_widget.dart';
 import 'package:my_climbing_trek/core/widgets/slidable_data_line_widget.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/cost_line.dart';
+import 'package:my_climbing_trek/features/traveling/domain/entities/currency.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/feeding_line.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/cubit/travel_page/travel_page_cubit.dart';
@@ -209,17 +212,28 @@ class TravelPage extends StatelessWidget {
                                             Icons.add,
                                             color: Colors.green,
                                           ),
-                                title: Row(
+                                title: Text(cost.type.name),
+                                subtitle: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
+                                    if (cost.description.isNotEmpty)
+                                      Text(cost.description),
                                     Text(cost.date.dayString()),
-                                    const SizedBox(width: 4),
-                                    Text(cost.type.name),
                                   ],
                                 ),
-                                subtitle: Text(cost.description),
-                                trailing: Text(
-                                  cost.sum.toString(),
-                                  style: const TextStyle(fontSize: 20),
+                                trailing: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      cost.sum.toString(),
+                                      style: const TextStyle(fontSize: 20),
+                                    ),
+                                    Text(
+                                      cost.currency.name,
+                                      style: const TextStyle(fontSize: 12),
+                                    ),
+                                  ],
                                 ),
                               ),
                             )),
@@ -258,7 +272,16 @@ class TravelPage extends StatelessWidget {
                         ),
                       ],
                       if (state.tabIndex == 2) ...[
-                        Text(' ${travel.budgetCurrency.name}'),
+                        if (state.travel != null)
+                          SelectableChipGroupWidget<Currency>(
+                            title: const Text('Валюта бюджета:'),
+                            onTap: (currency) {
+                              cubit.setBudgetCurrency(
+                                  travel: state.travel!, currency: currency);
+                            },
+                            currentValue: state.travel!.budgetCurrency,
+                            lines: state.travel!.currencies,
+                          ),
                         ...state.budgetLines.map(
                           (line) => Slidable(
                             child: SlidableDataLineWidget(
@@ -409,19 +432,40 @@ class TravelPage extends StatelessWidget {
                             child: const Text('Добавить')),
                       ],
                       if (state.tabIndex == 4 && state.feedingStatistic != null)
-                        ...state.feedingStatistic!.statistic.keys.map((meal) =>
-                            Column(
-                              children: [
-                                Text(meal.description),
-                                ...state.feedingStatistic!.statistic[meal]!.keys
-                                    .map((type) {
-                                  final count = state.feedingStatistic!
-                                      .statistic[meal]![type]!;
-                                  return Text('${type.description}: $count');
-                                }),
-                                const SizedBox(height: 8)
-                              ],
-                            )),
+                        ...state.feedingStatistic!.statistic.keys.map(
+                          (meal) => Column(
+                            children: [
+                              Text(meal.description),
+                              ...state.feedingStatistic!.statistic[meal]!.keys
+                                  .map((type) {
+                                final count = state
+                                    .feedingStatistic!.statistic[meal]![type]!;
+                                return Text('${type.description}: $count');
+                              }),
+                              const SizedBox(height: 8)
+                            ],
+                          ),
+                        ),
+                      if (state.tabIndex == 5) ...[
+                        MultiSelectableChipGroupWidget(
+                            lines: Currency.values,
+                            title: const Text('Валюты:'),
+                            onTap: (selected, currency) {
+                              if (state.travel != null) {
+                                final currencies = state.travel!.currencies;
+                                if (selected) {
+                                  currencies.remove(currency);
+                                } else {
+                                  currencies.add(currency);
+                                }
+
+                                cubit.setCurrencies(
+                                    travel: state.travel!,
+                                    currencies: currencies);
+                              }
+                            },
+                            selectedLines: state.travel?.currencies ?? [])
+                      ]
                     ],
                   ),
                 ),

@@ -44,7 +44,10 @@ class BudgetParametersWidget extends HookWidget {
                 height: 16,
               ),
               SelectableChipGroupWidget<CostType>(
-                controller: typeController,
+                onTap: (value) {
+                  typeController.value = value;
+                },
+                currentValue: typeController.value,
                 lines: CostType.values,
               ),
               const SizedBox(height: 16),

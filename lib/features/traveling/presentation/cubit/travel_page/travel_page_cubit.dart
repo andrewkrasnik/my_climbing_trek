@@ -473,6 +473,46 @@ class TravelPageCubit extends Cubit<TravelPageState>
     );
   }
 
+  Future<void> setCurrencies({
+    required Travel travel,
+    required List<Currency> currencies,
+  }) async {
+    emit(state.copyWith(loading: true));
+
+    final failureOrTravel = await _editTravelUsecase(
+      travel: travel,
+      currencies: currencies,
+    );
+
+    failureOrTravel.fold(
+      (failure) => state.copyWith(
+        errorMessage: failure.toString(),
+        loading: false,
+      ),
+      (travel) => loadData(travel: travel),
+    );
+  }
+
+  Future<void> setBudgetCurrency({
+    required Travel travel,
+    required Currency currency,
+  }) async {
+    emit(state.copyWith(loading: true));
+
+    final failureOrTravel = await _editTravelUsecase(
+      travel: travel,
+      budgetCurrency: currency,
+    );
+
+    failureOrTravel.fold(
+      (failure) => state.copyWith(
+        errorMessage: failure.toString(),
+        loading: false,
+      ),
+      (travel) => loadData(travel: travel),
+    );
+  }
+
   void clearErrorMessage() {
     emit(state.copyWith(errorMessage: ''));
   }
