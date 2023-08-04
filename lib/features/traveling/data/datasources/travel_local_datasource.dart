@@ -13,11 +13,7 @@ abstract class TravelLocalDatasource {
 
   Future<Either<Failure, Unit>> deleteTravel({required Travel travel});
 
-  Future<Either<Failure, List<Travel>>> getTreanings();
-
-  Future<Either<Failure, List<Travel>>> getPlanedTravels();
-
-  Future<Either<Failure, List<Travel>>> getTravels();
+  Future<Either<Failure, List<Travel>>> getTravels({TravelStatus? status});
 
   Future<Either<Failure, Unit>> editBudgetLine(
       {required TravelBudgetLine line});

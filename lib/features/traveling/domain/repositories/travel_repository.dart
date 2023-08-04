@@ -16,8 +16,6 @@ abstract class TravelRepository {
 
   Future<Either<Failure, List<Treaning>>> getTreanings();
 
-  Future<Either<Failure, List<Travel>>> getPlanedTravels();
-
   Future<Either<Failure, List<Travel>>> getTravels({TravelStatus? status});
 
   Future<Either<Failure, Unit>> editBudgetLine(

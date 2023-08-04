@@ -46,10 +46,13 @@ class TravelsPage extends StatelessWidget {
                             travel: travel,
                             height: 240,
                             showStatus: true,
-                            onTap: () => Navigator.of(context).push(
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        TravelPage(travel: travel))),
+                            onTap: () async {
+                              await Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          TravelPage(travel: travel)));
+                              BlocProvider.of<TravelsCubit>(context).loadData();
+                            },
                           );
                         },
                         separatorBuilder: (context, index) => const SizedBox(

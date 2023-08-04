@@ -5,7 +5,6 @@ import 'package:injectable/injectable.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/contact_line.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/contact_type.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/feeding_line.dart';
-import 'package:my_climbing_trek/features/traveling/domain/entities/feeding_statistic.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/stay_line.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/transport_line.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/transport_type.dart';

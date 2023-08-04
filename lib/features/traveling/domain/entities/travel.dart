@@ -2,10 +2,7 @@ import 'package:intl/intl.dart';
 import 'package:my_climbing_trek/core/data/region.dart';
 import 'package:my_climbing_trek/core/data/treaning.dart';
 import 'package:my_climbing_trek/core/extentions/date_time_extention.dart';
-import 'package:my_climbing_trek/features/traveling/domain/entities/cost_line.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/currency.dart';
-import 'package:my_climbing_trek/features/traveling/domain/entities/insurance_line.dart';
-import 'package:my_climbing_trek/features/traveling/domain/entities/travel_budget.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel_day.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel_filter.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel_finish.dart';
@@ -15,9 +12,6 @@ class Travel extends Treaning {
   final List<Region> regions;
   final String name;
   final String description;
-  final TravelBudget? budget;
-  final List<CostLine> costs;
-  final List<InsuranceLine> insurances;
   final List<Currency> currencies;
   final TravelStatus status;
   final Currency budgetCurrency;
@@ -32,14 +26,9 @@ class Travel extends Treaning {
     this.status = TravelStatus.planed,
     this.description = '',
     super.id,
-    this.budget,
-    List<CostLine>? costs,
-    List<InsuranceLine>? insurances,
     List<Currency>? currencies,
     Currency? budgetCurrency,
-  })  : insurances = insurances ?? [],
-        costs = costs ?? [],
-        currencies = [Currency.rub],
+  })  : currencies = currencies ?? [Currency.rub],
         budgetCurrency = budgetCurrency ?? Currency.rub;
 
   TravelFilter get filter {
@@ -91,7 +80,7 @@ class Travel extends Treaning {
   List<TravelStatus> get nextStatuses {
     switch (status) {
       case TravelStatus.planed:
-        return [TravelStatus.canceled, TravelStatus.started];
+        return [TravelStatus.started, TravelStatus.canceled];
       case TravelStatus.started:
         return [TravelStatus.finished];
       default:
@@ -113,6 +102,19 @@ extension TravelStatusExtension on TravelStatus {
         return 'Завершено';
       case TravelStatus.canceled:
         return 'Отменено';
+    }
+  }
+
+  String get action {
+    switch (this) {
+      case TravelStatus.planed:
+        return 'Запланировать';
+      case TravelStatus.started:
+        return 'Начать';
+      case TravelStatus.finished:
+        return 'Завершить';
+      case TravelStatus.canceled:
+        return 'Отменить';
     }
   }
 }

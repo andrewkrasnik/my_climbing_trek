@@ -16,6 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$TravelPageState {
+  Travel? get travel => throw _privateConstructorUsedError;
   int get tabIndex => throw _privateConstructorUsedError;
   List<CostLine> get costs => throw _privateConstructorUsedError;
   List<InsuranceLine> get insurances => throw _privateConstructorUsedError;
@@ -37,7 +38,8 @@ abstract class $TravelPageStateCopyWith<$Res> {
       _$TravelPageStateCopyWithImpl<$Res, TravelPageState>;
   @useResult
   $Res call(
-      {int tabIndex,
+      {Travel? travel,
+      int tabIndex,
       List<CostLine> costs,
       List<InsuranceLine> insurances,
       List<TravelBudgetLine> budgetLines,
@@ -60,6 +62,7 @@ class _$TravelPageStateCopyWithImpl<$Res, $Val extends TravelPageState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? travel = freezed,
     Object? tabIndex = null,
     Object? costs = null,
     Object? insurances = null,
@@ -70,6 +73,10 @@ class _$TravelPageStateCopyWithImpl<$Res, $Val extends TravelPageState>
     Object? feedingStatistic = freezed,
   }) {
     return _then(_value.copyWith(
+      travel: freezed == travel
+          ? _value.travel
+          : travel // ignore: cast_nullable_to_non_nullable
+              as Travel?,
       tabIndex: null == tabIndex
           ? _value.tabIndex
           : tabIndex // ignore: cast_nullable_to_non_nullable
@@ -115,7 +122,8 @@ abstract class _$$_TravelPageStateCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int tabIndex,
+      {Travel? travel,
+      int tabIndex,
       List<CostLine> costs,
       List<InsuranceLine> insurances,
       List<TravelBudgetLine> budgetLines,
@@ -136,6 +144,7 @@ class __$$_TravelPageStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? travel = freezed,
     Object? tabIndex = null,
     Object? costs = null,
     Object? insurances = null,
@@ -146,6 +155,10 @@ class __$$_TravelPageStateCopyWithImpl<$Res>
     Object? feedingStatistic = freezed,
   }) {
     return _then(_$_TravelPageState(
+      travel: freezed == travel
+          ? _value.travel
+          : travel // ignore: cast_nullable_to_non_nullable
+              as Travel?,
       tabIndex: null == tabIndex
           ? _value.tabIndex
           : tabIndex // ignore: cast_nullable_to_non_nullable
@@ -186,7 +199,8 @@ class __$$_TravelPageStateCopyWithImpl<$Res>
 
 class _$_TravelPageState implements _TravelPageState {
   const _$_TravelPageState(
-      {required this.tabIndex,
+      {this.travel,
+      required this.tabIndex,
       required final List<CostLine> costs,
       required final List<InsuranceLine> insurances,
       required final List<TravelBudgetLine> budgetLines,
@@ -199,6 +213,8 @@ class _$_TravelPageState implements _TravelPageState {
         _budgetLines = budgetLines,
         _days = days;
 
+  @override
+  final Travel? travel;
   @override
   final int tabIndex;
   final List<CostLine> _costs;
@@ -242,7 +258,7 @@ class _$_TravelPageState implements _TravelPageState {
 
   @override
   String toString() {
-    return 'TravelPageState(tabIndex: $tabIndex, costs: $costs, insurances: $insurances, budgetLines: $budgetLines, days: $days, loading: $loading, errorMessage: $errorMessage, feedingStatistic: $feedingStatistic)';
+    return 'TravelPageState(travel: $travel, tabIndex: $tabIndex, costs: $costs, insurances: $insurances, budgetLines: $budgetLines, days: $days, loading: $loading, errorMessage: $errorMessage, feedingStatistic: $feedingStatistic)';
   }
 
   @override
@@ -250,6 +266,7 @@ class _$_TravelPageState implements _TravelPageState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_TravelPageState &&
+            (identical(other.travel, travel) || other.travel == travel) &&
             (identical(other.tabIndex, tabIndex) ||
                 other.tabIndex == tabIndex) &&
             const DeepCollectionEquality().equals(other._costs, _costs) &&
@@ -268,6 +285,7 @@ class _$_TravelPageState implements _TravelPageState {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      travel,
       tabIndex,
       const DeepCollectionEquality().hash(_costs),
       const DeepCollectionEquality().hash(_insurances),
@@ -286,7 +304,8 @@ class _$_TravelPageState implements _TravelPageState {
 
 abstract class _TravelPageState implements TravelPageState {
   const factory _TravelPageState(
-      {required final int tabIndex,
+      {final Travel? travel,
+      required final int tabIndex,
       required final List<CostLine> costs,
       required final List<InsuranceLine> insurances,
       required final List<TravelBudgetLine> budgetLines,
@@ -295,6 +314,8 @@ abstract class _TravelPageState implements TravelPageState {
       required final String errorMessage,
       final FeedingStatistic? feedingStatistic}) = _$_TravelPageState;
 
+  @override
+  Travel? get travel;
   @override
   int get tabIndex;
   @override

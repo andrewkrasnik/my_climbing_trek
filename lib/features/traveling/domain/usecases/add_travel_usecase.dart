@@ -28,6 +28,22 @@ class AddTravelUsecase {
         image: image);
 
     final failureOrUnit = await _travelRepository.saveTravel(travel: travel);
-    return failureOrUnit.fold((failure) => Left(failure), (_) => Right(travel));
+    return failureOrUnit.fold((failure) => Left(failure), (_) async {
+      final days = travel.travelDays;
+
+      for (final day in days) {
+        final failureOrDayUnit =
+            await _travelRepository.editTravelDay(line: day);
+
+        if (failureOrDayUnit.isLeft()) {
+          return failureOrDayUnit.fold(
+            (failure) => Left(failure),
+            (_) => Left(Failure()),
+          );
+        }
+      }
+
+      return Right(travel);
+    });
   }
 }

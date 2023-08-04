@@ -3,7 +3,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel.dart';
 import 'package:my_climbing_trek/features/traveling/domain/usecases/add_travel_usecase.dart';
-import 'package:my_climbing_trek/features/traveling/domain/usecases/get_planed_travels_usecase.dart';
 import 'package:my_climbing_trek/features/traveling/domain/usecases/get_travels_usecase.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/cubit/add_travel_interface.dart';
 
@@ -13,12 +12,10 @@ part 'travels_cubit.freezed.dart';
 @Injectable()
 class TravelsCubit extends Cubit<TravelsState> implements AddTravelInterface {
   final GetTravelsUsecase _getTravelsUsecase;
-  final GetPlanedTravelsUsecase _getPlanedTravelsUsecase;
   final AddTravelUsecase _addTravelUsecase;
 
   TravelsCubit(
     this._getTravelsUsecase,
-    this._getPlanedTravelsUsecase,
     this._addTravelUsecase,
   ) : super(const TravelsState.initial());
 
@@ -33,7 +30,8 @@ class TravelsCubit extends Cubit<TravelsState> implements AddTravelInterface {
 
   Future<void> loadPlanedData() async {
     emit(const TravelsState.loading());
-    final failureOrTravels = await _getPlanedTravelsUsecase();
+    final failureOrTravels =
+        await _getTravelsUsecase(status: TravelStatus.planed);
 
     failureOrTravels.fold(
         (failure) => emit(TravelsState.error(description: failure.toString())),
@@ -48,6 +46,7 @@ class TravelsCubit extends Cubit<TravelsState> implements AddTravelInterface {
     DateTime? date,
     DateTime? start,
     DateTime? finish,
+    Travel? travel,
   }) async {
     final failureOrTravel = await _addTravelUsecase(
       name: name,

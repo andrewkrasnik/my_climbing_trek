@@ -124,6 +124,7 @@ class TravelParametersWidget extends HookWidget {
                       image: imageController.text,
                       start: startController.value,
                       finish: finishController.value,
+                      travel: travel,
                     );
 
                     Navigator.of(context).pop();

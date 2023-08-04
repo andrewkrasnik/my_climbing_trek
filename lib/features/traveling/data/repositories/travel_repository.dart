@@ -33,15 +33,23 @@ class TravelRepositoryImpl implements TravelRepository {
 
   @override
   Future<Either<Failure, List<Treaning>>> getTreanings() async {
-    final failureOrTravels = await _travelLocalDatasource.getTreanings();
-    return failureOrTravels.fold((failure) => Left(failure), (travels) {
+    final failureOrTravels =
+        await _travelLocalDatasource.getTravels(status: TravelStatus.finished);
+    return failureOrTravels.fold((failure) => Left(failure), (travels) async {
       final List<Treaning> treanings = [];
 
       for (var travel in travels) {
+        final failureOrDays =
+            await _travelLocalDatasource.getTravelDays(travel: travel);
+
+        if (failureOrDays.isLeft()) {
+          return Left((failureOrDays as Left).value);
+        }
+
         treanings.addAll([
           travel.travelStart,
           travel.travelFinish,
-          ...travel.travelDays,
+          ...(failureOrDays as Right<Failure, List<TravelDay>>).value,
         ]);
       }
 
@@ -50,14 +58,9 @@ class TravelRepositoryImpl implements TravelRepository {
   }
 
   @override
-  Future<Either<Failure, List<Travel>>> getPlanedTravels() async {
-    return await _travelLocalDatasource.getPlanedTravels();
-  }
-
-  @override
   Future<Either<Failure, List<Travel>>> getTravels(
       {TravelStatus? status}) async {
-    return await _travelLocalDatasource.getTravels();
+    return await _travelLocalDatasource.getTravels(status: status);
   }
 
   @override

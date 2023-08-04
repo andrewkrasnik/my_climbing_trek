@@ -3,14 +3,10 @@ import 'package:injectable/injectable.dart';
 import 'package:my_climbing_trek/core/data/region.dart';
 import 'package:my_climbing_trek/core/failures/failure.dart';
 import 'package:my_climbing_trek/features/traveling/data/datasources/travel_local_datasource.dart';
-import 'package:my_climbing_trek/features/traveling/domain/entities/contact_line.dart';
-import 'package:my_climbing_trek/features/traveling/domain/entities/contact_type.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/cost_line.dart';
-import 'package:my_climbing_trek/features/traveling/domain/entities/cost_type.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/currency.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/insurance_line.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel.dart';
-import 'package:my_climbing_trek/features/traveling/domain/entities/travel_budget.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel_budget_line.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel_day.dart';
 
@@ -46,48 +42,6 @@ class MockTravelLocalDatasource implements TravelLocalDatasource {
               'https://biomehanika-ekb.ru/wp-content/uploads/2016/02/p0608_06-150x150.jpg',
         ),
       ],
-      budget: TravelBudget(
-        currency: Currency.rub,
-        amount: 100000,
-        lines: [
-          TravelBudgetLine(
-              type: CostType.organization, amount: 35000, travelId: '1'),
-          TravelBudgetLine(
-              type: CostType.transport, amount: 30000, travelId: '1'),
-        ],
-      ),
-      costs: [
-        CostLine(
-            date: DateTime.now(),
-            type: CostType.transport,
-            currency: Currency.rub,
-            incomeExpense: IncomeExpense.expense,
-            sum: 35000,
-            travelId: '1'),
-        CostLine(
-            date: DateTime.now(),
-            type: CostType.transport,
-            currency: Currency.rub,
-            incomeExpense: IncomeExpense.income,
-            sum: 5000,
-            travelId: '1'),
-      ],
-      insurances: [
-        InsuranceLine(
-          travelId: '1',
-          insurer: 'Согласие',
-          description: 'на весь период, с эвакуацией',
-          insurant: 'Андрей',
-          number: 'RG324 N3242',
-          contacts: [
-            ContactLine(
-              type: ContactType.phone,
-              data: '+7 495 333 22 11',
-              description: 'звонок бесплатный',
-            ),
-          ],
-        )
-      ],
     ),
     Travel(
       name: 'Хибины 2023',
@@ -122,26 +76,25 @@ class MockTravelLocalDatasource implements TravelLocalDatasource {
   }
 
   @override
-  Future<Either<Failure, List<Travel>>> getTreanings() async {
-    return Right(_list);
-  }
-
-  @override
   Future<Either<Failure, Unit>> saveTravel({required Travel travel}) async {
-    if (!_list.contains(travel)) {
+    final index = _list.indexWhere((element) => element.id == travel.id);
+    if (index < 0) {
       _list.add(travel);
+    } else {
+      _list[index] = travel;
     }
+
     return const Right(unit);
   }
 
   @override
-  Future<Either<Failure, List<Travel>>> getPlanedTravels() async {
-    return Right(_list);
-  }
-
-  @override
-  Future<Either<Failure, List<Travel>>> getTravels() async {
-    return Right(_list);
+  Future<Either<Failure, List<Travel>>> getTravels(
+      {TravelStatus? status}) async {
+    if (status == null) {
+      return Right(_list);
+    } else {
+      return Right(_list.where((element) => element.status == status).toList());
+    }
   }
 
   @override

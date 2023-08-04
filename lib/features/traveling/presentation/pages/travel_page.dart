@@ -55,26 +55,30 @@ class TravelPage extends StatelessWidget {
                   snap: false,
                   flexibleSpace: FlexibleSpaceBar(
                     background: Hero(
-                      tag: 'travel${travel.id}',
+                      tag: 'travel${state.travel?.id ?? ''}',
                       child: MyCachedNetworkImage(
-                          imageUrl: travel.image, fit: BoxFit.cover),
+                          imageUrl: state.travel?.image ?? '',
+                          fit: BoxFit.cover),
                     ),
                     centerTitle: true,
                     title: InkWell(
                       onTap: () {
-                        showMyModalBottomSheet<void>(
-                          context: context,
-                          heightPersent: 0.8,
-                          child: TravelParametersWidget(
-                              travel: travel,
-                              cubit: BlocProvider.of<TravelPageCubit>(context)),
-                        );
+                        if (state.travel != null) {
+                          showMyModalBottomSheet<void>(
+                            context: context,
+                            heightPersent: 0.8,
+                            child: TravelParametersWidget(
+                                travel: state.travel!,
+                                cubit:
+                                    BlocProvider.of<TravelPageCubit>(context)),
+                          );
+                        }
                       },
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            travel.name,
+                            state.travel?.name ?? '',
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 20,
@@ -84,7 +88,7 @@ class TravelPage extends StatelessWidget {
                                 ]),
                           ),
                           Text(
-                            travel.period,
+                            state.travel?.period ?? '',
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 14,
@@ -97,7 +101,35 @@ class TravelPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  actions: [],
+                  actions: [
+                    PopupMenuButton<Text>(
+                      itemBuilder: (context) {
+                        return [
+                          if (state.travel != null)
+                            ...state.travel!.nextStatuses.map(
+                              (status) => PopupMenuItem(
+                                onTap: () {
+                                  if (state.travel != null) {
+                                    BlocProvider.of<TravelPageCubit>(context)
+                                        .setStatus(
+                                            travel: state.travel!,
+                                            status: status);
+                                  }
+                                },
+                                child: Text(
+                                  status.action,
+                                ),
+                              ),
+                            ),
+                          const PopupMenuItem(
+                            child: Text(
+                              'Удалить',
+                            ),
+                          ),
+                        ];
+                      },
+                    )
+                  ],
                 ),
                 SliverList(
                   delegate: SliverChildListDelegate(
@@ -225,52 +257,50 @@ class TravelPage extends StatelessWidget {
                           ],
                         ),
                       ],
-                      if (state.tabIndex == 2)
-                        if (travel.budget != null) ...[
-                          Text(
-                              '${travel.budget!.amount.toString()} ${travel.budget!.currency.name}'),
-                          ...state.budgetLines.map(
-                            (line) => Slidable(
-                              child: SlidableDataLineWidget(
-                                onDelete: (context) {
-                                  cubit.deleteBudgetLine(
-                                      travel: travel, line: line);
-                                },
-                                onEdit: (context) {
-                                  showMyModalBottomSheet<void>(
-                                    context: context,
-                                    heightPersent: 0.8,
-                                    child: BudgetParametersWidget(
-                                      travel: travel,
-                                      cubit: cubit,
-                                      line: line,
-                                    ),
-                                  );
-                                },
-                                child: ListTile(
-                                  title: Text(line.type.name),
-                                  subtitle: Text(line.description),
-                                  trailing: Text(
-                                    line.amount.toString(),
-                                    style: const TextStyle(fontSize: 20),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          OutlinedButton(
-                              onPressed: () {
+                      if (state.tabIndex == 2) ...[
+                        Text(' ${travel.budgetCurrency.name}'),
+                        ...state.budgetLines.map(
+                          (line) => Slidable(
+                            child: SlidableDataLineWidget(
+                              onDelete: (context) {
+                                cubit.deleteBudgetLine(
+                                    travel: travel, line: line);
+                              },
+                              onEdit: (context) {
                                 showMyModalBottomSheet<void>(
                                   context: context,
                                   heightPersent: 0.8,
                                   child: BudgetParametersWidget(
                                     travel: travel,
                                     cubit: cubit,
+                                    line: line,
                                   ),
                                 );
                               },
-                              child: const Text('Добавить')),
-                        ],
+                              child: ListTile(
+                                title: Text(line.type.name),
+                                subtitle: Text(line.description),
+                                trailing: Text(
+                                  line.amount.toString(),
+                                  style: const TextStyle(fontSize: 20),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        OutlinedButton(
+                            onPressed: () {
+                              showMyModalBottomSheet<void>(
+                                context: context,
+                                heightPersent: 0.8,
+                                child: BudgetParametersWidget(
+                                  travel: travel,
+                                  cubit: cubit,
+                                ),
+                              );
+                            },
+                            child: const Text('Добавить')),
+                      ],
                       if (state.tabIndex == 3) ...[
                         ...state.insurances.map((insurance) =>
                             SlidableDataLineWidget(

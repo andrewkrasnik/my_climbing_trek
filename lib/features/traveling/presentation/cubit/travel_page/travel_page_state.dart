@@ -3,6 +3,7 @@ part of 'travel_page_cubit.dart';
 @freezed
 class TravelPageState with _$TravelPageState {
   const factory TravelPageState({
+    Travel? travel,
     required int tabIndex,
     required List<CostLine> costs,
     required List<InsuranceLine> insurances,

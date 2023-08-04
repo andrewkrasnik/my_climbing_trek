@@ -11,6 +11,7 @@ import 'package:my_climbing_trek/features/traveling/domain/entities/insurance_li
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel_budget_line.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel_day.dart';
+import 'package:my_climbing_trek/features/traveling/domain/usecases/edit_travel_usecase.dart';
 import 'package:my_climbing_trek/features/traveling/domain/usecases/travel_page/delete_budget_line_usecase.dart';
 import 'package:my_climbing_trek/features/traveling/domain/usecases/travel_page/delete_cost_line_usecase.dart';
 import 'package:my_climbing_trek/features/traveling/domain/usecases/travel_page/delete_insurance_line_usecase.dart';
@@ -42,6 +43,7 @@ class TravelPageCubit extends Cubit<TravelPageState>
   final DeleteBudgetLineUsecase _deleteBudgetLineUsecase;
   final GetDayLinesUsecase _getDayLinesUsecase;
   final GetFeedingStatisticUsecase _getFeedingStatisticUsecase;
+  final EditTravelUsecase _editTravelUsecase;
 
   TravelPageCubit(
     this._deleteCostLineUsecase,
@@ -55,6 +57,7 @@ class TravelPageCubit extends Cubit<TravelPageState>
     this._deleteBudgetLineUsecase,
     this._getDayLinesUsecase,
     this._getFeedingStatisticUsecase,
+    this._editTravelUsecase,
   ) : super(TravelPageState.initial());
 
   void selectTab({required int tabIndex}) {
@@ -62,19 +65,38 @@ class TravelPageCubit extends Cubit<TravelPageState>
   }
 
   @override
-  Future<void> addTravel(
-      {required String name,
-      required String description,
-      required String image,
-      DateTime? date,
-      DateTime? start,
-      DateTime? finish}) {
-    // TODO: implement addTravel
-    throw UnimplementedError();
+  Future<void> addTravel({
+    required String name,
+    required String description,
+    required String image,
+    DateTime? date,
+    DateTime? start,
+    DateTime? finish,
+    Travel? travel,
+  }) async {
+    if (travel != null) {
+      emit(state.copyWith(loading: true));
+      final failureOrTravel = await _editTravelUsecase(
+        travel: travel,
+        name: name,
+        description: description,
+        start: start,
+        finish: finish,
+        image: image,
+      );
+
+      failureOrTravel.fold(
+        (failure) => state.copyWith(
+          errorMessage: failure.toString(),
+          loading: false,
+        ),
+        (travel) => loadData(travel: travel),
+      );
+    }
   }
 
   Future<void> loadData({required Travel travel}) async {
-    emit(state.copyWith(loading: true));
+    emit(state.copyWith(travel: travel, loading: true));
 
     final failureOrDays = await _getDayLinesUsecase(travel: travel);
 
@@ -132,6 +154,7 @@ class TravelPageCubit extends Cubit<TravelPageState>
     );
   }
 
+  @override
   Future<void> editCostLine({
     required Currency currency,
     required IncomeExpense incomeExpense,
@@ -427,6 +450,26 @@ class TravelPageCubit extends Cubit<TravelPageState>
               emit(state.copyWith(budgetLines: budgetLines, loading: false)),
         );
       },
+    );
+  }
+
+  Future<void> setStatus({
+    required Travel travel,
+    required TravelStatus status,
+  }) async {
+    emit(state.copyWith(loading: true));
+
+    final failureOrTravel = await _editTravelUsecase(
+      travel: travel,
+      status: status,
+    );
+
+    failureOrTravel.fold(
+      (failure) => state.copyWith(
+        errorMessage: failure.toString(),
+        loading: false,
+      ),
+      (travel) => loadData(travel: travel),
     );
   }
 
