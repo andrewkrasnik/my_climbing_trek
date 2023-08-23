@@ -15,4 +15,9 @@ enum DBTables {
   techniqueTreaningsItems,
   ascensions,
   ascensionEvents,
+  travels,
+  travelDays,
+  travelBudget,
+  travelCosts,
+  travelInsurance,
 }

@@ -23,7 +23,7 @@ class DriftDBLocalDataSource extends _$DriftDBLocalDataSource
   DriftDBLocalDataSource() : super(_openConnection());
 
   @override
-  int get schemaVersion => 18;
+  int get schemaVersion => 19;
 
   @override
   MigrationStrategy get migration {
@@ -104,6 +104,13 @@ class DriftDBLocalDataSource extends _$DriftDBLocalDataSource
         if (from < 18) {
           await m.createTable(driftAscensionsTable);
           await m.createTable(driftAscensionEventsTable);
+        }
+        if (from < 19) {
+          await m.createTable(driftTravelsTable);
+          await m.createTable(driftTravelDaysTable);
+          await m.createTable(driftCostLinesTable);
+          await m.createTable(driftBudgetLinesTable);
+          await m.createTable(driftInsuranceLinesTable);
         }
       },
     );
@@ -334,6 +341,21 @@ class DriftDBLocalDataSource extends _$DriftDBLocalDataSource
       case DBTables.ascensionEvents:
         return Right(driftAscensionEventsTable);
 
+      case DBTables.travels:
+        return Right(driftTravelsTable);
+
+      case DBTables.travelDays:
+        return Right(driftTravelDaysTable);
+
+      case DBTables.travelCosts:
+        return Right(driftCostLinesTable);
+
+      case DBTables.travelInsurance:
+        return Right(driftInsuranceLinesTable);
+
+      case DBTables.travelBudget:
+        return Right(driftBudgetLinesTable);
+
       default:
         return Left(DataBaseFailure(
             description: 'Drift DB - неизвестная таблица: $table'));
@@ -390,6 +412,21 @@ class DriftDBLocalDataSource extends _$DriftDBLocalDataSource
 
       case DBTables.ascensionEvents:
         return DriftAscensionEvent.fromJson(json);
+
+      case DBTables.travels:
+        return DriftTravel.fromJson(json);
+
+      case DBTables.travelDays:
+        return DriftTravelDay.fromJson(json);
+
+      case DBTables.travelCosts:
+        return DriftCostLine.fromJson(json);
+
+      case DBTables.travelInsurance:
+        return DriftInsuranceLine.fromJson(json);
+
+      case DBTables.travelBudget:
+        return DriftBudgetLine.fromJson(json);
 
       default:
         return throw 'Drift DB - неизвестная таблица: $table';

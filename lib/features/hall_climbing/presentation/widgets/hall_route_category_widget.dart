@@ -1,6 +1,7 @@
 import 'package:my_climbing_trek/core/data/ascent_type.dart';
 import 'package:my_climbing_trek/core/data/difficulty_category.dart';
 import 'package:my_climbing_trek/core/data/drytooling_category.dart';
+import 'package:my_climbing_trek/core/data/mixed_category.dart';
 import 'package:my_climbing_trek/core/widgets/attempt_budget.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_attempt.dart';
 import 'package:my_climbing_trek/features/settings/presentation/cubit/settings_cubit.dart';
@@ -110,6 +111,8 @@ class HallRouteCategoryWidget extends StatelessWidget {
 
   MaterialColor _categoryColor(DifficultyCategory category) {
     if (category is DrytoolingCategory) {
+      return category.color;
+    } else if (category is MixedCategory) {
       return category.color;
     }
     return Colors.red;

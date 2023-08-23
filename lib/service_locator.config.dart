@@ -371,7 +371,7 @@ import 'features/techniques/presentation/bloc/technique_treaning/technique_trean
     as _i193;
 import 'features/techniques/presentation/bloc/techniques/techniques_cubit.dart'
     as _i194;
-import 'features/traveling/data/datasources/mock_travel_local_datasource.dart'
+import 'features/traveling/data/datasources/drift_travel_local_datasource.dart'
     as _i63;
 import 'features/traveling/data/datasources/travel_local_datasource.dart'
     as _i62;
@@ -545,7 +545,7 @@ _i1.GetIt $initGetIt(
   gh.lazySingleton<_i60.TechniquesRepository>(() =>
       _i61.TechniquesRepositoryImpl(gh<_i58.TechniquesRemoteDataSource>()));
   gh.lazySingleton<_i62.TravelLocalDatasource>(
-      () => _i63.MockTravelLocalDatasource());
+      () => _i63.DriftTravelLocalDatasource(gh<_i15.LocalDBDatasource>()));
   gh.lazySingleton<_i64.TravelRepository>(
       () => _i65.TravelRepositoryImpl(gh<_i62.TravelLocalDatasource>()));
   gh.lazySingleton<_i66.TrekkingPathLocalDataSource>(() =>

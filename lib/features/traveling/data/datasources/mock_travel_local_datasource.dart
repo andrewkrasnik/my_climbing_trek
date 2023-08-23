@@ -1,6 +1,5 @@
 import 'package:collection/collection.dart';
 import 'package:dartz/dartz.dart';
-import 'package:injectable/injectable.dart';
 import 'package:my_climbing_trek/core/data/region.dart';
 import 'package:my_climbing_trek/core/failures/failure.dart';
 import 'package:my_climbing_trek/features/traveling/data/datasources/travel_local_datasource.dart';
@@ -11,7 +10,7 @@ import 'package:my_climbing_trek/features/traveling/domain/entities/travel.dart'
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel_budget_line.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel_day.dart';
 
-@LazySingleton(as: TravelLocalDatasource)
+// @LazySingleton(as: TravelLocalDatasource)
 class MockTravelLocalDatasource implements TravelLocalDatasource {
   MockTravelLocalDatasource() {
     _days.addAll(_list.first.travelDays);

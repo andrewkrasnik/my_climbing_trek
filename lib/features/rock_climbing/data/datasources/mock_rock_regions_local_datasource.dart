@@ -1,4 +1,3 @@
-import 'package:injectable/injectable.dart';
 import 'package:my_climbing_trek/core/data/climbing_category.dart';
 import 'package:my_climbing_trek/core/data/climbing_route_type.dart';
 import 'package:my_climbing_trek/core/data/map_point.dart';

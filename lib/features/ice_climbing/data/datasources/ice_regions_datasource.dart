@@ -6,7 +6,6 @@ import 'package:my_climbing_trek/features/ice_climbing/data/models/ice_sector_mo
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_district.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_sector.dart';
 import 'package:dartz/dartz.dart';
-import 'package:injectable/injectable.dart';
 
 abstract class IceRegionsDataSource {
   Future<Either<Failure, List<IceDistrict>>> getDistricts();
@@ -301,12 +300,6 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
   Future<Either<Failure, List<IceSector>>> getSectors(
       {required IceDistrict district}) async {
     return Right(_sectors[district] ?? []);
-  }
-
-  @override
-  Future<Either<Failure, List<IceSector>>> getAllSectors() {
-    // TODO: implement getAllSectors
-    throw UnimplementedError();
   }
 
   @override
