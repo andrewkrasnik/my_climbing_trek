@@ -11,6 +11,7 @@ import 'package:my_climbing_trek/features/traveling/domain/entities/cost_line.da
 import 'package:my_climbing_trek/features/traveling/domain/entities/currency.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/feeding_line.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel.dart';
+import 'package:my_climbing_trek/features/traveling/presentation/cubit/current_travel/current_travel_cubit.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/cubit/travel_page/travel_page_cubit.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/pages/travel_day_page.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/widgets/budget_parameters_widget.dart';
@@ -111,12 +112,16 @@ class TravelPage extends StatelessWidget {
                           if (state.travel != null)
                             ...state.travel!.nextStatuses.map(
                               (status) => PopupMenuItem(
-                                onTap: () {
+                                onTap: () async {
                                   if (state.travel != null) {
-                                    BlocProvider.of<TravelPageCubit>(context)
+                                    await BlocProvider.of<TravelPageCubit>(
+                                            context)
                                         .setStatus(
                                             travel: state.travel!,
                                             status: status);
+
+                                    BlocProvider.of<CurrentTravelCubit>(context)
+                                        .loadData();
                                   }
                                 },
                                 child: Text(
