@@ -283,6 +283,7 @@ class DriftTravelsTable extends Table {
   DateTimeColumn get start => dateTime().nullable()();
   TextColumn get regions => text()();
   TextColumn get name => text()();
+  TextColumn get image => text()();
   TextColumn get description => text()();
   TextColumn get currencies => text()();
   TextColumn get status => text()();

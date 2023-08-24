@@ -6929,6 +6929,11 @@ class $DriftTravelsTableTable extends DriftTravelsTable
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
       'name', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _imageMeta = const VerificationMeta('image');
+  @override
+  late final GeneratedColumn<String> image = GeneratedColumn<String>(
+      'image', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _descriptionMeta =
       const VerificationMeta('description');
   @override
@@ -6960,6 +6965,7 @@ class $DriftTravelsTableTable extends DriftTravelsTable
         start,
         regions,
         name,
+        image,
         description,
         currencies,
         status,
@@ -7004,6 +7010,12 @@ class $DriftTravelsTableTable extends DriftTravelsTable
           _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
     } else if (isInserting) {
       context.missing(_nameMeta);
+    }
+    if (data.containsKey('image')) {
+      context.handle(
+          _imageMeta, image.isAcceptableOrUnknown(data['image']!, _imageMeta));
+    } else if (isInserting) {
+      context.missing(_imageMeta);
     }
     if (data.containsKey('description')) {
       context.handle(
@@ -7056,6 +7068,8 @@ class $DriftTravelsTableTable extends DriftTravelsTable
           .read(DriftSqlType.string, data['${effectivePrefix}regions'])!,
       name: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+      image: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}image'])!,
       description: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}description'])!,
       currencies: attachedDatabase.typeMapping
@@ -7080,6 +7094,7 @@ class DriftTravel extends DataClass implements Insertable<DriftTravel> {
   final DateTime? start;
   final String regions;
   final String name;
+  final String image;
   final String description;
   final String currencies;
   final String status;
@@ -7091,6 +7106,7 @@ class DriftTravel extends DataClass implements Insertable<DriftTravel> {
       this.start,
       required this.regions,
       required this.name,
+      required this.image,
       required this.description,
       required this.currencies,
       required this.status,
@@ -7108,6 +7124,7 @@ class DriftTravel extends DataClass implements Insertable<DriftTravel> {
     }
     map['regions'] = Variable<String>(regions);
     map['name'] = Variable<String>(name);
+    map['image'] = Variable<String>(image);
     map['description'] = Variable<String>(description);
     map['currencies'] = Variable<String>(currencies);
     map['status'] = Variable<String>(status);
@@ -7125,6 +7142,7 @@ class DriftTravel extends DataClass implements Insertable<DriftTravel> {
           start == null && nullToAbsent ? const Value.absent() : Value(start),
       regions: Value(regions),
       name: Value(name),
+      image: Value(image),
       description: Value(description),
       currencies: Value(currencies),
       status: Value(status),
@@ -7142,6 +7160,7 @@ class DriftTravel extends DataClass implements Insertable<DriftTravel> {
       start: serializer.fromJson<DateTime?>(json['start']),
       regions: serializer.fromJson<String>(json['regions']),
       name: serializer.fromJson<String>(json['name']),
+      image: serializer.fromJson<String>(json['image']),
       description: serializer.fromJson<String>(json['description']),
       currencies: serializer.fromJson<String>(json['currencies']),
       status: serializer.fromJson<String>(json['status']),
@@ -7158,6 +7177,7 @@ class DriftTravel extends DataClass implements Insertable<DriftTravel> {
       'start': serializer.toJson<DateTime?>(start),
       'regions': serializer.toJson<String>(regions),
       'name': serializer.toJson<String>(name),
+      'image': serializer.toJson<String>(image),
       'description': serializer.toJson<String>(description),
       'currencies': serializer.toJson<String>(currencies),
       'status': serializer.toJson<String>(status),
@@ -7172,6 +7192,7 @@ class DriftTravel extends DataClass implements Insertable<DriftTravel> {
           Value<DateTime?> start = const Value.absent(),
           String? regions,
           String? name,
+          String? image,
           String? description,
           String? currencies,
           String? status,
@@ -7183,6 +7204,7 @@ class DriftTravel extends DataClass implements Insertable<DriftTravel> {
         start: start.present ? start.value : this.start,
         regions: regions ?? this.regions,
         name: name ?? this.name,
+        image: image ?? this.image,
         description: description ?? this.description,
         currencies: currencies ?? this.currencies,
         status: status ?? this.status,
@@ -7197,6 +7219,7 @@ class DriftTravel extends DataClass implements Insertable<DriftTravel> {
           ..write('start: $start, ')
           ..write('regions: $regions, ')
           ..write('name: $name, ')
+          ..write('image: $image, ')
           ..write('description: $description, ')
           ..write('currencies: $currencies, ')
           ..write('status: $status, ')
@@ -7206,7 +7229,7 @@ class DriftTravel extends DataClass implements Insertable<DriftTravel> {
   }
 
   @override
-  int get hashCode => Object.hash(id, date, finish, start, regions, name,
+  int get hashCode => Object.hash(id, date, finish, start, regions, name, image,
       description, currencies, status, budgetCurrency);
   @override
   bool operator ==(Object other) =>
@@ -7218,6 +7241,7 @@ class DriftTravel extends DataClass implements Insertable<DriftTravel> {
           other.start == this.start &&
           other.regions == this.regions &&
           other.name == this.name &&
+          other.image == this.image &&
           other.description == this.description &&
           other.currencies == this.currencies &&
           other.status == this.status &&
@@ -7231,6 +7255,7 @@ class DriftTravelsTableCompanion extends UpdateCompanion<DriftTravel> {
   final Value<DateTime?> start;
   final Value<String> regions;
   final Value<String> name;
+  final Value<String> image;
   final Value<String> description;
   final Value<String> currencies;
   final Value<String> status;
@@ -7243,6 +7268,7 @@ class DriftTravelsTableCompanion extends UpdateCompanion<DriftTravel> {
     this.start = const Value.absent(),
     this.regions = const Value.absent(),
     this.name = const Value.absent(),
+    this.image = const Value.absent(),
     this.description = const Value.absent(),
     this.currencies = const Value.absent(),
     this.status = const Value.absent(),
@@ -7256,6 +7282,7 @@ class DriftTravelsTableCompanion extends UpdateCompanion<DriftTravel> {
     this.start = const Value.absent(),
     required String regions,
     required String name,
+    required String image,
     required String description,
     required String currencies,
     required String status,
@@ -7265,6 +7292,7 @@ class DriftTravelsTableCompanion extends UpdateCompanion<DriftTravel> {
         date = Value(date),
         regions = Value(regions),
         name = Value(name),
+        image = Value(image),
         description = Value(description),
         currencies = Value(currencies),
         status = Value(status),
@@ -7276,6 +7304,7 @@ class DriftTravelsTableCompanion extends UpdateCompanion<DriftTravel> {
     Expression<DateTime>? start,
     Expression<String>? regions,
     Expression<String>? name,
+    Expression<String>? image,
     Expression<String>? description,
     Expression<String>? currencies,
     Expression<String>? status,
@@ -7289,6 +7318,7 @@ class DriftTravelsTableCompanion extends UpdateCompanion<DriftTravel> {
       if (start != null) 'start': start,
       if (regions != null) 'regions': regions,
       if (name != null) 'name': name,
+      if (image != null) 'image': image,
       if (description != null) 'description': description,
       if (currencies != null) 'currencies': currencies,
       if (status != null) 'status': status,
@@ -7304,6 +7334,7 @@ class DriftTravelsTableCompanion extends UpdateCompanion<DriftTravel> {
       Value<DateTime?>? start,
       Value<String>? regions,
       Value<String>? name,
+      Value<String>? image,
       Value<String>? description,
       Value<String>? currencies,
       Value<String>? status,
@@ -7316,6 +7347,7 @@ class DriftTravelsTableCompanion extends UpdateCompanion<DriftTravel> {
       start: start ?? this.start,
       regions: regions ?? this.regions,
       name: name ?? this.name,
+      image: image ?? this.image,
       description: description ?? this.description,
       currencies: currencies ?? this.currencies,
       status: status ?? this.status,
@@ -7345,6 +7377,9 @@ class DriftTravelsTableCompanion extends UpdateCompanion<DriftTravel> {
     if (name.present) {
       map['name'] = Variable<String>(name.value);
     }
+    if (image.present) {
+      map['image'] = Variable<String>(image.value);
+    }
     if (description.present) {
       map['description'] = Variable<String>(description.value);
     }
@@ -7372,6 +7407,7 @@ class DriftTravelsTableCompanion extends UpdateCompanion<DriftTravel> {
           ..write('start: $start, ')
           ..write('regions: $regions, ')
           ..write('name: $name, ')
+          ..write('image: $image, ')
           ..write('description: $description, ')
           ..write('currencies: $currencies, ')
           ..write('status: $status, ')

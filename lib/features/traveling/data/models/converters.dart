@@ -233,7 +233,7 @@ class ContactsConverter implements JsonConverter<List<ContactLine>, String> {
           id: item.id,
         ).toJson();
       }
-    });
+    }).toList();
 
     return jsonEncode(data);
   }
@@ -262,7 +262,7 @@ class FeedingsLinesConverter
           meal: item.meal,
         ).toJson();
       }
-    });
+    }).toList();
 
     return jsonEncode(data);
   }
@@ -292,7 +292,7 @@ class StayLinesConverter implements JsonConverter<List<StayLine>, String> {
           contacts: item.contacts,
         ).toJson();
       }
-    });
+    }).toList();
 
     return jsonEncode(data);
   }
@@ -324,7 +324,7 @@ class TransportLinesConverter
           finishTime: item.finishTime,
         ).toJson();
       }
-    });
+    }).toList();
 
     return jsonEncode(data);
   }
@@ -352,7 +352,7 @@ class RegionsConverter implements JsonConverter<List<Region>, String> {
           id: item.id,
         ).toJson();
       }
-    });
+    }).toList();
 
     return jsonEncode(data);
   }
@@ -372,7 +372,8 @@ class CurrenciesConverter implements JsonConverter<List<Currency>, String> {
 
   @override
   String toJson(List<Currency> object) {
-    final data = object.map((item) => const CurrencyConverter().toJson(item));
+    final data =
+        object.map((item) => const CurrencyConverter().toJson(item)).toList();
 
     return jsonEncode(data);
   }

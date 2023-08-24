@@ -31,7 +31,7 @@ class DriftTravelLocalDatasource extends TravelLocalDatasource {
   Future<Either<Failure, Travel?>> currentTravel() async {
     final failureOrData = await _localDatabase.getData(
       table: table,
-      whereConditions: {'status': TravelStatus.started},
+      whereConditions: {'status': TravelStatus.started.name},
       orderByConditions: {'start': false},
     );
 
@@ -142,7 +142,7 @@ class DriftTravelLocalDatasource extends TravelLocalDatasource {
     final failureOrData = await _localDatabase.getData(
       table: costsTable,
       whereConditions: {'travel_id': travel.id},
-      orderByConditions: {'type': false},
+      orderByConditions: {'date': false},
     );
 
     return failureOrData.fold(
@@ -158,7 +158,7 @@ class DriftTravelLocalDatasource extends TravelLocalDatasource {
     final failureOrData = await _localDatabase.getData(
       table: insuranceTable,
       whereConditions: {'travel_id': travel.id},
-      orderByConditions: {'type': false},
+      orderByConditions: {'insurant': false},
     );
 
     return failureOrData.fold(
@@ -174,7 +174,7 @@ class DriftTravelLocalDatasource extends TravelLocalDatasource {
     final failureOrData = await _localDatabase.getData(
       table: daysTable,
       whereConditions: {'travel_id': travel.id},
-      orderByConditions: {'type': false},
+      orderByConditions: {'date': false},
     );
 
     return failureOrData.fold(

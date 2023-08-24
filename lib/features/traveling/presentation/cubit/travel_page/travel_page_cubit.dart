@@ -281,7 +281,7 @@ class TravelPageCubit extends Cubit<TravelPageState>
       id: contactId,
     );
 
-    final contacts = line.contacts;
+    final List<ContactLine> contacts = line.contacts as List<ContactLine>;
 
     final int index = contacts.indexOf(contact);
 
