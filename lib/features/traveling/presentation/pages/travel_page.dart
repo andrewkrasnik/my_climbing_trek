@@ -143,9 +143,10 @@ class TravelPage extends StatelessWidget {
                   delegate: SliverChildListDelegate(
                     [
                       SizedBox(
-                        height: 40,
+                        height: 52,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
+                          padding: const EdgeInsets.all(8),
                           itemCount: tabs.length,
                           itemBuilder: (context, index) {
                             final bool selected = index == state.tabIndex;
@@ -330,96 +331,125 @@ class TravelPage extends StatelessWidget {
                             child: const Text('Добавить')),
                       ],
                       if (state.tabIndex == 3) ...[
-                        ...state.insurances.map((insurance) =>
-                            SlidableDataLineWidget(
-                              onDelete: (context) {
-                                cubit.deleteInsuranceLine(
-                                    travel: travel, line: insurance);
-                              },
-                              onEdit: (context) {
-                                showMyModalBottomSheet<void>(
-                                  context: context,
-                                  heightPersent: 0.8,
-                                  child: InsuranceParametersWidget(
-                                    cubit: cubit,
-                                    travel: travel,
-                                    line: insurance,
-                                  ),
-                                );
-                              },
-                              child: SizedBox(
-                                width: double.infinity,
-                                child: Column(
-                                  children: [
-                                    Text(insurance.insurer),
-                                    Text(insurance.description),
-                                    SelectableText(insurance.number),
-                                    Text(insurance.insurant),
-                                    OutlinedButton(
-                                        onPressed: () {
-                                          showMyModalBottomSheet<void>(
-                                            context: context,
-                                            heightPersent: 0.6,
-                                            child: ContactParametersWidget(
-                                              onTap: (
-                                                  {required data,
-                                                  required description,
-                                                  required id,
-                                                  required type}) {
-                                                cubit
-                                                    .editContactForInsuranceLine(
-                                                  line: insurance,
-                                                  travel: travel,
-                                                  contactData: data,
-                                                  contactType: type,
-                                                  contactDescription:
-                                                      description,
-                                                  contactId: id,
-                                                );
-                                              },
-                                            ),
-                                          );
-                                        },
-                                        child: const Text('Добавить контакт')),
-                                    ...insurance.contacts.map(
-                                      (contact) => SlidableDataLineWidget(
-                                        onDelete: (context) {
-                                          cubit.deleteContactForInsuranceLine(
-                                              line: insurance,
-                                              travel: travel,
-                                              contact: contact);
-                                        },
-                                        onEdit: (context) {
-                                          showMyModalBottomSheet<void>(
-                                            context: context,
-                                            heightPersent: 0.8,
-                                            child: ContactParametersWidget(
-                                              line: contact,
-                                              onTap: (
-                                                  {required data,
-                                                  required description,
-                                                  required id,
-                                                  required type}) {
-                                                cubit
-                                                    .editContactForInsuranceLine(
-                                                  line: insurance,
-                                                  travel: travel,
-                                                  contactData: data,
-                                                  contactType: type,
-                                                  contactDescription:
-                                                      description,
-                                                  contactId: id,
-                                                );
-                                              },
-                                            ),
-                                          );
-                                        },
-                                        child: ContactLineWidget(
-                                          contact: contact,
+                        ...state.insurances.map((insurance) => Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: SlidableDataLineWidget(
+                                onDelete: (context) {
+                                  cubit.deleteInsuranceLine(
+                                      travel: travel, line: insurance);
+                                },
+                                onEdit: (context) {
+                                  showMyModalBottomSheet<void>(
+                                    context: context,
+                                    heightPersent: 0.8,
+                                    child: InsuranceParametersWidget(
+                                      cubit: cubit,
+                                      travel: travel,
+                                      line: insurance,
+                                    ),
+                                  );
+                                },
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          const Text('Полис № '),
+                                          SelectableText(insurance.number),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 8),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          const Text('Страховая компания:'),
+                                          Text(insurance.insurer),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          const Text('Застрахованное лицо:'),
+                                          Text(insurance.insurant),
+                                        ],
+                                      ),
+                                      if (insurance.description.isNotEmpty) ...[
+                                        const SizedBox(height: 4),
+                                        Text(insurance.description),
+                                      ],
+                                      ...insurance.contacts.map(
+                                        (contact) => SlidableDataLineWidget(
+                                          onDelete: (context) {
+                                            cubit.deleteContactForInsuranceLine(
+                                                line: insurance,
+                                                travel: travel,
+                                                contact: contact);
+                                          },
+                                          onEdit: (context) {
+                                            showMyModalBottomSheet<void>(
+                                              context: context,
+                                              heightPersent: 0.8,
+                                              child: ContactParametersWidget(
+                                                line: contact,
+                                                onTap: (
+                                                    {required data,
+                                                    required description,
+                                                    required id,
+                                                    required type}) {
+                                                  cubit
+                                                      .editContactForInsuranceLine(
+                                                    line: insurance,
+                                                    travel: travel,
+                                                    contactData: data,
+                                                    contactType: type,
+                                                    contactDescription:
+                                                        description,
+                                                    contactId: id,
+                                                  );
+                                                },
+                                              ),
+                                            );
+                                          },
+                                          child: ContactLineWidget(
+                                            contact: contact,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                      OutlinedButton(
+                                          onPressed: () {
+                                            showMyModalBottomSheet<void>(
+                                              context: context,
+                                              heightPersent: 0.6,
+                                              child: ContactParametersWidget(
+                                                onTap: (
+                                                    {required data,
+                                                    required description,
+                                                    required id,
+                                                    required type}) {
+                                                  cubit
+                                                      .editContactForInsuranceLine(
+                                                    line: insurance,
+                                                    travel: travel,
+                                                    contactData: data,
+                                                    contactType: type,
+                                                    contactDescription:
+                                                        description,
+                                                    contactId: id,
+                                                  );
+                                                },
+                                              ),
+                                            );
+                                          },
+                                          child:
+                                              const Text('Добавить контакт')),
+                                    ],
+                                  ),
                                 ),
                               ),
                             )),

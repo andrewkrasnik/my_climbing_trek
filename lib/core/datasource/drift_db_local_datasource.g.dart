@@ -7439,6 +7439,12 @@ class $DriftTravelDaysTableTable extends DriftTravelDaysTable
   late final GeneratedColumn<DateTime> start = GeneratedColumn<DateTime>(
       'start', aliasedName, true,
       type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _descriptionMeta =
+      const VerificationMeta('description');
+  @override
+  late final GeneratedColumn<String> description = GeneratedColumn<String>(
+      'description', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _numberMeta = const VerificationMeta('number');
   @override
   late final GeneratedColumn<int> number = GeneratedColumn<int>(
@@ -7476,6 +7482,7 @@ class $DriftTravelDaysTableTable extends DriftTravelDaysTable
         id,
         date,
         start,
+        description,
         number,
         transportLines,
         feedingsLines,
@@ -7505,6 +7512,14 @@ class $DriftTravelDaysTableTable extends DriftTravelDaysTable
     if (data.containsKey('start')) {
       context.handle(
           _startMeta, start.isAcceptableOrUnknown(data['start']!, _startMeta));
+    }
+    if (data.containsKey('description')) {
+      context.handle(
+          _descriptionMeta,
+          description.isAcceptableOrUnknown(
+              data['description']!, _descriptionMeta));
+    } else if (isInserting) {
+      context.missing(_descriptionMeta);
     }
     if (data.containsKey('number')) {
       context.handle(_numberMeta,
@@ -7555,6 +7570,8 @@ class $DriftTravelDaysTableTable extends DriftTravelDaysTable
           .read(DriftSqlType.dateTime, data['${effectivePrefix}date'])!,
       start: attachedDatabase.typeMapping
           .read(DriftSqlType.dateTime, data['${effectivePrefix}start']),
+      description: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}description'])!,
       number: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}number'])!,
       transportLines: attachedDatabase.typeMapping.read(
@@ -7578,6 +7595,7 @@ class DriftTravelDay extends DataClass implements Insertable<DriftTravelDay> {
   final String id;
   final DateTime date;
   final DateTime? start;
+  final String description;
   final int number;
   final String transportLines;
   final String feedingsLines;
@@ -7587,6 +7605,7 @@ class DriftTravelDay extends DataClass implements Insertable<DriftTravelDay> {
       {required this.id,
       required this.date,
       this.start,
+      required this.description,
       required this.number,
       required this.transportLines,
       required this.feedingsLines,
@@ -7600,6 +7619,7 @@ class DriftTravelDay extends DataClass implements Insertable<DriftTravelDay> {
     if (!nullToAbsent || start != null) {
       map['start'] = Variable<DateTime>(start);
     }
+    map['description'] = Variable<String>(description);
     map['number'] = Variable<int>(number);
     map['transport_lines'] = Variable<String>(transportLines);
     map['feedings_lines'] = Variable<String>(feedingsLines);
@@ -7614,6 +7634,7 @@ class DriftTravelDay extends DataClass implements Insertable<DriftTravelDay> {
       date: Value(date),
       start:
           start == null && nullToAbsent ? const Value.absent() : Value(start),
+      description: Value(description),
       number: Value(number),
       transportLines: Value(transportLines),
       feedingsLines: Value(feedingsLines),
@@ -7629,6 +7650,7 @@ class DriftTravelDay extends DataClass implements Insertable<DriftTravelDay> {
       id: serializer.fromJson<String>(json['id']),
       date: serializer.fromJson<DateTime>(json['date']),
       start: serializer.fromJson<DateTime?>(json['start']),
+      description: serializer.fromJson<String>(json['description']),
       number: serializer.fromJson<int>(json['number']),
       transportLines: serializer.fromJson<String>(json['transportLines']),
       feedingsLines: serializer.fromJson<String>(json['feedingsLines']),
@@ -7643,6 +7665,7 @@ class DriftTravelDay extends DataClass implements Insertable<DriftTravelDay> {
       'id': serializer.toJson<String>(id),
       'date': serializer.toJson<DateTime>(date),
       'start': serializer.toJson<DateTime?>(start),
+      'description': serializer.toJson<String>(description),
       'number': serializer.toJson<int>(number),
       'transportLines': serializer.toJson<String>(transportLines),
       'feedingsLines': serializer.toJson<String>(feedingsLines),
@@ -7655,6 +7678,7 @@ class DriftTravelDay extends DataClass implements Insertable<DriftTravelDay> {
           {String? id,
           DateTime? date,
           Value<DateTime?> start = const Value.absent(),
+          String? description,
           int? number,
           String? transportLines,
           String? feedingsLines,
@@ -7664,6 +7688,7 @@ class DriftTravelDay extends DataClass implements Insertable<DriftTravelDay> {
         id: id ?? this.id,
         date: date ?? this.date,
         start: start.present ? start.value : this.start,
+        description: description ?? this.description,
         number: number ?? this.number,
         transportLines: transportLines ?? this.transportLines,
         feedingsLines: feedingsLines ?? this.feedingsLines,
@@ -7676,6 +7701,7 @@ class DriftTravelDay extends DataClass implements Insertable<DriftTravelDay> {
           ..write('id: $id, ')
           ..write('date: $date, ')
           ..write('start: $start, ')
+          ..write('description: $description, ')
           ..write('number: $number, ')
           ..write('transportLines: $transportLines, ')
           ..write('feedingsLines: $feedingsLines, ')
@@ -7686,8 +7712,8 @@ class DriftTravelDay extends DataClass implements Insertable<DriftTravelDay> {
   }
 
   @override
-  int get hashCode => Object.hash(id, date, start, number, transportLines,
-      feedingsLines, stayLines, travelId);
+  int get hashCode => Object.hash(id, date, start, description, number,
+      transportLines, feedingsLines, stayLines, travelId);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -7695,6 +7721,7 @@ class DriftTravelDay extends DataClass implements Insertable<DriftTravelDay> {
           other.id == this.id &&
           other.date == this.date &&
           other.start == this.start &&
+          other.description == this.description &&
           other.number == this.number &&
           other.transportLines == this.transportLines &&
           other.feedingsLines == this.feedingsLines &&
@@ -7706,6 +7733,7 @@ class DriftTravelDaysTableCompanion extends UpdateCompanion<DriftTravelDay> {
   final Value<String> id;
   final Value<DateTime> date;
   final Value<DateTime?> start;
+  final Value<String> description;
   final Value<int> number;
   final Value<String> transportLines;
   final Value<String> feedingsLines;
@@ -7716,6 +7744,7 @@ class DriftTravelDaysTableCompanion extends UpdateCompanion<DriftTravelDay> {
     this.id = const Value.absent(),
     this.date = const Value.absent(),
     this.start = const Value.absent(),
+    this.description = const Value.absent(),
     this.number = const Value.absent(),
     this.transportLines = const Value.absent(),
     this.feedingsLines = const Value.absent(),
@@ -7727,6 +7756,7 @@ class DriftTravelDaysTableCompanion extends UpdateCompanion<DriftTravelDay> {
     required String id,
     required DateTime date,
     this.start = const Value.absent(),
+    required String description,
     required int number,
     required String transportLines,
     required String feedingsLines,
@@ -7735,6 +7765,7 @@ class DriftTravelDaysTableCompanion extends UpdateCompanion<DriftTravelDay> {
     this.rowid = const Value.absent(),
   })  : id = Value(id),
         date = Value(date),
+        description = Value(description),
         number = Value(number),
         transportLines = Value(transportLines),
         feedingsLines = Value(feedingsLines),
@@ -7744,6 +7775,7 @@ class DriftTravelDaysTableCompanion extends UpdateCompanion<DriftTravelDay> {
     Expression<String>? id,
     Expression<DateTime>? date,
     Expression<DateTime>? start,
+    Expression<String>? description,
     Expression<int>? number,
     Expression<String>? transportLines,
     Expression<String>? feedingsLines,
@@ -7755,6 +7787,7 @@ class DriftTravelDaysTableCompanion extends UpdateCompanion<DriftTravelDay> {
       if (id != null) 'id': id,
       if (date != null) 'date': date,
       if (start != null) 'start': start,
+      if (description != null) 'description': description,
       if (number != null) 'number': number,
       if (transportLines != null) 'transport_lines': transportLines,
       if (feedingsLines != null) 'feedings_lines': feedingsLines,
@@ -7768,6 +7801,7 @@ class DriftTravelDaysTableCompanion extends UpdateCompanion<DriftTravelDay> {
       {Value<String>? id,
       Value<DateTime>? date,
       Value<DateTime?>? start,
+      Value<String>? description,
       Value<int>? number,
       Value<String>? transportLines,
       Value<String>? feedingsLines,
@@ -7778,6 +7812,7 @@ class DriftTravelDaysTableCompanion extends UpdateCompanion<DriftTravelDay> {
       id: id ?? this.id,
       date: date ?? this.date,
       start: start ?? this.start,
+      description: description ?? this.description,
       number: number ?? this.number,
       transportLines: transportLines ?? this.transportLines,
       feedingsLines: feedingsLines ?? this.feedingsLines,
@@ -7798,6 +7833,9 @@ class DriftTravelDaysTableCompanion extends UpdateCompanion<DriftTravelDay> {
     }
     if (start.present) {
       map['start'] = Variable<DateTime>(start.value);
+    }
+    if (description.present) {
+      map['description'] = Variable<String>(description.value);
     }
     if (number.present) {
       map['number'] = Variable<int>(number.value);
@@ -7826,6 +7864,7 @@ class DriftTravelDaysTableCompanion extends UpdateCompanion<DriftTravelDay> {
           ..write('id: $id, ')
           ..write('date: $date, ')
           ..write('start: $start, ')
+          ..write('description: $description, ')
           ..write('number: $number, ')
           ..write('transportLines: $transportLines, ')
           ..write('feedingsLines: $feedingsLines, ')

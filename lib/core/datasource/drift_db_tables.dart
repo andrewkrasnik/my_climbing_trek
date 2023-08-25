@@ -298,6 +298,7 @@ class DriftTravelDaysTable extends Table {
   TextColumn get id => text()();
   DateTimeColumn get date => dateTime()();
   DateTimeColumn get start => dateTime().nullable()();
+  TextColumn get description => text()();
   IntColumn get number => integer()();
   TextColumn get transportLines => text()();
   TextColumn get feedingsLines => text()();

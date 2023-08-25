@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -281,14 +282,15 @@ class TravelPageCubit extends Cubit<TravelPageState>
       id: contactId,
     );
 
-    final List<ContactLine> contacts = line.contacts as List<ContactLine>;
+    final List<ContactLine> contacts = [...line.contacts];
 
-    final int index = contacts.indexOf(contact);
+    final oldContact =
+        contacts.firstWhereOrNull((element) => element.id == contactId);
 
-    if (index < 0) {
+    if (oldContact == null) {
       contacts.add(contact);
     } else {
-      contacts[index] = contact;
+      contacts[contacts.indexOf(oldContact)] = contact;
     }
 
     final failureOrUnit = await _editInsuranceLineUsecase(
