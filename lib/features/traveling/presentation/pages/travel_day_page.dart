@@ -69,7 +69,7 @@ class TravelDayPage extends StatelessWidget {
                           height: 16,
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             OutlinedButton(
                                 onPressed: () {

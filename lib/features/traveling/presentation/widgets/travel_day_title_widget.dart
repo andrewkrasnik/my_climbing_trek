@@ -13,9 +13,15 @@ class TravelDayTitleWidget extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('День ${travelDay.number}: '),
+            Text(
+              'День ${travelDay.number}: ',
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
             const SizedBox(width: 4),
-            Text(travelDay.dateString),
+            Text(
+              travelDay.dateString,
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
           ],
         ),
         if (travelDay.description.isNotEmpty) ...[
