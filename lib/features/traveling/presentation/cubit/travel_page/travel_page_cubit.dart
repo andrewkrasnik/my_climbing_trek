@@ -46,6 +46,16 @@ class TravelPageCubit extends Cubit<TravelPageState>
   final GetFeedingStatisticUsecase _getFeedingStatisticUsecase;
   final EditTravelUsecase _editTravelUsecase;
 
+  double get budgetSum {
+    double _budgetSum = 0;
+
+    for (var line in state.budgetLines) {
+      _budgetSum += line.amount;
+    }
+
+    return _budgetSum;
+  }
+
   TravelPageCubit(
     this._deleteCostLineUsecase,
     this._editCostLineUsecase,
