@@ -124,7 +124,15 @@ class TrekkingPathWidget extends StatelessWidget {
                                     point: state.currentPoint,
                                   );
                                 },
-                                child: Chip(label: Text(type.name))),
+                                child: Chip(
+                                  label: Text(
+                                    type.name,
+                                    style: TextStyle(
+                                      color:
+                                          Theme.of(context).colorScheme.surface,
+                                    ),
+                                  ),
+                                )),
                           ))
                       .toList(),
                 ),

@@ -20,54 +20,60 @@ class HallTreaningPictureWidget extends StatelessWidget {
       fontWeight: FontWeight.bold,
       shadows: [Shadow(offset: Offset.fromDirection(1, 1))],
     );
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      if (treaning.hasLead)
-        AttemptsWithStyle(
-          attempts: treaning.leadAttempts,
-          treaning: treaning,
-          isCurrent: false,
-          climbingStyle: ClimbingStyle.lead,
-          child: Text(
-            'Нижняя:',
-            style: textStyle,
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (treaning.hasLead)
+            AttemptsWithStyle(
+              attempts: treaning.leadAttempts,
+              treaning: treaning,
+              isCurrent: false,
+              climbingStyle: ClimbingStyle.lead,
+              child: Text(
+                'Нижняя:',
+                style: textStyle,
+              ),
+            ),
+          if (treaning.hasTopRope)
+            AttemptsWithStyle(
+              attempts: treaning.topRopeAttempts,
+              treaning: treaning,
+              isCurrent: false,
+              climbingStyle: ClimbingStyle.topRope,
+              child: Text(
+                'Верхняя:',
+                style: textStyle,
+              ),
+            ),
+          if (treaning.hasBouldering)
+            AttemptsWithStyle(
+              attempts: treaning.boulderingAttempts,
+              treaning: treaning,
+              isCurrent: false,
+              climbingStyle: ClimbingStyle.bouldering,
+              child: Text(
+                'Болдер:',
+                style: textStyle,
+              ),
+            ),
+          if (treaning.hasAutoBelay)
+            AttemptsWithStyle(
+              attempts: treaning.autoBelayAttempts,
+              treaning: treaning,
+              isCurrent: false,
+              climbingStyle: ClimbingStyle.autoBelay,
+              child: Text(
+                'Auto belay:',
+                style: textStyle,
+              ),
+            ),
+          const SizedBox(
+            height: 12,
           ),
-        ),
-      if (treaning.hasTopRope)
-        AttemptsWithStyle(
-          attempts: treaning.topRopeAttempts,
-          treaning: treaning,
-          isCurrent: false,
-          climbingStyle: ClimbingStyle.topRope,
-          child: Text(
-            'Верхняя:',
-            style: textStyle,
-          ),
-        ),
-      if (treaning.hasBouldering)
-        AttemptsWithStyle(
-          attempts: treaning.boulderingAttempts,
-          treaning: treaning,
-          isCurrent: false,
-          climbingStyle: ClimbingStyle.bouldering,
-          child: Text(
-            'Болдер:',
-            style: textStyle,
-          ),
-        ),
-      if (treaning.hasAutoBelay)
-        AttemptsWithStyle(
-          attempts: treaning.autoBelayAttempts,
-          treaning: treaning,
-          isCurrent: false,
-          climbingStyle: ClimbingStyle.autoBelay,
-          child: Text(
-            'Auto belay:',
-            style: textStyle,
-          ),
-        ),
-      const SizedBox(
-        height: 12,
+        ],
       ),
-    ]);
+    );
   }
 }

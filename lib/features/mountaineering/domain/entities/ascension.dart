@@ -1,6 +1,5 @@
 import 'package:my_climbing_trek/core/data/treaning.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/ascension_event.dart';
-import 'package:my_climbing_trek/features/mountaineering/domain/entities/ascension_event_type.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountain.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountain_route.dart';
 

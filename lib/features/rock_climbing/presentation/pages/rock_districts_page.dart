@@ -35,6 +35,7 @@ class RockDistrictsPage extends StatelessWidget {
                                 MaterialPageRoute(
                                     builder: (context) =>
                                         RockDistrictPage(district: district))),
+                            height: 220,
                           );
                         },
                         separatorBuilder: (context, index) => const SizedBox(

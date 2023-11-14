@@ -35,6 +35,7 @@ class IceDistrictsPage extends StatelessWidget {
                                 MaterialPageRoute(
                                     builder: (context) =>
                                         IceDistrictPage(district: district))),
+                            height: 220,
                           );
                         },
                         separatorBuilder: (context, index) => const SizedBox(

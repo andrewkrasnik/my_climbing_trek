@@ -38,7 +38,10 @@ class RockRoutesCubit extends Cubit<RockRoutesState> {
         (routes) async {
       emit(RockRoutesState.data(routes: routes));
 
-      final failureOrStatistic = await _getRockRouteStatistic(routes: routes);
+      final failureOrStatistic = await _getRockRouteStatistic(
+        routes: routes,
+        sector: sector,
+      );
 
       failureOrStatistic.fold(
         (failure) =>

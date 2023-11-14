@@ -8,7 +8,7 @@ import 'features/settings/presentation/pages/settings_page.dart';
 class BottomNavigationPage extends StatefulWidget {
   final String restorationId = 'BottomNavigationPage';
 
-  const BottomNavigationPage({Key? key}) : super(key: key);
+  const BottomNavigationPage({super.key});
 
   @override
   State<BottomNavigationPage> createState() => _BottomNavigationPageState();

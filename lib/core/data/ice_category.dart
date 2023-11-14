@@ -3,6 +3,7 @@ import 'package:my_climbing_trek/core/data/difficulty_category.dart';
 class IceCategory extends DifficultyCategory {
   final String name;
   final String description;
+  @override
   final String id;
 
   const IceCategory({

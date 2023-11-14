@@ -6,7 +6,6 @@ import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/hall_routes_filter.dart';
 import 'package:dartz/dartz.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall.dart';
-import 'package:injectable/injectable.dart';
 
 // @LazySingleton(as: ClimbingHallDataSource)
 class MockClimbingHallDataSource implements ClimbingHallDataSource {

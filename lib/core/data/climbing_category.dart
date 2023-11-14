@@ -492,6 +492,7 @@ class ClimbingCategory extends DifficultyCategory {
     category9A,
   ];
 
+  @override
   double fontSize(String title) {
     double fontSize = 24;
     if (title.length > 4) {

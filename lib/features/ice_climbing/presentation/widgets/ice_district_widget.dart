@@ -5,16 +5,21 @@ import 'package:flutter/material.dart';
 class IceDistrictWidget extends StatelessWidget {
   final IceDistrict district;
   final void Function()? onTap;
+  final double height;
 
-  const IceDistrictWidget({required this.district, this.onTap, Key? key})
-      : super(key: key);
+  const IceDistrictWidget({
+    required this.district,
+    this.onTap,
+    this.height = 160,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 160,
+        height: height,
         width: 180,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4.0),

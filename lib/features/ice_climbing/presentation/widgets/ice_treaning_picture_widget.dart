@@ -20,29 +20,35 @@ class IceTreaningPictureWidget extends StatelessWidget {
       fontWeight: FontWeight.bold,
       shadows: [Shadow(offset: Offset.fromDirection(1, 1))],
     );
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      if (treaning.hasLead)
-        IceAttemptsWithStyle(
-          attempts: treaning.leadAttempts,
-          treaning: treaning,
-          isCurrent: false,
-          climbingStyle: ClimbingStyle.lead,
-          child: Text(
-            'Нижняя:',
-            style: textStyle,
-          ),
-        ),
-      if (treaning.hasTopRope)
-        IceAttemptsWithStyle(
-          attempts: treaning.topRopeAttempts,
-          treaning: treaning,
-          isCurrent: false,
-          climbingStyle: ClimbingStyle.topRope,
-          child: Text(
-            'Верхняя:',
-            style: textStyle,
-          ),
-        ),
-    ]);
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (treaning.hasLead)
+            IceAttemptsWithStyle(
+              attempts: treaning.leadAttempts,
+              treaning: treaning,
+              isCurrent: false,
+              climbingStyle: ClimbingStyle.lead,
+              child: Text(
+                'Нижняя:',
+                style: textStyle,
+              ),
+            ),
+          if (treaning.hasTopRope)
+            IceAttemptsWithStyle(
+              attempts: treaning.topRopeAttempts,
+              treaning: treaning,
+              isCurrent: false,
+              climbingStyle: ClimbingStyle.topRope,
+              child: Text(
+                'Верхняя:',
+                style: textStyle,
+              ),
+            ),
+        ],
+      ),
+    );
   }
 }

@@ -76,7 +76,10 @@ class RockTreaningCubit extends Cubit<RockTreaningState> {
     if (currentTreaning?.currentAttempt != null &&
         currentTreaning?.currentAttempt?.route != null) {
       final route = currentTreaning!.currentAttempt!.route!;
-      final failureOrStatistic = await _getRockRouteStatistic(routes: [route]);
+      final failureOrStatistic = await _getRockRouteStatistic(
+        routes: [route],
+        sector: currentTreaning.currentAttempt!.sector,
+      );
 
       failureOrStatistic.fold(
           (l) => null,
@@ -87,7 +90,10 @@ class RockTreaningCubit extends Cubit<RockTreaningState> {
     if (currentTreaning?.lastAttempt != null &&
         currentTreaning?.lastAttempt?.route != null) {
       final route = currentTreaning!.lastAttempt!.route!;
-      final failureOrStatistic = await _getRockRouteStatistic(routes: [route]);
+      final failureOrStatistic = await _getRockRouteStatistic(
+        routes: [route],
+        sector: currentTreaning.lastAttempt!.sector,
+      );
 
       failureOrStatistic.fold(
           (l) => null,
@@ -140,8 +146,10 @@ class RockTreaningCubit extends Cubit<RockTreaningState> {
         emit(state.copyWith(currentAttempt: attempt));
         if (attempt.route != null) {
           final route = attempt.route!;
-          final failureOrStatistic =
-              await _getRockRouteStatistic(routes: [route]);
+          final failureOrStatistic = await _getRockRouteStatistic(
+            routes: [route],
+            sector: attempt.sector,
+          );
 
           failureOrStatistic.fold(
               (l) => null,
@@ -162,6 +170,8 @@ class RockTreaningCubit extends Cubit<RockTreaningState> {
   }) async {
     final route = state.currentAttempt?.route;
 
+    final sector = state.currentAttempt?.sector;
+
     final failureOrAttempt = await _finishAttempt(
       attempt: state.currentAttempt!,
       treaning: state.currentTreaning!,
@@ -177,7 +187,8 @@ class RockTreaningCubit extends Cubit<RockTreaningState> {
             emit(state.copyWith(currentAttempt: null, lastAttempt: attempt)));
 
     if (route != null) {
-      final failureOrStatistic = await _getRockRouteStatistic(routes: [route]);
+      final failureOrStatistic =
+          await _getRockRouteStatistic(routes: [route], sector: sector!);
       failureOrStatistic.fold(
         (l) => null,
         (statistic) {

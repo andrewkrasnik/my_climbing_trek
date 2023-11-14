@@ -7,6 +7,7 @@ import 'package:my_climbing_trek/features/rock_climbing/data/datasources/rock_tr
 import 'package:my_climbing_trek/features/rock_climbing/data/models/converters.dart';
 import 'package:my_climbing_trek/features/rock_climbing/data/models/rock_treaning_model.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_route.dart';
+import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_sector.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_treaning.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_treaning_attempt.dart';
 
@@ -136,11 +137,16 @@ class DriftRockTreaningsLocalDataSource
   }
 
   @override
-  Future<Either<Failure, List<RockTreaningAttempt>>> routeAttempts(
-      {required RockRoute route}) async {
+  Future<Either<Failure, List<RockTreaningAttempt>>> routeAttempts({
+    required RockRoute route,
+    required RockSector sector,
+  }) async {
     final failureOrLines = await _localDatabase.getData(
       table: attemptsTable,
-      whereConditions: {'route_id': route.id},
+      whereConditions: {
+        'route_id': route.id,
+        'sector_id': sector.id,
+      },
       orderByConditions: {'start_time': true},
     );
 
