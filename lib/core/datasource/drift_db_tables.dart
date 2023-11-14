@@ -17,6 +17,11 @@ const tables = [
   DriftTechniqueTreaningItemsTable,
   DriftAscensionsTable,
   DriftAscensionEventsTable,
+  DriftTravelsTable,
+  DriftTravelDaysTable,
+  DriftCostLinesTable,
+  DriftBudgetLinesTable,
+  DriftInsuranceLinesTable,
 ];
 
 @DataClassName('DriftStrengthExercise')
@@ -262,6 +267,85 @@ class DriftAscensionEventsTable extends Table {
   TextColumn get ascensionId => text().references(DriftAscensionsTable, #id)();
   DateTimeColumn get time => dateTime().nullable()();
   DateTimeColumn get planedTime => dateTime().nullable()();
+
+  @override
+  Set<Column>? get primaryKey => {id};
+}
+
+///////////////////////////////////////////////////////////////////////
+/////////////////////////////TRAVELS///////////////////////////////////
+
+@DataClassName('DriftTravel')
+class DriftTravelsTable extends Table {
+  TextColumn get id => text()();
+  DateTimeColumn get date => dateTime()();
+  DateTimeColumn get finish => dateTime().nullable()();
+  DateTimeColumn get start => dateTime().nullable()();
+  TextColumn get regions => text()();
+  TextColumn get name => text()();
+  TextColumn get image => text()();
+  TextColumn get description => text()();
+  TextColumn get currencies => text()();
+  TextColumn get status => text()();
+  IntColumn get budgetCurrency => integer()();
+
+  @override
+  Set<Column>? get primaryKey => {id};
+}
+
+@DataClassName('DriftTravelDay')
+class DriftTravelDaysTable extends Table {
+  TextColumn get id => text()();
+  DateTimeColumn get date => dateTime()();
+  DateTimeColumn get start => dateTime().nullable()();
+  TextColumn get description => text()();
+  IntColumn get number => integer()();
+  TextColumn get transportLines => text()();
+  TextColumn get feedingsLines => text()();
+  TextColumn get stayLines => text()();
+  TextColumn get travelId => text().references(DriftTravelsTable, #id)();
+
+  @override
+  Set<Column>? get primaryKey => {id};
+}
+
+@DataClassName('DriftCostLine')
+class DriftCostLinesTable extends Table {
+  TextColumn get id => text()();
+  TextColumn get type => text()();
+  IntColumn get currency => integer()();
+  TextColumn get travelId => text().references(DriftTravelsTable, #id)();
+  DateTimeColumn get date => dateTime()();
+  RealColumn get sum => real()();
+  RealColumn get budgetSum => real()();
+  TextColumn get description => text()();
+  TextColumn get incomeExpense => text()();
+
+  @override
+  Set<Column>? get primaryKey => {id};
+}
+
+@DataClassName('DriftBudgetLine')
+class DriftBudgetLinesTable extends Table {
+  TextColumn get id => text()();
+  TextColumn get type => text()();
+  RealColumn get amount => real()();
+  TextColumn get travelId => text().references(DriftTravelsTable, #id)();
+  TextColumn get description => text()();
+
+  @override
+  Set<Column>? get primaryKey => {id};
+}
+
+@DataClassName('DriftInsuranceLine')
+class DriftInsuranceLinesTable extends Table {
+  TextColumn get id => text()();
+  TextColumn get number => text()();
+  TextColumn get travelId => text().references(DriftTravelsTable, #id)();
+  TextColumn get insurant => text()();
+  TextColumn get description => text()();
+  TextColumn get insurer => text()();
+  TextColumn get contacts => text()();
 
   @override
   Set<Column>? get primaryKey => {id};

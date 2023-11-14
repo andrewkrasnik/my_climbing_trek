@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_climbing_trek/core/widgets/treaning_picture_widget.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
-import 'package:share_plus/share_plus.dart';
 
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_treaning.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/hall_treaning_picture_widget.dart';

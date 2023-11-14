@@ -18,7 +18,7 @@ import 'package:my_climbing_trek/features/traveling/domain/entities/travel.dart'
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel_day.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel_finish.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel_start.dart';
-import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_day_widget.dart';
+import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_day_title_widget.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_finish_widget.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_start_widget.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_widget.dart';
@@ -49,7 +49,7 @@ class TreaningWidgetFactory extends StatelessWidget {
     } else if (treaning is TravelStart) {
       return TravelStartWidget(travelStart: treaning as TravelStart);
     } else if (treaning is TravelDay) {
-      return TravelDayWidget(travelDay: treaning as TravelDay);
+      return TravelDayTitleWidget(travelDay: treaning as TravelDay);
     } else if (treaning is TrekkingPath) {
       return TrekkingPathWidget(path: treaning as TrekkingPath);
     } else if (treaning is TechniqueTreaning) {

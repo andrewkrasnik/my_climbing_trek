@@ -6892,6 +6892,2124 @@ class DriftAscensionEventsTableCompanion
   }
 }
 
+class $DriftTravelsTableTable extends DriftTravelsTable
+    with TableInfo<$DriftTravelsTableTable, DriftTravel> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $DriftTravelsTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _dateMeta = const VerificationMeta('date');
+  @override
+  late final GeneratedColumn<DateTime> date = GeneratedColumn<DateTime>(
+      'date', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _finishMeta = const VerificationMeta('finish');
+  @override
+  late final GeneratedColumn<DateTime> finish = GeneratedColumn<DateTime>(
+      'finish', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _startMeta = const VerificationMeta('start');
+  @override
+  late final GeneratedColumn<DateTime> start = GeneratedColumn<DateTime>(
+      'start', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _regionsMeta =
+      const VerificationMeta('regions');
+  @override
+  late final GeneratedColumn<String> regions = GeneratedColumn<String>(
+      'regions', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+      'name', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _imageMeta = const VerificationMeta('image');
+  @override
+  late final GeneratedColumn<String> image = GeneratedColumn<String>(
+      'image', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _descriptionMeta =
+      const VerificationMeta('description');
+  @override
+  late final GeneratedColumn<String> description = GeneratedColumn<String>(
+      'description', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _currenciesMeta =
+      const VerificationMeta('currencies');
+  @override
+  late final GeneratedColumn<String> currencies = GeneratedColumn<String>(
+      'currencies', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _statusMeta = const VerificationMeta('status');
+  @override
+  late final GeneratedColumn<String> status = GeneratedColumn<String>(
+      'status', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _budgetCurrencyMeta =
+      const VerificationMeta('budgetCurrency');
+  @override
+  late final GeneratedColumn<int> budgetCurrency = GeneratedColumn<int>(
+      'budget_currency', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        date,
+        finish,
+        start,
+        regions,
+        name,
+        image,
+        description,
+        currencies,
+        status,
+        budgetCurrency
+      ];
+  @override
+  String get aliasedName => _alias ?? 'drift_travels_table';
+  @override
+  String get actualTableName => 'drift_travels_table';
+  @override
+  VerificationContext validateIntegrity(Insertable<DriftTravel> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('date')) {
+      context.handle(
+          _dateMeta, date.isAcceptableOrUnknown(data['date']!, _dateMeta));
+    } else if (isInserting) {
+      context.missing(_dateMeta);
+    }
+    if (data.containsKey('finish')) {
+      context.handle(_finishMeta,
+          finish.isAcceptableOrUnknown(data['finish']!, _finishMeta));
+    }
+    if (data.containsKey('start')) {
+      context.handle(
+          _startMeta, start.isAcceptableOrUnknown(data['start']!, _startMeta));
+    }
+    if (data.containsKey('regions')) {
+      context.handle(_regionsMeta,
+          regions.isAcceptableOrUnknown(data['regions']!, _regionsMeta));
+    } else if (isInserting) {
+      context.missing(_regionsMeta);
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    if (data.containsKey('image')) {
+      context.handle(
+          _imageMeta, image.isAcceptableOrUnknown(data['image']!, _imageMeta));
+    } else if (isInserting) {
+      context.missing(_imageMeta);
+    }
+    if (data.containsKey('description')) {
+      context.handle(
+          _descriptionMeta,
+          description.isAcceptableOrUnknown(
+              data['description']!, _descriptionMeta));
+    } else if (isInserting) {
+      context.missing(_descriptionMeta);
+    }
+    if (data.containsKey('currencies')) {
+      context.handle(
+          _currenciesMeta,
+          currencies.isAcceptableOrUnknown(
+              data['currencies']!, _currenciesMeta));
+    } else if (isInserting) {
+      context.missing(_currenciesMeta);
+    }
+    if (data.containsKey('status')) {
+      context.handle(_statusMeta,
+          status.isAcceptableOrUnknown(data['status']!, _statusMeta));
+    } else if (isInserting) {
+      context.missing(_statusMeta);
+    }
+    if (data.containsKey('budget_currency')) {
+      context.handle(
+          _budgetCurrencyMeta,
+          budgetCurrency.isAcceptableOrUnknown(
+              data['budget_currency']!, _budgetCurrencyMeta));
+    } else if (isInserting) {
+      context.missing(_budgetCurrencyMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  DriftTravel map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return DriftTravel(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      date: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}date'])!,
+      finish: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}finish']),
+      start: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}start']),
+      regions: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}regions'])!,
+      name: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+      image: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}image'])!,
+      description: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}description'])!,
+      currencies: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}currencies'])!,
+      status: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}status'])!,
+      budgetCurrency: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}budget_currency'])!,
+    );
+  }
+
+  @override
+  $DriftTravelsTableTable createAlias(String alias) {
+    return $DriftTravelsTableTable(attachedDatabase, alias);
+  }
+}
+
+class DriftTravel extends DataClass implements Insertable<DriftTravel> {
+  final String id;
+  final DateTime date;
+  final DateTime? finish;
+  final DateTime? start;
+  final String regions;
+  final String name;
+  final String image;
+  final String description;
+  final String currencies;
+  final String status;
+  final int budgetCurrency;
+  const DriftTravel(
+      {required this.id,
+      required this.date,
+      this.finish,
+      this.start,
+      required this.regions,
+      required this.name,
+      required this.image,
+      required this.description,
+      required this.currencies,
+      required this.status,
+      required this.budgetCurrency});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['date'] = Variable<DateTime>(date);
+    if (!nullToAbsent || finish != null) {
+      map['finish'] = Variable<DateTime>(finish);
+    }
+    if (!nullToAbsent || start != null) {
+      map['start'] = Variable<DateTime>(start);
+    }
+    map['regions'] = Variable<String>(regions);
+    map['name'] = Variable<String>(name);
+    map['image'] = Variable<String>(image);
+    map['description'] = Variable<String>(description);
+    map['currencies'] = Variable<String>(currencies);
+    map['status'] = Variable<String>(status);
+    map['budget_currency'] = Variable<int>(budgetCurrency);
+    return map;
+  }
+
+  DriftTravelsTableCompanion toCompanion(bool nullToAbsent) {
+    return DriftTravelsTableCompanion(
+      id: Value(id),
+      date: Value(date),
+      finish:
+          finish == null && nullToAbsent ? const Value.absent() : Value(finish),
+      start:
+          start == null && nullToAbsent ? const Value.absent() : Value(start),
+      regions: Value(regions),
+      name: Value(name),
+      image: Value(image),
+      description: Value(description),
+      currencies: Value(currencies),
+      status: Value(status),
+      budgetCurrency: Value(budgetCurrency),
+    );
+  }
+
+  factory DriftTravel.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return DriftTravel(
+      id: serializer.fromJson<String>(json['id']),
+      date: serializer.fromJson<DateTime>(json['date']),
+      finish: serializer.fromJson<DateTime?>(json['finish']),
+      start: serializer.fromJson<DateTime?>(json['start']),
+      regions: serializer.fromJson<String>(json['regions']),
+      name: serializer.fromJson<String>(json['name']),
+      image: serializer.fromJson<String>(json['image']),
+      description: serializer.fromJson<String>(json['description']),
+      currencies: serializer.fromJson<String>(json['currencies']),
+      status: serializer.fromJson<String>(json['status']),
+      budgetCurrency: serializer.fromJson<int>(json['budgetCurrency']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'date': serializer.toJson<DateTime>(date),
+      'finish': serializer.toJson<DateTime?>(finish),
+      'start': serializer.toJson<DateTime?>(start),
+      'regions': serializer.toJson<String>(regions),
+      'name': serializer.toJson<String>(name),
+      'image': serializer.toJson<String>(image),
+      'description': serializer.toJson<String>(description),
+      'currencies': serializer.toJson<String>(currencies),
+      'status': serializer.toJson<String>(status),
+      'budgetCurrency': serializer.toJson<int>(budgetCurrency),
+    };
+  }
+
+  DriftTravel copyWith(
+          {String? id,
+          DateTime? date,
+          Value<DateTime?> finish = const Value.absent(),
+          Value<DateTime?> start = const Value.absent(),
+          String? regions,
+          String? name,
+          String? image,
+          String? description,
+          String? currencies,
+          String? status,
+          int? budgetCurrency}) =>
+      DriftTravel(
+        id: id ?? this.id,
+        date: date ?? this.date,
+        finish: finish.present ? finish.value : this.finish,
+        start: start.present ? start.value : this.start,
+        regions: regions ?? this.regions,
+        name: name ?? this.name,
+        image: image ?? this.image,
+        description: description ?? this.description,
+        currencies: currencies ?? this.currencies,
+        status: status ?? this.status,
+        budgetCurrency: budgetCurrency ?? this.budgetCurrency,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('DriftTravel(')
+          ..write('id: $id, ')
+          ..write('date: $date, ')
+          ..write('finish: $finish, ')
+          ..write('start: $start, ')
+          ..write('regions: $regions, ')
+          ..write('name: $name, ')
+          ..write('image: $image, ')
+          ..write('description: $description, ')
+          ..write('currencies: $currencies, ')
+          ..write('status: $status, ')
+          ..write('budgetCurrency: $budgetCurrency')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, date, finish, start, regions, name, image,
+      description, currencies, status, budgetCurrency);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is DriftTravel &&
+          other.id == this.id &&
+          other.date == this.date &&
+          other.finish == this.finish &&
+          other.start == this.start &&
+          other.regions == this.regions &&
+          other.name == this.name &&
+          other.image == this.image &&
+          other.description == this.description &&
+          other.currencies == this.currencies &&
+          other.status == this.status &&
+          other.budgetCurrency == this.budgetCurrency);
+}
+
+class DriftTravelsTableCompanion extends UpdateCompanion<DriftTravel> {
+  final Value<String> id;
+  final Value<DateTime> date;
+  final Value<DateTime?> finish;
+  final Value<DateTime?> start;
+  final Value<String> regions;
+  final Value<String> name;
+  final Value<String> image;
+  final Value<String> description;
+  final Value<String> currencies;
+  final Value<String> status;
+  final Value<int> budgetCurrency;
+  final Value<int> rowid;
+  const DriftTravelsTableCompanion({
+    this.id = const Value.absent(),
+    this.date = const Value.absent(),
+    this.finish = const Value.absent(),
+    this.start = const Value.absent(),
+    this.regions = const Value.absent(),
+    this.name = const Value.absent(),
+    this.image = const Value.absent(),
+    this.description = const Value.absent(),
+    this.currencies = const Value.absent(),
+    this.status = const Value.absent(),
+    this.budgetCurrency = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  DriftTravelsTableCompanion.insert({
+    required String id,
+    required DateTime date,
+    this.finish = const Value.absent(),
+    this.start = const Value.absent(),
+    required String regions,
+    required String name,
+    required String image,
+    required String description,
+    required String currencies,
+    required String status,
+    required int budgetCurrency,
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        date = Value(date),
+        regions = Value(regions),
+        name = Value(name),
+        image = Value(image),
+        description = Value(description),
+        currencies = Value(currencies),
+        status = Value(status),
+        budgetCurrency = Value(budgetCurrency);
+  static Insertable<DriftTravel> custom({
+    Expression<String>? id,
+    Expression<DateTime>? date,
+    Expression<DateTime>? finish,
+    Expression<DateTime>? start,
+    Expression<String>? regions,
+    Expression<String>? name,
+    Expression<String>? image,
+    Expression<String>? description,
+    Expression<String>? currencies,
+    Expression<String>? status,
+    Expression<int>? budgetCurrency,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (date != null) 'date': date,
+      if (finish != null) 'finish': finish,
+      if (start != null) 'start': start,
+      if (regions != null) 'regions': regions,
+      if (name != null) 'name': name,
+      if (image != null) 'image': image,
+      if (description != null) 'description': description,
+      if (currencies != null) 'currencies': currencies,
+      if (status != null) 'status': status,
+      if (budgetCurrency != null) 'budget_currency': budgetCurrency,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  DriftTravelsTableCompanion copyWith(
+      {Value<String>? id,
+      Value<DateTime>? date,
+      Value<DateTime?>? finish,
+      Value<DateTime?>? start,
+      Value<String>? regions,
+      Value<String>? name,
+      Value<String>? image,
+      Value<String>? description,
+      Value<String>? currencies,
+      Value<String>? status,
+      Value<int>? budgetCurrency,
+      Value<int>? rowid}) {
+    return DriftTravelsTableCompanion(
+      id: id ?? this.id,
+      date: date ?? this.date,
+      finish: finish ?? this.finish,
+      start: start ?? this.start,
+      regions: regions ?? this.regions,
+      name: name ?? this.name,
+      image: image ?? this.image,
+      description: description ?? this.description,
+      currencies: currencies ?? this.currencies,
+      status: status ?? this.status,
+      budgetCurrency: budgetCurrency ?? this.budgetCurrency,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (date.present) {
+      map['date'] = Variable<DateTime>(date.value);
+    }
+    if (finish.present) {
+      map['finish'] = Variable<DateTime>(finish.value);
+    }
+    if (start.present) {
+      map['start'] = Variable<DateTime>(start.value);
+    }
+    if (regions.present) {
+      map['regions'] = Variable<String>(regions.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    if (image.present) {
+      map['image'] = Variable<String>(image.value);
+    }
+    if (description.present) {
+      map['description'] = Variable<String>(description.value);
+    }
+    if (currencies.present) {
+      map['currencies'] = Variable<String>(currencies.value);
+    }
+    if (status.present) {
+      map['status'] = Variable<String>(status.value);
+    }
+    if (budgetCurrency.present) {
+      map['budget_currency'] = Variable<int>(budgetCurrency.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DriftTravelsTableCompanion(')
+          ..write('id: $id, ')
+          ..write('date: $date, ')
+          ..write('finish: $finish, ')
+          ..write('start: $start, ')
+          ..write('regions: $regions, ')
+          ..write('name: $name, ')
+          ..write('image: $image, ')
+          ..write('description: $description, ')
+          ..write('currencies: $currencies, ')
+          ..write('status: $status, ')
+          ..write('budgetCurrency: $budgetCurrency, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $DriftTravelDaysTableTable extends DriftTravelDaysTable
+    with TableInfo<$DriftTravelDaysTableTable, DriftTravelDay> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $DriftTravelDaysTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _dateMeta = const VerificationMeta('date');
+  @override
+  late final GeneratedColumn<DateTime> date = GeneratedColumn<DateTime>(
+      'date', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _startMeta = const VerificationMeta('start');
+  @override
+  late final GeneratedColumn<DateTime> start = GeneratedColumn<DateTime>(
+      'start', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _descriptionMeta =
+      const VerificationMeta('description');
+  @override
+  late final GeneratedColumn<String> description = GeneratedColumn<String>(
+      'description', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _numberMeta = const VerificationMeta('number');
+  @override
+  late final GeneratedColumn<int> number = GeneratedColumn<int>(
+      'number', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _transportLinesMeta =
+      const VerificationMeta('transportLines');
+  @override
+  late final GeneratedColumn<String> transportLines = GeneratedColumn<String>(
+      'transport_lines', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _feedingsLinesMeta =
+      const VerificationMeta('feedingsLines');
+  @override
+  late final GeneratedColumn<String> feedingsLines = GeneratedColumn<String>(
+      'feedings_lines', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _stayLinesMeta =
+      const VerificationMeta('stayLines');
+  @override
+  late final GeneratedColumn<String> stayLines = GeneratedColumn<String>(
+      'stay_lines', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _travelIdMeta =
+      const VerificationMeta('travelId');
+  @override
+  late final GeneratedColumn<String> travelId = GeneratedColumn<String>(
+      'travel_id', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES drift_travels_table (id)'));
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        date,
+        start,
+        description,
+        number,
+        transportLines,
+        feedingsLines,
+        stayLines,
+        travelId
+      ];
+  @override
+  String get aliasedName => _alias ?? 'drift_travel_days_table';
+  @override
+  String get actualTableName => 'drift_travel_days_table';
+  @override
+  VerificationContext validateIntegrity(Insertable<DriftTravelDay> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('date')) {
+      context.handle(
+          _dateMeta, date.isAcceptableOrUnknown(data['date']!, _dateMeta));
+    } else if (isInserting) {
+      context.missing(_dateMeta);
+    }
+    if (data.containsKey('start')) {
+      context.handle(
+          _startMeta, start.isAcceptableOrUnknown(data['start']!, _startMeta));
+    }
+    if (data.containsKey('description')) {
+      context.handle(
+          _descriptionMeta,
+          description.isAcceptableOrUnknown(
+              data['description']!, _descriptionMeta));
+    } else if (isInserting) {
+      context.missing(_descriptionMeta);
+    }
+    if (data.containsKey('number')) {
+      context.handle(_numberMeta,
+          number.isAcceptableOrUnknown(data['number']!, _numberMeta));
+    } else if (isInserting) {
+      context.missing(_numberMeta);
+    }
+    if (data.containsKey('transport_lines')) {
+      context.handle(
+          _transportLinesMeta,
+          transportLines.isAcceptableOrUnknown(
+              data['transport_lines']!, _transportLinesMeta));
+    } else if (isInserting) {
+      context.missing(_transportLinesMeta);
+    }
+    if (data.containsKey('feedings_lines')) {
+      context.handle(
+          _feedingsLinesMeta,
+          feedingsLines.isAcceptableOrUnknown(
+              data['feedings_lines']!, _feedingsLinesMeta));
+    } else if (isInserting) {
+      context.missing(_feedingsLinesMeta);
+    }
+    if (data.containsKey('stay_lines')) {
+      context.handle(_stayLinesMeta,
+          stayLines.isAcceptableOrUnknown(data['stay_lines']!, _stayLinesMeta));
+    } else if (isInserting) {
+      context.missing(_stayLinesMeta);
+    }
+    if (data.containsKey('travel_id')) {
+      context.handle(_travelIdMeta,
+          travelId.isAcceptableOrUnknown(data['travel_id']!, _travelIdMeta));
+    } else if (isInserting) {
+      context.missing(_travelIdMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  DriftTravelDay map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return DriftTravelDay(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      date: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}date'])!,
+      start: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}start']),
+      description: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}description'])!,
+      number: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}number'])!,
+      transportLines: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}transport_lines'])!,
+      feedingsLines: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}feedings_lines'])!,
+      stayLines: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}stay_lines'])!,
+      travelId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}travel_id'])!,
+    );
+  }
+
+  @override
+  $DriftTravelDaysTableTable createAlias(String alias) {
+    return $DriftTravelDaysTableTable(attachedDatabase, alias);
+  }
+}
+
+class DriftTravelDay extends DataClass implements Insertable<DriftTravelDay> {
+  final String id;
+  final DateTime date;
+  final DateTime? start;
+  final String description;
+  final int number;
+  final String transportLines;
+  final String feedingsLines;
+  final String stayLines;
+  final String travelId;
+  const DriftTravelDay(
+      {required this.id,
+      required this.date,
+      this.start,
+      required this.description,
+      required this.number,
+      required this.transportLines,
+      required this.feedingsLines,
+      required this.stayLines,
+      required this.travelId});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['date'] = Variable<DateTime>(date);
+    if (!nullToAbsent || start != null) {
+      map['start'] = Variable<DateTime>(start);
+    }
+    map['description'] = Variable<String>(description);
+    map['number'] = Variable<int>(number);
+    map['transport_lines'] = Variable<String>(transportLines);
+    map['feedings_lines'] = Variable<String>(feedingsLines);
+    map['stay_lines'] = Variable<String>(stayLines);
+    map['travel_id'] = Variable<String>(travelId);
+    return map;
+  }
+
+  DriftTravelDaysTableCompanion toCompanion(bool nullToAbsent) {
+    return DriftTravelDaysTableCompanion(
+      id: Value(id),
+      date: Value(date),
+      start:
+          start == null && nullToAbsent ? const Value.absent() : Value(start),
+      description: Value(description),
+      number: Value(number),
+      transportLines: Value(transportLines),
+      feedingsLines: Value(feedingsLines),
+      stayLines: Value(stayLines),
+      travelId: Value(travelId),
+    );
+  }
+
+  factory DriftTravelDay.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return DriftTravelDay(
+      id: serializer.fromJson<String>(json['id']),
+      date: serializer.fromJson<DateTime>(json['date']),
+      start: serializer.fromJson<DateTime?>(json['start']),
+      description: serializer.fromJson<String>(json['description']),
+      number: serializer.fromJson<int>(json['number']),
+      transportLines: serializer.fromJson<String>(json['transportLines']),
+      feedingsLines: serializer.fromJson<String>(json['feedingsLines']),
+      stayLines: serializer.fromJson<String>(json['stayLines']),
+      travelId: serializer.fromJson<String>(json['travelId']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'date': serializer.toJson<DateTime>(date),
+      'start': serializer.toJson<DateTime?>(start),
+      'description': serializer.toJson<String>(description),
+      'number': serializer.toJson<int>(number),
+      'transportLines': serializer.toJson<String>(transportLines),
+      'feedingsLines': serializer.toJson<String>(feedingsLines),
+      'stayLines': serializer.toJson<String>(stayLines),
+      'travelId': serializer.toJson<String>(travelId),
+    };
+  }
+
+  DriftTravelDay copyWith(
+          {String? id,
+          DateTime? date,
+          Value<DateTime?> start = const Value.absent(),
+          String? description,
+          int? number,
+          String? transportLines,
+          String? feedingsLines,
+          String? stayLines,
+          String? travelId}) =>
+      DriftTravelDay(
+        id: id ?? this.id,
+        date: date ?? this.date,
+        start: start.present ? start.value : this.start,
+        description: description ?? this.description,
+        number: number ?? this.number,
+        transportLines: transportLines ?? this.transportLines,
+        feedingsLines: feedingsLines ?? this.feedingsLines,
+        stayLines: stayLines ?? this.stayLines,
+        travelId: travelId ?? this.travelId,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('DriftTravelDay(')
+          ..write('id: $id, ')
+          ..write('date: $date, ')
+          ..write('start: $start, ')
+          ..write('description: $description, ')
+          ..write('number: $number, ')
+          ..write('transportLines: $transportLines, ')
+          ..write('feedingsLines: $feedingsLines, ')
+          ..write('stayLines: $stayLines, ')
+          ..write('travelId: $travelId')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, date, start, description, number,
+      transportLines, feedingsLines, stayLines, travelId);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is DriftTravelDay &&
+          other.id == this.id &&
+          other.date == this.date &&
+          other.start == this.start &&
+          other.description == this.description &&
+          other.number == this.number &&
+          other.transportLines == this.transportLines &&
+          other.feedingsLines == this.feedingsLines &&
+          other.stayLines == this.stayLines &&
+          other.travelId == this.travelId);
+}
+
+class DriftTravelDaysTableCompanion extends UpdateCompanion<DriftTravelDay> {
+  final Value<String> id;
+  final Value<DateTime> date;
+  final Value<DateTime?> start;
+  final Value<String> description;
+  final Value<int> number;
+  final Value<String> transportLines;
+  final Value<String> feedingsLines;
+  final Value<String> stayLines;
+  final Value<String> travelId;
+  final Value<int> rowid;
+  const DriftTravelDaysTableCompanion({
+    this.id = const Value.absent(),
+    this.date = const Value.absent(),
+    this.start = const Value.absent(),
+    this.description = const Value.absent(),
+    this.number = const Value.absent(),
+    this.transportLines = const Value.absent(),
+    this.feedingsLines = const Value.absent(),
+    this.stayLines = const Value.absent(),
+    this.travelId = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  DriftTravelDaysTableCompanion.insert({
+    required String id,
+    required DateTime date,
+    this.start = const Value.absent(),
+    required String description,
+    required int number,
+    required String transportLines,
+    required String feedingsLines,
+    required String stayLines,
+    required String travelId,
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        date = Value(date),
+        description = Value(description),
+        number = Value(number),
+        transportLines = Value(transportLines),
+        feedingsLines = Value(feedingsLines),
+        stayLines = Value(stayLines),
+        travelId = Value(travelId);
+  static Insertable<DriftTravelDay> custom({
+    Expression<String>? id,
+    Expression<DateTime>? date,
+    Expression<DateTime>? start,
+    Expression<String>? description,
+    Expression<int>? number,
+    Expression<String>? transportLines,
+    Expression<String>? feedingsLines,
+    Expression<String>? stayLines,
+    Expression<String>? travelId,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (date != null) 'date': date,
+      if (start != null) 'start': start,
+      if (description != null) 'description': description,
+      if (number != null) 'number': number,
+      if (transportLines != null) 'transport_lines': transportLines,
+      if (feedingsLines != null) 'feedings_lines': feedingsLines,
+      if (stayLines != null) 'stay_lines': stayLines,
+      if (travelId != null) 'travel_id': travelId,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  DriftTravelDaysTableCompanion copyWith(
+      {Value<String>? id,
+      Value<DateTime>? date,
+      Value<DateTime?>? start,
+      Value<String>? description,
+      Value<int>? number,
+      Value<String>? transportLines,
+      Value<String>? feedingsLines,
+      Value<String>? stayLines,
+      Value<String>? travelId,
+      Value<int>? rowid}) {
+    return DriftTravelDaysTableCompanion(
+      id: id ?? this.id,
+      date: date ?? this.date,
+      start: start ?? this.start,
+      description: description ?? this.description,
+      number: number ?? this.number,
+      transportLines: transportLines ?? this.transportLines,
+      feedingsLines: feedingsLines ?? this.feedingsLines,
+      stayLines: stayLines ?? this.stayLines,
+      travelId: travelId ?? this.travelId,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (date.present) {
+      map['date'] = Variable<DateTime>(date.value);
+    }
+    if (start.present) {
+      map['start'] = Variable<DateTime>(start.value);
+    }
+    if (description.present) {
+      map['description'] = Variable<String>(description.value);
+    }
+    if (number.present) {
+      map['number'] = Variable<int>(number.value);
+    }
+    if (transportLines.present) {
+      map['transport_lines'] = Variable<String>(transportLines.value);
+    }
+    if (feedingsLines.present) {
+      map['feedings_lines'] = Variable<String>(feedingsLines.value);
+    }
+    if (stayLines.present) {
+      map['stay_lines'] = Variable<String>(stayLines.value);
+    }
+    if (travelId.present) {
+      map['travel_id'] = Variable<String>(travelId.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DriftTravelDaysTableCompanion(')
+          ..write('id: $id, ')
+          ..write('date: $date, ')
+          ..write('start: $start, ')
+          ..write('description: $description, ')
+          ..write('number: $number, ')
+          ..write('transportLines: $transportLines, ')
+          ..write('feedingsLines: $feedingsLines, ')
+          ..write('stayLines: $stayLines, ')
+          ..write('travelId: $travelId, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $DriftCostLinesTableTable extends DriftCostLinesTable
+    with TableInfo<$DriftCostLinesTableTable, DriftCostLine> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $DriftCostLinesTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _typeMeta = const VerificationMeta('type');
+  @override
+  late final GeneratedColumn<String> type = GeneratedColumn<String>(
+      'type', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _currencyMeta =
+      const VerificationMeta('currency');
+  @override
+  late final GeneratedColumn<int> currency = GeneratedColumn<int>(
+      'currency', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _travelIdMeta =
+      const VerificationMeta('travelId');
+  @override
+  late final GeneratedColumn<String> travelId = GeneratedColumn<String>(
+      'travel_id', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES drift_travels_table (id)'));
+  static const VerificationMeta _dateMeta = const VerificationMeta('date');
+  @override
+  late final GeneratedColumn<DateTime> date = GeneratedColumn<DateTime>(
+      'date', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _sumMeta = const VerificationMeta('sum');
+  @override
+  late final GeneratedColumn<double> sum = GeneratedColumn<double>(
+      'sum', aliasedName, false,
+      type: DriftSqlType.double, requiredDuringInsert: true);
+  static const VerificationMeta _budgetSumMeta =
+      const VerificationMeta('budgetSum');
+  @override
+  late final GeneratedColumn<double> budgetSum = GeneratedColumn<double>(
+      'budget_sum', aliasedName, false,
+      type: DriftSqlType.double, requiredDuringInsert: true);
+  static const VerificationMeta _descriptionMeta =
+      const VerificationMeta('description');
+  @override
+  late final GeneratedColumn<String> description = GeneratedColumn<String>(
+      'description', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _incomeExpenseMeta =
+      const VerificationMeta('incomeExpense');
+  @override
+  late final GeneratedColumn<String> incomeExpense = GeneratedColumn<String>(
+      'income_expense', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        type,
+        currency,
+        travelId,
+        date,
+        sum,
+        budgetSum,
+        description,
+        incomeExpense
+      ];
+  @override
+  String get aliasedName => _alias ?? 'drift_cost_lines_table';
+  @override
+  String get actualTableName => 'drift_cost_lines_table';
+  @override
+  VerificationContext validateIntegrity(Insertable<DriftCostLine> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('type')) {
+      context.handle(
+          _typeMeta, type.isAcceptableOrUnknown(data['type']!, _typeMeta));
+    } else if (isInserting) {
+      context.missing(_typeMeta);
+    }
+    if (data.containsKey('currency')) {
+      context.handle(_currencyMeta,
+          currency.isAcceptableOrUnknown(data['currency']!, _currencyMeta));
+    } else if (isInserting) {
+      context.missing(_currencyMeta);
+    }
+    if (data.containsKey('travel_id')) {
+      context.handle(_travelIdMeta,
+          travelId.isAcceptableOrUnknown(data['travel_id']!, _travelIdMeta));
+    } else if (isInserting) {
+      context.missing(_travelIdMeta);
+    }
+    if (data.containsKey('date')) {
+      context.handle(
+          _dateMeta, date.isAcceptableOrUnknown(data['date']!, _dateMeta));
+    } else if (isInserting) {
+      context.missing(_dateMeta);
+    }
+    if (data.containsKey('sum')) {
+      context.handle(
+          _sumMeta, sum.isAcceptableOrUnknown(data['sum']!, _sumMeta));
+    } else if (isInserting) {
+      context.missing(_sumMeta);
+    }
+    if (data.containsKey('budget_sum')) {
+      context.handle(_budgetSumMeta,
+          budgetSum.isAcceptableOrUnknown(data['budget_sum']!, _budgetSumMeta));
+    } else if (isInserting) {
+      context.missing(_budgetSumMeta);
+    }
+    if (data.containsKey('description')) {
+      context.handle(
+          _descriptionMeta,
+          description.isAcceptableOrUnknown(
+              data['description']!, _descriptionMeta));
+    } else if (isInserting) {
+      context.missing(_descriptionMeta);
+    }
+    if (data.containsKey('income_expense')) {
+      context.handle(
+          _incomeExpenseMeta,
+          incomeExpense.isAcceptableOrUnknown(
+              data['income_expense']!, _incomeExpenseMeta));
+    } else if (isInserting) {
+      context.missing(_incomeExpenseMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  DriftCostLine map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return DriftCostLine(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      type: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}type'])!,
+      currency: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}currency'])!,
+      travelId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}travel_id'])!,
+      date: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}date'])!,
+      sum: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}sum'])!,
+      budgetSum: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}budget_sum'])!,
+      description: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}description'])!,
+      incomeExpense: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}income_expense'])!,
+    );
+  }
+
+  @override
+  $DriftCostLinesTableTable createAlias(String alias) {
+    return $DriftCostLinesTableTable(attachedDatabase, alias);
+  }
+}
+
+class DriftCostLine extends DataClass implements Insertable<DriftCostLine> {
+  final String id;
+  final String type;
+  final int currency;
+  final String travelId;
+  final DateTime date;
+  final double sum;
+  final double budgetSum;
+  final String description;
+  final String incomeExpense;
+  const DriftCostLine(
+      {required this.id,
+      required this.type,
+      required this.currency,
+      required this.travelId,
+      required this.date,
+      required this.sum,
+      required this.budgetSum,
+      required this.description,
+      required this.incomeExpense});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['type'] = Variable<String>(type);
+    map['currency'] = Variable<int>(currency);
+    map['travel_id'] = Variable<String>(travelId);
+    map['date'] = Variable<DateTime>(date);
+    map['sum'] = Variable<double>(sum);
+    map['budget_sum'] = Variable<double>(budgetSum);
+    map['description'] = Variable<String>(description);
+    map['income_expense'] = Variable<String>(incomeExpense);
+    return map;
+  }
+
+  DriftCostLinesTableCompanion toCompanion(bool nullToAbsent) {
+    return DriftCostLinesTableCompanion(
+      id: Value(id),
+      type: Value(type),
+      currency: Value(currency),
+      travelId: Value(travelId),
+      date: Value(date),
+      sum: Value(sum),
+      budgetSum: Value(budgetSum),
+      description: Value(description),
+      incomeExpense: Value(incomeExpense),
+    );
+  }
+
+  factory DriftCostLine.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return DriftCostLine(
+      id: serializer.fromJson<String>(json['id']),
+      type: serializer.fromJson<String>(json['type']),
+      currency: serializer.fromJson<int>(json['currency']),
+      travelId: serializer.fromJson<String>(json['travelId']),
+      date: serializer.fromJson<DateTime>(json['date']),
+      sum: serializer.fromJson<double>(json['sum']),
+      budgetSum: serializer.fromJson<double>(json['budgetSum']),
+      description: serializer.fromJson<String>(json['description']),
+      incomeExpense: serializer.fromJson<String>(json['incomeExpense']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'type': serializer.toJson<String>(type),
+      'currency': serializer.toJson<int>(currency),
+      'travelId': serializer.toJson<String>(travelId),
+      'date': serializer.toJson<DateTime>(date),
+      'sum': serializer.toJson<double>(sum),
+      'budgetSum': serializer.toJson<double>(budgetSum),
+      'description': serializer.toJson<String>(description),
+      'incomeExpense': serializer.toJson<String>(incomeExpense),
+    };
+  }
+
+  DriftCostLine copyWith(
+          {String? id,
+          String? type,
+          int? currency,
+          String? travelId,
+          DateTime? date,
+          double? sum,
+          double? budgetSum,
+          String? description,
+          String? incomeExpense}) =>
+      DriftCostLine(
+        id: id ?? this.id,
+        type: type ?? this.type,
+        currency: currency ?? this.currency,
+        travelId: travelId ?? this.travelId,
+        date: date ?? this.date,
+        sum: sum ?? this.sum,
+        budgetSum: budgetSum ?? this.budgetSum,
+        description: description ?? this.description,
+        incomeExpense: incomeExpense ?? this.incomeExpense,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('DriftCostLine(')
+          ..write('id: $id, ')
+          ..write('type: $type, ')
+          ..write('currency: $currency, ')
+          ..write('travelId: $travelId, ')
+          ..write('date: $date, ')
+          ..write('sum: $sum, ')
+          ..write('budgetSum: $budgetSum, ')
+          ..write('description: $description, ')
+          ..write('incomeExpense: $incomeExpense')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, type, currency, travelId, date, sum,
+      budgetSum, description, incomeExpense);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is DriftCostLine &&
+          other.id == this.id &&
+          other.type == this.type &&
+          other.currency == this.currency &&
+          other.travelId == this.travelId &&
+          other.date == this.date &&
+          other.sum == this.sum &&
+          other.budgetSum == this.budgetSum &&
+          other.description == this.description &&
+          other.incomeExpense == this.incomeExpense);
+}
+
+class DriftCostLinesTableCompanion extends UpdateCompanion<DriftCostLine> {
+  final Value<String> id;
+  final Value<String> type;
+  final Value<int> currency;
+  final Value<String> travelId;
+  final Value<DateTime> date;
+  final Value<double> sum;
+  final Value<double> budgetSum;
+  final Value<String> description;
+  final Value<String> incomeExpense;
+  final Value<int> rowid;
+  const DriftCostLinesTableCompanion({
+    this.id = const Value.absent(),
+    this.type = const Value.absent(),
+    this.currency = const Value.absent(),
+    this.travelId = const Value.absent(),
+    this.date = const Value.absent(),
+    this.sum = const Value.absent(),
+    this.budgetSum = const Value.absent(),
+    this.description = const Value.absent(),
+    this.incomeExpense = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  DriftCostLinesTableCompanion.insert({
+    required String id,
+    required String type,
+    required int currency,
+    required String travelId,
+    required DateTime date,
+    required double sum,
+    required double budgetSum,
+    required String description,
+    required String incomeExpense,
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        type = Value(type),
+        currency = Value(currency),
+        travelId = Value(travelId),
+        date = Value(date),
+        sum = Value(sum),
+        budgetSum = Value(budgetSum),
+        description = Value(description),
+        incomeExpense = Value(incomeExpense);
+  static Insertable<DriftCostLine> custom({
+    Expression<String>? id,
+    Expression<String>? type,
+    Expression<int>? currency,
+    Expression<String>? travelId,
+    Expression<DateTime>? date,
+    Expression<double>? sum,
+    Expression<double>? budgetSum,
+    Expression<String>? description,
+    Expression<String>? incomeExpense,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (type != null) 'type': type,
+      if (currency != null) 'currency': currency,
+      if (travelId != null) 'travel_id': travelId,
+      if (date != null) 'date': date,
+      if (sum != null) 'sum': sum,
+      if (budgetSum != null) 'budget_sum': budgetSum,
+      if (description != null) 'description': description,
+      if (incomeExpense != null) 'income_expense': incomeExpense,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  DriftCostLinesTableCompanion copyWith(
+      {Value<String>? id,
+      Value<String>? type,
+      Value<int>? currency,
+      Value<String>? travelId,
+      Value<DateTime>? date,
+      Value<double>? sum,
+      Value<double>? budgetSum,
+      Value<String>? description,
+      Value<String>? incomeExpense,
+      Value<int>? rowid}) {
+    return DriftCostLinesTableCompanion(
+      id: id ?? this.id,
+      type: type ?? this.type,
+      currency: currency ?? this.currency,
+      travelId: travelId ?? this.travelId,
+      date: date ?? this.date,
+      sum: sum ?? this.sum,
+      budgetSum: budgetSum ?? this.budgetSum,
+      description: description ?? this.description,
+      incomeExpense: incomeExpense ?? this.incomeExpense,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (type.present) {
+      map['type'] = Variable<String>(type.value);
+    }
+    if (currency.present) {
+      map['currency'] = Variable<int>(currency.value);
+    }
+    if (travelId.present) {
+      map['travel_id'] = Variable<String>(travelId.value);
+    }
+    if (date.present) {
+      map['date'] = Variable<DateTime>(date.value);
+    }
+    if (sum.present) {
+      map['sum'] = Variable<double>(sum.value);
+    }
+    if (budgetSum.present) {
+      map['budget_sum'] = Variable<double>(budgetSum.value);
+    }
+    if (description.present) {
+      map['description'] = Variable<String>(description.value);
+    }
+    if (incomeExpense.present) {
+      map['income_expense'] = Variable<String>(incomeExpense.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DriftCostLinesTableCompanion(')
+          ..write('id: $id, ')
+          ..write('type: $type, ')
+          ..write('currency: $currency, ')
+          ..write('travelId: $travelId, ')
+          ..write('date: $date, ')
+          ..write('sum: $sum, ')
+          ..write('budgetSum: $budgetSum, ')
+          ..write('description: $description, ')
+          ..write('incomeExpense: $incomeExpense, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $DriftBudgetLinesTableTable extends DriftBudgetLinesTable
+    with TableInfo<$DriftBudgetLinesTableTable, DriftBudgetLine> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $DriftBudgetLinesTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _typeMeta = const VerificationMeta('type');
+  @override
+  late final GeneratedColumn<String> type = GeneratedColumn<String>(
+      'type', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _amountMeta = const VerificationMeta('amount');
+  @override
+  late final GeneratedColumn<double> amount = GeneratedColumn<double>(
+      'amount', aliasedName, false,
+      type: DriftSqlType.double, requiredDuringInsert: true);
+  static const VerificationMeta _travelIdMeta =
+      const VerificationMeta('travelId');
+  @override
+  late final GeneratedColumn<String> travelId = GeneratedColumn<String>(
+      'travel_id', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES drift_travels_table (id)'));
+  static const VerificationMeta _descriptionMeta =
+      const VerificationMeta('description');
+  @override
+  late final GeneratedColumn<String> description = GeneratedColumn<String>(
+      'description', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, type, amount, travelId, description];
+  @override
+  String get aliasedName => _alias ?? 'drift_budget_lines_table';
+  @override
+  String get actualTableName => 'drift_budget_lines_table';
+  @override
+  VerificationContext validateIntegrity(Insertable<DriftBudgetLine> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('type')) {
+      context.handle(
+          _typeMeta, type.isAcceptableOrUnknown(data['type']!, _typeMeta));
+    } else if (isInserting) {
+      context.missing(_typeMeta);
+    }
+    if (data.containsKey('amount')) {
+      context.handle(_amountMeta,
+          amount.isAcceptableOrUnknown(data['amount']!, _amountMeta));
+    } else if (isInserting) {
+      context.missing(_amountMeta);
+    }
+    if (data.containsKey('travel_id')) {
+      context.handle(_travelIdMeta,
+          travelId.isAcceptableOrUnknown(data['travel_id']!, _travelIdMeta));
+    } else if (isInserting) {
+      context.missing(_travelIdMeta);
+    }
+    if (data.containsKey('description')) {
+      context.handle(
+          _descriptionMeta,
+          description.isAcceptableOrUnknown(
+              data['description']!, _descriptionMeta));
+    } else if (isInserting) {
+      context.missing(_descriptionMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  DriftBudgetLine map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return DriftBudgetLine(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      type: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}type'])!,
+      amount: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}amount'])!,
+      travelId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}travel_id'])!,
+      description: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}description'])!,
+    );
+  }
+
+  @override
+  $DriftBudgetLinesTableTable createAlias(String alias) {
+    return $DriftBudgetLinesTableTable(attachedDatabase, alias);
+  }
+}
+
+class DriftBudgetLine extends DataClass implements Insertable<DriftBudgetLine> {
+  final String id;
+  final String type;
+  final double amount;
+  final String travelId;
+  final String description;
+  const DriftBudgetLine(
+      {required this.id,
+      required this.type,
+      required this.amount,
+      required this.travelId,
+      required this.description});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['type'] = Variable<String>(type);
+    map['amount'] = Variable<double>(amount);
+    map['travel_id'] = Variable<String>(travelId);
+    map['description'] = Variable<String>(description);
+    return map;
+  }
+
+  DriftBudgetLinesTableCompanion toCompanion(bool nullToAbsent) {
+    return DriftBudgetLinesTableCompanion(
+      id: Value(id),
+      type: Value(type),
+      amount: Value(amount),
+      travelId: Value(travelId),
+      description: Value(description),
+    );
+  }
+
+  factory DriftBudgetLine.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return DriftBudgetLine(
+      id: serializer.fromJson<String>(json['id']),
+      type: serializer.fromJson<String>(json['type']),
+      amount: serializer.fromJson<double>(json['amount']),
+      travelId: serializer.fromJson<String>(json['travelId']),
+      description: serializer.fromJson<String>(json['description']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'type': serializer.toJson<String>(type),
+      'amount': serializer.toJson<double>(amount),
+      'travelId': serializer.toJson<String>(travelId),
+      'description': serializer.toJson<String>(description),
+    };
+  }
+
+  DriftBudgetLine copyWith(
+          {String? id,
+          String? type,
+          double? amount,
+          String? travelId,
+          String? description}) =>
+      DriftBudgetLine(
+        id: id ?? this.id,
+        type: type ?? this.type,
+        amount: amount ?? this.amount,
+        travelId: travelId ?? this.travelId,
+        description: description ?? this.description,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('DriftBudgetLine(')
+          ..write('id: $id, ')
+          ..write('type: $type, ')
+          ..write('amount: $amount, ')
+          ..write('travelId: $travelId, ')
+          ..write('description: $description')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, type, amount, travelId, description);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is DriftBudgetLine &&
+          other.id == this.id &&
+          other.type == this.type &&
+          other.amount == this.amount &&
+          other.travelId == this.travelId &&
+          other.description == this.description);
+}
+
+class DriftBudgetLinesTableCompanion extends UpdateCompanion<DriftBudgetLine> {
+  final Value<String> id;
+  final Value<String> type;
+  final Value<double> amount;
+  final Value<String> travelId;
+  final Value<String> description;
+  final Value<int> rowid;
+  const DriftBudgetLinesTableCompanion({
+    this.id = const Value.absent(),
+    this.type = const Value.absent(),
+    this.amount = const Value.absent(),
+    this.travelId = const Value.absent(),
+    this.description = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  DriftBudgetLinesTableCompanion.insert({
+    required String id,
+    required String type,
+    required double amount,
+    required String travelId,
+    required String description,
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        type = Value(type),
+        amount = Value(amount),
+        travelId = Value(travelId),
+        description = Value(description);
+  static Insertable<DriftBudgetLine> custom({
+    Expression<String>? id,
+    Expression<String>? type,
+    Expression<double>? amount,
+    Expression<String>? travelId,
+    Expression<String>? description,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (type != null) 'type': type,
+      if (amount != null) 'amount': amount,
+      if (travelId != null) 'travel_id': travelId,
+      if (description != null) 'description': description,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  DriftBudgetLinesTableCompanion copyWith(
+      {Value<String>? id,
+      Value<String>? type,
+      Value<double>? amount,
+      Value<String>? travelId,
+      Value<String>? description,
+      Value<int>? rowid}) {
+    return DriftBudgetLinesTableCompanion(
+      id: id ?? this.id,
+      type: type ?? this.type,
+      amount: amount ?? this.amount,
+      travelId: travelId ?? this.travelId,
+      description: description ?? this.description,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (type.present) {
+      map['type'] = Variable<String>(type.value);
+    }
+    if (amount.present) {
+      map['amount'] = Variable<double>(amount.value);
+    }
+    if (travelId.present) {
+      map['travel_id'] = Variable<String>(travelId.value);
+    }
+    if (description.present) {
+      map['description'] = Variable<String>(description.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DriftBudgetLinesTableCompanion(')
+          ..write('id: $id, ')
+          ..write('type: $type, ')
+          ..write('amount: $amount, ')
+          ..write('travelId: $travelId, ')
+          ..write('description: $description, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $DriftInsuranceLinesTableTable extends DriftInsuranceLinesTable
+    with TableInfo<$DriftInsuranceLinesTableTable, DriftInsuranceLine> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $DriftInsuranceLinesTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _numberMeta = const VerificationMeta('number');
+  @override
+  late final GeneratedColumn<String> number = GeneratedColumn<String>(
+      'number', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _travelIdMeta =
+      const VerificationMeta('travelId');
+  @override
+  late final GeneratedColumn<String> travelId = GeneratedColumn<String>(
+      'travel_id', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES drift_travels_table (id)'));
+  static const VerificationMeta _insurantMeta =
+      const VerificationMeta('insurant');
+  @override
+  late final GeneratedColumn<String> insurant = GeneratedColumn<String>(
+      'insurant', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _descriptionMeta =
+      const VerificationMeta('description');
+  @override
+  late final GeneratedColumn<String> description = GeneratedColumn<String>(
+      'description', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _insurerMeta =
+      const VerificationMeta('insurer');
+  @override
+  late final GeneratedColumn<String> insurer = GeneratedColumn<String>(
+      'insurer', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _contactsMeta =
+      const VerificationMeta('contacts');
+  @override
+  late final GeneratedColumn<String> contacts = GeneratedColumn<String>(
+      'contacts', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, number, travelId, insurant, description, insurer, contacts];
+  @override
+  String get aliasedName => _alias ?? 'drift_insurance_lines_table';
+  @override
+  String get actualTableName => 'drift_insurance_lines_table';
+  @override
+  VerificationContext validateIntegrity(Insertable<DriftInsuranceLine> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('number')) {
+      context.handle(_numberMeta,
+          number.isAcceptableOrUnknown(data['number']!, _numberMeta));
+    } else if (isInserting) {
+      context.missing(_numberMeta);
+    }
+    if (data.containsKey('travel_id')) {
+      context.handle(_travelIdMeta,
+          travelId.isAcceptableOrUnknown(data['travel_id']!, _travelIdMeta));
+    } else if (isInserting) {
+      context.missing(_travelIdMeta);
+    }
+    if (data.containsKey('insurant')) {
+      context.handle(_insurantMeta,
+          insurant.isAcceptableOrUnknown(data['insurant']!, _insurantMeta));
+    } else if (isInserting) {
+      context.missing(_insurantMeta);
+    }
+    if (data.containsKey('description')) {
+      context.handle(
+          _descriptionMeta,
+          description.isAcceptableOrUnknown(
+              data['description']!, _descriptionMeta));
+    } else if (isInserting) {
+      context.missing(_descriptionMeta);
+    }
+    if (data.containsKey('insurer')) {
+      context.handle(_insurerMeta,
+          insurer.isAcceptableOrUnknown(data['insurer']!, _insurerMeta));
+    } else if (isInserting) {
+      context.missing(_insurerMeta);
+    }
+    if (data.containsKey('contacts')) {
+      context.handle(_contactsMeta,
+          contacts.isAcceptableOrUnknown(data['contacts']!, _contactsMeta));
+    } else if (isInserting) {
+      context.missing(_contactsMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  DriftInsuranceLine map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return DriftInsuranceLine(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      number: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}number'])!,
+      travelId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}travel_id'])!,
+      insurant: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}insurant'])!,
+      description: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}description'])!,
+      insurer: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}insurer'])!,
+      contacts: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}contacts'])!,
+    );
+  }
+
+  @override
+  $DriftInsuranceLinesTableTable createAlias(String alias) {
+    return $DriftInsuranceLinesTableTable(attachedDatabase, alias);
+  }
+}
+
+class DriftInsuranceLine extends DataClass
+    implements Insertable<DriftInsuranceLine> {
+  final String id;
+  final String number;
+  final String travelId;
+  final String insurant;
+  final String description;
+  final String insurer;
+  final String contacts;
+  const DriftInsuranceLine(
+      {required this.id,
+      required this.number,
+      required this.travelId,
+      required this.insurant,
+      required this.description,
+      required this.insurer,
+      required this.contacts});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['number'] = Variable<String>(number);
+    map['travel_id'] = Variable<String>(travelId);
+    map['insurant'] = Variable<String>(insurant);
+    map['description'] = Variable<String>(description);
+    map['insurer'] = Variable<String>(insurer);
+    map['contacts'] = Variable<String>(contacts);
+    return map;
+  }
+
+  DriftInsuranceLinesTableCompanion toCompanion(bool nullToAbsent) {
+    return DriftInsuranceLinesTableCompanion(
+      id: Value(id),
+      number: Value(number),
+      travelId: Value(travelId),
+      insurant: Value(insurant),
+      description: Value(description),
+      insurer: Value(insurer),
+      contacts: Value(contacts),
+    );
+  }
+
+  factory DriftInsuranceLine.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return DriftInsuranceLine(
+      id: serializer.fromJson<String>(json['id']),
+      number: serializer.fromJson<String>(json['number']),
+      travelId: serializer.fromJson<String>(json['travelId']),
+      insurant: serializer.fromJson<String>(json['insurant']),
+      description: serializer.fromJson<String>(json['description']),
+      insurer: serializer.fromJson<String>(json['insurer']),
+      contacts: serializer.fromJson<String>(json['contacts']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'number': serializer.toJson<String>(number),
+      'travelId': serializer.toJson<String>(travelId),
+      'insurant': serializer.toJson<String>(insurant),
+      'description': serializer.toJson<String>(description),
+      'insurer': serializer.toJson<String>(insurer),
+      'contacts': serializer.toJson<String>(contacts),
+    };
+  }
+
+  DriftInsuranceLine copyWith(
+          {String? id,
+          String? number,
+          String? travelId,
+          String? insurant,
+          String? description,
+          String? insurer,
+          String? contacts}) =>
+      DriftInsuranceLine(
+        id: id ?? this.id,
+        number: number ?? this.number,
+        travelId: travelId ?? this.travelId,
+        insurant: insurant ?? this.insurant,
+        description: description ?? this.description,
+        insurer: insurer ?? this.insurer,
+        contacts: contacts ?? this.contacts,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('DriftInsuranceLine(')
+          ..write('id: $id, ')
+          ..write('number: $number, ')
+          ..write('travelId: $travelId, ')
+          ..write('insurant: $insurant, ')
+          ..write('description: $description, ')
+          ..write('insurer: $insurer, ')
+          ..write('contacts: $contacts')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id, number, travelId, insurant, description, insurer, contacts);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is DriftInsuranceLine &&
+          other.id == this.id &&
+          other.number == this.number &&
+          other.travelId == this.travelId &&
+          other.insurant == this.insurant &&
+          other.description == this.description &&
+          other.insurer == this.insurer &&
+          other.contacts == this.contacts);
+}
+
+class DriftInsuranceLinesTableCompanion
+    extends UpdateCompanion<DriftInsuranceLine> {
+  final Value<String> id;
+  final Value<String> number;
+  final Value<String> travelId;
+  final Value<String> insurant;
+  final Value<String> description;
+  final Value<String> insurer;
+  final Value<String> contacts;
+  final Value<int> rowid;
+  const DriftInsuranceLinesTableCompanion({
+    this.id = const Value.absent(),
+    this.number = const Value.absent(),
+    this.travelId = const Value.absent(),
+    this.insurant = const Value.absent(),
+    this.description = const Value.absent(),
+    this.insurer = const Value.absent(),
+    this.contacts = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  DriftInsuranceLinesTableCompanion.insert({
+    required String id,
+    required String number,
+    required String travelId,
+    required String insurant,
+    required String description,
+    required String insurer,
+    required String contacts,
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        number = Value(number),
+        travelId = Value(travelId),
+        insurant = Value(insurant),
+        description = Value(description),
+        insurer = Value(insurer),
+        contacts = Value(contacts);
+  static Insertable<DriftInsuranceLine> custom({
+    Expression<String>? id,
+    Expression<String>? number,
+    Expression<String>? travelId,
+    Expression<String>? insurant,
+    Expression<String>? description,
+    Expression<String>? insurer,
+    Expression<String>? contacts,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (number != null) 'number': number,
+      if (travelId != null) 'travel_id': travelId,
+      if (insurant != null) 'insurant': insurant,
+      if (description != null) 'description': description,
+      if (insurer != null) 'insurer': insurer,
+      if (contacts != null) 'contacts': contacts,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  DriftInsuranceLinesTableCompanion copyWith(
+      {Value<String>? id,
+      Value<String>? number,
+      Value<String>? travelId,
+      Value<String>? insurant,
+      Value<String>? description,
+      Value<String>? insurer,
+      Value<String>? contacts,
+      Value<int>? rowid}) {
+    return DriftInsuranceLinesTableCompanion(
+      id: id ?? this.id,
+      number: number ?? this.number,
+      travelId: travelId ?? this.travelId,
+      insurant: insurant ?? this.insurant,
+      description: description ?? this.description,
+      insurer: insurer ?? this.insurer,
+      contacts: contacts ?? this.contacts,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (number.present) {
+      map['number'] = Variable<String>(number.value);
+    }
+    if (travelId.present) {
+      map['travel_id'] = Variable<String>(travelId.value);
+    }
+    if (insurant.present) {
+      map['insurant'] = Variable<String>(insurant.value);
+    }
+    if (description.present) {
+      map['description'] = Variable<String>(description.value);
+    }
+    if (insurer.present) {
+      map['insurer'] = Variable<String>(insurer.value);
+    }
+    if (contacts.present) {
+      map['contacts'] = Variable<String>(contacts.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DriftInsuranceLinesTableCompanion(')
+          ..write('id: $id, ')
+          ..write('number: $number, ')
+          ..write('travelId: $travelId, ')
+          ..write('insurant: $insurant, ')
+          ..write('description: $description, ')
+          ..write('insurer: $insurer, ')
+          ..write('contacts: $contacts, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$DriftDBLocalDataSource extends GeneratedDatabase {
   _$DriftDBLocalDataSource(QueryExecutor e) : super(e);
   late final $DriftStrengthExercisesTableTable driftStrengthExercisesTable =
@@ -6928,6 +9046,16 @@ abstract class _$DriftDBLocalDataSource extends GeneratedDatabase {
       $DriftAscensionsTableTable(this);
   late final $DriftAscensionEventsTableTable driftAscensionEventsTable =
       $DriftAscensionEventsTableTable(this);
+  late final $DriftTravelsTableTable driftTravelsTable =
+      $DriftTravelsTableTable(this);
+  late final $DriftTravelDaysTableTable driftTravelDaysTable =
+      $DriftTravelDaysTableTable(this);
+  late final $DriftCostLinesTableTable driftCostLinesTable =
+      $DriftCostLinesTableTable(this);
+  late final $DriftBudgetLinesTableTable driftBudgetLinesTable =
+      $DriftBudgetLinesTableTable(this);
+  late final $DriftInsuranceLinesTableTable driftInsuranceLinesTable =
+      $DriftInsuranceLinesTableTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -6948,6 +9076,11 @@ abstract class _$DriftDBLocalDataSource extends GeneratedDatabase {
         driftTechniqueTreaningsTable,
         driftTechniqueTreaningItemsTable,
         driftAscensionsTable,
-        driftAscensionEventsTable
+        driftAscensionEventsTable,
+        driftTravelsTable,
+        driftTravelDaysTable,
+        driftCostLinesTable,
+        driftBudgetLinesTable,
+        driftInsuranceLinesTable
       ];
 }

@@ -1,8 +1,6 @@
-import 'package:my_climbing_trek/core/extentions/date_time_extention.dart';
 import 'package:my_climbing_trek/features/settings/presentation/cubit/settings_cubit.dart';
 import 'package:my_climbing_trek/features/treanings/presentation/cubit/treanings_cubit.dart';
 import 'package:my_climbing_trek/features/treanings/presentation/widgets/treaning_widget_factory.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
 import 'package:my_climbing_trek/service_locator.dart';
@@ -40,10 +38,6 @@ class TreaningsPage extends StatelessWidget {
                   child: state.maybeMap(
                     loading: (_) => const CircularProgressIndicator(),
                     data: (dataState) {
-                      DateTime cuttentMonth =
-                          (dataState.treanings.firstOrNull?.date ??
-                                  DateTime.now())
-                              .monthStart();
                       return dataState.treanings.isEmpty
                           ? Center(
                               child: Text(

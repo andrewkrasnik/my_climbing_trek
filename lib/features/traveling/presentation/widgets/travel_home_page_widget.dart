@@ -13,30 +13,36 @@ class TravelHomePageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     const titleTextStyle = TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
 
-    return Column(children: [
-      const Text(
-        'Путешествия',
-        style: titleTextStyle,
-      ),
-      const SizedBox(height: 8),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Text('Планы:'),
-          TextButton(
-            child: const Text('Смотреть все'),
-            onPressed: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const TravelsPage())),
-          ),
-        ],
-      ),
-      BlocProvider(
-        create: (context) => getIt<TravelsCubit>()..loadPlanedData(),
-        child: SizedBox(
-          height: 120,
-          child: BlocBuilder<TravelsCubit, TravelsState>(
-            builder: (context, state) {
-              return state.maybeMap(
+    return BlocProvider(
+      create: (context) => getIt<TravelsCubit>()..loadPlanedData(),
+      child: BlocBuilder<TravelsCubit, TravelsState>(
+        builder: (context, state) {
+          final cubit = BlocProvider.of<TravelsCubit>(context);
+
+          return Column(children: [
+            const Text(
+              'Путешествия',
+              style: titleTextStyle,
+            ),
+            const SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text('Планы:'),
+                TextButton(
+                  child: const Text('Смотреть все'),
+                  onPressed: () async {
+                    await Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const TravelsPage()));
+
+                    cubit.loadPlanedData();
+                  },
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 120,
+              child: state.maybeMap(
                 loading: (_) => const Center(
                   child: CircularProgressIndicator(),
                 ),
@@ -49,12 +55,15 @@ class TravelHomePageWidget extends StatelessWidget {
                               tag: 'travel${dataState.travels[index].id}',
                               child: TravelWidget(
                                 travel: dataState.travels[index],
-                                onTap: () {
+                                onTap: () async {
                                   final travel = dataState.travels[index];
 
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) =>
-                                          TravelPage(travel: travel)));
+                                  await Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              TravelPage(travel: travel)));
+
+                                  cubit.loadPlanedData();
                                 },
                               ),
                             ),
@@ -65,11 +74,11 @@ class TravelHomePageWidget extends StatelessWidget {
                         ),
                     itemCount: dataState.travels.length),
                 orElse: () => const SizedBox(),
-              );
-            },
-          ),
-        ),
+              ),
+            ),
+          ]);
+        },
       ),
-    ]);
+    );
   }
 }

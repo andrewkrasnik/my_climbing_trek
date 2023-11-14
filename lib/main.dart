@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:ui';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:my_climbing_trek/bottom_navigation_page.dart';
 import 'package:my_climbing_trek/core/services/analitics/analitics_service.dart';
 import 'package:my_climbing_trek/core/services/crash_log_service/crash_log_service.dart';
@@ -15,11 +16,13 @@ import 'package:my_climbing_trek/features/rock_climbing/presentation/cubit/rock_
 import 'package:my_climbing_trek/features/settings/presentation/cubit/settings_cubit.dart';
 import 'package:my_climbing_trek/features/strength_training/presentation/cubit/strength_training/strength_training_cubit.dart';
 import 'package:my_climbing_trek/features/techniques/presentation/bloc/technique_treaning/technique_treaning_cubit.dart';
+import 'package:my_climbing_trek/features/traveling/presentation/cubit/current_travel/current_travel_cubit.dart';
 import 'package:my_climbing_trek/features/trekking/presentation/bloc/trekking/trekking_cubit.dart';
 import 'package:my_climbing_trek/service_locator.dart' as di;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 
 void main() async {
   runZonedGuarded<Future<void>>(
@@ -27,6 +30,27 @@ void main() async {
       WidgetsFlutterBinding.ensureInitialized();
 
       di.configureDependencies();
+
+      await Firebase.initializeApp();
+
+      await FirebaseAppCheck.instance.activate(
+        // You can also use a `ReCaptchaEnterpriseProvider` provider instance as an
+        // argument for `webProvider`
+        webProvider: ReCaptchaV3Provider('recaptcha-v3-site-key'),
+        // Default provider for Android is the Play Integrity provider. You can use the "AndroidProvider" enum to choose
+        // your preferred provider. Choose from:
+        // 1. Debug provider
+        // 2. Safety Net provider
+        // 3. Play Integrity provider
+        androidProvider: AndroidProvider.debug,
+        // Default provider for iOS/macOS is the Device Check provider. You can use the "AppleProvider" enum to choose
+        // your preferred provider. Choose from:
+        // 1. Debug provider
+        // 2. Device Check provider
+        // 3. App Attest provider
+        // 4. App Attest provider with fallback to Device Check provider (App Attest provider is only available on iOS 14.0+, macOS 14.0+)
+        appleProvider: AppleProvider.appAttest,
+      );
 
       await di.getIt.getAsync<CrashLogService>();
 
@@ -61,6 +85,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<HomePageCubit>(
           create: (context) => di.getIt<HomePageCubit>(), //..loadData(),
         ),
+        BlocProvider<CurrentTravelCubit>(
+          create: (context) => di.getIt<CurrentTravelCubit>()..loadData(),
+        ),
         BlocProvider<CurrentHallTreaningCubit>(
           create: (context) =>
               di.getIt<CurrentHallTreaningCubit>(), //..loadData(),
@@ -91,7 +118,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-          title: 'Flutter Demo',
+          title: 'My Climbing Trek',
           theme: ThemeData(
               colorScheme: const ColorScheme.light()
                   .copyWith(primary: Colors.blueGrey, surface: Colors.black)),

@@ -14,7 +14,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "454320308985-3v6e3hucs9m1o3e7s7v4f3h0o86gqsgv.apps.googleusercontent.com",
+          "client_id": "454320308985-1pfo0q55gkpinf8dce03o5pnnc4bb3ge.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.krasnik.my_climbing_trek",
+            "certificate_hash": "d4cac51ecc3a4947097257377c84b4c9fa9f6888"
+          }
+        },
+        {
+          "client_id": "454320308985-mpsjbsp07sqeniotgah8cjo8pmbcjcl7.apps.googleusercontent.com",
           "client_type": 3
         }
       ],

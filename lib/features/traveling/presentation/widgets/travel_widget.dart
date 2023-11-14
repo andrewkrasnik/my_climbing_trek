@@ -5,11 +5,16 @@ import 'package:my_climbing_trek/features/traveling/domain/entities/travel.dart'
 class TravelWidget extends StatelessWidget {
   final Travel travel;
   final double height;
+  final bool showStatus;
   final void Function()? onTap;
 
-  const TravelWidget(
-      {required this.travel, this.onTap, this.height = 160, Key? key})
-      : super(key: key);
+  const TravelWidget({
+    required this.travel,
+    this.onTap,
+    this.height = 160,
+    this.showStatus = false,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +54,16 @@ class TravelWidget extends StatelessWidget {
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
                           shadows: [Shadow(offset: Offset.fromDirection(1))]),
-                    )
+                    ),
+                    if (showStatus)
+                      Text(
+                        travel.status.description,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            shadows: [Shadow(offset: Offset.fromDirection(1))]),
+                      ),
                   ]),
             ),
           ],

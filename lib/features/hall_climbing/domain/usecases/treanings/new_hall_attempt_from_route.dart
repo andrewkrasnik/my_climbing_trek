@@ -41,7 +41,7 @@ class NewHallAttemptFromRoute {
       treaningId: currentTreaning!.id,
     )..start();
 
-    final failureOrAttempt = await hallTreaningRepository.saveAttempt(
+    await hallTreaningRepository.saveAttempt(
         treaning: currentTreaning, attempt: attempt);
 
     currentTreaning.attempts.add(attempt);

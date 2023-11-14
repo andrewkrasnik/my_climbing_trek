@@ -13,7 +13,6 @@ class MountainWidget extends StatelessWidget {
       child: Container(
         height: 240,
         width: 180,
-        padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4.0),
         ),
@@ -22,8 +21,7 @@ class MountainWidget extends StatelessWidget {
           child: Stack(
             fit: StackFit.expand,
             children: [
-              MyCachedNetworkImage(
-                  imageUrl: mountain.image, fit: BoxFit.fitWidth),
+              MyCachedNetworkImage(imageUrl: mountain.image, fit: BoxFit.fill),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
