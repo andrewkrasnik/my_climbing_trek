@@ -14,8 +14,8 @@ class IceAttemptWidget extends StatelessWidget {
     required this.attempt,
     this.isCurrent = false,
     required this.cubit,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

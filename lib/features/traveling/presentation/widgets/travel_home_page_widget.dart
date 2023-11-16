@@ -7,7 +7,7 @@ import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_
 import 'package:my_climbing_trek/service_locator.dart';
 
 class TravelHomePageWidget extends StatelessWidget {
-  const TravelHomePageWidget({Key? key}) : super(key: key);
+  const TravelHomePageWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

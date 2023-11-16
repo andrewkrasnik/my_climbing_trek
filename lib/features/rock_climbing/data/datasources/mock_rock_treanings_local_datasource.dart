@@ -53,7 +53,6 @@ class MockRockTreaningsLocalDataSource implements RockTreaningsLocalDataSource {
   @override
   Future<Either<Failure, Unit>> deleteAttempt(
       {required RockTreaningAttempt attempt}) {
-    // TODO: implement deleteAttempt
     throw UnimplementedError();
   }
 }

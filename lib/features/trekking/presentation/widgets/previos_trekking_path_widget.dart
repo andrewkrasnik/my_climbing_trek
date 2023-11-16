@@ -10,8 +10,7 @@ class PreviosTrekkingPathWidget extends StatelessWidget {
   final TrekkingPath path;
   final bool editing;
   const PreviosTrekkingPathWidget(
-      {required this.path, this.editing = false, Key? key})
-      : super(key: key);
+      {required this.path, this.editing = false, super.key});
 
   @override
   Widget build(BuildContext context) {

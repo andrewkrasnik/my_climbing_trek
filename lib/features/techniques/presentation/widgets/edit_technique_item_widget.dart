@@ -10,8 +10,7 @@ class EditTechniqueItemWidget extends HookWidget {
   final bool editing;
 
   const EditTechniqueItemWidget(
-      {required this.item, this.editing = true, Key? key})
-      : super(key: key);
+      {required this.item, this.editing = true, super.key});
 
   @override
   Widget build(BuildContext context) {

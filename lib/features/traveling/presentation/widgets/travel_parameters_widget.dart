@@ -8,8 +8,7 @@ class TravelParametersWidget extends HookWidget {
   final Travel? travel;
   final AddTravelInterface cubit;
 
-  const TravelParametersWidget({required this.cubit, this.travel, Key? key})
-      : super(key: key);
+  const TravelParametersWidget({required this.cubit, this.travel, super.key});
 
   @override
   Widget build(BuildContext context) {

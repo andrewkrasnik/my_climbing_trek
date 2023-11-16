@@ -5,9 +5,9 @@ class SettingsUssrCategoryWidget extends StatelessWidget {
   final UssrClimbingCategory category;
 
   const SettingsUssrCategoryWidget({
-    Key? key,
+    super.key,
     required this.category,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

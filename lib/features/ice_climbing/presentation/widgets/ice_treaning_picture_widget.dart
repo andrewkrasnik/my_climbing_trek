@@ -8,9 +8,9 @@ class IceTreaningPictureWidget extends StatelessWidget {
   final IceTreaning treaning;
 
   const IceTreaningPictureWidget({
-    Key? key,
+    super.key,
     required this.treaning,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

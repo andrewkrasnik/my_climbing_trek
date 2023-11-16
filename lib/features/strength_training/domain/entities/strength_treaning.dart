@@ -5,6 +5,7 @@ import 'package:my_climbing_trek/features/strength_training/domain/entities/stre
 class StrengthTreaning extends Treaning {
   final List<StrengthTreaningExerciseLine> _excercises;
 
+  @override
   bool get started => start != null && finish == null;
 
   List<StrengthTreaningExerciseLine> get attempts => _excercises;

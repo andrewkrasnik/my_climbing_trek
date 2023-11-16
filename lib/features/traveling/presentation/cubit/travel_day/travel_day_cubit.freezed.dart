@@ -93,11 +93,11 @@ class _$TravelDayStateCopyWithImpl<$Res, $Val extends TravelDayState>
 }
 
 /// @nodoc
-abstract class _$$_TravelDayStateCopyWith<$Res>
+abstract class _$$TravelDayStateImplCopyWith<$Res>
     implements $TravelDayStateCopyWith<$Res> {
-  factory _$$_TravelDayStateCopyWith(
-          _$_TravelDayState value, $Res Function(_$_TravelDayState) then) =
-      __$$_TravelDayStateCopyWithImpl<$Res>;
+  factory _$$TravelDayStateImplCopyWith(_$TravelDayStateImpl value,
+          $Res Function(_$TravelDayStateImpl) then) =
+      __$$TravelDayStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -110,11 +110,11 @@ abstract class _$$_TravelDayStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_TravelDayStateCopyWithImpl<$Res>
-    extends _$TravelDayStateCopyWithImpl<$Res, _$_TravelDayState>
-    implements _$$_TravelDayStateCopyWith<$Res> {
-  __$$_TravelDayStateCopyWithImpl(
-      _$_TravelDayState _value, $Res Function(_$_TravelDayState) _then)
+class __$$TravelDayStateImplCopyWithImpl<$Res>
+    extends _$TravelDayStateCopyWithImpl<$Res, _$TravelDayStateImpl>
+    implements _$$TravelDayStateImplCopyWith<$Res> {
+  __$$TravelDayStateImplCopyWithImpl(
+      _$TravelDayStateImpl _value, $Res Function(_$TravelDayStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -127,7 +127,7 @@ class __$$_TravelDayStateCopyWithImpl<$Res>
     Object? loading = null,
     Object? errorMessage = null,
   }) {
-    return _then(_$_TravelDayState(
+    return _then(_$TravelDayStateImpl(
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -158,8 +158,8 @@ class __$$_TravelDayStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_TravelDayState implements _TravelDayState {
-  const _$_TravelDayState(
+class _$TravelDayStateImpl implements _TravelDayState {
+  const _$TravelDayStateImpl(
       {required this.description,
       required final List<TransportLine> transportLines,
       required final List<FeedingLine> feedingsLines,
@@ -210,7 +210,7 @@ class _$_TravelDayState implements _TravelDayState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_TravelDayState &&
+            other is _$TravelDayStateImpl &&
             (identical(other.description, description) ||
                 other.description == description) &&
             const DeepCollectionEquality()
@@ -237,8 +237,9 @@ class _$_TravelDayState implements _TravelDayState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TravelDayStateCopyWith<_$_TravelDayState> get copyWith =>
-      __$$_TravelDayStateCopyWithImpl<_$_TravelDayState>(this, _$identity);
+  _$$TravelDayStateImplCopyWith<_$TravelDayStateImpl> get copyWith =>
+      __$$TravelDayStateImplCopyWithImpl<_$TravelDayStateImpl>(
+          this, _$identity);
 }
 
 abstract class _TravelDayState implements TravelDayState {
@@ -248,7 +249,7 @@ abstract class _TravelDayState implements TravelDayState {
       required final List<FeedingLine> feedingsLines,
       required final List<StayLine> stayLines,
       required final bool loading,
-      required final String errorMessage}) = _$_TravelDayState;
+      required final String errorMessage}) = _$TravelDayStateImpl;
 
   @override
   String get description;
@@ -264,6 +265,6 @@ abstract class _TravelDayState implements TravelDayState {
   String get errorMessage;
   @override
   @JsonKey(ignore: true)
-  _$$_TravelDayStateCopyWith<_$_TravelDayState> get copyWith =>
+  _$$TravelDayStateImplCopyWith<_$TravelDayStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

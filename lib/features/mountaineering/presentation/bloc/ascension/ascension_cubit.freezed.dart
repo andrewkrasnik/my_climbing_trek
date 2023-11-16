@@ -57,22 +57,22 @@ class _$AscensionStateCopyWithImpl<$Res, $Val extends AscensionState>
 }
 
 /// @nodoc
-abstract class _$$_AscensionStateCopyWith<$Res>
+abstract class _$$AscensionStateImplCopyWith<$Res>
     implements $AscensionStateCopyWith<$Res> {
-  factory _$$_AscensionStateCopyWith(
-          _$_AscensionState value, $Res Function(_$_AscensionState) then) =
-      __$$_AscensionStateCopyWithImpl<$Res>;
+  factory _$$AscensionStateImplCopyWith(_$AscensionStateImpl value,
+          $Res Function(_$AscensionStateImpl) then) =
+      __$$AscensionStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({Ascension? ascension});
 }
 
 /// @nodoc
-class __$$_AscensionStateCopyWithImpl<$Res>
-    extends _$AscensionStateCopyWithImpl<$Res, _$_AscensionState>
-    implements _$$_AscensionStateCopyWith<$Res> {
-  __$$_AscensionStateCopyWithImpl(
-      _$_AscensionState _value, $Res Function(_$_AscensionState) _then)
+class __$$AscensionStateImplCopyWithImpl<$Res>
+    extends _$AscensionStateCopyWithImpl<$Res, _$AscensionStateImpl>
+    implements _$$AscensionStateImplCopyWith<$Res> {
+  __$$AscensionStateImplCopyWithImpl(
+      _$AscensionStateImpl _value, $Res Function(_$AscensionStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -80,7 +80,7 @@ class __$$_AscensionStateCopyWithImpl<$Res>
   $Res call({
     Object? ascension = freezed,
   }) {
-    return _then(_$_AscensionState(
+    return _then(_$AscensionStateImpl(
       ascension: freezed == ascension
           ? _value.ascension
           : ascension // ignore: cast_nullable_to_non_nullable
@@ -91,8 +91,8 @@ class __$$_AscensionStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_AscensionState implements _AscensionState {
-  const _$_AscensionState({this.ascension});
+class _$AscensionStateImpl implements _AscensionState {
+  const _$AscensionStateImpl({this.ascension});
 
   @override
   final Ascension? ascension;
@@ -106,7 +106,7 @@ class _$_AscensionState implements _AscensionState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AscensionState &&
+            other is _$AscensionStateImpl &&
             (identical(other.ascension, ascension) ||
                 other.ascension == ascension));
   }
@@ -117,18 +117,19 @@ class _$_AscensionState implements _AscensionState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AscensionStateCopyWith<_$_AscensionState> get copyWith =>
-      __$$_AscensionStateCopyWithImpl<_$_AscensionState>(this, _$identity);
+  _$$AscensionStateImplCopyWith<_$AscensionStateImpl> get copyWith =>
+      __$$AscensionStateImplCopyWithImpl<_$AscensionStateImpl>(
+          this, _$identity);
 }
 
 abstract class _AscensionState implements AscensionState {
   const factory _AscensionState({final Ascension? ascension}) =
-      _$_AscensionState;
+      _$AscensionStateImpl;
 
   @override
   Ascension? get ascension;
   @override
   @JsonKey(ignore: true)
-  _$$_AscensionStateCopyWith<_$_AscensionState> get copyWith =>
+  _$$AscensionStateImplCopyWith<_$AscensionStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -14,8 +14,8 @@ class TrekPage extends StatelessWidget {
   const TrekPage({
     required this.trek,
     required this.region,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

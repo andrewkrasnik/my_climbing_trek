@@ -15,8 +15,8 @@ class RockDistrictPage extends StatelessWidget {
   const RockDistrictPage({
     required this.district,
     this.addSector,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

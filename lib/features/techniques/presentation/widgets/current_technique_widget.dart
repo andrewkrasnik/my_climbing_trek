@@ -4,8 +4,7 @@ import 'package:my_climbing_trek/features/techniques/domain/entities/technique.d
 class CurrentTechniqueWidget extends StatelessWidget {
   final Technique technique;
 
-  const CurrentTechniqueWidget({required this.technique, Key? key})
-      : super(key: key);
+  const CurrentTechniqueWidget({required this.technique, super.key});
 
   @override
   Widget build(BuildContext context) {

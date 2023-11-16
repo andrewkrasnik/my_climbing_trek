@@ -8,7 +8,7 @@ import 'package:my_climbing_trek/features/traveling/presentation/cubit/travel_pa
 import 'package:my_climbing_trek/features/traveling/presentation/widgets/cost_parameters_widget.dart';
 
 class TravelCostListWdget extends StatelessWidget {
-  const TravelCostListWdget({Key? key}) : super(key: key);
+  const TravelCostListWdget({super.key});
 
   @override
   Widget build(BuildContext context) {

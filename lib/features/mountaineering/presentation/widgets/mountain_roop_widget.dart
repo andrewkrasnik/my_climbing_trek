@@ -3,7 +3,7 @@ import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountai
 
 class MountainRoopWidget extends StatelessWidget {
   final MountainRouteRoop roop;
-  const MountainRoopWidget({required this.roop, Key? key}) : super(key: key);
+  const MountainRoopWidget({required this.roop, super.key});
 
   @override
   Widget build(BuildContext context) {

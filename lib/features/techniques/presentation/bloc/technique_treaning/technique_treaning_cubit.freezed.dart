@@ -73,11 +73,12 @@ class _$TechniqueTreaningStateCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_TechniqueTreaningStateCopyWith<$Res>
+abstract class _$$TechniqueTreaningStateImplCopyWith<$Res>
     implements $TechniqueTreaningStateCopyWith<$Res> {
-  factory _$$_TechniqueTreaningStateCopyWith(_$_TechniqueTreaningState value,
-          $Res Function(_$_TechniqueTreaningState) then) =
-      __$$_TechniqueTreaningStateCopyWithImpl<$Res>;
+  factory _$$TechniqueTreaningStateImplCopyWith(
+          _$TechniqueTreaningStateImpl value,
+          $Res Function(_$TechniqueTreaningStateImpl) then) =
+      __$$TechniqueTreaningStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -87,12 +88,13 @@ abstract class _$$_TechniqueTreaningStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_TechniqueTreaningStateCopyWithImpl<$Res>
+class __$$TechniqueTreaningStateImplCopyWithImpl<$Res>
     extends _$TechniqueTreaningStateCopyWithImpl<$Res,
-        _$_TechniqueTreaningState>
-    implements _$$_TechniqueTreaningStateCopyWith<$Res> {
-  __$$_TechniqueTreaningStateCopyWithImpl(_$_TechniqueTreaningState _value,
-      $Res Function(_$_TechniqueTreaningState) _then)
+        _$TechniqueTreaningStateImpl>
+    implements _$$TechniqueTreaningStateImplCopyWith<$Res> {
+  __$$TechniqueTreaningStateImplCopyWithImpl(
+      _$TechniqueTreaningStateImpl _value,
+      $Res Function(_$TechniqueTreaningStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -102,7 +104,7 @@ class __$$_TechniqueTreaningStateCopyWithImpl<$Res>
     Object? previosTreaning = freezed,
     Object? currentTechnique = freezed,
   }) {
-    return _then(_$_TechniqueTreaningState(
+    return _then(_$TechniqueTreaningStateImpl(
       currentTreaning: freezed == currentTreaning
           ? _value.currentTreaning
           : currentTreaning // ignore: cast_nullable_to_non_nullable
@@ -121,8 +123,8 @@ class __$$_TechniqueTreaningStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_TechniqueTreaningState implements _TechniqueTreaningState {
-  const _$_TechniqueTreaningState(
+class _$TechniqueTreaningStateImpl implements _TechniqueTreaningState {
+  const _$TechniqueTreaningStateImpl(
       {this.currentTreaning, this.previosTreaning, this.currentTechnique});
 
   @override
@@ -141,7 +143,7 @@ class _$_TechniqueTreaningState implements _TechniqueTreaningState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_TechniqueTreaningState &&
+            other is _$TechniqueTreaningStateImpl &&
             (identical(other.currentTreaning, currentTreaning) ||
                 other.currentTreaning == currentTreaning) &&
             (identical(other.previosTreaning, previosTreaning) ||
@@ -157,16 +159,16 @@ class _$_TechniqueTreaningState implements _TechniqueTreaningState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TechniqueTreaningStateCopyWith<_$_TechniqueTreaningState> get copyWith =>
-      __$$_TechniqueTreaningStateCopyWithImpl<_$_TechniqueTreaningState>(
-          this, _$identity);
+  _$$TechniqueTreaningStateImplCopyWith<_$TechniqueTreaningStateImpl>
+      get copyWith => __$$TechniqueTreaningStateImplCopyWithImpl<
+          _$TechniqueTreaningStateImpl>(this, _$identity);
 }
 
 abstract class _TechniqueTreaningState implements TechniqueTreaningState {
   const factory _TechniqueTreaningState(
       {final TechniqueTreaning? currentTreaning,
       final TechniqueTreaning? previosTreaning,
-      final Technique? currentTechnique}) = _$_TechniqueTreaningState;
+      final Technique? currentTechnique}) = _$TechniqueTreaningStateImpl;
 
   @override
   TechniqueTreaning? get currentTreaning;
@@ -176,6 +178,6 @@ abstract class _TechniqueTreaningState implements TechniqueTreaningState {
   Technique? get currentTechnique;
   @override
   @JsonKey(ignore: true)
-  _$$_TechniqueTreaningStateCopyWith<_$_TechniqueTreaningState> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$TechniqueTreaningStateImplCopyWith<_$TechniqueTreaningStateImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

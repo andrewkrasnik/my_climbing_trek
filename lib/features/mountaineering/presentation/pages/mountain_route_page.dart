@@ -12,8 +12,7 @@ class MountainRoutePage extends StatelessWidget {
   final MountainRoute route;
 
   const MountainRoutePage(
-      {required this.route, required this.mountain, Key? key})
-      : super(key: key);
+      {required this.route, required this.mountain, super.key});
 
   @override
   Widget build(BuildContext context) {

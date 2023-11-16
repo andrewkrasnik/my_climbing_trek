@@ -12,13 +12,13 @@ class HallRouteWidget extends StatelessWidget {
   final bool loadStatistic;
   final Widget? child;
   const HallRouteWidget({
-    Key? key,
+    super.key,
     required this.route,
     required this.climbingHall,
     this.statistic,
     required this.loadStatistic,
     this.child,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

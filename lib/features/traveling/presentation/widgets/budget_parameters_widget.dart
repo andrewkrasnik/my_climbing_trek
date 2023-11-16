@@ -15,8 +15,8 @@ class BudgetParametersWidget extends HookWidget {
     required this.travel,
     required this.cubit,
     this.line,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

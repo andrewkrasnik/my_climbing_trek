@@ -11,8 +11,8 @@ class IceDistrictWidget extends StatelessWidget {
     required this.district,
     this.onTap,
     this.height = 160,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

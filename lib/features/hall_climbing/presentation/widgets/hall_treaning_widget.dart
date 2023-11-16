@@ -17,10 +17,10 @@ class HallTreaningWidget extends StatelessWidget {
   final bool isCurrent;
   final ClimbingHallTreaning treaning;
   const HallTreaningWidget({
-    Key? key,
+    super.key,
     required this.treaning,
     this.isCurrent = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -152,11 +152,11 @@ class AttemptsWithStyle extends StatelessWidget {
   const AttemptsWithStyle({
     required this.child,
     required this.attempts,
-    Key? key,
+    super.key,
     required this.treaning,
     required this.isCurrent,
     required this.climbingStyle,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -174,7 +174,7 @@ class AttemptsWithStyle extends StatelessWidget {
                         attempt: attempt,
                       ),
                     ))
-                .toList(),
+                ,
             if (showAddButton)
               IconButton(
                 onPressed: () {
@@ -202,8 +202,8 @@ class AttemptClickWidget extends StatelessWidget {
   final ClimbingHallAttempt attempt;
   const AttemptClickWidget({
     required this.attempt,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

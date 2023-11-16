@@ -13,9 +13,9 @@ import '../bloc/climbing_hall/climbing_hall_cubit.dart';
 class ClimbingHallPage extends StatelessWidget {
   final ClimbingHall climbingHall;
   const ClimbingHallPage({
-    Key? key,
+    super.key,
     required this.climbingHall,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -260,11 +260,11 @@ class ContactsTextWidget extends StatelessWidget {
   final IconData icon;
   final void Function()? onTap;
   const ContactsTextWidget({
-    Key? key,
+    super.key,
     required this.title,
     required this.icon,
     this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

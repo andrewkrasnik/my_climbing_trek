@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 class AttemptBudget extends StatelessWidget {
   final Color color;
   final Widget child;
-  const AttemptBudget({required this.color, required this.child, Key? key})
-      : super(key: key);
+  const AttemptBudget({required this.color, required this.child, super.key});
 
   @override
   Widget build(BuildContext context) {

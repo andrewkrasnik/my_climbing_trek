@@ -16,8 +16,8 @@ class IceAttemptDialog extends HookWidget {
     required this.attempt,
     required this.cubit,
     this.editing = false,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

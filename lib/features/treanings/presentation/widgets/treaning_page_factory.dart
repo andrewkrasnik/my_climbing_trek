@@ -13,8 +13,7 @@ import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_
 
 class TreaningPageFactory extends StatelessWidget {
   final Treaning treaning;
-  const TreaningPageFactory({required this.treaning, Key? key})
-      : super(key: key);
+  const TreaningPageFactory({required this.treaning, super.key});
 
   @override
   Widget build(BuildContext context) {

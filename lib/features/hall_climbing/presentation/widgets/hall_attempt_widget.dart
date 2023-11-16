@@ -12,11 +12,11 @@ class HallAttemptWidget extends StatelessWidget {
   final ClimbingHallAttempt attempt;
   final GymRouteAttemptsStatistic? statistic;
   const HallAttemptWidget({
-    Key? key,
+    super.key,
     required this.attempt,
     this.isCurrent = false,
     this.statistic,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

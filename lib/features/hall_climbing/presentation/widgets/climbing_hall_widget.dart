@@ -7,11 +7,11 @@ class ClimbingHallWidget extends StatelessWidget {
   final double height;
   final void Function()? onTap;
   const ClimbingHallWidget({
-    Key? key,
+    super.key,
     required this.climbingHall,
     this.onTap,
     this.height = 160,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

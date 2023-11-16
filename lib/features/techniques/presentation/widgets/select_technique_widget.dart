@@ -9,8 +9,7 @@ import 'package:my_climbing_trek/service_locator.dart';
 class SelectTechniqueWidget extends StatelessWidget {
   final TechniqueGroup group;
 
-  const SelectTechniqueWidget({required this.group, Key? key})
-      : super(key: key);
+  const SelectTechniqueWidget({required this.group, super.key});
 
   @override
   Widget build(BuildContext context) {

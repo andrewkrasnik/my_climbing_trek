@@ -19,11 +19,11 @@ class IceAttemptsWithStyle extends StatelessWidget {
   const IceAttemptsWithStyle({
     required this.child,
     required this.attempts,
-    Key? key,
+    super.key,
     required this.treaning,
     required this.isCurrent,
     required this.climbingStyle,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class IceAttemptsWithStyle extends StatelessWidget {
                         attempt: attempt,
                       ),
                     ))
-                .toList(),
+                ,
             if (showAddButton)
               IconButton(
                 onPressed: () {
@@ -72,8 +72,8 @@ class AttemptClickWidget extends StatelessWidget {
   final IceTreaningAttempt attempt;
   const AttemptClickWidget({
     required this.attempt,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

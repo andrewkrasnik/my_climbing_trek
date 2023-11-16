@@ -8,8 +8,7 @@ class RockDistrictWidget extends StatelessWidget {
   final double height;
 
   const RockDistrictWidget(
-      {required this.district, this.onTap, this.height = 160, Key? key})
-      : super(key: key);
+      {required this.district, this.onTap, this.height = 160, super.key});
 
   @override
   Widget build(BuildContext context) {

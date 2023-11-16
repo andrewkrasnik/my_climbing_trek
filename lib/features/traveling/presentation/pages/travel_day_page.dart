@@ -12,7 +12,7 @@ import 'package:my_climbing_trek/service_locator.dart';
 class TravelDayPage extends StatelessWidget {
   final TravelDay day;
 
-  const TravelDayPage({required this.day, Key? key}) : super(key: key);
+  const TravelDayPage({required this.day, super.key});
 
   @override
   Widget build(BuildContext context) {

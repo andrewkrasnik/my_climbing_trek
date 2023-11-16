@@ -54,7 +54,6 @@ class MockTrekkingPathLocalDataSource implements TrekkingPathLocalDataSource {
   @override
   Future<Either<Failure, Unit>> deleteTreaning(
       {required TrekkingPath treaning}) {
-    // TODO: implement deleteTreaning
     throw UnimplementedError();
   }
 }

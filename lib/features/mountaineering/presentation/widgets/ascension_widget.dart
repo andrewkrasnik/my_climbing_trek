@@ -11,7 +11,7 @@ import 'package:my_climbing_trek/features/mountaineering/presentation/widgets/as
 
 class AscensionWidget extends StatelessWidget {
   final Ascension ascension;
-  const AscensionWidget({required this.ascension, Key? key}) : super(key: key);
+  const AscensionWidget({required this.ascension, super.key});
 
   @override
   Widget build(BuildContext context) {

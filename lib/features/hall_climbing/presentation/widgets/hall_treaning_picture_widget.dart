@@ -8,9 +8,9 @@ class HallTreaningPictureWidget extends StatelessWidget {
   final ClimbingHallTreaning treaning;
 
   const HallTreaningPictureWidget({
-    Key? key,
+    super.key,
     required this.treaning,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

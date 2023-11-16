@@ -10,8 +10,8 @@ class IceSectorPage extends StatelessWidget {
   const IceSectorPage({
     required this.sector,
     required this.district,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

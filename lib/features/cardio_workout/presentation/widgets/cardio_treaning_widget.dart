@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 
 class CardioTreaningWidget extends StatelessWidget {
   final CardioTreaning treaning;
-  const CardioTreaningWidget({required this.treaning, Key? key})
-      : super(key: key);
+  const CardioTreaningWidget({required this.treaning, super.key});
 
   @override
   Widget build(BuildContext context) {

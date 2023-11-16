@@ -114,11 +114,11 @@ class _$TravelPageStateCopyWithImpl<$Res, $Val extends TravelPageState>
 }
 
 /// @nodoc
-abstract class _$$_TravelPageStateCopyWith<$Res>
+abstract class _$$TravelPageStateImplCopyWith<$Res>
     implements $TravelPageStateCopyWith<$Res> {
-  factory _$$_TravelPageStateCopyWith(
-          _$_TravelPageState value, $Res Function(_$_TravelPageState) then) =
-      __$$_TravelPageStateCopyWithImpl<$Res>;
+  factory _$$TravelPageStateImplCopyWith(_$TravelPageStateImpl value,
+          $Res Function(_$TravelPageStateImpl) then) =
+      __$$TravelPageStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -134,11 +134,11 @@ abstract class _$$_TravelPageStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_TravelPageStateCopyWithImpl<$Res>
-    extends _$TravelPageStateCopyWithImpl<$Res, _$_TravelPageState>
-    implements _$$_TravelPageStateCopyWith<$Res> {
-  __$$_TravelPageStateCopyWithImpl(
-      _$_TravelPageState _value, $Res Function(_$_TravelPageState) _then)
+class __$$TravelPageStateImplCopyWithImpl<$Res>
+    extends _$TravelPageStateCopyWithImpl<$Res, _$TravelPageStateImpl>
+    implements _$$TravelPageStateImplCopyWith<$Res> {
+  __$$TravelPageStateImplCopyWithImpl(
+      _$TravelPageStateImpl _value, $Res Function(_$TravelPageStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -154,7 +154,7 @@ class __$$_TravelPageStateCopyWithImpl<$Res>
     Object? errorMessage = null,
     Object? feedingStatistic = freezed,
   }) {
-    return _then(_$_TravelPageState(
+    return _then(_$TravelPageStateImpl(
       travel: freezed == travel
           ? _value.travel
           : travel // ignore: cast_nullable_to_non_nullable
@@ -197,8 +197,8 @@ class __$$_TravelPageStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_TravelPageState implements _TravelPageState {
-  const _$_TravelPageState(
+class _$TravelPageStateImpl implements _TravelPageState {
+  const _$TravelPageStateImpl(
       {this.travel,
       required this.tabIndex,
       required final List<CostLine> costs,
@@ -265,7 +265,7 @@ class _$_TravelPageState implements _TravelPageState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_TravelPageState &&
+            other is _$TravelPageStateImpl &&
             (identical(other.travel, travel) || other.travel == travel) &&
             (identical(other.tabIndex, tabIndex) ||
                 other.tabIndex == tabIndex) &&
@@ -298,8 +298,9 @@ class _$_TravelPageState implements _TravelPageState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TravelPageStateCopyWith<_$_TravelPageState> get copyWith =>
-      __$$_TravelPageStateCopyWithImpl<_$_TravelPageState>(this, _$identity);
+  _$$TravelPageStateImplCopyWith<_$TravelPageStateImpl> get copyWith =>
+      __$$TravelPageStateImplCopyWithImpl<_$TravelPageStateImpl>(
+          this, _$identity);
 }
 
 abstract class _TravelPageState implements TravelPageState {
@@ -312,7 +313,7 @@ abstract class _TravelPageState implements TravelPageState {
       required final List<TravelDay> days,
       required final bool loading,
       required final String errorMessage,
-      final FeedingStatistic? feedingStatistic}) = _$_TravelPageState;
+      final FeedingStatistic? feedingStatistic}) = _$TravelPageStateImpl;
 
   @override
   Travel? get travel;
@@ -334,6 +335,6 @@ abstract class _TravelPageState implements TravelPageState {
   FeedingStatistic? get feedingStatistic;
   @override
   @JsonKey(ignore: true)
-  _$$_TravelPageStateCopyWith<_$_TravelPageState> get copyWith =>
+  _$$TravelPageStateImplCopyWith<_$TravelPageStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

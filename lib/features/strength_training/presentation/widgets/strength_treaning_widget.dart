@@ -12,8 +12,7 @@ class StrengthTreaningWidget extends StatelessWidget {
   final StrengthTreaning treaning;
   final bool editing;
   const StrengthTreaningWidget(
-      {required this.treaning, this.editing = false, Key? key})
-      : super(key: key);
+      {required this.treaning, this.editing = false, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -115,8 +114,7 @@ class StrengthTreaningExerciseLineWidget extends HookWidget {
       {required this.item,
       required this.treaning,
       this.editing = false,
-      Key? key})
-      : super(key: key);
+      super.key});
 
   @override
   Widget build(BuildContext context) {

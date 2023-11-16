@@ -13,8 +13,8 @@ class TravelWidget extends StatelessWidget {
     this.onTap,
     this.height = 160,
     this.showStatus = false,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

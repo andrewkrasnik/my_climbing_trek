@@ -87,24 +87,25 @@ class _$RockDistrictsStateCopyWithImpl<$Res, $Val extends RockDistrictsState>
 }
 
 /// @nodoc
-abstract class _$$_InitialCopyWith<$Res> {
-  factory _$$_InitialCopyWith(
-          _$_Initial value, $Res Function(_$_Initial) then) =
-      __$$_InitialCopyWithImpl<$Res>;
+abstract class _$$InitialImplCopyWith<$Res> {
+  factory _$$InitialImplCopyWith(
+          _$InitialImpl value, $Res Function(_$InitialImpl) then) =
+      __$$InitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_InitialCopyWithImpl<$Res>
-    extends _$RockDistrictsStateCopyWithImpl<$Res, _$_Initial>
-    implements _$$_InitialCopyWith<$Res> {
-  __$$_InitialCopyWithImpl(_$_Initial _value, $Res Function(_$_Initial) _then)
+class __$$InitialImplCopyWithImpl<$Res>
+    extends _$RockDistrictsStateCopyWithImpl<$Res, _$InitialImpl>
+    implements _$$InitialImplCopyWith<$Res> {
+  __$$InitialImplCopyWithImpl(
+      _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_Initial implements _Initial {
-  const _$_Initial();
+class _$InitialImpl implements _Initial {
+  const _$InitialImpl();
 
   @override
   String toString() {
@@ -114,7 +115,7 @@ class _$_Initial implements _Initial {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Initial);
+        (other.runtimeType == runtimeType && other is _$InitialImpl);
   }
 
   @override
@@ -196,28 +197,29 @@ class _$_Initial implements _Initial {
 }
 
 abstract class _Initial implements RockDistrictsState {
-  const factory _Initial() = _$_Initial;
+  const factory _Initial() = _$InitialImpl;
 }
 
 /// @nodoc
-abstract class _$$_LoadingCopyWith<$Res> {
-  factory _$$_LoadingCopyWith(
-          _$_Loading value, $Res Function(_$_Loading) then) =
-      __$$_LoadingCopyWithImpl<$Res>;
+abstract class _$$LoadingImplCopyWith<$Res> {
+  factory _$$LoadingImplCopyWith(
+          _$LoadingImpl value, $Res Function(_$LoadingImpl) then) =
+      __$$LoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_LoadingCopyWithImpl<$Res>
-    extends _$RockDistrictsStateCopyWithImpl<$Res, _$_Loading>
-    implements _$$_LoadingCopyWith<$Res> {
-  __$$_LoadingCopyWithImpl(_$_Loading _value, $Res Function(_$_Loading) _then)
+class __$$LoadingImplCopyWithImpl<$Res>
+    extends _$RockDistrictsStateCopyWithImpl<$Res, _$LoadingImpl>
+    implements _$$LoadingImplCopyWith<$Res> {
+  __$$LoadingImplCopyWithImpl(
+      _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_Loading implements _Loading {
-  const _$_Loading();
+class _$LoadingImpl implements _Loading {
+  const _$LoadingImpl();
 
   @override
   String toString() {
@@ -227,7 +229,7 @@ class _$_Loading implements _Loading {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Loading);
+        (other.runtimeType == runtimeType && other is _$LoadingImpl);
   }
 
   @override
@@ -309,22 +311,23 @@ class _$_Loading implements _Loading {
 }
 
 abstract class _Loading implements RockDistrictsState {
-  const factory _Loading() = _$_Loading;
+  const factory _Loading() = _$LoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$_DataCopyWith<$Res> {
-  factory _$$_DataCopyWith(_$_Data value, $Res Function(_$_Data) then) =
-      __$$_DataCopyWithImpl<$Res>;
+abstract class _$$DataImplCopyWith<$Res> {
+  factory _$$DataImplCopyWith(
+          _$DataImpl value, $Res Function(_$DataImpl) then) =
+      __$$DataImplCopyWithImpl<$Res>;
   @useResult
   $Res call({List<RockDistrict> districts});
 }
 
 /// @nodoc
-class __$$_DataCopyWithImpl<$Res>
-    extends _$RockDistrictsStateCopyWithImpl<$Res, _$_Data>
-    implements _$$_DataCopyWith<$Res> {
-  __$$_DataCopyWithImpl(_$_Data _value, $Res Function(_$_Data) _then)
+class __$$DataImplCopyWithImpl<$Res>
+    extends _$RockDistrictsStateCopyWithImpl<$Res, _$DataImpl>
+    implements _$$DataImplCopyWith<$Res> {
+  __$$DataImplCopyWithImpl(_$DataImpl _value, $Res Function(_$DataImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -332,7 +335,7 @@ class __$$_DataCopyWithImpl<$Res>
   $Res call({
     Object? districts = null,
   }) {
-    return _then(_$_Data(
+    return _then(_$DataImpl(
       districts: null == districts
           ? _value._districts
           : districts // ignore: cast_nullable_to_non_nullable
@@ -343,8 +346,8 @@ class __$$_DataCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Data implements _Data {
-  const _$_Data({required final List<RockDistrict> districts})
+class _$DataImpl implements _Data {
+  const _$DataImpl({required final List<RockDistrict> districts})
       : _districts = districts;
 
   final List<RockDistrict> _districts;
@@ -364,7 +367,7 @@ class _$_Data implements _Data {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Data &&
+            other is _$DataImpl &&
             const DeepCollectionEquality()
                 .equals(other._districts, _districts));
   }
@@ -376,8 +379,8 @@ class _$_Data implements _Data {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_DataCopyWith<_$_Data> get copyWith =>
-      __$$_DataCopyWithImpl<_$_Data>(this, _$identity);
+  _$$DataImplCopyWith<_$DataImpl> get copyWith =>
+      __$$DataImplCopyWithImpl<_$DataImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -455,26 +458,30 @@ class _$_Data implements _Data {
 }
 
 abstract class _Data implements RockDistrictsState {
-  const factory _Data({required final List<RockDistrict> districts}) = _$_Data;
+  const factory _Data({required final List<RockDistrict> districts}) =
+      _$DataImpl;
 
   List<RockDistrict> get districts;
   @JsonKey(ignore: true)
-  _$$_DataCopyWith<_$_Data> get copyWith => throw _privateConstructorUsedError;
+  _$$DataImplCopyWith<_$DataImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_ErrorCopyWith<$Res> {
-  factory _$$_ErrorCopyWith(_$_Error value, $Res Function(_$_Error) then) =
-      __$$_ErrorCopyWithImpl<$Res>;
+abstract class _$$ErrorImplCopyWith<$Res> {
+  factory _$$ErrorImplCopyWith(
+          _$ErrorImpl value, $Res Function(_$ErrorImpl) then) =
+      __$$ErrorImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String description});
 }
 
 /// @nodoc
-class __$$_ErrorCopyWithImpl<$Res>
-    extends _$RockDistrictsStateCopyWithImpl<$Res, _$_Error>
-    implements _$$_ErrorCopyWith<$Res> {
-  __$$_ErrorCopyWithImpl(_$_Error _value, $Res Function(_$_Error) _then)
+class __$$ErrorImplCopyWithImpl<$Res>
+    extends _$RockDistrictsStateCopyWithImpl<$Res, _$ErrorImpl>
+    implements _$$ErrorImplCopyWith<$Res> {
+  __$$ErrorImplCopyWithImpl(
+      _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -482,7 +489,7 @@ class __$$_ErrorCopyWithImpl<$Res>
   $Res call({
     Object? description = null,
   }) {
-    return _then(_$_Error(
+    return _then(_$ErrorImpl(
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -493,8 +500,8 @@ class __$$_ErrorCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Error implements _Error {
-  const _$_Error({required this.description});
+class _$ErrorImpl implements _Error {
+  const _$ErrorImpl({required this.description});
 
   @override
   final String description;
@@ -508,7 +515,7 @@ class _$_Error implements _Error {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Error &&
+            other is _$ErrorImpl &&
             (identical(other.description, description) ||
                 other.description == description));
   }
@@ -519,8 +526,8 @@ class _$_Error implements _Error {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ErrorCopyWith<_$_Error> get copyWith =>
-      __$$_ErrorCopyWithImpl<_$_Error>(this, _$identity);
+  _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
+      __$$ErrorImplCopyWithImpl<_$ErrorImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -598,10 +605,10 @@ class _$_Error implements _Error {
 }
 
 abstract class _Error implements RockDistrictsState {
-  const factory _Error({required final String description}) = _$_Error;
+  const factory _Error({required final String description}) = _$ErrorImpl;
 
   String get description;
   @JsonKey(ignore: true)
-  _$$_ErrorCopyWith<_$_Error> get copyWith =>
+  _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

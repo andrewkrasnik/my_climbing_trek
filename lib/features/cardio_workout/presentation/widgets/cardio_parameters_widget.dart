@@ -9,7 +9,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 class CardioParametersWidget extends HookWidget {
   final CardioTreaning? treaning;
 
-  const CardioParametersWidget({this.treaning, Key? key}) : super(key: key);
+  const CardioParametersWidget({this.treaning, super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -12,8 +12,8 @@ class MountainRegionPage extends StatelessWidget {
 
   const MountainRegionPage({
     required this.region,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

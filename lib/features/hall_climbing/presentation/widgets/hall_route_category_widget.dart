@@ -18,13 +18,12 @@ class HallRouteCategoryWidget extends StatelessWidget {
   final int sectorNumber;
 
   const HallRouteCategoryWidget({
-    Key? key,
+    super.key,
     required this.category,
     this.color,
     this.planed = false,
     this.sectorNumber = 0,
-  })  : _attempt = null,
-        super(key: key);
+  })  : _attempt = null;
 
   HallRouteCategoryWidget.fromAttempt({
     required ClimbingHallAttempt attempt,
@@ -126,12 +125,11 @@ class _AttemptBadgets extends StatelessWidget {
   final Color textColor;
 
   const _AttemptBadgets({
-    Key? key,
     required this.attempt,
     required this.child,
     required this.sectorNumber,
     required this.textColor,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

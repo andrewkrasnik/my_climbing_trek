@@ -9,8 +9,7 @@ class MountainRouteWidget extends StatelessWidget {
   final Mountain mountain;
   final void Function(MountainRoute route)? onTapGo;
   const MountainRouteWidget(
-      {required this.route, required this.mountain, this.onTapGo, Key? key})
-      : super(key: key);
+      {required this.route, required this.mountain, this.onTapGo, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +39,7 @@ class MountainRouteWidget extends StatelessWidget {
                     color: Theme.of(context).colorScheme.surface,
                   ),
                 )
-              : ElevatedButton(onPressed: () => null, child: const Text('GO!')),
+              : ElevatedButton(onPressed: () {}, child: const Text('GO!')),
         ));
   }
 }

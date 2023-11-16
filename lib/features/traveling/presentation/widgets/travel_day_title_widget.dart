@@ -3,8 +3,7 @@ import 'package:my_climbing_trek/features/traveling/domain/entities/travel_day.d
 
 class TravelDayTitleWidget extends StatelessWidget {
   final TravelDay travelDay;
-  const TravelDayTitleWidget({required this.travelDay, Key? key})
-      : super(key: key);
+  const TravelDayTitleWidget({required this.travelDay, super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -8,8 +8,7 @@ import 'package:my_climbing_trek/features/traveling/presentation/cubit/travel_da
 class TransportParametersWidget extends HookWidget {
   final TransportLine? line;
   final TravelDayCubit? cubit;
-  const TransportParametersWidget({this.cubit, this.line, Key? key})
-      : super(key: key);
+  const TransportParametersWidget({this.cubit, this.line, super.key});
 
   @override
   Widget build(BuildContext context) {

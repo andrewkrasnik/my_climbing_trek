@@ -17,9 +17,9 @@ import 'package:my_climbing_trek/service_locator.dart';
 class MountaineeringHomeWidget extends StatelessWidget {
   final PlaceFilter? filter;
   const MountaineeringHomeWidget({
-    Key? key,
+    super.key,
     this.filter,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

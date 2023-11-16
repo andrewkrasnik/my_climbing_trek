@@ -16,8 +16,8 @@ class RockAttemptWidget extends StatelessWidget {
     this.isCurrent = false,
     required this.cubit,
     this.statistic,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

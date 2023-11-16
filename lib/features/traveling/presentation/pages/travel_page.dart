@@ -25,8 +25,8 @@ class TravelPage extends StatelessWidget {
 
   const TravelPage({
     required this.travel,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -179,15 +179,17 @@ class TravelPage extends StatelessWidget {
                                   (status) => PopupMenuItem(
                                     onTap: () async {
                                       if (state.travel != null) {
+                                        final cubit =
+                                            BlocProvider.of<CurrentTravelCubit>(
+                                                context);
+
                                         await BlocProvider.of<TravelPageCubit>(
                                                 context)
                                             .setStatus(
                                                 travel: state.travel!,
                                                 status: status);
 
-                                        BlocProvider.of<CurrentTravelCubit>(
-                                                context)
-                                            .loadData();
+                                        cubit.loadData();
                                       }
                                     },
                                     child: Text(

@@ -7,10 +7,10 @@ class SettingsCategoryWidget extends StatelessWidget {
   final CategoryType type;
 
   const SettingsCategoryWidget({
-    Key? key,
+    super.key,
     required this.category,
     required this.type,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

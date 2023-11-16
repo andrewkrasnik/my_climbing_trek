@@ -14,11 +14,11 @@ class SelectRockRouteWidget extends HookWidget {
   final RockTreaningCubit cubit;
 
   const SelectRockRouteWidget({
-    Key? key,
+    super.key,
     required this.treaning,
     required this.style,
     required this.cubit,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

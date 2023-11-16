@@ -15,7 +15,7 @@ import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_
 import 'package:my_climbing_trek/features/trekking/presentation/widgets/trekking_home_page_widget.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {

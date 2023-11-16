@@ -14,8 +14,8 @@ class MountainPage extends StatelessWidget {
   const MountainPage({
     required this.mountain,
     required this.region,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

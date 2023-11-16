@@ -12,11 +12,11 @@ class HallRouteGoButton extends StatelessWidget {
   final ClimbingHallRoute route;
   final void Function()? callback;
   const HallRouteGoButton({
-    Key? key,
+    super.key,
     required this.route,
     required this.climbingHall,
     this.callback,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

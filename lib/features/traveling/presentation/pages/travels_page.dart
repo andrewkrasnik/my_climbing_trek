@@ -8,7 +8,7 @@ import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_
 import 'package:my_climbing_trek/service_locator.dart';
 
 class TravelsPage extends StatelessWidget {
-  const TravelsPage({Key? key}) : super(key: key);
+  const TravelsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -47,11 +47,15 @@ class TravelsPage extends StatelessWidget {
                             height: 240,
                             showStatus: true,
                             onTap: () async {
+                              final cubit =
+                                  BlocProvider.of<TravelsCubit>(context);
+
                               await Navigator.of(context).push(
                                   MaterialPageRoute(
                                       builder: (context) =>
                                           TravelPage(travel: travel)));
-                              BlocProvider.of<TravelsCubit>(context).loadData();
+
+                              cubit.loadData();
                             },
                           );
                         },

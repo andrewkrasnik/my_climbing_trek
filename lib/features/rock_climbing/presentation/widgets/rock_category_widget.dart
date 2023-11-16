@@ -8,10 +8,10 @@ class RockCategoryWidget extends StatelessWidget {
   final bool planed;
 
   const RockCategoryWidget({
-    Key? key,
+    super.key,
     required this.category,
     this.planed = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

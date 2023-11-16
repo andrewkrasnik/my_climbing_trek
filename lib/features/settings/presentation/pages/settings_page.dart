@@ -12,7 +12,7 @@ import 'package:my_climbing_trek/features/settings/presentation/pages/mountainee
 import 'package:my_climbing_trek/features/settings/presentation/pages/ussr_categories_page.dart';
 
 class SettingsPage extends StatelessWidget {
-  const SettingsPage({Key? key}) : super(key: key);
+  const SettingsPage({super.key});
 
   @override
   Widget build(BuildContext context) {

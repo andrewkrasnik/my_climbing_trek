@@ -10,7 +10,7 @@ class RockRouteFilter extends Equatable {
   final ClimbingRouteType? type;
   final RouteStatus? routeStatus;
 
-  RockRouteFilter({
+  const RockRouteFilter({
     this.category,
     this.type,
     this.routeStatus,

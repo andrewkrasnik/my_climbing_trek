@@ -105,8 +105,4 @@ class TrekkingPath extends Treaning {
     this.turn = false,
   }) : events = events ?? [];
 
-  @override
-  void finishTreaning({DateTime? finish}) {
-    super.finishTreaning(finish: finish);
-  }
 }

@@ -9,8 +9,7 @@ class SelectCategoryWidget extends StatelessWidget {
   final void Function(ClimbingCategory)? onTap;
 
   const SelectCategoryWidget(
-      {Key? key, this.color, this.currentCategory, this.onTap})
-      : super(key: key);
+      {super.key, this.color, this.currentCategory, this.onTap});
 
   @override
   Widget build(BuildContext context) {

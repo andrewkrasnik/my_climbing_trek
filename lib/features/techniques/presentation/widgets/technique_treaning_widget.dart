@@ -14,10 +14,10 @@ class TechniqueTreaningWidget extends StatelessWidget {
   final bool editing;
 
   const TechniqueTreaningWidget({
-    Key? key,
+    super.key,
     required this.treaning,
     this.editing = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +90,7 @@ class TechniqueTreaningWidget extends StatelessWidget {
                                               ),
                                             )),
                                       ))
-                                  .toList(),
+                                  ,
                               if (editing)
                                 Padding(
                                   padding:

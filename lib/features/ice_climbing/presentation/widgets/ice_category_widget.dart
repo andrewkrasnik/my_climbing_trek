@@ -7,10 +7,10 @@ class IceCategoryWidget extends StatelessWidget {
   final String prefix;
 
   const IceCategoryWidget({
-    Key? key,
+    super.key,
     required this.category,
     this.prefix = '',
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

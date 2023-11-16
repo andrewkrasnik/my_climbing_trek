@@ -14,8 +14,7 @@ class RockTreaningWidget extends StatelessWidget {
   final bool isCurrent;
 
   const RockTreaningWidget(
-      {required this.treaning, this.isCurrent = false, Key? key})
-      : super(key: key);
+      {required this.treaning, this.isCurrent = false, super.key});
 
   @override
   Widget build(BuildContext context) {

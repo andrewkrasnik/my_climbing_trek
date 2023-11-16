@@ -9,9 +9,9 @@ class HallTreaningPage extends StatelessWidget {
   final ClimbingHallTreaning treaning;
   final ScreenshotController screenshotController = ScreenshotController();
   HallTreaningPage({
-    Key? key,
+    super.key,
     required this.treaning,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

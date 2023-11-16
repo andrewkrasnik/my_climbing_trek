@@ -47,13 +47,13 @@ class TravelPageCubit extends Cubit<TravelPageState>
   final EditTravelUsecase _editTravelUsecase;
 
   double get budgetSum {
-    double _budgetSum = 0;
+    double budgetSum = 0;
 
     for (var line in state.budgetLines) {
-      _budgetSum += line.amount;
+      budgetSum += line.amount;
     }
 
-    return _budgetSum;
+    return budgetSum;
   }
 
   TravelPageCubit(

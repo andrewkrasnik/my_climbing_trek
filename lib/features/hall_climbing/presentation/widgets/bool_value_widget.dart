@@ -5,11 +5,11 @@ class BoolValueWidget extends StatelessWidget {
   final ValueNotifier<bool> valueState;
   final bool editing;
   const BoolValueWidget({
-    Key? key,
+    super.key,
     required this.title,
     required this.valueState,
     required this.editing,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

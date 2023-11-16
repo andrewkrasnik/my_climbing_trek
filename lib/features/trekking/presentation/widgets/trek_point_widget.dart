@@ -6,7 +6,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 class TrekPointWidget extends StatelessWidget {
   final TrekPoint point;
 
-  const TrekPointWidget({required this.point, Key? key}) : super(key: key);
+  const TrekPointWidget({required this.point, super.key});
 
   @override
   Widget build(BuildContext context) {

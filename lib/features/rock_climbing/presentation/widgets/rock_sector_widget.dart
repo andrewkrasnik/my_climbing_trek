@@ -24,9 +24,9 @@ class RockSectorWidget extends StatelessWidget {
     this.addSector,
     this.onTapGo,
     this.filter,
-    Key? key,
+    super.key,
     required,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

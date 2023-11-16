@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class TreaningsPage extends StatelessWidget {
-  const TreaningsPage({Key? key}) : super(key: key);
+  const TreaningsPage({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -18,10 +18,10 @@ class SelectHallRouteWidget extends HookWidget {
   final ClimbingHallTreaning treaning;
   final ClimbingStyle style;
   const SelectHallRouteWidget({
-    Key? key,
+    super.key,
     required this.treaning,
     required this.style,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

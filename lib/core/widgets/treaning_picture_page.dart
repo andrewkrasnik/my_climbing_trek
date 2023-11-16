@@ -14,8 +14,8 @@ class TreaningPicturePage extends StatelessWidget {
     required this.treaning,
     required this.child,
     this.titleWidget,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

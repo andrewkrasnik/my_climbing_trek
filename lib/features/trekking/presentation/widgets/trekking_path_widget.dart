@@ -9,8 +9,7 @@ import 'package:my_climbing_trek/features/trekking/presentation/pages/trekking_r
 class TrekkingPathWidget extends StatelessWidget {
   final TrekkingPath path;
   final bool editing;
-  const TrekkingPathWidget({required this.path, this.editing = false, Key? key})
-      : super(key: key);
+  const TrekkingPathWidget({required this.path, this.editing = false, super.key});
 
   @override
   Widget build(BuildContext context) {

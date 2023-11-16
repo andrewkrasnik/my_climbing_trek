@@ -5,9 +5,9 @@ class SettingsMixedCategoryWidget extends StatelessWidget {
   final MixedCategory category;
 
   const SettingsMixedCategoryWidget({
-    Key? key,
+    super.key,
     required this.category,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

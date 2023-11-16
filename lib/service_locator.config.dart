@@ -4,8 +4,7 @@
 // InjectableConfigGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_lambdas
-// ignore_for_file: lines_longer_than_80_chars
+// ignore_for_file: type=lint
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -448,8 +447,6 @@ import 'features/trekking/presentation/bloc/trekking_regions/trekking_regions_cu
     as _i199;
 import 'features/trekking/presentation/bloc/treks/treks_cubit.dart' as _i200;
 
-// ignore_for_file: unnecessary_lambdas
-// ignore_for_file: lines_longer_than_80_chars
 // initializes the registration of main-scope dependencies inside of GetIt
 _i1.GetIt $initGetIt(
   _i1.GetIt getIt, {

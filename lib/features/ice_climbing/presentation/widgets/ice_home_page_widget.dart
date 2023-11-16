@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class IceHomePageWidget extends StatelessWidget {
-  const IceHomePageWidget({Key? key}) : super(key: key);
+  const IceHomePageWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

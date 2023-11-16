@@ -80,11 +80,12 @@ class _$CurrentIceTreaningStateCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_CurrentIceTreaningStateCopyWith<$Res>
+abstract class _$$CurrentIceTreaningStateImplCopyWith<$Res>
     implements $CurrentIceTreaningStateCopyWith<$Res> {
-  factory _$$_CurrentIceTreaningStateCopyWith(_$_CurrentIceTreaningState value,
-          $Res Function(_$_CurrentIceTreaningState) then) =
-      __$$_CurrentIceTreaningStateCopyWithImpl<$Res>;
+  factory _$$CurrentIceTreaningStateImplCopyWith(
+          _$CurrentIceTreaningStateImpl value,
+          $Res Function(_$CurrentIceTreaningStateImpl) then) =
+      __$$CurrentIceTreaningStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -95,12 +96,13 @@ abstract class _$$_CurrentIceTreaningStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_CurrentIceTreaningStateCopyWithImpl<$Res>
+class __$$CurrentIceTreaningStateImplCopyWithImpl<$Res>
     extends _$CurrentIceTreaningStateCopyWithImpl<$Res,
-        _$_CurrentIceTreaningState>
-    implements _$$_CurrentIceTreaningStateCopyWith<$Res> {
-  __$$_CurrentIceTreaningStateCopyWithImpl(_$_CurrentIceTreaningState _value,
-      $Res Function(_$_CurrentIceTreaningState) _then)
+        _$CurrentIceTreaningStateImpl>
+    implements _$$CurrentIceTreaningStateImplCopyWith<$Res> {
+  __$$CurrentIceTreaningStateImplCopyWithImpl(
+      _$CurrentIceTreaningStateImpl _value,
+      $Res Function(_$CurrentIceTreaningStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -111,7 +113,7 @@ class __$$_CurrentIceTreaningStateCopyWithImpl<$Res>
     Object? currentAttempt = freezed,
     Object? lastAttempt = freezed,
   }) {
-    return _then(_$_CurrentIceTreaningState(
+    return _then(_$CurrentIceTreaningStateImpl(
       currentTreaning: freezed == currentTreaning
           ? _value.currentTreaning
           : currentTreaning // ignore: cast_nullable_to_non_nullable
@@ -134,8 +136,8 @@ class __$$_CurrentIceTreaningStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_CurrentIceTreaningState implements _CurrentIceTreaningState {
-  const _$_CurrentIceTreaningState(
+class _$CurrentIceTreaningStateImpl implements _CurrentIceTreaningState {
+  const _$CurrentIceTreaningStateImpl(
       {this.currentTreaning,
       this.lastTreaning,
       this.currentAttempt,
@@ -159,7 +161,7 @@ class _$_CurrentIceTreaningState implements _CurrentIceTreaningState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_CurrentIceTreaningState &&
+            other is _$CurrentIceTreaningStateImpl &&
             (identical(other.currentTreaning, currentTreaning) ||
                 other.currentTreaning == currentTreaning) &&
             (identical(other.lastTreaning, lastTreaning) ||
@@ -177,10 +179,9 @@ class _$_CurrentIceTreaningState implements _CurrentIceTreaningState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_CurrentIceTreaningStateCopyWith<_$_CurrentIceTreaningState>
-      get copyWith =>
-          __$$_CurrentIceTreaningStateCopyWithImpl<_$_CurrentIceTreaningState>(
-              this, _$identity);
+  _$$CurrentIceTreaningStateImplCopyWith<_$CurrentIceTreaningStateImpl>
+      get copyWith => __$$CurrentIceTreaningStateImplCopyWithImpl<
+          _$CurrentIceTreaningStateImpl>(this, _$identity);
 }
 
 abstract class _CurrentIceTreaningState implements CurrentIceTreaningState {
@@ -188,7 +189,7 @@ abstract class _CurrentIceTreaningState implements CurrentIceTreaningState {
       {final IceTreaning? currentTreaning,
       final IceTreaning? lastTreaning,
       final IceTreaningAttempt? currentAttempt,
-      final IceTreaningAttempt? lastAttempt}) = _$_CurrentIceTreaningState;
+      final IceTreaningAttempt? lastAttempt}) = _$CurrentIceTreaningStateImpl;
 
   @override
   IceTreaning? get currentTreaning;
@@ -200,6 +201,6 @@ abstract class _CurrentIceTreaningState implements CurrentIceTreaningState {
   IceTreaningAttempt? get lastAttempt;
   @override
   @JsonKey(ignore: true)
-  _$$_CurrentIceTreaningStateCopyWith<_$_CurrentIceTreaningState>
+  _$$CurrentIceTreaningStateImplCopyWith<_$CurrentIceTreaningStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

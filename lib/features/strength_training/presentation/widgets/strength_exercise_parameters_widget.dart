@@ -8,8 +8,7 @@ class StrengthExerciseParametersWidget extends HookWidget {
   final StrengthExercise? exercise;
 
   const StrengthExerciseParametersWidget(
-      {this.exercise, required this.cubit, Key? key})
-      : super(key: key);
+      {this.exercise, required this.cubit, super.key});
 
   @override
   Widget build(BuildContext context) {

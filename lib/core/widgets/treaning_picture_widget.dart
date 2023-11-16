@@ -13,12 +13,12 @@ class TreaningPictureWidget extends StatefulWidget {
   final ScreenshotController screenshotController;
 
   const TreaningPictureWidget({
-    Key? key,
+    super.key,
     required this.treaning,
     required this.child,
     required this.screenshotController,
     this.titleWidget,
-  }) : super(key: key);
+  });
 
   @override
   State<TreaningPictureWidget> createState() => _TreaningPictureWidgetState();

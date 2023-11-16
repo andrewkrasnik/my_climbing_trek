@@ -7,8 +7,7 @@ import 'package:intl/intl.dart';
 
 class HallRouteAttemptsWidget extends StatelessWidget {
   final ClimbingHallRoute route;
-  const HallRouteAttemptsWidget({required this.route, Key? key})
-      : super(key: key);
+  const HallRouteAttemptsWidget({required this.route, super.key});
 
   @override
   Widget build(BuildContext context) {

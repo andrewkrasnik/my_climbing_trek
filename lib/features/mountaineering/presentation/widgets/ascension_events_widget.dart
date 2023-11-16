@@ -15,8 +15,8 @@ class AscensionEventsWidget extends StatelessWidget {
     this.editing = false,
     this.onlyMainEvents = false,
     this.textStyle,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +45,9 @@ class AscensionEventsWidget extends StatelessWidget {
                 InkWell(
                   onTap: editing
                       ? () async {
+                          final cubit =
+                              BlocProvider.of<AscensionCubit>(context);
+
                           final newTime = await showTimePicker(
                             context: context,
                             initialTime: event.planedTime == null
@@ -53,13 +56,12 @@ class AscensionEventsWidget extends StatelessWidget {
                           );
 
                           if (newTime != null) {
-                            BlocProvider.of<AscensionCubit>(context)
-                                .setPlanedTime(
-                                    event: event,
-                                    time: DateTime.now().copyWith(
-                                        hour: newTime.hour,
-                                        minute: newTime.minute,
-                                        second: 0));
+                            cubit.setPlanedTime(
+                                event: event,
+                                time: DateTime.now().copyWith(
+                                    hour: newTime.hour,
+                                    minute: newTime.minute,
+                                    second: 0));
                           }
                         }
                       : null,
@@ -71,6 +73,9 @@ class AscensionEventsWidget extends StatelessWidget {
                 InkWell(
                   onTap: editing
                       ? () async {
+                          final cubit =
+                              BlocProvider.of<AscensionCubit>(context);
+
                           final newTime = await showTimePicker(
                             context: context,
                             initialTime: event.time == null
@@ -79,7 +84,7 @@ class AscensionEventsWidget extends StatelessWidget {
                           );
 
                           if (newTime != null) {
-                            BlocProvider.of<AscensionCubit>(context).setTime(
+                            cubit.setTime(
                                 event: event,
                                 time: DateTime.now().copyWith(
                                     hour: newTime.hour,

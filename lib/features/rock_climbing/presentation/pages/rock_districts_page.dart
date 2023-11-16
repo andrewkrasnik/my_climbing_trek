@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RockDistrictsPage extends StatelessWidget {
-  const RockDistrictsPage({Key? key}) : super(key: key);
+  const RockDistrictsPage({super.key});
 
   @override
   Widget build(BuildContext context) {

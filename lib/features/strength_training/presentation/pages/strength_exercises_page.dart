@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class StrengthExercisesPage extends StatelessWidget {
-  const StrengthExercisesPage({Key? key}) : super(key: key);
+  const StrengthExercisesPage({super.key});
 
   @override
   Widget build(BuildContext context) {

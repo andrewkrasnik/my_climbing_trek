@@ -6,8 +6,7 @@ import 'package:my_climbing_trek/features/mountaineering/presentation/widgets/mo
 class MountainRouteDetailsWidget extends HookWidget {
   final MountainRoute route;
 
-  const MountainRouteDetailsWidget({required this.route, Key? key})
-      : super(key: key);
+  const MountainRouteDetailsWidget({required this.route, super.key});
 
   @override
   Widget build(BuildContext context) {

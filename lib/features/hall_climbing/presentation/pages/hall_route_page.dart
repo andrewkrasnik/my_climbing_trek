@@ -19,13 +19,13 @@ class HallRoutePage extends HookWidget {
   final ClimbingRouteType? initialType;
   final bool autoBelay;
   const HallRoutePage({
-    Key? key,
+    super.key,
     required this.climbingHall,
     this.route,
     this.initialCategory,
     this.initialType,
     this.autoBelay = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

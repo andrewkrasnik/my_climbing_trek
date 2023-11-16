@@ -5,7 +5,7 @@ import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountai
 class MountainWidget extends StatelessWidget {
   final Mountain mountain;
 
-  const MountainWidget({required this.mountain, Key? key}) : super(key: key);
+  const MountainWidget({required this.mountain, super.key});
 
   @override
   Widget build(BuildContext context) {
