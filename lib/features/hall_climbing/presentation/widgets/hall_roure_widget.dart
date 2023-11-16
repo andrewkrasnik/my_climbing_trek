@@ -22,12 +22,25 @@ class HallRouteWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String routeSubtitle;
+    String routeSubtitle;
 
     if (route.autoBelay) {
       routeSubtitle = 'autobelay';
     } else {
       routeSubtitle = route.type.name;
+    }
+
+    if (route.name.isNotEmpty) {
+      routeSubtitle = '$routeSubtitle, ${route.name}';
+    }
+
+    if (route.author.isNotEmpty) {
+      routeSubtitle = '$routeSubtitle, ${route.author}';
+    }
+
+    if (route.createDate != null) {
+      routeSubtitle =
+          '$routeSubtitle, накручена ${route.createDate!.dayString()}';
     }
 
     final String routeTitle;

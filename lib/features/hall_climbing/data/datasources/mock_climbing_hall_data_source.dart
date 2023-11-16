@@ -9,11 +9,6 @@ import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing
 
 // @LazySingleton(as: ClimbingHallDataSource)
 class MockClimbingHallDataSource implements ClimbingHallDataSource {
-  static const List<City> _cities = [
-    City.moscow,
-    City.spb,
-  ];
-
   static const HallModel _sportStation = HallModel(
     name: 'СпортСтейшн',
     address: 'Новоостаповская улица, д. 5, стр. 2',
@@ -90,11 +85,6 @@ class MockClimbingHallDataSource implements ClimbingHallDataSource {
   @override
   Future<Either<Failure, List<ClimbingHall>>> climbingHalls() async {
     return const Right(climbingHallsList);
-  }
-
-  @override
-  Future<Either<Failure, List<City>>> cities() async {
-    return const Right(_cities);
   }
 
   @override

@@ -18,6 +18,10 @@ class HallRouteModel extends ClimbingHallRoute {
     super.sectorNumber,
     super.archive,
     super.autoBelay,
+    super.author,
+    super.createDate,
+    super.description,
+    super.name,
     super.id,
   });
 
@@ -29,6 +33,10 @@ class HallRouteModel extends ClimbingHallRoute {
         id: route.id,
         sectorNumber: route.sectorNumber,
         autoBelay: route.autoBelay,
+        author: route.author,
+        createDate: route.createDate,
+        description: route.description,
+        name: route.name,
       );
 
   factory HallRouteModel.fromJson(Map<String, dynamic> json) =>

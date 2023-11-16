@@ -6,6 +6,10 @@ class ClimbingHallRoute extends ClimbingRoute {
   final int sectorNumber;
   bool archive;
   final bool autoBelay;
+  final String description;
+  final String name;
+  final String author;
+  final DateTime? createDate;
   ClimbingHallRoute({
     required super.category,
     required this.color,
@@ -13,6 +17,10 @@ class ClimbingHallRoute extends ClimbingRoute {
     this.sectorNumber = 0,
     this.autoBelay = false,
     this.archive = false,
+    this.author = '',
+    this.name = '',
+    this.description = '',
+    this.createDate,
     super.id,
   });
 }
