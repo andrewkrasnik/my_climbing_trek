@@ -1,3 +1,4 @@
+import 'package:my_climbing_trek/core/data/ice_category.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_treaning_attempt.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
@@ -17,6 +18,7 @@ class FinishIceAttempt {
   Future<Either<Failure, IceTreaningAttempt>> call({
     required IceTreaning treaning,
     required IceTreaningAttempt attempt,
+    required IceCategory category,
     required bool fail,
     required bool downClimbing,
     required int fallCount,
@@ -27,6 +29,7 @@ class FinishIceAttempt {
     required int length,
   }) async {
     attempt.finish(
+      category: category,
       length: length,
       fail: fail,
       downClimbing: downClimbing,

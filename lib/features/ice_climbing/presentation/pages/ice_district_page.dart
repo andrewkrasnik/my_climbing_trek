@@ -63,6 +63,7 @@ class IceDistrictPage extends StatelessWidget {
                             children: [
                               IceSectorWidget(
                                 sector: dataState.sectors[index],
+                                height: 220,
                                 onTap: () => Navigator.of(context)
                                     .push(MaterialPageRoute(
                                         builder: (context) => IceSectorPage(

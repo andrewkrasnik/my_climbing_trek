@@ -85,7 +85,12 @@ class PreviosTrekkingPathWidget extends StatelessWidget {
                       path: path,
                     );
                   },
-                  child: const Chip(label: Text('Продолжить путь'))),
+                  child: Chip(
+                      label: Text(
+                    'Продолжить путь',
+                    style:
+                        TextStyle(color: Theme.of(context).colorScheme.surface),
+                  ))),
               const SizedBox(height: 4),
               InkWell(
                   onTap: () {
@@ -94,7 +99,12 @@ class PreviosTrekkingPathWidget extends StatelessWidget {
                       turn: !path.turn,
                     );
                   },
-                  child: const Chip(label: Text('Развернуться'))),
+                  child: Chip(
+                      label: Text(
+                    'Развернуться',
+                    style:
+                        TextStyle(color: Theme.of(context).colorScheme.surface),
+                  ))),
             ],
             const SizedBox(height: 8),
           ],
