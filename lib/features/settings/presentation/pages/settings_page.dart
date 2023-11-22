@@ -10,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_climbing_trek/features/settings/presentation/pages/mixed_categories_page.dart';
 import 'package:my_climbing_trek/features/settings/presentation/pages/mountaineering_categories_page.dart';
 import 'package:my_climbing_trek/features/settings/presentation/pages/ussr_categories_page.dart';
+import 'package:my_climbing_trek/features/treanings/presentation/widgets/treanings_export_import_widget.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -223,7 +224,14 @@ class SettingsPage extends StatelessWidget {
                           ),
                         ),
                       ],
-                    )
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      'Экспорт и импорт тренировок:',
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                    const SizedBox(height: 8),
+                    const TreaningsExportImportWidget(),
                   ],
                 ),
               ),

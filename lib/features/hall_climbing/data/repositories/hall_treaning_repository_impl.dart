@@ -1,3 +1,4 @@
+import 'package:my_climbing_trek/features/hall_climbing/data/models/hall_treaning_model.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_route.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
@@ -20,7 +21,7 @@ class HallTreaningRepositoryImpl implements HallTreaningRepository {
   });
 
   @override
-  Future<Either<Failure, List<ClimbingHallTreaning>>> allTreanings() async {
+  Future<Either<Failure, List<ClimbingHallTreaning>>> getTreanings() async {
     return await dataSource.allTreanings();
   }
 
@@ -63,5 +64,28 @@ class HallTreaningRepositoryImpl implements HallTreaningRepository {
   Future<Either<Failure, List<ClimbingHallAttempt>>> routeAttempts(
       {required ClimbingHallRoute route}) async {
     return await dataSource.routeAttempts(route: route);
+  }
+
+  @override
+  Future<Either<Failure, List<Map<String, dynamic>>>> getJsonTreanings() async {
+    final failureOrTreanings = await dataSource.allTreanings();
+
+    return failureOrTreanings.fold(
+        (failure) => Left(failure),
+        (treanings) => Right(treanings
+            .map((treaning) => (treaning as HallTreaningModel).toJson())
+            .toList()));
+  }
+
+  @override
+  Future<Either<Failure, Unit>> saveJsonTreanings(
+      List<Map<String, dynamic>> json) async {
+    final treanings =
+        json.map((item) => HallTreaningModel.fromJson(item)).toList();
+
+    for (final treaning in treanings) {
+      await dataSource.saveTreaning(treaning: treaning);
+    }
+    return const Right(unit);
   }
 }

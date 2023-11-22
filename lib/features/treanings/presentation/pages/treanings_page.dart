@@ -1,5 +1,5 @@
 import 'package:my_climbing_trek/features/settings/presentation/cubit/settings_cubit.dart';
-import 'package:my_climbing_trek/features/treanings/presentation/cubit/treanings_cubit.dart';
+import 'package:my_climbing_trek/features/treanings/presentation/cubit/treanings/treanings_cubit.dart';
 import 'package:my_climbing_trek/features/treanings/presentation/widgets/treaning_widget_factory.dart';
 import 'package:flutter/material.dart';
 

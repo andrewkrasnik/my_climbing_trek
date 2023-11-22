@@ -59,6 +59,9 @@ dependencies:
 
   #Выбор изображения с устройства
   image_picker: ^1.0.4
+  #Диалоги выбора и сохранения файла
+  file_saver: ^0.2.9
+  file_selector: ^1.0.1
   
 
 

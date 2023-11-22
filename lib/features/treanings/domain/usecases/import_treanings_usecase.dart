@@ -5,6 +5,7 @@ import 'package:my_climbing_trek/features/hall_climbing/domain/repositories/hall
 import 'package:my_climbing_trek/features/ice_climbing/domain/repositories/ice_treanings_repository.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/repositories/ascension_repository.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/repositories/rock_treanings_repository.dart';
+import 'package:my_climbing_trek/features/settings/domain/entities/treanings_settings.dart';
 import 'package:my_climbing_trek/features/strength_training/domain/repositories/strength_treanings_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
@@ -13,7 +14,7 @@ import 'package:my_climbing_trek/features/traveling/domain/repositories/travel_r
 import 'package:my_climbing_trek/features/trekking/domain/repositories/trekking_path_repository.dart';
 
 @LazySingleton()
-class GetAllTreanings {
+class ImportTreaningsUseCase {
   final HallTreaningRepository _hallTreaningRepository;
   final IceTreaningsRepository _iceTreaningsRepository;
   final StrengthTreaningsRepository _strengthTreaningsRepository;
@@ -24,7 +25,7 @@ class GetAllTreanings {
   final TechniqueTreaningsRepository _techniqueTreaningsRepository;
   final AscensionRepository _ascensionRepository;
 
-  GetAllTreanings(
+  ImportTreaningsUseCase(
     this._hallTreaningRepository,
     this._iceTreaningsRepository,
     this._strengthTreaningsRepository,
@@ -36,109 +37,98 @@ class GetAllTreanings {
     this._ascensionRepository,
   );
 
-  Future<Either<Failure, List<Treaning>>> call({
-    required bool rock,
-    required bool gym,
-    required bool ice,
-    required bool cardio,
-    required bool strength,
-    required bool travel,
-    required bool trekking,
-    required bool techniques,
-    required bool mountaneering,
+  Future<Either<Failure, Map<String, List<Treaning>>>> call({
+    required TreaningsSettings settings,
   }) async {
-    final List<Treaning> treanings = [];
+    final Map<String, List<Treaning>> treanings = {};
 
-    if (gym) {
+    if (settings.useGymTreanings) {
       final failureOrHallTreanings =
           await _hallTreaningRepository.getTreanings();
 
       failureOrHallTreanings.fold(
         (failure) => null,
-        (hallTreanings) => treanings.addAll(hallTreanings),
+        (hallTreanings) => treanings['hall_treanings'] = hallTreanings,
       );
     }
 
-    if (ice) {
+    if (settings.useIceTreanings) {
       final failureOrIceTreanings =
           await _iceTreaningsRepository.getTreanings();
 
       failureOrIceTreanings.fold(
         (failure) => null,
-        (iceTreanings) => treanings.addAll(iceTreanings),
+        (iceTreanings) => treanings['ice_treanings'] = iceTreanings,
       );
     }
 
-    if (cardio) {
+    if (settings.useCardioTreanings) {
       final failureOrCardioTreanings =
           await _cardioTreaningsRepository.getTreanings();
 
       failureOrCardioTreanings.fold(
         (failure) => null,
-        (cardioTreanings) => treanings.addAll(cardioTreanings),
+        (cardioTreanings) => treanings['cardio_treanings'] = cardioTreanings,
       );
     }
 
-    if (strength) {
+    if (settings.useStrengthTraining) {
       final failureOrStrengthTreanings =
           await _strengthTreaningsRepository.getTreanings();
 
       failureOrStrengthTreanings.fold(
         (failure) => null,
-        (strengthTreanings) => treanings.addAll(strengthTreanings),
+        (strengthTreanings) =>
+            treanings['strength_treanings'] = strengthTreanings,
       );
     }
 
-    if (rock) {
+    if (settings.useRockTraining) {
       final failureOrRockTreanings =
           await _rockTreaningsRepository.getTreanings();
 
       failureOrRockTreanings.fold(
         (failure) => null,
-        (rockTreanings) => treanings.addAll(rockTreanings),
+        (rockTreanings) => treanings['rock_treanings'] = rockTreanings,
       );
     }
 
-    if (travel) {
+    if (settings.useTraveling) {
       final failureOrTravels = await _travelRepository.getTreanings();
 
       failureOrTravels.fold(
         (failure) => null,
-        (travels) => treanings.addAll(travels),
+        (travels) => treanings['travels'] = travels,
       );
     }
 
-    if (trekking) {
+    if (settings.useTrekking) {
       final failureOrPaths = await _trekkingPathRepository.getTreanings();
 
       failureOrPaths.fold(
         (failure) => null,
-        (paths) => treanings.addAll(paths),
+        (paths) => treanings['trekking_treanings'] = paths,
       );
     }
 
-    if (techniques) {
+    if (settings.useTechniques) {
       final failureOrTechniques =
           await _techniqueTreaningsRepository.getTreanings();
 
       failureOrTechniques.fold(
         (failure) => null,
-        (techniques) => treanings.addAll(techniques),
+        (techniques) => treanings['techniques_treanings'] = techniques,
       );
     }
 
-    if (mountaneering) {
+    if (settings.useMountaineering) {
       final failureOrAscentions = await _ascensionRepository.getTreanings();
 
       failureOrAscentions.fold(
         (failure) => null,
-        (ascentions) => treanings.addAll(ascentions),
+        (ascentions) => treanings['ascentions_treanings'] = ascentions,
       );
     }
-
-    treanings.sort(
-      (a, b) => b.date.compareTo(a.date),
-    );
 
     return Right(treanings);
   }

@@ -12,5 +12,5 @@ class AllHallTreanings {
   AllHallTreanings(this.treaningRepository);
 
   Future<Either<Failure, List<ClimbingHallTreaning>>> call() async =>
-      treaningRepository.allTreanings();
+      treaningRepository.getTreanings();
 }
