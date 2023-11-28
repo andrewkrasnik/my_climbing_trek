@@ -20,7 +20,7 @@ class TreaningsExportImportCubit extends Cubit<TreaningsExportImportState> {
   ) : super(const TreaningsExportImportState.initial());
 
   Future<void> export({required TreaningsSettings settings}) async {
-    emit(const TreaningsExportImportState.loading());
+    emit(const TreaningsExportImportState.exporting());
 
     final failureOrData = await _exportTreaningsUseCase(settings: settings);
 
@@ -28,5 +28,21 @@ class TreaningsExportImportCubit extends Cubit<TreaningsExportImportState> {
         (failure) => emit(
             TreaningsExportImportState.error(description: failure.toString())),
         (data) => emit(TreaningsExportImportState.dataExport(treanings: data)));
+  }
+
+  Future<void> import({required Map<String, dynamic> data}) async {
+    emit(const TreaningsExportImportState.importing());
+
+    final failureOrUnit = await _importTreaningsUseCase(data: data);
+
+    failureOrUnit.fold(
+      (failure) => emit(
+          TreaningsExportImportState.error(description: failure.toString())),
+      (data) => emit(
+        const TreaningsExportImportState.dataImport(
+          treanings: 'Тренировки успешно загружены',
+        ),
+      ),
+    );
   }
 }

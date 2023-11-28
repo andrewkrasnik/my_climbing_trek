@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:my_climbing_trek/features/hall_climbing/data/models/hall_treaning_model.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_route.dart';
 import 'package:dartz/dartz.dart';
@@ -72,16 +74,29 @@ class HallTreaningRepositoryImpl implements HallTreaningRepository {
 
     return failureOrTreanings.fold(
         (failure) => Left(failure),
-        (treanings) => Right(treanings
-            .map((treaning) => (treaning as HallTreaningModel).toJson())
-            .toList()));
+        (treanings) => Right(treanings.map((treaning) {
+              final data = (treaning as HallTreaningModel).toJson();
+
+              data['climbingHall'] = jsonDecode(data['climbingHall']);
+
+              for (var attempt in data['attempts']) {
+                attempt['route'] = jsonDecode(attempt['route']);
+              }
+
+              return data;
+            }).toList()));
   }
 
   @override
-  Future<Either<Failure, Unit>> saveJsonTreanings(
-      List<Map<String, dynamic>> json) async {
-    final treanings =
-        json.map((item) => HallTreaningModel.fromJson(item)).toList();
+  Future<Either<Failure, Unit>> saveJsonTreanings(List<dynamic> json) async {
+    final treanings = json.map((item) {
+      item['climbingHall'] = jsonEncode(item['climbingHall']);
+
+      for (var attempt in item['attempts']) {
+        attempt['route'] = jsonEncode(attempt['route']);
+      }
+      return HallTreaningModel.fromJson(item);
+    }).toList();
 
     for (final treaning in treanings) {
       await dataSource.saveTreaning(treaning: treaning);

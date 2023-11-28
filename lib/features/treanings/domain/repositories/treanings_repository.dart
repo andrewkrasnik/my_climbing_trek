@@ -7,6 +7,5 @@ abstract class TreaningsRepository {
 
   Future<Either<Failure, List<Map<String, dynamic>>>> getJsonTreanings();
 
-  Future<Either<Failure, Unit>> saveJsonTreanings(
-      List<Map<String, dynamic>> json);
+  Future<Either<Failure, Unit>> saveJsonTreanings(List<dynamic> json);
 }

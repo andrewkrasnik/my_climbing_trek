@@ -19,7 +19,8 @@ mixin _$TreaningsExportImportState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function() exporting,
+    required TResult Function() importing,
     required TResult Function(Map<String, dynamic> treanings) dataExport,
     required TResult Function(String treanings) dataImport,
     required TResult Function(String description) error,
@@ -28,7 +29,8 @@ mixin _$TreaningsExportImportState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function()? exporting,
+    TResult? Function()? importing,
     TResult? Function(Map<String, dynamic> treanings)? dataExport,
     TResult? Function(String treanings)? dataImport,
     TResult? Function(String description)? error,
@@ -37,7 +39,8 @@ mixin _$TreaningsExportImportState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function()? exporting,
+    TResult Function()? importing,
     TResult Function(Map<String, dynamic> treanings)? dataExport,
     TResult Function(String treanings)? dataImport,
     TResult Function(String description)? error,
@@ -47,7 +50,8 @@ mixin _$TreaningsExportImportState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
+    required TResult Function(_Exporting value) exporting,
+    required TResult Function(_Importing value) importing,
     required TResult Function(_DataExport value) dataExport,
     required TResult Function(_DataImport value) dataImport,
     required TResult Function(_Error value) error,
@@ -56,7 +60,8 @@ mixin _$TreaningsExportImportState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Exporting value)? exporting,
+    TResult? Function(_Importing value)? importing,
     TResult? Function(_DataExport value)? dataExport,
     TResult? Function(_DataImport value)? dataImport,
     TResult? Function(_Error value)? error,
@@ -65,7 +70,8 @@ mixin _$TreaningsExportImportState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
+    TResult Function(_Exporting value)? exporting,
+    TResult Function(_Importing value)? importing,
     TResult Function(_DataExport value)? dataExport,
     TResult Function(_DataImport value)? dataImport,
     TResult Function(_Error value)? error,
@@ -133,7 +139,8 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function() exporting,
+    required TResult Function() importing,
     required TResult Function(Map<String, dynamic> treanings) dataExport,
     required TResult Function(String treanings) dataImport,
     required TResult Function(String description) error,
@@ -145,7 +152,8 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function()? exporting,
+    TResult? Function()? importing,
     TResult? Function(Map<String, dynamic> treanings)? dataExport,
     TResult? Function(String treanings)? dataImport,
     TResult? Function(String description)? error,
@@ -157,7 +165,8 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function()? exporting,
+    TResult Function()? importing,
     TResult Function(Map<String, dynamic> treanings)? dataExport,
     TResult Function(String treanings)? dataImport,
     TResult Function(String description)? error,
@@ -173,7 +182,8 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
+    required TResult Function(_Exporting value) exporting,
+    required TResult Function(_Importing value) importing,
     required TResult Function(_DataExport value) dataExport,
     required TResult Function(_DataImport value) dataImport,
     required TResult Function(_Error value) error,
@@ -185,7 +195,8 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Exporting value)? exporting,
+    TResult? Function(_Importing value)? importing,
     TResult? Function(_DataExport value)? dataExport,
     TResult? Function(_DataImport value)? dataImport,
     TResult? Function(_Error value)? error,
@@ -197,7 +208,8 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
+    TResult Function(_Exporting value)? exporting,
+    TResult Function(_Importing value)? importing,
     TResult Function(_DataExport value)? dataExport,
     TResult Function(_DataImport value)? dataImport,
     TResult Function(_Error value)? error,
@@ -215,35 +227,35 @@ abstract class _Initial implements TreaningsExportImportState {
 }
 
 /// @nodoc
-abstract class _$$LoadingImplCopyWith<$Res> {
-  factory _$$LoadingImplCopyWith(
-          _$LoadingImpl value, $Res Function(_$LoadingImpl) then) =
-      __$$LoadingImplCopyWithImpl<$Res>;
+abstract class _$$ExportingImplCopyWith<$Res> {
+  factory _$$ExportingImplCopyWith(
+          _$ExportingImpl value, $Res Function(_$ExportingImpl) then) =
+      __$$ExportingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$LoadingImplCopyWithImpl<$Res>
-    extends _$TreaningsExportImportStateCopyWithImpl<$Res, _$LoadingImpl>
-    implements _$$LoadingImplCopyWith<$Res> {
-  __$$LoadingImplCopyWithImpl(
-      _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
+class __$$ExportingImplCopyWithImpl<$Res>
+    extends _$TreaningsExportImportStateCopyWithImpl<$Res, _$ExportingImpl>
+    implements _$$ExportingImplCopyWith<$Res> {
+  __$$ExportingImplCopyWithImpl(
+      _$ExportingImpl _value, $Res Function(_$ExportingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$LoadingImpl implements _Loading {
-  const _$LoadingImpl();
+class _$ExportingImpl implements _Exporting {
+  const _$ExportingImpl();
 
   @override
   String toString() {
-    return 'TreaningsExportImportState.loading()';
+    return 'TreaningsExportImportState.exporting()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LoadingImpl);
+        (other.runtimeType == runtimeType && other is _$ExportingImpl);
   }
 
   @override
@@ -253,38 +265,41 @@ class _$LoadingImpl implements _Loading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function() exporting,
+    required TResult Function() importing,
     required TResult Function(Map<String, dynamic> treanings) dataExport,
     required TResult Function(String treanings) dataImport,
     required TResult Function(String description) error,
   }) {
-    return loading();
+    return exporting();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function()? exporting,
+    TResult? Function()? importing,
     TResult? Function(Map<String, dynamic> treanings)? dataExport,
     TResult? Function(String treanings)? dataImport,
     TResult? Function(String description)? error,
   }) {
-    return loading?.call();
+    return exporting?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function()? exporting,
+    TResult Function()? importing,
     TResult Function(Map<String, dynamic> treanings)? dataExport,
     TResult Function(String treanings)? dataImport,
     TResult Function(String description)? error,
     required TResult orElse(),
   }) {
-    if (loading != null) {
-      return loading();
+    if (exporting != null) {
+      return exporting();
     }
     return orElse();
   }
@@ -293,45 +308,174 @@ class _$LoadingImpl implements _Loading {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
+    required TResult Function(_Exporting value) exporting,
+    required TResult Function(_Importing value) importing,
     required TResult Function(_DataExport value) dataExport,
     required TResult Function(_DataImport value) dataImport,
     required TResult Function(_Error value) error,
   }) {
-    return loading(this);
+    return exporting(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Exporting value)? exporting,
+    TResult? Function(_Importing value)? importing,
     TResult? Function(_DataExport value)? dataExport,
     TResult? Function(_DataImport value)? dataImport,
     TResult? Function(_Error value)? error,
   }) {
-    return loading?.call(this);
+    return exporting?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
+    TResult Function(_Exporting value)? exporting,
+    TResult Function(_Importing value)? importing,
     TResult Function(_DataExport value)? dataExport,
     TResult Function(_DataImport value)? dataImport,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
-    if (loading != null) {
-      return loading(this);
+    if (exporting != null) {
+      return exporting(this);
     }
     return orElse();
   }
 }
 
-abstract class _Loading implements TreaningsExportImportState {
-  const factory _Loading() = _$LoadingImpl;
+abstract class _Exporting implements TreaningsExportImportState {
+  const factory _Exporting() = _$ExportingImpl;
+}
+
+/// @nodoc
+abstract class _$$ImportingImplCopyWith<$Res> {
+  factory _$$ImportingImplCopyWith(
+          _$ImportingImpl value, $Res Function(_$ImportingImpl) then) =
+      __$$ImportingImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ImportingImplCopyWithImpl<$Res>
+    extends _$TreaningsExportImportStateCopyWithImpl<$Res, _$ImportingImpl>
+    implements _$$ImportingImplCopyWith<$Res> {
+  __$$ImportingImplCopyWithImpl(
+      _$ImportingImpl _value, $Res Function(_$ImportingImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$ImportingImpl implements _Importing {
+  const _$ImportingImpl();
+
+  @override
+  String toString() {
+    return 'TreaningsExportImportState.importing()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ImportingImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() exporting,
+    required TResult Function() importing,
+    required TResult Function(Map<String, dynamic> treanings) dataExport,
+    required TResult Function(String treanings) dataImport,
+    required TResult Function(String description) error,
+  }) {
+    return importing();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? exporting,
+    TResult? Function()? importing,
+    TResult? Function(Map<String, dynamic> treanings)? dataExport,
+    TResult? Function(String treanings)? dataImport,
+    TResult? Function(String description)? error,
+  }) {
+    return importing?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? exporting,
+    TResult Function()? importing,
+    TResult Function(Map<String, dynamic> treanings)? dataExport,
+    TResult Function(String treanings)? dataImport,
+    TResult Function(String description)? error,
+    required TResult orElse(),
+  }) {
+    if (importing != null) {
+      return importing();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Exporting value) exporting,
+    required TResult Function(_Importing value) importing,
+    required TResult Function(_DataExport value) dataExport,
+    required TResult Function(_DataImport value) dataImport,
+    required TResult Function(_Error value) error,
+  }) {
+    return importing(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Exporting value)? exporting,
+    TResult? Function(_Importing value)? importing,
+    TResult? Function(_DataExport value)? dataExport,
+    TResult? Function(_DataImport value)? dataImport,
+    TResult? Function(_Error value)? error,
+  }) {
+    return importing?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Exporting value)? exporting,
+    TResult Function(_Importing value)? importing,
+    TResult Function(_DataExport value)? dataExport,
+    TResult Function(_DataImport value)? dataImport,
+    TResult Function(_Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (importing != null) {
+      return importing(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Importing implements TreaningsExportImportState {
+  const factory _Importing() = _$ImportingImpl;
 }
 
 /// @nodoc
@@ -407,7 +551,8 @@ class _$DataExportImpl implements _DataExport {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function() exporting,
+    required TResult Function() importing,
     required TResult Function(Map<String, dynamic> treanings) dataExport,
     required TResult Function(String treanings) dataImport,
     required TResult Function(String description) error,
@@ -419,7 +564,8 @@ class _$DataExportImpl implements _DataExport {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function()? exporting,
+    TResult? Function()? importing,
     TResult? Function(Map<String, dynamic> treanings)? dataExport,
     TResult? Function(String treanings)? dataImport,
     TResult? Function(String description)? error,
@@ -431,7 +577,8 @@ class _$DataExportImpl implements _DataExport {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function()? exporting,
+    TResult Function()? importing,
     TResult Function(Map<String, dynamic> treanings)? dataExport,
     TResult Function(String treanings)? dataImport,
     TResult Function(String description)? error,
@@ -447,7 +594,8 @@ class _$DataExportImpl implements _DataExport {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
+    required TResult Function(_Exporting value) exporting,
+    required TResult Function(_Importing value) importing,
     required TResult Function(_DataExport value) dataExport,
     required TResult Function(_DataImport value) dataImport,
     required TResult Function(_Error value) error,
@@ -459,7 +607,8 @@ class _$DataExportImpl implements _DataExport {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Exporting value)? exporting,
+    TResult? Function(_Importing value)? importing,
     TResult? Function(_DataExport value)? dataExport,
     TResult? Function(_DataImport value)? dataImport,
     TResult? Function(_Error value)? error,
@@ -471,7 +620,8 @@ class _$DataExportImpl implements _DataExport {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
+    TResult Function(_Exporting value)? exporting,
+    TResult Function(_Importing value)? importing,
     TResult Function(_DataExport value)? dataExport,
     TResult Function(_DataImport value)? dataImport,
     TResult Function(_Error value)? error,
@@ -560,7 +710,8 @@ class _$DataImportImpl implements _DataImport {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function() exporting,
+    required TResult Function() importing,
     required TResult Function(Map<String, dynamic> treanings) dataExport,
     required TResult Function(String treanings) dataImport,
     required TResult Function(String description) error,
@@ -572,7 +723,8 @@ class _$DataImportImpl implements _DataImport {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function()? exporting,
+    TResult? Function()? importing,
     TResult? Function(Map<String, dynamic> treanings)? dataExport,
     TResult? Function(String treanings)? dataImport,
     TResult? Function(String description)? error,
@@ -584,7 +736,8 @@ class _$DataImportImpl implements _DataImport {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function()? exporting,
+    TResult Function()? importing,
     TResult Function(Map<String, dynamic> treanings)? dataExport,
     TResult Function(String treanings)? dataImport,
     TResult Function(String description)? error,
@@ -600,7 +753,8 @@ class _$DataImportImpl implements _DataImport {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
+    required TResult Function(_Exporting value) exporting,
+    required TResult Function(_Importing value) importing,
     required TResult Function(_DataExport value) dataExport,
     required TResult Function(_DataImport value) dataImport,
     required TResult Function(_Error value) error,
@@ -612,7 +766,8 @@ class _$DataImportImpl implements _DataImport {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Exporting value)? exporting,
+    TResult? Function(_Importing value)? importing,
     TResult? Function(_DataExport value)? dataExport,
     TResult? Function(_DataImport value)? dataImport,
     TResult? Function(_Error value)? error,
@@ -624,7 +779,8 @@ class _$DataImportImpl implements _DataImport {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
+    TResult Function(_Exporting value)? exporting,
+    TResult Function(_Importing value)? importing,
     TResult Function(_DataExport value)? dataExport,
     TResult Function(_DataImport value)? dataImport,
     TResult Function(_Error value)? error,
@@ -713,7 +869,8 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function() exporting,
+    required TResult Function() importing,
     required TResult Function(Map<String, dynamic> treanings) dataExport,
     required TResult Function(String treanings) dataImport,
     required TResult Function(String description) error,
@@ -725,7 +882,8 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function()? exporting,
+    TResult? Function()? importing,
     TResult? Function(Map<String, dynamic> treanings)? dataExport,
     TResult? Function(String treanings)? dataImport,
     TResult? Function(String description)? error,
@@ -737,7 +895,8 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function()? exporting,
+    TResult Function()? importing,
     TResult Function(Map<String, dynamic> treanings)? dataExport,
     TResult Function(String treanings)? dataImport,
     TResult Function(String description)? error,
@@ -753,7 +912,8 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
+    required TResult Function(_Exporting value) exporting,
+    required TResult Function(_Importing value) importing,
     required TResult Function(_DataExport value) dataExport,
     required TResult Function(_DataImport value) dataImport,
     required TResult Function(_Error value) error,
@@ -765,7 +925,8 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Exporting value)? exporting,
+    TResult? Function(_Importing value)? importing,
     TResult? Function(_DataExport value)? dataExport,
     TResult? Function(_DataImport value)? dataImport,
     TResult? Function(_Error value)? error,
@@ -777,7 +938,8 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
+    TResult Function(_Exporting value)? exporting,
+    TResult Function(_Importing value)? importing,
     TResult Function(_DataExport value)? dataExport,
     TResult Function(_DataImport value)? dataImport,
     TResult Function(_Error value)? error,
