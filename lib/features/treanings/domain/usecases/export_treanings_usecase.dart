@@ -1,4 +1,3 @@
-import 'package:my_climbing_trek/core/data/treaning.dart';
 import 'package:my_climbing_trek/core/failures/failure.dart';
 import 'package:my_climbing_trek/features/cardio_workout/domain/repositories/cardio_treanings_repository.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/repositories/hall_treaning_repository.dart';
@@ -52,46 +51,56 @@ class ExportTreaningsUseCase {
       );
     }
 
-    // if (settings.useIceTreanings) {
-    //   final failureOrIceTreanings =
-    //       await _iceTreaningsRepository.getTreanings();
+    if (settings.useIceTreanings) {
+      final failureOrIceTreanings =
+          await _iceTreaningsRepository.getJsonTreanings();
 
-    //   failureOrIceTreanings.fold(
-    //     (failure) => null,
-    //     (iceTreanings) => treanings['ice_treanings'] = iceTreanings,
-    //   );
-    // }
+      failureOrIceTreanings.fold(
+        (failure) => null,
+        (iceTreanings) => treanings['ice_treanings'] = iceTreanings,
+      );
+    }
 
-    // if (settings.useCardioTreanings) {
-    //   final failureOrCardioTreanings =
-    //       await _cardioTreaningsRepository.getTreanings();
+    if (settings.useCardioTreanings) {
+      final failureOrCardioTreanings =
+          await _cardioTreaningsRepository.getJsonTreanings();
 
-    //   failureOrCardioTreanings.fold(
-    //     (failure) => null,
-    //     (cardioTreanings) => treanings['cardio_treanings'] = cardioTreanings,
-    //   );
-    // }
+      failureOrCardioTreanings.fold(
+        (failure) => null,
+        (cardioTreanings) => treanings['cardio_treanings'] = cardioTreanings,
+      );
+    }
 
-    // if (settings.useStrengthTraining) {
-    //   final failureOrStrengthTreanings =
-    //       await _strengthTreaningsRepository.getTreanings();
+    if (settings.useStrengthTraining) {
+      final failureOrStrengthTreanings =
+          await _strengthTreaningsRepository.getJsonTreanings();
 
-    //   failureOrStrengthTreanings.fold(
-    //     (failure) => null,
-    //     (strengthTreanings) =>
-    //         treanings['strength_treanings'] = strengthTreanings,
-    //   );
-    // }
+      failureOrStrengthTreanings.fold(
+        (failure) => null,
+        (strengthTreanings) =>
+            treanings['strength_treanings'] = strengthTreanings,
+      );
+    }
 
-    // if (settings.useRockTraining) {
-    //   final failureOrRockTreanings =
-    //       await _rockTreaningsRepository.getTreanings();
+    if (settings.useRockTraining) {
+      final failureOrRockTreanings =
+          await _rockTreaningsRepository.getJsonTreanings();
 
-    //   failureOrRockTreanings.fold(
-    //     (failure) => null,
-    //     (rockTreanings) => treanings['rock_treanings'] = rockTreanings,
-    //   );
-    // }
+      failureOrRockTreanings.fold(
+        (failure) => null,
+        (rockTreanings) => treanings['rock_treanings'] = rockTreanings,
+      );
+    }
+
+    if (settings.useTechniques) {
+      final failureOrTechniques =
+          await _techniqueTreaningsRepository.getJsonTreanings();
+
+      failureOrTechniques.fold(
+        (failure) => null,
+        (techniques) => treanings['techniques_treanings'] = techniques,
+      );
+    }
 
     // if (settings.useTraveling) {
     //   final failureOrTravels = await _travelRepository.getTreanings();
@@ -108,16 +117,6 @@ class ExportTreaningsUseCase {
     //   failureOrPaths.fold(
     //     (failure) => null,
     //     (paths) => treanings['trekking_treanings'] = paths,
-    //   );
-    // }
-
-    // if (settings.useTechniques) {
-    //   final failureOrTechniques =
-    //       await _techniqueTreaningsRepository.getTreanings();
-
-    //   failureOrTechniques.fold(
-    //     (failure) => null,
-    //     (techniques) => treanings['techniques_treanings'] = techniques,
     //   );
     // }
 

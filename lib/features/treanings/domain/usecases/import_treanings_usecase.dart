@@ -52,46 +52,65 @@ class ImportTreaningsUseCase {
       }
     }
 
-    // if (settings.useIceTreanings) {
-    //   final failureOrIceTreanings =
-    //       await _iceTreaningsRepository.getTreanings();
+    if (data['ice_treanings'] != null) {
+      final failureOrUnit = await _iceTreaningsRepository
+          .saveJsonTreanings(data['ice_treanings']);
 
-    //   failureOrIceTreanings.fold(
-    //     (failure) => null,
-    //     (iceTreanings) => treanings['ice_treanings'] = iceTreanings,
-    //   );
-    // }
+      if (failureOrUnit.isLeft()) {
+        return Left(failureOrUnit.fold(
+          (failure) => failure,
+          (_) => Failure(),
+        ));
+      }
+    }
 
-    // if (settings.useCardioTreanings) {
-    //   final failureOrCardioTreanings =
-    //       await _cardioTreaningsRepository.getTreanings();
+    if (data['cardio_treanings'] != null) {
+      final failureOrUnit = await _cardioTreaningsRepository
+          .saveJsonTreanings(data['cardio_treanings']);
 
-    //   failureOrCardioTreanings.fold(
-    //     (failure) => null,
-    //     (cardioTreanings) => treanings['cardio_treanings'] = cardioTreanings,
-    //   );
-    // }
+      if (failureOrUnit.isLeft()) {
+        return Left(failureOrUnit.fold(
+          (failure) => failure,
+          (_) => Failure(),
+        ));
+      }
+    }
 
-    // if (settings.useStrengthTraining) {
-    //   final failureOrStrengthTreanings =
-    //       await _strengthTreaningsRepository.getTreanings();
+    if (data['strength_treanings'] != null) {
+      final failureOrUnit = await _strengthTreaningsRepository
+          .saveJsonTreanings(data['strength_treanings']);
 
-    //   failureOrStrengthTreanings.fold(
-    //     (failure) => null,
-    //     (strengthTreanings) =>
-    //         treanings['strength_treanings'] = strengthTreanings,
-    //   );
-    // }
+      if (failureOrUnit.isLeft()) {
+        return Left(failureOrUnit.fold(
+          (failure) => failure,
+          (_) => Failure(),
+        ));
+      }
+    }
 
-    // if (settings.useRockTraining) {
-    //   final failureOrRockTreanings =
-    //       await _rockTreaningsRepository.getTreanings();
+    if (data['rock_treanings'] != null) {
+      final failureOrUnit = await _rockTreaningsRepository
+          .saveJsonTreanings(data['rock_treanings']);
 
-    //   failureOrRockTreanings.fold(
-    //     (failure) => null,
-    //     (rockTreanings) => treanings['rock_treanings'] = rockTreanings,
-    //   );
-    // }
+      if (failureOrUnit.isLeft()) {
+        return Left(failureOrUnit.fold(
+          (failure) => failure,
+          (_) => Failure(),
+        ));
+      }
+    }
+
+    if (data['techniques_treanings'] != null) {
+      final failureOrUnit = await _techniqueTreaningsRepository
+          .saveJsonTreanings(data['techniques_treanings']);
+
+      if (failureOrUnit.isLeft()) {
+        return Left(failureOrUnit.fold(
+          (failure) => failure,
+          (_) => Failure(),
+        ));
+      }
+    }
 
     // if (settings.useTraveling) {
     //   final failureOrTravels = await _travelRepository.getTreanings();
@@ -108,16 +127,6 @@ class ImportTreaningsUseCase {
     //   failureOrPaths.fold(
     //     (failure) => null,
     //     (paths) => treanings['trekking_treanings'] = paths,
-    //   );
-    // }
-
-    // if (settings.useTechniques) {
-    //   final failureOrTechniques =
-    //       await _techniqueTreaningsRepository.getTreanings();
-
-    //   failureOrTechniques.fold(
-    //     (failure) => null,
-    //     (techniques) => treanings['techniques_treanings'] = techniques,
     //   );
     // }
 

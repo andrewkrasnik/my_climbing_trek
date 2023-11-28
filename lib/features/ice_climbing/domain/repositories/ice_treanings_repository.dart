@@ -2,10 +2,13 @@ import 'package:my_climbing_trek/core/failures/failure.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_treaning.dart';
 import 'package:dartz/dartz.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_treaning_attempt.dart';
+import 'package:my_climbing_trek/features/treanings/domain/repositories/treanings_repository.dart';
 
-abstract class IceTreaningsRepository {
+abstract class IceTreaningsRepository implements TreaningsRepository {
   Future<Either<Failure, IceTreaning>> saveTreaning(
       {required IceTreaning treaning});
+
+  @override
   Future<Either<Failure, List<IceTreaning>>> getTreanings();
 
   Future<Either<Failure, IceTreaning?>> getCurrentTreaning();

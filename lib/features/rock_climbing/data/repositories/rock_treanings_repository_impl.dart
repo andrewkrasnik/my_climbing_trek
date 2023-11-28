@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:injectable/injectable.dart';
 import 'package:my_climbing_trek/core/failures/failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:my_climbing_trek/features/rock_climbing/data/datasources/rock_treanings_local_datasource.dart';
+import 'package:my_climbing_trek/features/rock_climbing/data/models/rock_treaning_model.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_route.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_sector.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_treaning.dart';
@@ -57,5 +60,31 @@ class RockTreaningsRepositoryImpl implements RockTreaningsRepository {
   Future<Either<Failure, Unit>> deleteAttempt(
       {required RockTreaningAttempt attempt}) async {
     return await _rockTreaningsLocalDataSource.deleteAttempt(attempt: attempt);
+  }
+
+  @override
+  Future<Either<Failure, List<Map<String, dynamic>>>> getJsonTreanings() async {
+    final failureOrTreanings =
+        await _rockTreaningsLocalDataSource.getTreanings();
+
+    return failureOrTreanings.fold(
+        (failure) => Left(failure),
+        (treanings) => Right(treanings.map((treaning) {
+              final data = (treaning as RockTreaningModel).toJson();
+
+              return data;
+            }).toList()));
+  }
+
+  @override
+  Future<Either<Failure, Unit>> saveJsonTreanings(List<dynamic> json) async {
+    final treanings = json.map((item) {
+      return RockTreaningModel.fromJson(item);
+    }).toList();
+
+    for (final treaning in treanings) {
+      await _rockTreaningsLocalDataSource.saveTreaning(treaning: treaning);
+    }
+    return const Right(unit);
   }
 }
