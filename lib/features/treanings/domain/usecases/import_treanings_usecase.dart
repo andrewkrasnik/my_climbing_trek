@@ -1,11 +1,9 @@
-import 'package:my_climbing_trek/core/data/treaning.dart';
 import 'package:my_climbing_trek/core/failures/failure.dart';
 import 'package:my_climbing_trek/features/cardio_workout/domain/repositories/cardio_treanings_repository.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/repositories/hall_treaning_repository.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/repositories/ice_treanings_repository.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/repositories/ascension_repository.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/repositories/rock_treanings_repository.dart';
-import 'package:my_climbing_trek/features/settings/domain/entities/treanings_settings.dart';
 import 'package:my_climbing_trek/features/strength_training/domain/repositories/strength_treanings_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
@@ -112,15 +110,17 @@ class ImportTreaningsUseCase {
       }
     }
 
-    // if (settings.useTraveling) {
-    //   final failureOrUnit = await _travelRepository.saveJsonTreanings();
+    if (data['travels'] != null) {
+      final failureOrUnit =
+          await _travelRepository.saveJsonTreanings(data['travels']);
 
-    // if (failureOrUnit.isLeft()) {
-    //       return Left(failureOrUnit.fold(
-    //         (failure) => failure,
-    //         (_) => Failure(),
-    //       ));
-    //     }}
+      if (failureOrUnit.isLeft()) {
+        return Left(failureOrUnit.fold(
+          (failure) => failure,
+          (_) => Failure(),
+        ));
+      }
+    }
 
     if (data['trekking_treanings'] != null) {
       final failureOrUnit = await _trekkingPathRepository

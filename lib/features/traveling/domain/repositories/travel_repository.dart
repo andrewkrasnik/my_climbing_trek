@@ -6,14 +6,16 @@ import 'package:my_climbing_trek/features/traveling/domain/entities/insurance_li
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel_budget_line.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/travel_day.dart';
+import 'package:my_climbing_trek/features/treanings/domain/repositories/treanings_repository.dart';
 
-abstract class TravelRepository {
+abstract class TravelRepository implements TreaningsRepository {
   Future<Either<Failure, Travel?>> currentTravel();
 
   Future<Either<Failure, Unit>> saveTravel({required Travel travel});
 
   Future<Either<Failure, Unit>> deleteTravel({required Travel travel});
 
+  @override
   Future<Either<Failure, List<Treaning>>> getTreanings();
 
   Future<Either<Failure, List<Travel>>> getTravels({TravelStatus? status});

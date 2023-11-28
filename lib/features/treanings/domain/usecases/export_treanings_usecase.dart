@@ -102,14 +102,14 @@ class ExportTreaningsUseCase {
       );
     }
 
-    // if (settings.useTraveling) {
-    //   final failureOrTravels = await _travelRepository.getJsonTreanings();
+    if (settings.useTraveling) {
+      final failureOrTravels = await _travelRepository.getJsonTreanings();
 
-    //   failureOrTravels.fold(
-    //     (failure) => null,
-    //     (travels) => treanings['travels'] = travels,
-    //   );
-    // }
+      failureOrTravels.fold(
+        (failure) => null,
+        (travels) => treanings['travels'] = travels,
+      );
+    }
 
     if (settings.useTrekking) {
       final failureOrPaths = await _trekkingPathRepository.getJsonTreanings();
