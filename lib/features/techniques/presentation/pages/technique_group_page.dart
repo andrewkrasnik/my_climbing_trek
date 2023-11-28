@@ -1,4 +1,5 @@
 import 'package:my_climbing_trek/core/widgets/my_cached_network_image.dart';
+import 'package:my_climbing_trek/core/widgets/my_sliver_app_bar_widget.dart';
 import 'package:my_climbing_trek/features/techniques/domain/entities/technique_group.dart';
 import 'package:my_climbing_trek/features/techniques/presentation/bloc/technique_treaning/technique_treaning_cubit.dart';
 import 'package:my_climbing_trek/features/techniques/presentation/bloc/techniques/techniques_cubit.dart';
@@ -21,30 +22,10 @@ class TechniqueGroupPage extends StatelessWidget {
       child: Scaffold(
         body: CustomScrollView(
           slivers: [
-            SliverAppBar(
-              expandedHeight: 160,
-              stretch: true,
-              floating: true,
-              pinned: true,
-              snap: false,
-              flexibleSpace: FlexibleSpaceBar(
-                background: Hero(
-                  tag: 'TechniqueGroup${group.id}',
-                  child: MyCachedNetworkImage(
-                    imageUrl: group.image,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                centerTitle: true,
-                title: Text(
-                  group.name,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      shadows: [Shadow(offset: Offset.fromDirection(1))]),
-                ),
-              ),
+            MySliverAppBarWidget(
+              heroTag: 'TechniqueGroup${group.id}',
+              title: group.name,
+              imageUrl: group.image,
             ),
             BlocProvider(
               create: (context) =>

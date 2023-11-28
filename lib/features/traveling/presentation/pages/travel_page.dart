@@ -123,6 +123,8 @@ class TravelPage extends StatelessWidget {
                       pinned: true,
                       snap: false,
                       flexibleSpace: FlexibleSpaceBar(
+                        titlePadding: const EdgeInsets.only(
+                            bottom: 8, left: 16, right: 16),
                         background: Hero(
                           tag: 'travel${state.travel?.id ?? ''}',
                           child: MyCachedNetworkImage(

@@ -36,6 +36,7 @@ class TechniqueTreaningWidget extends StatelessWidget {
               Row(
                 // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  const Text('Техническая тренировка'),
                   const Spacer(),
                   Text(DateFormat('dd.MM.yyyy').format(treaning.date)),
                   IconButton(

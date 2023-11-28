@@ -1,4 +1,4 @@
-import 'package:my_climbing_trek/core/widgets/my_cached_network_image.dart';
+import 'package:my_climbing_trek/core/widgets/my_sliver_app_bar_widget.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_district.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_sector.dart';
 import 'package:my_climbing_trek/features/ice_climbing/presentation/widgets/text_with_title_widget.dart';
@@ -19,25 +19,10 @@ class IceSectorPage extends StatelessWidget {
       child: Scaffold(
         body: CustomScrollView(
           slivers: [
-            SliverAppBar(
-              expandedHeight: 160,
-              stretch: true,
-              floating: true,
-              pinned: true,
-              snap: false,
-              flexibleSpace: FlexibleSpaceBar(
-                background: MyCachedNetworkImage(
-                    imageUrl: sector.image, fit: BoxFit.cover),
-                centerTitle: true,
-                title: Text(
-                  sector.name,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      shadows: [Shadow(offset: Offset.fromDirection(1))]),
-                ),
-              ),
+            MySliverAppBarWidget(
+              heroTag: 'icesector${sector.id}',
+              title: sector.name,
+              imageUrl: sector.image,
             ),
             SliverList(
               delegate: SliverChildListDelegate([
