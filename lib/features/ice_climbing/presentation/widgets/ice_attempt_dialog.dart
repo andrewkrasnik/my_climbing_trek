@@ -6,6 +6,7 @@ import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_trean
 import 'package:my_climbing_trek/features/ice_climbing/presentation/bloc/current_ice_treaning/current_ice_treaning_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:my_climbing_trek/features/ice_climbing/presentation/widgets/ice_category_widget.dart';
 import 'package:my_climbing_trek/features/ice_climbing/presentation/widgets/select_ice_category_widget.dart';
 
 class IceAttemptDialog extends HookWidget {
@@ -38,13 +39,19 @@ class IceAttemptDialog extends HookWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SelectIceCategoryWidget(
-                maxCategory: attempt.sector.maxCategory,
-                currentCategory: categoryState.value,
-                onTap: (category) {
-                  categoryState.value = category;
-                },
-              ),
+              if (editing)
+                SelectIceCategoryWidget(
+                  maxCategory: attempt.sector.maxCategory,
+                  currentCategory: categoryState.value,
+                  onTap: (category) {
+                    categoryState.value = category;
+                  },
+                ),
+              if (!editing)
+                IceCategoryWidget(
+                  category: categoryState.value,
+                  prefix: attempt.sector.icePrefix,
+                ),
               Text(attempt.style.toString()),
               Text('Сектор: ${attempt.sector.name}'),
               Text('Пройдено ${lengthState.value} м.'),

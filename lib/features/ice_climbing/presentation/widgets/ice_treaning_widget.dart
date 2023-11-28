@@ -18,6 +18,12 @@ class IceTreaningWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String title = treaning.district.name;
+
+    if (treaning.sectors.length == 1) {
+      title = '$title, ${treaning.sectors.first.name}';
+    }
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Material(
@@ -46,7 +52,7 @@ class IceTreaningWidget extends StatelessWidget {
                                       }
                                     : null,
                               ))),
-                      child: Text(treaning.district.name)),
+                      child: Text(title)),
                   const Spacer(),
                   Text(DateFormat('dd.MM.yyyy').format(treaning.date)),
                   IconButton(

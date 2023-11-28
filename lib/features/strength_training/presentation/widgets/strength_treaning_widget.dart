@@ -1,5 +1,6 @@
 import 'package:my_climbing_trek/core/extentions/date_time_extention.dart';
 import 'package:my_climbing_trek/core/widgets/int_counter_widget.dart';
+import 'package:my_climbing_trek/core/widgets/treaning_picture_page.dart';
 
 import 'package:my_climbing_trek/features/strength_training/domain/entities/strength_treaning.dart';
 import 'package:my_climbing_trek/features/strength_training/presentation/cubit/strength_training/strength_training_cubit.dart';
@@ -7,6 +8,7 @@ import 'package:my_climbing_trek/features/strength_training/presentation/pages/s
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:my_climbing_trek/features/strength_training/presentation/widgets/strength_treaning_picture_widget.dart';
 
 class StrengthTreaningWidget extends StatelessWidget {
   final StrengthTreaning treaning;
@@ -31,6 +33,7 @@ class StrengthTreaningWidget extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        const Text('Силовая тренировка'),
                         const Spacer(),
                         Text(treaning.date.dayString()),
                         if (editing)
@@ -53,7 +56,22 @@ class StrengthTreaningWidget extends StatelessWidget {
                                 icon: const Icon(Icons.settings),
                               ),
                             ],
-                          )
+                          ),
+                        IconButton(
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => TreaningPicturePage(
+                                      treaning: treaning,
+                                      child: StrengthTreaningPictureWidget(
+                                        treaning: treaning,
+                                      ),
+                                    )));
+                          },
+                          icon: const Icon(
+                            Icons.share,
+                            size: 16,
+                          ),
+                        ),
                       ],
                     ),
                     ...treaning.attempts.map(

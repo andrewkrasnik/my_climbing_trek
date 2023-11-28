@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_climbing_trek/core/extentions/date_time_extention.dart';
+import 'package:my_climbing_trek/core/widgets/treaning_picture_page.dart';
 import 'package:my_climbing_trek/features/trekking/domain/entities/trekking_path.dart';
 import 'package:my_climbing_trek/features/trekking/presentation/bloc/trekking/trekking_cubit.dart';
 import 'package:my_climbing_trek/features/trekking/presentation/pages/trek_page.dart';
 import 'package:my_climbing_trek/features/trekking/presentation/pages/trekking_region_page.dart';
+import 'package:my_climbing_trek/features/trekking/presentation/widgets/trekking_path_picture_widget.dart';
 
 class TrekkingPathWidget extends StatelessWidget {
   final TrekkingPath path;
   final bool editing;
-  const TrekkingPathWidget({required this.path, this.editing = false, super.key});
+  const TrekkingPathWidget(
+      {required this.path, this.editing = false, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -48,10 +51,13 @@ class TrekkingPathWidget extends StatelessWidget {
                   Text(path.dateString),
                   IconButton(
                     onPressed: () {
-                      // Navigator.of(context).push(MaterialPageRoute(
-                      //     builder: (context) => IceTreaningPage(
-                      //           treaning: treaning,
-                      //         )));
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => TreaningPicturePage(
+                                treaning: path,
+                                child: TrekkingPathPictureWidget(
+                                  path: path,
+                                ),
+                              )));
                     },
                     icon: const Icon(
                       Icons.share,

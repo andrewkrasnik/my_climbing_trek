@@ -72,19 +72,23 @@ class HallTreaningRepositoryImpl implements HallTreaningRepository {
   Future<Either<Failure, List<Map<String, dynamic>>>> getJsonTreanings() async {
     final failureOrTreanings = await dataSource.allTreanings();
 
-    return failureOrTreanings.fold(
-        (failure) => Left(failure),
-        (treanings) => Right(treanings.map((treaning) {
-              final data = (treaning as HallTreaningModel).toJson();
+    return failureOrTreanings.fold((failure) => Left(failure), (treanings) {
+      try {
+        return Right(treanings.map((treaning) {
+          final data = (treaning as HallTreaningModel).toJson();
 
-              data['climbingHall'] = jsonDecode(data['climbingHall']);
+          data['climbingHall'] = jsonDecode(data['climbingHall']);
 
-              for (var attempt in data['attempts']) {
-                attempt['route'] = jsonDecode(attempt['route']);
-              }
+          for (var attempt in data['attempts']) {
+            attempt['route'] = jsonDecode(attempt['route']);
+          }
 
-              return data;
-            }).toList()));
+          return data;
+        }).toList());
+      } catch (error) {
+        return Left(DataConvertionFailure(description: error.toString()));
+      }
+    });
   }
 
   @override

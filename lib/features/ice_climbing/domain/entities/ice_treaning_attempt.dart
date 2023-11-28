@@ -28,6 +28,19 @@ class IceTreaningAttempt extends DataWithUUID {
 
   int wayLength;
 
+  String get toolsCountString {
+    switch (toolsCount) {
+      case 2:
+        return 'II';
+      case 1:
+        return 'I';
+      case 0:
+        return '0';
+      default:
+        return '';
+    }
+  }
+
   DateTime? get startTime => _startTime;
   DateTime? get finishTime => _finishTime;
 
