@@ -53,7 +53,7 @@ class TreaningsExportImportWidget extends StatelessWidget {
                           .state
                           .treaningsSettings);
                 },
-                child: const Text('Экспорт'),
+                child: const Text('Выгрузить'),
               ),
               ElevatedButton(
                 onPressed: () async {
@@ -73,7 +73,7 @@ class TreaningsExportImportWidget extends StatelessWidget {
 
                   cubit.import(data: json);
                 },
-                child: const Text('Импорт'),
+                child: const Text('Загрузить'),
               ),
             ],
           );

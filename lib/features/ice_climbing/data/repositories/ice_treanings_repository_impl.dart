@@ -54,12 +54,6 @@ class IceTreaningsRepositoryImpl implements IceTreaningsRepository {
         (treanings) => Right(treanings.map((treaning) {
               final data = (treaning as IceTreaningModel).toJson();
 
-              // data['climbingHall'] = jsonDecode(data['climbingHall']);
-
-              // for (var attempt in data['attempts']) {
-              //   attempt['route'] = jsonDecode(attempt['route']);
-              // }
-
               return data;
             }).toList()));
   }
@@ -67,11 +61,6 @@ class IceTreaningsRepositoryImpl implements IceTreaningsRepository {
   @override
   Future<Either<Failure, Unit>> saveJsonTreanings(List<dynamic> json) async {
     final treanings = json.map((item) {
-      // item['climbingHall'] = jsonEncode(item['climbingHall']);
-
-      // for (var attempt in item['attempts']) {
-      //   attempt['route'] = jsonEncode(attempt['route']);
-      // }
       return IceTreaningModel.fromJson(item);
     }).toList();
 

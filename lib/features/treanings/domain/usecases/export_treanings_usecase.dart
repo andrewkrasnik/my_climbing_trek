@@ -103,7 +103,7 @@ class ExportTreaningsUseCase {
     }
 
     // if (settings.useTraveling) {
-    //   final failureOrTravels = await _travelRepository.getTreanings();
+    //   final failureOrTravels = await _travelRepository.getJsonTreanings();
 
     //   failureOrTravels.fold(
     //     (failure) => null,
@@ -111,23 +111,23 @@ class ExportTreaningsUseCase {
     //   );
     // }
 
-    // if (settings.useTrekking) {
-    //   final failureOrPaths = await _trekkingPathRepository.getTreanings();
+    if (settings.useTrekking) {
+      final failureOrPaths = await _trekkingPathRepository.getJsonTreanings();
 
-    //   failureOrPaths.fold(
-    //     (failure) => null,
-    //     (paths) => treanings['trekking_treanings'] = paths,
-    //   );
-    // }
+      failureOrPaths.fold(
+        (failure) => null,
+        (paths) => treanings['trekking_treanings'] = paths,
+      );
+    }
 
-    // if (settings.useMountaineering) {
-    //   final failureOrAscentions = await _ascensionRepository.getTreanings();
+    if (settings.useMountaineering) {
+      final failureOrAscentions = await _ascensionRepository.getJsonTreanings();
 
-    //   failureOrAscentions.fold(
-    //     (failure) => null,
-    //     (ascentions) => treanings['ascentions_treanings'] = ascentions,
-    //   );
-    // }
+      failureOrAscentions.fold(
+        (failure) => null,
+        (ascentions) => treanings['ascentions_treanings'] = ascentions,
+      );
+    }
 
     return Right(treanings);
   }
