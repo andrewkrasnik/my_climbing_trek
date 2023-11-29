@@ -17,6 +17,7 @@ import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_
 import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_page/travel_budget_list_widget.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_page/travel_cost_list_widget.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_page/travel_insurance_list_widget.dart';
+import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_page/travel_regions_list_widget.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_parameters_widget.dart';
 import 'package:my_climbing_trek/service_locator.dart';
 
@@ -258,7 +259,7 @@ class TravelPage extends StatelessWidget {
                                     child: TravelDayWidget(travelDay: day)),
                               ),
                             ),
-                          if (state.tabIndex == 1) const TravelCostListWdget(),
+                          if (state.tabIndex == 1) const TravelCostListWidget(),
                           if (state.tabIndex == 2)
                             const TravelBudgetListWidget(),
                           if (state.tabIndex == 3)
@@ -281,24 +282,33 @@ class TravelPage extends StatelessWidget {
                               ),
                             ),
                           if (state.tabIndex == 5) ...[
-                            MultiSelectableChipGroupWidget(
-                                lines: Currency.values,
-                                title: const Text('Валюты:'),
-                                onTap: (selected, currency) {
-                                  if (state.travel != null) {
-                                    final currencies = state.travel!.currencies;
-                                    if (selected) {
-                                      currencies.remove(currency);
-                                    } else {
-                                      currencies.add(currency);
-                                    }
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8),
+                              child: MultiSelectableChipGroupWidget(
+                                  lines: Currency.values,
+                                  title: const Text('Валюты:'),
+                                  onTap: (selected, currency) {
+                                    if (state.travel != null) {
+                                      final currencies =
+                                          state.travel!.currencies;
+                                      if (selected) {
+                                        currencies.remove(currency);
+                                      } else {
+                                        currencies.add(currency);
+                                      }
 
-                                    cubit.setCurrencies(
-                                        travel: state.travel!,
-                                        currencies: currencies);
-                                  }
-                                },
-                                selectedLines: state.travel?.currencies ?? [])
+                                      cubit.setCurrencies(
+                                          travel: state.travel!,
+                                          currencies: currencies);
+                                    }
+                                  },
+                                  selectedLines:
+                                      state.travel?.currencies ?? []),
+                            ),
+                            const SizedBox(height: 16),
+                            const Center(child: Text('Регионы:')),
+                            const TravelRegionsListWidget(),
                           ]
                         ],
                       ),

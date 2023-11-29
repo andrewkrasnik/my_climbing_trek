@@ -80,7 +80,9 @@ class HallTreaningRepositoryImpl implements HallTreaningRepository {
           data['climbingHall'] = jsonDecode(data['climbingHall']);
 
           for (var attempt in data['attempts']) {
-            attempt['route'] = jsonDecode(attempt['route']);
+            if (attempt['route'] != null) {
+              attempt['route'] = jsonDecode(attempt['route']);
+            }
           }
 
           return data;
@@ -97,7 +99,9 @@ class HallTreaningRepositoryImpl implements HallTreaningRepository {
       item['climbingHall'] = jsonEncode(item['climbingHall']);
 
       for (var attempt in item['attempts']) {
-        attempt['route'] = jsonEncode(attempt['route']);
+        if (attempt['route'] != null) {
+          attempt['route'] = jsonEncode(attempt['route']);
+        }
       }
       return HallTreaningModel.fromJson(item);
     }).toList();

@@ -24,6 +24,7 @@ mixin _$TravelPageState {
   List<TravelDay> get days => throw _privateConstructorUsedError;
   bool get loading => throw _privateConstructorUsedError;
   String get errorMessage => throw _privateConstructorUsedError;
+  List<Region> get regions => throw _privateConstructorUsedError;
   FeedingStatistic? get feedingStatistic => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -46,6 +47,7 @@ abstract class $TravelPageStateCopyWith<$Res> {
       List<TravelDay> days,
       bool loading,
       String errorMessage,
+      List<Region> regions,
       FeedingStatistic? feedingStatistic});
 }
 
@@ -70,6 +72,7 @@ class _$TravelPageStateCopyWithImpl<$Res, $Val extends TravelPageState>
     Object? days = null,
     Object? loading = null,
     Object? errorMessage = null,
+    Object? regions = null,
     Object? feedingStatistic = freezed,
   }) {
     return _then(_value.copyWith(
@@ -105,6 +108,10 @@ class _$TravelPageStateCopyWithImpl<$Res, $Val extends TravelPageState>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String,
+      regions: null == regions
+          ? _value.regions
+          : regions // ignore: cast_nullable_to_non_nullable
+              as List<Region>,
       feedingStatistic: freezed == feedingStatistic
           ? _value.feedingStatistic
           : feedingStatistic // ignore: cast_nullable_to_non_nullable
@@ -130,6 +137,7 @@ abstract class _$$TravelPageStateImplCopyWith<$Res>
       List<TravelDay> days,
       bool loading,
       String errorMessage,
+      List<Region> regions,
       FeedingStatistic? feedingStatistic});
 }
 
@@ -152,6 +160,7 @@ class __$$TravelPageStateImplCopyWithImpl<$Res>
     Object? days = null,
     Object? loading = null,
     Object? errorMessage = null,
+    Object? regions = null,
     Object? feedingStatistic = freezed,
   }) {
     return _then(_$TravelPageStateImpl(
@@ -187,6 +196,10 @@ class __$$TravelPageStateImplCopyWithImpl<$Res>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String,
+      regions: null == regions
+          ? _value._regions
+          : regions // ignore: cast_nullable_to_non_nullable
+              as List<Region>,
       feedingStatistic: freezed == feedingStatistic
           ? _value.feedingStatistic
           : feedingStatistic // ignore: cast_nullable_to_non_nullable
@@ -207,11 +220,13 @@ class _$TravelPageStateImpl implements _TravelPageState {
       required final List<TravelDay> days,
       required this.loading,
       required this.errorMessage,
+      required final List<Region> regions,
       this.feedingStatistic})
       : _costs = costs,
         _insurances = insurances,
         _budgetLines = budgetLines,
-        _days = days;
+        _days = days,
+        _regions = regions;
 
   @override
   final Travel? travel;
@@ -253,12 +268,20 @@ class _$TravelPageStateImpl implements _TravelPageState {
   final bool loading;
   @override
   final String errorMessage;
+  final List<Region> _regions;
+  @override
+  List<Region> get regions {
+    if (_regions is EqualUnmodifiableListView) return _regions;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_regions);
+  }
+
   @override
   final FeedingStatistic? feedingStatistic;
 
   @override
   String toString() {
-    return 'TravelPageState(travel: $travel, tabIndex: $tabIndex, costs: $costs, insurances: $insurances, budgetLines: $budgetLines, days: $days, loading: $loading, errorMessage: $errorMessage, feedingStatistic: $feedingStatistic)';
+    return 'TravelPageState(travel: $travel, tabIndex: $tabIndex, costs: $costs, insurances: $insurances, budgetLines: $budgetLines, days: $days, loading: $loading, errorMessage: $errorMessage, regions: $regions, feedingStatistic: $feedingStatistic)';
   }
 
   @override
@@ -278,6 +301,7 @@ class _$TravelPageStateImpl implements _TravelPageState {
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
+            const DeepCollectionEquality().equals(other._regions, _regions) &&
             (identical(other.feedingStatistic, feedingStatistic) ||
                 other.feedingStatistic == feedingStatistic));
   }
@@ -293,6 +317,7 @@ class _$TravelPageStateImpl implements _TravelPageState {
       const DeepCollectionEquality().hash(_days),
       loading,
       errorMessage,
+      const DeepCollectionEquality().hash(_regions),
       feedingStatistic);
 
   @JsonKey(ignore: true)
@@ -313,6 +338,7 @@ abstract class _TravelPageState implements TravelPageState {
       required final List<TravelDay> days,
       required final bool loading,
       required final String errorMessage,
+      required final List<Region> regions,
       final FeedingStatistic? feedingStatistic}) = _$TravelPageStateImpl;
 
   @override
@@ -331,6 +357,8 @@ abstract class _TravelPageState implements TravelPageState {
   bool get loading;
   @override
   String get errorMessage;
+  @override
+  List<Region> get regions;
   @override
   FeedingStatistic? get feedingStatistic;
   @override
