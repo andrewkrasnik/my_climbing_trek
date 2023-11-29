@@ -101,11 +101,11 @@ class MountainRoutePieceConverter
   Map<String, dynamic> toJson(MountainRoutePiece object) {
     switch (object.type) {
       case RoutePieceType.ice:
-        return (this as MountainRouteIcePieceModel).toJson();
+        return (object as MountainRouteIcePieceModel).toJson();
       case RoutePieceType.rock:
-        return (this as MountainRouteRockPieceModel).toJson();
+        return (object as MountainRouteRockPieceModel).toJson();
       case RoutePieceType.mixed:
-        return (this as MountainRouteMixedPieceModel).toJson();
+        return (object as MountainRouteMixedPieceModel).toJson();
       default:
         throw 'No converter for MountainRoutePiece with type: ${object.type}';
     }
