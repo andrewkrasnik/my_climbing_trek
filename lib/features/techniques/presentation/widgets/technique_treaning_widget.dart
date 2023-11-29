@@ -118,7 +118,7 @@ class TechniqueTreaningWidget extends StatelessWidget {
                                         );
                                       },
                                       child: const Text('Добавить')),
-                                )
+                                ),
                             ],
                           ),
                         ],

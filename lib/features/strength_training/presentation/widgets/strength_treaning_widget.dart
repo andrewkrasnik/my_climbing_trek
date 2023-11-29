@@ -127,12 +127,15 @@ class StrengthTreaningExerciseLineWidget extends HookWidget {
   final StrengthTreaningExerciseLine item;
   final StrengthTreaning treaning;
   final bool editing;
+  final TextStyle? textStyle;
 
-  const StrengthTreaningExerciseLineWidget(
-      {required this.item,
-      required this.treaning,
-      this.editing = false,
-      super.key});
+  const StrengthTreaningExerciseLineWidget({
+    required this.item,
+    required this.treaning,
+    this.editing = false,
+    this.textStyle,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -184,10 +187,11 @@ class StrengthTreaningExerciseLineWidget extends HookWidget {
               children: [
                 if (!editing) ...[
                   SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.25,
+                      width: MediaQuery.of(context).size.width * 0.3,
                       child: Text(
                         item.exercise.name,
                         textAlign: TextAlign.start,
+                        style: textStyle,
                       )),
                 ],
                 ...item.repetitions.map(
@@ -198,6 +202,7 @@ class StrengthTreaningExerciseLineWidget extends HookWidget {
                       child: Text(
                         count.toString(),
                         textAlign: TextAlign.center,
+                        style: textStyle,
                       ),
                     ),
                   ),

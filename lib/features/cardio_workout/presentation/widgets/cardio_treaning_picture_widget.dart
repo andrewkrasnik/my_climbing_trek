@@ -21,7 +21,16 @@ class CardioTreaningPictureWidget extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [],
+        children: [
+          Text(
+            'Расстояние: ${treaning.length.toStringAsFixed(0)} ${treaning.exercise.lengthUnit}.',
+            style: textStyle,
+          ),
+          Text(
+            'Продолжительность: ${treaning.duration.toString()} мин.',
+            style: textStyle,
+          ),
+        ],
       ),
     );
   }
