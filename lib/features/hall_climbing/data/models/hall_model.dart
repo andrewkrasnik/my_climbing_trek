@@ -21,6 +21,7 @@ class HallModel extends ClimbingHall {
     super.hasBouldering,
     super.hasSpeed,
     super.hasAutoBelay,
+    super.hasDrytooling,
     super.id,
     super.hasEditPermission,
   }) : super(point: const MapPoint(latitude: 0, longitude: 0));

@@ -37,7 +37,8 @@ class AscensionWidget extends StatelessWidget {
                 },
                 child: MyCachedNetworkImage(
                   imageUrl: ascension.mountain.image,
-                  fit: BoxFit.fitWidth,
+                  height: 240,
+                  fit: BoxFit.fitHeight,
                 ),
               ),
             if (!ascension.finished) ...[

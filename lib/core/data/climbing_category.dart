@@ -447,6 +447,7 @@ class ClimbingCategory extends DifficultyCategory {
   };
 
   static const List<ClimbingCategory> hallValues = [
+    category5A,
     category5B,
     category5C,
     category6A,

@@ -18,6 +18,16 @@ class TravelCostListWidget extends StatelessWidget {
 
         return Column(
           children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Итого: ${cubit.costSum}',
+                  style: const TextStyle(fontSize: 20),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
             ...state.costs.map(
               (cost) => SlidableDataLineWidget(
                 onDelete: (context) {

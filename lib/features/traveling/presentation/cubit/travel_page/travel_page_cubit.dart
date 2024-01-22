@@ -59,6 +59,20 @@ class TravelPageCubit extends Cubit<TravelPageState>
     return budgetSum;
   }
 
+  double get costSum {
+    double costSum = 0;
+
+    for (var line in state.costs) {
+      if (line.incomeExpense == IncomeExpense.income) {
+        costSum += line.sum;
+      } else {
+        costSum -= line.sum;
+      }
+    }
+
+    return costSum;
+  }
+
   TravelPageCubit(
     this._deleteCostLineUsecase,
     this._editCostLineUsecase,

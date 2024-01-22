@@ -1,5 +1,7 @@
 import 'package:my_climbing_trek/core/data/climbing_category.dart';
 import 'package:my_climbing_trek/core/data/climbing_style.dart';
+import 'package:my_climbing_trek/core/data/difficulty_category.dart';
+import 'package:my_climbing_trek/core/data/drytooling_category.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_treaning.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/hall_routes_filter.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/bloc/current_hall_treaning/current_hall_treaning_cubit.dart';
@@ -25,7 +27,7 @@ class SelectHallRouteWidget extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final category = useState<ClimbingCategory?>(null);
+    final category = useState<DifficultyCategory?>(null);
 
     final roureFilter = HallRouteFilter(
       category: category.value,
@@ -68,6 +70,22 @@ class SelectHallRouteWidget extends HookWidget {
                         );
                       },
                     ),
+                    if (treaning.climbingHall.hasDrytooling)
+                      SelectCategoryWidget(
+                        currentCategory: category.value,
+                        categories: DrytoolingCategory.hallValues,
+                        onTap: (selectedCategory) {
+                          category.value = selectedCategory;
+                          BlocProvider.of<ClimbingHallCubit>(context).loadData(
+                            treaning.climbingHall,
+                            filter: HallRouteFilter(
+                              category: selectedCategory,
+                              type: style.type,
+                              autoBelay: style == ClimbingStyle.autoBelay,
+                            ),
+                          );
+                        },
+                      ),
                     ElevatedButton(
                       onPressed: () {
                         BlocProvider.of<CurrentHallTreaningCubit>(context)

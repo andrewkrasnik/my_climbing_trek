@@ -1,5 +1,7 @@
 import 'package:my_climbing_trek/core/data/climbing_category.dart';
 import 'package:my_climbing_trek/core/data/climbing_route_type.dart';
+import 'package:my_climbing_trek/core/data/difficulty_category.dart';
+import 'package:my_climbing_trek/core/data/drytooling_category.dart';
 import 'package:my_climbing_trek/core/extentions/date_time_extention.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_route.dart';
@@ -16,7 +18,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 class HallRoutePage extends HookWidget {
   final ClimbingHall climbingHall;
   final ClimbingHallRoute? route;
-  final ClimbingCategory? initialCategory;
+  final DifficultyCategory? initialCategory;
   final ClimbingRouteType? initialType;
   final bool autoBelay;
   const HallRoutePage({
@@ -35,7 +37,7 @@ class HallRoutePage extends HookWidget {
             ? ClimbingRouteType.bouldering
             : ClimbingRouteType.rope;
 
-    final category = useState<ClimbingCategory?>(initialCategory);
+    final category = useState<DifficultyCategory?>(initialCategory);
 
     final color = useState<RouteColor?>(null);
 
@@ -192,14 +194,28 @@ class HallRoutePage extends HookWidget {
                     ),
                     Center(
                       child: SelectCategoryWidget(
-                        currentCategory: route?.category as ClimbingCategory? ??
-                            category.value,
+                        currentCategory: route?.category is ClimbingCategory
+                            ? route?.category
+                            : null,
                         color: route?.color ?? color.value,
                         onTap: (selectCategory) {
                           category.value = selectCategory;
                         },
                       ),
                     ),
+                    if (climbingHall.hasDrytooling)
+                      Center(
+                        child: SelectCategoryWidget(
+                          currentCategory: route?.category is DrytoolingCategory
+                              ? route?.category
+                              : null,
+                          categories: DrytoolingCategory.hallValues,
+                          color: route?.color ?? color.value,
+                          onTap: (selectCategory) {
+                            category.value = selectCategory;
+                          },
+                        ),
+                      ),
                     const SizedBox(
                       height: 8,
                     ),

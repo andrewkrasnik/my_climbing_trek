@@ -151,6 +151,7 @@ class TravelPage extends StatelessWidget {
                             children: [
                               Text(
                                 state.travel?.name ?? '',
+                                textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 20,

@@ -70,7 +70,7 @@ class Travel extends Treaning {
       if (start!.month == finish!.month) {
         return 'с ${start!.day} по ${DateFormat('dd MMMM yyyy').format(finish!)}';
       } else {
-        return 'с ${DateFormat('dd MM').format(start!)} по ${DateFormat('dd MM yyyy').format(finish!)}';
+        return 'с ${DateFormat('dd.MM').format(start!)} по ${DateFormat('dd.MM.yyyy').format(finish!)}';
       }
     }
 
