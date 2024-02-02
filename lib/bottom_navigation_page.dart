@@ -1,3 +1,4 @@
+import 'package:my_climbing_trek/features/blog/presentation/pages/blog_page.dart';
 import 'package:my_climbing_trek/features/treanings/presentation/pages/treanings_page.dart';
 import 'package:my_climbing_trek/home_page.dart';
 
@@ -19,6 +20,7 @@ class _BottomNavigationPageState extends State<BottomNavigationPage>
   final RestorableInt _currentIndex = RestorableInt(0);
   static const List<Widget> _pages = <Widget>[
     HomePage(),
+    BlogPage(),
     TreaningsPage(),
     SettingsPage(),
   ];
@@ -41,6 +43,10 @@ class _BottomNavigationPageState extends State<BottomNavigationPage>
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.newspaper),
+            label: 'Blog',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.run_circle_outlined),

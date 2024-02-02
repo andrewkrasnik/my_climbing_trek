@@ -154,7 +154,7 @@ class _$TrekkingStateImpl implements _TrekkingState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TrekkingStateImpl &&
