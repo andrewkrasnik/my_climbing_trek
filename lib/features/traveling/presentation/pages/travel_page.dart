@@ -17,6 +17,7 @@ import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_
 import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_page/travel_budget_list_widget.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_page/travel_cost_list_widget.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_page/travel_insurance_list_widget.dart';
+import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_page/travel_regions_list_widget.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_parameters_widget.dart';
 import 'package:my_climbing_trek/service_locator.dart';
 
@@ -25,8 +26,8 @@ class TravelPage extends StatelessWidget {
 
   const TravelPage({
     required this.travel,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -123,6 +124,8 @@ class TravelPage extends StatelessWidget {
                       pinned: true,
                       snap: false,
                       flexibleSpace: FlexibleSpaceBar(
+                        titlePadding: const EdgeInsets.only(
+                            bottom: 8, left: 16, right: 16),
                         background: Hero(
                           tag: 'travel${state.travel?.id ?? ''}',
                           child: MyCachedNetworkImage(
@@ -148,6 +151,7 @@ class TravelPage extends StatelessWidget {
                             children: [
                               Text(
                                 state.travel?.name ?? '',
+                                textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 20,
@@ -179,15 +183,17 @@ class TravelPage extends StatelessWidget {
                                   (status) => PopupMenuItem(
                                     onTap: () async {
                                       if (state.travel != null) {
+                                        final cubit =
+                                            BlocProvider.of<CurrentTravelCubit>(
+                                                context);
+
                                         await BlocProvider.of<TravelPageCubit>(
                                                 context)
                                             .setStatus(
                                                 travel: state.travel!,
                                                 status: status);
 
-                                        BlocProvider.of<CurrentTravelCubit>(
-                                                context)
-                                            .loadData();
+                                        cubit.loadData();
                                       }
                                     },
                                     child: Text(
@@ -254,7 +260,7 @@ class TravelPage extends StatelessWidget {
                                     child: TravelDayWidget(travelDay: day)),
                               ),
                             ),
-                          if (state.tabIndex == 1) const TravelCostListWdget(),
+                          if (state.tabIndex == 1) const TravelCostListWidget(),
                           if (state.tabIndex == 2)
                             const TravelBudgetListWidget(),
                           if (state.tabIndex == 3)
@@ -277,24 +283,33 @@ class TravelPage extends StatelessWidget {
                               ),
                             ),
                           if (state.tabIndex == 5) ...[
-                            MultiSelectableChipGroupWidget(
-                                lines: Currency.values,
-                                title: const Text('Валюты:'),
-                                onTap: (selected, currency) {
-                                  if (state.travel != null) {
-                                    final currencies = state.travel!.currencies;
-                                    if (selected) {
-                                      currencies.remove(currency);
-                                    } else {
-                                      currencies.add(currency);
-                                    }
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8),
+                              child: MultiSelectableChipGroupWidget(
+                                  lines: Currency.values,
+                                  title: const Text('Валюты:'),
+                                  onTap: (selected, currency) {
+                                    if (state.travel != null) {
+                                      final currencies =
+                                          state.travel!.currencies;
+                                      if (selected) {
+                                        currencies.remove(currency);
+                                      } else {
+                                        currencies.add(currency);
+                                      }
 
-                                    cubit.setCurrencies(
-                                        travel: state.travel!,
-                                        currencies: currencies);
-                                  }
-                                },
-                                selectedLines: state.travel?.currencies ?? [])
+                                      cubit.setCurrencies(
+                                          travel: state.travel!,
+                                          currencies: currencies);
+                                    }
+                                  },
+                                  selectedLines:
+                                      state.travel?.currencies ?? []),
+                            ),
+                            const SizedBox(height: 16),
+                            const Center(child: Text('Регионы:')),
+                            const TravelRegionsListWidget(),
                           ]
                         ],
                       ),

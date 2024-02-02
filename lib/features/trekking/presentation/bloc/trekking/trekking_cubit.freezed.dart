@@ -79,11 +79,11 @@ class _$TrekkingStateCopyWithImpl<$Res, $Val extends TrekkingState>
 }
 
 /// @nodoc
-abstract class _$$_TrekkingStateCopyWith<$Res>
+abstract class _$$TrekkingStateImplCopyWith<$Res>
     implements $TrekkingStateCopyWith<$Res> {
-  factory _$$_TrekkingStateCopyWith(
-          _$_TrekkingState value, $Res Function(_$_TrekkingState) then) =
-      __$$_TrekkingStateCopyWithImpl<$Res>;
+  factory _$$TrekkingStateImplCopyWith(
+          _$TrekkingStateImpl value, $Res Function(_$TrekkingStateImpl) then) =
+      __$$TrekkingStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -94,11 +94,11 @@ abstract class _$$_TrekkingStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_TrekkingStateCopyWithImpl<$Res>
-    extends _$TrekkingStateCopyWithImpl<$Res, _$_TrekkingState>
-    implements _$$_TrekkingStateCopyWith<$Res> {
-  __$$_TrekkingStateCopyWithImpl(
-      _$_TrekkingState _value, $Res Function(_$_TrekkingState) _then)
+class __$$TrekkingStateImplCopyWithImpl<$Res>
+    extends _$TrekkingStateCopyWithImpl<$Res, _$TrekkingStateImpl>
+    implements _$$TrekkingStateImplCopyWith<$Res> {
+  __$$TrekkingStateImplCopyWithImpl(
+      _$TrekkingStateImpl _value, $Res Function(_$TrekkingStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -109,7 +109,7 @@ class __$$_TrekkingStateCopyWithImpl<$Res>
     Object? currentEvent = freezed,
     Object? currentPoint = freezed,
   }) {
-    return _then(_$_TrekkingState(
+    return _then(_$TrekkingStateImpl(
       currentPath: freezed == currentPath
           ? _value.currentPath
           : currentPath // ignore: cast_nullable_to_non_nullable
@@ -132,8 +132,8 @@ class __$$_TrekkingStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_TrekkingState implements _TrekkingState {
-  const _$_TrekkingState(
+class _$TrekkingStateImpl implements _TrekkingState {
+  const _$TrekkingStateImpl(
       {this.currentPath,
       this.previosPath,
       this.currentEvent,
@@ -157,7 +157,7 @@ class _$_TrekkingState implements _TrekkingState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_TrekkingState &&
+            other is _$TrekkingStateImpl &&
             (identical(other.currentPath, currentPath) ||
                 other.currentPath == currentPath) &&
             (identical(other.previosPath, previosPath) ||
@@ -175,8 +175,8 @@ class _$_TrekkingState implements _TrekkingState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TrekkingStateCopyWith<_$_TrekkingState> get copyWith =>
-      __$$_TrekkingStateCopyWithImpl<_$_TrekkingState>(this, _$identity);
+  _$$TrekkingStateImplCopyWith<_$TrekkingStateImpl> get copyWith =>
+      __$$TrekkingStateImplCopyWithImpl<_$TrekkingStateImpl>(this, _$identity);
 }
 
 abstract class _TrekkingState implements TrekkingState {
@@ -184,7 +184,7 @@ abstract class _TrekkingState implements TrekkingState {
       {final TrekkingPath? currentPath,
       final TrekkingPath? previosPath,
       final TrekkingPathEvent? currentEvent,
-      final TrekPoint? currentPoint}) = _$_TrekkingState;
+      final TrekPoint? currentPoint}) = _$TrekkingStateImpl;
 
   @override
   TrekkingPath? get currentPath;
@@ -196,6 +196,6 @@ abstract class _TrekkingState implements TrekkingState {
   TrekPoint? get currentPoint;
   @override
   @JsonKey(ignore: true)
-  _$$_TrekkingStateCopyWith<_$_TrekkingState> get copyWith =>
+  _$$TrekkingStateImplCopyWith<_$TrekkingStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

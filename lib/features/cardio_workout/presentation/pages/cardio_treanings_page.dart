@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class CardioTreaningsPage extends StatelessWidget {
-  const CardioTreaningsPage({Key? key}) : super(key: key);
+  const CardioTreaningsPage({super.key});
 
   @override
   Widget build(BuildContext context) {

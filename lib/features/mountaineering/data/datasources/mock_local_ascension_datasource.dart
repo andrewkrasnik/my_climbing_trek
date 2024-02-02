@@ -1,6 +1,5 @@
 import 'package:collection/collection.dart';
 import 'package:dartz/dartz.dart';
-import 'package:injectable/injectable.dart';
 import 'package:my_climbing_trek/core/failures/failure.dart';
 import 'package:my_climbing_trek/features/mountaineering/data/datasources/local_ascension_datasource.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/ascension.dart';

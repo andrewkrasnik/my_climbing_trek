@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MountainRegionsPage extends StatelessWidget {
-  const MountainRegionsPage({Key? key}) : super(key: key);
+  const MountainRegionsPage({super.key});
 
   @override
   Widget build(BuildContext context) {

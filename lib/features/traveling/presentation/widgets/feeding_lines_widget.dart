@@ -7,8 +7,7 @@ class FeedingLinesWidget extends StatelessWidget {
   final Function(FeedingLine line, FeedingType type)? onTap;
 
   const FeedingLinesWidget(
-      {required this.lines, this.editing = false, this.onTap, Key? key})
-      : super(key: key);
+      {required this.lines, this.editing = false, this.onTap, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +25,7 @@ class FeedingLineWidget extends StatelessWidget {
   final FeedingLine line;
   final Function(FeedingLine line, FeedingType type)? onTap;
 
-  const FeedingLineWidget({required this.line, this.onTap, Key? key})
-      : super(key: key);
+  const FeedingLineWidget({required this.line, this.onTap, super.key});
 
   @override
   Widget build(BuildContext context) {

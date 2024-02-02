@@ -19,11 +19,11 @@ class IceAttemptsWithStyle extends StatelessWidget {
   const IceAttemptsWithStyle({
     required this.child,
     required this.attempts,
-    Key? key,
+    super.key,
     required this.treaning,
     required this.isCurrent,
     required this.climbingStyle,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -36,14 +36,12 @@ class IceAttemptsWithStyle extends StatelessWidget {
           alignment: WrapAlignment.start,
           children: [
             SizedBox(width: 80, child: child),
-            ...attempts
-                .map((attempt) => Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: AttemptClickWidget(
-                        attempt: attempt,
-                      ),
-                    ))
-                .toList(),
+            ...attempts.map((attempt) => Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: AttemptClickWidget(
+                    attempt: attempt,
+                  ),
+                )),
             if (showAddButton)
               IconButton(
                 onPressed: () {
@@ -72,8 +70,8 @@ class AttemptClickWidget extends StatelessWidget {
   final IceTreaningAttempt attempt;
   const AttemptClickWidget({
     required this.attempt,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -143,6 +141,16 @@ class AttemptClickWidget extends StatelessWidget {
                   color: Colors.black),
             ),
           ),
+          if (attempt.finished)
+            Positioned(
+                bottom: 4,
+                child: Text(
+                  attempt.toolsCountString,
+                  style: const TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
+                )),
           Positioned(right: 0, top: 0, child: topRight),
           Positioned(
             right: 0,

@@ -6,7 +6,7 @@ import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_
 
 class TravelDayWidget extends StatelessWidget {
   final TravelDay travelDay;
-  const TravelDayWidget({required this.travelDay, Key? key}) : super(key: key);
+  const TravelDayWidget({required this.travelDay, super.key});
 
   @override
   Widget build(BuildContext context) {

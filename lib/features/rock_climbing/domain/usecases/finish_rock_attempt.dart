@@ -25,8 +25,8 @@ class FinishRockAttempt {
   }) async {
     final RockRouteAttemptsStatistic? statistic;
     if (attempt.route != null) {
-      final failureOrAttempts =
-          await _rockTreaningsRepository.routeAttempts(route: attempt.route!);
+      final failureOrAttempts = await _rockTreaningsRepository.routeAttempts(
+          route: attempt.route!, sector: attempt.sector);
       statistic = failureOrAttempts.fold(
         (l) => null,
         (attempts) => RockRouteAttemptsStatistic(attempts: attempts),

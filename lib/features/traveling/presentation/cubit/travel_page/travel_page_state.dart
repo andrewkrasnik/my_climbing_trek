@@ -11,6 +11,7 @@ class TravelPageState with _$TravelPageState {
     required List<TravelDay> days,
     required bool loading,
     required String errorMessage,
+    required List<Region> regions,
     FeedingStatistic? feedingStatistic,
   }) = _TravelPageState;
 
@@ -20,6 +21,7 @@ class TravelPageState with _$TravelPageState {
         costs: [],
         days: [],
         insurances: [],
+        regions: [],
         loading: false,
         errorMessage: '',
       );

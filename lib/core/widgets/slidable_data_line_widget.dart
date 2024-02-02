@@ -14,8 +14,8 @@ class SlidableDataLineWidget extends StatelessWidget {
     this.onDelete,
     this.delete = true,
     this.edit = true,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

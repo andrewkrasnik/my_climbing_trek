@@ -11,8 +11,8 @@ class MultiSelectableChipGroupWidget<T> extends StatelessWidget {
     required this.onTap,
     required this.selectedLines,
     this.title,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

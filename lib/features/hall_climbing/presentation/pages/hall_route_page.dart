@@ -1,5 +1,8 @@
 import 'package:my_climbing_trek/core/data/climbing_category.dart';
 import 'package:my_climbing_trek/core/data/climbing_route_type.dart';
+import 'package:my_climbing_trek/core/data/difficulty_category.dart';
+import 'package:my_climbing_trek/core/data/drytooling_category.dart';
+import 'package:my_climbing_trek/core/extentions/date_time_extention.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_route.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/route_color.dart';
@@ -15,17 +18,17 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 class HallRoutePage extends HookWidget {
   final ClimbingHall climbingHall;
   final ClimbingHallRoute? route;
-  final ClimbingCategory? initialCategory;
+  final DifficultyCategory? initialCategory;
   final ClimbingRouteType? initialType;
   final bool autoBelay;
   const HallRoutePage({
-    Key? key,
+    super.key,
     required this.climbingHall,
     this.route,
     this.initialCategory,
     this.initialType,
     this.autoBelay = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +37,7 @@ class HallRoutePage extends HookWidget {
             ? ClimbingRouteType.bouldering
             : ClimbingRouteType.rope;
 
-    final category = useState<ClimbingCategory?>(initialCategory);
+    final category = useState<DifficultyCategory?>(initialCategory);
 
     final color = useState<RouteColor?>(null);
 
@@ -45,6 +48,17 @@ class HallRoutePage extends HookWidget {
 
     final numberEditingController =
         useTextEditingController(text: route?.sectorNumber.toString() ?? '');
+
+    final authorEditingController =
+        useTextEditingController(text: route?.author.toString() ?? '');
+
+    final nameEditingController =
+        useTextEditingController(text: route?.name.toString() ?? '');
+
+    final descriptionEditingController =
+        useTextEditingController(text: route?.description.toString() ?? '');
+
+    final createDateState = useState<DateTime?>(route?.createDate);
 
     final colorsMap = RouteColor.colorsMap;
 
@@ -83,6 +97,29 @@ class HallRoutePage extends HookWidget {
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(),
+            floatingActionButton: route == null
+                ? FloatingActionButton(
+                    child: const Icon(Icons.save),
+                    onPressed: () {
+                      BlocProvider.of<HallRouteCubit>(context).saveRoute(
+                        climbingHall: climbingHall,
+                        route: ClimbingHallRoute(
+                          category: category.value!,
+                          color: color.value!,
+                          type: type.value,
+                          autoBelay: autoBelayState.value,
+                          author: authorEditingController.text,
+                          description: descriptionEditingController.text,
+                          name: nameEditingController.text,
+                          createDate: createDateState.value,
+                          sectorNumber: int.tryParse(
+                                numberEditingController.text,
+                              ) ??
+                              0,
+                        ),
+                      );
+                    })
+                : null,
             body: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -157,14 +194,28 @@ class HallRoutePage extends HookWidget {
                     ),
                     Center(
                       child: SelectCategoryWidget(
-                        currentCategory: route?.category as ClimbingCategory? ??
-                            category.value,
+                        currentCategory: route?.category is ClimbingCategory
+                            ? route?.category
+                            : null,
                         color: route?.color ?? color.value,
                         onTap: (selectCategory) {
                           category.value = selectCategory;
                         },
                       ),
                     ),
+                    if (climbingHall.hasDrytooling)
+                      Center(
+                        child: SelectCategoryWidget(
+                          currentCategory: route?.category is DrytoolingCategory
+                              ? route?.category
+                              : null,
+                          categories: DrytoolingCategory.hallValues,
+                          color: route?.color ?? color.value,
+                          onTap: (selectCategory) {
+                            category.value = selectCategory;
+                          },
+                        ),
+                      ),
                     const SizedBox(
                       height: 8,
                     ),
@@ -195,35 +246,60 @@ class HallRoutePage extends HookWidget {
                       controller: numberEditingController,
                       keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
-                          labelText: 'Номер сектора',
+                          labelText: 'Номер дорожки',
                           border: OutlineInputBorder()),
+                    ),
+                    TextField(
+                      controller: nameEditingController,
+                      decoration: const InputDecoration(
+                          labelText: 'Имя', border: OutlineInputBorder()),
                     ),
                     const SizedBox(
                       height: 8,
                     ),
-                    if (route == null) ...[
-                      const SizedBox(
-                        height: 8,
+                    TextField(
+                      controller: authorEditingController,
+                      decoration: const InputDecoration(
+                          labelText: 'Автор', border: OutlineInputBorder()),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    InkWell(
+                      onTap: () async {
+                        final newDate = await showDatePicker(
+                            context: context,
+                            initialDate:
+                                createDateState.value ?? DateTime.now(),
+                            lastDate: DateTime.now(),
+                            firstDate: DateTime.now()
+                                .subtract(const Duration(days: 4 * 365)));
+
+                        if (newDate != null) {
+                          createDateState.value = newDate;
+                        }
+                      },
+                      child: Text(
+                        'Дата накрутки: ${createDateState.value?.dayString() ?? ''}',
+                        style: Theme.of(context).textTheme.headlineSmall,
                       ),
-                      ElevatedButton(
-                        onPressed: () {
-                          BlocProvider.of<HallRouteCubit>(context).saveRoute(
-                            climbingHall: climbingHall,
-                            route: ClimbingHallRoute(
-                              category: category.value!,
-                              color: color.value!,
-                              type: type.value,
-                              autoBelay: autoBelayState.value,
-                              sectorNumber: int.tryParse(
-                                    numberEditingController.text,
-                                  ) ??
-                                  0,
-                            ),
-                          );
-                        },
-                        child: const Text('Сохранить'),
-                      ),
-                    ],
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    TextField(
+                      controller: descriptionEditingController,
+                      minLines: 3,
+                      maxLines: 6,
+                      decoration: const InputDecoration(
+                          labelText: 'Описание', border: OutlineInputBorder()),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
                     if (route != null)
                       SizedBox(
                         height: 320,

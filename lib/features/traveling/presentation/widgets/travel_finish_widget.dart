@@ -5,8 +5,7 @@ import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_
 
 class TravelFinishWidget extends StatelessWidget {
   final TravelFinish travelFinish;
-  const TravelFinishWidget({required this.travelFinish, Key? key})
-      : super(key: key);
+  const TravelFinishWidget({required this.travelFinish, super.key});
 
   @override
   Widget build(BuildContext context) {

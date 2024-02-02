@@ -5,11 +5,11 @@ class IntCounterWidget extends StatelessWidget {
   final ValueNotifier<int> valueState;
   final bool editing;
   const IntCounterWidget({
-    Key? key,
+    super.key,
     required this.title,
     required this.valueState,
     this.editing = true,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

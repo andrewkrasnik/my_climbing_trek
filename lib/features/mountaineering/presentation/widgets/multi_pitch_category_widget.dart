@@ -11,11 +11,11 @@ class MultiPitchCategoryWidget extends StatelessWidget {
   final UssrClimbingCategory? ussrCategory;
 
   const MultiPitchCategoryWidget({
-    Key? key,
+    super.key,
     this.climbingCategory,
     this.aidCategory,
     this.ussrCategory,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

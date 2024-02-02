@@ -11,11 +11,11 @@ class SelectIceRouteWidget extends StatelessWidget {
   final CurrentIceTreaningCubit cubit;
 
   const SelectIceRouteWidget({
-    Key? key,
+    super.key,
     required this.treaning,
     required this.style,
     required this.cubit,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

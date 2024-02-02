@@ -5,7 +5,7 @@ import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_secto
 
 class IceTreaningAttempt extends DataWithUUID {
   final IceSector sector;
-  final IceCategory category;
+  IceCategory category;
   final ClimbingStyle style;
   final String treaningId;
 
@@ -27,6 +27,19 @@ class IceTreaningAttempt extends DataWithUUID {
   bool installedIceScrews;
 
   int wayLength;
+
+  String get toolsCountString {
+    switch (toolsCount) {
+      case 2:
+        return 'II';
+      case 1:
+        return 'I';
+      case 0:
+        return '0';
+      default:
+        return '';
+    }
+  }
 
   DateTime? get startTime => _startTime;
   DateTime? get finishTime => _finishTime;
@@ -60,6 +73,7 @@ class IceTreaningAttempt extends DataWithUUID {
   }
 
   void finish({
+    required IceCategory category,
     int suspensionCount = 0,
     int fallCount = 0,
     bool downClimbing = false,
@@ -70,6 +84,7 @@ class IceTreaningAttempt extends DataWithUUID {
     required int length,
   }) {
     _finishTime = DateTime.now();
+    this.category = category;
     this.suspensionCount = suspensionCount;
     this.fallCount = fallCount;
     this.downClimbing = downClimbing;

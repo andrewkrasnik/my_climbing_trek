@@ -120,11 +120,18 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
           title: 'My Climbing Trek',
           theme: ThemeData(
-              colorScheme: const ColorScheme.light()
-                  .copyWith(primary: Colors.blueGrey, surface: Colors.black)),
-          darkTheme: ThemeData.dark().copyWith(
-              colorScheme: ColorScheme.fromSeed(
-                  seedColor: Colors.blueGrey, surface: Colors.white)),
+            colorScheme: const ColorScheme.light().copyWith(
+              primary: Colors.blueGrey,
+              surface: Colors.black,
+            ),
+            useMaterial3: false,
+          ),
+          darkTheme: ThemeData.dark(useMaterial3: false).copyWith(
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: Colors.blueGrey,
+              surface: Colors.white,
+            ),
+          ),
           scrollBehavior: MyCustomScrollBehavior(),
           home: BlocListener<AuthenticationCubit, AuthenticationState>(
             listenWhen: (previous, current) => current.maybeMap(

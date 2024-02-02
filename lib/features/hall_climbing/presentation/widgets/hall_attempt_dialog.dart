@@ -11,9 +11,9 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 class HallAttemptDialog extends HookWidget {
   final ClimbingHallAttempt attempt;
   const HallAttemptDialog({
-    Key? key,
+    super.key,
     required this.attempt,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

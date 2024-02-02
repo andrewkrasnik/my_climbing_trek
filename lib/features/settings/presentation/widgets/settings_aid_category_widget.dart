@@ -5,9 +5,9 @@ class SettingsAidCategoryWidget extends StatelessWidget {
   final AidCategory category;
 
   const SettingsAidCategoryWidget({
-    Key? key,
+    super.key,
     required this.category,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

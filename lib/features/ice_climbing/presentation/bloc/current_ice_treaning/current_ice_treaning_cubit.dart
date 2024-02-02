@@ -1,4 +1,5 @@
 import 'package:my_climbing_trek/core/data/climbing_style.dart';
+import 'package:my_climbing_trek/core/data/ice_category.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_district.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_sector.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/usecases/delete_ice_attempt.dart';
@@ -110,6 +111,7 @@ class CurrentIceTreaningCubit extends Cubit<CurrentIceTreaningState> {
   Future<void> startAttempt({required IceTreaningAttempt attempt}) async {}
 
   Future<void> finishCurrentAttempt({
+    required IceCategory category,
     required bool fail,
     required bool downClimbing,
     required int fallCount,
@@ -120,6 +122,7 @@ class CurrentIceTreaningCubit extends Cubit<CurrentIceTreaningState> {
     required int length,
   }) async {
     final failureOrAttempt = await _finishIceAttempt(
+      category: category,
       attempt: state.currentAttempt!,
       treaning: state.currentTreaning!,
       length: length,

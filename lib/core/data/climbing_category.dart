@@ -447,6 +447,7 @@ class ClimbingCategory extends DifficultyCategory {
   };
 
   static const List<ClimbingCategory> hallValues = [
+    category5A,
     category5B,
     category5C,
     category6A,
@@ -492,6 +493,7 @@ class ClimbingCategory extends DifficultyCategory {
     category9A,
   ];
 
+  @override
   double fontSize(String title) {
     double fontSize = 24;
     if (title.length > 4) {

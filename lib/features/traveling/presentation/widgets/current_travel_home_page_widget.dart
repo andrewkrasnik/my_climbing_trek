@@ -10,7 +10,7 @@ import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_
 import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_day_title_widget.dart';
 
 class CurrentTravelHomePageWidget extends StatelessWidget {
-  const CurrentTravelHomePageWidget({Key? key}) : super(key: key);
+  const CurrentTravelHomePageWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -78,12 +78,15 @@ class CurrentTravelHomePageWidget extends StatelessWidget {
                     ),
                     IconButton.outlined(
                       onPressed: () async {
+                        final cubit =
+                            BlocProvider.of<CurrentTravelCubit>(context);
+
                         await Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => TravelPage(
                                   travel: state.travel!,
                                 )));
 
-                        BlocProvider.of<CurrentTravelCubit>(context).loadData();
+                        cubit.loadData();
                       },
                       icon: const Icon(Icons.info),
                     ),
@@ -92,12 +95,15 @@ class CurrentTravelHomePageWidget extends StatelessWidget {
                 if (state.travelDay != null) ...[
                   InkWell(
                     onTap: () async {
+                      final cubit =
+                          BlocProvider.of<CurrentTravelCubit>(context);
+
                       await Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
                             TravelDayPage(day: state.travelDay!),
                       ));
 
-                      BlocProvider.of<CurrentTravelCubit>(context).loadData();
+                      cubit.loadData();
                     },
                     child: TravelDayTitleWidget(travelDay: state.travelDay!),
                   ),

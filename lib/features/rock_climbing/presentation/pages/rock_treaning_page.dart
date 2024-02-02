@@ -9,9 +9,9 @@ class RockTreaningPage extends StatelessWidget {
   final RockTreaning treaning;
 
   const RockTreaningPage({
-    Key? key,
+    super.key,
     required this.treaning,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

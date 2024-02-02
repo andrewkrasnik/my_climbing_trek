@@ -30,22 +30,20 @@ class $DriftStrengthExercisesTableTable extends DriftStrengthExercisesTable
   static const VerificationMeta _selectedMeta =
       const VerificationMeta('selected');
   @override
-  late final GeneratedColumn<bool> selected =
-      GeneratedColumn<bool>('selected', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: false,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("selected" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }),
-          defaultValue: const Constant(false));
+  late final GeneratedColumn<bool> selected = GeneratedColumn<bool>(
+      'selected', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("selected" IN (0, 1))'),
+      defaultValue: const Constant(false));
   @override
   List<GeneratedColumn> get $columns => [repetitions, id, name, selected];
   @override
-  String get aliasedName => _alias ?? 'drift_strength_exercises_table';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'drift_strength_exercises_table';
+  String get actualTableName => $name;
+  static const String $name = 'drift_strength_exercises_table';
   @override
   VerificationContext validateIntegrity(
       Insertable<DriftStrengthExercise> instance,
@@ -314,9 +312,10 @@ class $DriftHallTreaningsTableTable extends DriftHallTreaningsTable
   List<GeneratedColumn> get $columns =>
       [id, hallId, date, finish, start, climbingHall];
   @override
-  String get aliasedName => _alias ?? 'drift_hall_treanings_table';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'drift_hall_treanings_table';
+  String get actualTableName => $name;
+  static const String $name = 'drift_hall_treanings_table';
   @override
   VerificationContext validateIntegrity(Insertable<DriftHallTreaning> instance,
       {bool isInserting = false}) {
@@ -685,26 +684,20 @@ class $DriftHallAttemptsTableTable extends DriftHallAttemptsTable
   static const VerificationMeta _downClimbingMeta =
       const VerificationMeta('downClimbing');
   @override
-  late final GeneratedColumn<bool> downClimbing =
-      GeneratedColumn<bool>('down_climbing', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("down_climbing" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> downClimbing = GeneratedColumn<bool>(
+      'down_climbing', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("down_climbing" IN (0, 1))'));
   static const VerificationMeta _failMeta = const VerificationMeta('fail');
   @override
-  late final GeneratedColumn<bool> fail =
-      GeneratedColumn<bool>('fail', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("fail" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> fail = GeneratedColumn<bool>(
+      'fail', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("fail" IN (0, 1))'));
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -722,9 +715,10 @@ class $DriftHallAttemptsTableTable extends DriftHallAttemptsTable
         fail
       ];
   @override
-  String get aliasedName => _alias ?? 'drift_hall_attempts_table';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'drift_hall_attempts_table';
+  String get actualTableName => $name;
+  static const String $name = 'drift_hall_attempts_table';
   @override
   VerificationContext validateIntegrity(Insertable<DriftHallAttempt> instance,
       {bool isInserting = false}) {
@@ -1299,9 +1293,10 @@ class $DriftCardioTreaningsTableTable extends DriftCardioTreaningsTable
   List<GeneratedColumn> get $columns =>
       [id, exercise, date, finish, start, duration, length];
   @override
-  String get aliasedName => _alias ?? 'drift_cardio_treanings_table';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'drift_cardio_treanings_table';
+  String get actualTableName => $name;
+  static const String $name = 'drift_cardio_treanings_table';
   @override
   VerificationContext validateIntegrity(
       Insertable<DriftCardioTreanings> instance,
@@ -1653,9 +1648,10 @@ class $DriftStrengthTreaningsTableTable extends DriftStrengthTreaningsTable
   @override
   List<GeneratedColumn> get $columns => [id, date, finish, start];
   @override
-  String get aliasedName => _alias ?? 'drift_strength_treanings_table';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'drift_strength_treanings_table';
+  String get actualTableName => $name;
+  static const String $name = 'drift_strength_treanings_table';
   @override
   VerificationContext validateIntegrity(
       Insertable<DriftStrengthTreaning> instance,
@@ -1930,9 +1926,10 @@ class $DriftStrengthTreaningLinesTableTable
   List<GeneratedColumn> get $columns =>
       [id, repetitions, treaningId, exercise, exerciseId];
   @override
-  String get aliasedName => _alias ?? 'drift_strength_treaning_lines_table';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'drift_strength_treaning_lines_table';
+  String get actualTableName => $name;
+  static const String $name = 'drift_strength_treaning_lines_table';
   @override
   VerificationContext validateIntegrity(
       Insertable<DriftStrengthTreaningLine> instance,
@@ -2250,9 +2247,10 @@ class $DriftIceTreaningsTableTable extends DriftIceTreaningsTable
   List<GeneratedColumn> get $columns =>
       [id, district, districtId, date, finish, start, sectors];
   @override
-  String get aliasedName => _alias ?? 'drift_ice_treanings_table';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'drift_ice_treanings_table';
+  String get actualTableName => $name;
+  static const String $name = 'drift_ice_treanings_table';
   @override
   VerificationContext validateIntegrity(Insertable<DriftIceTreanings> instance,
       {bool isInserting = false}) {
@@ -2652,38 +2650,29 @@ class $DriftIceAttemptsTableTable extends DriftIceAttemptsTable
   static const VerificationMeta _downClimbingMeta =
       const VerificationMeta('downClimbing');
   @override
-  late final GeneratedColumn<bool> downClimbing =
-      GeneratedColumn<bool>('down_climbing', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("down_climbing" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> downClimbing = GeneratedColumn<bool>(
+      'down_climbing', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("down_climbing" IN (0, 1))'));
   static const VerificationMeta _failMeta = const VerificationMeta('fail');
   @override
-  late final GeneratedColumn<bool> fail =
-      GeneratedColumn<bool>('fail', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("fail" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> fail = GeneratedColumn<bool>(
+      'fail', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("fail" IN (0, 1))'));
   static const VerificationMeta _installedIceScrewsMeta =
       const VerificationMeta('installedIceScrews');
   @override
-  late final GeneratedColumn<bool> installedIceScrews =
-      GeneratedColumn<bool>('installed_ice_screws', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("installed_ice_screws" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> installedIceScrews = GeneratedColumn<bool>(
+      'installed_ice_screws', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("installed_ice_screws" IN (0, 1))'));
   static const VerificationMeta _iceScrewsCountMeta =
       const VerificationMeta('iceScrewsCount');
   @override
@@ -2716,9 +2705,10 @@ class $DriftIceAttemptsTableTable extends DriftIceAttemptsTable
         toolsCount
       ];
   @override
-  String get aliasedName => _alias ?? 'drift_ice_attempts_table';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'drift_ice_attempts_table';
+  String get actualTableName => $name;
+  static const String $name = 'drift_ice_attempts_table';
   @override
   VerificationContext validateIntegrity(Insertable<DriftIceAttempt> instance,
       {bool isInserting = false}) {
@@ -3389,9 +3379,10 @@ class $DriftRockTreaningsTableTable extends DriftRockTreaningsTable
   List<GeneratedColumn> get $columns =>
       [id, districtId, district, date, finish, start, sectors];
   @override
-  String get aliasedName => _alias ?? 'drift_rock_treanings_table';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'drift_rock_treanings_table';
+  String get actualTableName => $name;
+  static const String $name = 'drift_rock_treanings_table';
   @override
   VerificationContext validateIntegrity(Insertable<DriftRockTreanings> instance,
       {bool isInserting = false}) {
@@ -3796,26 +3787,20 @@ class $DriftRockAttemptsTableTable extends DriftRockAttemptsTable
   static const VerificationMeta _downClimbingMeta =
       const VerificationMeta('downClimbing');
   @override
-  late final GeneratedColumn<bool> downClimbing =
-      GeneratedColumn<bool>('down_climbing', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("down_climbing" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> downClimbing = GeneratedColumn<bool>(
+      'down_climbing', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("down_climbing" IN (0, 1))'));
   static const VerificationMeta _failMeta = const VerificationMeta('fail');
   @override
-  late final GeneratedColumn<bool> fail =
-      GeneratedColumn<bool>('fail', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("fail" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> fail = GeneratedColumn<bool>(
+      'fail', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("fail" IN (0, 1))'));
   static const VerificationMeta _ascentTypeMeta =
       const VerificationMeta('ascentType');
   @override
@@ -3841,9 +3826,10 @@ class $DriftRockAttemptsTableTable extends DriftRockAttemptsTable
         ascentType
       ];
   @override
-  String get aliasedName => _alias ?? 'drift_rock_attempts_table';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'drift_rock_attempts_table';
+  String get actualTableName => $name;
+  static const String $name = 'drift_rock_attempts_table';
   @override
   VerificationContext validateIntegrity(Insertable<DriftRockAttempt> instance,
       {bool isInserting = false}) {
@@ -4499,15 +4485,12 @@ class $DriftTrekkingPathsTableTable extends DriftTrekkingPathsTable
       type: DriftSqlType.int, requiredDuringInsert: true);
   static const VerificationMeta _turnMeta = const VerificationMeta('turn');
   @override
-  late final GeneratedColumn<bool> turn =
-      GeneratedColumn<bool>('turn', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("turn" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> turn = GeneratedColumn<bool>(
+      'turn', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("turn" IN (0, 1))'));
   static const VerificationMeta _lengthMeta = const VerificationMeta('length');
   @override
   late final GeneratedColumn<double> length = GeneratedColumn<double>(
@@ -4530,9 +4513,10 @@ class $DriftTrekkingPathsTableTable extends DriftTrekkingPathsTable
         length
       ];
   @override
-  String get aliasedName => _alias ?? 'drift_trekking_paths_table';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'drift_trekking_paths_table';
+  String get actualTableName => $name;
+  static const String $name = 'drift_trekking_paths_table';
   @override
   VerificationContext validateIntegrity(Insertable<DriftTrekkingPath> instance,
       {bool isInserting = false}) {
@@ -5079,9 +5063,10 @@ class $DriftTrekkingPathEventsTableTable extends DriftTrekkingPathEventsTable
   List<GeneratedColumn> get $columns =>
       [id, type, pathId, point, pointId, time];
   @override
-  String get aliasedName => _alias ?? 'drift_trekking_path_events_table';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'drift_trekking_path_events_table';
+  String get actualTableName => $name;
+  static const String $name = 'drift_trekking_path_events_table';
   @override
   VerificationContext validateIntegrity(
       Insertable<DriftTrekkingPathEvent> instance,
@@ -5409,9 +5394,10 @@ class $DriftTechniqueTreaningsTableTable extends DriftTechniqueTreaningsTable
   @override
   List<GeneratedColumn> get $columns => [id, comment, date, finish, start];
   @override
-  String get aliasedName => _alias ?? 'drift_technique_treanings_table';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'drift_technique_treanings_table';
+  String get actualTableName => $name;
+  static const String $name = 'drift_technique_treanings_table';
   @override
   VerificationContext validateIntegrity(
       Insertable<DriftTechniqueTreaning> instance,
@@ -5755,9 +5741,10 @@ class $DriftTechniqueTreaningItemsTableTable
         groupId
       ];
   @override
-  String get aliasedName => _alias ?? 'drift_technique_treaning_items_table';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'drift_technique_treaning_items_table';
+  String get actualTableName => $name;
+  static const String $name = 'drift_technique_treaning_items_table';
   @override
   VerificationContext validateIntegrity(
       Insertable<DriftTechniqueTreaningItem> instance,
@@ -6233,9 +6220,10 @@ class $DriftAscensionsTableTable extends DriftAscensionsTable
   List<GeneratedColumn> get $columns =>
       [id, mountain, mountainId, routeId, route, date, finish, start];
   @override
-  String get aliasedName => _alias ?? 'drift_ascensions_table';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'drift_ascensions_table';
+  String get actualTableName => $name;
+  static const String $name = 'drift_ascensions_table';
   @override
   VerificationContext validateIntegrity(Insertable<DriftAscension> instance,
       {bool isInserting = false}) {
@@ -6626,9 +6614,10 @@ class $DriftAscensionEventsTableTable extends DriftAscensionEventsTable
   List<GeneratedColumn> get $columns =>
       [id, type, ascensionId, time, planedTime];
   @override
-  String get aliasedName => _alias ?? 'drift_ascension_events_table';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'drift_ascension_events_table';
+  String get actualTableName => $name;
+  static const String $name = 'drift_ascension_events_table';
   @override
   VerificationContext validateIntegrity(
       Insertable<DriftAscensionEvent> instance,
@@ -6972,9 +6961,10 @@ class $DriftTravelsTableTable extends DriftTravelsTable
         budgetCurrency
       ];
   @override
-  String get aliasedName => _alias ?? 'drift_travels_table';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'drift_travels_table';
+  String get actualTableName => $name;
+  static const String $name = 'drift_travels_table';
   @override
   VerificationContext validateIntegrity(Insertable<DriftTravel> instance,
       {bool isInserting = false}) {
@@ -7490,9 +7480,10 @@ class $DriftTravelDaysTableTable extends DriftTravelDaysTable
         travelId
       ];
   @override
-  String get aliasedName => _alias ?? 'drift_travel_days_table';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'drift_travel_days_table';
+  String get actualTableName => $name;
+  static const String $name = 'drift_travel_days_table';
   @override
   VerificationContext validateIntegrity(Insertable<DriftTravelDay> instance,
       {bool isInserting = false}) {
@@ -7948,9 +7939,10 @@ class $DriftCostLinesTableTable extends DriftCostLinesTable
         incomeExpense
       ];
   @override
-  String get aliasedName => _alias ?? 'drift_cost_lines_table';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'drift_cost_lines_table';
+  String get actualTableName => $name;
+  static const String $name = 'drift_cost_lines_table';
   @override
   VerificationContext validateIntegrity(Insertable<DriftCostLine> instance,
       {bool isInserting = false}) {
@@ -8372,9 +8364,10 @@ class $DriftBudgetLinesTableTable extends DriftBudgetLinesTable
   List<GeneratedColumn> get $columns =>
       [id, type, amount, travelId, description];
   @override
-  String get aliasedName => _alias ?? 'drift_budget_lines_table';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'drift_budget_lines_table';
+  String get actualTableName => $name;
+  static const String $name = 'drift_budget_lines_table';
   @override
   VerificationContext validateIntegrity(Insertable<DriftBudgetLine> instance,
       {bool isInserting = false}) {
@@ -8686,9 +8679,10 @@ class $DriftInsuranceLinesTableTable extends DriftInsuranceLinesTable
   List<GeneratedColumn> get $columns =>
       [id, number, travelId, insurant, description, insurer, contacts];
   @override
-  String get aliasedName => _alias ?? 'drift_insurance_lines_table';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'drift_insurance_lines_table';
+  String get actualTableName => $name;
+  static const String $name = 'drift_insurance_lines_table';
   @override
   VerificationContext validateIntegrity(Insertable<DriftInsuranceLine> instance,
       {bool isInserting = false}) {

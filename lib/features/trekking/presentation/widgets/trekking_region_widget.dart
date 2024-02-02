@@ -11,8 +11,8 @@ class TrekkingRegionWidget extends StatelessWidget {
     required this.region,
     this.onTap,
     this.height = 160,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

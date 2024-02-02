@@ -6,8 +6,8 @@ class TextWithTitleWidget extends StatelessWidget {
   const TextWithTitleWidget({
     required this.title,
     required this.child,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

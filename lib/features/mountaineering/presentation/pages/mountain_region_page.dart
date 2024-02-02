@@ -1,5 +1,5 @@
 import 'package:my_climbing_trek/core/data/region.dart';
-import 'package:my_climbing_trek/core/widgets/my_cached_network_image.dart';
+import 'package:my_climbing_trek/core/widgets/my_sliver_app_bar_widget.dart';
 import 'package:my_climbing_trek/features/mountaineering/presentation/bloc/mountains/mountains_cubit.dart';
 import 'package:my_climbing_trek/features/mountaineering/presentation/pages/mountain_page.dart';
 import 'package:my_climbing_trek/features/mountaineering/presentation/widgets/mountain_widget.dart';
@@ -12,8 +12,8 @@ class MountainRegionPage extends StatelessWidget {
 
   const MountainRegionPage({
     required this.region,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,30 +21,10 @@ class MountainRegionPage extends StatelessWidget {
       child: Scaffold(
         body: CustomScrollView(
           slivers: [
-            SliverAppBar(
-              expandedHeight: 160,
-              stretch: true,
-              floating: true,
-              pinned: true,
-              snap: false,
-              flexibleSpace: FlexibleSpaceBar(
-                background: Hero(
-                  tag: 'MountainRegion${region.id}',
-                  child: MyCachedNetworkImage(
-                    imageUrl: region.image!,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                centerTitle: true,
-                title: Text(
-                  region.name,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      shadows: [Shadow(offset: Offset.fromDirection(1))]),
-                ),
-              ),
+            MySliverAppBarWidget(
+              heroTag: 'MountainRegion${region.id}',
+              title: region.name,
+              imageUrl: region.image!,
             ),
             BlocProvider(
               create: (context) =>

@@ -7,7 +7,7 @@ import 'package:my_climbing_trek/features/traveling/presentation/widgets/contact
 import 'package:my_climbing_trek/features/traveling/presentation/widgets/insurance_parameters_widget.dart';
 
 class TravelInsuranceListWidget extends StatelessWidget {
-  const TravelInsuranceListWidget({Key? key}) : super(key: key);
+  const TravelInsuranceListWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

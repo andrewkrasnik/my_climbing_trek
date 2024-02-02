@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_climbing_trek/features/authentication/presentation/cubit/authentication_cubit.dart';
 
 class AuthButton extends StatelessWidget {
-  const AuthButton({Key? key}) : super(key: key);
+  const AuthButton({super.key});
 
   @override
   Widget build(BuildContext context) {

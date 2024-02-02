@@ -3,7 +3,7 @@ import 'package:my_climbing_trek/features/settings/presentation/widgets/settings
 import 'package:flutter/material.dart';
 
 class AidCategoriesPage extends StatelessWidget {
-  const AidCategoriesPage({Key? key}) : super(key: key);
+  const AidCategoriesPage({super.key});
 
   @override
   Widget build(BuildContext context) {

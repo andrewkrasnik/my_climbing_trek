@@ -8,8 +8,7 @@ class RockRouteWidget extends StatelessWidget {
   final RockRouteAttemptsStatistic? statistic;
   final void Function(RockRoute route)? onTapGo;
   const RockRouteWidget(
-      {required this.route, this.onTapGo, this.statistic, Key? key})
-      : super(key: key);
+      {required this.route, this.onTapGo, this.statistic, super.key});
 
   @override
   Widget build(BuildContext context) {

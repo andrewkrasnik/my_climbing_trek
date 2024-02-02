@@ -10,7 +10,7 @@ import 'package:my_climbing_trek/features/rock_climbing/presentation/widgets/roc
 import 'package:my_climbing_trek/service_locator.dart';
 
 class RockHomePageWidget extends StatelessWidget {
-  const RockHomePageWidget({Key? key}) : super(key: key);
+  const RockHomePageWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

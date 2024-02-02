@@ -130,14 +130,17 @@ class DriftDBLocalDataSource extends _$DriftDBLocalDataSource
               if (whereConditions == null) {
                 return const Constant(true);
               }
-              // final List<Expression<bool>> conditions = [];
+              final List<Expression<bool>> conditions = [];
               for (var key in whereConditions.keys) {
                 final column = driftTable.columnsByName[key];
                 if (column != null) {
-                  return column.equals(whereConditions[key]);
+                  conditions.add(column.equals(whereConditions[key]));
+                } else {
+                  throw 'Неизвестная колонка: $key';
                 }
               }
-              throw 'Неизвестное условие';
+
+              return Expression.and(conditions);
             })
             ..orderBy(orderByConditions!.keys
                 .map(

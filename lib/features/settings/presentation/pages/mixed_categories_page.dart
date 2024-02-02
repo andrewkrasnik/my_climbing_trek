@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:my_climbing_trek/features/settings/presentation/widgets/settings_mixed_category_widget.dart';
 
 class MixedCategoriesPage extends StatelessWidget {
-  const MixedCategoriesPage({Key? key}) : super(key: key);
+  const MixedCategoriesPage({super.key});
 
   @override
   Widget build(BuildContext context) {

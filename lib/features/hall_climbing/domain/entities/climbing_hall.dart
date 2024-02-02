@@ -10,6 +10,7 @@ class ClimbingHall {
   final bool hasBigWall;
   final bool hasSpeed;
   final bool hasAutoBelay;
+  final bool hasDrytooling;
   final MapPoint point;
   final String image;
   final String telephone;
@@ -43,5 +44,6 @@ class ClimbingHall {
     this.hasSpeed = false,
     this.id = '',
     this.hasEditPermission = false,
+    this.hasDrytooling = false,
   });
 }

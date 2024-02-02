@@ -6,16 +6,22 @@ class IceCategoryWidget extends StatelessWidget {
 
   final String prefix;
 
+  final bool planed;
+
   const IceCategoryWidget({
-    Key? key,
+    super.key,
     required this.category,
+    this.planed = false,
     this.prefix = '',
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     final title = category.name;
     double fontSize = 20;
+
+    final double opacity = planed ? 0.5 : 1;
+
     if (title.length > 4) {
       fontSize = 12;
     } else if (title.length > 3) {
@@ -24,15 +30,15 @@ class IceCategoryWidget extends StatelessWidget {
       fontSize = 16;
     }
     return CircleAvatar(
-      backgroundColor: Colors.blueAccent,
+      backgroundColor: Colors.blueAccent.withOpacity(opacity),
       radius: 24,
       child: CircleAvatar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.white.withOpacity(opacity),
         radius: 20,
         child: Text(
           '$prefix$title',
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.black.withOpacity(opacity),
             fontWeight: FontWeight.bold,
             fontSize: fontSize,
           ),

@@ -4,19 +4,21 @@ import 'package:flutter/material.dart';
 
 class ClimbingHallWidget extends StatelessWidget {
   final ClimbingHall climbingHall;
+  final double height;
   final void Function()? onTap;
   const ClimbingHallWidget({
-    Key? key,
+    super.key,
     required this.climbingHall,
     this.onTap,
-  }) : super(key: key);
+    this.height = 160,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 160,
+        height: height,
         width: 180,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4.0),

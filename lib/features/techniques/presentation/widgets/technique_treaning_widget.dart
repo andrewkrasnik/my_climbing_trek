@@ -2,22 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:my_climbing_trek/core/widgets/my_modal_bottom_sheet.dart';
+import 'package:my_climbing_trek/core/widgets/treaning_picture_page.dart';
 import 'package:my_climbing_trek/features/techniques/domain/entities/technique_group.dart';
 import 'package:my_climbing_trek/features/techniques/domain/entities/technique_treaning.dart';
 import 'package:my_climbing_trek/features/techniques/presentation/bloc/technique_treaning/technique_treaning_cubit.dart';
 import 'package:my_climbing_trek/features/techniques/presentation/pages/technique_group_page.dart';
 import 'package:my_climbing_trek/features/techniques/presentation/widgets/edit_technique_item_widget.dart';
 import 'package:my_climbing_trek/features/techniques/presentation/widgets/select_technique_widget.dart';
+import 'package:my_climbing_trek/features/techniques/presentation/widgets/technique_treaning_picture_widget.dart';
 
 class TechniqueTreaningWidget extends StatelessWidget {
   final TechniqueTreaning treaning;
   final bool editing;
 
   const TechniqueTreaningWidget({
-    Key? key,
+    super.key,
     required this.treaning,
     this.editing = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,14 +36,18 @@ class TechniqueTreaningWidget extends StatelessWidget {
               Row(
                 // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  const Text('Техническая тренировка'),
                   const Spacer(),
                   Text(DateFormat('dd.MM.yyyy').format(treaning.date)),
                   IconButton(
                     onPressed: () {
-                      // Navigator.of(context).push(MaterialPageRoute(
-                      //     builder: (context) => RockTreaningPage(
-                      //           treaning: treaning,
-                      //         )));
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => TreaningPicturePage(
+                                treaning: treaning,
+                                child: TechniqueTreaningPictureWidget(
+                                  treaning: treaning,
+                                ),
+                              )));
                     },
                     icon: const Icon(
                       Icons.share,
@@ -65,32 +71,30 @@ class TechniqueTreaningWidget extends StatelessWidget {
                               child: Text('${group.name}:')),
                           Wrap(
                             children: [
-                              ...value
-                                  .map((tech) => InkWell(
-                                        onTap: () {
-                                          showMyModalBottomSheet<void>(
-                                            context: context,
-                                            heightPersent: 0.7,
-                                            child: EditTechniqueItemWidget(
-                                              item: tech,
-                                              editing: editing,
-                                            ),
-                                          );
-                                        },
-                                        child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 2),
-                                            child: Chip(
-                                              label: Text(
-                                                tech.technique.name,
-                                                style: TextStyle(
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .surface),
-                                              ),
-                                            )),
-                                      ))
-                                  .toList(),
+                              ...value.map((tech) => InkWell(
+                                    onTap: () {
+                                      showMyModalBottomSheet<void>(
+                                        context: context,
+                                        heightPersent: 0.7,
+                                        child: EditTechniqueItemWidget(
+                                          item: tech,
+                                          editing: editing,
+                                        ),
+                                      );
+                                    },
+                                    child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 2),
+                                        child: Chip(
+                                          label: Text(
+                                            tech.technique.name,
+                                            style: TextStyle(
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .surface),
+                                          ),
+                                        )),
+                                  )),
                               if (editing)
                                 Padding(
                                   padding:
@@ -114,7 +118,7 @@ class TechniqueTreaningWidget extends StatelessWidget {
                                         );
                                       },
                                       child: const Text('Добавить')),
-                                )
+                                ),
                             ],
                           ),
                         ],

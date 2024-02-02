@@ -12,22 +12,35 @@ class HallRouteWidget extends StatelessWidget {
   final bool loadStatistic;
   final Widget? child;
   const HallRouteWidget({
-    Key? key,
+    super.key,
     required this.route,
     required this.climbingHall,
     this.statistic,
     required this.loadStatistic,
     this.child,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
-    final String routeSubtitle;
+    String routeSubtitle;
 
     if (route.autoBelay) {
       routeSubtitle = 'autobelay';
     } else {
       routeSubtitle = route.type.name;
+    }
+
+    if (route.name.isNotEmpty) {
+      routeSubtitle = '$routeSubtitle, ${route.name}';
+    }
+
+    if (route.author.isNotEmpty) {
+      routeSubtitle = '$routeSubtitle, ${route.author}';
+    }
+
+    if (route.createDate != null) {
+      routeSubtitle =
+          '$routeSubtitle, накручена ${route.createDate!.dayString()}';
     }
 
     final String routeTitle;

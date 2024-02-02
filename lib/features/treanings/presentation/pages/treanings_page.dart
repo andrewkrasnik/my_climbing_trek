@@ -1,5 +1,5 @@
 import 'package:my_climbing_trek/features/settings/presentation/cubit/settings_cubit.dart';
-import 'package:my_climbing_trek/features/treanings/presentation/cubit/treanings_cubit.dart';
+import 'package:my_climbing_trek/features/treanings/presentation/cubit/treanings/treanings_cubit.dart';
 import 'package:my_climbing_trek/features/treanings/presentation/widgets/treaning_widget_factory.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class TreaningsPage extends StatelessWidget {
-  const TreaningsPage({Key? key}) : super(key: key);
+  const TreaningsPage({super.key});
 
   @override
   Widget build(BuildContext context) {

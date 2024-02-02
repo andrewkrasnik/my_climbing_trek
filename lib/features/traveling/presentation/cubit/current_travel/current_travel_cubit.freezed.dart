@@ -79,11 +79,11 @@ class _$CurrentTravelStateCopyWithImpl<$Res, $Val extends CurrentTravelState>
 }
 
 /// @nodoc
-abstract class _$$_CurrentTravelStateCopyWith<$Res>
+abstract class _$$CurrentTravelStateImplCopyWith<$Res>
     implements $CurrentTravelStateCopyWith<$Res> {
-  factory _$$_CurrentTravelStateCopyWith(_$_CurrentTravelState value,
-          $Res Function(_$_CurrentTravelState) then) =
-      __$$_CurrentTravelStateCopyWithImpl<$Res>;
+  factory _$$CurrentTravelStateImplCopyWith(_$CurrentTravelStateImpl value,
+          $Res Function(_$CurrentTravelStateImpl) then) =
+      __$$CurrentTravelStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -94,11 +94,11 @@ abstract class _$$_CurrentTravelStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_CurrentTravelStateCopyWithImpl<$Res>
-    extends _$CurrentTravelStateCopyWithImpl<$Res, _$_CurrentTravelState>
-    implements _$$_CurrentTravelStateCopyWith<$Res> {
-  __$$_CurrentTravelStateCopyWithImpl(
-      _$_CurrentTravelState _value, $Res Function(_$_CurrentTravelState) _then)
+class __$$CurrentTravelStateImplCopyWithImpl<$Res>
+    extends _$CurrentTravelStateCopyWithImpl<$Res, _$CurrentTravelStateImpl>
+    implements _$$CurrentTravelStateImplCopyWith<$Res> {
+  __$$CurrentTravelStateImplCopyWithImpl(_$CurrentTravelStateImpl _value,
+      $Res Function(_$CurrentTravelStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -109,7 +109,7 @@ class __$$_CurrentTravelStateCopyWithImpl<$Res>
     Object? useFilter = null,
     Object? errorMessage = null,
   }) {
-    return _then(_$_CurrentTravelState(
+    return _then(_$CurrentTravelStateImpl(
       travel: freezed == travel
           ? _value.travel
           : travel // ignore: cast_nullable_to_non_nullable
@@ -132,8 +132,8 @@ class __$$_CurrentTravelStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_CurrentTravelState implements _CurrentTravelState {
-  const _$_CurrentTravelState(
+class _$CurrentTravelStateImpl implements _CurrentTravelState {
+  const _$CurrentTravelStateImpl(
       {this.travel,
       this.travelDay,
       required this.useFilter,
@@ -157,7 +157,7 @@ class _$_CurrentTravelState implements _CurrentTravelState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_CurrentTravelState &&
+            other is _$CurrentTravelStateImpl &&
             (identical(other.travel, travel) || other.travel == travel) &&
             (identical(other.travelDay, travelDay) ||
                 other.travelDay == travelDay) &&
@@ -174,8 +174,8 @@ class _$_CurrentTravelState implements _CurrentTravelState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_CurrentTravelStateCopyWith<_$_CurrentTravelState> get copyWith =>
-      __$$_CurrentTravelStateCopyWithImpl<_$_CurrentTravelState>(
+  _$$CurrentTravelStateImplCopyWith<_$CurrentTravelStateImpl> get copyWith =>
+      __$$CurrentTravelStateImplCopyWithImpl<_$CurrentTravelStateImpl>(
           this, _$identity);
 }
 
@@ -184,7 +184,7 @@ abstract class _CurrentTravelState implements CurrentTravelState {
       {final Travel? travel,
       final TravelDay? travelDay,
       required final bool useFilter,
-      required final String errorMessage}) = _$_CurrentTravelState;
+      required final String errorMessage}) = _$CurrentTravelStateImpl;
 
   @override
   Travel? get travel;
@@ -196,6 +196,6 @@ abstract class _CurrentTravelState implements CurrentTravelState {
   String get errorMessage;
   @override
   @JsonKey(ignore: true)
-  _$$_CurrentTravelStateCopyWith<_$_CurrentTravelState> get copyWith =>
+  _$$CurrentTravelStateImplCopyWith<_$CurrentTravelStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

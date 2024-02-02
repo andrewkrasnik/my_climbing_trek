@@ -8,14 +8,13 @@ class IntCounterWidget extends StatelessWidget {
   final int maxValue;
   final int minValue;
   const IntCounterWidget(
-      {Key? key,
+      {super.key,
       this.title,
       required this.valueState,
       this.editing = true,
       this.part = 1,
       this.maxValue = 0,
-      this.minValue = 0})
-      : super(key: key);
+      this.minValue = 0});
 
   @override
   Widget build(BuildContext context) {

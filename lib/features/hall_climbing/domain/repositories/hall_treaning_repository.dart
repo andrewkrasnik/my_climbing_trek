@@ -4,13 +4,15 @@ import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_route.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_treaning.dart';
 import 'package:dartz/dartz.dart';
+import 'package:my_climbing_trek/features/treanings/domain/repositories/treanings_repository.dart';
 
-abstract class HallTreaningRepository {
+abstract class HallTreaningRepository implements TreaningsRepository {
   Future<Either<Failure, ClimbingHallTreaning?>> lastTreaning();
 
   Future<Either<Failure, ClimbingHallTreaning?>> currentTreaning();
 
-  Future<Either<Failure, List<ClimbingHallTreaning>>> allTreanings();
+  @override
+  Future<Either<Failure, List<ClimbingHallTreaning>>> getTreanings();
 
   Future<Either<Failure, ClimbingHallTreaning>> saveTreaning(
       {required ClimbingHallTreaning treaning});

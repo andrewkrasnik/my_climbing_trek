@@ -15,6 +15,12 @@ HallRouteModel _$HallRouteModelFromJson(Map<String, dynamic> json) =>
       sectorNumber: json['sectorNumber'] as int? ?? 0,
       archive: json['archive'] as bool? ?? false,
       autoBelay: json['autoBelay'] as bool? ?? false,
+      author: json['author'] as String? ?? '',
+      createDate: json['createDate'] == null
+          ? null
+          : DateTime.parse(json['createDate'] as String),
+      description: json['description'] as String? ?? '',
+      name: json['name'] as String? ?? '',
       id: json['id'] as String? ?? '',
     );
 
@@ -27,4 +33,8 @@ Map<String, dynamic> _$HallRouteModelToJson(HallRouteModel instance) =>
       'sectorNumber': instance.sectorNumber,
       'archive': instance.archive,
       'autoBelay': instance.autoBelay,
+      'description': instance.description,
+      'name': instance.name,
+      'author': instance.author,
+      'createDate': instance.createDate?.toIso8601String(),
     };

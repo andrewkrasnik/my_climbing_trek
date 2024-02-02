@@ -20,8 +20,8 @@ class CostParametersWidget extends HookWidget {
     required this.currencies,
     required this.cubit,
     this.line,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

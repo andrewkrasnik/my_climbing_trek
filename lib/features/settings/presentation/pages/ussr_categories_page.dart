@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:my_climbing_trek/features/settings/presentation/widgets/settings_ussr_category_widget.dart';
 
 class UssrCategoriesPage extends StatelessWidget {
-  const UssrCategoriesPage({Key? key}) : super(key: key);
+  const UssrCategoriesPage({super.key});
 
   @override
   Widget build(BuildContext context) {

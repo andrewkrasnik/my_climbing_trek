@@ -5,8 +5,7 @@ import 'package:my_climbing_trek/features/mountaineering/presentation/widgets/mu
 
 class MountainRouteCategoryWidget extends StatelessWidget {
   final MountainRoute route;
-  const MountainRouteCategoryWidget({required this.route, Key? key})
-      : super(key: key);
+  const MountainRouteCategoryWidget({required this.route, super.key});
 
   @override
   Widget build(BuildContext context) {

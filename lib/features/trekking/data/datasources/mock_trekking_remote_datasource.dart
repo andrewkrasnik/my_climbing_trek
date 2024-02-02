@@ -126,7 +126,7 @@ class MockTrekkingRemoteDataSource implements TrekkingRemoteDataSource {
         name: 'Трек вокруг Аннапурны',
         image:
             'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Tourists_ascending_to_Lake_Tilicho.jpg/1200px-Tourists_ascending_to_Lake_Tilicho.jpg',
-        sections: [],
+        sections: const [],
         type: TrekkingType.walking,
         region: nepal,
         id: 'AnnapurnaCircuit',
@@ -135,7 +135,7 @@ class MockTrekkingRemoteDataSource implements TrekkingRemoteDataSource {
         name: 'Трек вокруг Манаслу',
         image:
             'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHz7kRyi75-zOqbAGhs-mySIpqB4A3Jd_AaVfpU2JgCMwagKivinwQEikbUrNykmYFrls&usqp=CAU',
-        sections: [],
+        sections: const [],
         type: TrekkingType.walking,
         region: nepal,
         id: 'ManaslyCircuit',
@@ -144,7 +144,7 @@ class MockTrekkingRemoteDataSource implements TrekkingRemoteDataSource {
         name: 'Базовый лагерь Эвереста',
         image:
             'https://www.nepalhightrek.com/wp-content/uploads/2022/02/Everest-Base-Camp-Trek-Difficulty.jpg',
-        sections: [],
+        sections: const [],
         type: TrekkingType.walking,
         region: nepal,
         id: 'EverestBaseCamp',
@@ -163,6 +163,5 @@ class MockTrekkingRemoteDataSource implements TrekkingRemoteDataSource {
   }
 
   @override
-  // TODO: implement points
   List<TrekPoint> get points => throw UnimplementedError();
 }

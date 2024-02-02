@@ -17,11 +17,11 @@ class RockAttemptsWithStyle extends StatelessWidget {
   const RockAttemptsWithStyle({
     required this.child,
     required this.attempts,
-    Key? key,
+    super.key,
     required this.treaning,
     required this.isCurrent,
     required this.climbingStyle,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class RockAttemptsWithStyle extends StatelessWidget {
                         attempt: attempt,
                       ),
                     ))
-                .toList(),
+                ,
             if (showAddButton)
               IconButton(
                 onPressed: () {

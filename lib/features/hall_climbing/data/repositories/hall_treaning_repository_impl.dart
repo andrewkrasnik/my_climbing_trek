@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:my_climbing_trek/features/hall_climbing/data/models/hall_treaning_model.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_route.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
@@ -20,7 +23,7 @@ class HallTreaningRepositoryImpl implements HallTreaningRepository {
   });
 
   @override
-  Future<Either<Failure, List<ClimbingHallTreaning>>> allTreanings() async {
+  Future<Either<Failure, List<ClimbingHallTreaning>>> getTreanings() async {
     return await dataSource.allTreanings();
   }
 
@@ -63,5 +66,49 @@ class HallTreaningRepositoryImpl implements HallTreaningRepository {
   Future<Either<Failure, List<ClimbingHallAttempt>>> routeAttempts(
       {required ClimbingHallRoute route}) async {
     return await dataSource.routeAttempts(route: route);
+  }
+
+  @override
+  Future<Either<Failure, List<Map<String, dynamic>>>> getJsonTreanings() async {
+    final failureOrTreanings = await dataSource.allTreanings();
+
+    return failureOrTreanings.fold((failure) => Left(failure), (treanings) {
+      try {
+        return Right(treanings.map((treaning) {
+          final data = (treaning as HallTreaningModel).toJson();
+
+          data['climbingHall'] = jsonDecode(data['climbingHall']);
+
+          for (var attempt in data['attempts']) {
+            if (attempt['route'] != null) {
+              attempt['route'] = jsonDecode(attempt['route']);
+            }
+          }
+
+          return data;
+        }).toList());
+      } catch (error) {
+        return Left(DataConvertionFailure(description: error.toString()));
+      }
+    });
+  }
+
+  @override
+  Future<Either<Failure, Unit>> saveJsonTreanings(List<dynamic> json) async {
+    final treanings = json.map((item) {
+      item['climbingHall'] = jsonEncode(item['climbingHall']);
+
+      for (var attempt in item['attempts']) {
+        if (attempt['route'] != null) {
+          attempt['route'] = jsonEncode(attempt['route']);
+        }
+      }
+      return HallTreaningModel.fromJson(item);
+    }).toList();
+
+    for (final treaning in treanings) {
+      await dataSource.saveTreaning(treaning: treaning);
+    }
+    return const Right(unit);
   }
 }

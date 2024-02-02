@@ -17,9 +17,9 @@ dependencies:
   cupertino_icons: ^1.0.6 
   intl: ^0.18.1
   uuid: ^4.2.1
-  collection: ^1.17.1
+  collection: ^1.17.2
   dartz: ^0.10.1
-  get_it: 7.6.4
+  get_it: 7.6.4 
   # Интерфейсные фичи
   flutter_hooks: ^0.20.3
   flutter_colorpicker: ^1.0.3
@@ -47,18 +47,21 @@ dependencies:
   path: ^1.8.3
   #Интеграция со службами Firebase 
   firebase_core: ^2.22.0
-  firebase_analytics: ^10.6.4
+  firebase_analytics: ^10.7.0
   firebase_crashlytics: ^3.4.4
   firebase_app_check: ^0.2.1+4
   #Удаленная база данных
-  cloud_firestore: ^4.13.0
+  cloud_firestore: ^4.13.1
   #Проверка интернет соединения
   internet_connection_checker: ^1.0.0+1
   #Аунтификация
-  firebase_auth: ^4.13.0
+  firebase_auth: ^4.14.0
 
   #Выбор изображения с устройства
   image_picker: ^1.0.4
+  #Диалоги выбора и сохранения файла
+  file_saver: ^0.2.9
+  file_selector: ^1.0.1
   
 
 

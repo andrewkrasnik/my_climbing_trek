@@ -1,5 +1,5 @@
 import 'package:my_climbing_trek/core/data/region.dart';
-import 'package:my_climbing_trek/core/widgets/my_cached_network_image.dart';
+import 'package:my_climbing_trek/core/widgets/my_sliver_app_bar_widget.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountain.dart';
 import 'package:my_climbing_trek/features/mountaineering/presentation/bloc/mountain_routes/mountain_routes_cubit.dart';
 import 'package:my_climbing_trek/features/mountaineering/presentation/widgets/mountain_route_widget.dart';
@@ -14,8 +14,8 @@ class MountainPage extends StatelessWidget {
   const MountainPage({
     required this.mountain,
     required this.region,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,30 +23,10 @@ class MountainPage extends StatelessWidget {
       child: Scaffold(
         body: CustomScrollView(
           slivers: [
-            SliverAppBar(
-              expandedHeight: 260,
-              stretch: true,
-              floating: true,
-              pinned: true,
-              snap: false,
-              flexibleSpace: FlexibleSpaceBar(
-                background: Hero(
-                  tag: 'Mountain${mountain.id}',
-                  child: MyCachedNetworkImage(
-                    imageUrl: mountain.image,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                centerTitle: true,
-                title: Text(
-                  '${mountain.name}, ${mountain.altitude} м.',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      shadows: [Shadow(offset: Offset.fromDirection(1))]),
-                ),
-              ),
+            MySliverAppBarWidget(
+              heroTag: 'Mountain${mountain.id}',
+              title: '${mountain.name}, ${mountain.altitude} м.',
+              imageUrl: mountain.image,
             ),
             BlocProvider(
               create: (context) => getIt<MountainRoutesCubit>()

@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_climbing_trek/core/data/region.dart';
-import 'package:my_climbing_trek/core/widgets/my_cached_network_image.dart';
+import 'package:my_climbing_trek/core/widgets/my_sliver_app_bar_widget.dart';
 import 'package:my_climbing_trek/core/widgets/scaled_image.dart';
 import 'package:my_climbing_trek/features/trekking/domain/entities/trek.dart';
 import 'package:my_climbing_trek/features/trekking/presentation/bloc/trekking/trekking_cubit.dart';
@@ -14,8 +14,8 @@ class TrekPage extends StatelessWidget {
   const TrekPage({
     required this.trek,
     required this.region,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -52,30 +52,10 @@ class TrekPage extends StatelessWidget {
         ),
         body: CustomScrollView(
           slivers: [
-            SliverAppBar(
-              expandedHeight: 260,
-              stretch: true,
-              floating: true,
-              pinned: true,
-              snap: false,
-              flexibleSpace: FlexibleSpaceBar(
-                background: Hero(
-                  tag: 'Trek${trek.id}',
-                  child: MyCachedNetworkImage(
-                    imageUrl: trek.imageUrl,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                centerTitle: true,
-                title: Text(
-                  trek.name,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      shadows: [Shadow(offset: Offset.fromDirection(1))]),
-                ),
-              ),
+            MySliverAppBarWidget(
+              heroTag: 'Trek${trek.id}',
+              title: trek.name,
+              imageUrl: trek.imageUrl,
             ),
             SliverList(
                 delegate: SliverChildListDelegate([
@@ -94,7 +74,7 @@ class TrekPage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                            '${section.start.name} - ${section.finish.name}: ${section.length} км.${section.climb}'),
+                            '${section.start.name} - ${section.finish.name}: ${section.length} км.${section.climb(false)}'),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),

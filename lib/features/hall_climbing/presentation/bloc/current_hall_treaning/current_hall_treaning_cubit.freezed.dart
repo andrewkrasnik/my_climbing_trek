@@ -96,12 +96,12 @@ class _$CurrentHallTreaningStateCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_CurrentHallTreaningStateCopyWith<$Res>
+abstract class _$$CurrentHallTreaningStateImplCopyWith<$Res>
     implements $CurrentHallTreaningStateCopyWith<$Res> {
-  factory _$$_CurrentHallTreaningStateCopyWith(
-          _$_CurrentHallTreaningState value,
-          $Res Function(_$_CurrentHallTreaningState) then) =
-      __$$_CurrentHallTreaningStateCopyWithImpl<$Res>;
+  factory _$$CurrentHallTreaningStateImplCopyWith(
+          _$CurrentHallTreaningStateImpl value,
+          $Res Function(_$CurrentHallTreaningStateImpl) then) =
+      __$$CurrentHallTreaningStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -114,12 +114,13 @@ abstract class _$$_CurrentHallTreaningStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_CurrentHallTreaningStateCopyWithImpl<$Res>
+class __$$CurrentHallTreaningStateImplCopyWithImpl<$Res>
     extends _$CurrentHallTreaningStateCopyWithImpl<$Res,
-        _$_CurrentHallTreaningState>
-    implements _$$_CurrentHallTreaningStateCopyWith<$Res> {
-  __$$_CurrentHallTreaningStateCopyWithImpl(_$_CurrentHallTreaningState _value,
-      $Res Function(_$_CurrentHallTreaningState) _then)
+        _$CurrentHallTreaningStateImpl>
+    implements _$$CurrentHallTreaningStateImplCopyWith<$Res> {
+  __$$CurrentHallTreaningStateImplCopyWithImpl(
+      _$CurrentHallTreaningStateImpl _value,
+      $Res Function(_$CurrentHallTreaningStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -132,7 +133,7 @@ class __$$_CurrentHallTreaningStateCopyWithImpl<$Res>
     Object? currentRouteStatistic = freezed,
     Object? lastRouteStatistic = freezed,
   }) {
-    return _then(_$_CurrentHallTreaningState(
+    return _then(_$CurrentHallTreaningStateImpl(
       current: freezed == current
           ? _value.current
           : current // ignore: cast_nullable_to_non_nullable
@@ -163,8 +164,8 @@ class __$$_CurrentHallTreaningStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_CurrentHallTreaningState implements _CurrentHallTreaningState {
-  const _$_CurrentHallTreaningState(
+class _$CurrentHallTreaningStateImpl implements _CurrentHallTreaningState {
+  const _$CurrentHallTreaningStateImpl(
       {this.current,
       this.last,
       this.currentAttempt,
@@ -194,7 +195,7 @@ class _$_CurrentHallTreaningState implements _CurrentHallTreaningState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_CurrentHallTreaningState &&
+            other is _$CurrentHallTreaningStateImpl &&
             (identical(other.current, current) || other.current == current) &&
             (identical(other.last, last) || other.last == last) &&
             (identical(other.currentAttempt, currentAttempt) ||
@@ -214,9 +215,9 @@ class _$_CurrentHallTreaningState implements _CurrentHallTreaningState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_CurrentHallTreaningStateCopyWith<_$_CurrentHallTreaningState>
-      get copyWith => __$$_CurrentHallTreaningStateCopyWithImpl<
-          _$_CurrentHallTreaningState>(this, _$identity);
+  _$$CurrentHallTreaningStateImplCopyWith<_$CurrentHallTreaningStateImpl>
+      get copyWith => __$$CurrentHallTreaningStateImplCopyWithImpl<
+          _$CurrentHallTreaningStateImpl>(this, _$identity);
 }
 
 abstract class _CurrentHallTreaningState implements CurrentHallTreaningState {
@@ -227,7 +228,7 @@ abstract class _CurrentHallTreaningState implements CurrentHallTreaningState {
           final ClimbingHallAttempt? lastAttempt,
           final GymRouteAttemptsStatistic? currentRouteStatistic,
           final GymRouteAttemptsStatistic? lastRouteStatistic}) =
-      _$_CurrentHallTreaningState;
+      _$CurrentHallTreaningStateImpl;
 
   @override
   ClimbingHallTreaning? get current;
@@ -243,6 +244,6 @@ abstract class _CurrentHallTreaningState implements CurrentHallTreaningState {
   GymRouteAttemptsStatistic? get lastRouteStatistic;
   @override
   @JsonKey(ignore: true)
-  _$$_CurrentHallTreaningStateCopyWith<_$_CurrentHallTreaningState>
+  _$$CurrentHallTreaningStateImplCopyWith<_$CurrentHallTreaningStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

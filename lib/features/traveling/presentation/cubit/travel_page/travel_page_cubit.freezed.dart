@@ -24,6 +24,7 @@ mixin _$TravelPageState {
   List<TravelDay> get days => throw _privateConstructorUsedError;
   bool get loading => throw _privateConstructorUsedError;
   String get errorMessage => throw _privateConstructorUsedError;
+  List<Region> get regions => throw _privateConstructorUsedError;
   FeedingStatistic? get feedingStatistic => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -46,6 +47,7 @@ abstract class $TravelPageStateCopyWith<$Res> {
       List<TravelDay> days,
       bool loading,
       String errorMessage,
+      List<Region> regions,
       FeedingStatistic? feedingStatistic});
 }
 
@@ -70,6 +72,7 @@ class _$TravelPageStateCopyWithImpl<$Res, $Val extends TravelPageState>
     Object? days = null,
     Object? loading = null,
     Object? errorMessage = null,
+    Object? regions = null,
     Object? feedingStatistic = freezed,
   }) {
     return _then(_value.copyWith(
@@ -105,6 +108,10 @@ class _$TravelPageStateCopyWithImpl<$Res, $Val extends TravelPageState>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String,
+      regions: null == regions
+          ? _value.regions
+          : regions // ignore: cast_nullable_to_non_nullable
+              as List<Region>,
       feedingStatistic: freezed == feedingStatistic
           ? _value.feedingStatistic
           : feedingStatistic // ignore: cast_nullable_to_non_nullable
@@ -114,11 +121,11 @@ class _$TravelPageStateCopyWithImpl<$Res, $Val extends TravelPageState>
 }
 
 /// @nodoc
-abstract class _$$_TravelPageStateCopyWith<$Res>
+abstract class _$$TravelPageStateImplCopyWith<$Res>
     implements $TravelPageStateCopyWith<$Res> {
-  factory _$$_TravelPageStateCopyWith(
-          _$_TravelPageState value, $Res Function(_$_TravelPageState) then) =
-      __$$_TravelPageStateCopyWithImpl<$Res>;
+  factory _$$TravelPageStateImplCopyWith(_$TravelPageStateImpl value,
+          $Res Function(_$TravelPageStateImpl) then) =
+      __$$TravelPageStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -130,15 +137,16 @@ abstract class _$$_TravelPageStateCopyWith<$Res>
       List<TravelDay> days,
       bool loading,
       String errorMessage,
+      List<Region> regions,
       FeedingStatistic? feedingStatistic});
 }
 
 /// @nodoc
-class __$$_TravelPageStateCopyWithImpl<$Res>
-    extends _$TravelPageStateCopyWithImpl<$Res, _$_TravelPageState>
-    implements _$$_TravelPageStateCopyWith<$Res> {
-  __$$_TravelPageStateCopyWithImpl(
-      _$_TravelPageState _value, $Res Function(_$_TravelPageState) _then)
+class __$$TravelPageStateImplCopyWithImpl<$Res>
+    extends _$TravelPageStateCopyWithImpl<$Res, _$TravelPageStateImpl>
+    implements _$$TravelPageStateImplCopyWith<$Res> {
+  __$$TravelPageStateImplCopyWithImpl(
+      _$TravelPageStateImpl _value, $Res Function(_$TravelPageStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -152,9 +160,10 @@ class __$$_TravelPageStateCopyWithImpl<$Res>
     Object? days = null,
     Object? loading = null,
     Object? errorMessage = null,
+    Object? regions = null,
     Object? feedingStatistic = freezed,
   }) {
-    return _then(_$_TravelPageState(
+    return _then(_$TravelPageStateImpl(
       travel: freezed == travel
           ? _value.travel
           : travel // ignore: cast_nullable_to_non_nullable
@@ -187,6 +196,10 @@ class __$$_TravelPageStateCopyWithImpl<$Res>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String,
+      regions: null == regions
+          ? _value._regions
+          : regions // ignore: cast_nullable_to_non_nullable
+              as List<Region>,
       feedingStatistic: freezed == feedingStatistic
           ? _value.feedingStatistic
           : feedingStatistic // ignore: cast_nullable_to_non_nullable
@@ -197,8 +210,8 @@ class __$$_TravelPageStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_TravelPageState implements _TravelPageState {
-  const _$_TravelPageState(
+class _$TravelPageStateImpl implements _TravelPageState {
+  const _$TravelPageStateImpl(
       {this.travel,
       required this.tabIndex,
       required final List<CostLine> costs,
@@ -207,11 +220,13 @@ class _$_TravelPageState implements _TravelPageState {
       required final List<TravelDay> days,
       required this.loading,
       required this.errorMessage,
+      required final List<Region> regions,
       this.feedingStatistic})
       : _costs = costs,
         _insurances = insurances,
         _budgetLines = budgetLines,
-        _days = days;
+        _days = days,
+        _regions = regions;
 
   @override
   final Travel? travel;
@@ -253,19 +268,27 @@ class _$_TravelPageState implements _TravelPageState {
   final bool loading;
   @override
   final String errorMessage;
+  final List<Region> _regions;
+  @override
+  List<Region> get regions {
+    if (_regions is EqualUnmodifiableListView) return _regions;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_regions);
+  }
+
   @override
   final FeedingStatistic? feedingStatistic;
 
   @override
   String toString() {
-    return 'TravelPageState(travel: $travel, tabIndex: $tabIndex, costs: $costs, insurances: $insurances, budgetLines: $budgetLines, days: $days, loading: $loading, errorMessage: $errorMessage, feedingStatistic: $feedingStatistic)';
+    return 'TravelPageState(travel: $travel, tabIndex: $tabIndex, costs: $costs, insurances: $insurances, budgetLines: $budgetLines, days: $days, loading: $loading, errorMessage: $errorMessage, regions: $regions, feedingStatistic: $feedingStatistic)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_TravelPageState &&
+            other is _$TravelPageStateImpl &&
             (identical(other.travel, travel) || other.travel == travel) &&
             (identical(other.tabIndex, tabIndex) ||
                 other.tabIndex == tabIndex) &&
@@ -278,6 +301,7 @@ class _$_TravelPageState implements _TravelPageState {
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
+            const DeepCollectionEquality().equals(other._regions, _regions) &&
             (identical(other.feedingStatistic, feedingStatistic) ||
                 other.feedingStatistic == feedingStatistic));
   }
@@ -293,13 +317,15 @@ class _$_TravelPageState implements _TravelPageState {
       const DeepCollectionEquality().hash(_days),
       loading,
       errorMessage,
+      const DeepCollectionEquality().hash(_regions),
       feedingStatistic);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TravelPageStateCopyWith<_$_TravelPageState> get copyWith =>
-      __$$_TravelPageStateCopyWithImpl<_$_TravelPageState>(this, _$identity);
+  _$$TravelPageStateImplCopyWith<_$TravelPageStateImpl> get copyWith =>
+      __$$TravelPageStateImplCopyWithImpl<_$TravelPageStateImpl>(
+          this, _$identity);
 }
 
 abstract class _TravelPageState implements TravelPageState {
@@ -312,7 +338,8 @@ abstract class _TravelPageState implements TravelPageState {
       required final List<TravelDay> days,
       required final bool loading,
       required final String errorMessage,
-      final FeedingStatistic? feedingStatistic}) = _$_TravelPageState;
+      required final List<Region> regions,
+      final FeedingStatistic? feedingStatistic}) = _$TravelPageStateImpl;
 
   @override
   Travel? get travel;
@@ -331,9 +358,11 @@ abstract class _TravelPageState implements TravelPageState {
   @override
   String get errorMessage;
   @override
+  List<Region> get regions;
+  @override
   FeedingStatistic? get feedingStatistic;
   @override
   @JsonKey(ignore: true)
-  _$$_TravelPageStateCopyWith<_$_TravelPageState> get copyWith =>
+  _$$TravelPageStateImplCopyWith<_$TravelPageStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

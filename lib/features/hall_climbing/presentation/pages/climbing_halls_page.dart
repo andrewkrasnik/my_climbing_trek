@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ClimbingHallsPage extends StatelessWidget {
-  const ClimbingHallsPage({Key? key}) : super(key: key);
+  const ClimbingHallsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,8 @@ class ClimbingHallsPage extends StatelessWidget {
             body: Padding(
               padding: const EdgeInsets.all(8.0),
               child: state.maybeMap(
-                loading: (_) => const CircularProgressIndicator(),
+                loading: (_) =>
+                    const Center(child: CircularProgressIndicator()),
                 data: (dataState) => ListView.separated(
                     itemBuilder: (context, index) => ClimbingHallWidget(
                           climbingHall: dataState.halls[index],
@@ -31,6 +32,7 @@ class ClimbingHallsPage extends StatelessWidget {
                                   builder: (context) => ClimbingHallPage(
                                         climbingHall: dataState.halls[index],
                                       ))),
+                          height: 220,
                         ),
                     separatorBuilder: (_, __) => const SizedBox(
                           height: 16,

@@ -1,4 +1,5 @@
 import 'package:my_climbing_trek/core/data/climbing_style.dart';
+import 'package:my_climbing_trek/core/data/ice_category.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/bool_value_widget.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/int_counter_widget.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_treaning_attempt.dart';
@@ -6,6 +7,7 @@ import 'package:my_climbing_trek/features/ice_climbing/presentation/bloc/current
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:my_climbing_trek/features/ice_climbing/presentation/widgets/ice_category_widget.dart';
+import 'package:my_climbing_trek/features/ice_climbing/presentation/widgets/select_ice_category_widget.dart';
 
 class IceAttemptDialog extends HookWidget {
   final IceTreaningAttempt attempt;
@@ -16,11 +18,12 @@ class IceAttemptDialog extends HookWidget {
     required this.attempt,
     required this.cubit,
     this.editing = false,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final categoryState = useState<IceCategory>(attempt.category);
     final toolsCountState = useState<int>(attempt.toolsCount);
     final suspensionCountState = useState<int>(attempt.suspensionCount);
     final fallCountState = useState<int>(attempt.fallCount);
@@ -36,7 +39,19 @@ class IceAttemptDialog extends HookWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              IceCategoryWidget(category: attempt.category),
+              if (editing)
+                SelectIceCategoryWidget(
+                  maxCategory: attempt.sector.maxCategory,
+                  currentCategory: categoryState.value,
+                  onTap: (category) {
+                    categoryState.value = category;
+                  },
+                ),
+              if (!editing)
+                IceCategoryWidget(
+                  category: categoryState.value,
+                  prefix: attempt.sector.icePrefix,
+                ),
               Text(attempt.style.toString()),
               Text('Сектор: ${attempt.sector.name}'),
               Text('Пройдено ${lengthState.value} м.'),
@@ -156,6 +171,7 @@ class IceAttemptDialog extends HookWidget {
           ElevatedButton(
             onPressed: () {
               cubit.finishCurrentAttempt(
+                category: categoryState.value,
                 fail: failState.value,
                 downClimbing: downClimbingState.value,
                 fallCount: fallCountState.value,

@@ -12,8 +12,8 @@ class TechniqueWidget extends HookWidget {
     required this.technique,
     this.selectMode = false,
     this.onPressed,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

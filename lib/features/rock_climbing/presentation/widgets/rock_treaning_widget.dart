@@ -14,11 +14,16 @@ class RockTreaningWidget extends StatelessWidget {
   final bool isCurrent;
 
   const RockTreaningWidget(
-      {required this.treaning, this.isCurrent = false, Key? key})
-      : super(key: key);
+      {required this.treaning, this.isCurrent = false, super.key});
 
   @override
   Widget build(BuildContext context) {
+    String title = treaning.district.name;
+
+    if (treaning.sectors.length == 1) {
+      title = '$title, ${treaning.sectors.first.name}';
+    }
+
     return BlocBuilder<RockTreaningCubit, RockTreaningState>(
       builder: (context, state) {
         return Padding(
@@ -51,7 +56,7 @@ class RockTreaningWidget extends StatelessWidget {
                                               }
                                             : null,
                                       ))),
-                          child: Text(treaning.district.name)),
+                          child: Text(title)),
                       const Spacer(),
                       Text(DateFormat('dd.MM.yyyy').format(treaning.date)),
                       IconButton(

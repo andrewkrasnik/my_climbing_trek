@@ -8,9 +8,9 @@ class RockTreaningPictureWidget extends StatelessWidget {
   final RockTreaning treaning;
 
   const RockTreaningPictureWidget({
-    Key? key,
+    super.key,
     required this.treaning,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,54 +20,57 @@ class RockTreaningPictureWidget extends StatelessWidget {
       fontWeight: FontWeight.bold,
       shadows: [Shadow(offset: Offset.fromDirection(1, 1))],
     );
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        if (treaning.hasTrad)
-          RockAttemptsWithStyle(
-            attempts: treaning.tradAttempts,
-            treaning: treaning,
-            isCurrent: false,
-            climbingStyle: ClimbingStyle.trad,
-            child: Text(
-              'Трэд:',
-              style: textStyle,
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (treaning.hasTrad)
+            RockAttemptsWithStyle(
+              attempts: treaning.tradAttempts,
+              treaning: treaning,
+              isCurrent: false,
+              climbingStyle: ClimbingStyle.trad,
+              child: Text(
+                'Трэд:',
+                style: textStyle,
+              ),
             ),
-          ),
-        if (treaning.hasLead)
-          RockAttemptsWithStyle(
-            attempts: treaning.leadAttempts,
-            treaning: treaning,
-            isCurrent: false,
-            climbingStyle: ClimbingStyle.lead,
-            child: Text(
-              'Нижняя:',
-              style: textStyle,
+          if (treaning.hasLead)
+            RockAttemptsWithStyle(
+              attempts: treaning.leadAttempts,
+              treaning: treaning,
+              isCurrent: false,
+              climbingStyle: ClimbingStyle.lead,
+              child: Text(
+                'Нижняя:',
+                style: textStyle,
+              ),
             ),
-          ),
-        if (treaning.hasBouldering)
-          RockAttemptsWithStyle(
-            attempts: treaning.boulderingAttempts,
-            treaning: treaning,
-            isCurrent: false,
-            climbingStyle: ClimbingStyle.bouldering,
-            child: Text(
-              'Болдер:',
-              style: textStyle,
+          if (treaning.hasBouldering)
+            RockAttemptsWithStyle(
+              attempts: treaning.boulderingAttempts,
+              treaning: treaning,
+              isCurrent: false,
+              climbingStyle: ClimbingStyle.bouldering,
+              child: Text(
+                'Болдер:',
+                style: textStyle,
+              ),
             ),
-          ),
-        if (treaning.hasTopRope)
-          RockAttemptsWithStyle(
-            attempts: treaning.topRopeAttempts,
-            treaning: treaning,
-            isCurrent: false,
-            climbingStyle: ClimbingStyle.topRope,
-            child: Text(
-              'Верхняя:',
-              style: textStyle,
+          if (treaning.hasTopRope)
+            RockAttemptsWithStyle(
+              attempts: treaning.topRopeAttempts,
+              treaning: treaning,
+              isCurrent: false,
+              climbingStyle: ClimbingStyle.topRope,
+              child: Text(
+                'Верхняя:',
+                style: textStyle,
+              ),
             ),
-          ),
-      ],
+        ],
+      ),
     );
   }
 }

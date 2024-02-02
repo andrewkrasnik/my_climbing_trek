@@ -9,8 +9,8 @@ class AscensionPage extends StatelessWidget {
 
   const AscensionPage({
     required this.ascension,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

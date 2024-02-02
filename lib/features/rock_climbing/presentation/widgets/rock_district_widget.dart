@@ -5,16 +5,17 @@ import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_dis
 class RockDistrictWidget extends StatelessWidget {
   final RockDistrict district;
   final void Function()? onTap;
+  final double height;
 
-  const RockDistrictWidget({required this.district, this.onTap, Key? key})
-      : super(key: key);
+  const RockDistrictWidget(
+      {required this.district, this.onTap, this.height = 160, super.key});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 160,
+        height: height,
         width: 180,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4.0),

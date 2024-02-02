@@ -27,8 +27,7 @@ import 'package:my_climbing_trek/features/trekking/presentation/widgets/trekking
 
 class TreaningWidgetFactory extends StatelessWidget {
   final Treaning treaning;
-  const TreaningWidgetFactory({required this.treaning, Key? key})
-      : super(key: key);
+  const TreaningWidgetFactory({required this.treaning, super.key});
 
   @override
   Widget build(BuildContext context) {

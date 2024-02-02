@@ -95,11 +95,12 @@ class _$RockTreaningStateCopyWithImpl<$Res, $Val extends RockTreaningState>
 }
 
 /// @nodoc
-abstract class _$$_CurrentIceTreaningStateCopyWith<$Res>
+abstract class _$$CurrentIceTreaningStateImplCopyWith<$Res>
     implements $RockTreaningStateCopyWith<$Res> {
-  factory _$$_CurrentIceTreaningStateCopyWith(_$_CurrentIceTreaningState value,
-          $Res Function(_$_CurrentIceTreaningState) then) =
-      __$$_CurrentIceTreaningStateCopyWithImpl<$Res>;
+  factory _$$CurrentIceTreaningStateImplCopyWith(
+          _$CurrentIceTreaningStateImpl value,
+          $Res Function(_$CurrentIceTreaningStateImpl) then) =
+      __$$CurrentIceTreaningStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -112,11 +113,12 @@ abstract class _$$_CurrentIceTreaningStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_CurrentIceTreaningStateCopyWithImpl<$Res>
-    extends _$RockTreaningStateCopyWithImpl<$Res, _$_CurrentIceTreaningState>
-    implements _$$_CurrentIceTreaningStateCopyWith<$Res> {
-  __$$_CurrentIceTreaningStateCopyWithImpl(_$_CurrentIceTreaningState _value,
-      $Res Function(_$_CurrentIceTreaningState) _then)
+class __$$CurrentIceTreaningStateImplCopyWithImpl<$Res>
+    extends _$RockTreaningStateCopyWithImpl<$Res, _$CurrentIceTreaningStateImpl>
+    implements _$$CurrentIceTreaningStateImplCopyWith<$Res> {
+  __$$CurrentIceTreaningStateImplCopyWithImpl(
+      _$CurrentIceTreaningStateImpl _value,
+      $Res Function(_$CurrentIceTreaningStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -129,7 +131,7 @@ class __$$_CurrentIceTreaningStateCopyWithImpl<$Res>
     Object? currentRouteStatistic = freezed,
     Object? lastRouteStatistic = freezed,
   }) {
-    return _then(_$_CurrentIceTreaningState(
+    return _then(_$CurrentIceTreaningStateImpl(
       currentTreaning: freezed == currentTreaning
           ? _value.currentTreaning
           : currentTreaning // ignore: cast_nullable_to_non_nullable
@@ -160,8 +162,8 @@ class __$$_CurrentIceTreaningStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_CurrentIceTreaningState implements _CurrentIceTreaningState {
-  const _$_CurrentIceTreaningState(
+class _$CurrentIceTreaningStateImpl implements _CurrentIceTreaningState {
+  const _$CurrentIceTreaningStateImpl(
       {this.currentTreaning,
       this.lastTreaning,
       this.currentAttempt,
@@ -191,7 +193,7 @@ class _$_CurrentIceTreaningState implements _CurrentIceTreaningState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_CurrentIceTreaningState &&
+            other is _$CurrentIceTreaningStateImpl &&
             (identical(other.currentTreaning, currentTreaning) ||
                 other.currentTreaning == currentTreaning) &&
             (identical(other.lastTreaning, lastTreaning) ||
@@ -213,10 +215,9 @@ class _$_CurrentIceTreaningState implements _CurrentIceTreaningState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_CurrentIceTreaningStateCopyWith<_$_CurrentIceTreaningState>
-      get copyWith =>
-          __$$_CurrentIceTreaningStateCopyWithImpl<_$_CurrentIceTreaningState>(
-              this, _$identity);
+  _$$CurrentIceTreaningStateImplCopyWith<_$CurrentIceTreaningStateImpl>
+      get copyWith => __$$CurrentIceTreaningStateImplCopyWithImpl<
+          _$CurrentIceTreaningStateImpl>(this, _$identity);
 }
 
 abstract class _CurrentIceTreaningState implements RockTreaningState {
@@ -227,7 +228,7 @@ abstract class _CurrentIceTreaningState implements RockTreaningState {
           final RockTreaningAttempt? lastAttempt,
           final RockRouteAttemptsStatistic? currentRouteStatistic,
           final RockRouteAttemptsStatistic? lastRouteStatistic}) =
-      _$_CurrentIceTreaningState;
+      _$CurrentIceTreaningStateImpl;
 
   @override
   RockTreaning? get currentTreaning;
@@ -243,6 +244,6 @@ abstract class _CurrentIceTreaningState implements RockTreaningState {
   RockRouteAttemptsStatistic? get lastRouteStatistic;
   @override
   @JsonKey(ignore: true)
-  _$$_CurrentIceTreaningStateCopyWith<_$_CurrentIceTreaningState>
+  _$$CurrentIceTreaningStateImplCopyWith<_$CurrentIceTreaningStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

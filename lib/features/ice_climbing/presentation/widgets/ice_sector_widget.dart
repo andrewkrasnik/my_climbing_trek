@@ -5,17 +5,22 @@ import 'package:flutter/material.dart';
 class IceSectorWidget extends StatelessWidget {
   final IceSector sector;
   final void Function()? onTap;
-  const IceSectorWidget({required this.sector, this.onTap, Key? key})
-      : super(key: key);
+  final double height;
+
+  const IceSectorWidget({
+    required this.sector,
+    this.onTap,
+    this.height = 180,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 160,
+        height: height,
         width: 180,
-        padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4.0),
         ),

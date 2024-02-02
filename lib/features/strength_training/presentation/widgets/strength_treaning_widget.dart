@@ -1,5 +1,6 @@
 import 'package:my_climbing_trek/core/extentions/date_time_extention.dart';
 import 'package:my_climbing_trek/core/widgets/int_counter_widget.dart';
+import 'package:my_climbing_trek/core/widgets/treaning_picture_page.dart';
 
 import 'package:my_climbing_trek/features/strength_training/domain/entities/strength_treaning.dart';
 import 'package:my_climbing_trek/features/strength_training/presentation/cubit/strength_training/strength_training_cubit.dart';
@@ -7,13 +8,13 @@ import 'package:my_climbing_trek/features/strength_training/presentation/pages/s
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:my_climbing_trek/features/strength_training/presentation/widgets/strength_treaning_picture_widget.dart';
 
 class StrengthTreaningWidget extends StatelessWidget {
   final StrengthTreaning treaning;
   final bool editing;
   const StrengthTreaningWidget(
-      {required this.treaning, this.editing = false, Key? key})
-      : super(key: key);
+      {required this.treaning, this.editing = false, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,48 +33,12 @@ class StrengthTreaningWidget extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        const Text('Силовая тренировка'),
                         const Spacer(),
                         Text(treaning.date.dayString()),
                         if (editing)
                           Row(
                             children: [
-                              IconButton(
-                                onPressed: () async {
-                                  final cubit =
-                                      BlocProvider.of<StrengthTrainingCubit>(
-                                          context);
-
-                                  final finishPermission =
-                                      await showDialog<bool>(
-                                    context: context,
-                                    builder: (context) => AlertDialog(
-                                      title: const Text(
-                                          'Подтверждение завершения тренировки'),
-                                      content:
-                                          const Text('Завершить тренировку?'),
-                                      actions: [
-                                        ElevatedButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pop(false);
-                                          },
-                                          child: const Text('Отменить'),
-                                        ),
-                                        ElevatedButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pop(true);
-                                          },
-                                          child: const Text('Продолжить'),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-
-                                  if (finishPermission == true) {
-                                    cubit.finishTreaning(treaning: treaning);
-                                  }
-                                },
-                                icon: const Icon(Icons.stop),
-                              ),
                               IconButton(
                                 onPressed: () async {
                                   final cubit =
@@ -91,15 +56,66 @@ class StrengthTreaningWidget extends StatelessWidget {
                                 icon: const Icon(Icons.settings),
                               ),
                             ],
-                          )
+                          ),
+                        IconButton(
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => TreaningPicturePage(
+                                      treaning: treaning,
+                                      child: StrengthTreaningPictureWidget(
+                                        treaning: treaning,
+                                      ),
+                                    )));
+                          },
+                          icon: const Icon(
+                            Icons.share,
+                            size: 16,
+                          ),
+                        ),
                       ],
                     ),
-                    ...treaning.attempts
-                        .map((item) => StrengthTreaningExerciseLineWidget(
-                              item: item,
-                              treaning: treaning,
-                              editing: editing,
-                            ))
+                    ...treaning.attempts.map(
+                      (item) => StrengthTreaningExerciseLineWidget(
+                        item: item,
+                        treaning: treaning,
+                        editing: editing,
+                      ),
+                    ),
+                    if (editing)
+                      TextButton(
+                        child: const Text('Завершить'),
+                        onPressed: () async {
+                          final cubit =
+                              BlocProvider.of<StrengthTrainingCubit>(context);
+
+                          final finishPermission = await showDialog<bool>(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: const Text(
+                                  'Подтверждение завершения тренировки'),
+                              content: const Text('Завершить тренировку?'),
+                              actions: [
+                                ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop(false);
+                                  },
+                                  child: const Text('Отменить'),
+                                ),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop(true);
+                                  },
+                                  child: const Text('Продолжить'),
+                                ),
+                              ],
+                            ),
+                          );
+
+                          if (finishPermission == true) {
+                            cubit.finishTreaning(treaning: treaning);
+                          }
+                        },
+                      ),
                   ],
                 ),
               ),
@@ -111,13 +127,15 @@ class StrengthTreaningExerciseLineWidget extends HookWidget {
   final StrengthTreaningExerciseLine item;
   final StrengthTreaning treaning;
   final bool editing;
+  final TextStyle? textStyle;
 
-  const StrengthTreaningExerciseLineWidget(
-      {required this.item,
-      required this.treaning,
-      this.editing = false,
-      Key? key})
-      : super(key: key);
+  const StrengthTreaningExerciseLineWidget({
+    required this.item,
+    required this.treaning,
+    this.editing = false,
+    this.textStyle,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -133,7 +151,7 @@ class StrengthTreaningExerciseLineWidget extends HookWidget {
                 children: [
                   SizedBox(
                       width: MediaQuery.of(context).size.width * 0.25,
-                      child: Text('${item.exercise.name}:')),
+                      child: Text(item.exercise.name)),
                   IntCounterWidget(valueState: countController),
                   IconButton(
                     onPressed: () {
@@ -164,13 +182,16 @@ class StrengthTreaningExerciseLineWidget extends HookWidget {
               ),
             Wrap(
               runSpacing: 8,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              alignment: WrapAlignment.start,
               children: [
                 if (!editing) ...[
                   SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.25,
+                      width: MediaQuery.of(context).size.width * 0.3,
                       child: Text(
-                        '${item.exercise.name}:',
+                        item.exercise.name,
                         textAlign: TextAlign.start,
+                        style: textStyle,
                       )),
                 ],
                 ...item.repetitions.map(
@@ -181,6 +202,7 @@ class StrengthTreaningExerciseLineWidget extends HookWidget {
                       child: Text(
                         count.toString(),
                         textAlign: TextAlign.center,
+                        style: textStyle,
                       ),
                     ),
                   ),

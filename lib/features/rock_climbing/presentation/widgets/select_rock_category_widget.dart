@@ -6,8 +6,7 @@ class SelectRockCategoryWidget extends StatelessWidget {
   final ClimbingCategory? currentCategory;
   final void Function(ClimbingCategory)? onTap;
 
-  const SelectRockCategoryWidget({Key? key, this.currentCategory, this.onTap})
-      : super(key: key);
+  const SelectRockCategoryWidget({super.key, this.currentCategory, this.onTap});
 
   @override
   Widget build(BuildContext context) {

@@ -7,8 +7,8 @@ import 'package:my_climbing_trek/features/traveling/domain/entities/cost_line.da
 import 'package:my_climbing_trek/features/traveling/presentation/cubit/travel_page/travel_page_cubit.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/widgets/cost_parameters_widget.dart';
 
-class TravelCostListWdget extends StatelessWidget {
-  const TravelCostListWdget({Key? key}) : super(key: key);
+class TravelCostListWidget extends StatelessWidget {
+  const TravelCostListWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +18,16 @@ class TravelCostListWdget extends StatelessWidget {
 
         return Column(
           children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Итого: ${cubit.costSum}',
+                  style: const TextStyle(fontSize: 20),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
             ...state.costs.map(
               (cost) => SlidableDataLineWidget(
                 onDelete: (context) {

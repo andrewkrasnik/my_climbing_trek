@@ -51,7 +51,7 @@ class GetAllTreanings {
 
     if (gym) {
       final failureOrHallTreanings =
-          await _hallTreaningRepository.allTreanings();
+          await _hallTreaningRepository.getTreanings();
 
       failureOrHallTreanings.fold(
         (failure) => null,

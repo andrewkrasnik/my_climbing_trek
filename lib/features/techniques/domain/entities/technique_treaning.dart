@@ -1,4 +1,5 @@
 import 'package:my_climbing_trek/core/data/treaning.dart';
+import 'package:my_climbing_trek/core/extentions/date_time_extention.dart';
 import 'package:my_climbing_trek/features/techniques/domain/entities/technique_group.dart';
 import 'package:my_climbing_trek/features/techniques/domain/entities/technique_treaning_item.dart';
 
@@ -31,4 +32,13 @@ class TechniqueTreaning extends Treaning {
     super.start,
     this.comment = '',
   }) : _items = items ?? [];
+
+  @override
+  String get title => 'Техническая тренировка ${date.dayString()}';
+
+  @override
+  String get image => items.firstOrNull?.group.image ?? '';
+
+  @override
+  String get place => 'Техническая тренировка';
 }

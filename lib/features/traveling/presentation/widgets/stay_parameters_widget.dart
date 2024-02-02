@@ -8,8 +8,7 @@ class StayParametersWidget extends HookWidget {
   final StayLine? line;
   final TravelDayCubit? cubit;
 
-  const StayParametersWidget({this.cubit, this.line, Key? key})
-      : super(key: key);
+  const StayParametersWidget({this.cubit, this.line, super.key});
 
   @override
   Widget build(BuildContext context) {

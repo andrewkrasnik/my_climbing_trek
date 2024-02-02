@@ -9,7 +9,7 @@ import 'package:my_climbing_trek/features/techniques/presentation/widgets/techni
 import 'package:my_climbing_trek/service_locator.dart';
 
 class TechniquesHomePageWidget extends StatelessWidget {
-  const TechniquesHomePageWidget({Key? key}) : super(key: key);
+  const TechniquesHomePageWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

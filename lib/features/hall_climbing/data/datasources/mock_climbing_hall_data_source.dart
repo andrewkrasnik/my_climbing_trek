@@ -6,15 +6,9 @@ import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/hall_routes_filter.dart';
 import 'package:dartz/dartz.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall.dart';
-import 'package:injectable/injectable.dart';
 
 // @LazySingleton(as: ClimbingHallDataSource)
 class MockClimbingHallDataSource implements ClimbingHallDataSource {
-  static const List<City> _cities = [
-    City.moscow,
-    City.spb,
-  ];
-
   static const HallModel _sportStation = HallModel(
     name: 'СпортСтейшн',
     address: 'Новоостаповская улица, д. 5, стр. 2',
@@ -94,11 +88,6 @@ class MockClimbingHallDataSource implements ClimbingHallDataSource {
   }
 
   @override
-  Future<Either<Failure, List<City>>> cities() async {
-    return const Right(_cities);
-  }
-
-  @override
   Future<Either<Failure, List<ClimbingHallRoute>>> climbingHallRoutes({
     required ClimbingHall climbingHall,
     HallRouteFilter? filter,
@@ -129,33 +118,28 @@ class MockClimbingHallDataSource implements ClimbingHallDataSource {
   @override
   Future<Either<Failure, ClimbingHallRoute>> getRouteById(
       {required String id, required String hallId}) {
-    // TODO: implement getRouteById
     throw UnimplementedError();
   }
 
   @override
   Future<Either<Failure, Unit>> updateRoute(
       {required ClimbingHall climbingHall, required ClimbingHallRoute route}) {
-    // TODO: implement updateRoute
     throw UnimplementedError();
   }
 
   @override
   Future<Either<Failure, Unit>> updateData() {
-    // TODO: implement updateData
     throw UnimplementedError();
   }
 
   @override
   Future<Either<Failure, Unit>> saveGyms({required List<ClimbingHall> gyms}) {
-    // TODO: implement saveGyms
     throw UnimplementedError();
   }
 
   @override
   Future<Either<Failure, Unit>> saveRoutes(
       {required ClimbingHall gym, required List<ClimbingHallRoute> routes}) {
-    // TODO: implement saveRoutes
     throw UnimplementedError();
   }
 }

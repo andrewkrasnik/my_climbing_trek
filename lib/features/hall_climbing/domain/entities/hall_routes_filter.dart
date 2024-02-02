@@ -1,9 +1,9 @@
-import 'package:my_climbing_trek/core/data/climbing_category.dart';
 import 'package:my_climbing_trek/core/data/climbing_route_type.dart';
+import 'package:my_climbing_trek/core/data/difficulty_category.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_route.dart';
 
 class HallRouteFilter {
-  final ClimbingCategory? category;
+  final DifficultyCategory? category;
   final ClimbingRouteType? type;
   final bool? autoBelay;
   final bool active;
@@ -15,7 +15,7 @@ class HallRouteFilter {
   });
 
   HallRouteFilter copyWith({
-    ClimbingCategory? category,
+    DifficultyCategory? category,
     ClimbingRouteType? type,
   }) {
     return HallRouteFilter(

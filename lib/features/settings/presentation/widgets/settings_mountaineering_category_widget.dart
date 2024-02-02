@@ -5,9 +5,9 @@ class SettingsMountaineeringCategoryWidget extends StatelessWidget {
   final MountaineeringCategory category;
 
   const SettingsMountaineeringCategoryWidget({
-    Key? key,
+    super.key,
     required this.category,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

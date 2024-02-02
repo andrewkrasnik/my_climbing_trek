@@ -5,7 +5,7 @@ import 'package:my_climbing_trek/features/trekking/domain/entities/trek.dart';
 class TrekWidget extends StatelessWidget {
   final Trek trek;
 
-  const TrekWidget({required this.trek, Key? key}) : super(key: key);
+  const TrekWidget({required this.trek, super.key});
 
   @override
   Widget build(BuildContext context) {

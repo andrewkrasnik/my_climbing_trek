@@ -20,8 +20,7 @@ class TravelDayLinesWidget extends StatelessWidget {
       {required this.stayLines,
       required this.transportLines,
       this.editing = false,
-      Key? key})
-      : super(key: key);
+      super.key});
 
   @override
   Widget build(BuildContext context) {

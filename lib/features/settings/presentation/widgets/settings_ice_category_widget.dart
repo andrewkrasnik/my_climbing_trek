@@ -5,9 +5,9 @@ class SettingsIceCategoryWidget extends StatelessWidget {
   final IceCategory category;
 
   const SettingsIceCategoryWidget({
-    Key? key,
+    super.key,
     required this.category,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

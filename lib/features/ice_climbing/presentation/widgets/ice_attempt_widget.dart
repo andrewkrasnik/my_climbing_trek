@@ -14,8 +14,8 @@ class IceAttemptWidget extends StatelessWidget {
     required this.attempt,
     this.isCurrent = false,
     required this.cubit,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -40,9 +40,13 @@ class IceAttemptWidget extends StatelessWidget {
               const SizedBox(height: 8),
               Row(
                 children: [
-                  const Text('до:'),
                   const SizedBox(width: 8),
-                  IceCategoryWidget(category: attempt.sector.maxCategory),
+                  IceCategoryWidget(
+                    category: isCurrent
+                        ? attempt.sector.maxCategory
+                        : attempt.category,
+                    prefix: attempt.sector.icePrefix,
+                  ),
                   const SizedBox(width: 24),
                   if (isCurrent)
                     ElevatedButton(

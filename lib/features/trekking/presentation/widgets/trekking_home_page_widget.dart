@@ -17,8 +17,8 @@ class TrekkingHomePageWidget extends StatelessWidget {
   final PlaceFilter? filter;
   const TrekkingHomePageWidget({
     this.filter,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

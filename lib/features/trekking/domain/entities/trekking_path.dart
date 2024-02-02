@@ -1,5 +1,6 @@
 import 'package:my_climbing_trek/core/data/region.dart';
 import 'package:my_climbing_trek/core/data/treaning.dart';
+import 'package:my_climbing_trek/core/extentions/date_time_extention.dart';
 import 'package:my_climbing_trek/features/trekking/domain/entities/trek.dart';
 import 'package:my_climbing_trek/features/trekking/domain/entities/trek_point.dart';
 import 'package:my_climbing_trek/features/trekking/domain/entities/trek_section.dart';
@@ -106,7 +107,11 @@ class TrekkingPath extends Treaning {
   }) : events = events ?? [];
 
   @override
-  void finishTreaning({DateTime? finish}) {
-    super.finishTreaning(finish: finish);
-  }
+  String get title => '${trek?.name} ${date.dayString()}';
+
+  @override
+  String get image => currentSection?.start.image ?? trek!.imageUrl;
+
+  @override
+  String get place => trek?.name ?? '';
 }

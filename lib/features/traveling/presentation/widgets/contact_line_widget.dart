@@ -46,8 +46,7 @@ class ContactParametersWidget extends HookWidget {
       required String description,
       required ContactType type,
       required String id})? onTap;
-  const ContactParametersWidget({this.line, this.onTap, Key? key})
-      : super(key: key);
+  const ContactParametersWidget({this.line, this.onTap, super.key});
 
   @override
   Widget build(BuildContext context) {

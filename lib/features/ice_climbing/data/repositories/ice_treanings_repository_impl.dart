@@ -1,4 +1,5 @@
 import 'package:my_climbing_trek/features/ice_climbing/data/datasources/ice_treanings_datasource.dart';
+import 'package:my_climbing_trek/features/ice_climbing/data/models/ice_treaning_model.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_treaning.dart';
 import 'package:my_climbing_trek/core/failures/failure.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_treaning_attempt.dart';
@@ -42,5 +43,30 @@ class IceTreaningsRepositoryImpl implements IceTreaningsRepository {
   Future<Either<Failure, Unit>> deleteAttempt(
       {required IceTreaningAttempt attempt}) async {
     return await _iceTreaningsDataSource.deleteAttempt(attempt: attempt);
+  }
+
+  @override
+  Future<Either<Failure, List<Map<String, dynamic>>>> getJsonTreanings() async {
+    final failureOrTreanings = await _iceTreaningsDataSource.getTreanings();
+
+    return failureOrTreanings.fold(
+        (failure) => Left(failure),
+        (treanings) => Right(treanings.map((treaning) {
+              final data = (treaning as IceTreaningModel).toJson();
+
+              return data;
+            }).toList()));
+  }
+
+  @override
+  Future<Either<Failure, Unit>> saveJsonTreanings(List<dynamic> json) async {
+    final treanings = json.map((item) {
+      return IceTreaningModel.fromJson(item);
+    }).toList();
+
+    for (final treaning in treanings) {
+      await _iceTreaningsDataSource.saveTreaning(treaning: treaning);
+    }
+    return const Right(unit);
   }
 }

@@ -122,5 +122,16 @@ class DrytoolingCategory extends DifficultyCategory {
 
   static List<DrytoolingCategory> get values => _values.values.toList();
 
+  static List<DrytoolingCategory> get hallValues => [
+        D3,
+        D4,
+        D5,
+        D6,
+        D7,
+        D8,
+        D9,
+        D10,
+      ];
+
   static DrytoolingCategory getById(String id) => _values[id]!;
 }

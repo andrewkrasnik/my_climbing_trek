@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:my_climbing_trek/core/data/region.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/contact_line.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/contact_type.dart';
 import 'package:my_climbing_trek/features/traveling/domain/entities/cost_line.dart';
@@ -24,6 +25,7 @@ import 'package:my_climbing_trek/features/traveling/domain/usecases/travel_page/
 import 'package:my_climbing_trek/features/traveling/domain/usecases/travel_page/get_day_lines_usecase.dart';
 import 'package:my_climbing_trek/features/traveling/domain/usecases/travel_page/get_feeding_statistic_usecase.dart';
 import 'package:my_climbing_trek/features/traveling/domain/usecases/travel_page/get_insurance_lines_usecase.dart';
+import 'package:my_climbing_trek/features/traveling/domain/usecases/travel_page/get_travel_regions_usecase.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/cubit/add_travel_interface.dart';
 import 'package:my_climbing_trek/features/traveling/presentation/cubit/edit_cost_line_interface.dart';
 
@@ -45,15 +47,30 @@ class TravelPageCubit extends Cubit<TravelPageState>
   final GetDayLinesUsecase _getDayLinesUsecase;
   final GetFeedingStatisticUsecase _getFeedingStatisticUsecase;
   final EditTravelUsecase _editTravelUsecase;
+  final GetTravelRegionsUsecase _getTravelRegionsUsecase;
 
   double get budgetSum {
-    double _budgetSum = 0;
+    double budgetSum = 0;
 
     for (var line in state.budgetLines) {
-      _budgetSum += line.amount;
+      budgetSum += line.amount;
     }
 
-    return _budgetSum;
+    return budgetSum;
+  }
+
+  double get costSum {
+    double costSum = 0;
+
+    for (var line in state.costs) {
+      if (line.incomeExpense == IncomeExpense.income) {
+        costSum += line.sum;
+      } else {
+        costSum -= line.sum;
+      }
+    }
+
+    return costSum;
   }
 
   TravelPageCubit(
@@ -69,6 +86,7 @@ class TravelPageCubit extends Cubit<TravelPageState>
     this._getDayLinesUsecase,
     this._getFeedingStatisticUsecase,
     this._editTravelUsecase,
+    this._getTravelRegionsUsecase,
   ) : super(TravelPageState.initial());
 
   void selectTab({required int tabIndex}) {
@@ -126,7 +144,18 @@ class TravelPageCubit extends Cubit<TravelPageState>
           (failure) => state.copyWith(
             errorMessage: failure.toString(),
           ),
-          (statistic) => emit(state.copyWith(feedingStatistic: statistic)),
+          (statistic) async {
+            emit(state.copyWith(feedingStatistic: statistic));
+
+            final failureOrRegions = await _getTravelRegionsUsecase();
+
+            failureOrRegions.fold(
+              (failure) => state.copyWith(
+                errorMessage: failure.toString(),
+              ),
+              (regions) => emit(state.copyWith(regions: regions)),
+            );
+          },
         );
       },
     );
@@ -527,5 +556,49 @@ class TravelPageCubit extends Cubit<TravelPageState>
 
   void clearErrorMessage() {
     emit(state.copyWith(errorMessage: ''));
+  }
+
+  Future<void> addRegion({
+    required Travel travel,
+    required Region region,
+  }) async {
+    final newRegions = travel.regions;
+
+    newRegions.add(region);
+
+    final failureOrTravel = await _editTravelUsecase(
+      travel: travel,
+      regions: newRegions,
+    );
+
+    failureOrTravel.fold(
+      (failure) => state.copyWith(
+        errorMessage: failure.toString(),
+        loading: false,
+      ),
+      (travel) => loadData(travel: travel),
+    );
+  }
+
+  Future<void> removeRegion({
+    required Travel travel,
+    required Region region,
+  }) async {
+    final newRegions = travel.regions;
+
+    newRegions.remove(region);
+
+    final failureOrTravel = await _editTravelUsecase(
+      travel: travel,
+      regions: newRegions,
+    );
+
+    failureOrTravel.fold(
+      (failure) => state.copyWith(
+        errorMessage: failure.toString(),
+        loading: false,
+      ),
+      (travel) => loadData(travel: travel),
+    );
   }
 }

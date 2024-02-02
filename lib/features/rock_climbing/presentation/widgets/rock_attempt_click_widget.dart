@@ -11,8 +11,8 @@ class RockAttemptClickWidget extends StatelessWidget {
   final RockTreaningAttempt attempt;
   const RockAttemptClickWidget({
     required this.attempt,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

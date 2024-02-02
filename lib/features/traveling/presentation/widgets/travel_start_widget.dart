@@ -3,8 +3,7 @@ import 'package:my_climbing_trek/features/traveling/domain/entities/travel_start
 
 class TravelStartWidget extends StatelessWidget {
   final TravelStart travelStart;
-  const TravelStartWidget({required this.travelStart, Key? key})
-      : super(key: key);
+  const TravelStartWidget({required this.travelStart, super.key});
 
   @override
   Widget build(BuildContext context) {

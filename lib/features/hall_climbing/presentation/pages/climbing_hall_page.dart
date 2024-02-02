@@ -13,9 +13,9 @@ import '../bloc/climbing_hall/climbing_hall_cubit.dart';
 class ClimbingHallPage extends StatelessWidget {
   final ClimbingHall climbingHall;
   const ClimbingHallPage({
-    Key? key,
+    super.key,
     required this.climbingHall,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -77,12 +77,14 @@ class ClimbingHallPage extends StatelessWidget {
               return CustomScrollView(
                 slivers: [
                   SliverAppBar(
-                    expandedHeight: 160,
+                    expandedHeight: 200,
                     stretch: true,
                     floating: true,
                     pinned: true,
                     snap: false,
                     flexibleSpace: FlexibleSpaceBar(
+                      titlePadding: const EdgeInsets.only(
+                          bottom: 16, left: 16, right: 16),
                       background: Stack(
                         fit: StackFit.expand,
                         children: [
@@ -132,6 +134,7 @@ class ClimbingHallPage extends StatelessWidget {
                       centerTitle: true,
                       title: Text(
                         climbingHall.name,
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 20,
@@ -260,11 +263,11 @@ class ContactsTextWidget extends StatelessWidget {
   final IconData icon;
   final void Function()? onTap;
   const ContactsTextWidget({
-    Key? key,
+    super.key,
     required this.title,
     required this.icon,
     this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
