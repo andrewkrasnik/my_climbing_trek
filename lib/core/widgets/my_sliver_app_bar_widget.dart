@@ -36,14 +36,16 @@ class MySliverAppBarWidget extends StatelessWidget {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              title,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  shadows: [Shadow(offset: Offset.fromDirection(1))]),
+            Flexible(
+              child: Text(
+                title,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    shadows: [Shadow(offset: Offset.fromDirection(1))]),
+              ),
             ),
             if (onMapPpoint != null)
               IconButton(

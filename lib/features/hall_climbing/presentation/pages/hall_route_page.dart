@@ -37,9 +37,10 @@ class HallRoutePage extends HookWidget {
             ? ClimbingRouteType.bouldering
             : ClimbingRouteType.rope;
 
-    final category = useState<DifficultyCategory?>(initialCategory);
+    final category =
+        useState<DifficultyCategory?>(initialCategory ?? route?.category);
 
-    final color = useState<RouteColor?>(null);
+    final color = useState<RouteColor?>(route?.color);
 
     final type =
         useState<ClimbingRouteType>(route?.type ?? initialType ?? routeType);
@@ -194,9 +195,7 @@ class HallRoutePage extends HookWidget {
                     ),
                     Center(
                       child: SelectCategoryWidget(
-                        currentCategory: route?.category is ClimbingCategory
-                            ? route?.category
-                            : null,
+                        currentCategory: category.value,
                         color: route?.color ?? color.value,
                         onTap: (selectCategory) {
                           category.value = selectCategory;
@@ -206,9 +205,7 @@ class HallRoutePage extends HookWidget {
                     if (climbingHall.hasDrytooling)
                       Center(
                         child: SelectCategoryWidget(
-                          currentCategory: route?.category is DrytoolingCategory
-                              ? route?.category
-                              : null,
+                          currentCategory: category.value,
                           categories: DrytoolingCategory.hallValues,
                           color: route?.color ?? color.value,
                           onTap: (selectCategory) {
@@ -227,9 +224,8 @@ class HallRoutePage extends HookWidget {
                       height: 8,
                     ),
                     BlockPicker(
-                      pickerColor: route?.color.materialColor ??
-                          color.value?.materialColor ??
-                          Colors.white,
+                      pickerColor:
+                          color.value?.materialColor ?? Colors.transparent,
                       onColorChanged: (selectedColor) {
                         color.value = colorsMap[selectedColor];
                       },
