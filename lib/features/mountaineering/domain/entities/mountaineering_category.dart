@@ -13,6 +13,14 @@ class MountaineeringCategory {
     required this.description,
   });
 
+  static const noCategory = MountaineeringCategory(
+    id: 'NC',
+    russianName: 'Б/К',
+    frenchName: 'F',
+    uiaaName: 'I',
+    description: 'Некатегорийный маршрут',
+  );
+
   static const oneB = MountaineeringCategory(
     id: '1B',
     russianName: '1Б',
@@ -113,6 +121,7 @@ class MountaineeringCategory {
   );
 
   static const Map<String, MountaineeringCategory> _values = {
+    'NC': noCategory,
     '1B': oneB,
     '2A': twoA,
     '2B': twoB,

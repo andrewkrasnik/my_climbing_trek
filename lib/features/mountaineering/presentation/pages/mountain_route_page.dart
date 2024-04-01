@@ -4,6 +4,7 @@ import 'package:my_climbing_trek/core/widgets/scaled_image.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountain.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountain_route.dart';
 import 'package:my_climbing_trek/features/mountaineering/presentation/bloc/ascension/ascension_cubit.dart';
+import 'package:my_climbing_trek/features/mountaineering/presentation/pages/mountain_route_editing_page.dart';
 import 'package:my_climbing_trek/features/mountaineering/presentation/widgets/mountain_roop_widget.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -20,6 +21,21 @@ class MountainRoutePage extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: Text(route.name),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => MountainRouteEditingPage(
+                    route: route,
+                    mountain: mountain,
+                  ),
+                ),
+              );
+            },
+            icon: const Icon(Icons.edit),
+          )
+        ],
       ),
       floatingActionButton: BlocBuilder<AscensionCubit, AscensionState>(
         builder: (context, state) {

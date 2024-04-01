@@ -30,6 +30,8 @@ class MountainRouteType {
     'tradMultiPitch': tradMultiPitch,
   };
 
+  bool get hasCategory => ![multiPitch, tradMultiPitch].contains(this);
+
   static List<MountainRouteType> get values => _values.values.toList();
 
   static MountainRouteType getById(String id) => _values[id]!;
