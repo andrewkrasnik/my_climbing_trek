@@ -5,14 +5,18 @@ import 'package:my_climbing_trek/features/settings/presentation/cubit/settings_c
 
 class MountaineeringCategoryWidget extends StatelessWidget {
   final MountaineeringCategory category;
+  final bool selected;
 
   const MountaineeringCategoryWidget({
     super.key,
     required this.category,
+    this.selected = true,
   });
 
   @override
   Widget build(BuildContext context) {
+    final double opacity = selected ? 1 : 0.5;
+
     return BlocBuilder<SettingsCubit, SettingsState>(
       buildWhen: (previous, current) =>
           previous.hallCategoryType != current.hallCategoryType,
@@ -27,15 +31,15 @@ class MountaineeringCategoryWidget extends StatelessWidget {
           fontSize = 20;
         }
         return CircleAvatar(
-          backgroundColor: Colors.green,
+          backgroundColor: Colors.green.withOpacity(opacity),
           radius: 24,
           child: CircleAvatar(
-            backgroundColor: Colors.white,
+            backgroundColor: Colors.white.withOpacity(opacity),
             radius: 20,
             child: Text(
               title,
               style: TextStyle(
-                color: Colors.black,
+                color: Colors.black.withOpacity(opacity),
                 fontWeight: FontWeight.bold,
                 fontSize: fontSize,
               ),
