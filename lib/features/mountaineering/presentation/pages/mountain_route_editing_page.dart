@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:my_climbing_trek/core/data/aid_category.dart';
 import 'package:my_climbing_trek/core/data/climbing_category.dart';
+import 'package:my_climbing_trek/core/data/difficulty_category.dart';
 import 'package:my_climbing_trek/core/data/ice_category.dart';
 import 'package:my_climbing_trek/core/data/mixed_category.dart';
 import 'package:my_climbing_trek/core/data/ussr_climbing_category.dart';
@@ -126,26 +127,9 @@ class MountainRouteEditingPage extends HookWidget {
                 }).toList(),
               ),
               if (typeState.value?.hasCategory ?? false)
-                SizedBox(
-                  height: 60,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: MountaineeringCategory.values
-                        .map((category) => Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 4),
-                              child: InkWell(
-                                onTap: () {
-                                  categoryState.value = category;
-                                },
-                                child: MountaineeringCategoryWidget(
-                                  category: category,
-                                  selected: categoryState.value == category,
-                                ),
-                              ),
-                            ))
-                        .toList(),
-                  ),
+                SelectCategoryWidget<MountaineeringCategory>(
+                  categoryState: categoryState,
+                  values: MountaineeringCategory.values,
                 ),
               const SizedBox(height: 16),
               TextFormField(
@@ -229,6 +213,15 @@ class RoopEditingWidget extends HookWidget {
     final boltCountController =
         useTextEditingController(text: roop?.boltCount.toString());
 
+    final iceCategoryState = useState<IceCategory?>(roop?.iceCategory);
+
+    final icePrefixState = useState<String?>(roop?.icePrefix);
+
+    final climbingCategoryState =
+        useState<ClimbingCategory?>(roop?.climbingCategory);
+
+    final piecesState = useState<List<MountainRoutePiece>>(roop?.pieces ?? []);
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: SingleChildScrollView(
@@ -266,26 +259,69 @@ class RoopEditingWidget extends HookWidget {
                   labelText: 'Количество шлямбуров',
                   border: OutlineInputBorder()),
             ),
-            Wrap(
-              children: [
-                Chip(label: Text('Нет льда')),
-                Chip(label: Text('Натечный')),
-                Chip(label: Text('Ледник')),
-              ],
+            ChipSelectedWidget<String>(
+              values: ['Нет льда', 'Натечный', 'Ледник'],
+              state: icePrefixState,
+            ),
+            SelectCategoryWidget<IceCategory>(
+              categoryState: iceCategoryState,
+              values: IceCategory.values,
+            ),
+            SelectCategoryWidget<ClimbingCategory>(
+              categoryState: climbingCategoryState,
+              values: ClimbingCategory.rockValues,
             ),
             Wrap(
               children: [
-                if (roop != null && roop!.pieces != null)
-                  ...roop!.pieces!.map((piece) => InkWell(
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) => RoopPieceDialog(piece: piece),
-                          );
-                        },
-                        child: Chip(label: Text(piece.title)),
-                      )),
-                Chip(label: Text('Добавить')),
+                ...piecesState.value.map((piece) => InkWell(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => RoopPieceDialog(
+                            piece: piece,
+                            onDelete: () {
+                              final newList = piecesState.value;
+                              newList.remove(piece);
+                              piecesState.value = newList;
+                              piecesState.notifyListeners();
+                            },
+                            onSave: (newPiece) {
+                              final newList = piecesState.value;
+                              newList[newList.indexOf(piece)] = newPiece;
+                              piecesState.value = newList;
+                              piecesState.notifyListeners();
+                            },
+                          ),
+                        );
+                      },
+                      child: Chip(label: Text(piece.title)),
+                    )),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 2),
+                  child: ElevatedButton(
+                      style: ButtonStyle(
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0),
+                          ),
+                        ),
+                      ),
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => RoopPieceDialog(
+                            onSave: (newPiece) {
+                              final newList = piecesState.value;
+                              newList.add(newPiece);
+                              piecesState.value = newList;
+                              piecesState.notifyListeners();
+                            },
+                          ),
+                        );
+                      },
+                      child: const Text('Добавить')),
+                ),
               ],
             )
           ],
@@ -296,17 +332,47 @@ class RoopEditingWidget extends HookWidget {
 }
 
 class RoopPieceDialog extends HookWidget {
-  final MountainRoutePiece piece;
+  final MountainRoutePiece? piece;
+  final void Function(MountainRoutePiece)? onSave;
+  final void Function()? onDelete;
 
-  const RoopPieceDialog({required this.piece, super.key});
+  const RoopPieceDialog({this.piece, this.onDelete, this.onSave, super.key});
 
   @override
   Widget build(BuildContext context) {
+    final typeState =
+        useState<RoutePieceType>(piece?.type ?? RoutePieceType.rock);
+
     final lengthController =
-        useTextEditingController(text: piece.length.toString());
+        useTextEditingController(text: piece?.length.toString());
 
     final slopeController =
-        useTextEditingController(text: piece.slope.toString());
+        useTextEditingController(text: piece?.slope.toString());
+
+    final mixedCategoryState = useState<MixedCategory?>(
+        piece is MountainRouteMixedPiece
+            ? (piece as MountainRouteMixedPiece).category
+            : null);
+
+    final iceCategoryState = useState<IceCategory?>(
+        piece is MountainRouteIcePiece
+            ? (piece as MountainRouteIcePiece).category
+            : null);
+
+    final climbingCategoryState = useState<ClimbingCategory?>(
+        piece is MountainRouteRockPiece
+            ? (piece as MountainRouteRockPiece).climbingCategory
+            : null);
+
+    final aidCategoryState = useState<AidCategory?>(
+        piece is MountainRouteRockPiece
+            ? (piece as MountainRouteRockPiece).aidCategory
+            : null);
+
+    final ussrCategoryState = useState<UssrClimbingCategory?>(
+        piece is MountainRouteRockPiece
+            ? (piece as MountainRouteRockPiece).ussrCategory
+            : null);
 
     return AlertDialog(
       content: Padding(
@@ -314,61 +380,35 @@ class RoopPieceDialog extends HookWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (piece is MountainRouteIcePiece)
-              SizedBox(
-                height: 80,
-                width: MediaQuery.of(context).size.width,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: IceCategory.values
-                      .map((category) => IceCategoryWidget(category: category))
-                      .toList(),
-                ),
+            ChipSelectedWidget<RoutePieceType>(
+              values: RoutePieceType.values,
+              state: typeState,
+            ),
+            if (typeState.value == RoutePieceType.ice)
+              SelectCategoryWidget<IceCategory>(
+                categoryState: iceCategoryState,
+                values: IceCategory.values,
               ),
-            if (piece is MountainRouteMixedPiece)
-              SizedBox(
-                height: 80,
-                width: MediaQuery.of(context).size.width,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: MixedCategory.values
-                      .map((category) =>
-                          SettingsMixedCategoryWidget(category: category))
-                      .toList(),
-                ),
+            if (typeState.value == RoutePieceType.mixed)
+              SelectCategoryWidget<MixedCategory>(
+                categoryState: mixedCategoryState,
+                values: MixedCategory.values,
               ),
-            if (piece is MountainRouteRockPiece) ...[
-              SizedBox(
-                height: 60,
-                width: MediaQuery.of(context).size.width,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: ClimbingCategory.rockValues
-                      .map((category) => RockCategoryWidget(category: category))
-                      .toList(),
-                ),
+            if (typeState.value == RoutePieceType.rock) ...[
+              Text('Скалолазная категория:'),
+              SelectCategoryWidget<ClimbingCategory>(
+                categoryState: climbingCategoryState,
+                values: ClimbingCategory.rockValues,
               ),
-              SizedBox(
-                height: 60,
-                width: MediaQuery.of(context).size.width,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: UssrClimbingCategory.values
-                      .map((category) =>
-                          SettingsUssrCategoryWidget(category: category))
-                      .toList(),
-                ),
+              Text('Сложность скал (СССР):'),
+              SelectCategoryWidget<UssrClimbingCategory>(
+                categoryState: ussrCategoryState,
+                values: UssrClimbingCategory.values,
               ),
-              SizedBox(
-                height: 60,
-                width: MediaQuery.of(context).size.width,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: AidCategory.values
-                      .map((category) =>
-                          SettingsAidCategoryWidget(category: category))
-                      .toList(),
-                ),
+              Text('Категория ИТО:'),
+              SelectCategoryWidget<AidCategory>(
+                categoryState: aidCategoryState,
+                values: AidCategory.values,
               ),
             ],
             const SizedBox(height: 16),
@@ -392,14 +432,23 @@ class RoopPieceDialog extends HookWidget {
         ),
       ),
       actions: [
+        if (onDelete != null)
+          ElevatedButton(
+            onPressed: () {
+              onDelete?.call();
+
+              Navigator.of(context).pop();
+            },
+            child: const Text('Удалить'),
+          ),
         ElevatedButton(
           onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child: const Text('Удалить'),
-        ),
-        ElevatedButton(
-          onPressed: () {
+            final newPiece = MountainRoutePiece(
+                type: typeState.value,
+                length: int.parse(lengthController.text));
+
+            onSave?.call(newPiece);
+
             Navigator.of(context).pop();
           },
           child: const Text('Сохранить'),
@@ -411,6 +460,131 @@ class RoopPieceDialog extends HookWidget {
           child: const Text('Отмена'),
         ),
       ],
+    );
+  }
+}
+
+class SelectCategoryWidget<T extends DifficultyCategory>
+    extends StatelessWidget {
+  final List<T> values;
+
+  final ValueNotifier<T?> categoryState;
+
+  const SelectCategoryWidget({
+    required this.categoryState,
+    required this.values,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 60,
+      width: MediaQuery.of(context).size.width,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        children: values
+            .map((category) => Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                  child: InkWell(
+                    onTap: () {
+                      categoryState.value = category;
+                    },
+                    child: CategoryWidget(
+                      category: category,
+                      selected: categoryState.value == category,
+                    ),
+                  ),
+                ))
+            .toList(),
+      ),
+    );
+  }
+}
+
+class CategoryWidget<T extends DifficultyCategory> extends StatelessWidget {
+  final T category;
+  final bool selected;
+
+  const CategoryWidget(
+      {required this.category, this.selected = true, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    if (category is MountaineeringCategory) {
+      return MountaineeringCategoryWidget(
+        category: category as MountaineeringCategory,
+        selected: selected,
+      );
+    } else if (category is IceCategory) {
+      return IceCategoryWidget(
+        category: category as IceCategory,
+        planed: !selected,
+      );
+    } else if (category is MixedCategory) {
+      return SettingsMixedCategoryWidget(
+        category: category as MixedCategory,
+        selected: selected,
+      );
+    } else if (category is ClimbingCategory) {
+      return RockCategoryWidget(
+        category: category as ClimbingCategory,
+        planed: !selected,
+      );
+    } else if (category is UssrClimbingCategory) {
+      return SettingsUssrCategoryWidget(
+        category: category as UssrClimbingCategory,
+        selected: selected,
+      );
+    } else if (category is AidCategory) {
+      return SettingsAidCategoryWidget(
+        category: category as AidCategory,
+        selected: selected,
+      );
+    } else {
+      return Container();
+    }
+  }
+}
+
+class ChipSelectedWidget<T> extends StatelessWidget {
+  final List<T> values;
+
+  final ValueNotifier<T?> state;
+
+  // final void Function()? onTap;
+
+  const ChipSelectedWidget({
+    required this.values,
+    required this.state,
+    super.key,
+    // this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      children: values
+          .map((value) => Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 2),
+                child: InkWell(
+                    onTap: () {
+                      state.value = value;
+                    },
+                    child: Chip(
+                      label: Text(
+                        value.toString(),
+                        style: state.value == value
+                            ? const TextStyle(color: Colors.white)
+                            : TextStyle(
+                                color: Theme.of(context).colorScheme.surface),
+                      ),
+                      backgroundColor: state.value == value
+                          ? Theme.of(context).hintColor
+                          : null,
+                    )),
+              ))
+          .toList(),
     );
   }
 }

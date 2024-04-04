@@ -143,4 +143,20 @@ class MountainRouteMixedPiece extends MountainRoutePiece {
   }) : super(type: RoutePieceType.mixed);
 }
 
-enum RoutePieceType { ice, rock, mixed }
+enum RoutePieceType {
+  rock,
+  ice,
+  mixed;
+
+  @override
+  String toString() {
+    switch (this) {
+      case RoutePieceType.ice:
+        return 'Лёд';
+      case RoutePieceType.mixed:
+        return 'Микст';
+      default:
+        return 'Скалы';
+    }
+  }
+}

@@ -1,4 +1,7 @@
-class MountaineeringCategory {
+import 'package:my_climbing_trek/core/data/difficulty_category.dart';
+
+class MountaineeringCategory extends DifficultyCategory {
+  @override
   final String id;
   final String russianName;
   final String frenchName;
