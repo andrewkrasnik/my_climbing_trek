@@ -4,6 +4,7 @@ import 'package:my_climbing_trek/core/data/aid_category.dart';
 import 'package:my_climbing_trek/core/data/climbing_category.dart';
 import 'package:my_climbing_trek/core/data/difficulty_category.dart';
 import 'package:my_climbing_trek/core/data/ice_category.dart';
+import 'package:my_climbing_trek/core/data/ice_types.dart';
 import 'package:my_climbing_trek/core/data/mixed_category.dart';
 import 'package:my_climbing_trek/core/data/ussr_climbing_category.dart';
 import 'package:my_climbing_trek/core/widgets/my_modal_bottom_sheet.dart';
@@ -54,6 +55,8 @@ class MountainRouteEditingPage extends HookWidget {
         useTextEditingController(text: route?.firstAscentYear);
 
     final farLinkController = useTextEditingController(text: route?.farLink);
+
+    final ropesState = useState<List<MountainRouteRoop>>(route?.roops ?? []);
 
     return Scaffold(
       appBar: AppBar(
@@ -165,22 +168,42 @@ class MountainRouteEditingPage extends HookWidget {
                     border: OutlineInputBorder()),
               ),
               const SizedBox(height: 16),
-              ...route?.roops.map(
-                    (roop) => SlidableDataLineWidget(
-                      edit: true,
-                      delete: true,
-                      onEdit: (context) {
-                        showMyModalBottomSheet<void>(
-                          context: context,
-                          heightPersent: 0.8,
-                          child: RoopEditingWidget(roop: roop),
-                        );
-                      },
-                      onDelete: (context) {},
-                      child: MountainRoopWidget(roop: roop),
-                    ),
-                  ) ??
-                  [],
+              ...ropesState.value.map(
+                (roop) => SlidableDataLineWidget(
+                  edit: true,
+                  delete: true,
+                  onEdit: (context) {
+                    showMyModalBottomSheet<void>(
+                      context: context,
+                      heightPersent: 0.8,
+                      child: RoopEditingWidget(roop: roop, number: roop.number),
+                    );
+                  },
+                  onDelete: (context) {
+                    final newList = ropesState.value;
+                    newList.remove(roop);
+                    ropesState.value = newList;
+                    ropesState.notifyListeners();
+                  },
+                  child: MountainRoopWidget(roop: roop),
+                ),
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => RoopEditingWidget(
+                        number: ropesState.value.length + 1,
+                        onSave: (newRope) {
+                          final newList = ropesState.value;
+                          newList.add(newRope);
+                          ropesState.value = newList;
+                          ropesState.notifyListeners();
+                        },
+                      ),
+                    );
+                  },
+                  child: const Text('Добавить')),
               const SizedBox(height: 16),
               TextFormField(
                 minLines: 1,
@@ -200,8 +223,12 @@ class MountainRouteEditingPage extends HookWidget {
 
 class RoopEditingWidget extends HookWidget {
   final MountainRouteRoop? roop;
+  final int number;
 
-  const RoopEditingWidget({this.roop, super.key});
+  final void Function(MountainRouteRoop)? onSave;
+
+  const RoopEditingWidget(
+      {this.roop, required this.number, this.onSave, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -213,9 +240,13 @@ class RoopEditingWidget extends HookWidget {
     final boltCountController =
         useTextEditingController(text: roop?.boltCount.toString());
 
+    final lengthController =
+        useTextEditingController(text: roop?.length.toString());
+
     final iceCategoryState = useState<IceCategory?>(roop?.iceCategory);
 
-    final icePrefixState = useState<String?>(roop?.icePrefix);
+    final icePrefixState =
+        useState<IceType?>(IceTypes.byPrefix(roop?.icePrefix ?? ''));
 
     final climbingCategoryState =
         useState<ClimbingCategory?>(roop?.climbingCategory);
@@ -252,6 +283,14 @@ class RoopEditingWidget extends HookWidget {
             ),
             const SizedBox(height: 8),
             TextFormField(
+              controller: lengthController,
+              keyboardType: const TextInputType.numberWithOptions(
+                  signed: false, decimal: false),
+              decoration: const InputDecoration(
+                  labelText: 'Длина участка, м.', border: OutlineInputBorder()),
+            ),
+            const SizedBox(height: 8),
+            TextFormField(
               controller: boltCountController,
               keyboardType: const TextInputType.numberWithOptions(
                   signed: false, decimal: false),
@@ -259,18 +298,21 @@ class RoopEditingWidget extends HookWidget {
                   labelText: 'Количество шлямбуров',
                   border: OutlineInputBorder()),
             ),
-            ChipSelectedWidget<String>(
-              values: ['Нет льда', 'Натечный', 'Ледник'],
+            ChipSelectedWidget<IceType>(
+              values: IceTypes.values,
               state: icePrefixState,
             ),
-            SelectCategoryWidget<IceCategory>(
-              categoryState: iceCategoryState,
-              values: IceCategory.values,
-            ),
-            SelectCategoryWidget<ClimbingCategory>(
-              categoryState: climbingCategoryState,
-              values: ClimbingCategory.rockValues,
-            ),
+            if (icePrefixState.value != IceTypes.noIce)
+              SelectCategoryWidget<IceCategory>(
+                categoryState: iceCategoryState,
+                values: IceCategory.values,
+              ),
+            if (icePrefixState.value == IceTypes.noIce) ...[
+              SelectCategoryWidget<ClimbingCategory>(
+                categoryState: climbingCategoryState,
+                values: ClimbingCategory.rockValues,
+              ),
+            ],
             Wrap(
               children: [
                 ...piecesState.value.map((piece) => InkWell(
@@ -294,7 +336,17 @@ class RoopEditingWidget extends HookWidget {
                           ),
                         );
                       },
-                      child: Chip(label: Text(piece.title)),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 4),
+                        child: Chip(
+                          label: Text(
+                            piece.title,
+                            style: TextStyle(
+                                color: Theme.of(context).colorScheme.surface),
+                          ),
+                          backgroundColor: Theme.of(context).hintColor,
+                        ),
+                      ),
                     )),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 2),
@@ -323,7 +375,26 @@ class RoopEditingWidget extends HookWidget {
                       child: const Text('Добавить')),
                 ),
               ],
-            )
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+                onPressed: () {
+                  final newRoop = MountainRouteRoop(
+                    length: int.parse(lengthController.text),
+                    anchor: anchorController.text,
+                    boltCount: int.parse(boltCountController.text),
+                    climbingCategory: climbingCategoryState.value,
+                    description: descriptionController.text,
+                    iceCategory: iceCategoryState.value,
+                    pieces: piecesState.value,
+                    // slope: int.parse()
+                    icePrefix: icePrefixState.value?.prefix,
+                    number: number,
+                  );
+                  Navigator.of(context).pop();
+                },
+                child: Text('Сохранить')),
+            const SizedBox(height: 40),
           ],
         ),
       ),
@@ -443,9 +514,29 @@ class RoopPieceDialog extends HookWidget {
           ),
         ElevatedButton(
           onPressed: () {
-            final newPiece = MountainRoutePiece(
-                type: typeState.value,
-                length: int.parse(lengthController.text));
+            final MountainRoutePiece newPiece;
+
+            if (typeState.value == RoutePieceType.ice) {
+              newPiece = MountainRouteIcePiece(
+                category: iceCategoryState.value!,
+                length: int.parse(lengthController.text),
+                slope: int.parse(slopeController.text),
+              );
+            } else if (typeState.value == RoutePieceType.mixed) {
+              newPiece = MountainRouteMixedPiece(
+                category: mixedCategoryState.value!,
+                length: int.parse(lengthController.text),
+                slope: int.parse(slopeController.text),
+              );
+            } else {
+              newPiece = MountainRouteRockPiece(
+                climbingCategory: climbingCategoryState.value,
+                ussrCategory: ussrCategoryState.value,
+                aidCategory: aidCategoryState.value,
+                length: int.parse(lengthController.text),
+                slope: int.parse(slopeController.text),
+              );
+            }
 
             onSave?.call(newPiece);
 

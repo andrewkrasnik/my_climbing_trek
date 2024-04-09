@@ -97,7 +97,7 @@ class MountainRouteIcePiece extends MountainRoutePiece {
   }) : super(type: RoutePieceType.ice);
 
   @override
-  String get title => '';
+  String get title => '${category.name} $length м.';
 }
 
 class MountainRouteRockPiece extends MountainRoutePiece {
@@ -141,6 +141,9 @@ class MountainRouteMixedPiece extends MountainRoutePiece {
     required super.length,
     super.slope,
   }) : super(type: RoutePieceType.mixed);
+
+  @override
+  String get title => '${category.name} $length м.';
 }
 
 enum RoutePieceType {
