@@ -18,6 +18,8 @@ class MountainRegionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = getIt<MountainsCubit>()..loadData(region: region);
+
     return SafeArea(
       child: Scaffold(
         floatingActionButton: region.hasEditPermission
@@ -26,6 +28,7 @@ class MountainRegionPage extends StatelessWidget {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => MountainEditingPage(
+                        cubit: cubit,
                         region: region,
                       ),
                     ),
@@ -39,14 +42,8 @@ class MountainRegionPage extends StatelessWidget {
             : null,
         body: CustomScrollView(
           slivers: [
-            MySliverAppBarWidget(
-              heroTag: 'MountainRegion${region.id}',
-              title: region.name,
-              imageUrl: region.image!,
-            ),
             BlocProvider(
-              create: (context) =>
-                  getIt<MountainsCubit>()..loadData(region: region),
+              create: (context) => cubit,
               child: BlocBuilder<MountainsCubit, MountainsState>(
                 builder: (context, state) {
                   return state.maybeMap(
@@ -77,6 +74,11 @@ class MountainRegionPage extends StatelessWidget {
                   );
                 },
               ),
+            ),
+            MySliverAppBarWidget(
+              heroTag: 'MountainRegion${region.id}',
+              title: region.name,
+              imageUrl: region.image!,
             ),
           ],
         ),

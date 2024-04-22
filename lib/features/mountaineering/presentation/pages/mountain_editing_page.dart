@@ -6,10 +6,12 @@ import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountai
 import 'package:my_climbing_trek/features/mountaineering/presentation/bloc/mountains/mountains_cubit.dart';
 
 class MountainEditingPage extends HookWidget {
+  final MountainsCubit cubit;
   final Region region;
   final Mountain? mountain;
 
   const MountainEditingPage({
+    required this.cubit,
     required this.region,
     this.mountain,
     super.key,
@@ -33,7 +35,7 @@ class MountainEditingPage extends HookWidget {
         actions: [
           IconButton(
             onPressed: () {
-              BlocProvider.of<MountainsCubit>(context).saveMountain(
+              cubit.saveMountain(
                   region: region,
                   id: idController.text,
                   name: nameController.text,

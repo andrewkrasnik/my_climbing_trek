@@ -23,6 +23,7 @@ class SaveMountainUsecase {
       name: name,
       altitude: altitude,
       image: image,
+      id: id,
     );
 
     return _mountainRegionsRepository.saveMountain(mountain: mountain);
