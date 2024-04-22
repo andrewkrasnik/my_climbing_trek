@@ -2,6 +2,7 @@ import 'package:my_climbing_trek/core/data/region.dart';
 import 'package:my_climbing_trek/core/widgets/my_sliver_app_bar_widget.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountain.dart';
 import 'package:my_climbing_trek/features/mountaineering/presentation/bloc/mountain_routes/mountain_routes_cubit.dart';
+import 'package:my_climbing_trek/features/mountaineering/presentation/pages/mountain_editing_page.dart';
 import 'package:my_climbing_trek/features/mountaineering/presentation/widgets/mountain_route_widget.dart';
 import 'package:my_climbing_trek/service_locator.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +28,21 @@ class MountainPage extends StatelessWidget {
               heroTag: 'Mountain${mountain.id}',
               title: '${mountain.name}, ${mountain.altitude} м.',
               imageUrl: mountain.image,
+              actions: [
+                if (region.hasEditPermission)
+                  IconButton(
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => MountainEditingPage(
+                              region: region,
+                              mountain: mountain,
+                            ),
+                          ),
+                        );
+                      },
+                      icon: const Icon(Icons.edit))
+              ],
             ),
             BlocProvider(
               create: (context) => getIt<MountainRoutesCubit>()

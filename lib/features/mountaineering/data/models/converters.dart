@@ -150,6 +150,69 @@ class MountainStringConverter implements JsonConverter<Mountain, String> {
   }
 }
 
+class MountainConverter
+    implements JsonConverter<Mountain, Map<String, dynamic>> {
+  const MountainConverter();
+
+  @override
+  Mountain fromJson(Map<String, dynamic> json) {
+    return MountainModel.fromJson(json);
+  }
+
+  @override
+  Map<String, dynamic> toJson(Mountain object) {
+    if (object is MountainModel) {
+      return object.toJson();
+    } else {
+      return MountainModel(
+        altitude: object.altitude,
+        image: object.image,
+        name: object.name,
+        region: object.region,
+        id: object.id,
+      ).toJson();
+    }
+  }
+}
+
+class MountainRouteConverter
+    implements JsonConverter<MountainRoute, Map<String, dynamic>> {
+  const MountainRouteConverter();
+
+  @override
+  MountainRoute fromJson(Map<String, dynamic> json) {
+    return MountainRouteModel.fromJson(json);
+  }
+
+  @override
+  Map<String, dynamic> toJson(MountainRoute object) {
+    if (object is MountainRouteModel) {
+      return object.toJson();
+    } else {
+      return MountainRouteModel(
+        category: object.category,
+        image: object.image,
+        name: object.name,
+        type: object.type,
+        aidCategory: object.aidCategory,
+        author: object.author,
+        climbingCategory: object.climbingCategory,
+        descent: object.descent,
+        description: object.description,
+        farLink: object.farLink,
+        firstAscentYear: object.firstAscentYear,
+        length: object.length,
+        links: object.links,
+        passage: object.passage,
+        roops: object.roops,
+        ueaaSchemaImage: object.ueaaSchemaImage,
+        ussrCategory: object.ussrCategory,
+        id: object.id,
+      ).toJson();
+    }
+  }
+}
+
 class MountainRouteStringConverter
     implements JsonConverter<MountainRoute, String> {
   const MountainRouteStringConverter();

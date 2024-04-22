@@ -33,4 +33,19 @@ class MountainRegionsRepositoryImpl implements MountainRegionsRepository {
     return await _regionsRemoteDataSource.routes(
         region: region, mountain: mountain);
   }
+
+  @override
+  Future<Either<Failure, Unit>> saveMountain(
+      {required Mountain mountain}) async {
+    return await _regionsRemoteDataSource.saveMountain(mountain: mountain);
+  }
+
+  @override
+  Future<Either<Failure, Unit>> saveRoute(
+      {required Mountain mountain, required MountainRoute route}) async {
+    return await _regionsRemoteDataSource.saveRoute(
+      mountain: mountain,
+      route: route,
+    );
+  }
 }

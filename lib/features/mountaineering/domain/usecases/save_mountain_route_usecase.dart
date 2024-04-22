@@ -1,45 +1,23 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:my_climbing_trek/core/data/aid_category.dart';
 import 'package:my_climbing_trek/core/data/climbing_category.dart';
-import 'package:my_climbing_trek/core/data/region.dart';
 import 'package:my_climbing_trek/core/data/ussr_climbing_category.dart';
+import 'package:my_climbing_trek/core/failures/failure.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountain.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountain_route.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountain_route_roop.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountain_route_type.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountaineering_category.dart';
-import 'package:my_climbing_trek/features/mountaineering/domain/usecases/get_mountain_routes.dart';
-import 'package:my_climbing_trek/features/mountaineering/domain/usecases/save_mountain_route_usecase.dart';
+import 'package:my_climbing_trek/features/mountaineering/domain/repositories/mountain_regions_repository.dart';
 
-part 'mountain_routes_state.dart';
-part 'mountain_routes_cubit.freezed.dart';
+@LazySingleton()
+class SaveMountainRouteUsecase {
+  final MountainRegionsRepository _mountainRegionsRepository;
 
-@Injectable()
-class MountainRoutesCubit extends Cubit<MountainRoutesState> {
-  final GetMountainRoutes _getMountainRoutes;
-  final SaveMountainRouteUsecase _saveMountainRouteUsecase;
+  SaveMountainRouteUsecase(this._mountainRegionsRepository);
 
-  MountainRoutesCubit(
-    this._getMountainRoutes,
-    this._saveMountainRouteUsecase,
-  ) : super(const MountainRoutesState.initial());
-
-  Future<void> loadData(
-      {required Region region, required Mountain mountain}) async {
-    emit(const MountainRoutesState.loading());
-
-    final failureOrRoutes =
-        await _getMountainRoutes(mountain: mountain, region: region);
-
-    failureOrRoutes.fold(
-        (failure) =>
-            emit(MountainRoutesState.error(description: failure.toString())),
-        (routes) => emit(MountainRoutesState.data(routes: routes)));
-  }
-
-  Future<void> saveRoute({
+  Future<Either<Failure, Unit>> call({
     required Mountain mountain,
     required String id,
     required String name,
@@ -60,10 +38,7 @@ class MountainRoutesCubit extends Cubit<MountainRoutesState> {
     String? ueaaSchemaImage,
     String? farLink,
   }) async {
-    emit(const MountainRoutesState.loading());
-
-    final failureOrMountains = await _saveMountainRouteUsecase(
-      mountain: mountain,
+    final route = MountainRoute(
       category: category,
       type: type,
       roops: roops,
@@ -84,9 +59,9 @@ class MountainRoutesCubit extends Cubit<MountainRoutesState> {
       ussrCategory: ussrCategory,
     );
 
-    failureOrMountains.fold(
-        (failure) =>
-            emit(MountainRoutesState.error(description: failure.toString())),
-        (_) => loadData(mountain: mountain, region: mountain.region));
+    return _mountainRegionsRepository.saveRoute(
+      mountain: mountain,
+      route: route,
+    );
   }
 }

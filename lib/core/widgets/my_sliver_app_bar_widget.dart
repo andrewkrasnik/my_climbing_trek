@@ -6,12 +6,15 @@ class MySliverAppBarWidget extends StatelessWidget {
   final String title;
   final String imageUrl;
   final void Function()? onMapPpoint;
+  final List<Widget>? actions;
+
   const MySliverAppBarWidget({
     super.key,
     required this.heroTag,
     required this.title,
     required this.imageUrl,
     this.onMapPpoint,
+    this.actions,
   });
 
   @override
@@ -23,6 +26,7 @@ class MySliverAppBarWidget extends StatelessWidget {
       pinned: true,
       snap: false,
       centerTitle: true,
+      actions: actions,
       flexibleSpace: FlexibleSpaceBar(
         titlePadding: const EdgeInsets.only(bottom: 16, left: 16, right: 16),
         centerTitle: true,
