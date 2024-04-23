@@ -49,7 +49,20 @@ class RockSectorConverter
 
   @override
   Map<String, dynamic> toJson(RockSector object) {
-    return (object as RockSectorModel).toJson();
+    if (object is RockSectorModel) {
+      return object.toJson();
+    } else {
+      return RockSectorModel(
+        name: object.name,
+        image: object.image,
+        id: object.id,
+        hasAid: object.hasAid,
+        hasBouldering: object.hasBouldering,
+        hasDryTooling: object.hasDryTooling,
+        hasRope: object.hasRope,
+        hasTrad: object.hasTrad,
+      ).toJson();
+    }
   }
 }
 
@@ -79,7 +92,22 @@ class RockRouteConverter
 
   @override
   Map<String, dynamic> toJson(RockRoute object) {
-    return (object as RockRouteModel).toJson();
+    if (object is RockRouteModel) {
+      return object.toJson();
+    } else {
+      return RockRouteModel(
+        name: object.name,
+        category: object.category,
+        type: object.type,
+        anchor: object.anchor,
+        author: object.author,
+        boltCount: object.boltCount,
+        id: object.id,
+        length: object.length,
+        number: object.number,
+        remark: object.remark,
+      ).toJson();
+    }
   }
 }
 

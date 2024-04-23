@@ -15,7 +15,25 @@ abstract class RockRegionsRemoteDataSource {
     required RockSector sector,
   });
 
-  Future<Either<Failure, Unit>> delete({required RockRoute route});
+  Future<Either<Failure, Unit>> deleteRoute({
+    required RockDistrict district,
+    required RockSector sector,
+    required RockRoute route,
+  });
 
-  Future<Either<Failure, Unit>> save({required RockRoute route});
+  Future<Either<Failure, Unit>> saveRoute({
+    required RockDistrict district,
+    required RockSector sector,
+    required RockRoute route,
+  });
+
+  Future<Either<Failure, Unit>> saveSector({
+    required RockDistrict district,
+    required RockSector sector,
+  });
+
+  Future<Either<Failure, Unit>> deleteSector({
+    required RockDistrict district,
+    required RockSector sector,
+  });
 }

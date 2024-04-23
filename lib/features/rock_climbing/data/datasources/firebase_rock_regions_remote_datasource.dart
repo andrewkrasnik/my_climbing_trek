@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 import 'package:my_climbing_trek/core/failures/failure.dart';
 import 'package:my_climbing_trek/features/rock_climbing/data/datasources/rock_regions_remote_datasource.dart';
+import 'package:my_climbing_trek/features/rock_climbing/data/models/converters.dart';
 import 'package:my_climbing_trek/features/rock_climbing/data/models/rock_district_model.dart';
 import 'package:my_climbing_trek/features/rock_climbing/data/models/rock_route_model.dart';
 import 'package:my_climbing_trek/features/rock_climbing/data/models/rock_sector_model.dart';
@@ -88,7 +89,7 @@ class FirebaseRockRegionsRemoteDataSource
     return Right(routes);
   }
 
-  CollectionReference<RockSectorModel> _sectorsRef(
+  CollectionReference<RockSector> _sectorsRef(
           {required RockDistrict district}) =>
       _firebaseFirestore
           .collection(
@@ -101,10 +102,11 @@ class FirebaseRockRegionsRemoteDataSource
 
               return RockSectorModel.fromJson(json);
             },
-            toFirestore: (value, options) => {},
+            toFirestore: (value, options) =>
+                const RockSectorConverter().toJson(value),
           );
 
-  CollectionReference<RockRouteModel> _routesRef({
+  CollectionReference<RockRoute> _routesRef({
     required RockDistrict district,
     required RockSector sector,
   }) =>
@@ -120,7 +122,8 @@ class FirebaseRockRegionsRemoteDataSource
 
               return RockRouteModel.fromJson(json);
             },
-            toFirestore: (value, options) => {},
+            toFirestore: (value, options) =>
+                const RockRouteConverter().toJson(value),
           );
 
   Future<bool> _hasEditPermission({required String districtId}) async {
@@ -138,14 +141,68 @@ class FirebaseRockRegionsRemoteDataSource
   }
 
   @override
-  Future<Either<Failure, Unit>> delete({required RockRoute route}) {
-    // TODO: implement delete
-    throw UnimplementedError();
+  Future<Either<Failure, Unit>> deleteRoute({
+    required RockDistrict district,
+    required RockSector sector,
+    required RockRoute route,
+  }) async {
+    try {
+      final techniquesRef = _routesRef(district: district, sector: sector);
+
+      await techniquesRef.doc(route.id).delete();
+
+      return const Right(unit);
+    } catch (error) {
+      return Left(RemoteServerFailure(description: error.toString()));
+    }
   }
 
   @override
-  Future<Either<Failure, Unit>> save({required RockRoute route}) {
-    // TODO: implement save
-    throw UnimplementedError();
+  Future<Either<Failure, Unit>> saveRoute({
+    required RockDistrict district,
+    required RockSector sector,
+    required RockRoute route,
+  }) async {
+    try {
+      final techniquesRef = _routesRef(district: district, sector: sector);
+
+      await techniquesRef.doc(route.id).set(route);
+
+      return const Right(unit);
+    } catch (error) {
+      return Left(RemoteServerFailure(description: error.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> deleteSector({
+    required RockDistrict district,
+    required RockSector sector,
+  }) async {
+    try {
+      final sectorsRef = _sectorsRef(district: district);
+
+      await sectorsRef.doc(sector.id).delete();
+
+      return const Right(unit);
+    } catch (error) {
+      return Left(RemoteServerFailure(description: error.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> saveSector({
+    required RockDistrict district,
+    required RockSector sector,
+  }) async {
+    try {
+      final sectorsRef = _sectorsRef(district: district);
+
+      await sectorsRef.doc(sector.id).set(sector);
+
+      return const Right(unit);
+    } catch (error) {
+      return Left(RemoteServerFailure(description: error.toString()));
+    }
   }
 }

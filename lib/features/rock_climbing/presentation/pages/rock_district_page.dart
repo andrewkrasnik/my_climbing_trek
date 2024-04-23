@@ -21,6 +21,7 @@ class RockDistrictPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = getIt<RockSectorsCubit>()..loadData(district: district);
     return SafeArea(
       child: Scaffold(
         floatingActionButton: district.hasEditPermission
@@ -29,6 +30,7 @@ class RockDistrictPage extends StatelessWidget {
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => RockSectorEditingPage(
                       district: district,
+                      sectorsCubit: cubit,
                     ),
                   ));
                 },
@@ -54,8 +56,7 @@ class RockDistrictPage extends StatelessWidget {
                     },
             ),
             BlocProvider(
-              create: (context) =>
-                  getIt<RockSectorsCubit>()..loadData(district: district),
+              create: (context) => cubit,
               child: BlocBuilder<RockSectorsCubit, RockSectorsState>(
                 builder: (context, state) {
                   return state.maybeMap(
@@ -69,6 +70,7 @@ class RockDistrictPage extends StatelessWidget {
                                       district: district,
                                       sector: sector,
                                       addSector: addSector,
+                                      sectorsCubit: cubit,
                                     ),
                                   ))
                               .toList()),

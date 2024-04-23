@@ -107,12 +107,50 @@ class RockRegionsRepositoryImpl implements RockRegionsRepository {
   }
 
   @override
-  Future<Either<Failure, Unit>> delete({required RockRoute route}) async {
-    return await _regionsRemoteDataSource.delete(route: route);
+  Future<Either<Failure, Unit>> deleteRoute({
+    required RockDistrict district,
+    required RockSector sector,
+    required RockRoute route,
+  }) async {
+    return await _regionsRemoteDataSource.deleteRoute(
+      district: district,
+      sector: sector,
+      route: route,
+    );
   }
 
   @override
-  Future<Either<Failure, Unit>> save({required RockRoute route}) async {
-    return await _regionsRemoteDataSource.save(route: route);
+  Future<Either<Failure, Unit>> saveRoute({
+    required RockDistrict district,
+    required RockSector sector,
+    required RockRoute route,
+  }) async {
+    return await _regionsRemoteDataSource.saveRoute(
+      district: district,
+      sector: sector,
+      route: route,
+    );
+  }
+
+  @override
+  Future<Either<Failure, Unit>> deleteSector({
+    required RockDistrict district,
+    required RockSector sector,
+  }) async {
+    return await _regionsRemoteDataSource.deleteSector(
+      district: district,
+      sector: sector,
+    );
+  }
+
+  @override
+  Future<Either<Failure, Unit>> saveSector({
+    required RockDistrict district,
+    required RockSector sector,
+  }) async {
+    return await _regionsRemoteDataSource.saveSector(
+      district: district,
+      sector: sector,
+    );
   }
 }

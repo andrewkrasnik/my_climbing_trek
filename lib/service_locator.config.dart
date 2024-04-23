@@ -20,7 +20,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart'
 
 import 'core/datasource/drift_db_local_datasource.dart' as _i25;
 import 'core/datasource/local_db_datasource.dart' as _i24;
-import 'core/injectable_module.dart' as _i261;
+import 'core/injectable_module.dart' as _i265;
 import 'core/services/analitics/analitics_service.dart' as _i59;
 import 'core/services/analitics/firebase_analitics_service.dart' as _i60;
 import 'core/services/crash_log_service/crash_log_service.dart' as _i16;
@@ -57,7 +57,7 @@ import 'features/cardio_workout/domain/usecases/save_cardio_treaning.dart'
 import 'features/cardio_workout/presentation/cubit/cardio_treaning/cardio_treaning_cubit.dart'
     as _i186;
 import 'features/cardio_workout/presentation/cubit/cardio_treanings/cardio_treanings_cubit.dart'
-    as _i240;
+    as _i244;
 import 'features/hall_climbing/data/datasources/climbing_hall_data_source.dart'
     as _i12;
 import 'features/hall_climbing/data/datasources/hall_treaning_data_source.dart'
@@ -85,7 +85,7 @@ import 'features/hall_climbing/domain/usecases/get_climbing_hall_routes.dart'
 import 'features/hall_climbing/domain/usecases/get_gym_route_statistic.dart'
     as _i187;
 import 'features/hall_climbing/domain/usecases/get_hall_route_attempts.dart'
-    as _i231;
+    as _i235;
 import 'features/hall_climbing/domain/usecases/hall_route_to_archive.dart'
     as _i202;
 import 'features/hall_climbing/domain/usecases/new_hall_route.dart' as _i148;
@@ -110,19 +110,19 @@ import 'features/hall_climbing/domain/usecases/treanings/new_hall_attempt_from_r
 import 'features/hall_climbing/domain/usecases/treanings/new_hall_treaning.dart'
     as _i199;
 import 'features/hall_climbing/presentation/bloc/climbing_hall/climbing_hall_cubit.dart'
-    as _i238;
+    as _i242;
 import 'features/hall_climbing/presentation/bloc/climbing_halls/climbing_halls_cubit.dart'
-    as _i250;
+    as _i254;
 import 'features/hall_climbing/presentation/bloc/current_hall_treaning/current_hall_treaning_cubit.dart'
     as _i200;
 import 'features/hall_climbing/presentation/bloc/hall_route/hall_route_cubit.dart'
     as _i201;
 import 'features/hall_climbing/presentation/bloc/hall_route_attempts/hall_route_attempts_cubit.dart'
-    as _i235;
+    as _i239;
 import 'features/hall_climbing/presentation/bloc/hall_treanings/hall_treanings_cubit.dart'
-    as _i234;
+    as _i238;
 import 'features/hall_climbing/presentation/bloc/home_page/home_page_cubit.dart'
-    as _i251;
+    as _i255;
 import 'features/ice_climbing/data/datasources/firebase_ice_regions_remote_datasource.dart'
     as _i47;
 import 'features/ice_climbing/data/datasources/ice_regions_datasource.dart'
@@ -164,7 +164,7 @@ import 'features/ice_climbing/domain/usecases/new_ice_treaning.dart' as _i179;
 import 'features/ice_climbing/domain/usecases/save_sector_usecase.dart'
     as _i174;
 import 'features/ice_climbing/presentation/bloc/current_ice_treaning/current_ice_treaning_cubit.dart'
-    as _i248;
+    as _i252;
 import 'features/ice_climbing/presentation/bloc/ice_districts/ice_districts_cubit.dart'
     as _i188;
 import 'features/ice_climbing/presentation/bloc/ice_sectors/ice_sectors_cubit.dart'
@@ -236,6 +236,9 @@ import 'features/rock_climbing/domain/repositories/rock_treanings_repository.dar
     as _i149;
 import 'features/rock_climbing/domain/usecases/delete_rock_attempt.dart'
     as _i155;
+import 'features/rock_climbing/domain/usecases/delete_rock_route.dart' as _i207;
+import 'features/rock_climbing/domain/usecases/delete_rock_sector.dart'
+    as _i208;
 import 'features/rock_climbing/domain/usecases/finish_rock_attempt.dart'
     as _i156;
 import 'features/rock_climbing/domain/usecases/finish_rock_treaning.dart'
@@ -245,9 +248,9 @@ import 'features/rock_climbing/domain/usecases/get_current_rock_treaning.dart'
 import 'features/rock_climbing/domain/usecases/get_last_rock_treaning.dart'
     as _i159;
 import 'features/rock_climbing/domain/usecases/get_rock_route_attempts.dart'
-    as _i236;
+    as _i240;
 import 'features/rock_climbing/domain/usecases/get_rock_route_statistic.dart'
-    as _i237;
+    as _i241;
 import 'features/rock_climbing/domain/usecases/load_rock_districts.dart'
     as _i204;
 import 'features/rock_climbing/domain/usecases/load_rock_routes.dart' as _i205;
@@ -256,14 +259,16 @@ import 'features/rock_climbing/domain/usecases/new_rock_attempt.dart' as _i160;
 import 'features/rock_climbing/domain/usecases/new_rock_treaning.dart' as _i161;
 import 'features/rock_climbing/domain/usecases/rock_sector_to_treaning.dart'
     as _i162;
+import 'features/rock_climbing/domain/usecases/save_rock_route.dart' as _i209;
+import 'features/rock_climbing/domain/usecases/save_rock_sector.dart' as _i210;
 import 'features/rock_climbing/presentation/cubit/rock_districts/rock_districts_cubit.dart'
-    as _i259;
+    as _i263;
 import 'features/rock_climbing/presentation/cubit/rock_routes/rock_routes_cubit.dart'
-    as _i257;
+    as _i260;
 import 'features/rock_climbing/presentation/cubit/rock_sectors/rock_sectors_cubit.dart'
     as _i246;
 import 'features/rock_climbing/presentation/cubit/rock_treaning/rock_treaning_cubit.dart'
-    as _i256;
+    as _i261;
 import 'features/settings/data/datasources/firebase_places_remote_datasource.dart'
     as _i19;
 import 'features/settings/data/datasources/hive_places_local_datasource.dart'
@@ -290,7 +295,7 @@ import 'features/settings/domain/usecases/save_simple_settings_usecase.dart'
     as _i140;
 import 'features/settings/domain/usecases/save_treanings_settings.dart'
     as _i141;
-import 'features/settings/presentation/cubit/settings_cubit.dart' as _i207;
+import 'features/settings/presentation/cubit/settings_cubit.dart' as _i211;
 import 'features/strength_training/data/datasources/local_strength_exercise_datasource.dart'
     as _i79;
 import 'features/strength_training/data/datasources/local_strength_treanings_datasource.dart'
@@ -308,37 +313,37 @@ import 'features/strength_training/domain/repositories/strength_exercises_reposi
 import 'features/strength_training/domain/repositories/strength_treanings_repository.dart'
     as _i166;
 import 'features/strength_training/domain/usecases/add_repetition_for_strength_treaning.dart'
-    as _i208;
+    as _i212;
 import 'features/strength_training/domain/usecases/add_strength_treaning.dart'
-    as _i232;
+    as _i236;
 import 'features/strength_training/domain/usecases/delete_repetition_for_strength_treaning.dart'
-    as _i209;
+    as _i213;
 import 'features/strength_training/domain/usecases/delete_strength_exercise.dart'
     as _i121;
 import 'features/strength_training/domain/usecases/delete_strength_treaning.dart'
-    as _i210;
+    as _i214;
 import 'features/strength_training/domain/usecases/finish_stregth_treaning.dart'
-    as _i211;
+    as _i215;
 import 'features/strength_training/domain/usecases/get_current_strength_treaning.dart'
-    as _i212;
+    as _i216;
 import 'features/strength_training/domain/usecases/get_previos_strength_treaning.dart'
-    as _i213;
+    as _i217;
 import 'features/strength_training/domain/usecases/get_strength_exercises.dart'
     as _i122;
 import 'features/strength_training/domain/usecases/get_strength_treanings.dart'
-    as _i214;
+    as _i218;
 import 'features/strength_training/domain/usecases/save_strength_exercise.dart'
     as _i123;
 import 'features/strength_training/domain/usecases/select_to_use_strength_exercise.dart'
     as _i124;
 import 'features/strength_training/domain/usecases/update_strength_treaning_exercises.dart'
-    as _i233;
+    as _i237;
 import 'features/strength_training/presentation/cubit/strength_exercises/strength_exercises_cubit.dart'
     as _i143;
 import 'features/strength_training/presentation/cubit/strength_training/strength_training_cubit.dart'
-    as _i249;
+    as _i253;
 import 'features/strength_training/presentation/cubit/strength_trainings/strength_trainings_cubit.dart'
-    as _i252;
+    as _i256;
 import 'features/techniques/data/datasources/drift_technique_treanings_local_datasource.dart'
     as _i35;
 import 'features/techniques/data/datasources/firebase_techniques_remote_datasource.dart'
@@ -403,57 +408,57 @@ import 'features/traveling/data/repositories/travel_repository.dart' as _i176;
 import 'features/traveling/domain/repositories/travel_regions_repository.dart'
     as _i106;
 import 'features/traveling/domain/repositories/travel_repository.dart' as _i175;
-import 'features/traveling/domain/usecases/add_travel_usecase.dart' as _i215;
+import 'features/traveling/domain/usecases/add_travel_usecase.dart' as _i219;
 import 'features/traveling/domain/usecases/current_travel_usecase.dart'
-    as _i216;
-import 'features/traveling/domain/usecases/edit_travel_usecase.dart' as _i217;
-import 'features/traveling/domain/usecases/get_current_travel_day_usecase.dart'
-    as _i218;
-import 'features/traveling/domain/usecases/get_travels_usecase.dart' as _i219;
-import 'features/traveling/domain/usecases/travel_page/delete_budget_line_usecase.dart'
     as _i220;
-import 'features/traveling/domain/usecases/travel_page/delete_cost_line_usecase.dart'
-    as _i221;
-import 'features/traveling/domain/usecases/travel_page/delete_insurance_line_usecase.dart'
+import 'features/traveling/domain/usecases/edit_travel_usecase.dart' as _i221;
+import 'features/traveling/domain/usecases/get_current_travel_day_usecase.dart'
     as _i222;
-import 'features/traveling/domain/usecases/travel_page/edit_budget_line_usecase.dart'
-    as _i223;
-import 'features/traveling/domain/usecases/travel_page/edit_cost_line_usecase.dart'
+import 'features/traveling/domain/usecases/get_travels_usecase.dart' as _i223;
+import 'features/traveling/domain/usecases/travel_page/delete_budget_line_usecase.dart'
     as _i224;
-import 'features/traveling/domain/usecases/travel_page/edit_day_line_usecase.dart'
+import 'features/traveling/domain/usecases/travel_page/delete_cost_line_usecase.dart'
     as _i225;
-import 'features/traveling/domain/usecases/travel_page/edit_insurance_line_usecase.dart'
+import 'features/traveling/domain/usecases/travel_page/delete_insurance_line_usecase.dart'
     as _i226;
-import 'features/traveling/domain/usecases/travel_page/get_budget_line_usecase.dart'
+import 'features/traveling/domain/usecases/travel_page/edit_budget_line_usecase.dart'
     as _i227;
-import 'features/traveling/domain/usecases/travel_page/get_cost_lines_usecase.dart'
+import 'features/traveling/domain/usecases/travel_page/edit_cost_line_usecase.dart'
     as _i228;
-import 'features/traveling/domain/usecases/travel_page/get_day_lines_usecase.dart'
+import 'features/traveling/domain/usecases/travel_page/edit_day_line_usecase.dart'
     as _i229;
+import 'features/traveling/domain/usecases/travel_page/edit_insurance_line_usecase.dart'
+    as _i230;
+import 'features/traveling/domain/usecases/travel_page/get_budget_line_usecase.dart'
+    as _i231;
+import 'features/traveling/domain/usecases/travel_page/get_cost_lines_usecase.dart'
+    as _i232;
+import 'features/traveling/domain/usecases/travel_page/get_day_lines_usecase.dart'
+    as _i233;
 import 'features/traveling/domain/usecases/travel_page/get_feeding_statistic_usecase.dart'
     as _i9;
 import 'features/traveling/domain/usecases/travel_page/get_insurance_lines_usecase.dart'
-    as _i230;
+    as _i234;
 import 'features/traveling/domain/usecases/travel_page/get_travel_regions_usecase.dart'
     as _i111;
 import 'features/traveling/presentation/cubit/current_travel/current_travel_cubit.dart'
-    as _i242;
-import 'features/traveling/presentation/cubit/travel_day/travel_day_cubit.dart'
-    as _i254;
-import 'features/traveling/presentation/cubit/travel_page/travel_page_cubit.dart'
-    as _i258;
-import 'features/traveling/presentation/cubit/travels/travels_cubit.dart'
     as _i247;
-import 'features/treanings/domain/usecases/delete_treaning.dart' as _i241;
+import 'features/traveling/presentation/cubit/travel_day/travel_day_cubit.dart'
+    as _i258;
+import 'features/traveling/presentation/cubit/travel_page/travel_page_cubit.dart'
+    as _i262;
+import 'features/traveling/presentation/cubit/travels/travels_cubit.dart'
+    as _i251;
+import 'features/treanings/domain/usecases/delete_treaning.dart' as _i245;
 import 'features/treanings/domain/usecases/export_treanings_usecase.dart'
-    as _i243;
-import 'features/treanings/domain/usecases/get_all_treanings.dart' as _i244;
+    as _i248;
+import 'features/treanings/domain/usecases/get_all_treanings.dart' as _i249;
 import 'features/treanings/domain/usecases/import_treanings_usecase.dart'
-    as _i245;
+    as _i250;
 import 'features/treanings/presentation/cubit/treanings/treanings_cubit.dart'
-    as _i253;
+    as _i257;
 import 'features/treanings/presentation/cubit/treanings_export_import/treanings_export_import_cubit.dart'
-    as _i260;
+    as _i264;
 import 'features/trekking/data/datasources/drift_trekking_path_local_datasource.dart'
     as _i91;
 import 'features/trekking/data/datasources/firebase_trekking_remote_datasource.dart'
@@ -479,10 +484,10 @@ import 'features/trekking/domain/usecases/previos_trekking_path_usecase.dart'
     as _i192;
 import 'features/trekking/domain/usecases/start_trek_usecase.dart' as _i193;
 import 'features/trekking/presentation/bloc/trekking/trekking_cubit.dart'
-    as _i255;
+    as _i259;
 import 'features/trekking/presentation/bloc/trekking_regions/trekking_regions_cubit.dart'
     as _i154;
-import 'features/trekking/presentation/bloc/treks/treks_cubit.dart' as _i239;
+import 'features/trekking/presentation/bloc/treks/treks_cubit.dart' as _i243;
 
 // initializes the registration of main-scope dependencies inside of GetIt
 _i1.GetIt $initGetIt(
@@ -907,104 +912,112 @@ _i1.GetIt $initGetIt(
       () => _i205.LoadRockRoutes(gh<_i144.RockRegionsRepository>()));
   gh.lazySingleton<_i206.LoadRockSectors>(
       () => _i206.LoadRockSectors(gh<_i144.RockRegionsRepository>()));
-  gh.lazySingleton<_i207.SettingsCubit>(() => _i207.SettingsCubit(
+  gh.lazySingleton<_i207.DeleteRockRoute>(
+      () => _i207.DeleteRockRoute(gh<_i144.RockRegionsRepository>()));
+  gh.lazySingleton<_i208.DeleteRockSector>(
+      () => _i208.DeleteRockSector(gh<_i144.RockRegionsRepository>()));
+  gh.lazySingleton<_i209.SaveRockRoute>(
+      () => _i209.SaveRockRoute(gh<_i144.RockRegionsRepository>()));
+  gh.lazySingleton<_i210.SaveRockSector>(
+      () => _i210.SaveRockSector(gh<_i144.RockRegionsRepository>()));
+  gh.lazySingleton<_i211.SettingsCubit>(() => _i211.SettingsCubit(
         gh<_i139.LoadTreaningsSettings>(),
         gh<_i141.SaveTreaningsSettings>(),
         gh<_i178.LoadPlaces>(),
         gh<_i138.LoadSimpleSettingsUsecase>(),
         gh<_i140.SaveSimpleSettingsUsecase>(),
       ));
-  gh.lazySingleton<_i208.AddRepetitionForStrengthTreaning>(() =>
-      _i208.AddRepetitionForStrengthTreaning(
+  gh.lazySingleton<_i212.AddRepetitionForStrengthTreaning>(() =>
+      _i212.AddRepetitionForStrengthTreaning(
           strengthTreaningsRepository:
               gh<_i166.StrengthTreaningsRepository>()));
-  gh.lazySingleton<_i209.DeleteRepetitionForStrengthTreaning>(() =>
-      _i209.DeleteRepetitionForStrengthTreaning(
+  gh.lazySingleton<_i213.DeleteRepetitionForStrengthTreaning>(() =>
+      _i213.DeleteRepetitionForStrengthTreaning(
           strengthTreaningsRepository:
               gh<_i166.StrengthTreaningsRepository>()));
-  gh.lazySingleton<_i210.DeleteStrengthTreaning>(() =>
-      _i210.DeleteStrengthTreaning(
+  gh.lazySingleton<_i214.DeleteStrengthTreaning>(() =>
+      _i214.DeleteStrengthTreaning(
           strengthTreaningsRepository:
               gh<_i166.StrengthTreaningsRepository>()));
-  gh.lazySingleton<_i211.FinishStrengthTreaning>(() =>
-      _i211.FinishStrengthTreaning(
+  gh.lazySingleton<_i215.FinishStrengthTreaning>(() =>
+      _i215.FinishStrengthTreaning(
           strengthTreaningsRepository:
               gh<_i166.StrengthTreaningsRepository>()));
-  gh.lazySingleton<_i212.GetCurrentStrengthTreaning>(() =>
-      _i212.GetCurrentStrengthTreaning(
+  gh.lazySingleton<_i216.GetCurrentStrengthTreaning>(() =>
+      _i216.GetCurrentStrengthTreaning(
           strengthTreaningsRepository:
               gh<_i166.StrengthTreaningsRepository>()));
-  gh.lazySingleton<_i213.GetPreviosStrengthTreaning>(() =>
-      _i213.GetPreviosStrengthTreaning(
+  gh.lazySingleton<_i217.GetPreviosStrengthTreaning>(() =>
+      _i217.GetPreviosStrengthTreaning(
           strengthTreaningsRepository:
               gh<_i166.StrengthTreaningsRepository>()));
-  gh.lazySingleton<_i214.GetStrengthTreanings>(() => _i214.GetStrengthTreanings(
+  gh.lazySingleton<_i218.GetStrengthTreanings>(() => _i218.GetStrengthTreanings(
       strengthTreaningsRepository: gh<_i166.StrengthTreaningsRepository>()));
-  gh.lazySingleton<_i215.AddTravelUsecase>(
-      () => _i215.AddTravelUsecase(gh<_i175.TravelRepository>()));
-  gh.lazySingleton<_i216.CurrentTravelUsecase>(
-      () => _i216.CurrentTravelUsecase(gh<_i175.TravelRepository>()));
-  gh.lazySingleton<_i217.EditTravelUsecase>(
-      () => _i217.EditTravelUsecase(gh<_i175.TravelRepository>()));
-  gh.lazySingleton<_i218.GetCurrentTravelDayUsecase>(
-      () => _i218.GetCurrentTravelDayUsecase(gh<_i175.TravelRepository>()));
-  gh.lazySingleton<_i219.GetTravelsUsecase>(
-      () => _i219.GetTravelsUsecase(gh<_i175.TravelRepository>()));
-  gh.lazySingleton<_i220.DeleteBudgetLineUsecase>(
-      () => _i220.DeleteBudgetLineUsecase(gh<_i175.TravelRepository>()));
-  gh.lazySingleton<_i221.DeleteCostLineUsecase>(
-      () => _i221.DeleteCostLineUsecase(gh<_i175.TravelRepository>()));
-  gh.lazySingleton<_i222.DeleteInsuranceLineUsecase>(
-      () => _i222.DeleteInsuranceLineUsecase(gh<_i175.TravelRepository>()));
-  gh.lazySingleton<_i223.EditBudgetLineUsecase>(
-      () => _i223.EditBudgetLineUsecase(gh<_i175.TravelRepository>()));
-  gh.lazySingleton<_i224.EditCostLineUsecase>(
-      () => _i224.EditCostLineUsecase(gh<_i175.TravelRepository>()));
-  gh.lazySingleton<_i225.EditDayLineUsecase>(
-      () => _i225.EditDayLineUsecase(gh<_i175.TravelRepository>()));
-  gh.lazySingleton<_i226.EditInsuranceLineUsecase>(
-      () => _i226.EditInsuranceLineUsecase(gh<_i175.TravelRepository>()));
-  gh.lazySingleton<_i227.GetBudgetLinesUsecase>(
-      () => _i227.GetBudgetLinesUsecase(gh<_i175.TravelRepository>()));
-  gh.lazySingleton<_i228.GetCostLinesUsecase>(
-      () => _i228.GetCostLinesUsecase(gh<_i175.TravelRepository>()));
-  gh.lazySingleton<_i229.GetDayLinesUsecase>(
-      () => _i229.GetDayLinesUsecase(gh<_i175.TravelRepository>()));
-  gh.lazySingleton<_i230.GetInsuranceLineUsecase>(
-      () => _i230.GetInsuranceLineUsecase(gh<_i175.TravelRepository>()));
-  gh.lazySingleton<_i231.GetHallRouteAttempts>(() => _i231.GetHallRouteAttempts(
+  gh.lazySingleton<_i219.AddTravelUsecase>(
+      () => _i219.AddTravelUsecase(gh<_i175.TravelRepository>()));
+  gh.lazySingleton<_i220.CurrentTravelUsecase>(
+      () => _i220.CurrentTravelUsecase(gh<_i175.TravelRepository>()));
+  gh.lazySingleton<_i221.EditTravelUsecase>(
+      () => _i221.EditTravelUsecase(gh<_i175.TravelRepository>()));
+  gh.lazySingleton<_i222.GetCurrentTravelDayUsecase>(
+      () => _i222.GetCurrentTravelDayUsecase(gh<_i175.TravelRepository>()));
+  gh.lazySingleton<_i223.GetTravelsUsecase>(
+      () => _i223.GetTravelsUsecase(gh<_i175.TravelRepository>()));
+  gh.lazySingleton<_i224.DeleteBudgetLineUsecase>(
+      () => _i224.DeleteBudgetLineUsecase(gh<_i175.TravelRepository>()));
+  gh.lazySingleton<_i225.DeleteCostLineUsecase>(
+      () => _i225.DeleteCostLineUsecase(gh<_i175.TravelRepository>()));
+  gh.lazySingleton<_i226.DeleteInsuranceLineUsecase>(
+      () => _i226.DeleteInsuranceLineUsecase(gh<_i175.TravelRepository>()));
+  gh.lazySingleton<_i227.EditBudgetLineUsecase>(
+      () => _i227.EditBudgetLineUsecase(gh<_i175.TravelRepository>()));
+  gh.lazySingleton<_i228.EditCostLineUsecase>(
+      () => _i228.EditCostLineUsecase(gh<_i175.TravelRepository>()));
+  gh.lazySingleton<_i229.EditDayLineUsecase>(
+      () => _i229.EditDayLineUsecase(gh<_i175.TravelRepository>()));
+  gh.lazySingleton<_i230.EditInsuranceLineUsecase>(
+      () => _i230.EditInsuranceLineUsecase(gh<_i175.TravelRepository>()));
+  gh.lazySingleton<_i231.GetBudgetLinesUsecase>(
+      () => _i231.GetBudgetLinesUsecase(gh<_i175.TravelRepository>()));
+  gh.lazySingleton<_i232.GetCostLinesUsecase>(
+      () => _i232.GetCostLinesUsecase(gh<_i175.TravelRepository>()));
+  gh.lazySingleton<_i233.GetDayLinesUsecase>(
+      () => _i233.GetDayLinesUsecase(gh<_i175.TravelRepository>()));
+  gh.lazySingleton<_i234.GetInsuranceLineUsecase>(
+      () => _i234.GetInsuranceLineUsecase(gh<_i175.TravelRepository>()));
+  gh.lazySingleton<_i235.GetHallRouteAttempts>(() => _i235.GetHallRouteAttempts(
       repository: gh<_i152.HallTreaningRepository>()));
-  gh.lazySingleton<_i232.AddStrengthTreaning>(() => _i232.AddStrengthTreaning(
+  gh.lazySingleton<_i236.AddStrengthTreaning>(() => _i236.AddStrengthTreaning(
         strengthTreaningsRepository: gh<_i166.StrengthTreaningsRepository>(),
         strengthExerciseRepository: gh<_i88.StrengthExerciseRepository>(),
       ));
-  gh.lazySingleton<_i233.UpdateStrengthTreaningExercises>(() =>
-      _i233.UpdateStrengthTreaningExercises(
+  gh.lazySingleton<_i237.UpdateStrengthTreaningExercises>(() =>
+      _i237.UpdateStrengthTreaningExercises(
         strengthTreaningsRepository: gh<_i166.StrengthTreaningsRepository>(),
         strengthExerciseRepository: gh<_i88.StrengthExerciseRepository>(),
       ));
-  gh.factory<_i234.HallTreaningsCubit>(() => _i234.HallTreaningsCubit(
+  gh.factory<_i238.HallTreaningsCubit>(() => _i238.HallTreaningsCubit(
         allHallTreanings: gh<_i163.AllHallTreanings>(),
         deleteHallTreaning: gh<_i195.DeleteHallTreaning>(),
       ));
-  gh.factory<_i235.HallRouteAttemptsCubit>(() => _i235.HallRouteAttemptsCubit(
-      getHallRouteAttempts: gh<_i231.GetHallRouteAttempts>()));
-  gh.lazySingleton<_i236.GetRockRouteAttempts>(
-      () => _i236.GetRockRouteAttempts(gh<_i149.RockTreaningsRepository>()));
-  gh.lazySingleton<_i237.GetRockRouteStatistic>(
-      () => _i237.GetRockRouteStatistic(gh<_i149.RockTreaningsRepository>()));
-  gh.factory<_i238.ClimbingHallCubit>(() => _i238.ClimbingHallCubit(
+  gh.factory<_i239.HallRouteAttemptsCubit>(() => _i239.HallRouteAttemptsCubit(
+      getHallRouteAttempts: gh<_i235.GetHallRouteAttempts>()));
+  gh.lazySingleton<_i240.GetRockRouteAttempts>(
+      () => _i240.GetRockRouteAttempts(gh<_i149.RockTreaningsRepository>()));
+  gh.lazySingleton<_i241.GetRockRouteStatistic>(
+      () => _i241.GetRockRouteStatistic(gh<_i149.RockTreaningsRepository>()));
+  gh.factory<_i242.ClimbingHallCubit>(() => _i242.ClimbingHallCubit(
         gh<_i185.GetClimbingHallRoures>(),
         gh<_i202.HallRouteToArchive>(),
         gh<_i187.GetGymRouteStatistic>(),
       ));
-  gh.factory<_i239.TreksCubit>(() => _i239.TreksCubit(gh<_i147.GetTreks>()));
-  gh.factory<_i240.CardioTreaningsCubit>(() => _i240.CardioTreaningsCubit(
+  gh.factory<_i243.TreksCubit>(() => _i243.TreksCubit(gh<_i147.GetTreks>()));
+  gh.factory<_i244.CardioTreaningsCubit>(() => _i244.CardioTreaningsCubit(
         gh<_i181.GetCardioTreanings>(),
         gh<_i180.DeleteCardioTreaning>(),
         gh<_i183.SaveCardioTreaning>(),
       ));
-  gh.lazySingleton<_i241.DeleteTreaning>(() => _i241.DeleteTreaning(
+  gh.lazySingleton<_i245.DeleteTreaning>(() => _i245.DeleteTreaning(
         gh<_i152.HallTreaningRepository>(),
         gh<_i63.IceTreaningsRepository>(),
         gh<_i166.StrengthTreaningsRepository>(),
@@ -1014,13 +1027,18 @@ _i1.GetIt $initGetIt(
         gh<_i53.TechniqueTreaningsRepository>(),
         gh<_i32.AscensionRepository>(),
       ));
-  gh.factory<_i242.CurrentTravelCubit>(() => _i242.CurrentTravelCubit(
-        gh<_i216.CurrentTravelUsecase>(),
-        gh<_i224.EditCostLineUsecase>(),
-        gh<_i218.GetCurrentTravelDayUsecase>(),
+  gh.factory<_i246.RockSectorsCubit>(() => _i246.RockSectorsCubit(
+        gh<_i206.LoadRockSectors>(),
+        gh<_i208.DeleteRockSector>(),
+        gh<_i210.SaveRockSector>(),
       ));
-  gh.lazySingleton<_i243.ExportTreaningsUseCase>(
-      () => _i243.ExportTreaningsUseCase(
+  gh.factory<_i247.CurrentTravelCubit>(() => _i247.CurrentTravelCubit(
+        gh<_i220.CurrentTravelUsecase>(),
+        gh<_i228.EditCostLineUsecase>(),
+        gh<_i222.GetCurrentTravelDayUsecase>(),
+      ));
+  gh.lazySingleton<_i248.ExportTreaningsUseCase>(
+      () => _i248.ExportTreaningsUseCase(
             gh<_i152.HallTreaningRepository>(),
             gh<_i63.IceTreaningsRepository>(),
             gh<_i166.StrengthTreaningsRepository>(),
@@ -1031,7 +1049,7 @@ _i1.GetIt $initGetIt(
             gh<_i53.TechniqueTreaningsRepository>(),
             gh<_i32.AscensionRepository>(),
           ));
-  gh.lazySingleton<_i244.GetAllTreanings>(() => _i244.GetAllTreanings(
+  gh.lazySingleton<_i249.GetAllTreanings>(() => _i249.GetAllTreanings(
         gh<_i152.HallTreaningRepository>(),
         gh<_i63.IceTreaningsRepository>(),
         gh<_i166.StrengthTreaningsRepository>(),
@@ -1042,8 +1060,8 @@ _i1.GetIt $initGetIt(
         gh<_i53.TechniqueTreaningsRepository>(),
         gh<_i32.AscensionRepository>(),
       ));
-  gh.lazySingleton<_i245.ImportTreaningsUseCase>(
-      () => _i245.ImportTreaningsUseCase(
+  gh.lazySingleton<_i250.ImportTreaningsUseCase>(
+      () => _i250.ImportTreaningsUseCase(
             gh<_i152.HallTreaningRepository>(),
             gh<_i63.IceTreaningsRepository>(),
             gh<_i166.StrengthTreaningsRepository>(),
@@ -1054,13 +1072,11 @@ _i1.GetIt $initGetIt(
             gh<_i53.TechniqueTreaningsRepository>(),
             gh<_i32.AscensionRepository>(),
           ));
-  gh.factory<_i246.RockSectorsCubit>(
-      () => _i246.RockSectorsCubit(gh<_i206.LoadRockSectors>()));
-  gh.factory<_i247.TravelsCubit>(() => _i247.TravelsCubit(
-        gh<_i219.GetTravelsUsecase>(),
-        gh<_i215.AddTravelUsecase>(),
+  gh.factory<_i251.TravelsCubit>(() => _i251.TravelsCubit(
+        gh<_i223.GetTravelsUsecase>(),
+        gh<_i219.AddTravelUsecase>(),
       ));
-  gh.factory<_i248.CurrentIceTreaningCubit>(() => _i248.CurrentIceTreaningCubit(
+  gh.factory<_i252.CurrentIceTreaningCubit>(() => _i252.CurrentIceTreaningCubit(
         gh<_i179.NewIceTreaning>(),
         gh<_i137.IceSectorToTreaning>(),
         gh<_i110.NewIceAttempt>(),
@@ -1070,40 +1086,46 @@ _i1.GetIt $initGetIt(
         gh<_i136.GetLastIceTreaning>(),
         gh<_i108.DeleteIceAttempt>(),
       ));
-  gh.factory<_i249.StrengthTrainingCubit>(() => _i249.StrengthTrainingCubit(
-        getCurrentStrengthTreaning: gh<_i212.GetCurrentStrengthTreaning>(),
-        getPreviosStrengthTreaning: gh<_i213.GetPreviosStrengthTreaning>(),
-        addStrengthTreaning: gh<_i232.AddStrengthTreaning>(),
+  gh.factory<_i253.StrengthTrainingCubit>(() => _i253.StrengthTrainingCubit(
+        getCurrentStrengthTreaning: gh<_i216.GetCurrentStrengthTreaning>(),
+        getPreviosStrengthTreaning: gh<_i217.GetPreviosStrengthTreaning>(),
+        addStrengthTreaning: gh<_i236.AddStrengthTreaning>(),
         updateStrengthTreaningExercises:
-            gh<_i233.UpdateStrengthTreaningExercises>(),
+            gh<_i237.UpdateStrengthTreaningExercises>(),
         addRepetitionForStrengthTreaning:
-            gh<_i208.AddRepetitionForStrengthTreaning>(),
-        finishStrengthTreaning: gh<_i211.FinishStrengthTreaning>(),
+            gh<_i212.AddRepetitionForStrengthTreaning>(),
+        finishStrengthTreaning: gh<_i215.FinishStrengthTreaning>(),
         deleteRepetitionForStrengthTreaning:
-            gh<_i209.DeleteRepetitionForStrengthTreaning>(),
+            gh<_i213.DeleteRepetitionForStrengthTreaning>(),
       ));
-  gh.factory<_i250.ClimbingHallsCubit>(() =>
-      _i250.ClimbingHallsCubit(allClimbingHalls: gh<_i184.AllClimbingHalls>()));
-  gh.factory<_i251.HomePageCubit>(() =>
-      _i251.HomePageCubit(allClimbingHalls: gh<_i184.AllClimbingHalls>()));
-  gh.factory<_i252.StrengthTrainingsCubit>(() => _i252.StrengthTrainingsCubit(
-        gh<_i214.GetStrengthTreanings>(),
-        gh<_i210.DeleteStrengthTreaning>(),
+  gh.factory<_i254.ClimbingHallsCubit>(() =>
+      _i254.ClimbingHallsCubit(allClimbingHalls: gh<_i184.AllClimbingHalls>()));
+  gh.factory<_i255.HomePageCubit>(() =>
+      _i255.HomePageCubit(allClimbingHalls: gh<_i184.AllClimbingHalls>()));
+  gh.factory<_i256.StrengthTrainingsCubit>(() => _i256.StrengthTrainingsCubit(
+        gh<_i218.GetStrengthTreanings>(),
+        gh<_i214.DeleteStrengthTreaning>(),
       ));
-  gh.factory<_i253.TreaningsCubit>(() => _i253.TreaningsCubit(
-        gh<_i244.GetAllTreanings>(),
-        gh<_i241.DeleteTreaning>(),
+  gh.factory<_i257.TreaningsCubit>(() => _i257.TreaningsCubit(
+        gh<_i249.GetAllTreanings>(),
+        gh<_i245.DeleteTreaning>(),
       ));
-  gh.factory<_i254.TravelDayCubit>(
-      () => _i254.TravelDayCubit(gh<_i225.EditDayLineUsecase>()));
-  gh.factory<_i255.TrekkingCubit>(() => _i255.TrekkingCubit(
+  gh.factory<_i258.TravelDayCubit>(
+      () => _i258.TravelDayCubit(gh<_i229.EditDayLineUsecase>()));
+  gh.factory<_i259.TrekkingCubit>(() => _i259.TrekkingCubit(
         gh<_i191.CurrentTrekkingPathUsecase>(),
         gh<_i192.PreviosTrekkingPathUsecase>(),
         gh<_i193.StartTrekUsecase>(),
         gh<_i189.AddTrekEventUsecase>(),
         gh<_i190.ContinueTrekUsecase>(),
       ));
-  gh.factory<_i256.RockTreaningCubit>(() => _i256.RockTreaningCubit(
+  gh.factory<_i260.RockRoutesCubit>(() => _i260.RockRoutesCubit(
+        gh<_i205.LoadRockRoutes>(),
+        gh<_i241.GetRockRouteStatistic>(),
+        gh<_i207.DeleteRockRoute>(),
+        gh<_i209.SaveRockRoute>(),
+      ));
+  gh.factory<_i261.RockTreaningCubit>(() => _i261.RockTreaningCubit(
         gh<_i161.NewRockTreaning>(),
         gh<_i162.RockSectorToTreaning>(),
         gh<_i160.NewRockAttempt>(),
@@ -1111,36 +1133,32 @@ _i1.GetIt $initGetIt(
         gh<_i157.FinishRockTreaning>(),
         gh<_i159.GetLastRockTreaning>(),
         gh<_i158.GetCurrentRockTreaning>(),
-        gh<_i237.GetRockRouteStatistic>(),
+        gh<_i241.GetRockRouteStatistic>(),
         gh<_i155.DeleteRockAttempt>(),
       ));
-  gh.factory<_i257.RockRoutesCubit>(() => _i257.RockRoutesCubit(
-        gh<_i205.LoadRockRoutes>(),
-        gh<_i237.GetRockRouteStatistic>(),
-      ));
-  gh.factory<_i258.TravelPageCubit>(() => _i258.TravelPageCubit(
-        gh<_i221.DeleteCostLineUsecase>(),
-        gh<_i224.EditCostLineUsecase>(),
-        gh<_i228.GetCostLinesUsecase>(),
-        gh<_i230.GetInsuranceLineUsecase>(),
-        gh<_i227.GetBudgetLinesUsecase>(),
-        gh<_i226.EditInsuranceLineUsecase>(),
-        gh<_i223.EditBudgetLineUsecase>(),
-        gh<_i222.DeleteInsuranceLineUsecase>(),
-        gh<_i220.DeleteBudgetLineUsecase>(),
-        gh<_i229.GetDayLinesUsecase>(),
+  gh.factory<_i262.TravelPageCubit>(() => _i262.TravelPageCubit(
+        gh<_i225.DeleteCostLineUsecase>(),
+        gh<_i228.EditCostLineUsecase>(),
+        gh<_i232.GetCostLinesUsecase>(),
+        gh<_i234.GetInsuranceLineUsecase>(),
+        gh<_i231.GetBudgetLinesUsecase>(),
+        gh<_i230.EditInsuranceLineUsecase>(),
+        gh<_i227.EditBudgetLineUsecase>(),
+        gh<_i226.DeleteInsuranceLineUsecase>(),
+        gh<_i224.DeleteBudgetLineUsecase>(),
+        gh<_i233.GetDayLinesUsecase>(),
         gh<_i9.GetFeedingStatisticUsecase>(),
-        gh<_i217.EditTravelUsecase>(),
+        gh<_i221.EditTravelUsecase>(),
         gh<_i111.GetTravelRegionsUsecase>(),
       ));
-  gh.factory<_i259.RockDistrictsCubit>(
-      () => _i259.RockDistrictsCubit(gh<_i204.LoadRockDistricts>()));
-  gh.factory<_i260.TreaningsExportImportCubit>(
-      () => _i260.TreaningsExportImportCubit(
-            gh<_i243.ExportTreaningsUseCase>(),
-            gh<_i245.ImportTreaningsUseCase>(),
+  gh.factory<_i263.RockDistrictsCubit>(
+      () => _i263.RockDistrictsCubit(gh<_i204.LoadRockDistricts>()));
+  gh.factory<_i264.TreaningsExportImportCubit>(
+      () => _i264.TreaningsExportImportCubit(
+            gh<_i248.ExportTreaningsUseCase>(),
+            gh<_i250.ImportTreaningsUseCase>(),
           ));
   return getIt;
 }
 
-class _$InjectableModule extends _i261.InjectableModule {}
+class _$InjectableModule extends _i265.InjectableModule {}

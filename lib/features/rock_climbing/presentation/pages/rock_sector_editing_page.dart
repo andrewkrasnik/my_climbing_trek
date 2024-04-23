@@ -7,6 +7,7 @@ import 'package:my_climbing_trek/core/widgets/slidable_data_line_widget.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_district.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_sector.dart';
 import 'package:my_climbing_trek/features/rock_climbing/presentation/cubit/rock_routes/rock_routes_cubit.dart';
+import 'package:my_climbing_trek/features/rock_climbing/presentation/cubit/rock_sectors/rock_sectors_cubit.dart';
 import 'package:my_climbing_trek/features/rock_climbing/presentation/widgets/rock_route_parameters_widget.dart';
 import 'package:my_climbing_trek/features/rock_climbing/presentation/widgets/rock_route_widget.dart';
 import 'package:my_climbing_trek/service_locator.dart';
@@ -14,8 +15,14 @@ import 'package:my_climbing_trek/service_locator.dart';
 class RockSectorEditingPage extends HookWidget {
   final RockDistrict district;
   final RockSector? sector;
+  final RockSectorsCubit? sectorsCubit;
 
-  const RockSectorEditingPage({required this.district, this.sector, super.key});
+  const RockSectorEditingPage({
+    required this.district,
+    this.sectorsCubit,
+    this.sector,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -35,25 +42,53 @@ class RockSectorEditingPage extends HookWidget {
 
     final hasTradState = useState<bool>(sector?.hasTrad ?? false);
 
+    final RockRoutesCubit? routesCubit;
+
+    if (sector != null) {
+      routesCubit = getIt<RockRoutesCubit>();
+    } else {
+      routesCubit = null;
+    }
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text(sector?.name ?? 'Новый сектор'),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: sectorsCubit != null
+                ? () {
+                    sectorsCubit!.save(
+                      district: district,
+                      name: nameController.text,
+                      id: idController.text,
+                      image: imageController.text,
+                      hasBouldering: hasBoulderingState.value,
+                      hasRope: hasRopeState.value,
+                      hasTrad: hasTradState.value,
+                      hasDryTooling: hasDryToolingState.value,
+                      hasAid: hasAidState.value,
+                    );
+                  }
+                : null,
             icon: const Icon(Icons.save),
           )
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showMyModalBottomSheet<void>(
-            context: context,
-            heightPersent: 0.9,
-            child: const RockRouteParametersWidget(),
-          );
-        },
+        onPressed: sector != null
+            ? () {
+                showMyModalBottomSheet<void>(
+                  context: context,
+                  heightPersent: 0.9,
+                  child: RockRouteParametersWidget(
+                    cubit: routesCubit!,
+                    district: district,
+                    sector: sector!,
+                  ),
+                );
+              }
+            : null,
         child: const Icon(
           Icons.add,
           size: 40,
@@ -110,9 +145,9 @@ class RockSectorEditingPage extends HookWidget {
                   ),
                 ],
               ),
-              if (sector != null)
+              if (sector != null && routesCubit != null)
                 BlocProvider(
-                  create: (context) => getIt<RockRoutesCubit>(),
+                  create: (context) => routesCubit!,
                   child: Builder(
                     builder: (context) {
                       BlocProvider.of<RockRoutesCubit>(context).loadData(
@@ -131,13 +166,22 @@ class RockSectorEditingPage extends HookWidget {
                                           child: SlidableDataLineWidget(
                                             delete: true,
                                             edit: true,
-                                            onDelete: (_) {},
+                                            onDelete: (_) {
+                                              routesCubit!.delete(
+                                                district: district,
+                                                sector: sector!,
+                                                route: route,
+                                              );
+                                            },
                                             onEdit: (_) {
                                               showMyModalBottomSheet<void>(
                                                 context: context,
                                                 heightPersent: 0.9,
                                                 child:
                                                     RockRouteParametersWidget(
+                                                        district: district,
+                                                        sector: sector!,
+                                                        cubit: routesCubit!,
                                                         route: route),
                                               );
                                             },
