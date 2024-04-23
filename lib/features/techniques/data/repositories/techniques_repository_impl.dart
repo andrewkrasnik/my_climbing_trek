@@ -49,4 +49,16 @@ class TechniquesRepositoryImpl implements TechniquesRepository {
       group: group,
     );
   }
+
+  @override
+  Future<Either<Failure, Unit>> deleteGroup(
+      {required TechniqueGroup group}) async {
+    return await _techniquesRemoteDataSource.deleteGroup(group: group);
+  }
+
+  @override
+  Future<Either<Failure, Unit>> saveGroup(
+      {required TechniqueGroup group}) async {
+    return await _techniquesRemoteDataSource.saveGroup(group: group);
+  }
 }

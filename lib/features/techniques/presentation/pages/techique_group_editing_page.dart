@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:my_climbing_trek/core/widgets/my_modal_bottom_sheet.dart';
 import 'package:my_climbing_trek/core/widgets/slidable_data_line_widget.dart';
 import 'package:my_climbing_trek/features/techniques/domain/entities/technique_group.dart';
+import 'package:my_climbing_trek/features/techniques/presentation/bloc/technique_groups/technique_groups_cubit.dart';
 import 'package:my_climbing_trek/features/techniques/presentation/bloc/techniques/techniques_cubit.dart';
 import 'package:my_climbing_trek/features/techniques/presentation/widgets/technique_parameters_widget.dart';
 import 'package:my_climbing_trek/features/techniques/presentation/widgets/technique_widget.dart';
@@ -11,8 +12,10 @@ import 'package:my_climbing_trek/service_locator.dart';
 
 class TechiqueGroupEditingPage extends HookWidget {
   final TechniqueGroup? group;
+  final TechniqueGroupsCubit groupCubit;
 
-  const TechiqueGroupEditingPage({this.group, super.key});
+  const TechiqueGroupEditingPage(
+      {this.group, required this.groupCubit, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +42,14 @@ class TechiqueGroupEditingPage extends HookWidget {
         title: Text(group?.name ?? 'Новая техника'),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              groupCubit.save(
+                name: nameController.text,
+                id: idController.text,
+                description: descriptionController.text,
+                image: imageController.text,
+              );
+            },
             icon: const Icon(Icons.save),
           )
         ],

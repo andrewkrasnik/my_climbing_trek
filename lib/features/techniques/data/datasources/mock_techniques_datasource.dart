@@ -194,4 +194,16 @@ class MockTechniquesRemoteDataSource implements TechniquesRemoteDataSource {
     // TODO: implement save
     throw UnimplementedError();
   }
+
+  @override
+  Future<Either<Failure, Unit>> deleteGroup({required TechniqueGroup group}) {
+    // TODO: implement deleteGroup
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, Unit>> saveGroup({required TechniqueGroup group}) {
+    // TODO: implement saveGroup
+    throw UnimplementedError();
+  }
 }

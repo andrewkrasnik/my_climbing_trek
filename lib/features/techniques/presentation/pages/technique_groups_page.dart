@@ -12,6 +12,7 @@ class TechniqueGroupsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = getIt<TechniqueGroupsCubit>()..loadData();
+
     return BlocProvider(
       create: (context) => cubit,
       child: Scaffold(
@@ -28,7 +29,7 @@ class TechniqueGroupsPage extends StatelessWidget {
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
-                            const TechiqueGroupEditingPage()));
+                            TechiqueGroupEditingPage(groupCubit: cubit)));
                   },
                   child: const Icon(
                     Icons.add,
@@ -57,10 +58,12 @@ class TechniqueGroupsPage extends StatelessWidget {
                           return TechniqueGroupWidget(
                             height: 220,
                             group: group,
-                            onTap: () => Navigator.of(context).push(
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        TechniqueGroupPage(group: group))),
+                            onTap: () =>
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => TechniqueGroupPage(
+                                          group: group,
+                                          groupsCubit: cubit,
+                                        ))),
                           );
                         },
                         separatorBuilder: (context, index) => const SizedBox(

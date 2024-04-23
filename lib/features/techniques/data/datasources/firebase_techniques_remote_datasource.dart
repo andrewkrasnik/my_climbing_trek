@@ -33,7 +33,8 @@ class FirebaseTechniquesRemoteDataSource implements TechniquesRemoteDataSource {
 
             return const TechniqueGroupConverter().fromJson(json);
           },
-          toFirestore: (value, options) => {},
+          toFirestore: (value, options) =>
+              const TechniqueGroupConverter().toJson(value),
         );
   }
 
@@ -118,6 +119,34 @@ class FirebaseTechniquesRemoteDataSource implements TechniquesRemoteDataSource {
       final techniquesRef = _techniquesRef(group: group);
 
       await techniquesRef.doc(technique.id).set(technique);
+
+      return const Right(unit);
+    } catch (error) {
+      return Left(RemoteServerFailure(description: error.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> deleteGroup(
+      {required TechniqueGroup group}) async {
+    try {
+      final techniqueGroupsRef = _techniqueGroupsRef;
+
+      await techniqueGroupsRef.doc(group.id).delete();
+
+      return const Right(unit);
+    } catch (error) {
+      return Left(RemoteServerFailure(description: error.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> saveGroup(
+      {required TechniqueGroup group}) async {
+    try {
+      final techniqueGroupsRef = _techniqueGroupsRef;
+
+      await techniqueGroupsRef.doc(group.id).set(group);
 
       return const Right(unit);
     } catch (error) {

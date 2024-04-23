@@ -1,5 +1,6 @@
 import 'package:my_climbing_trek/core/widgets/my_sliver_app_bar_widget.dart';
 import 'package:my_climbing_trek/features/techniques/domain/entities/technique_group.dart';
+import 'package:my_climbing_trek/features/techniques/presentation/bloc/technique_groups/technique_groups_cubit.dart';
 import 'package:my_climbing_trek/features/techniques/presentation/bloc/technique_treaning/technique_treaning_cubit.dart';
 import 'package:my_climbing_trek/features/techniques/presentation/bloc/techniques/techniques_cubit.dart';
 import 'package:my_climbing_trek/features/techniques/presentation/pages/techique_group_editing_page.dart';
@@ -10,9 +11,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TechniqueGroupPage extends StatelessWidget {
   final TechniqueGroup group;
+  final TechniqueGroupsCubit? groupsCubit;
 
   const TechniqueGroupPage({
     required this.group,
+    this.groupsCubit,
     super.key,
   });
 
@@ -31,23 +34,28 @@ class TechniqueGroupPage extends StatelessWidget {
                     title: group.name,
                     imageUrl: group.image,
                     actions: state.maybeMap(
-                      data: (dataState) => dataState.editing
-                          ? [
-                              IconButton(
-                                onPressed: () {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          TechiqueGroupEditingPage(
-                                        group: group,
-                                      ),
-                                    ),
-                                  );
-                                },
-                                icon: const Icon(Icons.edit),
-                              )
-                            ]
-                          : null,
+                      data: (dataState) =>
+                          (dataState.editing && groupsCubit != null)
+                              ? [
+                                  IconButton(
+                                    onPressed: () async {
+                                      await Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              TechiqueGroupEditingPage(
+                                            groupCubit: groupsCubit!,
+                                            group: group,
+                                          ),
+                                        ),
+                                      );
+
+                                      BlocProvider.of<TechniquesCubit>(context)
+                                          .loadData(group: group);
+                                    },
+                                    icon: const Icon(Icons.edit),
+                                  ),
+                                ]
+                              : null,
                       orElse: () => null,
                     ),
                   ),
