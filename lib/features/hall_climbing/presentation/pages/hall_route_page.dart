@@ -1,4 +1,3 @@
-import 'package:my_climbing_trek/core/data/climbing_category.dart';
 import 'package:my_climbing_trek/core/data/climbing_route_type.dart';
 import 'package:my_climbing_trek/core/data/difficulty_category.dart';
 import 'package:my_climbing_trek/core/data/drytooling_category.dart';

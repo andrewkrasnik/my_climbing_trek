@@ -42,6 +42,11 @@ class MountainRegionPage extends StatelessWidget {
             : null,
         body: CustomScrollView(
           slivers: [
+            MySliverAppBarWidget(
+              heroTag: 'MountainRegion${region.id}',
+              title: region.name,
+              imageUrl: region.image!,
+            ),
             BlocProvider(
               create: (context) => cubit,
               child: BlocBuilder<MountainsCubit, MountainsState>(
@@ -58,6 +63,7 @@ class MountainRegionPage extends StatelessWidget {
                                   builder: (context) => MountainPage(
                                         mountain: dataState.mountains[index],
                                         region: region,
+                                        cubit: cubit,
                                       )));
                             },
                             child: MountainWidget(
@@ -74,11 +80,6 @@ class MountainRegionPage extends StatelessWidget {
                   );
                 },
               ),
-            ),
-            MySliverAppBarWidget(
-              heroTag: 'MountainRegion${region.id}',
-              title: region.name,
-              imageUrl: region.image!,
             ),
           ],
         ),

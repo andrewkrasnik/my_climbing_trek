@@ -1,4 +1,3 @@
-import 'package:my_climbing_trek/core/widgets/my_cached_network_image.dart';
 import 'package:my_climbing_trek/core/widgets/my_sliver_app_bar_widget.dart';
 import 'package:my_climbing_trek/features/techniques/domain/entities/technique_group.dart';
 import 'package:my_climbing_trek/features/techniques/presentation/bloc/technique_treaning/technique_treaning_cubit.dart';

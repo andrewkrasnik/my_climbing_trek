@@ -75,7 +75,23 @@ class MountainRouteRoopConverter
 
   @override
   Map<String, dynamic> toJson(MountainRouteRoop object) {
-    return (object as MountainRouteRoopModel).toJson();
+    if (object is MountainRouteRoopModel) {
+      return (object as MountainRouteRoopModel).toJson();
+    } else {
+      return MountainRouteRoopModel(
+        length: object.length,
+        number: object.number,
+        anchor: object.anchor,
+        boltCount: object.boltCount,
+        climbingCategory: object.climbingCategory,
+        description: object.description,
+        iceCategory: object.iceCategory,
+        icePrefix: object.icePrefix,
+        id: object.id,
+        pieces: object.pieces,
+        slope: object.slope,
+      ).toJson();
+    }
   }
 }
 
@@ -101,11 +117,44 @@ class MountainRoutePieceConverter
   Map<String, dynamic> toJson(MountainRoutePiece object) {
     switch (object.type) {
       case RoutePieceType.ice:
-        return (object as MountainRouteIcePieceModel).toJson();
+        if (object is MountainRouteIcePieceModel) {
+          return object.toJson();
+        } else {
+          object as MountainRouteIcePiece;
+          return MountainRouteIcePieceModel(
+            length: object.length,
+            category: object.category,
+            type: object.type,
+            slope: object.slope,
+          ).toJson();
+        }
       case RoutePieceType.rock:
-        return (object as MountainRouteRockPieceModel).toJson();
+        if (object is MountainRouteRockPieceModel) {
+          return object.toJson();
+        } else {
+          object as MountainRouteRockPiece;
+
+          return MountainRouteRockPieceModel(
+            length: object.length,
+            type: object.type,
+            aidCategory: object.aidCategory,
+            climbingCategory: object.climbingCategory,
+            slope: object.slope,
+            ussrCategory: object.ussrCategory,
+          ).toJson();
+        }
       case RoutePieceType.mixed:
-        return (object as MountainRouteMixedPieceModel).toJson();
+        if (object is MountainRouteMixedPieceModel) {
+          return object.toJson();
+        } else {
+          object as MountainRouteMixedPiece;
+          return MountainRouteMixedPieceModel(
+            category: object.category,
+            length: object.length,
+            type: object.type,
+            slope: object.slope,
+          ).toJson();
+        }
       default:
         throw 'No converter for MountainRoutePiece with type: ${object.type}';
     }

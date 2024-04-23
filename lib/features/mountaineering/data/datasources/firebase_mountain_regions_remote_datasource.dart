@@ -112,7 +112,8 @@ class FirebaseMountainRegionsRemoteDataSource
 
               return MountainRouteModel.fromJson(json);
             },
-            toFirestore: (value, options) => {},
+            toFirestore: (value, options) =>
+                const MountainRouteConverter().toJson(value),
           );
 
   @override

@@ -13,16 +13,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class MountainPage extends StatelessWidget {
   final Mountain mountain;
   final Region region;
+  final MountainsCubit? cubit;
 
   const MountainPage({
     required this.mountain,
     required this.region,
+    this.cubit,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    final cubit = getIt<MountainRoutesCubit>()
+    final routesCubit = getIt<MountainRoutesCubit>()
       ..loadData(mountain: mountain, region: region);
 
     return SafeArea(
@@ -34,6 +36,7 @@ class MountainPage extends StatelessWidget {
                     MaterialPageRoute(
                       builder: (context) => MountainRouteEditingPage(
                         mountain: mountain,
+                        cubit: routesCubit,
                       ),
                     ),
                   );
@@ -51,13 +54,13 @@ class MountainPage extends StatelessWidget {
               title: '${mountain.name}, ${mountain.altitude} м.',
               imageUrl: mountain.image,
               actions: [
-                if (region.hasEditPermission)
+                if (region.hasEditPermission && cubit != null)
                   IconButton(
                       onPressed: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => MountainEditingPage(
-                              cubit: BlocProvider.of<MountainsCubit>(context),
+                              cubit: cubit!,
                               region: region,
                               mountain: mountain,
                             ),
@@ -68,8 +71,7 @@ class MountainPage extends StatelessWidget {
               ],
             ),
             BlocProvider(
-              create: (context) => getIt<MountainRoutesCubit>()
-                ..loadData(mountain: mountain, region: region),
+              create: (context) => routesCubit,
               child: BlocBuilder<MountainRoutesCubit, MountainRoutesState>(
                 builder: (context, state) {
                   return state.maybeMap(
@@ -81,6 +83,7 @@ class MountainPage extends StatelessWidget {
                           child: MountainRouteWidget(
                             route: dataState.routes[index],
                             mountain: mountain,
+                            cubit: routesCubit,
                           ),
                         ),
                       ),
