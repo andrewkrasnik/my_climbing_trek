@@ -178,4 +178,16 @@ class MockTechniquesRemoteDataSource implements TechniquesRemoteDataSource {
     // TODO: implement getEditing
     throw UnimplementedError();
   }
+
+  @override
+  Future<Either<Failure, Unit>> delete({required Technique technique}) {
+    // TODO: implement delete
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, Unit>> save({required Technique technique}) {
+    // TODO: implement save
+    throw UnimplementedError();
+  }
 }

@@ -5,6 +5,11 @@ import 'package:dartz/dartz.dart';
 
 abstract class IceRegionsRepository {
   Future<Either<Failure, List<IceDistrict>>> getDistricts();
+
   Future<Either<Failure, List<IceSector>>> getSectors(
       {required IceDistrict district});
+
+  Future<Either<Failure, Unit>> delete({required IceSector sector});
+
+  Future<Either<Failure, Unit>> save({required IceSector sector});
 }

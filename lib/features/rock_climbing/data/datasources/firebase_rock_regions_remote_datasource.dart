@@ -136,4 +136,16 @@ class FirebaseRockRegionsRemoteDataSource
       return false;
     }
   }
+
+  @override
+  Future<Either<Failure, Unit>> delete({required RockRoute route}) {
+    // TODO: implement delete
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, Unit>> save({required RockRoute route}) {
+    // TODO: implement save
+    throw UnimplementedError();
+  }
 }

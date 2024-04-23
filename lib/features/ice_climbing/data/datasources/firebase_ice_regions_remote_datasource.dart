@@ -94,4 +94,16 @@ class FirebaseIceRegionsRemoteDataSource implements IceRegionsRemoteDataSource {
       return false;
     }
   }
+
+  @override
+  Future<Either<Failure, Unit>> delete({required IceSector sector}) {
+    // TODO: implement delete
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, Unit>> save({required IceSector sector}) {
+    // TODO: implement save
+    throw UnimplementedError();
+  }
 }

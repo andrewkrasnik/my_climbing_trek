@@ -61,4 +61,14 @@ class IceRegionsRepositoryImpl implements IceRegionsRepository {
     }
     return await _regionsLocalDataSource.getSectors(district: district);
   }
+
+  @override
+  Future<Either<Failure, Unit>> delete({required IceSector sector}) async {
+    return await _regionsRemoteDataSource.delete(sector: sector);
+  }
+
+  @override
+  Future<Either<Failure, Unit>> save({required IceSector sector}) async {
+    return await _regionsRemoteDataSource.save(sector: sector);
+  }
 }

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:my_climbing_trek/core/widgets/my_modal_bottom_sheet.dart';
 import 'package:my_climbing_trek/core/widgets/slidable_data_line_widget.dart';
 import 'package:my_climbing_trek/features/techniques/domain/entities/technique_group.dart';
 import 'package:my_climbing_trek/features/techniques/presentation/bloc/techniques/techniques_cubit.dart';
+import 'package:my_climbing_trek/features/techniques/presentation/widgets/technique_parameters_widget.dart';
 import 'package:my_climbing_trek/features/techniques/presentation/widgets/technique_widget.dart';
 import 'package:my_climbing_trek/service_locator.dart';
 
@@ -33,6 +35,19 @@ class TechiqueGroupEditingPage extends HookWidget {
             icon: const Icon(Icons.save),
           )
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showMyModalBottomSheet<void>(
+            context: context,
+            heightPersent: 0.9,
+            child: const TechniqueParametersWidget(),
+          );
+        },
+        child: const Icon(
+          Icons.add,
+          size: 40,
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -82,7 +97,14 @@ class TechiqueGroupEditingPage extends HookWidget {
                                   delete: true,
                                   edit: true,
                                   onDelete: (_) {},
-                                  onEdit: (_) {},
+                                  onEdit: (_) {
+                                    showMyModalBottomSheet<void>(
+                                      context: context,
+                                      heightPersent: 0.9,
+                                      child: TechniqueParametersWidget(
+                                          technique: technique),
+                                    );
+                                  },
                                   child: TechniqueWidget(
                                     technique: technique,
                                     selectMode: false,

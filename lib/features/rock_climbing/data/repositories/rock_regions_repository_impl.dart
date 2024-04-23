@@ -105,4 +105,14 @@ class RockRegionsRepositoryImpl implements RockRegionsRepository {
             .where((route) => filter == null ? true : filter.match(route))
             .toList()));
   }
+
+  @override
+  Future<Either<Failure, Unit>> delete({required RockRoute route}) async {
+    return await _regionsRemoteDataSource.delete(route: route);
+  }
+
+  @override
+  Future<Either<Failure, Unit>> save({required RockRoute route}) async {
+    return await _regionsRemoteDataSource.save(route: route);
+  }
 }

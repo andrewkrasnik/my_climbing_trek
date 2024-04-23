@@ -27,4 +27,14 @@ class TechniquesRepositoryImpl implements TechniquesRepository {
   Future<Either<Failure, bool>> getEditing() async {
     return await _techniquesRemoteDataSource.getEditing();
   }
+
+  @override
+  Future<Either<Failure, Unit>> delete({required Technique technique}) async {
+    return await _techniquesRemoteDataSource.delete(technique: technique);
+  }
+
+  @override
+  Future<Either<Failure, Unit>> save({required Technique technique}) async {
+    return await _techniquesRemoteDataSource.save(technique: technique);
+  }
 }

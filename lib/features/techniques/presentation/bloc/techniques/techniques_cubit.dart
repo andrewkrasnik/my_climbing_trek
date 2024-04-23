@@ -21,7 +21,9 @@ class TechniquesCubit extends Cubit<TechniquesState> {
 
   Future<void> loadData({required TechniqueGroup group}) async {
     emit(const TechniquesState.loading());
+
     final failureOrTechniques = await _getTechniquesUsecase(group: group);
+
     failureOrTechniques.fold(
       (failure) => emit(TechniquesState.error(description: failure.toString())),
       (techniques) async {
@@ -47,4 +49,8 @@ class TechniquesCubit extends Cubit<TechniquesState> {
       },
     );
   }
+
+  Future<void> saveTechnique() async {}
+
+  Future<void> deleteTechnique({required Technique technique}) async {}
 }
