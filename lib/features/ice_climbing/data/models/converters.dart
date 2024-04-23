@@ -50,6 +50,34 @@ class IceDistrictStringConverter implements JsonConverter<IceDistrict, String> {
   }
 }
 
+class IceSectorConverter
+    implements JsonConverter<IceSector, Map<String, dynamic>> {
+  const IceSectorConverter();
+  @override
+  IceSector fromJson(Map<String, dynamic> json) {
+    return IceSectorModel.fromJson(json);
+  }
+
+  @override
+  Map<String, dynamic> toJson(IceSector object) {
+    if (object is IceSectorModel) {
+      return object.toJson();
+    } else {
+      return IceSectorModel(
+        name: object.name,
+        length: object.length,
+        maxCategory: object.maxCategory,
+        artificialIce: object.artificialIce,
+        description: object.description,
+        glacierIce: object.glacierIce,
+        id: object.id,
+        image: object.image,
+        waterfallIce: object.artificialIce,
+      ).toJson();
+    }
+  }
+}
+
 class IceSectorStringConverter implements JsonConverter<IceSector, String> {
   const IceSectorStringConverter();
   @override

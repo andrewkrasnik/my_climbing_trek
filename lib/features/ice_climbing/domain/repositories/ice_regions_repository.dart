@@ -9,7 +9,13 @@ abstract class IceRegionsRepository {
   Future<Either<Failure, List<IceSector>>> getSectors(
       {required IceDistrict district});
 
-  Future<Either<Failure, Unit>> delete({required IceSector sector});
+  Future<Either<Failure, Unit>> delete({
+    required IceSector sector,
+    required IceDistrict district,
+  });
 
-  Future<Either<Failure, Unit>> save({required IceSector sector});
+  Future<Either<Failure, Unit>> save({
+    required IceSector sector,
+    required IceDistrict district,
+  });
 }

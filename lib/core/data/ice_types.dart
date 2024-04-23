@@ -1,11 +1,25 @@
+import 'package:my_climbing_trek/core/data/data_with_uuid.dart';
+
 class IceTypes {
-  static const IceType noIce = IceType(name: 'Нет льда', prefix: '');
+  static final IceType noIce = IceType(
+    name: 'Нет льда',
+    prefix: '',
+    id: '0',
+  );
 
-  static const IceType waterfall = IceType(name: 'Натечный', prefix: 'W');
+  static final IceType waterfall = IceType(
+    name: 'Натечный',
+    prefix: 'W',
+    id: 'W',
+  );
 
-  static const IceType glatcher = IceType(name: 'Ледник', prefix: 'A');
+  static final IceType glatcher = IceType(
+    name: 'Ледник',
+    prefix: 'A',
+    id: 'A',
+  );
 
-  static const values = [noIce, waterfall, glatcher];
+  static final values = [noIce, waterfall, glatcher];
 
   static IceType byPrefix(String prefix) {
     switch (prefix) {
@@ -19,11 +33,15 @@ class IceTypes {
   }
 }
 
-class IceType {
+class IceType extends DataWithUUID {
   final String name;
   final String prefix;
 
-  const IceType({required this.name, required this.prefix});
+  IceType({
+    required this.name,
+    required this.prefix,
+    super.id,
+  });
 
   @override
   String toString() => name;

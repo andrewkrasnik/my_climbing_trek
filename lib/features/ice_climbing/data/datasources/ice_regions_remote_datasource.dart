@@ -9,7 +9,13 @@ abstract class IceRegionsRemoteDataSource {
   Future<Either<Failure, List<IceSector>>> sectors(
       {required IceDistrict district});
 
-  Future<Either<Failure, Unit>> delete({required IceSector sector});
+  Future<Either<Failure, Unit>> delete({
+    required IceDistrict district,
+    required IceSector sector,
+  });
 
-  Future<Either<Failure, Unit>> save({required IceSector sector});
+  Future<Either<Failure, Unit>> save({
+    required IceDistrict district,
+    required IceSector sector,
+  });
 }

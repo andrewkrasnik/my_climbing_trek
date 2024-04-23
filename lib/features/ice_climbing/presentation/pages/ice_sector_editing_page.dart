@@ -6,12 +6,19 @@ import 'package:my_climbing_trek/core/widgets/chip_selected_widget.dart';
 import 'package:my_climbing_trek/core/widgets/select_category_widget.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_district.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_sector.dart';
+import 'package:my_climbing_trek/features/ice_climbing/presentation/bloc/ice_sectors/ice_sectors_cubit.dart';
 
 class IceSectorEditingPage extends HookWidget {
   final IceDistrict district;
   final IceSector? sector;
+  final IceSectorsCubit cubit;
 
-  const IceSectorEditingPage({required this.district, this.sector, super.key});
+  const IceSectorEditingPage({
+    required this.district,
+    this.sector,
+    super.key,
+    required this.cubit,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +46,20 @@ class IceSectorEditingPage extends HookWidget {
         title: Text(sector?.name ?? 'Новый сектор'),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              cubit.saveSector(
+                district: district,
+                name: nameController.text,
+                image: imageController.text,
+                id: idController.text,
+                waterfallIce: icePrefixState.value == IceTypes.waterfall,
+                glacierIce: icePrefixState.value == IceTypes.glatcher,
+                artificialIce: false,
+                description: descriptionController.text,
+                length: int.tryParse(lengthController.text) ?? 0,
+                maxCategory: categoryState.value,
+              );
+            },
             icon: const Icon(Icons.save),
           )
         ],

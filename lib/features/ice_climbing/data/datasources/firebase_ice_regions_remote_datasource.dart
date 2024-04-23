@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 import 'package:my_climbing_trek/core/failures/failure.dart';
 import 'package:my_climbing_trek/features/ice_climbing/data/datasources/ice_regions_remote_datasource.dart';
+import 'package:my_climbing_trek/features/ice_climbing/data/models/converters.dart';
 import 'package:my_climbing_trek/features/ice_climbing/data/models/ice_district_model.dart';
 import 'package:my_climbing_trek/features/ice_climbing/data/models/ice_sector_model.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_district.dart';
@@ -65,8 +66,7 @@ class FirebaseIceRegionsRemoteDataSource implements IceRegionsRemoteDataSource {
     return Right(sectorsData.docs.map((snapshot) => snapshot.data()).toList());
   }
 
-  CollectionReference<IceSectorModel> _sectorsRef(
-          {required IceDistrict district}) =>
+  CollectionReference<IceSector> _sectorsRef({required IceDistrict district}) =>
       _firebaseFirestore
           .collection(
               '$_districtsCollectionName/${district.id}/$_sectorsCollectionName')
@@ -78,7 +78,8 @@ class FirebaseIceRegionsRemoteDataSource implements IceRegionsRemoteDataSource {
 
               return IceSectorModel.fromJson(json);
             },
-            toFirestore: (value, options) => {},
+            toFirestore: (value, options) =>
+                const IceSectorConverter().toJson(value),
           );
 
   Future<bool> _hasEditPermission({required String districtId}) async {
@@ -96,14 +97,32 @@ class FirebaseIceRegionsRemoteDataSource implements IceRegionsRemoteDataSource {
   }
 
   @override
-  Future<Either<Failure, Unit>> delete({required IceSector sector}) {
-    // TODO: implement delete
-    throw UnimplementedError();
+  Future<Either<Failure, Unit>> delete({
+    required IceSector sector,
+    required IceDistrict district,
+  }) async {
+    try {
+      final routesRef = _sectorsRef(district: district);
+
+      await routesRef.doc(sector.id).delete();
+
+      return const Right(unit);
+    } catch (error) {
+      return Left(RemoteServerFailure(description: error.toString()));
+    }
   }
 
   @override
-  Future<Either<Failure, Unit>> save({required IceSector sector}) {
-    // TODO: implement save
-    throw UnimplementedError();
+  Future<Either<Failure, Unit>> save(
+      {required IceDistrict district, required IceSector sector}) async {
+    try {
+      final routesRef = _sectorsRef(district: district);
+
+      await routesRef.doc(sector.id).set(sector);
+
+      return const Right(unit);
+    } catch (error) {
+      return Left(RemoteServerFailure(description: error.toString()));
+    }
   }
 }

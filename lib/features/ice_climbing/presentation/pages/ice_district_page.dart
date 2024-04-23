@@ -21,6 +21,7 @@ class IceDistrictPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = getIt<IceSectorsCubit>()..loadData(district: district);
     return SafeArea(
       child: Scaffold(
         floatingActionButton: district.hasEditPermission
@@ -29,6 +30,7 @@ class IceDistrictPage extends StatelessWidget {
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => IceSectorEditingPage(
                       district: district,
+                      cubit: cubit,
                     ),
                   ));
                 },
@@ -46,8 +48,7 @@ class IceDistrictPage extends StatelessWidget {
               imageUrl: district.image,
             ),
             BlocProvider(
-              create: (context) =>
-                  getIt<IceSectorsCubit>()..loadData(district: district),
+              create: (context) => cubit,
               child: BlocBuilder<IceSectorsCubit, IceSectorsState>(
                 builder: (context, state) {
                   return state.maybeMap(
@@ -68,6 +69,7 @@ class IceDistrictPage extends StatelessWidget {
                                         builder: (context) => IceSectorPage(
                                               district: district,
                                               sector: dataState.sectors[index],
+                                              cubit: cubit,
                                             ))),
                               ),
                               if (addSector != null)
