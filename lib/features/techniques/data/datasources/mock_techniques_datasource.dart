@@ -180,13 +180,17 @@ class MockTechniquesRemoteDataSource implements TechniquesRemoteDataSource {
   }
 
   @override
-  Future<Either<Failure, Unit>> delete({required Technique technique}) {
+  Future<Either<Failure, Unit>> delete(
+      {required Technique technique, required TechniqueGroup group}) {
     // TODO: implement delete
     throw UnimplementedError();
   }
 
   @override
-  Future<Either<Failure, Unit>> save({required Technique technique}) {
+  Future<Either<Failure, Unit>> save({
+    required Technique technique,
+    required TechniqueGroup group,
+  }) {
     // TODO: implement save
     throw UnimplementedError();
   }

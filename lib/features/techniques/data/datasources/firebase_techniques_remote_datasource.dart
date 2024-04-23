@@ -75,7 +75,8 @@ class FirebaseTechniquesRemoteDataSource implements TechniquesRemoteDataSource {
 
               return const TechniqueConverter().fromJson(json);
             },
-            toFirestore: (value, options) => {},
+            toFirestore: (value, options) =>
+                const TechniqueConverter().toJson(value),
           );
 
   @override
@@ -93,14 +94,34 @@ class FirebaseTechniquesRemoteDataSource implements TechniquesRemoteDataSource {
   }
 
   @override
-  Future<Either<Failure, Unit>> delete({required Technique technique}) {
-    // TODO: implement delete
-    throw UnimplementedError();
+  Future<Either<Failure, Unit>> delete({
+    required TechniqueGroup group,
+    required Technique technique,
+  }) async {
+    try {
+      final techniquesRef = _techniquesRef(group: group);
+
+      await techniquesRef.doc(technique.id).delete();
+
+      return const Right(unit);
+    } catch (error) {
+      return Left(RemoteServerFailure(description: error.toString()));
+    }
   }
 
   @override
-  Future<Either<Failure, Unit>> save({required Technique technique}) {
-    // TODO: implement save
-    throw UnimplementedError();
+  Future<Either<Failure, Unit>> save({
+    required TechniqueGroup group,
+    required Technique technique,
+  }) async {
+    try {
+      final techniquesRef = _techniquesRef(group: group);
+
+      await techniquesRef.doc(technique.id).set(technique);
+
+      return const Right(unit);
+    } catch (error) {
+      return Left(RemoteServerFailure(description: error.toString()));
+    }
   }
 }

@@ -22,24 +22,6 @@ class TechniqueGroupPage extends StatelessWidget {
       create: (context) => getIt<TechniquesCubit>()..loadData(group: group),
       child: SafeArea(
         child: Scaffold(
-          floatingActionButton: BlocBuilder<TechniquesCubit, TechniquesState>(
-            builder: (context, state) => state.maybeMap(
-              data: (dataState) {
-                if (dataState.editing) {
-                  return FloatingActionButton(
-                    onPressed: () {},
-                    child: const Icon(
-                      Icons.add,
-                      size: 40,
-                    ),
-                  );
-                } else {
-                  return const SizedBox.shrink();
-                }
-              },
-              orElse: () => const SizedBox.shrink(),
-            ),
-          ),
           body: BlocBuilder<TechniquesCubit, TechniquesState>(
             builder: (context, state) {
               return CustomScrollView(

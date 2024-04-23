@@ -11,7 +11,13 @@ abstract class TechniquesRepository {
 
   Future<Either<Failure, bool>> getEditing();
 
-  Future<Either<Failure, Unit>> delete({required Technique technique});
+  Future<Either<Failure, Unit>> delete({
+    required Technique technique,
+    required TechniqueGroup group,
+  });
 
-  Future<Either<Failure, Unit>> save({required Technique technique});
+  Future<Either<Failure, Unit>> save({
+    required Technique technique,
+    required TechniqueGroup group,
+  });
 }

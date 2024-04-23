@@ -25,6 +25,14 @@ class TechiqueGroupEditingPage extends HookWidget {
 
     final imageController = useTextEditingController(text: group?.image);
 
+    final TechniquesCubit? cubit;
+
+    if (group != null) {
+      cubit = getIt<TechniquesCubit>()..loadData(group: group!);
+    } else {
+      cubit = null;
+    }
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -37,13 +45,18 @@ class TechiqueGroupEditingPage extends HookWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showMyModalBottomSheet<void>(
-            context: context,
-            heightPersent: 0.9,
-            child: const TechniqueParametersWidget(),
-          );
-        },
+        onPressed: cubit != null
+            ? () {
+                showMyModalBottomSheet<void>(
+                  context: context,
+                  heightPersent: 0.9,
+                  child: TechniqueParametersWidget(
+                    group: group!,
+                    cubit: cubit!,
+                  ),
+                );
+              }
+            : null,
         child: const Icon(
           Icons.add,
           size: 40,
@@ -86,8 +99,7 @@ class TechiqueGroupEditingPage extends HookWidget {
               const SizedBox(height: 16),
               if (group != null)
                 BlocProvider(
-                  create: (context) =>
-                      getIt<TechniquesCubit>()..loadData(group: group!),
+                  create: (context) => cubit!,
                   child: BlocBuilder<TechniquesCubit, TechniquesState>(
                     builder: (context, state) => state.maybeMap(
                       data: (dataState) => Column(
@@ -96,13 +108,21 @@ class TechiqueGroupEditingPage extends HookWidget {
                                 (technique) => SlidableDataLineWidget(
                                   delete: true,
                                   edit: true,
-                                  onDelete: (_) {},
+                                  onDelete: (_) {
+                                    BlocProvider.of<TechniquesCubit>(context)
+                                        .deleteTechnique(
+                                            group: group!,
+                                            technique: technique);
+                                  },
                                   onEdit: (_) {
                                     showMyModalBottomSheet<void>(
                                       context: context,
                                       heightPersent: 0.9,
                                       child: TechniqueParametersWidget(
-                                          technique: technique),
+                                        group: group!,
+                                        technique: technique,
+                                        cubit: cubit!,
+                                      ),
                                     );
                                   },
                                   child: TechniqueWidget(

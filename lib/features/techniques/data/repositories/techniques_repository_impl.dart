@@ -29,12 +29,24 @@ class TechniquesRepositoryImpl implements TechniquesRepository {
   }
 
   @override
-  Future<Either<Failure, Unit>> delete({required Technique technique}) async {
-    return await _techniquesRemoteDataSource.delete(technique: technique);
+  Future<Either<Failure, Unit>> delete({
+    required Technique technique,
+    required TechniqueGroup group,
+  }) async {
+    return await _techniquesRemoteDataSource.delete(
+      technique: technique,
+      group: group,
+    );
   }
 
   @override
-  Future<Either<Failure, Unit>> save({required Technique technique}) async {
-    return await _techniquesRemoteDataSource.save(technique: technique);
+  Future<Either<Failure, Unit>> save({
+    required Technique technique,
+    required TechniqueGroup group,
+  }) async {
+    return await _techniquesRemoteDataSource.save(
+      technique: technique,
+      group: group,
+    );
   }
 }

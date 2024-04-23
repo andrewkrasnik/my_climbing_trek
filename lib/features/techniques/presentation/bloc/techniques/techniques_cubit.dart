@@ -3,8 +3,11 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:my_climbing_trek/features/techniques/domain/entities/technique.dart';
 import 'package:my_climbing_trek/features/techniques/domain/entities/technique_group.dart';
+import 'package:my_climbing_trek/features/techniques/domain/entities/technique_option.dart';
+import 'package:my_climbing_trek/features/techniques/domain/usecases/delete_technique_usecase.dart';
 import 'package:my_climbing_trek/features/techniques/domain/usecases/get_techniques_editing_usecase.dart';
 import 'package:my_climbing_trek/features/techniques/domain/usecases/get_techniques_usecase.dart';
+import 'package:my_climbing_trek/features/techniques/domain/usecases/save_technique_usecase.dart';
 
 part 'techniques_state.dart';
 part 'techniques_cubit.freezed.dart';
@@ -13,10 +16,14 @@ part 'techniques_cubit.freezed.dart';
 class TechniquesCubit extends Cubit<TechniquesState> {
   final GetTechniquesUsecase _getTechniquesUsecase;
   final GetTechniquesEditingUsecase _getTechniquesEditingUsecase;
+  final DeleteTechniqueUsecase _deleteTechniqueUsecase;
+  final SaveTechniqueUsecase _saveTechniqueUsecase;
 
   TechniquesCubit(
     this._getTechniquesUsecase,
     this._getTechniquesEditingUsecase,
+    this._deleteTechniqueUsecase,
+    this._saveTechniqueUsecase,
   ) : super(const TechniquesState.initial());
 
   Future<void> loadData({required TechniqueGroup group}) async {
@@ -50,7 +57,45 @@ class TechniquesCubit extends Cubit<TechniquesState> {
     );
   }
 
-  Future<void> saveTechnique() async {}
+  Future<void> saveTechnique({
+    required TechniqueGroup group,
+    required String name,
+    required String id,
+    required String description,
+    String? image,
+    List<TechniqueOption>? options,
+    List<String>? links,
+  }) async {
+    emit(const TechniquesState.loading());
 
-  Future<void> deleteTechnique({required Technique technique}) async {}
+    final failureOrUnit = await _saveTechniqueUsecase(
+      group: group,
+      name: name,
+      description: description,
+      id: id,
+      image: image,
+      links: links,
+      options: options,
+    );
+
+    failureOrUnit.fold(
+      (failure) => emit(TechniquesState.error(description: failure.toString())),
+      (_) => loadData(group: group),
+    );
+  }
+
+  Future<void> deleteTechnique(
+      {required TechniqueGroup group, required Technique technique}) async {
+    emit(const TechniquesState.loading());
+
+    final failureOrUnit = await _deleteTechniqueUsecase(
+      group: group,
+      technique: technique,
+    );
+
+    failureOrUnit.fold(
+      (failure) => emit(TechniquesState.error(description: failure.toString())),
+      (_) => loadData(group: group),
+    );
+  }
 }
