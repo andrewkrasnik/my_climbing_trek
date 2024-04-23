@@ -20,7 +20,7 @@ mixin _$TechniquesState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Technique> techniques) data,
+    required TResult Function(List<Technique> techniques, bool editing) data,
     required TResult Function(String description) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,7 +28,7 @@ mixin _$TechniquesState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Technique> techniques)? data,
+    TResult? Function(List<Technique> techniques, bool editing)? data,
     TResult? Function(String description)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ mixin _$TechniquesState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Technique> techniques)? data,
+    TResult Function(List<Technique> techniques, bool editing)? data,
     TResult Function(String description)? error,
     required TResult orElse(),
   }) =>
@@ -126,7 +126,7 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Technique> techniques) data,
+    required TResult Function(List<Technique> techniques, bool editing) data,
     required TResult Function(String description) error,
   }) {
     return initial();
@@ -137,7 +137,7 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Technique> techniques)? data,
+    TResult? Function(List<Technique> techniques, bool editing)? data,
     TResult? Function(String description)? error,
   }) {
     return initial?.call();
@@ -148,7 +148,7 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Technique> techniques)? data,
+    TResult Function(List<Technique> techniques, bool editing)? data,
     TResult Function(String description)? error,
     required TResult orElse(),
   }) {
@@ -240,7 +240,7 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Technique> techniques) data,
+    required TResult Function(List<Technique> techniques, bool editing) data,
     required TResult Function(String description) error,
   }) {
     return loading();
@@ -251,7 +251,7 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Technique> techniques)? data,
+    TResult? Function(List<Technique> techniques, bool editing)? data,
     TResult? Function(String description)? error,
   }) {
     return loading?.call();
@@ -262,7 +262,7 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Technique> techniques)? data,
+    TResult Function(List<Technique> techniques, bool editing)? data,
     TResult Function(String description)? error,
     required TResult orElse(),
   }) {
@@ -320,7 +320,7 @@ abstract class _$$DataImplCopyWith<$Res> {
           _$DataImpl value, $Res Function(_$DataImpl) then) =
       __$$DataImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<Technique> techniques});
+  $Res call({List<Technique> techniques, bool editing});
 }
 
 /// @nodoc
@@ -334,12 +334,17 @@ class __$$DataImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? techniques = null,
+    Object? editing = null,
   }) {
     return _then(_$DataImpl(
       techniques: null == techniques
           ? _value._techniques
           : techniques // ignore: cast_nullable_to_non_nullable
               as List<Technique>,
+      editing: null == editing
+          ? _value.editing
+          : editing // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -347,7 +352,8 @@ class __$$DataImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$DataImpl implements _Data {
-  const _$DataImpl({required final List<Technique> techniques})
+  const _$DataImpl(
+      {required final List<Technique> techniques, required this.editing})
       : _techniques = techniques;
 
   final List<Technique> _techniques;
@@ -359,8 +365,11 @@ class _$DataImpl implements _Data {
   }
 
   @override
+  final bool editing;
+
+  @override
   String toString() {
-    return 'TechniquesState.data(techniques: $techniques)';
+    return 'TechniquesState.data(techniques: $techniques, editing: $editing)';
   }
 
   @override
@@ -369,12 +378,13 @@ class _$DataImpl implements _Data {
         (other.runtimeType == runtimeType &&
             other is _$DataImpl &&
             const DeepCollectionEquality()
-                .equals(other._techniques, _techniques));
+                .equals(other._techniques, _techniques) &&
+            (identical(other.editing, editing) || other.editing == editing));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_techniques));
+      runtimeType, const DeepCollectionEquality().hash(_techniques), editing);
 
   @JsonKey(ignore: true)
   @override
@@ -387,10 +397,10 @@ class _$DataImpl implements _Data {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Technique> techniques) data,
+    required TResult Function(List<Technique> techniques, bool editing) data,
     required TResult Function(String description) error,
   }) {
-    return data(techniques);
+    return data(techniques, editing);
   }
 
   @override
@@ -398,10 +408,10 @@ class _$DataImpl implements _Data {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Technique> techniques)? data,
+    TResult? Function(List<Technique> techniques, bool editing)? data,
     TResult? Function(String description)? error,
   }) {
-    return data?.call(techniques);
+    return data?.call(techniques, editing);
   }
 
   @override
@@ -409,12 +419,12 @@ class _$DataImpl implements _Data {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Technique> techniques)? data,
+    TResult Function(List<Technique> techniques, bool editing)? data,
     TResult Function(String description)? error,
     required TResult orElse(),
   }) {
     if (data != null) {
-      return data(techniques);
+      return data(techniques, editing);
     }
     return orElse();
   }
@@ -458,9 +468,12 @@ class _$DataImpl implements _Data {
 }
 
 abstract class _Data implements TechniquesState {
-  const factory _Data({required final List<Technique> techniques}) = _$DataImpl;
+  const factory _Data(
+      {required final List<Technique> techniques,
+      required final bool editing}) = _$DataImpl;
 
   List<Technique> get techniques;
+  bool get editing;
   @JsonKey(ignore: true)
   _$$DataImplCopyWith<_$DataImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -533,7 +546,7 @@ class _$ErrorImpl implements _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Technique> techniques) data,
+    required TResult Function(List<Technique> techniques, bool editing) data,
     required TResult Function(String description) error,
   }) {
     return error(description);
@@ -544,7 +557,7 @@ class _$ErrorImpl implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Technique> techniques)? data,
+    TResult? Function(List<Technique> techniques, bool editing)? data,
     TResult? Function(String description)? error,
   }) {
     return error?.call(description);
@@ -555,7 +568,7 @@ class _$ErrorImpl implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Technique> techniques)? data,
+    TResult Function(List<Technique> techniques, bool editing)? data,
     TResult Function(String description)? error,
     required TResult orElse(),
   }) {

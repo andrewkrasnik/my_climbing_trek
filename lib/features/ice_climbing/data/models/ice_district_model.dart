@@ -12,6 +12,7 @@ class IceDistrictModel extends IceDistrict {
     required super.region,
     super.image,
     super.id,
+    super.hasEditPermission,
   });
 
   factory IceDistrictModel.fromJson(Map<String, dynamic> json) =>

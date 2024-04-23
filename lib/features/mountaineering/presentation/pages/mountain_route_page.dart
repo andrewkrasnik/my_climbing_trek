@@ -42,7 +42,7 @@ class MountainRoutePage extends StatelessWidget {
                 );
               },
               icon: const Icon(Icons.edit),
-            )
+            ),
         ],
       ),
       floatingActionButton: BlocBuilder<AscensionCubit, AscensionState>(

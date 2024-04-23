@@ -172,4 +172,10 @@ class MockTechniquesRemoteDataSource implements TechniquesRemoteDataSource {
       {required TechniqueGroup group}) async {
     return Right(_groups[group]!);
   }
+
+  @override
+  Future<Either<Failure, bool>> getEditing() {
+    // TODO: implement getEditing
+    throw UnimplementedError();
+  }
 }

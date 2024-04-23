@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 import 'package:my_climbing_trek/core/failures/failure.dart';
 import 'package:my_climbing_trek/features/rock_climbing/data/datasources/rock_regions_remote_datasource.dart';
@@ -14,25 +15,20 @@ import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_sec
 class FirebaseRockRegionsRemoteDataSource
     implements RockRegionsRemoteDataSource {
   final FirebaseFirestore _firebaseFirestore;
+  final FirebaseAuth _firebaseAuth;
 
-  late final CollectionReference<RockDistrictModel> _districtsRef;
+  late final CollectionReference<Map<String, dynamic>> _districtsRef;
 
   final String _districtsCollectionName = 'rock-districts';
   final String _sectorsCollectionName = 'sectors';
   final String _routesCollectionName = 'routes';
+  final String _adminsCollectionName = 'admins';
 
-  FirebaseRockRegionsRemoteDataSource(this._firebaseFirestore) {
-    _districtsRef =
-        _firebaseFirestore.collection(_districtsCollectionName).withConverter(
-              fromFirestore: (snapshot, options) {
-                final json = snapshot.data()!;
-
-                json['id'] = snapshot.id;
-
-                return RockDistrictModel.fromJson(json);
-              },
-              toFirestore: (value, options) => {},
-            );
+  FirebaseRockRegionsRemoteDataSource(
+    this._firebaseFirestore,
+    this._firebaseAuth,
+  ) {
+    _districtsRef = _firebaseFirestore.collection(_districtsCollectionName);
   }
   @override
   Future<Either<Failure, List<RockDistrict>>> districts() async {
@@ -43,8 +39,22 @@ class FirebaseRockRegionsRemoteDataSource
               ),
             );
 
-    return Right(
-        districtsData.docs.map((snapshot) => snapshot.data()).toList());
+    List<RockDistrict> districts = [];
+
+    for (final snapshot in districtsData.docs) {
+      final hasPermission = await _hasEditPermission(districtId: snapshot.id);
+
+      final data = snapshot.data();
+
+      data['id'] = snapshot.id;
+      data['hasEditPermission'] = hasPermission;
+
+      districts.add(RockDistrictModel.fromJson(
+        data,
+      ));
+    }
+
+    return Right(districts);
   }
 
   @override
@@ -112,4 +122,18 @@ class FirebaseRockRegionsRemoteDataSource
             },
             toFirestore: (value, options) => {},
           );
+
+  Future<bool> _hasEditPermission({required String districtId}) async {
+    if (_firebaseAuth.currentUser != null) {
+      final permissionData = await _firebaseFirestore
+          .collection(
+              '$_districtsCollectionName/$districtId/$_adminsCollectionName')
+          .doc(_firebaseAuth.currentUser!.uid)
+          .get();
+
+      return permissionData.exists;
+    } else {
+      return false;
+    }
+  }
 }

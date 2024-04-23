@@ -1,4 +1,5 @@
 import 'package:my_climbing_trek/features/techniques/presentation/bloc/technique_groups/technique_groups_cubit.dart';
+import 'package:my_climbing_trek/features/techniques/presentation/pages/techique_group_editing_page.dart';
 import 'package:my_climbing_trek/features/techniques/presentation/pages/technique_group_page.dart';
 import 'package:my_climbing_trek/features/techniques/presentation/widgets/technique_group_widget.dart';
 import 'package:my_climbing_trek/service_locator.dart';
@@ -10,15 +11,39 @@ class TechniqueGroupsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text('Технические тренировки'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: BlocProvider(
-          create: (context) => getIt<TechniqueGroupsCubit>()..loadData(),
+    final cubit = getIt<TechniqueGroupsCubit>()..loadData();
+    return BlocProvider(
+      create: (context) => cubit,
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text('Технические тренировки'),
+        ),
+        floatingActionButton:
+            BlocBuilder<TechniqueGroupsCubit, TechniqueGroupsState>(
+          builder: (context, state) => state.maybeMap(
+            data: (dataState) {
+              if (dataState.editing) {
+                return FloatingActionButton(
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            const TechiqueGroupEditingPage()));
+                  },
+                  child: const Icon(
+                    Icons.add,
+                    size: 40,
+                  ),
+                );
+              } else {
+                return const SizedBox.shrink();
+              }
+            },
+            orElse: () => const SizedBox.shrink(),
+          ),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
           child: BlocBuilder<TechniqueGroupsCubit, TechniqueGroupsState>(
             builder: (context, state) {
               return state.maybeMap(

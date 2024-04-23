@@ -22,4 +22,9 @@ class TechniquesRepositoryImpl implements TechniquesRepository {
       {required TechniqueGroup group}) async {
     return await _techniquesRemoteDataSource.techniques(group: group);
   }
+
+  @override
+  Future<Either<Failure, bool>> getEditing() async {
+    return await _techniquesRemoteDataSource.getEditing();
+  }
 }

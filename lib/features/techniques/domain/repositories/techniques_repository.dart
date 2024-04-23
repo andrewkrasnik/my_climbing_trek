@@ -8,4 +8,6 @@ abstract class TechniquesRepository {
 
   Future<Either<Failure, List<Technique>>> techniques(
       {required TechniqueGroup group});
+
+  Future<Either<Failure, bool>> getEditing();
 }

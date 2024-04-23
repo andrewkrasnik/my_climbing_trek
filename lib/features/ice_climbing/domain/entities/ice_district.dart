@@ -9,5 +9,6 @@ class IceDistrict extends District {
     required super.region,
     super.image,
     super.id,
+    super.hasEditPermission,
   });
 }
