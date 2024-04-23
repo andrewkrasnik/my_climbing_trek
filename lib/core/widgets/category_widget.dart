@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:my_climbing_trek/core/data/drytooling_category.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountaineering_category.dart';
 import 'package:my_climbing_trek/features/mountaineering/presentation/widgets/mountaineering_category_widget.dart';
 import 'package:my_climbing_trek/features/rock_climbing/presentation/widgets/rock_category_widget.dart';
 import 'package:my_climbing_trek/features/settings/presentation/widgets/settings_aid_category_widget.dart';
+import 'package:my_climbing_trek/features/settings/presentation/widgets/settings_drytooling_category_widget.dart';
 import 'package:my_climbing_trek/features/settings/presentation/widgets/settings_mixed_category_widget.dart';
 import 'package:my_climbing_trek/features/settings/presentation/widgets/settings_ussr_category_widget.dart';
 import 'package:my_climbing_trek/features/ice_climbing/presentation/widgets/ice_category_widget.dart';
@@ -50,6 +52,11 @@ class CategoryWidget<T extends DifficultyCategory> extends StatelessWidget {
     } else if (category is AidCategory) {
       return SettingsAidCategoryWidget(
         category: category as AidCategory,
+        selected: selected,
+      );
+    } else if (category is DrytoolingCategory) {
+      return SettingsDrytoolingCategoryWidget(
+        category: category as DrytoolingCategory,
         selected: selected,
       );
     } else {

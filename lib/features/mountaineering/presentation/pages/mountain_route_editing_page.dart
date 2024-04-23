@@ -80,8 +80,8 @@ class MountainRouteEditingPage extends HookWidget {
                       .sortedBy<num>((element) =>
                           int.tryParse(element.climbingCategory?.id ?? '0') ??
                           0)
-                      .last
-                      .climbingCategory);
+                      .lastOrNull
+                      ?.climbingCategory);
             },
             icon: const Icon(Icons.save),
           )

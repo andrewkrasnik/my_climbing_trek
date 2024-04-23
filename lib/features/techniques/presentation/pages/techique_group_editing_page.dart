@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:my_climbing_trek/core/widgets/slidable_data_line_widget.dart';
 import 'package:my_climbing_trek/features/techniques/domain/entities/technique_group.dart';
+import 'package:my_climbing_trek/features/techniques/presentation/bloc/techniques/techniques_cubit.dart';
+import 'package:my_climbing_trek/features/techniques/presentation/widgets/technique_widget.dart';
+import 'package:my_climbing_trek/service_locator.dart';
 
 class TechiqueGroupEditingPage extends HookWidget {
   final TechniqueGroup? group;
@@ -63,6 +68,35 @@ class TechiqueGroupEditingPage extends HookWidget {
                 decoration: const InputDecoration(
                     labelText: 'Описание', border: OutlineInputBorder()),
               ),
+              const SizedBox(height: 16),
+              if (group != null)
+                BlocProvider(
+                  create: (context) =>
+                      getIt<TechniquesCubit>()..loadData(group: group!),
+                  child: BlocBuilder<TechniquesCubit, TechniquesState>(
+                    builder: (context, state) => state.maybeMap(
+                      data: (dataState) => Column(
+                          children: dataState.techniques
+                              .map(
+                                (technique) => SlidableDataLineWidget(
+                                  delete: true,
+                                  edit: true,
+                                  onDelete: (_) {},
+                                  onEdit: (_) {},
+                                  child: TechniqueWidget(
+                                    technique: technique,
+                                    selectMode: false,
+                                  ),
+                                ),
+                              )
+                              .toList()),
+                      loading: (_) => const Center(
+                        child: CircularProgressIndicator.adaptive(),
+                      ),
+                      orElse: () => const SizedBox.shrink(),
+                    ),
+                  ),
+                )
             ],
           ),
         ),

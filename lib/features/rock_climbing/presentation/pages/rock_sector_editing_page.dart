@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:my_climbing_trek/core/widgets/chip_selector_widget.dart';
+import 'package:my_climbing_trek/core/widgets/my_modal_bottom_sheet.dart';
+import 'package:my_climbing_trek/core/widgets/slidable_data_line_widget.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_district.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_sector.dart';
 import 'package:my_climbing_trek/features/rock_climbing/presentation/cubit/rock_routes/rock_routes_cubit.dart';
+import 'package:my_climbing_trek/features/rock_climbing/presentation/widgets/rock_route_parameters_widget.dart';
 import 'package:my_climbing_trek/features/rock_climbing/presentation/widgets/rock_route_widget.dart';
 import 'package:my_climbing_trek/service_locator.dart';
 
@@ -41,6 +45,19 @@ class RockSectorEditingPage extends HookWidget {
             icon: const Icon(Icons.save),
           )
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showMyModalBottomSheet<void>(
+            context: context,
+            heightPersent: 0.9,
+            child: const RockRouteParametersWidget(),
+          );
+        },
+        child: const Icon(
+          Icons.add,
+          size: 40,
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -111,10 +128,24 @@ class RockSectorEditingPage extends HookWidget {
                                     .map((route) => Padding(
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 8.0, vertical: 4),
-                                          child: RockRouteWidget(
-                                            route: route,
-                                            statistic:
-                                                dataState.statistic?[route],
+                                          child: SlidableDataLineWidget(
+                                            delete: true,
+                                            edit: true,
+                                            onDelete: (_) {},
+                                            onEdit: (_) {
+                                              showMyModalBottomSheet<void>(
+                                                context: context,
+                                                heightPersent: 0.9,
+                                                child:
+                                                    RockRouteParametersWidget(
+                                                        route: route),
+                                              );
+                                            },
+                                            child: RockRouteWidget(
+                                              route: route,
+                                              statistic:
+                                                  dataState.statistic?[route],
+                                            ),
                                           ),
                                         ))
                                     .toList(),
@@ -132,38 +163,6 @@ class RockSectorEditingPage extends HookWidget {
                 ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class ChipSelectorWidget extends StatelessWidget {
-  final ValueNotifier<bool> state;
-  final String name;
-
-  const ChipSelectorWidget({
-    required this.name,
-    required this.state,
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(4),
-      child: InkWell(
-        onTap: () {
-          state.value = !state.value;
-        },
-        child: Chip(
-          label: Text(
-            name,
-            style: state.value
-                ? const TextStyle(color: Colors.white)
-                : TextStyle(color: Theme.of(context).colorScheme.surface),
-          ),
-          backgroundColor: state.value ? Theme.of(context).hintColor : null,
         ),
       ),
     );
