@@ -10,12 +10,10 @@ class TrekWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      child: Container(
+      child: SizedBox(
         height: 240,
-        width: 180,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(4.0),
-        ),
+        // width: 180,
+
         child: Hero(
           tag: 'Trek${trek.id}',
           child: Stack(

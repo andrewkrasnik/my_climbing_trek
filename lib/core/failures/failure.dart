@@ -36,3 +36,7 @@ class RemoteServerFailure extends FailureWithDescription {
 }
 
 class UseCaseFailure extends Failure {}
+
+class DataConversionFailure extends FailureWithDescription {
+  DataConversionFailure({required super.description});
+}

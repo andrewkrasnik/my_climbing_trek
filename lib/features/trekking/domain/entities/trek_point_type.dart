@@ -36,4 +36,7 @@ class TrekPointType extends DataWithUUID {
   String toJson() => id;
 
   factory TrekPointType.fromJson(json) => getById(json);
+
+  @override
+  String toString() => name;
 }

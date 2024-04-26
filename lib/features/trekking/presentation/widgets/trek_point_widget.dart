@@ -11,20 +11,14 @@ class TrekPointWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      child: Container(
+      child: SizedBox(
         height: 240,
-        width: 180,
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(4.0),
-        ),
         child: Hero(
           tag: 'TrekPoint${point.id}',
           child: Stack(
             fit: StackFit.expand,
             children: [
-              MyCachedNetworkImage(
-                  imageUrl: point.image!, fit: BoxFit.fitWidth),
+              MyCachedNetworkImage(imageUrl: point.image!, fit: BoxFit.cover),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(

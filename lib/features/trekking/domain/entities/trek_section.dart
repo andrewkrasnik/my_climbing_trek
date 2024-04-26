@@ -15,7 +15,7 @@ class TrekSection {
 
   int get climbLength => finish.altitude - start.altitude;
 
-  String climb(turn) {
+  String climb(bool turn) {
     final int climbAltitude;
     if (turn) {
       climbAltitude = start.altitude - finish.altitude;

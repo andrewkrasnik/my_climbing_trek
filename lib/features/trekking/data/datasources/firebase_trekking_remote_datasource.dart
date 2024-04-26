@@ -6,6 +6,7 @@ import 'package:my_climbing_trek/core/data/region.dart';
 import 'package:my_climbing_trek/core/failures/failure.dart';
 import 'package:my_climbing_trek/features/settings/data/models/region_model.dart';
 import 'package:my_climbing_trek/features/trekking/data/datasources/trekking_remote_datasource.dart';
+import 'package:my_climbing_trek/features/trekking/data/models/converters.dart';
 import 'package:my_climbing_trek/features/trekking/data/models/trek_model.dart';
 import 'package:my_climbing_trek/features/trekking/data/models/trek_point_model.dart';
 import 'package:my_climbing_trek/features/trekking/domain/entities/trek.dart';
@@ -24,7 +25,7 @@ class FirebaseTrekkingRemoteDatasource implements TrekkingRemoteDataSource {
   final String _adminsCollectionName = 'admins';
 
   @override
-  final List<TrekPoint> points = [];
+  final List<TrekPoint> pointsCash = [];
 
   FirebaseTrekkingRemoteDatasource(
     this._firebaseFirestore,
@@ -70,7 +71,8 @@ class FirebaseTrekkingRemoteDatasource implements TrekkingRemoteDataSource {
       ),
     );
 
-    points.addAll(pointsData.docs.map((snapshot) => snapshot.data()).toList());
+    pointsCash
+        .addAll(pointsData.docs.map((snapshot) => snapshot.data()).toList());
 
     final sectorsData = await _treksRef(region: region).get(
       const GetOptions(
@@ -80,7 +82,7 @@ class FirebaseTrekkingRemoteDatasource implements TrekkingRemoteDataSource {
 
     final list = sectorsData.docs.map((snapshot) => snapshot.data()).toList();
 
-    points.clear();
+    pointsCash.clear();
 
     return Right(list);
   }
@@ -97,7 +99,8 @@ class FirebaseTrekkingRemoteDatasource implements TrekkingRemoteDataSource {
 
               return TrekModel.fromJson(json);
             },
-            toFirestore: (value, options) => {},
+            toFirestore: (value, options) =>
+                const TrekConverter().toJson(value),
           );
 
   CollectionReference<TrekPoint> _trekPointsRef({required Region region}) =>
@@ -112,7 +115,8 @@ class FirebaseTrekkingRemoteDatasource implements TrekkingRemoteDataSource {
 
               return TrekPointModel.fromJson(json);
             },
-            toFirestore: (value, options) => {},
+            toFirestore: (value, options) =>
+                const TrekPointConverter().toJson(value),
           );
 
   Future<bool> _hasEditPermission({required String regionId}) async {
@@ -126,6 +130,78 @@ class FirebaseTrekkingRemoteDatasource implements TrekkingRemoteDataSource {
       return permissionData.exists;
     } else {
       return false;
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<TrekPoint>>> points(
+      {required Region region}) async {
+    final pointsData = await _trekPointsRef(region: region).get(
+      const GetOptions(
+        serverTimestampBehavior: ServerTimestampBehavior.none,
+      ),
+    );
+
+    try {
+      return Right(pointsData.docs.map((snapshot) => snapshot.data()).toList());
+    } catch (error) {
+      return Left(DataConversionFailure(description: error.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> deletePoint(
+      {required Region region, required TrekPoint point}) async {
+    try {
+      final pointsRef = _trekPointsRef(region: region);
+
+      await pointsRef.doc(point.id).delete();
+
+      return const Right(unit);
+    } catch (error) {
+      return Left(RemoteServerFailure(description: error.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> deleteTrek(
+      {required Region region, required Trek trek}) async {
+    try {
+      final treksRef = _treksRef(region: region);
+
+      await treksRef.doc(trek.id).delete();
+
+      return const Right(unit);
+    } catch (error) {
+      return Left(RemoteServerFailure(description: error.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> savePoint(
+      {required Region region, required TrekPoint point}) async {
+    try {
+      final pointsRef = _trekPointsRef(region: region);
+
+      await pointsRef.doc(point.id).set(point);
+
+      return const Right(unit);
+    } catch (error) {
+      return Left(RemoteServerFailure(description: error.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> saveTrek(
+      {required Region region, required Trek trek}) async {
+    try {
+      final treksRef = _treksRef(region: region);
+
+      await treksRef.doc(trek.id).set(trek);
+
+      return const Right(unit);
+    } catch (error) {
+      return Left(RemoteServerFailure(description: error.toString()));
     }
   }
 }

@@ -29,7 +29,7 @@ class Trek extends DataWithUUID {
     List<String>? links,
   }) : links = links ?? [];
 
-  String get imageUrl => image ?? finish.image!;
+  String get imageUrl => image?.isEmpty == false ? image! : finish.image!;
 
   TrekSection? nextSection(TrekPoint point) =>
       sections.firstWhereOrNull((element) => element.start == point);

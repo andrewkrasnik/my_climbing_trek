@@ -32,4 +32,7 @@ class TrekkingType extends DataWithUUID {
   String toJson() => id;
 
   factory TrekkingType.fromJson(json) => getById(json);
+
+  @override
+  String toString() => name;
 }

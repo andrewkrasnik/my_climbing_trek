@@ -9,5 +9,27 @@ abstract class TrekkingRemoteDataSource {
 
   Future<Either<Failure, List<Trek>>> treks({required Region region});
 
-  List<TrekPoint> get points;
+  List<TrekPoint> get pointsCash;
+
+  Future<Either<Failure, List<TrekPoint>>> points({required Region region});
+
+  Future<Either<Failure, Unit>> saveTrek({
+    required Region region,
+    required Trek trek,
+  });
+
+  Future<Either<Failure, Unit>> deleteTrek({
+    required Region region,
+    required Trek trek,
+  });
+
+  Future<Either<Failure, Unit>> savePoint({
+    required Region region,
+    required TrekPoint point,
+  });
+
+  Future<Either<Failure, Unit>> deletePoint({
+    required Region region,
+    required TrekPoint point,
+  });
 }
