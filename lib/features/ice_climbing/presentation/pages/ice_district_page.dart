@@ -2,6 +2,7 @@ import 'package:my_climbing_trek/core/widgets/my_sliver_app_bar_widget.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_district.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_sector.dart';
 import 'package:my_climbing_trek/features/ice_climbing/presentation/bloc/ice_sectors/ice_sectors_cubit.dart';
+import 'package:my_climbing_trek/features/ice_climbing/presentation/pages/ice_sector_editing_page.dart';
 import 'package:my_climbing_trek/features/ice_climbing/presentation/pages/ice_sector_page.dart';
 import 'package:my_climbing_trek/features/ice_climbing/presentation/widgets/ice_sector_widget.dart';
 import 'package:my_climbing_trek/service_locator.dart';
@@ -20,8 +21,25 @@ class IceDistrictPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = getIt<IceSectorsCubit>()..loadData(district: district);
     return SafeArea(
       child: Scaffold(
+        floatingActionButton: district.hasEditPermission
+            ? FloatingActionButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => IceSectorEditingPage(
+                      district: district,
+                      cubit: cubit,
+                    ),
+                  ));
+                },
+                child: const Icon(
+                  Icons.add,
+                  size: 40,
+                ),
+              )
+            : null,
         body: CustomScrollView(
           slivers: [
             MySliverAppBarWidget(
@@ -30,8 +48,7 @@ class IceDistrictPage extends StatelessWidget {
               imageUrl: district.image,
             ),
             BlocProvider(
-              create: (context) =>
-                  getIt<IceSectorsCubit>()..loadData(district: district),
+              create: (context) => cubit,
               child: BlocBuilder<IceSectorsCubit, IceSectorsState>(
                 builder: (context, state) {
                   return state.maybeMap(
@@ -52,6 +69,7 @@ class IceDistrictPage extends StatelessWidget {
                                         builder: (context) => IceSectorPage(
                                               district: district,
                                               sector: dataState.sectors[index],
+                                              cubit: cubit,
                                             ))),
                               ),
                               if (addSector != null)

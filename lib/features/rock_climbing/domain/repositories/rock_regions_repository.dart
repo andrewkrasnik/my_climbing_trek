@@ -16,4 +16,26 @@ abstract class RockRegionsRepository {
     required RockSector sector,
     RockRouteFilter? filter,
   });
+
+  Future<Either<Failure, Unit>> deleteRoute({
+    required RockDistrict district,
+    required RockSector sector,
+    required RockRoute route,
+  });
+
+  Future<Either<Failure, Unit>> saveRoute({
+    required RockDistrict district,
+    required RockSector sector,
+    required RockRoute route,
+  });
+
+  Future<Either<Failure, Unit>> saveSector({
+    required RockDistrict district,
+    required RockSector sector,
+  });
+
+  Future<Either<Failure, Unit>> deleteSector({
+    required RockDistrict district,
+    required RockSector sector,
+  });
 }

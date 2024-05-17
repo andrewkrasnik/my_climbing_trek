@@ -172,4 +172,38 @@ class MockTechniquesRemoteDataSource implements TechniquesRemoteDataSource {
       {required TechniqueGroup group}) async {
     return Right(_groups[group]!);
   }
+
+  @override
+  Future<Either<Failure, bool>> getEditing() {
+    // TODO: implement getEditing
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, Unit>> delete(
+      {required Technique technique, required TechniqueGroup group}) {
+    // TODO: implement delete
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, Unit>> save({
+    required Technique technique,
+    required TechniqueGroup group,
+  }) {
+    // TODO: implement save
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, Unit>> deleteGroup({required TechniqueGroup group}) {
+    // TODO: implement deleteGroup
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, Unit>> saveGroup({required TechniqueGroup group}) {
+    // TODO: implement saveGroup
+    throw UnimplementedError();
+  }
 }

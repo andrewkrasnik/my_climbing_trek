@@ -84,6 +84,8 @@ class MountainRoutePiece {
     required this.length,
     this.slope = 0,
   });
+
+  String get title => '';
 }
 
 class MountainRouteIcePiece extends MountainRoutePiece {
@@ -93,6 +95,9 @@ class MountainRouteIcePiece extends MountainRoutePiece {
     super.slope,
     required this.category,
   }) : super(type: RoutePieceType.ice);
+
+  @override
+  String get title => '${category.name} $length м.';
 }
 
 class MountainRouteRockPiece extends MountainRoutePiece {
@@ -106,6 +111,9 @@ class MountainRouteRockPiece extends MountainRoutePiece {
     this.ussrCategory,
     super.slope,
   }) : super(type: RoutePieceType.rock);
+
+  @override
+  String get title => '$categoryText $length м.';
 
   get categoryText {
     List<String> text = [];
@@ -133,6 +141,25 @@ class MountainRouteMixedPiece extends MountainRoutePiece {
     required super.length,
     super.slope,
   }) : super(type: RoutePieceType.mixed);
+
+  @override
+  String get title => '${category.name} $length м.';
 }
 
-enum RoutePieceType { ice, rock, mixed }
+enum RoutePieceType {
+  rock,
+  ice,
+  mixed;
+
+  @override
+  String toString() {
+    switch (this) {
+      case RoutePieceType.ice:
+        return 'Лёд';
+      case RoutePieceType.mixed:
+        return 'Микст';
+      default:
+        return 'Скалы';
+    }
+  }
+}

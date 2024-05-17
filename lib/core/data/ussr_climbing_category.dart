@@ -1,15 +1,17 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:my_climbing_trek/core/data/data_with_uuid.dart';
+import 'package:my_climbing_trek/core/data/difficulty_category.dart';
 
-class UssrClimbingCategory extends DataWithUUID {
+class UssrClimbingCategory extends DifficultyCategory {
+  @override
+  final String id;
   final String name;
   final String description;
 
   UssrClimbingCategory({
     required this.name,
     required this.description,
-    super.id,
+    required this.id,
   });
   static final UssrClimbingCategory NC = UssrClimbingCategory(
     name: 'Б/К',

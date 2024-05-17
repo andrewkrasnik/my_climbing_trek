@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 
 class SettingsAidCategoryWidget extends StatelessWidget {
   final AidCategory category;
+  final bool selected;
 
   const SettingsAidCategoryWidget({
     super.key,
     required this.category,
+    this.selected = true,
   });
 
   @override
@@ -20,16 +22,19 @@ class SettingsAidCategoryWidget extends StatelessWidget {
     } else if (title.length > 2) {
       fontSize = 20;
     }
+
+    final double opacity = selected ? 1 : 0.5;
+
     return CircleAvatar(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.black.withOpacity(opacity),
       radius: 24,
       child: CircleAvatar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.white.withOpacity(opacity),
         radius: 20,
         child: Text(
           title,
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.black.withOpacity(opacity),
             fontWeight: FontWeight.bold,
             fontSize: fontSize,
           ),

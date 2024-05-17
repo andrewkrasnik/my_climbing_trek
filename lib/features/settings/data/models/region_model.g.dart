@@ -10,6 +10,7 @@ RegionModel _$RegionModelFromJson(Map<String, dynamic> json) => RegionModel(
       name: json['name'] as String,
       id: json['id'] as String? ?? '',
       image: json['image'] as String?,
+      hasEditPermission: json['hasEditPermission'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$RegionModelToJson(RegionModel instance) =>
@@ -17,4 +18,5 @@ Map<String, dynamic> _$RegionModelToJson(RegionModel instance) =>
       'id': instance.id,
       'name': instance.name,
       'image': instance.image,
+      'hasEditPermission': instance.hasEditPermission,
     };

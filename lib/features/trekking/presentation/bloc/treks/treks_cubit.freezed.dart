@@ -12,7 +12,7 @@ part of 'treks_cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$TreksState {
@@ -20,7 +20,7 @@ mixin _$TreksState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Trek> treks) data,
+    required TResult Function(List<Trek> treks, List<TrekPoint> points) data,
     required TResult Function(String description) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,7 +28,7 @@ mixin _$TreksState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Trek> treks)? data,
+    TResult? Function(List<Trek> treks, List<TrekPoint> points)? data,
     TResult? Function(String description)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ mixin _$TreksState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Trek> treks)? data,
+    TResult Function(List<Trek> treks, List<TrekPoint> points)? data,
     TResult Function(String description)? error,
     required TResult orElse(),
   }) =>
@@ -113,7 +113,7 @@ class _$InitialImpl implements _Initial {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is _$InitialImpl);
   }
@@ -126,7 +126,7 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Trek> treks) data,
+    required TResult Function(List<Trek> treks, List<TrekPoint> points) data,
     required TResult Function(String description) error,
   }) {
     return initial();
@@ -137,7 +137,7 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Trek> treks)? data,
+    TResult? Function(List<Trek> treks, List<TrekPoint> points)? data,
     TResult? Function(String description)? error,
   }) {
     return initial?.call();
@@ -148,7 +148,7 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Trek> treks)? data,
+    TResult Function(List<Trek> treks, List<TrekPoint> points)? data,
     TResult Function(String description)? error,
     required TResult orElse(),
   }) {
@@ -227,7 +227,7 @@ class _$LoadingImpl implements _Loading {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is _$LoadingImpl);
   }
@@ -240,7 +240,7 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Trek> treks) data,
+    required TResult Function(List<Trek> treks, List<TrekPoint> points) data,
     required TResult Function(String description) error,
   }) {
     return loading();
@@ -251,7 +251,7 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Trek> treks)? data,
+    TResult? Function(List<Trek> treks, List<TrekPoint> points)? data,
     TResult? Function(String description)? error,
   }) {
     return loading?.call();
@@ -262,7 +262,7 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Trek> treks)? data,
+    TResult Function(List<Trek> treks, List<TrekPoint> points)? data,
     TResult Function(String description)? error,
     required TResult orElse(),
   }) {
@@ -320,7 +320,7 @@ abstract class _$$DataImplCopyWith<$Res> {
           _$DataImpl value, $Res Function(_$DataImpl) then) =
       __$$DataImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<Trek> treks});
+  $Res call({List<Trek> treks, List<TrekPoint> points});
 }
 
 /// @nodoc
@@ -334,12 +334,17 @@ class __$$DataImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? treks = null,
+    Object? points = null,
   }) {
     return _then(_$DataImpl(
       treks: null == treks
           ? _value._treks
           : treks // ignore: cast_nullable_to_non_nullable
               as List<Trek>,
+      points: null == points
+          ? _value._points
+          : points // ignore: cast_nullable_to_non_nullable
+              as List<TrekPoint>,
     ));
   }
 }
@@ -347,7 +352,10 @@ class __$$DataImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$DataImpl implements _Data {
-  const _$DataImpl({required final List<Trek> treks}) : _treks = treks;
+  const _$DataImpl(
+      {required final List<Trek> treks, required final List<TrekPoint> points})
+      : _treks = treks,
+        _points = points;
 
   final List<Trek> _treks;
   @override
@@ -357,22 +365,33 @@ class _$DataImpl implements _Data {
     return EqualUnmodifiableListView(_treks);
   }
 
+  final List<TrekPoint> _points;
   @override
-  String toString() {
-    return 'TreksState.data(treks: $treks)';
+  List<TrekPoint> get points {
+    if (_points is EqualUnmodifiableListView) return _points;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_points);
   }
 
   @override
-  bool operator ==(dynamic other) {
+  String toString() {
+    return 'TreksState.data(treks: $treks, points: $points)';
+  }
+
+  @override
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DataImpl &&
-            const DeepCollectionEquality().equals(other._treks, _treks));
+            const DeepCollectionEquality().equals(other._treks, _treks) &&
+            const DeepCollectionEquality().equals(other._points, _points));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_treks));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_treks),
+      const DeepCollectionEquality().hash(_points));
 
   @JsonKey(ignore: true)
   @override
@@ -385,10 +404,10 @@ class _$DataImpl implements _Data {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Trek> treks) data,
+    required TResult Function(List<Trek> treks, List<TrekPoint> points) data,
     required TResult Function(String description) error,
   }) {
-    return data(treks);
+    return data(treks, points);
   }
 
   @override
@@ -396,10 +415,10 @@ class _$DataImpl implements _Data {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Trek> treks)? data,
+    TResult? Function(List<Trek> treks, List<TrekPoint> points)? data,
     TResult? Function(String description)? error,
   }) {
-    return data?.call(treks);
+    return data?.call(treks, points);
   }
 
   @override
@@ -407,12 +426,12 @@ class _$DataImpl implements _Data {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Trek> treks)? data,
+    TResult Function(List<Trek> treks, List<TrekPoint> points)? data,
     TResult Function(String description)? error,
     required TResult orElse(),
   }) {
     if (data != null) {
-      return data(treks);
+      return data(treks, points);
     }
     return orElse();
   }
@@ -456,9 +475,12 @@ class _$DataImpl implements _Data {
 }
 
 abstract class _Data implements TreksState {
-  const factory _Data({required final List<Trek> treks}) = _$DataImpl;
+  const factory _Data(
+      {required final List<Trek> treks,
+      required final List<TrekPoint> points}) = _$DataImpl;
 
   List<Trek> get treks;
+  List<TrekPoint> get points;
   @JsonKey(ignore: true)
   _$$DataImplCopyWith<_$DataImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -509,7 +531,7 @@ class _$ErrorImpl implements _Error {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ErrorImpl &&
@@ -531,7 +553,7 @@ class _$ErrorImpl implements _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Trek> treks) data,
+    required TResult Function(List<Trek> treks, List<TrekPoint> points) data,
     required TResult Function(String description) error,
   }) {
     return error(description);
@@ -542,7 +564,7 @@ class _$ErrorImpl implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Trek> treks)? data,
+    TResult? Function(List<Trek> treks, List<TrekPoint> points)? data,
     TResult? Function(String description)? error,
   }) {
     return error?.call(description);
@@ -553,7 +575,7 @@ class _$ErrorImpl implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Trek> treks)? data,
+    TResult Function(List<Trek> treks, List<TrekPoint> points)? data,
     TResult Function(String description)? error,
     required TResult orElse(),
   }) {

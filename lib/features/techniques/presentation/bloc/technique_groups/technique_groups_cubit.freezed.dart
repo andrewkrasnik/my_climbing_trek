@@ -12,7 +12,7 @@ part of 'technique_groups_cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$TechniqueGroupsState {
@@ -20,7 +20,7 @@ mixin _$TechniqueGroupsState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<TechniqueGroup> groups) data,
+    required TResult Function(List<TechniqueGroup> groups, bool editing) data,
     required TResult Function(String description) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,7 +28,7 @@ mixin _$TechniqueGroupsState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<TechniqueGroup> groups)? data,
+    TResult? Function(List<TechniqueGroup> groups, bool editing)? data,
     TResult? Function(String description)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ mixin _$TechniqueGroupsState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<TechniqueGroup> groups)? data,
+    TResult Function(List<TechniqueGroup> groups, bool editing)? data,
     TResult Function(String description)? error,
     required TResult orElse(),
   }) =>
@@ -114,7 +114,7 @@ class _$InitialImpl implements _Initial {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is _$InitialImpl);
   }
@@ -127,7 +127,7 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<TechniqueGroup> groups) data,
+    required TResult Function(List<TechniqueGroup> groups, bool editing) data,
     required TResult Function(String description) error,
   }) {
     return initial();
@@ -138,7 +138,7 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<TechniqueGroup> groups)? data,
+    TResult? Function(List<TechniqueGroup> groups, bool editing)? data,
     TResult? Function(String description)? error,
   }) {
     return initial?.call();
@@ -149,7 +149,7 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<TechniqueGroup> groups)? data,
+    TResult Function(List<TechniqueGroup> groups, bool editing)? data,
     TResult Function(String description)? error,
     required TResult orElse(),
   }) {
@@ -228,7 +228,7 @@ class _$LoadingImpl implements _Loading {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is _$LoadingImpl);
   }
@@ -241,7 +241,7 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<TechniqueGroup> groups) data,
+    required TResult Function(List<TechniqueGroup> groups, bool editing) data,
     required TResult Function(String description) error,
   }) {
     return loading();
@@ -252,7 +252,7 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<TechniqueGroup> groups)? data,
+    TResult? Function(List<TechniqueGroup> groups, bool editing)? data,
     TResult? Function(String description)? error,
   }) {
     return loading?.call();
@@ -263,7 +263,7 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<TechniqueGroup> groups)? data,
+    TResult Function(List<TechniqueGroup> groups, bool editing)? data,
     TResult Function(String description)? error,
     required TResult orElse(),
   }) {
@@ -321,7 +321,7 @@ abstract class _$$DataImplCopyWith<$Res> {
           _$DataImpl value, $Res Function(_$DataImpl) then) =
       __$$DataImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<TechniqueGroup> groups});
+  $Res call({List<TechniqueGroup> groups, bool editing});
 }
 
 /// @nodoc
@@ -335,12 +335,17 @@ class __$$DataImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? groups = null,
+    Object? editing = null,
   }) {
     return _then(_$DataImpl(
       groups: null == groups
           ? _value._groups
           : groups // ignore: cast_nullable_to_non_nullable
               as List<TechniqueGroup>,
+      editing: null == editing
+          ? _value.editing
+          : editing // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -348,7 +353,8 @@ class __$$DataImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$DataImpl implements _Data {
-  const _$DataImpl({required final List<TechniqueGroup> groups})
+  const _$DataImpl(
+      {required final List<TechniqueGroup> groups, required this.editing})
       : _groups = groups;
 
   final List<TechniqueGroup> _groups;
@@ -360,21 +366,25 @@ class _$DataImpl implements _Data {
   }
 
   @override
+  final bool editing;
+
+  @override
   String toString() {
-    return 'TechniqueGroupsState.data(groups: $groups)';
+    return 'TechniqueGroupsState.data(groups: $groups, editing: $editing)';
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DataImpl &&
-            const DeepCollectionEquality().equals(other._groups, _groups));
+            const DeepCollectionEquality().equals(other._groups, _groups) &&
+            (identical(other.editing, editing) || other.editing == editing));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_groups));
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_groups), editing);
 
   @JsonKey(ignore: true)
   @override
@@ -387,10 +397,10 @@ class _$DataImpl implements _Data {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<TechniqueGroup> groups) data,
+    required TResult Function(List<TechniqueGroup> groups, bool editing) data,
     required TResult Function(String description) error,
   }) {
-    return data(groups);
+    return data(groups, editing);
   }
 
   @override
@@ -398,10 +408,10 @@ class _$DataImpl implements _Data {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<TechniqueGroup> groups)? data,
+    TResult? Function(List<TechniqueGroup> groups, bool editing)? data,
     TResult? Function(String description)? error,
   }) {
-    return data?.call(groups);
+    return data?.call(groups, editing);
   }
 
   @override
@@ -409,12 +419,12 @@ class _$DataImpl implements _Data {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<TechniqueGroup> groups)? data,
+    TResult Function(List<TechniqueGroup> groups, bool editing)? data,
     TResult Function(String description)? error,
     required TResult orElse(),
   }) {
     if (data != null) {
-      return data(groups);
+      return data(groups, editing);
     }
     return orElse();
   }
@@ -458,10 +468,12 @@ class _$DataImpl implements _Data {
 }
 
 abstract class _Data implements TechniqueGroupsState {
-  const factory _Data({required final List<TechniqueGroup> groups}) =
-      _$DataImpl;
+  const factory _Data(
+      {required final List<TechniqueGroup> groups,
+      required final bool editing}) = _$DataImpl;
 
   List<TechniqueGroup> get groups;
+  bool get editing;
   @JsonKey(ignore: true)
   _$$DataImplCopyWith<_$DataImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -512,7 +524,7 @@ class _$ErrorImpl implements _Error {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ErrorImpl &&
@@ -534,7 +546,7 @@ class _$ErrorImpl implements _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<TechniqueGroup> groups) data,
+    required TResult Function(List<TechniqueGroup> groups, bool editing) data,
     required TResult Function(String description) error,
   }) {
     return error(description);
@@ -545,7 +557,7 @@ class _$ErrorImpl implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<TechniqueGroup> groups)? data,
+    TResult? Function(List<TechniqueGroup> groups, bool editing)? data,
     TResult? Function(String description)? error,
   }) {
     return error?.call(description);
@@ -556,7 +568,7 @@ class _$ErrorImpl implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<TechniqueGroup> groups)? data,
+    TResult Function(List<TechniqueGroup> groups, bool editing)? data,
     TResult Function(String description)? error,
     required TResult orElse(),
   }) {

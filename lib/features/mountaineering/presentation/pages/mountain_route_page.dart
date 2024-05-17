@@ -4,15 +4,22 @@ import 'package:my_climbing_trek/core/widgets/scaled_image.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountain.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountain_route.dart';
 import 'package:my_climbing_trek/features/mountaineering/presentation/bloc/ascension/ascension_cubit.dart';
+import 'package:my_climbing_trek/features/mountaineering/presentation/bloc/mountain_routes/mountain_routes_cubit.dart';
+import 'package:my_climbing_trek/features/mountaineering/presentation/pages/mountain_route_editing_page.dart';
 import 'package:my_climbing_trek/features/mountaineering/presentation/widgets/mountain_roop_widget.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class MountainRoutePage extends StatelessWidget {
   final Mountain mountain;
   final MountainRoute route;
+  final MountainRoutesCubit? cubit;
 
-  const MountainRoutePage(
-      {required this.route, required this.mountain, super.key});
+  const MountainRoutePage({
+    required this.route,
+    required this.mountain,
+    this.cubit,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +27,23 @@ class MountainRoutePage extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: Text(route.name),
+        actions: [
+          if (cubit != null)
+            IconButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => MountainRouteEditingPage(
+                      route: route,
+                      mountain: mountain,
+                      cubit: cubit!,
+                    ),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.edit),
+            ),
+        ],
       ),
       floatingActionButton: BlocBuilder<AscensionCubit, AscensionState>(
         builder: (context, state) {

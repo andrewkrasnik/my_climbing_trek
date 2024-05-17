@@ -6,6 +6,8 @@ import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_rou
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_routes_filter.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_sector.dart';
 import 'package:my_climbing_trek/features/rock_climbing/presentation/cubit/rock_routes/rock_routes_cubit.dart';
+import 'package:my_climbing_trek/features/rock_climbing/presentation/cubit/rock_sectors/rock_sectors_cubit.dart';
+import 'package:my_climbing_trek/features/rock_climbing/presentation/pages/rock_sector_editing_page.dart';
 import 'package:my_climbing_trek/features/rock_climbing/presentation/widgets/rock_route_widget.dart';
 import 'package:my_climbing_trek/service_locator.dart';
 
@@ -16,6 +18,7 @@ class RockSectorWidget extends StatelessWidget {
   final void Function(RockSector)? addSector;
   final void Function(RockRoute route)? onTapGo;
   final RockRouteFilter? filter;
+  final RockSectorsCubit? sectorsCubit;
 
   const RockSectorWidget({
     required this.sector,
@@ -24,6 +27,7 @@ class RockSectorWidget extends StatelessWidget {
     this.addSector,
     this.onTapGo,
     this.filter,
+    this.sectorsCubit,
     super.key,
     required,
   });
@@ -61,6 +65,22 @@ class RockSectorWidget extends StatelessWidget {
                         ),
                       ]),
                 ),
+                if (district.hasEditPermission && sectorsCubit != null)
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: IconButton(
+                      icon: const Icon(Icons.edit, color: Colors.white),
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => RockSectorEditingPage(
+                            district: district,
+                            sector: sector,
+                            sectorsCubit: sectorsCubit,
+                          ),
+                        ));
+                      },
+                    ),
+                  ),
                 if (addSector != null)
                   Align(
                     alignment: Alignment.bottomRight,
@@ -71,7 +91,7 @@ class RockSectorWidget extends StatelessWidget {
                         Navigator.of(context).pop();
                       },
                     ),
-                  )
+                  ),
               ],
             ),
           ),
@@ -116,7 +136,7 @@ class RockSectorWidget extends StatelessWidget {
                 );
               },
             ),
-          )
+          ),
         ],
       ),
     );

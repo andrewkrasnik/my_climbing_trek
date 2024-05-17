@@ -15,6 +15,7 @@ RockDistrictModel _$RockDistrictModelFromJson(Map<String, dynamic> json) =>
           json['mapPoint'], const MapPointConverter().fromJson),
       image: json['image'] as String? ?? '',
       id: json['id'] as String? ?? '',
+      hasEditPermission: json['hasEditPermission'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$RockDistrictModelToJson(RockDistrictModel instance) =>
@@ -23,6 +24,7 @@ Map<String, dynamic> _$RockDistrictModelToJson(RockDistrictModel instance) =>
       'name': instance.name,
       'region': const RegionConverter().toJson(instance.region),
       'image': instance.image,
+      'hasEditPermission': instance.hasEditPermission,
       'compact': instance.compact,
       'mapPoint': _$JsonConverterToJson<Map<String, dynamic>, MapPoint>(
           instance.mapPoint, const MapPointConverter().toJson),

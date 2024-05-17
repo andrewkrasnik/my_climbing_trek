@@ -246,7 +246,7 @@ class TrekPointIdConverter implements JsonConverter<TrekPoint, String> {
   @override
   TrekPoint fromJson(String json) {
     return getIt<TrekkingRemoteDataSource>()
-        .points
+        .pointsCash
         .firstWhere((element) => element.id == json);
   }
 

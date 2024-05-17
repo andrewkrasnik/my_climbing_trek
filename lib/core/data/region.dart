@@ -4,12 +4,14 @@ class Region extends DataWithUUID {
   final String name;
   final String? image;
   final String state;
+  final bool hasEditPermission;
 
   Region({
     required this.name,
     super.id,
     this.image,
     required this.state,
+    this.hasEditPermission = false,
   });
 
   static final moscow =

@@ -13,6 +13,7 @@ IceDistrictModel _$IceDistrictModelFromJson(Map<String, dynamic> json) =>
       region: const RegionConverter().fromJson(json['region'] as String),
       image: json['image'] as String? ?? '',
       id: json['id'] as String? ?? '',
+      hasEditPermission: json['hasEditPermission'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$IceDistrictModelToJson(IceDistrictModel instance) =>
@@ -21,5 +22,6 @@ Map<String, dynamic> _$IceDistrictModelToJson(IceDistrictModel instance) =>
       'name': instance.name,
       'region': const RegionConverter().toJson(instance.region),
       'image': instance.image,
+      'hasEditPermission': instance.hasEditPermission,
       'compact': instance.compact,
     };

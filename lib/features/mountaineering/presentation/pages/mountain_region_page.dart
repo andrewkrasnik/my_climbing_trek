@@ -1,6 +1,7 @@
 import 'package:my_climbing_trek/core/data/region.dart';
 import 'package:my_climbing_trek/core/widgets/my_sliver_app_bar_widget.dart';
 import 'package:my_climbing_trek/features/mountaineering/presentation/bloc/mountains/mountains_cubit.dart';
+import 'package:my_climbing_trek/features/mountaineering/presentation/pages/mountain_editing_page.dart';
 import 'package:my_climbing_trek/features/mountaineering/presentation/pages/mountain_page.dart';
 import 'package:my_climbing_trek/features/mountaineering/presentation/widgets/mountain_widget.dart';
 import 'package:my_climbing_trek/service_locator.dart';
@@ -17,8 +18,28 @@ class MountainRegionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = getIt<MountainsCubit>()..loadData(region: region);
+
     return SafeArea(
       child: Scaffold(
+        floatingActionButton: region.hasEditPermission
+            ? FloatingActionButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => MountainEditingPage(
+                        cubit: cubit,
+                        region: region,
+                      ),
+                    ),
+                  );
+                },
+                child: const Icon(
+                  Icons.add,
+                  size: 40,
+                ),
+              )
+            : null,
         body: CustomScrollView(
           slivers: [
             MySliverAppBarWidget(
@@ -27,8 +48,7 @@ class MountainRegionPage extends StatelessWidget {
               imageUrl: region.image!,
             ),
             BlocProvider(
-              create: (context) =>
-                  getIt<MountainsCubit>()..loadData(region: region),
+              create: (context) => cubit,
               child: BlocBuilder<MountainsCubit, MountainsState>(
                 builder: (context, state) {
                   return state.maybeMap(
@@ -43,6 +63,7 @@ class MountainRegionPage extends StatelessWidget {
                                   builder: (context) => MountainPage(
                                         mountain: dataState.mountains[index],
                                         region: region,
+                                        cubit: cubit,
                                       )));
                             },
                             child: MountainWidget(

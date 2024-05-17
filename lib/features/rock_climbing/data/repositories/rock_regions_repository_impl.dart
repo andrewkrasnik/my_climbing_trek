@@ -105,4 +105,52 @@ class RockRegionsRepositoryImpl implements RockRegionsRepository {
             .where((route) => filter == null ? true : filter.match(route))
             .toList()));
   }
+
+  @override
+  Future<Either<Failure, Unit>> deleteRoute({
+    required RockDistrict district,
+    required RockSector sector,
+    required RockRoute route,
+  }) async {
+    return await _regionsRemoteDataSource.deleteRoute(
+      district: district,
+      sector: sector,
+      route: route,
+    );
+  }
+
+  @override
+  Future<Either<Failure, Unit>> saveRoute({
+    required RockDistrict district,
+    required RockSector sector,
+    required RockRoute route,
+  }) async {
+    return await _regionsRemoteDataSource.saveRoute(
+      district: district,
+      sector: sector,
+      route: route,
+    );
+  }
+
+  @override
+  Future<Either<Failure, Unit>> deleteSector({
+    required RockDistrict district,
+    required RockSector sector,
+  }) async {
+    return await _regionsRemoteDataSource.deleteSector(
+      district: district,
+      sector: sector,
+    );
+  }
+
+  @override
+  Future<Either<Failure, Unit>> saveSector({
+    required RockDistrict district,
+    required RockSector sector,
+  }) async {
+    return await _regionsRemoteDataSource.saveSector(
+      district: district,
+      sector: sector,
+    );
+  }
 }

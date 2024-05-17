@@ -59,7 +59,7 @@ class TrekPage extends StatelessWidget {
             ),
             SliverList(
                 delegate: SliverChildListDelegate([
-              if (trek.mapImage != null)
+              if (trek.mapImage?.isEmpty == false)
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ScaledImageWidget(
@@ -67,25 +67,28 @@ class TrekPage extends StatelessWidget {
                   ),
                 ),
               if (trek.sections.isNotEmpty) TrekPointWidget(point: trek.start),
-              ...trek.sections.map((section) => Column(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                            '${section.start.name} - ${section.finish.name}: ${section.length} км.${section.climb(false)}'),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(section.description),
-                      ),
-                      SizedBox(
-                        width: double.infinity,
-                        child: TrekPointWidget(point: section.finish),
-                      ),
-                    ],
-                  ))
+              ...trek.sections.map(
+                (section) => Column(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                          '${section.start.name} - ${section.finish.name}: ${section.length} км.${section.climb(false)}'),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(section.description),
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      child: TrekPointWidget(point: section.finish),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 40),
             ])),
           ],
         ),

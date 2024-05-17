@@ -163,5 +163,40 @@ class MockTrekkingRemoteDataSource implements TrekkingRemoteDataSource {
   }
 
   @override
-  List<TrekPoint> get points => throw UnimplementedError();
+  // TODO: implement pointsCash
+  List<TrekPoint> get pointsCash => throw UnimplementedError();
+
+  @override
+  Future<Either<Failure, List<TrekPoint>>> points({required Region region}) {
+    // TODO: implement points
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, Unit>> deletePoint(
+      {required Region region, required TrekPoint point}) {
+    // TODO: implement deletePoint
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, Unit>> deleteTrek(
+      {required Region region, required Trek trek}) {
+    // TODO: implement deleteTrek
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, Unit>> savePoint(
+      {required Region region, required TrekPoint point}) {
+    // TODO: implement savePoint
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, Unit>> saveTrek(
+      {required Region region, required Trek trek}) {
+    // TODO: implement saveTrek
+    throw UnimplementedError();
+  }
 }
