@@ -712,4 +712,20 @@ class MountainRegionsLocalDataSourceImpl
     // TODO: implement saveRegion
     throw UnimplementedError();
   }
+
+  @override
+  Future<Either<Failure, Unit>> saveMountains(
+      {required Region region, required List<Mountain> mountains}) {
+    // TODO: implement saveMountains
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, Unit>> saveRoutes(
+      {required Region region,
+      required Mountain mountain,
+      required List<MountainRoute> routes}) {
+    // TODO: implement saveRoutes
+    throw UnimplementedError();
+  }
 }

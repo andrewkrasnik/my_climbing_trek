@@ -43,7 +43,11 @@ class MountainRegionsRepositoryImpl implements MountainRegionsRepository {
   @override
   Future<Either<Failure, List<Mountain>>> mountains(
       {required Region region}) async {
-    return await _regionsRemoteDataSource.mountains(region: region);
+    if (region.localData) {
+      return await _regionsLocalDataSource.mountains(region: region);
+    } else {
+      return await _regionsRemoteDataSource.mountains(region: region);
+    }
   }
 
   @override
@@ -86,7 +90,27 @@ class MountainRegionsRepositoryImpl implements MountainRegionsRepository {
 
   @override
   Future<Either<Failure, Unit>> addMyRegion({required Region region}) async {
-    return _regionsLocalDataSource.saveRegion(region: region);
+    final failureOrUnit =
+        await _regionsLocalDataSource.saveRegion(region: region);
+
+    return failureOrUnit.fold(
+      (failure) => Left(failure),
+      (_) async {
+        final failureOrMountains =
+            await _regionsRemoteDataSource.mountains(region: region);
+
+        return failureOrMountains.fold((failure) => Left(failure),
+            (mountains) async {
+          final failureOrSaveMountains = await _regionsLocalDataSource
+              .saveMountains(region: region, mountains: mountains);
+
+          return failureOrSaveMountains.fold((failure) => Left(failure),
+              (_) async {
+            return Right(unit);
+          });
+        });
+      },
+    );
   }
 
   @override
