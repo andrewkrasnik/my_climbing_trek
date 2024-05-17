@@ -12,6 +12,7 @@ class Region extends DataWithUUID {
     this.image,
     required this.state,
     this.hasEditPermission = false,
+    super.localData,
   });
 
   static final moscow =

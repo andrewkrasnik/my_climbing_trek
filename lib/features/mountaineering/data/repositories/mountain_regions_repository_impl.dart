@@ -18,7 +18,26 @@ class MountainRegionsRepositoryImpl implements MountainRegionsRepository {
 
   @override
   Future<Either<Failure, List<Region>>> regions() async {
-    return await _regionsRemoteDataSource.regions();
+    final failureOrLocalRegions = await _regionsLocalDataSource.regions();
+
+    return failureOrLocalRegions.fold(
+      (failure) => Left(failure),
+      (localRegions) async {
+        final failureOrRemoteRegions = await _regionsRemoteDataSource.regions();
+
+        return failureOrRemoteRegions.fold(
+          (failure) => Left(failure),
+          (remoteRegions) {
+            remoteRegions
+                .removeWhere((element) => localRegions.contains(element));
+
+            final regions = [...localRegions, ...remoteRegions];
+
+            return Right(regions);
+          },
+        );
+      },
+    );
   }
 
   @override
@@ -47,5 +66,31 @@ class MountainRegionsRepositoryImpl implements MountainRegionsRepository {
       mountain: mountain,
       route: route,
     );
+  }
+
+  @override
+  Future<Either<Failure, List<Region>>> myRegions() async {
+    final failureOrLocalRegions = await _regionsLocalDataSource.regions();
+
+    return failureOrLocalRegions.fold(
+      (failure) => Left(failure),
+      (regions) async {
+        if (regions.isEmpty) {
+          return await _regionsRemoteDataSource.regions(limit: 5);
+        } else {
+          return Right(regions);
+        }
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failure, Unit>> addMyRegion({required Region region}) async {
+    return _regionsLocalDataSource.saveRegion(region: region);
+  }
+
+  @override
+  Future<Either<Failure, Unit>> deleteMyRegion({required Region region}) async {
+    return _regionsLocalDataSource.deleteRegion(region: region);
   }
 }

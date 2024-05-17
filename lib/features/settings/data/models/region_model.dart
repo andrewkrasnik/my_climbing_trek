@@ -10,6 +10,7 @@ class RegionModel extends Region {
     super.id,
     super.image,
     super.hasEditPermission,
+    super.localData,
   }) : super(state: '');
 
   factory RegionModel.fromJson(Map<String, dynamic> json) =>

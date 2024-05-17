@@ -24,70 +24,81 @@ class MountaineeringHomeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const titleTextStyle = TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
-    return Column(
-      children: [
-        const Text(
-          'Восхождения и мультипитчи',
-          style: titleTextStyle,
-        ),
-        const SizedBox(height: 16),
-        // const Text(
-        //   'Текущая веревка',
-        //   style: titleTextStyle,
-        // ),
-        // const SizedBox(height: 16),
-        // const Text(
-        //   'Следующая веревка',
-        //   style: titleTextStyle,
-        // ),
-        // const SizedBox(height: 16),
-        // const Text(
-        //   'Маршрут',
-        //   style: titleTextStyle,
-        // ),
-        // const SizedBox(height: 16),
 
-        BlocBuilder<AscensionCubit, AscensionState>(
-          builder: (context, state) {
-            return state.ascension == null
-                ? const SizedBox()
-                : Column(
-                    children: [
-                      AscensionWidget(ascension: state.ascension!),
-                      MountainRouteDetailsWidget(route: state.ascension!.route),
-                      AscensionEventsWidget(
-                        ascension: state.ascension!,
-                        editing: true,
-                      ),
-                      // if (state.ascension?.started == true)
-                      TextButton(
-                        child: const Text('Завершить'),
-                        onPressed: () {
-                          BlocProvider.of<AscensionCubit>(context)
-                              .finishAscension(ascension: state.ascension!);
-                        },
-                      ),
-                    ],
-                  );
-          },
-        ),
-        if (filter?.region == null) ...[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text('Горы и маршруты:'),
-              TextButton(
-                child: const Text('Смотреть все'),
-                onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const MountainRegionsPage())),
-              ),
-            ],
+    final cubit = getIt<MountainRegionsCubit>();
+
+    cubit.loadMyData();
+
+    return BlocProvider(
+      create: (context) => cubit,
+      child: Column(
+        children: [
+          const Text(
+            'Восхождения и мультипитчи',
+            style: titleTextStyle,
           ),
-          BlocProvider(
-            create: (context) => getIt<MountainRegionsCubit>()..loadData(),
-            child: SizedBox(
+          const SizedBox(height: 16),
+          // const Text(
+          //   'Текущая веревка',
+          //   style: titleTextStyle,
+          // ),
+          // const SizedBox(height: 16),
+          // const Text(
+          //   'Следующая веревка',
+          //   style: titleTextStyle,
+          // ),
+          // const SizedBox(height: 16),
+          // const Text(
+          //   'Маршрут',
+          //   style: titleTextStyle,
+          // ),
+          // const SizedBox(height: 16),
+
+          BlocBuilder<AscensionCubit, AscensionState>(
+            builder: (context, state) {
+              return state.ascension == null
+                  ? const SizedBox()
+                  : Column(
+                      children: [
+                        AscensionWidget(ascension: state.ascension!),
+                        MountainRouteDetailsWidget(
+                            route: state.ascension!.route),
+                        AscensionEventsWidget(
+                          ascension: state.ascension!,
+                          editing: true,
+                        ),
+                        // if (state.ascension?.started == true)
+                        TextButton(
+                          child: const Text('Завершить'),
+                          onPressed: () {
+                            BlocProvider.of<AscensionCubit>(context)
+                                .finishAscension(ascension: state.ascension!);
+                          },
+                        ),
+                      ],
+                    );
+            },
+          ),
+          if (filter?.region == null) ...[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text('Горы и маршруты:'),
+                TextButton(
+                  child: const Text('Смотреть все'),
+                  onPressed: () async {
+                    await Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const MountainRegionsPage()));
+
+                    cubit.loadMyData();
+                  },
+                ),
+              ],
+            ),
+            SizedBox(
               height: 120,
               child: BlocBuilder<MountainRegionsCubit, MountainRegionsState>(
+                bloc: cubit,
                 builder: (context, state) {
                   return state.maybeMap(
                     loading: (_) => const Center(
@@ -103,7 +114,9 @@ class MountaineeringHomeWidget extends StatelessWidget {
                                         )));
                               },
                               child: MountainRegionWidget(
-                                  region: dataState.regions[index]),
+                                region: dataState.regions[index],
+                                myData: true,
+                              ),
                             ),
                         separatorBuilder: (_, __) => const SizedBox(
                               width: 8,
@@ -114,58 +127,59 @@ class MountaineeringHomeWidget extends StatelessWidget {
                 },
               ),
             ),
-          ),
-        ],
-        if (filter?.region != null) ...[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text('Горы и маршруты:'),
-              TextButton(
-                child: const Text('Смотреть все'),
-                onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => MountainRegionPage(
-                          region: filter!.region!,
-                        ))),
-              ),
-            ],
-          ),
-          BlocProvider(
-            create: (context) =>
-                getIt<MountainsCubit>()..loadData(region: filter!.region!),
-            child: SizedBox(
-              height: 120,
-              child: BlocBuilder<MountainsCubit, MountainsState>(
-                builder: (context, state) {
-                  return state.maybeMap(
-                    loading: (_) => const Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                    data: (dataState) => ListView.separated(
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) => GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => MountainPage(
-                                          region: filter!.region!,
-                                          mountain: dataState.mountains[index],
-                                        )));
-                              },
-                              child: MountainWidget(
-                                  mountain: dataState.mountains[index]),
-                            ),
-                        separatorBuilder: (_, __) => const SizedBox(
-                              width: 8,
-                            ),
-                        itemCount: dataState.mountains.length),
-                    orElse: () => const SizedBox(),
-                  );
-                },
+          ],
+          if (filter?.region != null) ...[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text('Горы и маршруты:'),
+                TextButton(
+                  child: const Text('Смотреть все'),
+                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => MountainRegionPage(
+                            region: filter!.region!,
+                          ))),
+                ),
+              ],
+            ),
+            BlocProvider(
+              create: (context) =>
+                  getIt<MountainsCubit>()..loadData(region: filter!.region!),
+              child: SizedBox(
+                height: 120,
+                child: BlocBuilder<MountainsCubit, MountainsState>(
+                  builder: (context, state) {
+                    return state.maybeMap(
+                      loading: (_) => const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                      data: (dataState) => ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) => GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => MountainPage(
+                                            region: filter!.region!,
+                                            mountain:
+                                                dataState.mountains[index],
+                                          )));
+                                },
+                                child: MountainWidget(
+                                    mountain: dataState.mountains[index]),
+                              ),
+                          separatorBuilder: (_, __) => const SizedBox(
+                                width: 8,
+                              ),
+                          itemCount: dataState.mountains.length),
+                      orElse: () => const SizedBox(),
+                    );
+                  },
+                ),
               ),
             ),
-          ),
+          ],
         ],
-      ],
+      ),
     );
   }
 }

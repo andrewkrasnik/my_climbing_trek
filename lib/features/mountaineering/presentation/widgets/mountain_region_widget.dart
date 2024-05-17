@@ -1,17 +1,21 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_climbing_trek/core/data/region.dart';
 import 'package:my_climbing_trek/core/widgets/my_cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:my_climbing_trek/features/mountaineering/presentation/bloc/mountain_regions/mountain_regions_cubit.dart';
 
 class MountainRegionWidget extends StatelessWidget {
   final Region region;
   final double height;
   final void Function()? onTap;
+  final bool myData;
 
   const MountainRegionWidget({
     required this.region,
     this.onTap,
     this.height = 160,
     super.key,
+    this.myData = false,
   });
 
   @override
@@ -54,6 +58,17 @@ class MountainRegionWidget extends StatelessWidget {
                     )
                   ]),
             ),
+            Positioned(
+                right: 0,
+                top: 0,
+                child: IconButton(
+                    onPressed: () {
+                      BlocProvider.of<MountainRegionsCubit>(context)
+                          .bookmarkRegion(region: region, myData: myData);
+                    },
+                    icon: region.localData
+                        ? const Icon(Icons.bookmark)
+                        : const Icon(Icons.bookmark_outline_outlined)))
           ],
         ),
       ),

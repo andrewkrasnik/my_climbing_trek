@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:injectable/injectable.dart';
 import 'package:my_climbing_trek/core/data/aid_category.dart';
 import 'package:my_climbing_trek/core/data/climbing_category.dart';
 import 'package:my_climbing_trek/core/data/ice_category.dart';
@@ -13,7 +12,7 @@ import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountai
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountain_route_type.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountaineering_category.dart';
 
-@LazySingleton(as: MountainRegionsLocalDataSource)
+// @LazySingleton(as: MountainRegionsLocalDataSource)
 class MountainRegionsLocalDataSourceImpl
     implements MountainRegionsLocalDataSource {
   static final archa = Region(
@@ -700,5 +699,17 @@ class MountainRegionsLocalDataSourceImpl
   Future<Either<Failure, List<MountainRoute>>> routes(
       {required Region region, required Mountain mountain}) async {
     return Right(_routes[mountain]!);
+  }
+
+  @override
+  Future<Either<Failure, Unit>> deleteRegion({required Region region}) {
+    // TODO: implement deleteRegion
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, Unit>> saveRegion({required Region region}) {
+    // TODO: implement saveRegion
+    throw UnimplementedError();
   }
 }
