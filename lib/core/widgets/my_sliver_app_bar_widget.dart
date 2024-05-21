@@ -7,6 +7,7 @@ class MySliverAppBarWidget extends StatelessWidget {
   final String imageUrl;
   final void Function()? onMapPpoint;
   final List<Widget>? actions;
+  final String? cacheKey;
 
   const MySliverAppBarWidget({
     super.key,
@@ -15,6 +16,7 @@ class MySliverAppBarWidget extends StatelessWidget {
     required this.imageUrl,
     this.onMapPpoint,
     this.actions,
+    this.cacheKey,
   });
 
   @override
@@ -35,6 +37,7 @@ class MySliverAppBarWidget extends StatelessWidget {
           child: MyCachedNetworkImage(
             imageUrl: imageUrl,
             fit: BoxFit.cover,
+            cacheKey: cacheKey,
           ),
         ),
         title: Row(

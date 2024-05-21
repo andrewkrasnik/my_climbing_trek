@@ -62,7 +62,8 @@ dependencies:
   #Диалоги выбора и сохранения файла
   file_saver: ^0.2.12
   file_selector: ^1.0.3
-  
+  # Кеширование изображений
+  flutter_cache_manager: ^3.3.2
 
 
 dev_dependencies:

@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:my_climbing_trek/core/data/region.dart';
+import 'package:my_climbing_trek/core/datasource/image_cash_manager.dart';
 import 'package:my_climbing_trek/core/failures/failure.dart';
 import 'package:my_climbing_trek/features/mountaineering/data/datasources/mountain_regions_local_datasource.dart';
 import 'package:my_climbing_trek/features/mountaineering/data/datasources/mountain_regions_remote_datasource.dart';
@@ -12,9 +13,13 @@ import 'package:my_climbing_trek/features/mountaineering/domain/repositories/mou
 class MountainRegionsRepositoryImpl implements MountainRegionsRepository {
   final MountainRegionsLocalDataSource _regionsLocalDataSource;
   final MountainRegionsRemoteDataSource _regionsRemoteDataSource;
+  final ImageCashManager _imageCashManager;
 
   MountainRegionsRepositoryImpl(
-      this._regionsLocalDataSource, this._regionsRemoteDataSource);
+    this._regionsLocalDataSource,
+    this._regionsRemoteDataSource,
+    this._imageCashManager,
+  );
 
   @override
   Future<Either<Failure, List<Region>>> regions() async {
@@ -53,8 +58,15 @@ class MountainRegionsRepositoryImpl implements MountainRegionsRepository {
   @override
   Future<Either<Failure, List<MountainRoute>>> routes(
       {required Region region, required Mountain mountain}) async {
-    return await _regionsRemoteDataSource.routes(
-        region: region, mountain: mountain);
+    if (region.localData) {
+      return await _regionsLocalDataSource.routes(
+        region: region,
+        mountain: mountain,
+      );
+    } else {
+      return await _regionsRemoteDataSource.routes(
+          region: region, mountain: mountain);
+    }
   }
 
   @override
@@ -90,6 +102,12 @@ class MountainRegionsRepositoryImpl implements MountainRegionsRepository {
 
   @override
   Future<Either<Failure, Unit>> addMyRegion({required Region region}) async {
+    final List<String> images = [];
+
+    if (region.image != null) {
+      images.add(region.image!);
+    }
+
     final failureOrUnit =
         await _regionsLocalDataSource.saveRegion(region: region);
 
@@ -106,7 +124,37 @@ class MountainRegionsRepositoryImpl implements MountainRegionsRepository {
 
           return failureOrSaveMountains.fold((failure) => Left(failure),
               (_) async {
-            return Right(unit);
+            for (final mountain in mountains) {
+              images.add(mountain.image);
+
+              final failureOrRoutes = await _regionsRemoteDataSource.routes(
+                region: region,
+                mountain: mountain,
+              );
+
+              await failureOrRoutes.fold((_) async => null, (routes) async {
+                await _regionsLocalDataSource.saveRoutes(
+                  region: region,
+                  mountain: mountain,
+                  routes: routes,
+                );
+
+                for (final route in routes) {
+                  if (route.image != null) {
+                    images.add(route.image!);
+                  }
+
+                  if (route.ueaaSchemaImage != null) {
+                    images.add(route.ueaaSchemaImage!);
+                  }
+                }
+              });
+            }
+
+            _imageCashManager.saveImages(
+                cacheKey: region.cacheKey, images: images);
+
+            return const Right(unit);
           });
         });
       },
@@ -115,6 +163,8 @@ class MountainRegionsRepositoryImpl implements MountainRegionsRepository {
 
   @override
   Future<Either<Failure, Unit>> deleteMyRegion({required Region region}) async {
+    await _imageCashManager.clear(cacheKey: region.cacheKey);
+
     return _regionsLocalDataSource.deleteRegion(region: region);
   }
 }

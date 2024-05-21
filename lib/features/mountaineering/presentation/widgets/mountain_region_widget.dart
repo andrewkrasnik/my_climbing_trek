@@ -34,7 +34,10 @@ class MountainRegionWidget extends StatelessWidget {
             Hero(
                 tag: 'MountainRegion${region.id}',
                 child: MyCachedNetworkImage(
-                    imageUrl: region.image!, fit: BoxFit.cover)),
+                  imageUrl: region.image!,
+                  fit: BoxFit.cover,
+                  cacheKey: region.cacheKey,
+                )),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(

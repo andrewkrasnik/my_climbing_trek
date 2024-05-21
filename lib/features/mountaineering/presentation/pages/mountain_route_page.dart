@@ -13,12 +13,14 @@ class MountainRoutePage extends StatelessWidget {
   final Mountain mountain;
   final MountainRoute route;
   final MountainRoutesCubit? cubit;
+  final bool editing;
 
   const MountainRoutePage({
     required this.route,
     required this.mountain,
     this.cubit,
     super.key,
+    this.editing = false,
   });
 
   @override
@@ -28,7 +30,7 @@ class MountainRoutePage extends StatelessWidget {
         centerTitle: true,
         title: Text(route.name),
         actions: [
-          if (cubit != null)
+          if (editing && cubit != null)
             IconButton(
               onPressed: () {
                 Navigator.of(context).push(

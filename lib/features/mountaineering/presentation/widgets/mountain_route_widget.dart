@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_climbing_trek/core/widgets/cache_key_inherited_widget.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountain.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountain_route.dart';
 import 'package:my_climbing_trek/features/mountaineering/presentation/bloc/mountain_routes/mountain_routes_cubit.dart';
@@ -10,6 +11,7 @@ class MountainRouteWidget extends StatelessWidget {
   final Mountain mountain;
   final void Function(MountainRoute route)? onTapGo;
   final MountainRoutesCubit cubit;
+  final bool editing;
 
   const MountainRouteWidget({
     required this.route,
@@ -17,10 +19,13 @@ class MountainRouteWidget extends StatelessWidget {
     this.onTapGo,
     required this.cubit,
     super.key,
+    this.editing = false,
   });
 
   @override
   Widget build(BuildContext context) {
+    final cacheKey = CacheKeyInheritedWidget.maybeOf(context)?.cacheKey;
+
     return Material(
         elevation: 4,
         borderRadius: BorderRadius.circular(8),
@@ -39,10 +44,14 @@ class MountainRouteWidget extends StatelessWidget {
               ? IconButton(
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => MountainRoutePage(
-                              mountain: mountain,
-                              route: route,
-                              cubit: cubit,
+                        builder: (context) => CacheKeyInheritedWidget(
+                              cacheKey: cacheKey,
+                              child: MountainRoutePage(
+                                mountain: mountain,
+                                route: route,
+                                cubit: cubit,
+                                editing: editing,
+                              ),
                             )));
                   },
                   icon: Icon(

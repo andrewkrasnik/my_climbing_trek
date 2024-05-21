@@ -16,6 +16,7 @@ class HiveMountainRegionsLocalDataSource
     implements MountainRegionsLocalDataSource {
   static const _regionsName = 'mountainRegions';
   static const _mountainsName = 'mountains';
+  static const _mountainRoutesName = 'mountainRoutes';
 
   @override
   Future<Either<Failure, List<Mountain>>> mountains(
@@ -43,8 +44,15 @@ class HiveMountainRegionsLocalDataSource
   @override
   Future<Either<Failure, List<MountainRoute>>> routes(
       {required Region region, required Mountain mountain}) async {
-    // TODO: implement routes
-    throw UnimplementedError();
+    final routesBox =
+        await Hive.openBox<List<String>>('$_mountainRoutesName${region.id}');
+
+    final routesData = routesBox.get(mountain.id);
+
+    return Right(routesData
+            ?.map((json) => const MountainRouteStringConverter().fromJson(json))
+            .toList() ??
+        []);
   }
 
   @override
@@ -54,6 +62,11 @@ class HiveMountainRegionsLocalDataSource
           await Hive.openBox<String>('$_mountainsName${region.id}');
 
       await mountainsBox.deleteFromDisk();
+
+      final routesBox =
+          await Hive.openBox<List<String>>('$_mountainRoutesName${region.id}');
+
+      await routesBox.deleteFromDisk();
 
       final regionsBox = await Hive.openBox<String>(_regionsName);
 
@@ -113,7 +126,20 @@ class HiveMountainRegionsLocalDataSource
       {required Region region,
       required Mountain mountain,
       required List<MountainRoute> routes}) async {
-    // TODO: implement saveRoutes
-    throw UnimplementedError();
+    try {
+      final routesBox =
+          await Hive.openBox<List<String>>('$_mountainRoutesName${region.id}');
+
+      await routesBox.put(
+          mountain.id,
+          routes
+              .map(
+                  (route) => const MountainRouteStringConverter().toJson(route))
+              .toList());
+
+      return const Right(unit);
+    } catch (error) {
+      return Left(NoSQLBaseFailure(description: error.toString()));
+    }
   }
 }

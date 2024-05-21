@@ -30,5 +30,7 @@ class Region extends DataWithUUID {
 
   static List<Region> get values => _values.values.toList();
 
+  String get cacheKey => 'mountainsRegion$id';
+
   static Region getById(String id) => _values[id]!;
 }
