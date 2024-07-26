@@ -26,7 +26,7 @@ MountainRouteModel _$MountainRouteModelFromJson(Map<String, dynamic> json) =>
       descent: json['descent'] as String? ?? '',
       description: json['description'] as String? ?? '',
       firstAscentYear: json['firstAscentYear'] as String? ?? '',
-      length: json['length'] as int? ?? 0,
+      length: (json['length'] as num?)?.toInt() ?? 0,
       links:
           (json['links'] as List<dynamic>?)?.map((e) => e as String).toList(),
       passage: json['passage'] as String? ?? '',

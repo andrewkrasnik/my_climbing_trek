@@ -24,4 +24,6 @@ abstract class MountainRegionsRepository {
   Future<Either<Failure, Unit>> addMyRegion({required Region region});
 
   Future<Either<Failure, Unit>> deleteMyRegion({required Region region});
+
+  Future<Either<Failure, Unit>> initListeners({required List<Region> regions});
 }

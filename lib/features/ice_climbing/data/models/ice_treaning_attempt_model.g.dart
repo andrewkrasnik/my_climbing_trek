@@ -19,15 +19,15 @@ IceTreaningAttemptModel _$IceTreaningAttemptModelFromJson(
           json['startTime'], const EpochDateTimeConverter().fromJson),
       finishTime: _$JsonConverterFromJson<int, DateTime>(
           json['finishTime'], const EpochDateTimeConverter().fromJson),
-      wayLength: json['wayLength'] as int?,
+      wayLength: (json['wayLength'] as num?)?.toInt(),
       id: json['id'] as String? ?? '',
       downClimbing: json['downClimbing'] as bool? ?? false,
-      fallCount: json['fallCount'] as int? ?? 0,
-      iceScrewsCount: json['iceScrewsCount'] as int? ?? 0,
+      fallCount: (json['fallCount'] as num?)?.toInt() ?? 0,
+      iceScrewsCount: (json['iceScrewsCount'] as num?)?.toInt() ?? 0,
       fail: json['fail'] as bool? ?? false,
       installedIceScrews: json['installedIceScrews'] as bool? ?? false,
-      suspensionCount: json['suspensionCount'] as int? ?? 0,
-      toolsCount: json['toolsCount'] as int? ?? 2,
+      suspensionCount: (json['suspensionCount'] as num?)?.toInt() ?? 0,
+      toolsCount: (json['toolsCount'] as num?)?.toInt() ?? 2,
       sectorId: json['sectorId'] as String? ?? '',
     );
 

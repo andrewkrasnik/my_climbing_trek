@@ -13,7 +13,8 @@ TechniqueTreaningModel _$TechniqueTreaningModelFromJson(
           ?.map((e) => const TechniqueTreaningItemConverter()
               .fromJson(e as Map<String, dynamic>))
           .toList(),
-      date: const EpochDateTimeConverter().fromJson(json['date'] as int),
+      date: const EpochDateTimeConverter()
+          .fromJson((json['date'] as num).toInt()),
       finish: _$JsonConverterFromJson<int, DateTime>(
           json['finish'], const EpochDateTimeConverter().fromJson),
       id: json['id'] as String? ?? '',

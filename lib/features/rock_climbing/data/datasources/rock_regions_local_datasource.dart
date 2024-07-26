@@ -28,4 +28,7 @@ abstract class RockRegionsLocalDataSource {
     required RockSector sector,
     required List<RockRoute> routes,
   });
+
+  Future<Either<Failure, Unit>> deleteDistrict(
+      {required RockDistrict district});
 }

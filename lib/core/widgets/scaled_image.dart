@@ -3,7 +3,12 @@ import 'package:my_climbing_trek/core/widgets/my_cached_network_image.dart';
 
 class ScaledImageWidget extends StatelessWidget {
   final String imageUrl;
-  const ScaledImageWidget({required this.imageUrl, super.key});
+  final String? cacheKey;
+  const ScaledImageWidget({
+    required this.imageUrl,
+    this.cacheKey,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +20,10 @@ class ScaledImageWidget extends StatelessWidget {
       },
       child: SizedBox(
         width: MediaQuery.of(context).size.width,
-        child: MyCachedNetworkImage(imageUrl: imageUrl),
+        child: MyCachedNetworkImage(
+          imageUrl: imageUrl,
+          cacheKey: cacheKey,
+        ),
       ),
     );
   }

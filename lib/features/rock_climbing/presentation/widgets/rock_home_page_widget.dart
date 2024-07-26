@@ -82,7 +82,7 @@ class RockHomePageWidget extends StatelessWidget {
             ],
           ),
           BlocProvider(
-            create: (context) => getIt<RockDistrictsCubit>()..loadData(),
+            create: (context) => getIt<RockDistrictsCubit>()..loadMyData(),
             child: SizedBox(
               height: 120,
               child: BlocBuilder<RockDistrictsCubit, RockDistrictsState>(
@@ -99,6 +99,7 @@ class RockHomePageWidget extends StatelessWidget {
                                 Hero(
                                   tag: 'rock${dataState.districts[index].id}',
                                   child: RockDistrictWidget(
+                                    myData: true,
                                     district: dataState.districts[index],
                                     onTap: () {
                                       final district =

@@ -14,9 +14,9 @@ RockRouteModel _$RockRouteModelFromJson(Map<String, dynamic> json) =>
       type: const ClimbingRouteTypeConverter().fromJson(json['type'] as String),
       id: json['id'] as String? ?? '',
       anchor: json['anchor'] as String? ?? '',
-      length: json['length'] as int? ?? 0,
-      boltCount: json['boltCount'] as int? ?? 0,
-      number: json['number'] as int?,
+      length: (json['length'] as num?)?.toInt() ?? 0,
+      boltCount: (json['boltCount'] as num?)?.toInt() ?? 0,
+      number: (json['number'] as num?)?.toInt(),
       remark: json['remark'] as String? ?? '',
       author: json['author'] as String? ?? '',
     );

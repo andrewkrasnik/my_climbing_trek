@@ -10,7 +10,8 @@ IceTreaningModel _$IceTreaningModelFromJson(Map<String, dynamic> json) =>
     IceTreaningModel(
       district: const IceDistrictStringConverter()
           .fromJson(json['district'] as String),
-      date: const EpochDateTimeConverter().fromJson(json['date'] as int),
+      date: const EpochDateTimeConverter()
+          .fromJson((json['date'] as num).toInt()),
       sectors: _$JsonConverterFromJson<String, List<IceSector>>(
           json['sectors'], const IceSectorsStringConverter().fromJson),
       finish: _$JsonConverterFromJson<int, DateTime>(

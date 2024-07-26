@@ -8,7 +8,8 @@ part of 'hall_treaning_model.dart';
 
 HallTreaningModel _$HallTreaningModelFromJson(Map<String, dynamic> json) =>
     HallTreaningModel(
-      date: const EpochDateTimeConverter().fromJson(json['date'] as int),
+      date: const EpochDateTimeConverter()
+          .fromJson((json['date'] as num).toInt()),
       climbingHall:
           const GumStringConverter().fromJson(json['climbingHall'] as String),
       attempts: (json['attempts'] as List<dynamic>)

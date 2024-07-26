@@ -62,16 +62,18 @@ class MountainRegionWidget extends StatelessWidget {
                   ]),
             ),
             Positioned(
-                right: 0,
-                top: 0,
-                child: IconButton(
-                    onPressed: () {
-                      BlocProvider.of<MountainRegionsCubit>(context)
-                          .bookmarkRegion(region: region, myData: myData);
-                    },
-                    icon: region.localData
-                        ? const Icon(Icons.bookmark)
-                        : const Icon(Icons.bookmark_outline_outlined)))
+              right: 0,
+              top: 0,
+              child: IconButton(
+                onPressed: () {
+                  BlocProvider.of<MountainRegionsCubit>(context)
+                      .bookmarkRegion(region: region, myData: myData);
+                },
+                icon: region.localData
+                    ? const Icon(Icons.bookmark)
+                    : const Icon(Icons.bookmark_outline_outlined),
+              ),
+            ),
           ],
         ),
       ),

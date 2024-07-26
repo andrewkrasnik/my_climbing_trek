@@ -167,4 +167,10 @@ class MountainRegionsRepositoryImpl implements MountainRegionsRepository {
 
     return _regionsLocalDataSource.deleteRegion(region: region);
   }
+
+  @override
+  Future<Either<Failure, Unit>> initListeners({required List<Region> regions}) {
+    // TODO: implement initListeners
+    throw UnimplementedError();
+  }
 }

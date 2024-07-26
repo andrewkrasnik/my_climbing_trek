@@ -5,7 +5,7 @@ import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_rou
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_sector.dart';
 
 abstract class RockRegionsRemoteDataSource {
-  Future<Either<Failure, List<RockDistrict>>> districts();
+  Future<Either<Failure, List<RockDistrict>>> districts({int limit = 0});
 
   Future<Either<Failure, List<RockSector>>> sectors(
       {required RockDistrict district});

@@ -9,7 +9,7 @@ part of 'ice_sector_model.dart';
 IceSectorModel _$IceSectorModelFromJson(Map<String, dynamic> json) =>
     IceSectorModel(
       name: json['name'] as String,
-      length: json['length'] as int,
+      length: (json['length'] as num).toInt(),
       maxCategory:
           const IceCategoryConverter().fromJson(json['maxCategory'] as String),
       image: json['image'] as String? ?? '',

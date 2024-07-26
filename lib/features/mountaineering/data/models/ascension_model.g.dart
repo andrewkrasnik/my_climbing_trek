@@ -8,7 +8,8 @@ part of 'ascension_model.dart';
 
 AscensionModel _$AscensionModelFromJson(Map<String, dynamic> json) =>
     AscensionModel(
-      date: const EpochDateTimeConverter().fromJson(json['date'] as int),
+      date: const EpochDateTimeConverter()
+          .fromJson((json['date'] as num).toInt()),
       mountain:
           const MountainStringConverter().fromJson(json['mountain'] as String),
       route: const MountainRouteStringConverter()

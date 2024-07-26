@@ -8,6 +8,8 @@ import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_sec
 abstract class RockRegionsRepository {
   Future<Either<Failure, List<RockDistrict>>> districts();
 
+  Future<Either<Failure, List<RockDistrict>>> myDistricts();
+
   Future<Either<Failure, List<RockSector>>> sectors(
       {required RockDistrict district});
 
@@ -38,4 +40,9 @@ abstract class RockRegionsRepository {
     required RockDistrict district,
     required RockSector sector,
   });
+
+  Future<Either<Failure, Unit>> addMyDistrict({required RockDistrict district});
+
+  Future<Either<Failure, Unit>> deleteMyDistrict(
+      {required RockDistrict district});
 }

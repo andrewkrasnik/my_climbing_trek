@@ -11,7 +11,7 @@ StrengthExerciseModel _$StrengthExerciseModelFromJson(
     StrengthExerciseModel(
       selected: json['selected'] as bool,
       name: json['name'] as String,
-      repetitions: json['repetitions'] as int,
+      repetitions: (json['repetitions'] as num).toInt(),
       id: json['id'] as String? ?? '',
     );
 

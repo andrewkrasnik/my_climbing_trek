@@ -8,11 +8,12 @@ part of 'trekking_path_model.dart';
 
 TrekkingPathModel _$TrekkingPathModelFromJson(Map<String, dynamic> json) =>
     TrekkingPathModel(
-      date: const EpochDateTimeConverter().fromJson(json['date'] as int),
+      date: const EpochDateTimeConverter()
+          .fromJson((json['date'] as num).toInt()),
       region: const RegionConverter().fromJson(json['region'] as String),
       type: const TrekkingTypeConverter().fromJson(json['type'] as String),
-      climbDown: json['climbDown'] as int? ?? 0,
-      climbUp: json['climbUp'] as int? ?? 0,
+      climbDown: (json['climbDown'] as num?)?.toInt() ?? 0,
+      climbUp: (json['climbUp'] as num?)?.toInt() ?? 0,
       currentSection: _$JsonConverterFromJson<String, TrekSection>(
           json['currentSection'], const TrekSectionStringConverter().fromJson),
       events: (json['events'] as List<dynamic>?)
