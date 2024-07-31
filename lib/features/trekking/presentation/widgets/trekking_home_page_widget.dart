@@ -66,7 +66,7 @@ class TrekkingHomePageWidget extends StatelessWidget {
           ],
         ),
         BlocProvider(
-          create: (context) => getIt<TrekkingRegionsCubit>()..loadData(),
+          create: (context) => getIt<TrekkingRegionsCubit>()..loadMyData(),
           child: SizedBox(
             height: 120,
             child: BlocBuilder<TrekkingRegionsCubit, TrekkingRegionsState>(
@@ -82,6 +82,7 @@ class TrekkingHomePageWidget extends StatelessWidget {
                             children: [
                               TrekkingRegionWidget(
                                 region: dataState.regions[index],
+                                myData: true,
                                 onTap: () {
                                   final region = dataState.regions[index];
 
@@ -144,6 +145,7 @@ class TrekkingHomePageWidget extends StatelessWidget {
                                 },
                                 child: TrekWidget(
                                   trek: dataState.treks[index],
+                                  region: filter!.region!,
                                 ),
                               ),
                             ],

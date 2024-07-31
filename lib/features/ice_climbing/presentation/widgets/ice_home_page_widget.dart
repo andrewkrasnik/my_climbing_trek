@@ -85,7 +85,7 @@ class IceHomePageWidget extends StatelessWidget {
               ],
             ),
             BlocProvider(
-              create: (context) => getIt<IceDistrictsCubit>()..loadData(),
+              create: (context) => getIt<IceDistrictsCubit>()..loadMyData(),
               child: SizedBox(
                 height: 120,
                 child: BlocBuilder<IceDistrictsCubit, IceDistrictsState>(
@@ -103,6 +103,7 @@ class IceHomePageWidget extends StatelessWidget {
                                 children: [
                                   IceDistrictWidget(
                                     district: dataState.districts[index],
+                                    myData: true,
                                     onTap: () {
                                       final district =
                                           dataState.districts[index];

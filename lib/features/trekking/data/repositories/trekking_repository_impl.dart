@@ -23,18 +23,45 @@ class TrekkingRepositoryImpl implements TrekkingRepository {
 
   @override
   Future<Either<Failure, List<Region>>> regions() async {
-    return await _remoteDataSource.regions();
+    final failureOrLocalRegions = await _trekkingLocalDataSource.regions();
+
+    return failureOrLocalRegions.fold(
+      (failure) => Left(failure),
+      (localRegions) async {
+        final failureOrRemoteRegions = await _remoteDataSource.regions();
+
+        return failureOrRemoteRegions.fold(
+          (failure) => Left(failure),
+          (remoteRegions) {
+            remoteRegions
+                .removeWhere((element) => localRegions.contains(element));
+
+            final regions = [...localRegions, ...remoteRegions];
+
+            return Right(regions);
+          },
+        );
+      },
+    );
   }
 
   @override
   Future<Either<Failure, List<Trek>>> treks({required Region region}) async {
-    return await _remoteDataSource.treks(region: region);
+    if (region.localData) {
+      return await _trekkingLocalDataSource.treks(region: region);
+    } else {
+      return await _remoteDataSource.treks(region: region);
+    }
   }
 
   @override
   Future<Either<Failure, List<TrekPoint>>> points(
       {required Region region}) async {
-    return await _remoteDataSource.points(region: region);
+    if (region.localData) {
+      return await _trekkingLocalDataSource.points(region: region);
+    } else {
+      return await _remoteDataSource.points(region: region);
+    }
   }
 
   @override

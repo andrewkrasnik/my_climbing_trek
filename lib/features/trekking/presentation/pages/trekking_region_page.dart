@@ -72,6 +72,7 @@ class _TrekkingRegionPageState extends State<TrekkingRegionPage> {
                 heroTag: 'TrekkingRegion${widget.region.id}',
                 title: widget.region.name,
                 imageUrl: widget.region.image!,
+                cacheKey: widget.region.trekCacheKey,
               ),
               SliverToBoxAdapter(
                 child: SizedBox(
@@ -140,6 +141,7 @@ class _TrekkingRegionPageState extends State<TrekkingRegionPage> {
                                     : null,
                                 child: TrekWidget(
                                   trek: dataState.treks[index],
+                                  region: widget.region,
                                 ),
                               ),
                             ),
@@ -190,6 +192,7 @@ class _TrekkingRegionPageState extends State<TrekkingRegionPage> {
                                     : null,
                                 child: TrekPointWidget(
                                   point: dataState.points[index],
+                                  region: widget.region,
                                 ),
                               ),
                             ),

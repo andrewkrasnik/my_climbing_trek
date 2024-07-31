@@ -61,7 +61,7 @@ class TechniquesHomePageWidget extends StatelessWidget {
             ],
           ),
           BlocProvider(
-            create: (context) => getIt<TechniqueGroupsCubit>()..loadData(),
+            create: (context) => getIt<TechniqueGroupsCubit>()..loadMyData(),
             child: SizedBox(
               height: 120,
               child: BlocBuilder<TechniqueGroupsCubit, TechniqueGroupsState>(
@@ -80,6 +80,7 @@ class TechniquesHomePageWidget extends StatelessWidget {
                                       'TechniqueGroup${dataState.groups[index].id}',
                                   child: TechniqueGroupWidget(
                                     group: dataState.groups[index],
+                                    myData: true,
                                     onTap: () {
                                       Navigator.of(context).push(
                                           MaterialPageRoute(
