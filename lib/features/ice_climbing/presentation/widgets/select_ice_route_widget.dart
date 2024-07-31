@@ -36,10 +36,14 @@ class SelectIceRouteWidget extends StatelessWidget {
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(children: [
-                MyCachedNetworkImage(
-                  imageUrl: sector.image,
-                  fit: BoxFit.cover,
-                  cacheKey: treaning.district.cacheKey,
+                SizedBox(
+                  width: 100,
+                  height: 100,
+                  child: MyCachedNetworkImage(
+                    imageUrl: sector.image,
+                    fit: BoxFit.cover,
+                    cacheKey: treaning.district.cacheKey,
+                  ),
                 ),
                 // Image(
                 //   width: MediaQuery.of(context).size.width / 4,
