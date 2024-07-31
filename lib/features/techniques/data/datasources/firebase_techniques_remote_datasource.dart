@@ -39,12 +39,21 @@ class FirebaseTechniquesRemoteDataSource implements TechniquesRemoteDataSource {
   }
 
   @override
-  Future<Either<Failure, List<TechniqueGroup>>> groups() async {
-    final techniquesGroupData = await _techniqueGroupsRef.get(
-      const GetOptions(
-        serverTimestampBehavior: ServerTimestampBehavior.none,
-      ),
-    );
+  Future<Either<Failure, List<TechniqueGroup>>> groups({int limit = 0}) async {
+    final QuerySnapshot<TechniqueGroup> techniquesGroupData;
+    if (limit > 0) {
+      techniquesGroupData = await _techniqueGroupsRef.limit(limit).get(
+            const GetOptions(
+              serverTimestampBehavior: ServerTimestampBehavior.none,
+            ),
+          );
+    } else {
+      techniquesGroupData = await _techniqueGroupsRef.get(
+        const GetOptions(
+          serverTimestampBehavior: ServerTimestampBehavior.none,
+        ),
+      );
+    }
 
     return Right(
         techniquesGroupData.docs.map((snapshot) => snapshot.data()).toList());

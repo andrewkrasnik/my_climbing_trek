@@ -1,6 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
+import 'package:my_climbing_trek/core/datasource/image_cash_manager.dart';
 import 'package:my_climbing_trek/core/failures/failure.dart';
+import 'package:my_climbing_trek/features/techniques/data/datasources/techniques_local_datasource.dart';
 import 'package:my_climbing_trek/features/techniques/data/datasources/techniques_remote_datasource.dart';
 import 'package:my_climbing_trek/features/techniques/domain/entities/technique.dart';
 import 'package:my_climbing_trek/features/techniques/domain/entities/technique_group.dart';
@@ -9,8 +11,14 @@ import 'package:my_climbing_trek/features/techniques/domain/repositories/techniq
 @LazySingleton(as: TechniquesRepository)
 class TechniquesRepositoryImpl implements TechniquesRepository {
   final TechniquesRemoteDataSource _techniquesRemoteDataSource;
+  final TechniquesLocalDataSource _techniquesLocalDataSource;
+  final ImageCashManager _imageCashManager;
 
-  TechniquesRepositoryImpl(this._techniquesRemoteDataSource);
+  TechniquesRepositoryImpl(
+    this._techniquesRemoteDataSource,
+    this._techniquesLocalDataSource,
+    this._imageCashManager,
+  );
 
   @override
   Future<Either<Failure, List<TechniqueGroup>>> groups() async {
@@ -60,5 +68,70 @@ class TechniquesRepositoryImpl implements TechniquesRepository {
   Future<Either<Failure, Unit>> saveGroup(
       {required TechniqueGroup group}) async {
     return await _techniquesRemoteDataSource.saveGroup(group: group);
+  }
+
+  @override
+  Future<Either<Failure, Unit>> addMyGroup(
+      {required TechniqueGroup group}) async {
+    final List<String> images = [group.image];
+
+    final failureOrUnit =
+        await _techniquesLocalDataSource.saveGroup(group: group);
+
+    return failureOrUnit.fold(
+      (failure) => Left(failure),
+      (_) async {
+        final failureOrTechniques =
+            await _techniquesRemoteDataSource.techniques(group: group);
+
+        return failureOrTechniques.fold(
+          (failure) => Left(failure),
+          (techniques) async {
+            final failureOrSaveTechniques = await _techniquesLocalDataSource
+                .saveTechniques(group: group, techniques: techniques);
+
+            return failureOrSaveTechniques.fold(
+              (failure) => Left(failure),
+              (_) async {
+                for (final technique in techniques) {
+                  if (technique.image != null) {
+                    images.add(technique.image!);
+                  }
+                }
+
+                _imageCashManager.saveImages(
+                    cacheKey: group.cacheKey, images: images);
+
+                return const Right(unit);
+              },
+            );
+          },
+        );
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failure, Unit>> deleteMyGroup(
+      {required TechniqueGroup group}) async {
+    await _imageCashManager.clear(cacheKey: group.cacheKey);
+
+    return _techniquesLocalDataSource.deleteGroup(group: group);
+  }
+
+  @override
+  Future<Either<Failure, List<TechniqueGroup>>> myGroups() async {
+    final failureOrLocalRegions = await _techniquesLocalDataSource.groups();
+
+    return failureOrLocalRegions.fold(
+      (failure) => Left(failure),
+      (regions) async {
+        if (regions.isEmpty) {
+          return await _techniquesRemoteDataSource.groups(limit: 5);
+        } else {
+          return Right(regions);
+        }
+      },
+    );
   }
 }

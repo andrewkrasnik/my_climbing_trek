@@ -146,7 +146,10 @@ import 'features/ice_climbing/domain/repositories/ice_regions_repository.dart'
     as _i617;
 import 'features/ice_climbing/domain/repositories/ice_treanings_repository.dart'
     as _i916;
+import 'features/ice_climbing/domain/usecases/add_my_ice_district.dart' as _i32;
 import 'features/ice_climbing/domain/usecases/delete_ice_attempt.dart' as _i187;
+import 'features/ice_climbing/domain/usecases/delete_my_ice_district.dart'
+    as _i21;
 import 'features/ice_climbing/domain/usecases/delete_sector_usecase.dart'
     as _i16;
 import 'features/ice_climbing/domain/usecases/finish_ice_attempt.dart' as _i213;
@@ -160,6 +163,8 @@ import 'features/ice_climbing/domain/usecases/ice_sector_to_treaning.dart'
     as _i197;
 import 'features/ice_climbing/domain/usecases/load_disrtricts_usecase.dart'
     as _i150;
+import 'features/ice_climbing/domain/usecases/load_my_ice_districts.dart'
+    as _i73;
 import 'features/ice_climbing/domain/usecases/load_sectors_usecase.dart'
     as _i66;
 import 'features/ice_climbing/domain/usecases/new_ice_attempt.dart' as _i1037;
@@ -363,8 +368,12 @@ import 'features/techniques/data/datasources/drift_technique_treanings_local_dat
     as _i846;
 import 'features/techniques/data/datasources/firebase_techniques_remote_datasource.dart'
     as _i133;
+import 'features/techniques/data/datasources/hive_techniques_local_datasource.dart'
+    as _i317;
 import 'features/techniques/data/datasources/technique_treanings_local_datasource.dart'
     as _i377;
+import 'features/techniques/data/datasources/techniques_local_datasource.dart'
+    as _i855;
 import 'features/techniques/data/datasources/techniques_remote_datasource.dart'
     as _i360;
 import 'features/techniques/data/repositories/technique_treanings_repository_impl.dart'
@@ -375,12 +384,16 @@ import 'features/techniques/domain/repositories/technique_treanings_repository.d
     as _i665;
 import 'features/techniques/domain/repositories/techniques_repository.dart'
     as _i312;
+import 'features/techniques/domain/usecases/add_my_technique_group.dart'
+    as _i578;
 import 'features/techniques/domain/usecases/add_technique_to_treaning_usecase.dart'
     as _i222;
 import 'features/techniques/domain/usecases/add_technique_treaning_usecase.dart'
     as _i486;
 import 'features/techniques/domain/usecases/current_technique_treaning_usecase.dart'
     as _i484;
+import 'features/techniques/domain/usecases/delete_my_technique_group.dart'
+    as _i828;
 import 'features/techniques/domain/usecases/delete_technique_group_usecase.dart'
     as _i793;
 import 'features/techniques/domain/usecases/delete_technique_treaning_usecase.dart'
@@ -397,6 +410,8 @@ import 'features/techniques/domain/usecases/get_techniques_editing_usecase.dart'
     as _i289;
 import 'features/techniques/domain/usecases/get_techniques_usecase.dart'
     as _i218;
+import 'features/techniques/domain/usecases/load_my_technique_groups.dart'
+    as _i940;
 import 'features/techniques/domain/usecases/previos_technique_treaning_usecase.dart'
     as _i858;
 import 'features/techniques/domain/usecases/save_technique_group_usecase.dart'
@@ -479,6 +494,10 @@ import 'features/trekking/data/datasources/drift_trekking_path_local_datasource.
     as _i331;
 import 'features/trekking/data/datasources/firebase_trekking_remote_datasource.dart'
     as _i18;
+import 'features/trekking/data/datasources/hive_trekking_local_datasource.dart'
+    as _i73;
+import 'features/trekking/data/datasources/trekking_local_datasource.dart'
+    as _i391;
 import 'features/trekking/data/datasources/trekking_path_local_datasource.dart'
     as _i637;
 import 'features/trekking/data/datasources/trekking_remote_datasource.dart'
@@ -491,12 +510,18 @@ import 'features/trekking/domain/repositories/trekking_path_repository.dart'
     as _i330;
 import 'features/trekking/domain/repositories/trekking_repository.dart'
     as _i434;
+import 'features/trekking/domain/usecases/add_my_trekking_region_usecase.dart'
+    as _i940;
 import 'features/trekking/domain/usecases/add_trek_event_usecase.dart' as _i816;
 import 'features/trekking/domain/usecases/continue_trek_usecase.dart' as _i795;
 import 'features/trekking/domain/usecases/current_trekking_path_usecase.dart'
     as _i150;
+import 'features/trekking/domain/usecases/delete_my__trekking_region_usecase.dart'
+    as _i449;
 import 'features/trekking/domain/usecases/delete_trek.dart' as _i95;
 import 'features/trekking/domain/usecases/delete_trek_point.dart' as _i753;
+import 'features/trekking/domain/usecases/get_my__trekking_regions.dart'
+    as _i864;
 import 'features/trekking/domain/usecases/get_trek_points.dart' as _i837;
 import 'features/trekking/domain/usecases/get_trekking_regions.dart' as _i605;
 import 'features/trekking/domain/usecases/get_treks.dart' as _i230;
@@ -550,6 +575,8 @@ _i174.GetIt $initGetIt(
           await gh.getAsync<_i141.FirebaseCrashlytics>()));
   gh.lazySingleton<_i135.PlacesRemoteDataSource>(() =>
       _i1032.FirebasePlacesRemoteDataSource(gh<_i974.FirebaseFirestore>()));
+  gh.lazySingleton<_i855.TechniquesLocalDataSource>(
+      () => _i317.HiveTechniquesLocalDataSource());
   gh.lazySingleton<_i37.RockRegionsLocalDataSource>(
       () => _i239.HiveRockRegionsLocalDataSource());
   gh.lazySingleton<_i808.LocalDBDatasource>(
@@ -560,6 +587,8 @@ _i174.GetIt $initGetIt(
       () => _i138.DriftLocalAscensionDataSource(gh<_i808.LocalDBDatasource>()));
   gh.lazySingleton<_i855.IceTreaningsDataSource>(
       () => _i837.LocalIceTreaningsDataSource(gh<_i808.LocalDBDatasource>()));
+  gh.lazySingleton<_i391.TrekkingLocalDataSource>(
+      () => _i73.HiveTrekkingLocalDataSource());
   gh.lazySingleton<_i248.AscensionRepository>(() =>
       _i806.AscensionRepositoryImpl(gh<_i177.LocalAscensionDataSource>()));
   gh.lazySingleton<_i377.TechniqueTreaningsLocalDataSource>(() =>
@@ -602,8 +631,6 @@ _i174.GetIt $initGetIt(
   gh.lazySingleton<_i665.TechniqueTreaningsRepository>(() =>
       _i770.TechniqueTreaningsRepositoryImpl(
           gh<_i377.TechniqueTreaningsLocalDataSource>()));
-  gh.lazySingleton<_i312.TechniquesRepository>(() =>
-      _i820.TechniquesRepositoryImpl(gh<_i360.TechniquesRemoteDataSource>()));
   gh.lazySingleton<_i775.RemoteGymDataSource>(
       () => _i808.RemoteGymDataSourceImpl(
             gh<_i974.FirebaseFirestore>(),
@@ -618,20 +645,6 @@ _i174.GetIt $initGetIt(
       _i915.IceTreaningsRepositoryImpl(gh<_i855.IceTreaningsDataSource>()));
   gh.lazySingleton<_i892.ImageCashManager>(() => _i892.ImageCashManagerImpl(
       cacheManager: gh<_i447.DefaultCacheManager>()));
-  gh.lazySingleton<_i793.DeleteTechniqueGroupUsecase>(() =>
-      _i793.DeleteTechniqueGroupUsecase(gh<_i312.TechniquesRepository>()));
-  gh.lazySingleton<_i540.DeleteTechniqueUsecase>(
-      () => _i540.DeleteTechniqueUsecase(gh<_i312.TechniquesRepository>()));
-  gh.lazySingleton<_i289.GetTechniquesEditingUsecase>(() =>
-      _i289.GetTechniquesEditingUsecase(gh<_i312.TechniquesRepository>()));
-  gh.lazySingleton<_i218.GetTechniquesUsecase>(
-      () => _i218.GetTechniquesUsecase(gh<_i312.TechniquesRepository>()));
-  gh.lazySingleton<_i545.GetTechniqueGroupsUsecase>(
-      () => _i545.GetTechniqueGroupsUsecase(gh<_i312.TechniquesRepository>()));
-  gh.lazySingleton<_i47.SaveTechniqueGroupUsecase>(
-      () => _i47.SaveTechniqueGroupUsecase(gh<_i312.TechniquesRepository>()));
-  gh.lazySingleton<_i18.SaveTechniqueUsecase>(
-      () => _i18.SaveTechniqueUsecase(gh<_i312.TechniquesRepository>()));
   gh.lazySingleton<_i151.TravelRegionsDataSource>(
       () => _i361.HiveTravelRegionsDataSource(gh<_i986.HiveInterface>()));
   gh.lazySingleton<_i47.RockRegionsRemoteDataSource>(
@@ -647,8 +660,6 @@ _i174.GetIt $initGetIt(
         gh<_i560.FinishAscensionUsecase>(),
         gh<_i816.EditAscensionEventUsecase>(),
       ));
-  gh.lazySingleton<_i434.TrekkingRepository>(
-      () => _i902.TrekkingRepositoryImpl(gh<_i316.TrekkingRemoteDataSource>()));
   gh.lazySingleton<_i1059.HallTreaningDataSource>(
       () => _i653.LocalHallTreaningDataSource(gh<_i808.LocalDBDatasource>()));
   gh.lazySingleton<_i772.RockRegionsRepository>(
@@ -659,12 +670,6 @@ _i174.GetIt $initGetIt(
           ));
   gh.lazySingleton<_i682.CardioTreaningsDatasource>(
       () => _i1.LocalCardioTreaningsDatasource(gh<_i808.LocalDBDatasource>()));
-  gh.factory<_i89.TechniquesCubit>(() => _i89.TechniquesCubit(
-        gh<_i218.GetTechniquesUsecase>(),
-        gh<_i289.GetTechniquesEditingUsecase>(),
-        gh<_i540.DeleteTechniqueUsecase>(),
-        gh<_i18.SaveTechniqueUsecase>(),
-      ));
   gh.lazySingleton<_i21.StrengthExerciseRepository>(() =>
       _i707.StrengthExerciseRepositoryImpl(
           strengthExerciseDataSource: gh<_i211.StrengthExerciseDataSource>()));
@@ -696,12 +701,6 @@ _i174.GetIt $initGetIt(
           gh<_i665.TechniqueTreaningsRepository>()));
   gh.lazySingleton<_i677.RockTreaningsLocalDataSource>(() =>
       _i924.DriftRockTreaningsLocalDataSource(gh<_i808.LocalDBDatasource>()));
-  gh.factory<_i418.TechniqueGroupsCubit>(() => _i418.TechniqueGroupsCubit(
-        gh<_i545.GetTechniqueGroupsUsecase>(),
-        gh<_i289.GetTechniquesEditingUsecase>(),
-        gh<_i793.DeleteTechniqueGroupUsecase>(),
-        gh<_i47.SaveTechniqueGroupUsecase>(),
-      ));
   gh.lazySingleton<_i157.TravelRegionsRepository>(() =>
       _i629.TravelRegionsRepositoryImpl(gh<_i151.TravelRegionsDataSource>()));
   gh.lazySingleton<_i187.DeleteIceAttempt>(
@@ -717,12 +716,6 @@ _i174.GetIt $initGetIt(
         gh<_i135.PlacesRemoteDataSource>(),
         gh<_i353.NetworkInfo>(),
       ));
-  gh.lazySingleton<_i617.IceRegionsRepository>(
-      () => _i176.IceRegionsRepositoryImpl(
-            gh<_i283.IceRegionsDataSource>(),
-            gh<_i602.IceRegionsRemoteDataSource>(),
-            gh<_i353.NetworkInfo>(),
-          ));
   gh.lazySingleton<_i967.DeleteStrengthExercise>(() =>
       _i967.DeleteStrengthExercise(
           strengthExerciseRepository: gh<_i21.StrengthExerciseRepository>()));
@@ -770,6 +763,12 @@ _i174.GetIt $initGetIt(
   gh.lazySingleton<_i330.TrekkingPathRepository>(() =>
       _i975.TrekkingPathRepositoryImpl(
           gh<_i637.TrekkingPathLocalDataSource>()));
+  gh.lazySingleton<_i312.TechniquesRepository>(
+      () => _i820.TechniquesRepositoryImpl(
+            gh<_i360.TechniquesRemoteDataSource>(),
+            gh<_i855.TechniquesLocalDataSource>(),
+            gh<_i892.ImageCashManager>(),
+          ));
   gh.factory<_i48.AuthenticationCubit>(() => _i48.AuthenticationCubit(
         gh<_i801.AuthLogin>(),
         gh<_i581.AuthLogout>(),
@@ -804,16 +803,34 @@ _i174.GetIt $initGetIt(
       () => _i637.SaveSimpleSettingsUsecase(gh<_i309.SettingsRepository>()));
   gh.lazySingleton<_i481.SaveTreaningsSettings>(
       () => _i481.SaveTreaningsSettings(gh<_i309.SettingsRepository>()));
+  gh.lazySingleton<_i617.IceRegionsRepository>(
+      () => _i176.IceRegionsRepositoryImpl(
+            gh<_i283.IceRegionsDataSource>(),
+            gh<_i602.IceRegionsRemoteDataSource>(),
+            gh<_i353.NetworkInfo>(),
+            gh<_i892.ImageCashManager>(),
+          ));
+  gh.lazySingleton<_i434.TrekkingRepository>(() => _i902.TrekkingRepositoryImpl(
+        gh<_i316.TrekkingRemoteDataSource>(),
+        gh<_i391.TrekkingLocalDataSource>(),
+        gh<_i892.ImageCashManager>(),
+      ));
   gh.factory<_i319.StrengthExercisesCubit>(() => _i319.StrengthExercisesCubit(
         gh<_i182.GetStrengthExercises>(),
         gh<_i212.SaveStrengthExercise>(),
         gh<_i791.SelectToUseStrengthExercise>(),
         gh<_i967.DeleteStrengthExercise>(),
       ));
+  gh.lazySingleton<_i940.AddMyTrekkingRegionUseCase>(
+      () => _i940.AddMyTrekkingRegionUseCase(gh<_i434.TrekkingRepository>()));
+  gh.lazySingleton<_i449.DeleteMyTrekkingRegionUseCase>(() =>
+      _i449.DeleteMyTrekkingRegionUseCase(gh<_i434.TrekkingRepository>()));
   gh.lazySingleton<_i95.DeleteTrek>(
       () => _i95.DeleteTrek(gh<_i434.TrekkingRepository>()));
   gh.lazySingleton<_i753.DeleteTrekPoint>(
       () => _i753.DeleteTrekPoint(gh<_i434.TrekkingRepository>()));
+  gh.lazySingleton<_i864.GetMyTrekkingRegions>(
+      () => _i864.GetMyTrekkingRegions(gh<_i434.TrekkingRepository>()));
   gh.lazySingleton<_i605.GetTrekkingRegions>(
       () => _i605.GetTrekkingRegions(gh<_i434.TrekkingRepository>()));
   gh.lazySingleton<_i230.GetTreks>(
@@ -826,9 +843,35 @@ _i174.GetIt $initGetIt(
       () => _i163.SaveTrekPoint(gh<_i434.TrekkingRepository>()));
   gh.lazySingleton<_i44.NewHallRoute>(() => _i44.NewHallRoute(
       climbingHallRepository: gh<_i119.ClimbingHallRepository>()));
+  gh.lazySingleton<_i578.AddMyTechniqueGroup>(
+      () => _i578.AddMyTechniqueGroup(gh<_i312.TechniquesRepository>()));
+  gh.lazySingleton<_i828.DeleteMyTechniqueGroup>(
+      () => _i828.DeleteMyTechniqueGroup(gh<_i312.TechniquesRepository>()));
+  gh.lazySingleton<_i793.DeleteTechniqueGroupUsecase>(() =>
+      _i793.DeleteTechniqueGroupUsecase(gh<_i312.TechniquesRepository>()));
+  gh.lazySingleton<_i540.DeleteTechniqueUsecase>(
+      () => _i540.DeleteTechniqueUsecase(gh<_i312.TechniquesRepository>()));
+  gh.lazySingleton<_i289.GetTechniquesEditingUsecase>(() =>
+      _i289.GetTechniquesEditingUsecase(gh<_i312.TechniquesRepository>()));
+  gh.lazySingleton<_i218.GetTechniquesUsecase>(
+      () => _i218.GetTechniquesUsecase(gh<_i312.TechniquesRepository>()));
+  gh.lazySingleton<_i545.GetTechniqueGroupsUsecase>(
+      () => _i545.GetTechniqueGroupsUsecase(gh<_i312.TechniquesRepository>()));
+  gh.lazySingleton<_i940.LoadMyTechniqueGroup>(
+      () => _i940.LoadMyTechniqueGroup(gh<_i312.TechniquesRepository>()));
+  gh.lazySingleton<_i47.SaveTechniqueGroupUsecase>(
+      () => _i47.SaveTechniqueGroupUsecase(gh<_i312.TechniquesRepository>()));
+  gh.lazySingleton<_i18.SaveTechniqueUsecase>(
+      () => _i18.SaveTechniqueUsecase(gh<_i312.TechniquesRepository>()));
   gh.lazySingleton<_i1067.RockTreaningsRepository>(() =>
       _i779.RockTreaningsRepositoryImpl(
           gh<_i677.RockTreaningsLocalDataSource>()));
+  gh.factory<_i448.TrekkingRegionsCubit>(() => _i448.TrekkingRegionsCubit(
+        gh<_i605.GetTrekkingRegions>(),
+        gh<_i449.DeleteMyTrekkingRegionUseCase>(),
+        gh<_i940.AddMyTrekkingRegionUseCase>(),
+        gh<_i864.GetMyTrekkingRegions>(),
+      ));
   gh.factory<_i453.RockDistrictsCubit>(() => _i453.RockDistrictsCubit(
         gh<_i816.LoadRockDistricts>(),
         gh<_i942.LoadMyRockDistricts>(),
@@ -840,13 +883,17 @@ _i174.GetIt $initGetIt(
             dataSource: gh<_i1059.HallTreaningDataSource>(),
             hallDataSource: gh<_i353.ClimbingHallDataSource>(),
           ));
+  gh.lazySingleton<_i32.AddMyIceDistrict>(
+      () => _i32.AddMyIceDistrict(gh<_i617.IceRegionsRepository>()));
+  gh.lazySingleton<_i21.DeleteMyIceDistrict>(
+      () => _i21.DeleteMyIceDistrict(gh<_i617.IceRegionsRepository>()));
+  gh.lazySingleton<_i73.LoadMyIceDistricts>(
+      () => _i73.LoadMyIceDistricts(gh<_i617.IceRegionsRepository>()));
   gh.factory<_i453.RockSectorsCubit>(() => _i453.RockSectorsCubit(
         gh<_i534.LoadRockSectors>(),
         gh<_i550.DeleteRockSector>(),
         gh<_i280.SaveRockSector>(),
       ));
-  gh.factory<_i448.TrekkingRegionsCubit>(
-      () => _i448.TrekkingRegionsCubit(gh<_i605.GetTrekkingRegions>()));
   gh.lazySingleton<_i262.DeleteRockAttempt>(
       () => _i262.DeleteRockAttempt(gh<_i1067.RockTreaningsRepository>()));
   gh.lazySingleton<_i32.FinishRockAttempt>(
@@ -884,6 +931,12 @@ _i174.GetIt $initGetIt(
       iceRegionsRepository: gh<_i617.IceRegionsRepository>()));
   gh.lazySingleton<_i476.SaveSectorUseCase>(() => _i476.SaveSectorUseCase(
       iceRegionsRepository: gh<_i617.IceRegionsRepository>()));
+  gh.factory<_i89.TechniquesCubit>(() => _i89.TechniquesCubit(
+        gh<_i218.GetTechniquesUsecase>(),
+        gh<_i289.GetTechniquesEditingUsecase>(),
+        gh<_i540.DeleteTechniqueUsecase>(),
+        gh<_i18.SaveTechniqueUsecase>(),
+      ));
   gh.lazySingleton<_i1055.TravelRepository>(
       () => _i278.TravelRepositoryImpl(gh<_i207.TravelLocalDatasource>()));
   gh.factory<_i205.TreksCubit>(() => _i205.TreksCubit(
@@ -912,6 +965,15 @@ _i174.GetIt $initGetIt(
           cardioTreaningsRepository: gh<_i969.CardioTreaningsRepository>()));
   gh.lazySingleton<_i533.SaveCardioTreaning>(() => _i533.SaveCardioTreaning(
       cardioTreaningsRepository: gh<_i969.CardioTreaningsRepository>()));
+  gh.factory<_i418.TechniqueGroupsCubit>(() => _i418.TechniqueGroupsCubit(
+        gh<_i545.GetTechniqueGroupsUsecase>(),
+        gh<_i289.GetTechniquesEditingUsecase>(),
+        gh<_i793.DeleteTechniqueGroupUsecase>(),
+        gh<_i47.SaveTechniqueGroupUsecase>(),
+        gh<_i940.LoadMyTechniqueGroup>(),
+        gh<_i828.DeleteMyTechniqueGroup>(),
+        gh<_i578.AddMyTechniqueGroup>(),
+      ));
   gh.lazySingleton<_i934.AllClimbingHalls>(
       () => _i934.AllClimbingHalls(gh<_i119.ClimbingHallRepository>()));
   gh.lazySingleton<_i78.GetClimbingHallRoures>(
@@ -922,8 +984,6 @@ _i174.GetIt $initGetIt(
       ));
   gh.lazySingleton<_i456.GetGymRouteStatistic>(
       () => _i456.GetGymRouteStatistic(gh<_i194.HallTreaningRepository>()));
-  gh.factory<_i897.IceDistrictsCubit>(() => _i897.IceDistrictsCubit(
-      loadDistrictsUseCase: gh<_i150.LoadDistrictsUseCase>()));
   gh.lazySingleton<_i816.AddTrekEventUsecase>(
       () => _i816.AddTrekEventUsecase(gh<_i330.TrekkingPathRepository>()));
   gh.lazySingleton<_i795.ContinueTrekUsecase>(
@@ -1055,6 +1115,12 @@ _i174.GetIt $initGetIt(
       () => _i910.GetDayLinesUsecase(gh<_i1055.TravelRepository>()));
   gh.lazySingleton<_i1073.GetInsuranceLineUsecase>(
       () => _i1073.GetInsuranceLineUsecase(gh<_i1055.TravelRepository>()));
+  gh.factory<_i897.IceDistrictsCubit>(() => _i897.IceDistrictsCubit(
+        gh<_i150.LoadDistrictsUseCase>(),
+        gh<_i73.LoadMyIceDistricts>(),
+        gh<_i21.DeleteMyIceDistrict>(),
+        gh<_i32.AddMyIceDistrict>(),
+      ));
   gh.lazySingleton<_i541.GetHallRouteAttempts>(() => _i541.GetHallRouteAttempts(
       repository: gh<_i194.HallTreaningRepository>()));
   gh.lazySingleton<_i624.AddStrengthTreaning>(() => _i624.AddStrengthTreaning(

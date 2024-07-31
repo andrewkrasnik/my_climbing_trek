@@ -9,6 +9,9 @@ class TechniqueGroup extends DataWithUUID {
     required this.name,
     required this.description,
     required this.image,
+    super.localData,
     super.id,
   });
+
+  get cacheKey => 'TechniqueGroup$id';
 }

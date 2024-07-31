@@ -30,4 +30,10 @@ abstract class TrekkingRepository {
     required Region region,
     required TrekPoint point,
   });
+
+  Future<Either<Failure, List<Region>>> myRegions();
+
+  Future<Either<Failure, Unit>> addMyRegion({required Region region});
+
+  Future<Either<Failure, Unit>> deleteMyRegion({required Region region});
 }

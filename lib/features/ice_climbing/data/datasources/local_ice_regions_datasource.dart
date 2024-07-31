@@ -61,4 +61,23 @@ class LocalIceRegionsDataSource implements IceRegionsDataSource {
 
     return const Right(unit);
   }
+
+  @override
+  Future<Either<Failure, Unit>> deleteDistrict(
+      {required IceDistrict district}) async {
+    try {
+      final sectorsBox =
+          await Hive.openBox<String>('${_sectorsName}distr${district.id}');
+
+      await sectorsBox.deleteFromDisk();
+
+      final districtsBox = await Hive.openBox<String>(_districtsName);
+
+      districtsBox.delete(district.id);
+
+      return const Right(unit);
+    } catch (error) {
+      return Left(NoSQLBaseFailure(description: error.toString()));
+    }
+  }
 }

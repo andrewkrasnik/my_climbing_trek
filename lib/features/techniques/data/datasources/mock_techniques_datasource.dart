@@ -163,7 +163,7 @@ class MockTechniquesRemoteDataSource implements TechniquesRemoteDataSource {
   };
 
   @override
-  Future<Either<Failure, List<TechniqueGroup>>> groups() async {
+  Future<Either<Failure, List<TechniqueGroup>>> groups({int limit = 0}) async {
     return Right(_groups.keys.toList());
   }
 

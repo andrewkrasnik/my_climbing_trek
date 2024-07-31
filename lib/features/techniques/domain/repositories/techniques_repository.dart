@@ -28,4 +28,10 @@ abstract class TechniquesRepository {
   Future<Either<Failure, Unit>> saveGroup({
     required TechniqueGroup group,
   });
+
+  Future<Either<Failure, List<TechniqueGroup>>> myGroups();
+
+  Future<Either<Failure, Unit>> addMyGroup({required TechniqueGroup group});
+
+  Future<Either<Failure, Unit>> deleteMyGroup({required TechniqueGroup group});
 }
