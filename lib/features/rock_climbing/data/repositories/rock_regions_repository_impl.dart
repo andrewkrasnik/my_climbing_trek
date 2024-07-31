@@ -38,9 +38,9 @@ class RockRegionsRepositoryImpl implements RockRegionsRepository {
             remoteDistricts
                 .removeWhere((element) => localDistricts.contains(element));
 
-            final regions = [...localDistricts, ...remoteDistricts];
+            final districts = [...localDistricts, ...remoteDistricts];
 
-            return Right(regions);
+            return Right(districts);
           },
         );
       },

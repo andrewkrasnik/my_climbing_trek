@@ -46,6 +46,7 @@ class IceDistrictPage extends StatelessWidget {
               heroTag: 'iceDistrict${district.id}',
               title: district.name,
               imageUrl: district.image,
+              cacheKey: district.cacheKey,
             ),
             BlocProvider(
               create: (context) => cubit,
@@ -62,6 +63,7 @@ class IceDistrictPage extends StatelessWidget {
                             fit: StackFit.passthrough,
                             children: [
                               IceSectorWidget(
+                                district: district,
                                 sector: dataState.sectors[index],
                                 height: 220,
                                 onTap: () => Navigator.of(context)

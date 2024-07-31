@@ -9,6 +9,7 @@ class TechniqueGroupModel extends TechniqueGroup {
     required super.description,
     super.id,
     required super.image,
+    super.localData,
   });
 
   factory TechniqueGroupModel.fromJson(Map<String, dynamic> json) =>

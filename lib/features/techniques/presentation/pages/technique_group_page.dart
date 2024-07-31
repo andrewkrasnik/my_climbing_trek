@@ -33,6 +33,7 @@ class TechniqueGroupPage extends StatelessWidget {
                     heroTag: 'TechniqueGroup${group.id}',
                     title: group.name,
                     imageUrl: group.image,
+                    cacheKey: group.cacheKey,
                     actions: state.maybeMap(
                       data: (dataState) =>
                           (dataState.editing && groupsCubit != null)

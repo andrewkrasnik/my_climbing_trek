@@ -13,6 +13,7 @@ class IceDistrictModel extends IceDistrict {
     super.image,
     super.id,
     super.hasEditPermission,
+    super.localData,
   });
 
   factory IceDistrictModel.fromJson(Map<String, dynamic> json) =>

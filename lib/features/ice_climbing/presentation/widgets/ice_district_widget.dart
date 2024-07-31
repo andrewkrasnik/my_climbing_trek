@@ -31,7 +31,11 @@ class IceDistrictWidget extends StatelessWidget {
         child: Stack(
           fit: StackFit.expand,
           children: [
-            MyCachedNetworkImage(imageUrl: district.image, fit: BoxFit.cover),
+            MyCachedNetworkImage(
+              imageUrl: district.image,
+              fit: BoxFit.cover,
+              cacheKey: district.cacheKey,
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(

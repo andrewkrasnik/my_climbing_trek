@@ -65,8 +65,11 @@ class HiveTechniquesLocalDataSource implements TechniquesLocalDataSource {
     try {
       final groupsBox = await Hive.openBox<String>(_groupsName);
 
-      await groupsBox.put(
-          group.id, json.encode((group as TechniqueGroupModel).toJson()));
+      final jsonData = (group as TechniqueGroupModel).toJson();
+
+      jsonData['localData'] = true;
+
+      await groupsBox.put(group.id, json.encode(jsonData));
 
       return const Right(unit);
     } catch (error) {

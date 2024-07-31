@@ -41,8 +41,11 @@ class LocalIceRegionsDataSource implements IceRegionsDataSource {
     final districtsBox = await Hive.openBox<String>(_districtsName);
 
     for (var district in districts) {
-      await districtsBox.put(
-          district.id, json.encode((district as IceDistrictModel).toJson()));
+      final jsonData = (district as IceDistrictModel).toJson();
+
+      jsonData['localData'] = true;
+
+      await districtsBox.put(district.id, json.encode(jsonData));
     }
 
     return const Right(unit);

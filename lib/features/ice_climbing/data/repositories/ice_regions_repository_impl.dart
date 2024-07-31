@@ -3,7 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:my_climbing_trek/core/datasource/image_cash_manager.dart';
 
 import 'package:my_climbing_trek/core/failures/failure.dart';
-import 'package:my_climbing_trek/core/services/network/network_info.dart';
+
 import 'package:my_climbing_trek/features/ice_climbing/data/datasources/ice_regions_datasource.dart';
 import 'package:my_climbing_trek/features/ice_climbing/data/datasources/ice_regions_remote_datasource.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_district.dart';
@@ -14,55 +14,49 @@ import 'package:my_climbing_trek/features/ice_climbing/domain/repositories/ice_r
 class IceRegionsRepositoryImpl implements IceRegionsRepository {
   final IceRegionsDataSource _regionsLocalDataSource;
   final IceRegionsRemoteDataSource _regionsRemoteDataSource;
-  final NetworkInfo _networkInfo;
+
   final ImageCashManager _imageCashManager;
 
   IceRegionsRepositoryImpl(
     this._regionsLocalDataSource,
     this._regionsRemoteDataSource,
-    this._networkInfo,
     this._imageCashManager,
   );
 
   @override
   Future<Either<Failure, List<IceDistrict>>> getDistricts() async {
-    if (await _networkInfo.isConnected) {
-      final failureOrDistricts = await _regionsRemoteDataSource.districts();
+    final failureOrLocalDistricts =
+        await _regionsLocalDataSource.getDistricts();
 
-      return await failureOrDistricts.fold((failure) async => Left(failure),
-          (districts) async {
-        final failureOrUnit =
-            await _regionsLocalDataSource.saveDistricts(districts: districts);
+    return failureOrLocalDistricts.fold(
+      (failure) => Left(failure),
+      (localDistricts) async {
+        final failureOrRemoteDistricts =
+            await _regionsRemoteDataSource.districts();
 
-        return failureOrUnit.fold((failure) async => Left(failure),
-            (_) async => await _regionsLocalDataSource.getDistricts());
-      });
-    }
+        return failureOrRemoteDistricts.fold(
+          (failure) => Left(failure),
+          (remoteDistricts) {
+            remoteDistricts
+                .removeWhere((element) => localDistricts.contains(element));
 
-    return await _regionsLocalDataSource.getDistricts();
+            final districts = [...localDistricts, ...remoteDistricts];
+
+            return Right(districts);
+          },
+        );
+      },
+    );
   }
 
   @override
   Future<Either<Failure, List<IceSector>>> getSectors(
       {required IceDistrict district}) async {
-    if (await _networkInfo.isConnected) {
-      final failureOrSectors =
-          await _regionsRemoteDataSource.sectors(district: district);
-
-      return await failureOrSectors.fold((failure) async => Left(failure),
-          (sectors) async {
-        final failureOrUnit = await _regionsLocalDataSource.saveSectors(
-          district: district,
-          sectors: sectors,
-        );
-
-        return failureOrUnit.fold(
-            (failure) async => Left(failure),
-            (_) async =>
-                await _regionsLocalDataSource.getSectors(district: district));
-      });
+    if (district.localData) {
+      return await _regionsLocalDataSource.getSectors(district: district);
+    } else {
+      return await _regionsRemoteDataSource.sectors(district: district);
     }
-    return await _regionsLocalDataSource.getSectors(district: district);
   }
 
   @override

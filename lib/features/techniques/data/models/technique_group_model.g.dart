@@ -12,11 +12,13 @@ TechniqueGroupModel _$TechniqueGroupModelFromJson(Map<String, dynamic> json) =>
       description: json['description'] as String,
       id: json['id'] as String? ?? '',
       image: json['image'] as String,
+      localData: json['localData'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$TechniqueGroupModelToJson(
         TechniqueGroupModel instance) =>
     <String, dynamic>{
+      'localData': instance.localData,
       'id': instance.id,
       'name': instance.name,
       'description': instance.description,

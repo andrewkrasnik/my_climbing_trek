@@ -22,13 +22,37 @@ class TechniquesRepositoryImpl implements TechniquesRepository {
 
   @override
   Future<Either<Failure, List<TechniqueGroup>>> groups() async {
-    return await _techniquesRemoteDataSource.groups();
+    final failureOrLocalGroups = await _techniquesLocalDataSource.groups();
+
+    return failureOrLocalGroups.fold(
+      (failure) => Left(failure),
+      (localGroups) async {
+        final failureOrRemoteRegions =
+            await _techniquesRemoteDataSource.groups();
+
+        return failureOrRemoteRegions.fold(
+          (failure) => Left(failure),
+          (remoteGroups) {
+            remoteGroups
+                .removeWhere((element) => localGroups.contains(element));
+
+            final regions = [...localGroups, ...remoteGroups];
+
+            return Right(regions);
+          },
+        );
+      },
+    );
   }
 
   @override
   Future<Either<Failure, List<Technique>>> techniques(
       {required TechniqueGroup group}) async {
-    return await _techniquesRemoteDataSource.techniques(group: group);
+    if (group.localData) {
+      return await _techniquesLocalDataSource.techniques(group: group);
+    } else {
+      return await _techniquesRemoteDataSource.techniques(group: group);
+    }
   }
 
   @override

@@ -18,72 +18,80 @@ class RockHomePageWidget extends StatelessWidget {
     return BlocBuilder<RockTreaningCubit, RockTreaningState>(
       builder: (context, state) {
         final cubit = BlocProvider.of<RockTreaningCubit>(context);
-        return Column(children: [
-          const Text(
-            'Тренировки на скалах',
-            style: titleTextStyle,
-          ),
-          const SizedBox(height: 16),
-          if (state.currentAttempt != null) ...[
+
+        final rockDistrictsCubit = getIt<RockDistrictsCubit>();
+
+        rockDistrictsCubit.loadMyData();
+        return BlocProvider(
+          create: (context) => rockDistrictsCubit,
+          child: Column(children: [
             const Text(
-              'Текущая попытка',
+              'Тренировки на скалах',
               style: titleTextStyle,
             ),
-            const SizedBox(height: 8),
-            RockAttemptWidget(
-              attempt: state.currentAttempt!,
-              isCurrent: true,
-              cubit: cubit,
-              statistic: state.currentRouteStatistic,
-            )
-          ],
-          if (state.lastAttempt != null) ...[
-            const Text(
-              'Предудущая попытка',
-              style: titleTextStyle,
-            ),
-            const SizedBox(height: 8),
-            RockAttemptWidget(
-              attempt: state.lastAttempt!,
-              cubit: cubit,
-              statistic: state.lastRouteStatistic,
-            )
-          ],
-          if (state.currentTreaning != null) ...[
-            const Text(
-              'Текущая тренировка',
-              style: titleTextStyle,
-            ),
-            const SizedBox(height: 8),
-            RockTreaningWidget(
-              treaning: state.currentTreaning!,
-              isCurrent: true,
-            )
-          ],
-          if (state.lastTreaning != null) ...[
-            const Text(
-              'Предыдущая тренировка',
-              style: titleTextStyle,
-            ),
-            const SizedBox(height: 8),
-            RockTreaningWidget(
-              treaning: state.lastTreaning!,
-            )
-          ],
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text('Скалолазные районы:'),
-              TextButton(
-                child: const Text('Смотреть все'),
-                onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const RockDistrictsPage())),
+            const SizedBox(height: 16),
+            if (state.currentAttempt != null) ...[
+              const Text(
+                'Текущая попытка',
+                style: titleTextStyle,
               ),
+              const SizedBox(height: 8),
+              RockAttemptWidget(
+                attempt: state.currentAttempt!,
+                isCurrent: true,
+                cubit: cubit,
+                statistic: state.currentRouteStatistic,
+              )
             ],
-          ),
-          BlocProvider(
-            create: (context) => getIt<RockDistrictsCubit>()..loadMyData(),
-            child: SizedBox(
+            if (state.lastAttempt != null) ...[
+              const Text(
+                'Предудущая попытка',
+                style: titleTextStyle,
+              ),
+              const SizedBox(height: 8),
+              RockAttemptWidget(
+                attempt: state.lastAttempt!,
+                cubit: cubit,
+                statistic: state.lastRouteStatistic,
+              )
+            ],
+            if (state.currentTreaning != null) ...[
+              const Text(
+                'Текущая тренировка',
+                style: titleTextStyle,
+              ),
+              const SizedBox(height: 8),
+              RockTreaningWidget(
+                treaning: state.currentTreaning!,
+                isCurrent: true,
+              )
+            ],
+            if (state.lastTreaning != null) ...[
+              const Text(
+                'Предыдущая тренировка',
+                style: titleTextStyle,
+              ),
+              const SizedBox(height: 8),
+              RockTreaningWidget(
+                treaning: state.lastTreaning!,
+              )
+            ],
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text('Скалолазные районы:'),
+                TextButton(
+                  child: const Text('Смотреть все'),
+                  onPressed: () async {
+                    await Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const RockDistrictsPage()));
+
+                    rockDistrictsCubit.loadMyData();
+                  },
+                ),
+              ],
+            ),
+            SizedBox(
               height: 120,
               child: BlocBuilder<RockDistrictsCubit, RockDistrictsState>(
                 builder: (context, state) {
@@ -138,8 +146,8 @@ class RockHomePageWidget extends StatelessWidget {
                 },
               ),
             ),
-          ),
-        ]);
+          ]),
+        );
       },
     );
   }

@@ -31,7 +31,11 @@ class TechniqueGroupWidget extends StatelessWidget {
         child: Stack(
           fit: StackFit.expand,
           children: [
-            MyCachedNetworkImage(imageUrl: group.image, fit: BoxFit.cover),
+            MyCachedNetworkImage(
+              imageUrl: group.image,
+              fit: BoxFit.cover,
+              cacheKey: group.cacheKey,
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(

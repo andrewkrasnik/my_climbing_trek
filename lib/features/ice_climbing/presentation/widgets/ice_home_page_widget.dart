@@ -18,75 +18,86 @@ class IceHomePageWidget extends StatelessWidget {
     return BlocBuilder<CurrentIceTreaningCubit, CurrentIceTreaningState>(
       builder: (context, state) {
         final cubit = BlocProvider.of<CurrentIceTreaningCubit>(context);
-        return Column(
-          children: [
-            const Text(
-              'Ледолазные тренировки',
-              style: titleTextStyle,
-            ),
-            const SizedBox(height: 16),
-            Column(
-              children: [
-                if (state.currentAttempt != null) ...[
-                  const Text(
-                    'Текущая попытка',
-                    style: titleTextStyle,
-                  ),
-                  const SizedBox(height: 8),
-                  IceAttemptWidget(
-                    attempt: state.currentAttempt!,
-                    isCurrent: true,
-                    cubit: cubit,
-                  )
+
+        final iceDistrictsCubit = getIt<IceDistrictsCubit>();
+
+        iceDistrictsCubit.loadMyData();
+
+        return BlocProvider(
+          create: (context) => iceDistrictsCubit,
+          child: Column(
+            children: [
+              const Text(
+                'Ледолазные тренировки',
+                style: titleTextStyle,
+              ),
+              const SizedBox(height: 16),
+              Column(
+                children: [
+                  if (state.currentAttempt != null) ...[
+                    const Text(
+                      'Текущая попытка',
+                      style: titleTextStyle,
+                    ),
+                    const SizedBox(height: 8),
+                    IceAttemptWidget(
+                      attempt: state.currentAttempt!,
+                      isCurrent: true,
+                      cubit: cubit,
+                      cacheKey: state.currentTreaning!.district.cacheKey,
+                    )
+                  ],
+                  if (state.lastAttempt != null) ...[
+                    const Text(
+                      'Предудущая попытка',
+                      style: titleTextStyle,
+                    ),
+                    const SizedBox(height: 8),
+                    IceAttemptWidget(
+                      attempt: state.lastAttempt!,
+                      cubit: cubit,
+                      cacheKey: state.currentTreaning!.district.cacheKey,
+                    )
+                  ],
+                  if (state.currentTreaning != null) ...[
+                    const Text(
+                      'Текущая тренировка',
+                      style: titleTextStyle,
+                    ),
+                    const SizedBox(height: 8),
+                    IceTreaningWidget(
+                      treaning: state.currentTreaning!,
+                      isCurrent: true,
+                    )
+                  ],
+                  if (state.lastTreaning != null) ...[
+                    const Text(
+                      'Предыдущая тренировка',
+                      style: titleTextStyle,
+                    ),
+                    const SizedBox(height: 8),
+                    IceTreaningWidget(
+                      treaning: state.lastTreaning!,
+                    )
+                  ],
                 ],
-                if (state.lastAttempt != null) ...[
-                  const Text(
-                    'Предудущая попытка',
-                    style: titleTextStyle,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text('Ледолазные районы:'),
+                  TextButton(
+                    child: const Text('Смотреть все'),
+                    onPressed: () async {
+                      await Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const IceDistrictsPage()));
+
+                      iceDistrictsCubit.loadMyData();
+                    },
                   ),
-                  const SizedBox(height: 8),
-                  IceAttemptWidget(
-                    attempt: state.lastAttempt!,
-                    cubit: cubit,
-                  )
                 ],
-                if (state.currentTreaning != null) ...[
-                  const Text(
-                    'Текущая тренировка',
-                    style: titleTextStyle,
-                  ),
-                  const SizedBox(height: 8),
-                  IceTreaningWidget(
-                    treaning: state.currentTreaning!,
-                    isCurrent: true,
-                  )
-                ],
-                if (state.lastTreaning != null) ...[
-                  const Text(
-                    'Предыдущая тренировка',
-                    style: titleTextStyle,
-                  ),
-                  const SizedBox(height: 8),
-                  IceTreaningWidget(
-                    treaning: state.lastTreaning!,
-                  )
-                ],
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text('Ледолазные районы:'),
-                TextButton(
-                  child: const Text('Смотреть все'),
-                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const IceDistrictsPage())),
-                ),
-              ],
-            ),
-            BlocProvider(
-              create: (context) => getIt<IceDistrictsCubit>()..loadMyData(),
-              child: SizedBox(
+              ),
+              SizedBox(
                 height: 120,
                 child: BlocBuilder<IceDistrictsCubit, IceDistrictsState>(
                   builder: (context, state) {
@@ -163,8 +174,8 @@ class IceHomePageWidget extends StatelessWidget {
                   },
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         );
       },
     );

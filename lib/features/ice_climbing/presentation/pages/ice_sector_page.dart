@@ -28,6 +28,7 @@ class IceSectorPage extends StatelessWidget {
               heroTag: 'icesector${sector.id}',
               title: sector.name,
               imageUrl: sector.image,
+              cacheKey: district.cacheKey,
               actions: [
                 if (district.hasEditPermission && cubit != null)
                   IconButton(

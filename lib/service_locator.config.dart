@@ -807,7 +807,6 @@ _i174.GetIt $initGetIt(
       () => _i176.IceRegionsRepositoryImpl(
             gh<_i283.IceRegionsDataSource>(),
             gh<_i602.IceRegionsRemoteDataSource>(),
-            gh<_i353.NetworkInfo>(),
             gh<_i892.ImageCashManager>(),
           ));
   gh.lazySingleton<_i434.TrekkingRepository>(() => _i902.TrekkingRepositoryImpl(

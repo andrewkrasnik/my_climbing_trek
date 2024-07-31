@@ -16,53 +16,61 @@ class TechniquesHomePageWidget extends StatelessWidget {
     const titleTextStyle = TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
     return BlocBuilder<TechniqueTreaningCubit, TechniqueTreaningState>(
       builder: (context, state) {
-        return Column(children: [
-          const Text(
-            'Технические тернировки',
-            style: titleTextStyle,
-          ),
-          const SizedBox(height: 16),
-          // if (state.currentTechnique != null) ...[
-          //   CurrentTechniqueWidget(
-          //     technique: state.currentTechnique!,
-          //   ),
-          //   const SizedBox(height: 8),
-          // ],
-          if (state.currentTreaning != null) ...[
+        final cubit = getIt<TechniqueGroupsCubit>();
+
+        cubit.loadMyData();
+
+        return BlocProvider(
+          create: (context) => cubit,
+          child: Column(children: [
             const Text(
-              'Текущая тренировка',
+              'Технические тернировки',
               style: titleTextStyle,
             ),
-            const SizedBox(height: 8),
-            TechniqueTreaningWidget(
-              treaning: state.currentTreaning!,
-              editing: true,
-            )
-          ],
-          if (state.previosTreaning != null) ...[
-            const Text(
-              'Предыдущая тренировка',
-              style: titleTextStyle,
-            ),
-            const SizedBox(height: 8),
-            TechniqueTreaningWidget(
-              treaning: state.previosTreaning!,
-            )
-          ],
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text('Техники:'),
-              TextButton(
-                child: const Text('Смотреть все'),
-                onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const TechniqueGroupsPage())),
+            const SizedBox(height: 16),
+            // if (state.currentTechnique != null) ...[
+            //   CurrentTechniqueWidget(
+            //     technique: state.currentTechnique!,
+            //   ),
+            //   const SizedBox(height: 8),
+            // ],
+            if (state.currentTreaning != null) ...[
+              const Text(
+                'Текущая тренировка',
+                style: titleTextStyle,
               ),
+              const SizedBox(height: 8),
+              TechniqueTreaningWidget(
+                treaning: state.currentTreaning!,
+                editing: true,
+              )
             ],
-          ),
-          BlocProvider(
-            create: (context) => getIt<TechniqueGroupsCubit>()..loadMyData(),
-            child: SizedBox(
+            if (state.previosTreaning != null) ...[
+              const Text(
+                'Предыдущая тренировка',
+                style: titleTextStyle,
+              ),
+              const SizedBox(height: 8),
+              TechniqueTreaningWidget(
+                treaning: state.previosTreaning!,
+              )
+            ],
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text('Техники:'),
+                TextButton(
+                  child: const Text('Смотреть все'),
+                  onPressed: () async {
+                    await Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const TechniqueGroupsPage()));
+
+                    cubit.loadMyData();
+                  },
+                ),
+              ],
+            ),
+            SizedBox(
               height: 120,
               child: BlocBuilder<TechniqueGroupsCubit, TechniqueGroupsState>(
                 builder: (context, state) {
@@ -116,8 +124,8 @@ class TechniquesHomePageWidget extends StatelessWidget {
                 },
               ),
             ),
-          ),
-        ]);
+          ]),
+        );
       },
     );
   }
