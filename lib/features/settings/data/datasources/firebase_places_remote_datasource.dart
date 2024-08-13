@@ -14,9 +14,11 @@ class FirebasePlacesRemoteDataSource implements PlacesRemoteDataSource {
 
   late final CollectionReference<CityModel> _citiesRef;
   late final CollectionReference<RegionModel> _regionsRef;
+  late final CollectionReference<RegionModel> _mountainRegionsRef;
 
   final String _citiesCollectionName = 'cities';
   final String _regionsCollectionName = 'regions';
+  final String _mountainRegionsCollectionName = 'mountain-regions';
 
   FirebasePlacesRemoteDataSource(this._firebaseFirestore) {
     _citiesRef =
@@ -42,6 +44,19 @@ class FirebasePlacesRemoteDataSource implements PlacesRemoteDataSource {
               },
               toFirestore: (value, options) => {},
             );
+
+    _mountainRegionsRef = _firebaseFirestore
+        .collection(_mountainRegionsCollectionName)
+        .withConverter(
+          fromFirestore: (snapshot, options) {
+            final json = snapshot.data()!;
+
+            json['id'] = snapshot.id;
+
+            return RegionModel.fromJson(json);
+          },
+          toFirestore: (value, options) => {},
+        );
   }
 
   @override
@@ -63,6 +78,15 @@ class FirebasePlacesRemoteDataSource implements PlacesRemoteDataSource {
       ),
     );
 
-    return Right(regionsData.docs.map((snapshot) => snapshot.data()).toList());
+    final mountainRegionsData = await _mountainRegionsRef.get(
+      const GetOptions(
+        serverTimestampBehavior: ServerTimestampBehavior.none,
+      ),
+    );
+
+    return Right(<Region>{
+      ...regionsData.docs.map((snapshot) => snapshot.data()),
+      ...mountainRegionsData.docs.map((snapshot) => snapshot.data()),
+    }.toList());
   }
 }

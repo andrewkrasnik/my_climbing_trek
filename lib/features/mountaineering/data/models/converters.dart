@@ -76,7 +76,7 @@ class MountainRouteRoopConverter
   @override
   Map<String, dynamic> toJson(MountainRouteRoop object) {
     if (object is MountainRouteRoopModel) {
-      return (object as MountainRouteRoopModel).toJson();
+      return (object).toJson();
     } else {
       return MountainRouteRoopModel(
         length: object.length,
