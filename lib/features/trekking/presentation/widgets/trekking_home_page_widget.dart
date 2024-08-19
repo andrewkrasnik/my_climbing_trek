@@ -80,6 +80,7 @@ class TrekkingHomePageWidget extends StatelessWidget {
           SizedBox(
             height: 120,
             child: BlocBuilder<TrekkingRegionsCubit, TrekkingRegionsState>(
+              bloc: cubit,
               builder: (context, state) {
                 return state.maybeMap(
                   loading: (_) => const Center(

@@ -40,18 +40,18 @@ class TreksCubit extends Cubit<TreksState> {
   Future<void> loadData({required Region region}) async {
     emit(const TreksState.loading());
 
-    final failureOrTreks = await _getTreks(region: region);
+    final failureOrPoints = await _getTrekPoints(region: region);
 
-    failureOrTreks.fold(
+    failureOrPoints.fold(
       (failure) => emit(TreksState.error(description: failure.toString())),
-      (treks) async {
-        emit(TreksState.data(treks: treks, points: []));
+      (points) async {
+        emit(TreksState.data(treks: [], points: points));
 
-        final failureOrPoints = await _getTrekPoints(region: region);
+        final failureOrTreks = await _getTreks(region: region);
 
-        failureOrPoints.fold(
+        failureOrTreks.fold(
           (failure) => emit(TreksState.error(description: failure.toString())),
-          (points) => emit(TreksState.data(treks: treks, points: points)),
+          (treks) => emit(TreksState.data(treks: treks, points: points)),
         );
       },
     );

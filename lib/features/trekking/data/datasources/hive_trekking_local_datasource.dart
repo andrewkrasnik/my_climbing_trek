@@ -17,6 +17,11 @@ class HiveTrekkingLocalDataSource implements TrekkingLocalDataSource {
   static const _treksName = 'treks';
   static const _trekkingPointsName = 'trekkingPoints';
 
+  final List<TrekPoint> _pointsCash = [];
+
+  @override
+  List<TrekPoint> get pointsCash => _pointsCash;
+
   @override
   Future<Either<Failure, List<Region>>> regions() async {
     final regionsBox = await Hive.openBox<String>(_regionsName);
@@ -32,13 +37,12 @@ class HiveTrekkingLocalDataSource implements TrekkingLocalDataSource {
   @override
   Future<Either<Failure, Unit>> deleteRegion({required Region region}) async {
     try {
-      final mountainsBox =
-          await Hive.openBox<String>('$_treksName${region.id}');
+      final treksBox = await Hive.openBox<String>('$_treksName${region.id}');
 
-      await mountainsBox.deleteFromDisk();
+      await treksBox.deleteFromDisk();
 
       final routesBox =
-          await Hive.openBox<List<String>>('$_trekkingPointsName${region.id}');
+          await Hive.openBox<String>('$_trekkingPointsName${region.id}');
 
       await routesBox.deleteFromDisk();
 
@@ -77,16 +81,17 @@ class HiveTrekkingLocalDataSource implements TrekkingLocalDataSource {
   Future<Either<Failure, List<TrekPoint>>> points(
       {required Region region}) async {
     final trekingPointsBox =
-        await Hive.openBox<String>('$_treksName${region.id}');
+        await Hive.openBox<String>('$_trekkingPointsName${region.id}');
 
-    return Right(trekingPointsBox.values
+    final points = trekingPointsBox.values
         .map((value) => const TrekPointConverter().fromJson(json.decode(value)))
-        .toList());
-  }
+        .toList();
 
-  @override
-  // TODO: implement pointsCash
-  List<TrekPoint> get pointsCash => throw UnimplementedError();
+    _pointsCash.clear();
+    _pointsCash.addAll(points);
+
+    return Right(points);
+  }
 
   @override
   Future<Either<Failure, Unit>> savePoints(
