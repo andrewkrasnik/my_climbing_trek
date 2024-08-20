@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:my_climbing_trek/core/datasource/image_cash_manager.dart';
 import 'package:my_climbing_trek/core/failures/failure.dart';
+import 'package:my_climbing_trek/core/services/network/network_info.dart';
 import 'package:my_climbing_trek/features/techniques/data/datasources/techniques_local_datasource.dart';
 import 'package:my_climbing_trek/features/techniques/data/datasources/techniques_remote_datasource.dart';
 import 'package:my_climbing_trek/features/techniques/domain/entities/technique.dart';
@@ -13,11 +14,13 @@ class TechniquesRepositoryImpl implements TechniquesRepository {
   final TechniquesRemoteDataSource _techniquesRemoteDataSource;
   final TechniquesLocalDataSource _techniquesLocalDataSource;
   final ImageCashManager _imageCashManager;
+  final NetworkInfo _networkInfo;
 
   TechniquesRepositoryImpl(
     this._techniquesRemoteDataSource,
     this._techniquesLocalDataSource,
     this._imageCashManager,
+    this._networkInfo,
   );
 
   @override
@@ -27,20 +30,24 @@ class TechniquesRepositoryImpl implements TechniquesRepository {
     return failureOrLocalGroups.fold(
       (failure) => Left(failure),
       (localGroups) async {
-        final failureOrRemoteRegions =
-            await _techniquesRemoteDataSource.groups();
+        if (await _networkInfo.isConnected) {
+          final failureOrRemoteRegions =
+              await _techniquesRemoteDataSource.groups();
 
-        return failureOrRemoteRegions.fold(
-          (failure) => Left(failure),
-          (remoteGroups) {
-            remoteGroups
-                .removeWhere((element) => localGroups.contains(element));
+          return failureOrRemoteRegions.fold(
+            (failure) => Left(failure),
+            (remoteGroups) {
+              remoteGroups
+                  .removeWhere((element) => localGroups.contains(element));
 
-            final regions = [...localGroups, ...remoteGroups];
+              final regions = [...localGroups, ...remoteGroups];
 
-            return Right(regions);
-          },
-        );
+              return Right(regions);
+            },
+          );
+        } else {
+          return Right(localGroups);
+        }
       },
     );
   }

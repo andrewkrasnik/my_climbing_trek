@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:my_climbing_trek/core/datasource/image_cash_manager.dart';
 
 import 'package:my_climbing_trek/core/failures/failure.dart';
+import 'package:my_climbing_trek/core/services/network/network_info.dart';
 
 import 'package:my_climbing_trek/features/ice_climbing/data/datasources/ice_regions_datasource.dart';
 import 'package:my_climbing_trek/features/ice_climbing/data/datasources/ice_regions_remote_datasource.dart';
@@ -14,6 +15,7 @@ import 'package:my_climbing_trek/features/ice_climbing/domain/repositories/ice_r
 class IceRegionsRepositoryImpl implements IceRegionsRepository {
   final IceRegionsDataSource _regionsLocalDataSource;
   final IceRegionsRemoteDataSource _regionsRemoteDataSource;
+  final NetworkInfo _networkInfo;
 
   final ImageCashManager _imageCashManager;
 
@@ -21,6 +23,7 @@ class IceRegionsRepositoryImpl implements IceRegionsRepository {
     this._regionsLocalDataSource,
     this._regionsRemoteDataSource,
     this._imageCashManager,
+    this._networkInfo,
   );
 
   @override
@@ -31,20 +34,24 @@ class IceRegionsRepositoryImpl implements IceRegionsRepository {
     return failureOrLocalDistricts.fold(
       (failure) => Left(failure),
       (localDistricts) async {
-        final failureOrRemoteDistricts =
-            await _regionsRemoteDataSource.districts();
+        if (await _networkInfo.isConnected) {
+          final failureOrRemoteDistricts =
+              await _regionsRemoteDataSource.districts();
 
-        return failureOrRemoteDistricts.fold(
-          (failure) => Left(failure),
-          (remoteDistricts) {
-            remoteDistricts
-                .removeWhere((element) => localDistricts.contains(element));
+          return failureOrRemoteDistricts.fold(
+            (failure) => Left(failure),
+            (remoteDistricts) {
+              remoteDistricts
+                  .removeWhere((element) => localDistricts.contains(element));
 
-            final districts = [...localDistricts, ...remoteDistricts];
+              final districts = [...localDistricts, ...remoteDistricts];
 
-            return Right(districts);
-          },
-        );
+              return Right(districts);
+            },
+          );
+        } else {
+          return Right(localDistricts);
+        }
       },
     );
   }

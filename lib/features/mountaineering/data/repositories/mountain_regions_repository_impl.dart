@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:my_climbing_trek/core/data/region.dart';
 import 'package:my_climbing_trek/core/datasource/image_cash_manager.dart';
 import 'package:my_climbing_trek/core/failures/failure.dart';
+import 'package:my_climbing_trek/core/services/network/network_info.dart';
 import 'package:my_climbing_trek/features/mountaineering/data/datasources/mountain_regions_local_datasource.dart';
 import 'package:my_climbing_trek/features/mountaineering/data/datasources/mountain_regions_remote_datasource.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountain.dart';
@@ -14,11 +15,13 @@ class MountainRegionsRepositoryImpl implements MountainRegionsRepository {
   final MountainRegionsLocalDataSource _regionsLocalDataSource;
   final MountainRegionsRemoteDataSource _regionsRemoteDataSource;
   final ImageCashManager _imageCashManager;
+  final NetworkInfo _networkInfo;
 
   MountainRegionsRepositoryImpl(
     this._regionsLocalDataSource,
     this._regionsRemoteDataSource,
     this._imageCashManager,
+    this._networkInfo,
   );
 
   @override
@@ -28,19 +31,24 @@ class MountainRegionsRepositoryImpl implements MountainRegionsRepository {
     return failureOrLocalRegions.fold(
       (failure) => Left(failure),
       (localRegions) async {
-        final failureOrRemoteRegions = await _regionsRemoteDataSource.regions();
+        if (await _networkInfo.isConnected) {
+          final failureOrRemoteRegions =
+              await _regionsRemoteDataSource.regions();
 
-        return failureOrRemoteRegions.fold(
-          (failure) => Left(failure),
-          (remoteRegions) {
-            remoteRegions
-                .removeWhere((element) => localRegions.contains(element));
+          return failureOrRemoteRegions.fold(
+            (failure) => Left(failure),
+            (remoteRegions) {
+              remoteRegions
+                  .removeWhere((element) => localRegions.contains(element));
 
-            final regions = [...localRegions, ...remoteRegions];
+              final regions = [...localRegions, ...remoteRegions];
 
-            return Right(regions);
-          },
-        );
+              return Right(regions);
+            },
+          );
+        } else {
+          return Right(localRegions);
+        }
       },
     );
   }

@@ -39,7 +39,7 @@ abstract class InjectableModule {
   @LazySingleton()
   InternetConnectionChecker get internetConnectionChecker =>
       InternetConnectionChecker.createInstance(
-        checkInterval: const Duration(seconds: 2),
-        checkTimeout: const Duration(seconds: 2),
+        checkInterval: const Duration(milliseconds: 100),
+        checkTimeout: const Duration(milliseconds: 500),
       );
 }

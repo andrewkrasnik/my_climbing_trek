@@ -662,14 +662,28 @@ _i174.GetIt $initGetIt(
       ));
   gh.lazySingleton<_i1059.HallTreaningDataSource>(
       () => _i653.LocalHallTreaningDataSource(gh<_i808.LocalDBDatasource>()));
-  gh.lazySingleton<_i772.RockRegionsRepository>(
-      () => _i601.RockRegionsRepositoryImpl(
-            gh<_i37.RockRegionsLocalDataSource>(),
-            gh<_i47.RockRegionsRemoteDataSource>(),
-            gh<_i892.ImageCashManager>(),
-          ));
   gh.lazySingleton<_i682.CardioTreaningsDatasource>(
       () => _i1.LocalCardioTreaningsDatasource(gh<_i808.LocalDBDatasource>()));
+  gh.lazySingleton<_i436.MountainRegionsRepository>(
+      () => _i1063.MountainRegionsRepositoryImpl(
+            gh<_i342.MountainRegionsLocalDataSource>(),
+            gh<_i179.MountainRegionsRemoteDataSource>(),
+            gh<_i892.ImageCashManager>(),
+            gh<_i353.NetworkInfo>(),
+          ));
+  gh.lazySingleton<_i312.TechniquesRepository>(
+      () => _i820.TechniquesRepositoryImpl(
+            gh<_i360.TechniquesRemoteDataSource>(),
+            gh<_i855.TechniquesLocalDataSource>(),
+            gh<_i892.ImageCashManager>(),
+            gh<_i353.NetworkInfo>(),
+          ));
+  gh.lazySingleton<_i434.TrekkingRepository>(() => _i902.TrekkingRepositoryImpl(
+        gh<_i316.TrekkingRemoteDataSource>(),
+        gh<_i391.TrekkingLocalDataSource>(),
+        gh<_i892.ImageCashManager>(),
+        gh<_i353.NetworkInfo>(),
+      ));
   gh.lazySingleton<_i21.StrengthExerciseRepository>(() =>
       _i707.StrengthExerciseRepositoryImpl(
           strengthExerciseDataSource: gh<_i211.StrengthExerciseDataSource>()));
@@ -716,6 +730,23 @@ _i174.GetIt $initGetIt(
         gh<_i135.PlacesRemoteDataSource>(),
         gh<_i353.NetworkInfo>(),
       ));
+  gh.lazySingleton<_i568.AddMyMountainRegionUseCase>(() =>
+      _i568.AddMyMountainRegionUseCase(gh<_i436.MountainRegionsRepository>()));
+  gh.lazySingleton<_i94.DeleteMyMountainRegionUseCase>(() =>
+      _i94.DeleteMyMountainRegionUseCase(
+          gh<_i436.MountainRegionsRepository>()));
+  gh.lazySingleton<_i207.GetMountains>(
+      () => _i207.GetMountains(gh<_i436.MountainRegionsRepository>()));
+  gh.lazySingleton<_i397.GetMountainRegions>(
+      () => _i397.GetMountainRegions(gh<_i436.MountainRegionsRepository>()));
+  gh.lazySingleton<_i215.GetMountainRoutes>(
+      () => _i215.GetMountainRoutes(gh<_i436.MountainRegionsRepository>()));
+  gh.lazySingleton<_i6.GetMyMountainRegions>(
+      () => _i6.GetMyMountainRegions(gh<_i436.MountainRegionsRepository>()));
+  gh.lazySingleton<_i508.SaveMountainRouteUsecase>(() =>
+      _i508.SaveMountainRouteUsecase(gh<_i436.MountainRegionsRepository>()));
+  gh.lazySingleton<_i959.SaveMountainUsecase>(
+      () => _i959.SaveMountainUsecase(gh<_i436.MountainRegionsRepository>()));
   gh.lazySingleton<_i967.DeleteStrengthExercise>(() =>
       _i967.DeleteStrengthExercise(
           strengthExerciseRepository: gh<_i21.StrengthExerciseRepository>()));
@@ -740,35 +771,15 @@ _i174.GetIt $initGetIt(
       () => _i801.AuthLogin(authRepository: gh<_i877.AuthRepository>()));
   gh.factory<_i581.AuthLogout>(
       () => _i581.AuthLogout(authRepository: gh<_i877.AuthRepository>()));
-  gh.lazySingleton<_i16.AddMyRockDistrict>(
-      () => _i16.AddMyRockDistrict(gh<_i772.RockRegionsRepository>()));
-  gh.lazySingleton<_i933.DeleteMyRockDistrict>(
-      () => _i933.DeleteMyRockDistrict(gh<_i772.RockRegionsRepository>()));
-  gh.lazySingleton<_i469.DeleteRockRoute>(
-      () => _i469.DeleteRockRoute(gh<_i772.RockRegionsRepository>()));
-  gh.lazySingleton<_i550.DeleteRockSector>(
-      () => _i550.DeleteRockSector(gh<_i772.RockRegionsRepository>()));
-  gh.lazySingleton<_i942.LoadMyRockDistricts>(
-      () => _i942.LoadMyRockDistricts(gh<_i772.RockRegionsRepository>()));
-  gh.lazySingleton<_i816.LoadRockDistricts>(
-      () => _i816.LoadRockDistricts(gh<_i772.RockRegionsRepository>()));
-  gh.lazySingleton<_i162.LoadRockRoutes>(
-      () => _i162.LoadRockRoutes(gh<_i772.RockRegionsRepository>()));
-  gh.lazySingleton<_i534.LoadRockSectors>(
-      () => _i534.LoadRockSectors(gh<_i772.RockRegionsRepository>()));
-  gh.lazySingleton<_i931.SaveRockRoute>(
-      () => _i931.SaveRockRoute(gh<_i772.RockRegionsRepository>()));
-  gh.lazySingleton<_i280.SaveRockSector>(
-      () => _i280.SaveRockSector(gh<_i772.RockRegionsRepository>()));
   gh.lazySingleton<_i330.TrekkingPathRepository>(() =>
       _i975.TrekkingPathRepositoryImpl(
           gh<_i637.TrekkingPathLocalDataSource>()));
-  gh.lazySingleton<_i312.TechniquesRepository>(
-      () => _i820.TechniquesRepositoryImpl(
-            gh<_i360.TechniquesRemoteDataSource>(),
-            gh<_i855.TechniquesLocalDataSource>(),
-            gh<_i892.ImageCashManager>(),
-          ));
+  gh.factory<_i780.MountainRegionsCubit>(() => _i780.MountainRegionsCubit(
+        gh<_i397.GetMountainRegions>(),
+        gh<_i6.GetMyMountainRegions>(),
+        gh<_i568.AddMyMountainRegionUseCase>(),
+        gh<_i94.DeleteMyMountainRegionUseCase>(),
+      ));
   gh.factory<_i48.AuthenticationCubit>(() => _i48.AuthenticationCubit(
         gh<_i801.AuthLogin>(),
         gh<_i581.AuthLogout>(),
@@ -789,11 +800,12 @@ _i174.GetIt $initGetIt(
       iceTreaningsRepository: gh<_i916.IceTreaningsRepository>()));
   gh.lazySingleton<_i197.IceSectorToTreaning>(() => _i197.IceSectorToTreaning(
       iceTreaningsRepository: gh<_i916.IceTreaningsRepository>()));
-  gh.lazySingleton<_i436.MountainRegionsRepository>(
-      () => _i1063.MountainRegionsRepositoryImpl(
-            gh<_i342.MountainRegionsLocalDataSource>(),
-            gh<_i179.MountainRegionsRemoteDataSource>(),
+  gh.lazySingleton<_i617.IceRegionsRepository>(
+      () => _i176.IceRegionsRepositoryImpl(
+            gh<_i283.IceRegionsDataSource>(),
+            gh<_i602.IceRegionsRemoteDataSource>(),
             gh<_i892.ImageCashManager>(),
+            gh<_i353.NetworkInfo>(),
           ));
   gh.lazySingleton<_i140.LoadSimpleSettingsUsecase>(
       () => _i140.LoadSimpleSettingsUsecase(gh<_i309.SettingsRepository>()));
@@ -803,17 +815,6 @@ _i174.GetIt $initGetIt(
       () => _i637.SaveSimpleSettingsUsecase(gh<_i309.SettingsRepository>()));
   gh.lazySingleton<_i481.SaveTreaningsSettings>(
       () => _i481.SaveTreaningsSettings(gh<_i309.SettingsRepository>()));
-  gh.lazySingleton<_i617.IceRegionsRepository>(
-      () => _i176.IceRegionsRepositoryImpl(
-            gh<_i283.IceRegionsDataSource>(),
-            gh<_i602.IceRegionsRemoteDataSource>(),
-            gh<_i892.ImageCashManager>(),
-          ));
-  gh.lazySingleton<_i434.TrekkingRepository>(() => _i902.TrekkingRepositoryImpl(
-        gh<_i316.TrekkingRemoteDataSource>(),
-        gh<_i391.TrekkingLocalDataSource>(),
-        gh<_i892.ImageCashManager>(),
-      ));
   gh.factory<_i319.StrengthExercisesCubit>(() => _i319.StrengthExercisesCubit(
         gh<_i182.GetStrengthExercises>(),
         gh<_i212.SaveStrengthExercise>(),
@@ -865,17 +866,22 @@ _i174.GetIt $initGetIt(
   gh.lazySingleton<_i1067.RockTreaningsRepository>(() =>
       _i779.RockTreaningsRepositoryImpl(
           gh<_i677.RockTreaningsLocalDataSource>()));
+  gh.lazySingleton<_i772.RockRegionsRepository>(
+      () => _i601.RockRegionsRepositoryImpl(
+            gh<_i37.RockRegionsLocalDataSource>(),
+            gh<_i47.RockRegionsRemoteDataSource>(),
+            gh<_i892.ImageCashManager>(),
+            gh<_i353.NetworkInfo>(),
+          ));
+  gh.factory<_i163.MountainRoutesCubit>(() => _i163.MountainRoutesCubit(
+        gh<_i215.GetMountainRoutes>(),
+        gh<_i508.SaveMountainRouteUsecase>(),
+      ));
   gh.factory<_i448.TrekkingRegionsCubit>(() => _i448.TrekkingRegionsCubit(
         gh<_i605.GetTrekkingRegions>(),
         gh<_i449.DeleteMyTrekkingRegionUseCase>(),
         gh<_i940.AddMyTrekkingRegionUseCase>(),
         gh<_i864.GetMyTrekkingRegions>(),
-      ));
-  gh.factory<_i453.RockDistrictsCubit>(() => _i453.RockDistrictsCubit(
-        gh<_i816.LoadRockDistricts>(),
-        gh<_i942.LoadMyRockDistricts>(),
-        gh<_i16.AddMyRockDistrict>(),
-        gh<_i933.DeleteMyRockDistrict>(),
       ));
   gh.lazySingleton<_i194.HallTreaningRepository>(
       () => _i985.HallTreaningRepositoryImpl(
@@ -888,11 +894,6 @@ _i174.GetIt $initGetIt(
       () => _i21.DeleteMyIceDistrict(gh<_i617.IceRegionsRepository>()));
   gh.lazySingleton<_i73.LoadMyIceDistricts>(
       () => _i73.LoadMyIceDistricts(gh<_i617.IceRegionsRepository>()));
-  gh.factory<_i453.RockSectorsCubit>(() => _i453.RockSectorsCubit(
-        gh<_i534.LoadRockSectors>(),
-        gh<_i550.DeleteRockSector>(),
-        gh<_i280.SaveRockSector>(),
-      ));
   gh.lazySingleton<_i262.DeleteRockAttempt>(
       () => _i262.DeleteRockAttempt(gh<_i1067.RockTreaningsRepository>()));
   gh.lazySingleton<_i32.FinishRockAttempt>(
@@ -919,6 +920,10 @@ _i174.GetIt $initGetIt(
       _i1042.StrengthTreaningsRepositoryImpl(
           strengthTreaningsDataSource:
               gh<_i600.StrengthTreaningsDataSource>()));
+  gh.factory<_i675.MountainsCubit>(() => _i675.MountainsCubit(
+        gh<_i207.GetMountains>(),
+        gh<_i959.SaveMountainUsecase>(),
+      ));
   gh.lazySingleton<_i969.CardioTreaningsRepository>(() =>
       _i613.CardioTreaningsRepositoryImpl(
           cardioTreaningsDatasource: gh<_i682.CardioTreaningsDatasource>()));
@@ -1017,23 +1022,6 @@ _i174.GetIt $initGetIt(
             deleteHallAttempt: gh<_i1054.DeleteHallAttempt>(),
             getGymRouteStatistic: gh<_i456.GetGymRouteStatistic>(),
           ));
-  gh.lazySingleton<_i568.AddMyMountainRegionUseCase>(() =>
-      _i568.AddMyMountainRegionUseCase(gh<_i436.MountainRegionsRepository>()));
-  gh.lazySingleton<_i94.DeleteMyMountainRegionUseCase>(() =>
-      _i94.DeleteMyMountainRegionUseCase(
-          gh<_i436.MountainRegionsRepository>()));
-  gh.lazySingleton<_i207.GetMountains>(
-      () => _i207.GetMountains(gh<_i436.MountainRegionsRepository>()));
-  gh.lazySingleton<_i397.GetMountainRegions>(
-      () => _i397.GetMountainRegions(gh<_i436.MountainRegionsRepository>()));
-  gh.lazySingleton<_i215.GetMountainRoutes>(
-      () => _i215.GetMountainRoutes(gh<_i436.MountainRegionsRepository>()));
-  gh.lazySingleton<_i6.GetMyMountainRegions>(
-      () => _i6.GetMyMountainRegions(gh<_i436.MountainRegionsRepository>()));
-  gh.lazySingleton<_i508.SaveMountainRouteUsecase>(() =>
-      _i508.SaveMountainRouteUsecase(gh<_i436.MountainRegionsRepository>()));
-  gh.lazySingleton<_i959.SaveMountainUsecase>(
-      () => _i959.SaveMountainUsecase(gh<_i436.MountainRegionsRepository>()));
   gh.factory<_i247.HallRouteCubit>(
       () => _i247.HallRouteCubit(gh<_i44.NewHallRoute>()));
   gh.lazySingleton<_i231.HallRouteToArchive>(() =>
@@ -1043,6 +1031,26 @@ _i174.GetIt $initGetIt(
         gh<_i476.SaveSectorUseCase>(),
         gh<_i16.DeleteSectorUseCase>(),
       ));
+  gh.lazySingleton<_i16.AddMyRockDistrict>(
+      () => _i16.AddMyRockDistrict(gh<_i772.RockRegionsRepository>()));
+  gh.lazySingleton<_i933.DeleteMyRockDistrict>(
+      () => _i933.DeleteMyRockDistrict(gh<_i772.RockRegionsRepository>()));
+  gh.lazySingleton<_i469.DeleteRockRoute>(
+      () => _i469.DeleteRockRoute(gh<_i772.RockRegionsRepository>()));
+  gh.lazySingleton<_i550.DeleteRockSector>(
+      () => _i550.DeleteRockSector(gh<_i772.RockRegionsRepository>()));
+  gh.lazySingleton<_i942.LoadMyRockDistricts>(
+      () => _i942.LoadMyRockDistricts(gh<_i772.RockRegionsRepository>()));
+  gh.lazySingleton<_i816.LoadRockDistricts>(
+      () => _i816.LoadRockDistricts(gh<_i772.RockRegionsRepository>()));
+  gh.lazySingleton<_i162.LoadRockRoutes>(
+      () => _i162.LoadRockRoutes(gh<_i772.RockRegionsRepository>()));
+  gh.lazySingleton<_i534.LoadRockSectors>(
+      () => _i534.LoadRockSectors(gh<_i772.RockRegionsRepository>()));
+  gh.lazySingleton<_i931.SaveRockRoute>(
+      () => _i931.SaveRockRoute(gh<_i772.RockRegionsRepository>()));
+  gh.lazySingleton<_i280.SaveRockSector>(
+      () => _i280.SaveRockSector(gh<_i772.RockRegionsRepository>()));
   gh.lazySingleton<_i837.SettingsCubit>(() => _i837.SettingsCubit(
         gh<_i63.LoadTreaningsSettings>(),
         gh<_i481.SaveTreaningsSettings>(),
@@ -1076,12 +1084,6 @@ _i174.GetIt $initGetIt(
               gh<_i751.StrengthTreaningsRepository>()));
   gh.lazySingleton<_i422.GetStrengthTreanings>(() => _i422.GetStrengthTreanings(
       strengthTreaningsRepository: gh<_i751.StrengthTreaningsRepository>()));
-  gh.factory<_i780.MountainRegionsCubit>(() => _i780.MountainRegionsCubit(
-        gh<_i397.GetMountainRegions>(),
-        gh<_i6.GetMyMountainRegions>(),
-        gh<_i568.AddMyMountainRegionUseCase>(),
-        gh<_i94.DeleteMyMountainRegionUseCase>(),
-      ));
   gh.lazySingleton<_i948.AddTravelUsecase>(
       () => _i948.AddTravelUsecase(gh<_i1055.TravelRepository>()));
   gh.lazySingleton<_i764.CurrentTravelUsecase>(
@@ -1151,10 +1153,6 @@ _i174.GetIt $initGetIt(
         gh<_i275.DeleteCardioTreaning>(),
         gh<_i533.SaveCardioTreaning>(),
       ));
-  gh.factory<_i163.MountainRoutesCubit>(() => _i163.MountainRoutesCubit(
-        gh<_i215.GetMountainRoutes>(),
-        gh<_i508.SaveMountainRouteUsecase>(),
-      ));
   gh.lazySingleton<_i39.DeleteTreaning>(() => _i39.DeleteTreaning(
         gh<_i194.HallTreaningRepository>(),
         gh<_i916.IceTreaningsRepository>(),
@@ -1165,14 +1163,21 @@ _i174.GetIt $initGetIt(
         gh<_i665.TechniqueTreaningsRepository>(),
         gh<_i248.AscensionRepository>(),
       ));
+  gh.factory<_i453.RockDistrictsCubit>(() => _i453.RockDistrictsCubit(
+        gh<_i816.LoadRockDistricts>(),
+        gh<_i942.LoadMyRockDistricts>(),
+        gh<_i16.AddMyRockDistrict>(),
+        gh<_i933.DeleteMyRockDistrict>(),
+      ));
+  gh.factory<_i453.RockSectorsCubit>(() => _i453.RockSectorsCubit(
+        gh<_i534.LoadRockSectors>(),
+        gh<_i550.DeleteRockSector>(),
+        gh<_i280.SaveRockSector>(),
+      ));
   gh.factory<_i621.CurrentTravelCubit>(() => _i621.CurrentTravelCubit(
         gh<_i764.CurrentTravelUsecase>(),
         gh<_i434.EditCostLineUsecase>(),
         gh<_i861.GetCurrentTravelDayUsecase>(),
-      ));
-  gh.factory<_i675.MountainsCubit>(() => _i675.MountainsCubit(
-        gh<_i207.GetMountains>(),
-        gh<_i959.SaveMountainUsecase>(),
       ));
   gh.lazySingleton<_i1041.ExportTreaningsUseCase>(
       () => _i1041.ExportTreaningsUseCase(
