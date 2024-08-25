@@ -13,5 +13,8 @@ class RockDistrict extends District {
     super.image,
     super.id,
     super.hasEditPermission,
+    super.localData,
   });
+
+  String get cacheKey => 'rockDistrict$id';
 }

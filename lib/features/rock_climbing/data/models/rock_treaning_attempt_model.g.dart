@@ -23,9 +23,9 @@ RockTreaningAttemptModel _$RockTreaningAttemptModelFromJson(
       route: _$JsonConverterFromJson<String, RockRoute>(
           json['route'], const RockRouteStringConverter().fromJson),
       downClimbing: json['downClimbing'] as bool? ?? false,
-      fallCount: json['fallCount'] as int? ?? 0,
+      fallCount: (json['fallCount'] as num?)?.toInt() ?? 0,
       fail: json['fail'] as bool? ?? false,
-      suspensionCount: json['suspensionCount'] as int? ?? 0,
+      suspensionCount: (json['suspensionCount'] as num?)?.toInt() ?? 0,
       ascentType: _$JsonConverterFromJson<String, AscentType>(
           json['ascentType'], const AscentTypeConverter().fromJson),
       sectorId: json['sectorId'] as String? ?? '',

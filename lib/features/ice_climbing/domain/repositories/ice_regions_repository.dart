@@ -18,4 +18,11 @@ abstract class IceRegionsRepository {
     required IceSector sector,
     required IceDistrict district,
   });
+
+  Future<Either<Failure, List<IceDistrict>>> myDistricts();
+
+  Future<Either<Failure, Unit>> addMyDistrict({required IceDistrict district});
+
+  Future<Either<Failure, Unit>> deleteMyDistrict(
+      {required IceDistrict district});
 }

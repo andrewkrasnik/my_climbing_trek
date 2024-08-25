@@ -9,11 +9,13 @@ part of 'cost_line_model.dart';
 CostLineModel _$CostLineModelFromJson(Map<String, dynamic> json) =>
     CostLineModel(
       travelId: json['travelId'] as String,
-      date: const EpochDateTimeConverter().fromJson(json['date'] as int),
+      date: const EpochDateTimeConverter()
+          .fromJson((json['date'] as num).toInt()),
       description: json['description'] as String? ?? '',
       id: json['id'] as String? ?? '',
       type: const CostTypeConverter().fromJson(json['type'] as String),
-      currency: const CurrencyConverter().fromJson(json['currency'] as int),
+      currency:
+          const CurrencyConverter().fromJson((json['currency'] as num).toInt()),
       incomeExpense: const IncomeExpenseConverter()
           .fromJson(json['incomeExpense'] as String),
       budgetSum: (json['budgetSum'] as num?)?.toDouble() ?? 0,

@@ -47,7 +47,10 @@ class RockSectorWidget extends StatelessWidget {
             child: Stack(
               fit: StackFit.expand,
               children: [
-                ScaledImageWidget(imageUrl: sector.image),
+                ScaledImageWidget(
+                  imageUrl: sector.image,
+                  cacheKey: district.cacheKey,
+                ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(

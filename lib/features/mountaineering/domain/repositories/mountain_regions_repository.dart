@@ -18,4 +18,12 @@ abstract class MountainRegionsRepository {
     required Mountain mountain,
     required MountainRoute route,
   });
+
+  Future<Either<Failure, List<Region>>> myRegions();
+
+  Future<Either<Failure, Unit>> addMyRegion({required Region region});
+
+  Future<Either<Failure, Unit>> deleteMyRegion({required Region region});
+
+  Future<Either<Failure, Unit>> initListeners({required List<Region> regions});
 }

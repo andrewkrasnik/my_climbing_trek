@@ -9,8 +9,9 @@ part of 'travel_day_model.dart';
 TravelDayModel _$TravelDayModelFromJson(Map<String, dynamic> json) =>
     TravelDayModel(
       travelId: json['travelId'] as String,
-      date: const EpochDateTimeConverter().fromJson(json['date'] as int),
-      number: json['number'] as int,
+      date: const EpochDateTimeConverter()
+          .fromJson((json['date'] as num).toInt()),
+      number: (json['number'] as num).toInt(),
       description: json['description'] as String? ?? '',
       feedingsLines: _$JsonConverterFromJson<String, List<FeedingLine>>(
           json['feedingsLines'], const FeedingsLinesConverter().fromJson),

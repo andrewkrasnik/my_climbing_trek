@@ -12,6 +12,7 @@ class Region extends DataWithUUID {
     this.image,
     required this.state,
     this.hasEditPermission = false,
+    super.localData,
   });
 
   static final moscow =
@@ -28,6 +29,10 @@ class Region extends DataWithUUID {
   };
 
   static List<Region> get values => _values.values.toList();
+
+  String get cacheKey => 'mountainsRegion$id';
+
+  get trekCacheKey => 'trekkingRegion$id';
 
   static Region getById(String id) => _values[id]!;
 }

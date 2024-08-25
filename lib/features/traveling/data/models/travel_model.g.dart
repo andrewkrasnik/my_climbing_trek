@@ -7,7 +7,8 @@ part of 'travel_model.dart';
 // **************************************************************************
 
 TravelModel _$TravelModelFromJson(Map<String, dynamic> json) => TravelModel(
-      date: const EpochDateTimeConverter().fromJson(json['date'] as int),
+      date: const EpochDateTimeConverter()
+          .fromJson((json['date'] as num).toInt()),
       description: json['description'] as String? ?? '',
       id: json['id'] as String? ?? '',
       start: _$JsonConverterFromJson<int, DateTime>(

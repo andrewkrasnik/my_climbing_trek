@@ -5,7 +5,7 @@ import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountai
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/mountain_route.dart';
 
 abstract class MountainRegionsRemoteDataSource {
-  Future<Either<Failure, List<Region>>> regions();
+  Future<Either<Failure, List<Region>>> regions({int limit = 0});
 
   Future<Either<Failure, List<Mountain>>> mountains({required Region region});
 

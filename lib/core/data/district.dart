@@ -13,5 +13,6 @@ class District extends DataWithUUID {
     this.image = '',
     super.id,
     this.hasEditPermission = false,
+    super.localData,
   });
 }

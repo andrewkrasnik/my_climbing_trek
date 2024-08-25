@@ -5,7 +5,7 @@ import 'package:my_climbing_trek/features/trekking/domain/entities/trek.dart';
 import 'package:my_climbing_trek/features/trekking/domain/entities/trek_point.dart';
 
 abstract class TrekkingRemoteDataSource {
-  Future<Either<Failure, List<Region>>> regions();
+  Future<Either<Failure, List<Region>>> regions({int limit = 0});
 
   Future<Either<Failure, List<Trek>>> treks({required Region region});
 

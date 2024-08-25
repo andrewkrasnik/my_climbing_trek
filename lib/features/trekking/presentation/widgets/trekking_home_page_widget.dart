@@ -24,52 +24,63 @@ class TrekkingHomePageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     const titleTextStyle = TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
 
-    return Column(children: [
-      const Text(
-        'Треккинг и походы',
-        style: titleTextStyle,
-      ),
-      const SizedBox(height: 8),
-      BlocBuilder<TrekkingCubit, TrekkingState>(
-        builder: (context, state) {
-          return Column(
-            children: [
-              if (state.currentPath != null) ...[
-                TrekkingPathWidget(
-                  path: state.currentPath!,
-                  editing: true,
-                ),
-                const SizedBox(height: 8),
-              ],
-              if (state.currentPath == null && state.previosPath != null) ...[
-                PreviosTrekkingPathWidget(
-                  path: state.previosPath!,
-                  editing: true,
-                ),
-                const SizedBox(height: 8),
-              ],
-            ],
-          );
-        },
-      ),
-      const SizedBox(height: 8),
-      if (filter?.region == null) ...[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(filter?.region == null ? 'Регионы:' : 'Маршруты: '),
-            TextButton(
-              child: const Text('Смотреть все'),
-              onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const TrekkingRegionsPage())),
-            ),
-          ],
+    final cubit = getIt<TrekkingRegionsCubit>();
+
+    if (filter?.region == null) {
+      cubit.loadMyData();
+    }
+
+    return BlocProvider(
+      create: (context) => cubit,
+      child: Column(children: [
+        const Text(
+          'Треккинг и походы',
+          style: titleTextStyle,
         ),
-        BlocProvider(
-          create: (context) => getIt<TrekkingRegionsCubit>()..loadData(),
-          child: SizedBox(
+        const SizedBox(height: 8),
+        BlocBuilder<TrekkingCubit, TrekkingState>(
+          builder: (context, state) {
+            return Column(
+              children: [
+                if (state.currentPath != null) ...[
+                  TrekkingPathWidget(
+                    path: state.currentPath!,
+                    editing: true,
+                  ),
+                  const SizedBox(height: 8),
+                ],
+                if (state.currentPath == null && state.previosPath != null) ...[
+                  PreviosTrekkingPathWidget(
+                    path: state.previosPath!,
+                    editing: true,
+                  ),
+                  const SizedBox(height: 8),
+                ],
+              ],
+            );
+          },
+        ),
+        const SizedBox(height: 8),
+        if (filter?.region == null) ...[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(filter?.region == null ? 'Регионы:' : 'Маршруты: '),
+              TextButton(
+                child: const Text('Смотреть все'),
+                onPressed: () async {
+                  await Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const TrekkingRegionsPage()));
+
+                  cubit.loadMyData();
+                },
+              ),
+            ],
+          ),
+          SizedBox(
             height: 120,
             child: BlocBuilder<TrekkingRegionsCubit, TrekkingRegionsState>(
+              bloc: cubit,
               builder: (context, state) {
                 return state.maybeMap(
                   loading: (_) => const Center(
@@ -82,6 +93,7 @@ class TrekkingHomePageWidget extends StatelessWidget {
                             children: [
                               TrekkingRegionWidget(
                                 region: dataState.regions[index],
+                                myData: true,
                                 onTap: () {
                                   final region = dataState.regions[index];
 
@@ -101,64 +113,66 @@ class TrekkingHomePageWidget extends StatelessWidget {
               },
             ),
           ),
-        ),
-      ],
-      if (filter?.region != null) ...[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Text('Маршруты: '),
-            TextButton(
-              child: const Text('Смотреть все'),
-              onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => TrekkingRegionPage(
-                        region: filter!.region!,
-                      ))),
-            ),
-          ],
-        ),
-        BlocProvider(
-          create: (context) =>
-              getIt<TreksCubit>()..loadData(region: filter!.region!),
-          child: SizedBox(
-            height: 120,
-            child: BlocBuilder<TreksCubit, TreksState>(
-              builder: (context, state) {
-                return state.maybeMap(
-                  loading: (_) => const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                  data: (dataState) => ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) => Stack(
-                            alignment: Alignment.bottomRight,
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  final trek = dataState.treks[index];
+        ],
+        if (filter?.region != null) ...[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text('Маршруты: '),
+              TextButton(
+                child: const Text('Смотреть все'),
+                onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => TrekkingRegionPage(
+                          region: filter!.region!,
+                        ))),
+              ),
+            ],
+          ),
+          BlocProvider(
+            create: (context) =>
+                getIt<TreksCubit>()..loadData(region: filter!.region!),
+            child: SizedBox(
+              height: 120,
+              child: BlocBuilder<TreksCubit, TreksState>(
+                builder: (context, state) {
+                  return state.maybeMap(
+                    loading: (_) => const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                    data: (dataState) => ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) => Stack(
+                              alignment: Alignment.bottomRight,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    final trek = dataState.treks[index];
 
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => TrekPage(
-                                          region: filter!.region!,
-                                          trek: trek)));
-                                },
-                                child: TrekWidget(
-                                  trek: dataState.treks[index],
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) => TrekPage(
+                                                region: filter!.region!,
+                                                trek: trek)));
+                                  },
+                                  child: TrekWidget(
+                                    trek: dataState.treks[index],
+                                    region: filter!.region!,
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                      separatorBuilder: (_, __) => const SizedBox(
-                            width: 8,
-                          ),
-                      itemCount: dataState.treks.length),
-                  orElse: () => const SizedBox(),
-                );
-              },
+                              ],
+                            ),
+                        separatorBuilder: (_, __) => const SizedBox(
+                              width: 8,
+                            ),
+                        itemCount: dataState.treks.length),
+                    orElse: () => const SizedBox(),
+                  );
+                },
+              ),
             ),
           ),
-        ),
-      ],
-    ]);
+        ],
+      ]),
+    );
   }
 }

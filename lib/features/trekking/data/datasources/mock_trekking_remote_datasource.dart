@@ -153,7 +153,7 @@ class MockTrekkingRemoteDataSource implements TrekkingRemoteDataSource {
   };
 
   @override
-  Future<Either<Failure, List<Region>>> regions() async {
+  Future<Either<Failure, List<Region>>> regions({int limit = 0}) async {
     return Right(_regions);
   }
 

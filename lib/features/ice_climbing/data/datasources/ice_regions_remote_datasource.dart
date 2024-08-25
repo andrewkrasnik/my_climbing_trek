@@ -4,7 +4,7 @@ import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_distr
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_sector.dart';
 
 abstract class IceRegionsRemoteDataSource {
-  Future<Either<Failure, List<IceDistrict>>> districts();
+  Future<Either<Failure, List<IceDistrict>>> districts({int limit = 0});
 
   Future<Either<Failure, List<IceSector>>> sectors(
       {required IceDistrict district});

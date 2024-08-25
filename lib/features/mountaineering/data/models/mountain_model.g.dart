@@ -10,7 +10,7 @@ MountainModel _$MountainModelFromJson(Map<String, dynamic> json) =>
     MountainModel(
       region: const RegionConverter().fromJson(json['region'] as String),
       name: json['name'] as String,
-      altitude: json['altitude'] as int,
+      altitude: (json['altitude'] as num).toInt(),
       image: json['image'] as String,
       id: json['id'] as String? ?? '',
     );

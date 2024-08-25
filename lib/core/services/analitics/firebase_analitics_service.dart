@@ -11,7 +11,7 @@ class FirebaseAnaliticsService implements AnaliticsService {
   );
 
   @override
-  void logEvent({required String name, Map<String, Object?>? parameters}) {
+  void logEvent({required String name, Map<String, Object>? parameters}) {
     _analytics.logEvent(name: name, parameters: parameters);
   }
 

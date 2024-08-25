@@ -10,7 +10,7 @@ TrekPointModel _$TrekPointModelFromJson(Map<String, dynamic> json) =>
     TrekPointModel(
       name: json['name'] as String,
       type: const TrekPointTypeConverter().fromJson(json['type'] as String),
-      altitude: json['altitude'] as int? ?? 0,
+      altitude: (json['altitude'] as num?)?.toInt() ?? 0,
       description: json['description'] as String? ?? '',
       features: (json['features'] as List<dynamic>?)
           ?.map((e) => const TrekPointFeatureConverter().fromJson(e as String))

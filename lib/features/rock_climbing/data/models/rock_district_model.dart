@@ -15,6 +15,7 @@ class RockDistrictModel extends RockDistrict {
     super.image,
     super.id,
     super.hasEditPermission,
+    super.localData,
   });
 
   factory RockDistrictModel.fromJson(Map<String, dynamic> json) =>

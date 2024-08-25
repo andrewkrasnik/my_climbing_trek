@@ -12,7 +12,7 @@ HallRouteModel _$HallRouteModelFromJson(Map<String, dynamic> json) =>
           .fromJson(json['category'] as String),
       color: const RouteColorConverter().fromJson(json['color'] as String),
       type: const ClimbingRouteTypeConverter().fromJson(json['type'] as String),
-      sectorNumber: json['sectorNumber'] as int? ?? 0,
+      sectorNumber: (json['sectorNumber'] as num?)?.toInt() ?? 0,
       archive: json['archive'] as bool? ?? false,
       autoBelay: json['autoBelay'] as bool? ?? false,
       author: json['author'] as String? ?? '',

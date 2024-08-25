@@ -33,12 +33,18 @@ class FirebaseMountainRegionsRemoteDataSource
   }
 
   @override
-  Future<Either<Failure, List<Region>>> regions() async {
-    final regionsData = await _regionsRef.where('show', isEqualTo: true).get(
-          const GetOptions(
-            serverTimestampBehavior: ServerTimestampBehavior.none,
-          ),
-        );
+  Future<Either<Failure, List<Region>>> regions({int limit = 0}) async {
+    var ref = _regionsRef.where('show', isEqualTo: true);
+
+    if (limit > 0) {
+      ref = ref.limit(limit);
+    }
+
+    final regionsData = await ref.get(
+      const GetOptions(
+        serverTimestampBehavior: ServerTimestampBehavior.none,
+      ),
+    );
 
     List<Region> regions = [];
 

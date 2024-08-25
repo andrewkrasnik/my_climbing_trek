@@ -1,3 +1,4 @@
+import 'package:my_climbing_trek/core/data/region.dart';
 import 'package:my_climbing_trek/core/widgets/my_cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:my_climbing_trek/features/trekking/domain/entities/trek_point.dart';
@@ -5,8 +6,13 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 class TrekPointWidget extends StatelessWidget {
   final TrekPoint point;
+  final Region region;
 
-  const TrekPointWidget({required this.point, super.key});
+  const TrekPointWidget({
+    required this.point,
+    required this.region,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +24,11 @@ class TrekPointWidget extends StatelessWidget {
           child: Stack(
             fit: StackFit.expand,
             children: [
-              MyCachedNetworkImage(imageUrl: point.image!, fit: BoxFit.cover),
+              MyCachedNetworkImage(
+                imageUrl: point.image!,
+                fit: BoxFit.cover,
+                cacheKey: region.trekCacheKey,
+              ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(

@@ -46,6 +46,7 @@ class RockDistrictPage extends StatelessWidget {
               heroTag: 'rock${district.id}',
               title: district.name,
               imageUrl: district.image,
+              cacheKey: district.cacheKey,
               onMapPpoint: district.mapPoint == null
                   ? null
                   : () {

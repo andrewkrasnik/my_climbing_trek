@@ -4,7 +4,7 @@ import 'package:my_climbing_trek/features/techniques/domain/entities/technique.d
 import 'package:my_climbing_trek/features/techniques/domain/entities/technique_group.dart';
 
 abstract class TechniquesRemoteDataSource {
-  Future<Either<Failure, List<TechniqueGroup>>> groups();
+  Future<Either<Failure, List<TechniqueGroup>>> groups({int limit = 0});
 
   Future<Either<Failure, List<Technique>>> techniques(
       {required TechniqueGroup group});

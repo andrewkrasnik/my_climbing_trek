@@ -8,7 +8,8 @@ part of 'rock_treaning_model.dart';
 
 RockTreaningModel _$RockTreaningModelFromJson(Map<String, dynamic> json) =>
     RockTreaningModel(
-      date: const EpochDateTimeConverter().fromJson(json['date'] as int),
+      date: const EpochDateTimeConverter()
+          .fromJson((json['date'] as num).toInt()),
       district: const RockDistrictStringConverter()
           .fromJson(json['district'] as String),
       sectors: _$JsonConverterFromJson<String, List<RockSector>>(

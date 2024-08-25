@@ -16,10 +16,12 @@ RockDistrictModel _$RockDistrictModelFromJson(Map<String, dynamic> json) =>
       image: json['image'] as String? ?? '',
       id: json['id'] as String? ?? '',
       hasEditPermission: json['hasEditPermission'] as bool? ?? false,
+      localData: json['localData'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$RockDistrictModelToJson(RockDistrictModel instance) =>
     <String, dynamic>{
+      'localData': instance.localData,
       'id': instance.id,
       'name': instance.name,
       'region': const RegionConverter().toJson(instance.region),

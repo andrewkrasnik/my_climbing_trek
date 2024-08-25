@@ -28,6 +28,7 @@ class MountainRouteType {
     'combine': combine,
     'multiPitch': multiPitch,
     'tradMultiPitch': tradMultiPitch,
+    'snowice': snow,
   };
 
   bool get hasCategory => ![multiPitch, tradMultiPitch].contains(this);

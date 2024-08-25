@@ -1,14 +1,22 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_climbing_trek/core/widgets/my_cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_district.dart';
+import 'package:my_climbing_trek/features/rock_climbing/presentation/cubit/rock_districts/rock_districts_cubit.dart';
 
 class RockDistrictWidget extends StatelessWidget {
   final RockDistrict district;
   final void Function()? onTap;
   final double height;
+  final bool myData;
 
-  const RockDistrictWidget(
-      {required this.district, this.onTap, this.height = 160, super.key});
+  const RockDistrictWidget({
+    required this.district,
+    this.onTap,
+    this.height = 160,
+    this.myData = false,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +35,10 @@ class RockDistrictWidget extends StatelessWidget {
                 decoration:
                     BoxDecoration(borderRadius: BorderRadius.circular(30)),
                 child: MyCachedNetworkImage(
-                    imageUrl: district.image, fit: BoxFit.cover)),
+                  imageUrl: district.image,
+                  fit: BoxFit.cover,
+                  cacheKey: district.cacheKey,
+                )),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -50,6 +61,19 @@ class RockDistrictWidget extends StatelessWidget {
                           shadows: [Shadow(offset: Offset.fromDirection(1))]),
                     )
                   ]),
+            ),
+            Positioned(
+              right: 0,
+              top: 0,
+              child: IconButton(
+                onPressed: () {
+                  BlocProvider.of<RockDistrictsCubit>(context)
+                      .bookmark(district: district, myData: myData);
+                },
+                icon: district.localData
+                    ? const Icon(Icons.bookmark)
+                    : const Icon(Icons.bookmark_outline_outlined),
+              ),
             ),
           ],
         ),

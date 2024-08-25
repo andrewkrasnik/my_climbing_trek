@@ -1,13 +1,16 @@
 import 'package:my_climbing_trek/core/widgets/my_cached_network_image.dart';
+import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_district.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_sector.dart';
 import 'package:flutter/material.dart';
 
 class IceSectorWidget extends StatelessWidget {
   final IceSector sector;
+  final IceDistrict district;
   final void Function()? onTap;
   final double height;
 
   const IceSectorWidget({
+    required this.district,
     required this.sector,
     this.onTap,
     this.height = 180,
@@ -27,7 +30,11 @@ class IceSectorWidget extends StatelessWidget {
         child: Stack(
           fit: StackFit.expand,
           children: [
-            MyCachedNetworkImage(imageUrl: sector.image, fit: BoxFit.cover),
+            MyCachedNetworkImage(
+              imageUrl: sector.image,
+              fit: BoxFit.cover,
+              cacheKey: district.cacheKey,
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(

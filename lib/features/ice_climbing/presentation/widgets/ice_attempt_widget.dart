@@ -9,12 +9,14 @@ class IceAttemptWidget extends StatelessWidget {
   final IceTreaningAttempt attempt;
   final bool isCurrent;
   final CurrentIceTreaningCubit cubit;
+  final String cacheKey;
 
   const IceAttemptWidget({
     required this.attempt,
     this.isCurrent = false,
     required this.cubit,
     super.key,
+    required this.cacheKey,
   });
 
   @override
@@ -28,6 +30,7 @@ class IceAttemptWidget extends StatelessWidget {
           MyCachedNetworkImage(
             width: MediaQuery.of(context).size.width / 4,
             imageUrl: attempt.sector.image,
+            cacheKey: cacheKey,
           ),
           const SizedBox(width: 8),
           Column(

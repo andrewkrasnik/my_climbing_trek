@@ -9,8 +9,9 @@ part of 'cardio_treaning_model.dart';
 CardioTreaningModel _$CardioTreaningModelFromJson(Map<String, dynamic> json) =>
     CardioTreaningModel(
       id: json['id'] as String? ?? '',
-      date: const EpochDateTimeConverter().fromJson(json['date'] as int),
-      duration: json['duration'] as int,
+      date: const EpochDateTimeConverter()
+          .fromJson((json['date'] as num).toInt()),
+      duration: (json['duration'] as num).toInt(),
       exercise:
           const CardioExerciseConverter().fromJson(json['exercise'] as String),
       length: (json['length'] as num).toDouble(),

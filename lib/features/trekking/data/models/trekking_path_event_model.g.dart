@@ -11,7 +11,8 @@ TrekkingPathEventModel _$TrekkingPathEventModelFromJson(
     TrekkingPathEventModel(
       pathId: json['pathId'] as String,
       type: const TrekkingEventTypeConverter().fromJson(json['type'] as String),
-      time: const EpochDateTimeConverter().fromJson(json['time'] as int),
+      time: const EpochDateTimeConverter()
+          .fromJson((json['time'] as num).toInt()),
       id: json['id'] as String? ?? '',
       point: _$JsonConverterFromJson<String, TrekPoint>(
           json['point'], const TrekPointStringConverter().fromJson),

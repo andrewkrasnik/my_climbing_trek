@@ -10,5 +10,8 @@ class IceDistrict extends District {
     super.image,
     super.id,
     super.hasEditPermission,
+    super.localData,
   });
+
+  get cacheKey => 'iceDisitict$id';
 }

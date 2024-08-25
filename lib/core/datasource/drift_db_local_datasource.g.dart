@@ -158,6 +158,17 @@ class DriftStrengthExercise extends DataClass
         name: name ?? this.name,
         selected: selected ?? this.selected,
       );
+  DriftStrengthExercise copyWithCompanion(
+      DriftStrengthExercisesTableCompanion data) {
+    return DriftStrengthExercise(
+      repetitions:
+          data.repetitions.present ? data.repetitions.value : this.repetitions,
+      id: data.id.present ? data.id.value : this.id,
+      name: data.name.present ? data.name.value : this.name,
+      selected: data.selected.present ? data.selected.value : this.selected,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('DriftStrengthExercise(')
@@ -468,6 +479,19 @@ class DriftHallTreaning extends DataClass
         start: start.present ? start.value : this.start,
         climbingHall: climbingHall ?? this.climbingHall,
       );
+  DriftHallTreaning copyWithCompanion(DriftHallTreaningsTableCompanion data) {
+    return DriftHallTreaning(
+      id: data.id.present ? data.id.value : this.id,
+      hallId: data.hallId.present ? data.hallId.value : this.hallId,
+      date: data.date.present ? data.date.value : this.date,
+      finish: data.finish.present ? data.finish.value : this.finish,
+      start: data.start.present ? data.start.value : this.start,
+      climbingHall: data.climbingHall.present
+          ? data.climbingHall.value
+          : this.climbingHall,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('DriftHallTreaning(')
@@ -998,6 +1022,31 @@ class DriftHallAttempt extends DataClass
         downClimbing: downClimbing ?? this.downClimbing,
         fail: fail ?? this.fail,
       );
+  DriftHallAttempt copyWithCompanion(DriftHallAttemptsTableCompanion data) {
+    return DriftHallAttempt(
+      id: data.id.present ? data.id.value : this.id,
+      treaningId:
+          data.treaningId.present ? data.treaningId.value : this.treaningId,
+      category: data.category.present ? data.category.value : this.category,
+      style: data.style.present ? data.style.value : this.style,
+      routeId: data.routeId.present ? data.routeId.value : this.routeId,
+      route: data.route.present ? data.route.value : this.route,
+      finishTime:
+          data.finishTime.present ? data.finishTime.value : this.finishTime,
+      startTime: data.startTime.present ? data.startTime.value : this.startTime,
+      ascentType:
+          data.ascentType.present ? data.ascentType.value : this.ascentType,
+      suspensionCount: data.suspensionCount.present
+          ? data.suspensionCount.value
+          : this.suspensionCount,
+      fallCount: data.fallCount.present ? data.fallCount.value : this.fallCount,
+      downClimbing: data.downClimbing.present
+          ? data.downClimbing.value
+          : this.downClimbing,
+      fail: data.fail.present ? data.fail.value : this.fail,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('DriftHallAttempt(')
@@ -1464,6 +1513,19 @@ class DriftCardioTreanings extends DataClass
         duration: duration ?? this.duration,
         length: length ?? this.length,
       );
+  DriftCardioTreanings copyWithCompanion(
+      DriftCardioTreaningsTableCompanion data) {
+    return DriftCardioTreanings(
+      id: data.id.present ? data.id.value : this.id,
+      exercise: data.exercise.present ? data.exercise.value : this.exercise,
+      date: data.date.present ? data.date.value : this.date,
+      finish: data.finish.present ? data.finish.value : this.finish,
+      start: data.start.present ? data.start.value : this.start,
+      duration: data.duration.present ? data.duration.value : this.duration,
+      length: data.length.present ? data.length.value : this.length,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('DriftCardioTreanings(')
@@ -1768,6 +1830,16 @@ class DriftStrengthTreaning extends DataClass
         finish: finish.present ? finish.value : this.finish,
         start: start.present ? start.value : this.start,
       );
+  DriftStrengthTreaning copyWithCompanion(
+      DriftStrengthTreaningsTableCompanion data) {
+    return DriftStrengthTreaning(
+      id: data.id.present ? data.id.value : this.id,
+      date: data.date.present ? data.date.value : this.date,
+      finish: data.finish.present ? data.finish.value : this.finish,
+      start: data.start.present ? data.start.value : this.start,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('DriftStrengthTreaning(')
@@ -2070,6 +2142,20 @@ class DriftStrengthTreaningLine extends DataClass
         exercise: exercise ?? this.exercise,
         exerciseId: exerciseId ?? this.exerciseId,
       );
+  DriftStrengthTreaningLine copyWithCompanion(
+      DriftStrengthTreaningLinesTableCompanion data) {
+    return DriftStrengthTreaningLine(
+      id: data.id.present ? data.id.value : this.id,
+      repetitions:
+          data.repetitions.present ? data.repetitions.value : this.repetitions,
+      treaningId:
+          data.treaningId.present ? data.treaningId.value : this.treaningId,
+      exercise: data.exercise.present ? data.exercise.value : this.exercise,
+      exerciseId:
+          data.exerciseId.present ? data.exerciseId.value : this.exerciseId,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('DriftStrengthTreaningLine(')
@@ -2421,6 +2507,19 @@ class DriftIceTreanings extends DataClass
         start: start.present ? start.value : this.start,
         sectors: sectors.present ? sectors.value : this.sectors,
       );
+  DriftIceTreanings copyWithCompanion(DriftIceTreaningsTableCompanion data) {
+    return DriftIceTreanings(
+      id: data.id.present ? data.id.value : this.id,
+      district: data.district.present ? data.district.value : this.district,
+      districtId:
+          data.districtId.present ? data.districtId.value : this.districtId,
+      date: data.date.present ? data.date.value : this.date,
+      finish: data.finish.present ? data.finish.value : this.finish,
+      start: data.start.present ? data.start.value : this.start,
+      sectors: data.sectors.present ? data.sectors.value : this.sectors,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('DriftIceTreanings(')
@@ -3036,6 +3135,38 @@ class DriftIceAttempt extends DataClass implements Insertable<DriftIceAttempt> {
         iceScrewsCount: iceScrewsCount ?? this.iceScrewsCount,
         toolsCount: toolsCount ?? this.toolsCount,
       );
+  DriftIceAttempt copyWithCompanion(DriftIceAttemptsTableCompanion data) {
+    return DriftIceAttempt(
+      id: data.id.present ? data.id.value : this.id,
+      sector: data.sector.present ? data.sector.value : this.sector,
+      sectorId: data.sectorId.present ? data.sectorId.value : this.sectorId,
+      treaningId:
+          data.treaningId.present ? data.treaningId.value : this.treaningId,
+      category: data.category.present ? data.category.value : this.category,
+      style: data.style.present ? data.style.value : this.style,
+      finishTime:
+          data.finishTime.present ? data.finishTime.value : this.finishTime,
+      startTime: data.startTime.present ? data.startTime.value : this.startTime,
+      wayLength: data.wayLength.present ? data.wayLength.value : this.wayLength,
+      suspensionCount: data.suspensionCount.present
+          ? data.suspensionCount.value
+          : this.suspensionCount,
+      fallCount: data.fallCount.present ? data.fallCount.value : this.fallCount,
+      downClimbing: data.downClimbing.present
+          ? data.downClimbing.value
+          : this.downClimbing,
+      fail: data.fail.present ? data.fail.value : this.fail,
+      installedIceScrews: data.installedIceScrews.present
+          ? data.installedIceScrews.value
+          : this.installedIceScrews,
+      iceScrewsCount: data.iceScrewsCount.present
+          ? data.iceScrewsCount.value
+          : this.iceScrewsCount,
+      toolsCount:
+          data.toolsCount.present ? data.toolsCount.value : this.toolsCount,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('DriftIceAttempt(')
@@ -3553,6 +3684,19 @@ class DriftRockTreanings extends DataClass
         start: start.present ? start.value : this.start,
         sectors: sectors.present ? sectors.value : this.sectors,
       );
+  DriftRockTreanings copyWithCompanion(DriftRockTreaningsTableCompanion data) {
+    return DriftRockTreanings(
+      id: data.id.present ? data.id.value : this.id,
+      districtId:
+          data.districtId.present ? data.districtId.value : this.districtId,
+      district: data.district.present ? data.district.value : this.district,
+      date: data.date.present ? data.date.value : this.date,
+      finish: data.finish.present ? data.finish.value : this.finish,
+      start: data.start.present ? data.start.value : this.start,
+      sectors: data.sectors.present ? data.sectors.value : this.sectors,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('DriftRockTreanings(')
@@ -4141,6 +4285,33 @@ class DriftRockAttempt extends DataClass
         fail: fail ?? this.fail,
         ascentType: ascentType.present ? ascentType.value : this.ascentType,
       );
+  DriftRockAttempt copyWithCompanion(DriftRockAttemptsTableCompanion data) {
+    return DriftRockAttempt(
+      id: data.id.present ? data.id.value : this.id,
+      sector: data.sector.present ? data.sector.value : this.sector,
+      sectorId: data.sectorId.present ? data.sectorId.value : this.sectorId,
+      treaningId:
+          data.treaningId.present ? data.treaningId.value : this.treaningId,
+      category: data.category.present ? data.category.value : this.category,
+      route: data.route.present ? data.route.value : this.route,
+      routeId: data.routeId.present ? data.routeId.value : this.routeId,
+      style: data.style.present ? data.style.value : this.style,
+      finishTime:
+          data.finishTime.present ? data.finishTime.value : this.finishTime,
+      startTime: data.startTime.present ? data.startTime.value : this.startTime,
+      suspensionCount: data.suspensionCount.present
+          ? data.suspensionCount.value
+          : this.suspensionCount,
+      fallCount: data.fallCount.present ? data.fallCount.value : this.fallCount,
+      downClimbing: data.downClimbing.present
+          ? data.downClimbing.value
+          : this.downClimbing,
+      fail: data.fail.present ? data.fail.value : this.fail,
+      ascentType:
+          data.ascentType.present ? data.ascentType.value : this.ascentType,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('DriftRockAttempt(')
@@ -4785,6 +4956,26 @@ class DriftTrekkingPath extends DataClass
         turn: turn ?? this.turn,
         length: length ?? this.length,
       );
+  DriftTrekkingPath copyWithCompanion(DriftTrekkingPathsTableCompanion data) {
+    return DriftTrekkingPath(
+      id: data.id.present ? data.id.value : this.id,
+      region: data.region.present ? data.region.value : this.region,
+      trekId: data.trekId.present ? data.trekId.value : this.trekId,
+      trek: data.trek.present ? data.trek.value : this.trek,
+      type: data.type.present ? data.type.value : this.type,
+      date: data.date.present ? data.date.value : this.date,
+      finish: data.finish.present ? data.finish.value : this.finish,
+      start: data.start.present ? data.start.value : this.start,
+      currentSection: data.currentSection.present
+          ? data.currentSection.value
+          : this.currentSection,
+      climbDown: data.climbDown.present ? data.climbDown.value : this.climbDown,
+      climbUp: data.climbUp.present ? data.climbUp.value : this.climbUp,
+      turn: data.turn.present ? data.turn.value : this.turn,
+      length: data.length.present ? data.length.value : this.length,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('DriftTrekkingPath(')
@@ -5219,6 +5410,18 @@ class DriftTrekkingPathEvent extends DataClass
         pointId: pointId.present ? pointId.value : this.pointId,
         time: time ?? this.time,
       );
+  DriftTrekkingPathEvent copyWithCompanion(
+      DriftTrekkingPathEventsTableCompanion data) {
+    return DriftTrekkingPathEvent(
+      id: data.id.present ? data.id.value : this.id,
+      type: data.type.present ? data.type.value : this.type,
+      pathId: data.pathId.present ? data.pathId.value : this.pathId,
+      point: data.point.present ? data.point.value : this.point,
+      pointId: data.pointId.present ? data.pointId.value : this.pointId,
+      time: data.time.present ? data.time.value : this.time,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('DriftTrekkingPathEvent(')
@@ -5533,6 +5736,17 @@ class DriftTechniqueTreaning extends DataClass
         finish: finish.present ? finish.value : this.finish,
         start: start.present ? start.value : this.start,
       );
+  DriftTechniqueTreaning copyWithCompanion(
+      DriftTechniqueTreaningsTableCompanion data) {
+    return DriftTechniqueTreaning(
+      id: data.id.present ? data.id.value : this.id,
+      comment: data.comment.present ? data.comment.value : this.comment,
+      date: data.date.present ? data.date.value : this.date,
+      finish: data.finish.present ? data.finish.value : this.finish,
+      start: data.start.present ? data.start.value : this.start,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('DriftTechniqueTreaning(')
@@ -5971,6 +6185,25 @@ class DriftTechniqueTreaningItem extends DataClass
         techniqueId: techniqueId ?? this.techniqueId,
         groupId: groupId ?? this.groupId,
       );
+  DriftTechniqueTreaningItem copyWithCompanion(
+      DriftTechniqueTreaningItemsTableCompanion data) {
+    return DriftTechniqueTreaningItem(
+      id: data.id.present ? data.id.value : this.id,
+      comment: data.comment.present ? data.comment.value : this.comment,
+      treaningId:
+          data.treaningId.present ? data.treaningId.value : this.treaningId,
+      options: data.options.present ? data.options.value : this.options,
+      finishTime:
+          data.finishTime.present ? data.finishTime.value : this.finishTime,
+      startTime: data.startTime.present ? data.startTime.value : this.startTime,
+      group: data.group.present ? data.group.value : this.group,
+      technique: data.technique.present ? data.technique.value : this.technique,
+      techniqueId:
+          data.techniqueId.present ? data.techniqueId.value : this.techniqueId,
+      groupId: data.groupId.present ? data.groupId.value : this.groupId,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('DriftTechniqueTreaningItem(')
@@ -6410,6 +6643,20 @@ class DriftAscension extends DataClass implements Insertable<DriftAscension> {
         finish: finish.present ? finish.value : this.finish,
         start: start.present ? start.value : this.start,
       );
+  DriftAscension copyWithCompanion(DriftAscensionsTableCompanion data) {
+    return DriftAscension(
+      id: data.id.present ? data.id.value : this.id,
+      mountain: data.mountain.present ? data.mountain.value : this.mountain,
+      mountainId:
+          data.mountainId.present ? data.mountainId.value : this.mountainId,
+      routeId: data.routeId.present ? data.routeId.value : this.routeId,
+      route: data.route.present ? data.route.value : this.route,
+      date: data.date.present ? data.date.value : this.date,
+      finish: data.finish.present ? data.finish.value : this.finish,
+      start: data.start.present ? data.start.value : this.start,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('DriftAscension(')
@@ -6757,6 +7004,19 @@ class DriftAscensionEvent extends DataClass
         time: time.present ? time.value : this.time,
         planedTime: planedTime.present ? planedTime.value : this.planedTime,
       );
+  DriftAscensionEvent copyWithCompanion(
+      DriftAscensionEventsTableCompanion data) {
+    return DriftAscensionEvent(
+      id: data.id.present ? data.id.value : this.id,
+      type: data.type.present ? data.type.value : this.type,
+      ascensionId:
+          data.ascensionId.present ? data.ascensionId.value : this.ascensionId,
+      time: data.time.present ? data.time.value : this.time,
+      planedTime:
+          data.planedTime.present ? data.planedTime.value : this.planedTime,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('DriftAscensionEvent(')
@@ -7200,6 +7460,26 @@ class DriftTravel extends DataClass implements Insertable<DriftTravel> {
         status: status ?? this.status,
         budgetCurrency: budgetCurrency ?? this.budgetCurrency,
       );
+  DriftTravel copyWithCompanion(DriftTravelsTableCompanion data) {
+    return DriftTravel(
+      id: data.id.present ? data.id.value : this.id,
+      date: data.date.present ? data.date.value : this.date,
+      finish: data.finish.present ? data.finish.value : this.finish,
+      start: data.start.present ? data.start.value : this.start,
+      regions: data.regions.present ? data.regions.value : this.regions,
+      name: data.name.present ? data.name.value : this.name,
+      image: data.image.present ? data.image.value : this.image,
+      description:
+          data.description.present ? data.description.value : this.description,
+      currencies:
+          data.currencies.present ? data.currencies.value : this.currencies,
+      status: data.status.present ? data.status.value : this.status,
+      budgetCurrency: data.budgetCurrency.present
+          ? data.budgetCurrency.value
+          : this.budgetCurrency,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('DriftTravel(')
@@ -7686,6 +7966,25 @@ class DriftTravelDay extends DataClass implements Insertable<DriftTravelDay> {
         stayLines: stayLines ?? this.stayLines,
         travelId: travelId ?? this.travelId,
       );
+  DriftTravelDay copyWithCompanion(DriftTravelDaysTableCompanion data) {
+    return DriftTravelDay(
+      id: data.id.present ? data.id.value : this.id,
+      date: data.date.present ? data.date.value : this.date,
+      start: data.start.present ? data.start.value : this.start,
+      description:
+          data.description.present ? data.description.value : this.description,
+      number: data.number.present ? data.number.value : this.number,
+      transportLines: data.transportLines.present
+          ? data.transportLines.value
+          : this.transportLines,
+      feedingsLines: data.feedingsLines.present
+          ? data.feedingsLines.value
+          : this.feedingsLines,
+      stayLines: data.stayLines.present ? data.stayLines.value : this.stayLines,
+      travelId: data.travelId.present ? data.travelId.value : this.travelId,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('DriftTravelDay(')
@@ -8142,6 +8441,23 @@ class DriftCostLine extends DataClass implements Insertable<DriftCostLine> {
         description: description ?? this.description,
         incomeExpense: incomeExpense ?? this.incomeExpense,
       );
+  DriftCostLine copyWithCompanion(DriftCostLinesTableCompanion data) {
+    return DriftCostLine(
+      id: data.id.present ? data.id.value : this.id,
+      type: data.type.present ? data.type.value : this.type,
+      currency: data.currency.present ? data.currency.value : this.currency,
+      travelId: data.travelId.present ? data.travelId.value : this.travelId,
+      date: data.date.present ? data.date.value : this.date,
+      sum: data.sum.present ? data.sum.value : this.sum,
+      budgetSum: data.budgetSum.present ? data.budgetSum.value : this.budgetSum,
+      description:
+          data.description.present ? data.description.value : this.description,
+      incomeExpense: data.incomeExpense.present
+          ? data.incomeExpense.value
+          : this.incomeExpense,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('DriftCostLine(')
@@ -8501,6 +8817,17 @@ class DriftBudgetLine extends DataClass implements Insertable<DriftBudgetLine> {
         travelId: travelId ?? this.travelId,
         description: description ?? this.description,
       );
+  DriftBudgetLine copyWithCompanion(DriftBudgetLinesTableCompanion data) {
+    return DriftBudgetLine(
+      id: data.id.present ? data.id.value : this.id,
+      type: data.type.present ? data.type.value : this.type,
+      amount: data.amount.present ? data.amount.value : this.amount,
+      travelId: data.travelId.present ? data.travelId.value : this.travelId,
+      description:
+          data.description.present ? data.description.value : this.description,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('DriftBudgetLine(')
@@ -8849,6 +9176,19 @@ class DriftInsuranceLine extends DataClass
         insurer: insurer ?? this.insurer,
         contacts: contacts ?? this.contacts,
       );
+  DriftInsuranceLine copyWithCompanion(DriftInsuranceLinesTableCompanion data) {
+    return DriftInsuranceLine(
+      id: data.id.present ? data.id.value : this.id,
+      number: data.number.present ? data.number.value : this.number,
+      travelId: data.travelId.present ? data.travelId.value : this.travelId,
+      insurant: data.insurant.present ? data.insurant.value : this.insurant,
+      description:
+          data.description.present ? data.description.value : this.description,
+      insurer: data.insurer.present ? data.insurer.value : this.insurer,
+      contacts: data.contacts.present ? data.contacts.value : this.contacts,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('DriftInsuranceLine(')
@@ -9006,6 +9346,8 @@ class DriftInsuranceLinesTableCompanion
 
 abstract class _$DriftDBLocalDataSource extends GeneratedDatabase {
   _$DriftDBLocalDataSource(QueryExecutor e) : super(e);
+  $DriftDBLocalDataSourceManager get managers =>
+      $DriftDBLocalDataSourceManager(this);
   late final $DriftStrengthExercisesTableTable driftStrengthExercisesTable =
       $DriftStrengthExercisesTableTable(this);
   late final $DriftHallTreaningsTableTable driftHallTreaningsTable =
@@ -9077,4 +9419,4357 @@ abstract class _$DriftDBLocalDataSource extends GeneratedDatabase {
         driftBudgetLinesTable,
         driftInsuranceLinesTable
       ];
+}
+
+typedef $$DriftStrengthExercisesTableTableCreateCompanionBuilder
+    = DriftStrengthExercisesTableCompanion Function({
+  required int repetitions,
+  required String id,
+  required String name,
+  Value<bool> selected,
+  Value<int> rowid,
+});
+typedef $$DriftStrengthExercisesTableTableUpdateCompanionBuilder
+    = DriftStrengthExercisesTableCompanion Function({
+  Value<int> repetitions,
+  Value<String> id,
+  Value<String> name,
+  Value<bool> selected,
+  Value<int> rowid,
+});
+
+class $$DriftStrengthExercisesTableTableTableManager extends RootTableManager<
+    _$DriftDBLocalDataSource,
+    $DriftStrengthExercisesTableTable,
+    DriftStrengthExercise,
+    $$DriftStrengthExercisesTableTableFilterComposer,
+    $$DriftStrengthExercisesTableTableOrderingComposer,
+    $$DriftStrengthExercisesTableTableCreateCompanionBuilder,
+    $$DriftStrengthExercisesTableTableUpdateCompanionBuilder> {
+  $$DriftStrengthExercisesTableTableTableManager(
+      _$DriftDBLocalDataSource db, $DriftStrengthExercisesTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer: $$DriftStrengthExercisesTableTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$DriftStrengthExercisesTableTableOrderingComposer(
+              ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<int> repetitions = const Value.absent(),
+            Value<String> id = const Value.absent(),
+            Value<String> name = const Value.absent(),
+            Value<bool> selected = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftStrengthExercisesTableCompanion(
+            repetitions: repetitions,
+            id: id,
+            name: name,
+            selected: selected,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required int repetitions,
+            required String id,
+            required String name,
+            Value<bool> selected = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftStrengthExercisesTableCompanion.insert(
+            repetitions: repetitions,
+            id: id,
+            name: name,
+            selected: selected,
+            rowid: rowid,
+          ),
+        ));
+}
+
+class $$DriftStrengthExercisesTableTableFilterComposer extends FilterComposer<
+    _$DriftDBLocalDataSource, $DriftStrengthExercisesTableTable> {
+  $$DriftStrengthExercisesTableTableFilterComposer(super.$state);
+  ColumnFilters<int> get repetitions => $state.composableBuilder(
+      column: $state.table.repetitions,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get name => $state.composableBuilder(
+      column: $state.table.name,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<bool> get selected => $state.composableBuilder(
+      column: $state.table.selected,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ComposableFilter driftStrengthTreaningLinesTableRefs(
+      ComposableFilter Function(
+              $$DriftStrengthTreaningLinesTableTableFilterComposer f)
+          f) {
+    final $$DriftStrengthTreaningLinesTableTableFilterComposer composer =
+        $state.composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.id,
+            referencedTable: $state.db.driftStrengthTreaningLinesTable,
+            getReferencedColumn: (t) => t.exerciseId,
+            builder: (joinBuilder, parentComposers) =>
+                $$DriftStrengthTreaningLinesTableTableFilterComposer(
+                    ComposerState(
+                        $state.db,
+                        $state.db.driftStrengthTreaningLinesTable,
+                        joinBuilder,
+                        parentComposers)));
+    return f(composer);
+  }
+}
+
+class $$DriftStrengthExercisesTableTableOrderingComposer
+    extends OrderingComposer<_$DriftDBLocalDataSource,
+        $DriftStrengthExercisesTableTable> {
+  $$DriftStrengthExercisesTableTableOrderingComposer(super.$state);
+  ColumnOrderings<int> get repetitions => $state.composableBuilder(
+      column: $state.table.repetitions,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get name => $state.composableBuilder(
+      column: $state.table.name,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<bool> get selected => $state.composableBuilder(
+      column: $state.table.selected,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+}
+
+typedef $$DriftHallTreaningsTableTableCreateCompanionBuilder
+    = DriftHallTreaningsTableCompanion Function({
+  required String id,
+  required String hallId,
+  required DateTime date,
+  Value<DateTime?> finish,
+  Value<DateTime?> start,
+  required String climbingHall,
+  Value<int> rowid,
+});
+typedef $$DriftHallTreaningsTableTableUpdateCompanionBuilder
+    = DriftHallTreaningsTableCompanion Function({
+  Value<String> id,
+  Value<String> hallId,
+  Value<DateTime> date,
+  Value<DateTime?> finish,
+  Value<DateTime?> start,
+  Value<String> climbingHall,
+  Value<int> rowid,
+});
+
+class $$DriftHallTreaningsTableTableTableManager extends RootTableManager<
+    _$DriftDBLocalDataSource,
+    $DriftHallTreaningsTableTable,
+    DriftHallTreaning,
+    $$DriftHallTreaningsTableTableFilterComposer,
+    $$DriftHallTreaningsTableTableOrderingComposer,
+    $$DriftHallTreaningsTableTableCreateCompanionBuilder,
+    $$DriftHallTreaningsTableTableUpdateCompanionBuilder> {
+  $$DriftHallTreaningsTableTableTableManager(
+      _$DriftDBLocalDataSource db, $DriftHallTreaningsTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer: $$DriftHallTreaningsTableTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$DriftHallTreaningsTableTableOrderingComposer(
+              ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> hallId = const Value.absent(),
+            Value<DateTime> date = const Value.absent(),
+            Value<DateTime?> finish = const Value.absent(),
+            Value<DateTime?> start = const Value.absent(),
+            Value<String> climbingHall = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftHallTreaningsTableCompanion(
+            id: id,
+            hallId: hallId,
+            date: date,
+            finish: finish,
+            start: start,
+            climbingHall: climbingHall,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String hallId,
+            required DateTime date,
+            Value<DateTime?> finish = const Value.absent(),
+            Value<DateTime?> start = const Value.absent(),
+            required String climbingHall,
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftHallTreaningsTableCompanion.insert(
+            id: id,
+            hallId: hallId,
+            date: date,
+            finish: finish,
+            start: start,
+            climbingHall: climbingHall,
+            rowid: rowid,
+          ),
+        ));
+}
+
+class $$DriftHallTreaningsTableTableFilterComposer extends FilterComposer<
+    _$DriftDBLocalDataSource, $DriftHallTreaningsTableTable> {
+  $$DriftHallTreaningsTableTableFilterComposer(super.$state);
+  ColumnFilters<String> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get hallId => $state.composableBuilder(
+      column: $state.table.hallId,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get date => $state.composableBuilder(
+      column: $state.table.date,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get finish => $state.composableBuilder(
+      column: $state.table.finish,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get start => $state.composableBuilder(
+      column: $state.table.start,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get climbingHall => $state.composableBuilder(
+      column: $state.table.climbingHall,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ComposableFilter driftHallAttemptsTableRefs(
+      ComposableFilter Function($$DriftHallAttemptsTableTableFilterComposer f)
+          f) {
+    final $$DriftHallAttemptsTableTableFilterComposer composer =
+        $state.composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.id,
+            referencedTable: $state.db.driftHallAttemptsTable,
+            getReferencedColumn: (t) => t.treaningId,
+            builder: (joinBuilder, parentComposers) =>
+                $$DriftHallAttemptsTableTableFilterComposer(ComposerState(
+                    $state.db,
+                    $state.db.driftHallAttemptsTable,
+                    joinBuilder,
+                    parentComposers)));
+    return f(composer);
+  }
+}
+
+class $$DriftHallTreaningsTableTableOrderingComposer extends OrderingComposer<
+    _$DriftDBLocalDataSource, $DriftHallTreaningsTableTable> {
+  $$DriftHallTreaningsTableTableOrderingComposer(super.$state);
+  ColumnOrderings<String> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get hallId => $state.composableBuilder(
+      column: $state.table.hallId,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get date => $state.composableBuilder(
+      column: $state.table.date,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get finish => $state.composableBuilder(
+      column: $state.table.finish,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get start => $state.composableBuilder(
+      column: $state.table.start,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get climbingHall => $state.composableBuilder(
+      column: $state.table.climbingHall,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+}
+
+typedef $$DriftHallAttemptsTableTableCreateCompanionBuilder
+    = DriftHallAttemptsTableCompanion Function({
+  required String id,
+  required String treaningId,
+  required String category,
+  required String style,
+  Value<String?> routeId,
+  Value<String?> route,
+  Value<DateTime?> finishTime,
+  Value<DateTime?> startTime,
+  Value<String?> ascentType,
+  required int suspensionCount,
+  required int fallCount,
+  required bool downClimbing,
+  required bool fail,
+  Value<int> rowid,
+});
+typedef $$DriftHallAttemptsTableTableUpdateCompanionBuilder
+    = DriftHallAttemptsTableCompanion Function({
+  Value<String> id,
+  Value<String> treaningId,
+  Value<String> category,
+  Value<String> style,
+  Value<String?> routeId,
+  Value<String?> route,
+  Value<DateTime?> finishTime,
+  Value<DateTime?> startTime,
+  Value<String?> ascentType,
+  Value<int> suspensionCount,
+  Value<int> fallCount,
+  Value<bool> downClimbing,
+  Value<bool> fail,
+  Value<int> rowid,
+});
+
+class $$DriftHallAttemptsTableTableTableManager extends RootTableManager<
+    _$DriftDBLocalDataSource,
+    $DriftHallAttemptsTableTable,
+    DriftHallAttempt,
+    $$DriftHallAttemptsTableTableFilterComposer,
+    $$DriftHallAttemptsTableTableOrderingComposer,
+    $$DriftHallAttemptsTableTableCreateCompanionBuilder,
+    $$DriftHallAttemptsTableTableUpdateCompanionBuilder> {
+  $$DriftHallAttemptsTableTableTableManager(
+      _$DriftDBLocalDataSource db, $DriftHallAttemptsTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer: $$DriftHallAttemptsTableTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$DriftHallAttemptsTableTableOrderingComposer(
+              ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> treaningId = const Value.absent(),
+            Value<String> category = const Value.absent(),
+            Value<String> style = const Value.absent(),
+            Value<String?> routeId = const Value.absent(),
+            Value<String?> route = const Value.absent(),
+            Value<DateTime?> finishTime = const Value.absent(),
+            Value<DateTime?> startTime = const Value.absent(),
+            Value<String?> ascentType = const Value.absent(),
+            Value<int> suspensionCount = const Value.absent(),
+            Value<int> fallCount = const Value.absent(),
+            Value<bool> downClimbing = const Value.absent(),
+            Value<bool> fail = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftHallAttemptsTableCompanion(
+            id: id,
+            treaningId: treaningId,
+            category: category,
+            style: style,
+            routeId: routeId,
+            route: route,
+            finishTime: finishTime,
+            startTime: startTime,
+            ascentType: ascentType,
+            suspensionCount: suspensionCount,
+            fallCount: fallCount,
+            downClimbing: downClimbing,
+            fail: fail,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String treaningId,
+            required String category,
+            required String style,
+            Value<String?> routeId = const Value.absent(),
+            Value<String?> route = const Value.absent(),
+            Value<DateTime?> finishTime = const Value.absent(),
+            Value<DateTime?> startTime = const Value.absent(),
+            Value<String?> ascentType = const Value.absent(),
+            required int suspensionCount,
+            required int fallCount,
+            required bool downClimbing,
+            required bool fail,
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftHallAttemptsTableCompanion.insert(
+            id: id,
+            treaningId: treaningId,
+            category: category,
+            style: style,
+            routeId: routeId,
+            route: route,
+            finishTime: finishTime,
+            startTime: startTime,
+            ascentType: ascentType,
+            suspensionCount: suspensionCount,
+            fallCount: fallCount,
+            downClimbing: downClimbing,
+            fail: fail,
+            rowid: rowid,
+          ),
+        ));
+}
+
+class $$DriftHallAttemptsTableTableFilterComposer extends FilterComposer<
+    _$DriftDBLocalDataSource, $DriftHallAttemptsTableTable> {
+  $$DriftHallAttemptsTableTableFilterComposer(super.$state);
+  ColumnFilters<String> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get category => $state.composableBuilder(
+      column: $state.table.category,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get style => $state.composableBuilder(
+      column: $state.table.style,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get routeId => $state.composableBuilder(
+      column: $state.table.routeId,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get route => $state.composableBuilder(
+      column: $state.table.route,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get finishTime => $state.composableBuilder(
+      column: $state.table.finishTime,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get startTime => $state.composableBuilder(
+      column: $state.table.startTime,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get ascentType => $state.composableBuilder(
+      column: $state.table.ascentType,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<int> get suspensionCount => $state.composableBuilder(
+      column: $state.table.suspensionCount,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<int> get fallCount => $state.composableBuilder(
+      column: $state.table.fallCount,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<bool> get downClimbing => $state.composableBuilder(
+      column: $state.table.downClimbing,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<bool> get fail => $state.composableBuilder(
+      column: $state.table.fail,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  $$DriftHallTreaningsTableTableFilterComposer get treaningId {
+    final $$DriftHallTreaningsTableTableFilterComposer composer =
+        $state.composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.treaningId,
+            referencedTable: $state.db.driftHallTreaningsTable,
+            getReferencedColumn: (t) => t.id,
+            builder: (joinBuilder, parentComposers) =>
+                $$DriftHallTreaningsTableTableFilterComposer(ComposerState(
+                    $state.db,
+                    $state.db.driftHallTreaningsTable,
+                    joinBuilder,
+                    parentComposers)));
+    return composer;
+  }
+}
+
+class $$DriftHallAttemptsTableTableOrderingComposer extends OrderingComposer<
+    _$DriftDBLocalDataSource, $DriftHallAttemptsTableTable> {
+  $$DriftHallAttemptsTableTableOrderingComposer(super.$state);
+  ColumnOrderings<String> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get category => $state.composableBuilder(
+      column: $state.table.category,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get style => $state.composableBuilder(
+      column: $state.table.style,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get routeId => $state.composableBuilder(
+      column: $state.table.routeId,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get route => $state.composableBuilder(
+      column: $state.table.route,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get finishTime => $state.composableBuilder(
+      column: $state.table.finishTime,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get startTime => $state.composableBuilder(
+      column: $state.table.startTime,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get ascentType => $state.composableBuilder(
+      column: $state.table.ascentType,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<int> get suspensionCount => $state.composableBuilder(
+      column: $state.table.suspensionCount,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<int> get fallCount => $state.composableBuilder(
+      column: $state.table.fallCount,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<bool> get downClimbing => $state.composableBuilder(
+      column: $state.table.downClimbing,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<bool> get fail => $state.composableBuilder(
+      column: $state.table.fail,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  $$DriftHallTreaningsTableTableOrderingComposer get treaningId {
+    final $$DriftHallTreaningsTableTableOrderingComposer composer =
+        $state.composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.treaningId,
+            referencedTable: $state.db.driftHallTreaningsTable,
+            getReferencedColumn: (t) => t.id,
+            builder: (joinBuilder, parentComposers) =>
+                $$DriftHallTreaningsTableTableOrderingComposer(ComposerState(
+                    $state.db,
+                    $state.db.driftHallTreaningsTable,
+                    joinBuilder,
+                    parentComposers)));
+    return composer;
+  }
+}
+
+typedef $$DriftCardioTreaningsTableTableCreateCompanionBuilder
+    = DriftCardioTreaningsTableCompanion Function({
+  required String id,
+  required String exercise,
+  required DateTime date,
+  Value<DateTime?> finish,
+  Value<DateTime?> start,
+  required int duration,
+  required double length,
+  Value<int> rowid,
+});
+typedef $$DriftCardioTreaningsTableTableUpdateCompanionBuilder
+    = DriftCardioTreaningsTableCompanion Function({
+  Value<String> id,
+  Value<String> exercise,
+  Value<DateTime> date,
+  Value<DateTime?> finish,
+  Value<DateTime?> start,
+  Value<int> duration,
+  Value<double> length,
+  Value<int> rowid,
+});
+
+class $$DriftCardioTreaningsTableTableTableManager extends RootTableManager<
+    _$DriftDBLocalDataSource,
+    $DriftCardioTreaningsTableTable,
+    DriftCardioTreanings,
+    $$DriftCardioTreaningsTableTableFilterComposer,
+    $$DriftCardioTreaningsTableTableOrderingComposer,
+    $$DriftCardioTreaningsTableTableCreateCompanionBuilder,
+    $$DriftCardioTreaningsTableTableUpdateCompanionBuilder> {
+  $$DriftCardioTreaningsTableTableTableManager(
+      _$DriftDBLocalDataSource db, $DriftCardioTreaningsTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer: $$DriftCardioTreaningsTableTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$DriftCardioTreaningsTableTableOrderingComposer(
+              ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> exercise = const Value.absent(),
+            Value<DateTime> date = const Value.absent(),
+            Value<DateTime?> finish = const Value.absent(),
+            Value<DateTime?> start = const Value.absent(),
+            Value<int> duration = const Value.absent(),
+            Value<double> length = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftCardioTreaningsTableCompanion(
+            id: id,
+            exercise: exercise,
+            date: date,
+            finish: finish,
+            start: start,
+            duration: duration,
+            length: length,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String exercise,
+            required DateTime date,
+            Value<DateTime?> finish = const Value.absent(),
+            Value<DateTime?> start = const Value.absent(),
+            required int duration,
+            required double length,
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftCardioTreaningsTableCompanion.insert(
+            id: id,
+            exercise: exercise,
+            date: date,
+            finish: finish,
+            start: start,
+            duration: duration,
+            length: length,
+            rowid: rowid,
+          ),
+        ));
+}
+
+class $$DriftCardioTreaningsTableTableFilterComposer extends FilterComposer<
+    _$DriftDBLocalDataSource, $DriftCardioTreaningsTableTable> {
+  $$DriftCardioTreaningsTableTableFilterComposer(super.$state);
+  ColumnFilters<String> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get exercise => $state.composableBuilder(
+      column: $state.table.exercise,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get date => $state.composableBuilder(
+      column: $state.table.date,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get finish => $state.composableBuilder(
+      column: $state.table.finish,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get start => $state.composableBuilder(
+      column: $state.table.start,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<int> get duration => $state.composableBuilder(
+      column: $state.table.duration,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<double> get length => $state.composableBuilder(
+      column: $state.table.length,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+}
+
+class $$DriftCardioTreaningsTableTableOrderingComposer extends OrderingComposer<
+    _$DriftDBLocalDataSource, $DriftCardioTreaningsTableTable> {
+  $$DriftCardioTreaningsTableTableOrderingComposer(super.$state);
+  ColumnOrderings<String> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get exercise => $state.composableBuilder(
+      column: $state.table.exercise,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get date => $state.composableBuilder(
+      column: $state.table.date,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get finish => $state.composableBuilder(
+      column: $state.table.finish,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get start => $state.composableBuilder(
+      column: $state.table.start,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<int> get duration => $state.composableBuilder(
+      column: $state.table.duration,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<double> get length => $state.composableBuilder(
+      column: $state.table.length,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+}
+
+typedef $$DriftStrengthTreaningsTableTableCreateCompanionBuilder
+    = DriftStrengthTreaningsTableCompanion Function({
+  required String id,
+  required DateTime date,
+  Value<DateTime?> finish,
+  Value<DateTime?> start,
+  Value<int> rowid,
+});
+typedef $$DriftStrengthTreaningsTableTableUpdateCompanionBuilder
+    = DriftStrengthTreaningsTableCompanion Function({
+  Value<String> id,
+  Value<DateTime> date,
+  Value<DateTime?> finish,
+  Value<DateTime?> start,
+  Value<int> rowid,
+});
+
+class $$DriftStrengthTreaningsTableTableTableManager extends RootTableManager<
+    _$DriftDBLocalDataSource,
+    $DriftStrengthTreaningsTableTable,
+    DriftStrengthTreaning,
+    $$DriftStrengthTreaningsTableTableFilterComposer,
+    $$DriftStrengthTreaningsTableTableOrderingComposer,
+    $$DriftStrengthTreaningsTableTableCreateCompanionBuilder,
+    $$DriftStrengthTreaningsTableTableUpdateCompanionBuilder> {
+  $$DriftStrengthTreaningsTableTableTableManager(
+      _$DriftDBLocalDataSource db, $DriftStrengthTreaningsTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer: $$DriftStrengthTreaningsTableTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$DriftStrengthTreaningsTableTableOrderingComposer(
+              ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<DateTime> date = const Value.absent(),
+            Value<DateTime?> finish = const Value.absent(),
+            Value<DateTime?> start = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftStrengthTreaningsTableCompanion(
+            id: id,
+            date: date,
+            finish: finish,
+            start: start,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required DateTime date,
+            Value<DateTime?> finish = const Value.absent(),
+            Value<DateTime?> start = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftStrengthTreaningsTableCompanion.insert(
+            id: id,
+            date: date,
+            finish: finish,
+            start: start,
+            rowid: rowid,
+          ),
+        ));
+}
+
+class $$DriftStrengthTreaningsTableTableFilterComposer extends FilterComposer<
+    _$DriftDBLocalDataSource, $DriftStrengthTreaningsTableTable> {
+  $$DriftStrengthTreaningsTableTableFilterComposer(super.$state);
+  ColumnFilters<String> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get date => $state.composableBuilder(
+      column: $state.table.date,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get finish => $state.composableBuilder(
+      column: $state.table.finish,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get start => $state.composableBuilder(
+      column: $state.table.start,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ComposableFilter driftStrengthTreaningLinesTableRefs(
+      ComposableFilter Function(
+              $$DriftStrengthTreaningLinesTableTableFilterComposer f)
+          f) {
+    final $$DriftStrengthTreaningLinesTableTableFilterComposer composer =
+        $state.composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.id,
+            referencedTable: $state.db.driftStrengthTreaningLinesTable,
+            getReferencedColumn: (t) => t.treaningId,
+            builder: (joinBuilder, parentComposers) =>
+                $$DriftStrengthTreaningLinesTableTableFilterComposer(
+                    ComposerState(
+                        $state.db,
+                        $state.db.driftStrengthTreaningLinesTable,
+                        joinBuilder,
+                        parentComposers)));
+    return f(composer);
+  }
+}
+
+class $$DriftStrengthTreaningsTableTableOrderingComposer
+    extends OrderingComposer<_$DriftDBLocalDataSource,
+        $DriftStrengthTreaningsTableTable> {
+  $$DriftStrengthTreaningsTableTableOrderingComposer(super.$state);
+  ColumnOrderings<String> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get date => $state.composableBuilder(
+      column: $state.table.date,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get finish => $state.composableBuilder(
+      column: $state.table.finish,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get start => $state.composableBuilder(
+      column: $state.table.start,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+}
+
+typedef $$DriftStrengthTreaningLinesTableTableCreateCompanionBuilder
+    = DriftStrengthTreaningLinesTableCompanion Function({
+  required String id,
+  required String repetitions,
+  required String treaningId,
+  required String exercise,
+  required String exerciseId,
+  Value<int> rowid,
+});
+typedef $$DriftStrengthTreaningLinesTableTableUpdateCompanionBuilder
+    = DriftStrengthTreaningLinesTableCompanion Function({
+  Value<String> id,
+  Value<String> repetitions,
+  Value<String> treaningId,
+  Value<String> exercise,
+  Value<String> exerciseId,
+  Value<int> rowid,
+});
+
+class $$DriftStrengthTreaningLinesTableTableTableManager
+    extends RootTableManager<
+        _$DriftDBLocalDataSource,
+        $DriftStrengthTreaningLinesTableTable,
+        DriftStrengthTreaningLine,
+        $$DriftStrengthTreaningLinesTableTableFilterComposer,
+        $$DriftStrengthTreaningLinesTableTableOrderingComposer,
+        $$DriftStrengthTreaningLinesTableTableCreateCompanionBuilder,
+        $$DriftStrengthTreaningLinesTableTableUpdateCompanionBuilder> {
+  $$DriftStrengthTreaningLinesTableTableTableManager(
+      _$DriftDBLocalDataSource db, $DriftStrengthTreaningLinesTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer:
+              $$DriftStrengthTreaningLinesTableTableFilterComposer(
+                  ComposerState(db, table)),
+          orderingComposer:
+              $$DriftStrengthTreaningLinesTableTableOrderingComposer(
+                  ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> repetitions = const Value.absent(),
+            Value<String> treaningId = const Value.absent(),
+            Value<String> exercise = const Value.absent(),
+            Value<String> exerciseId = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftStrengthTreaningLinesTableCompanion(
+            id: id,
+            repetitions: repetitions,
+            treaningId: treaningId,
+            exercise: exercise,
+            exerciseId: exerciseId,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String repetitions,
+            required String treaningId,
+            required String exercise,
+            required String exerciseId,
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftStrengthTreaningLinesTableCompanion.insert(
+            id: id,
+            repetitions: repetitions,
+            treaningId: treaningId,
+            exercise: exercise,
+            exerciseId: exerciseId,
+            rowid: rowid,
+          ),
+        ));
+}
+
+class $$DriftStrengthTreaningLinesTableTableFilterComposer
+    extends FilterComposer<_$DriftDBLocalDataSource,
+        $DriftStrengthTreaningLinesTableTable> {
+  $$DriftStrengthTreaningLinesTableTableFilterComposer(super.$state);
+  ColumnFilters<String> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get repetitions => $state.composableBuilder(
+      column: $state.table.repetitions,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get exercise => $state.composableBuilder(
+      column: $state.table.exercise,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  $$DriftStrengthTreaningsTableTableFilterComposer get treaningId {
+    final $$DriftStrengthTreaningsTableTableFilterComposer composer =
+        $state.composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.treaningId,
+            referencedTable: $state.db.driftStrengthTreaningsTable,
+            getReferencedColumn: (t) => t.id,
+            builder: (joinBuilder, parentComposers) =>
+                $$DriftStrengthTreaningsTableTableFilterComposer(ComposerState(
+                    $state.db,
+                    $state.db.driftStrengthTreaningsTable,
+                    joinBuilder,
+                    parentComposers)));
+    return composer;
+  }
+
+  $$DriftStrengthExercisesTableTableFilterComposer get exerciseId {
+    final $$DriftStrengthExercisesTableTableFilterComposer composer =
+        $state.composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.exerciseId,
+            referencedTable: $state.db.driftStrengthExercisesTable,
+            getReferencedColumn: (t) => t.id,
+            builder: (joinBuilder, parentComposers) =>
+                $$DriftStrengthExercisesTableTableFilterComposer(ComposerState(
+                    $state.db,
+                    $state.db.driftStrengthExercisesTable,
+                    joinBuilder,
+                    parentComposers)));
+    return composer;
+  }
+}
+
+class $$DriftStrengthTreaningLinesTableTableOrderingComposer
+    extends OrderingComposer<_$DriftDBLocalDataSource,
+        $DriftStrengthTreaningLinesTableTable> {
+  $$DriftStrengthTreaningLinesTableTableOrderingComposer(super.$state);
+  ColumnOrderings<String> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get repetitions => $state.composableBuilder(
+      column: $state.table.repetitions,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get exercise => $state.composableBuilder(
+      column: $state.table.exercise,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  $$DriftStrengthTreaningsTableTableOrderingComposer get treaningId {
+    final $$DriftStrengthTreaningsTableTableOrderingComposer composer =
+        $state.composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.treaningId,
+            referencedTable: $state.db.driftStrengthTreaningsTable,
+            getReferencedColumn: (t) => t.id,
+            builder: (joinBuilder, parentComposers) =>
+                $$DriftStrengthTreaningsTableTableOrderingComposer(
+                    ComposerState(
+                        $state.db,
+                        $state.db.driftStrengthTreaningsTable,
+                        joinBuilder,
+                        parentComposers)));
+    return composer;
+  }
+
+  $$DriftStrengthExercisesTableTableOrderingComposer get exerciseId {
+    final $$DriftStrengthExercisesTableTableOrderingComposer composer =
+        $state.composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.exerciseId,
+            referencedTable: $state.db.driftStrengthExercisesTable,
+            getReferencedColumn: (t) => t.id,
+            builder: (joinBuilder, parentComposers) =>
+                $$DriftStrengthExercisesTableTableOrderingComposer(
+                    ComposerState(
+                        $state.db,
+                        $state.db.driftStrengthExercisesTable,
+                        joinBuilder,
+                        parentComposers)));
+    return composer;
+  }
+}
+
+typedef $$DriftIceTreaningsTableTableCreateCompanionBuilder
+    = DriftIceTreaningsTableCompanion Function({
+  required String id,
+  required String district,
+  required String districtId,
+  required DateTime date,
+  Value<DateTime?> finish,
+  Value<DateTime?> start,
+  Value<String?> sectors,
+  Value<int> rowid,
+});
+typedef $$DriftIceTreaningsTableTableUpdateCompanionBuilder
+    = DriftIceTreaningsTableCompanion Function({
+  Value<String> id,
+  Value<String> district,
+  Value<String> districtId,
+  Value<DateTime> date,
+  Value<DateTime?> finish,
+  Value<DateTime?> start,
+  Value<String?> sectors,
+  Value<int> rowid,
+});
+
+class $$DriftIceTreaningsTableTableTableManager extends RootTableManager<
+    _$DriftDBLocalDataSource,
+    $DriftIceTreaningsTableTable,
+    DriftIceTreanings,
+    $$DriftIceTreaningsTableTableFilterComposer,
+    $$DriftIceTreaningsTableTableOrderingComposer,
+    $$DriftIceTreaningsTableTableCreateCompanionBuilder,
+    $$DriftIceTreaningsTableTableUpdateCompanionBuilder> {
+  $$DriftIceTreaningsTableTableTableManager(
+      _$DriftDBLocalDataSource db, $DriftIceTreaningsTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer: $$DriftIceTreaningsTableTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$DriftIceTreaningsTableTableOrderingComposer(
+              ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> district = const Value.absent(),
+            Value<String> districtId = const Value.absent(),
+            Value<DateTime> date = const Value.absent(),
+            Value<DateTime?> finish = const Value.absent(),
+            Value<DateTime?> start = const Value.absent(),
+            Value<String?> sectors = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftIceTreaningsTableCompanion(
+            id: id,
+            district: district,
+            districtId: districtId,
+            date: date,
+            finish: finish,
+            start: start,
+            sectors: sectors,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String district,
+            required String districtId,
+            required DateTime date,
+            Value<DateTime?> finish = const Value.absent(),
+            Value<DateTime?> start = const Value.absent(),
+            Value<String?> sectors = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftIceTreaningsTableCompanion.insert(
+            id: id,
+            district: district,
+            districtId: districtId,
+            date: date,
+            finish: finish,
+            start: start,
+            sectors: sectors,
+            rowid: rowid,
+          ),
+        ));
+}
+
+class $$DriftIceTreaningsTableTableFilterComposer extends FilterComposer<
+    _$DriftDBLocalDataSource, $DriftIceTreaningsTableTable> {
+  $$DriftIceTreaningsTableTableFilterComposer(super.$state);
+  ColumnFilters<String> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get district => $state.composableBuilder(
+      column: $state.table.district,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get districtId => $state.composableBuilder(
+      column: $state.table.districtId,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get date => $state.composableBuilder(
+      column: $state.table.date,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get finish => $state.composableBuilder(
+      column: $state.table.finish,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get start => $state.composableBuilder(
+      column: $state.table.start,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get sectors => $state.composableBuilder(
+      column: $state.table.sectors,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ComposableFilter driftIceAttemptsTableRefs(
+      ComposableFilter Function($$DriftIceAttemptsTableTableFilterComposer f)
+          f) {
+    final $$DriftIceAttemptsTableTableFilterComposer composer =
+        $state.composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.id,
+            referencedTable: $state.db.driftIceAttemptsTable,
+            getReferencedColumn: (t) => t.treaningId,
+            builder: (joinBuilder, parentComposers) =>
+                $$DriftIceAttemptsTableTableFilterComposer(ComposerState(
+                    $state.db,
+                    $state.db.driftIceAttemptsTable,
+                    joinBuilder,
+                    parentComposers)));
+    return f(composer);
+  }
+}
+
+class $$DriftIceTreaningsTableTableOrderingComposer extends OrderingComposer<
+    _$DriftDBLocalDataSource, $DriftIceTreaningsTableTable> {
+  $$DriftIceTreaningsTableTableOrderingComposer(super.$state);
+  ColumnOrderings<String> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get district => $state.composableBuilder(
+      column: $state.table.district,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get districtId => $state.composableBuilder(
+      column: $state.table.districtId,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get date => $state.composableBuilder(
+      column: $state.table.date,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get finish => $state.composableBuilder(
+      column: $state.table.finish,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get start => $state.composableBuilder(
+      column: $state.table.start,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get sectors => $state.composableBuilder(
+      column: $state.table.sectors,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+}
+
+typedef $$DriftIceAttemptsTableTableCreateCompanionBuilder
+    = DriftIceAttemptsTableCompanion Function({
+  required String id,
+  required String sector,
+  required String sectorId,
+  required String treaningId,
+  required String category,
+  required String style,
+  Value<DateTime?> finishTime,
+  Value<DateTime?> startTime,
+  Value<int?> wayLength,
+  required int suspensionCount,
+  required int fallCount,
+  required bool downClimbing,
+  required bool fail,
+  required bool installedIceScrews,
+  required int iceScrewsCount,
+  required int toolsCount,
+  Value<int> rowid,
+});
+typedef $$DriftIceAttemptsTableTableUpdateCompanionBuilder
+    = DriftIceAttemptsTableCompanion Function({
+  Value<String> id,
+  Value<String> sector,
+  Value<String> sectorId,
+  Value<String> treaningId,
+  Value<String> category,
+  Value<String> style,
+  Value<DateTime?> finishTime,
+  Value<DateTime?> startTime,
+  Value<int?> wayLength,
+  Value<int> suspensionCount,
+  Value<int> fallCount,
+  Value<bool> downClimbing,
+  Value<bool> fail,
+  Value<bool> installedIceScrews,
+  Value<int> iceScrewsCount,
+  Value<int> toolsCount,
+  Value<int> rowid,
+});
+
+class $$DriftIceAttemptsTableTableTableManager extends RootTableManager<
+    _$DriftDBLocalDataSource,
+    $DriftIceAttemptsTableTable,
+    DriftIceAttempt,
+    $$DriftIceAttemptsTableTableFilterComposer,
+    $$DriftIceAttemptsTableTableOrderingComposer,
+    $$DriftIceAttemptsTableTableCreateCompanionBuilder,
+    $$DriftIceAttemptsTableTableUpdateCompanionBuilder> {
+  $$DriftIceAttemptsTableTableTableManager(
+      _$DriftDBLocalDataSource db, $DriftIceAttemptsTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer: $$DriftIceAttemptsTableTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$DriftIceAttemptsTableTableOrderingComposer(
+              ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> sector = const Value.absent(),
+            Value<String> sectorId = const Value.absent(),
+            Value<String> treaningId = const Value.absent(),
+            Value<String> category = const Value.absent(),
+            Value<String> style = const Value.absent(),
+            Value<DateTime?> finishTime = const Value.absent(),
+            Value<DateTime?> startTime = const Value.absent(),
+            Value<int?> wayLength = const Value.absent(),
+            Value<int> suspensionCount = const Value.absent(),
+            Value<int> fallCount = const Value.absent(),
+            Value<bool> downClimbing = const Value.absent(),
+            Value<bool> fail = const Value.absent(),
+            Value<bool> installedIceScrews = const Value.absent(),
+            Value<int> iceScrewsCount = const Value.absent(),
+            Value<int> toolsCount = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftIceAttemptsTableCompanion(
+            id: id,
+            sector: sector,
+            sectorId: sectorId,
+            treaningId: treaningId,
+            category: category,
+            style: style,
+            finishTime: finishTime,
+            startTime: startTime,
+            wayLength: wayLength,
+            suspensionCount: suspensionCount,
+            fallCount: fallCount,
+            downClimbing: downClimbing,
+            fail: fail,
+            installedIceScrews: installedIceScrews,
+            iceScrewsCount: iceScrewsCount,
+            toolsCount: toolsCount,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String sector,
+            required String sectorId,
+            required String treaningId,
+            required String category,
+            required String style,
+            Value<DateTime?> finishTime = const Value.absent(),
+            Value<DateTime?> startTime = const Value.absent(),
+            Value<int?> wayLength = const Value.absent(),
+            required int suspensionCount,
+            required int fallCount,
+            required bool downClimbing,
+            required bool fail,
+            required bool installedIceScrews,
+            required int iceScrewsCount,
+            required int toolsCount,
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftIceAttemptsTableCompanion.insert(
+            id: id,
+            sector: sector,
+            sectorId: sectorId,
+            treaningId: treaningId,
+            category: category,
+            style: style,
+            finishTime: finishTime,
+            startTime: startTime,
+            wayLength: wayLength,
+            suspensionCount: suspensionCount,
+            fallCount: fallCount,
+            downClimbing: downClimbing,
+            fail: fail,
+            installedIceScrews: installedIceScrews,
+            iceScrewsCount: iceScrewsCount,
+            toolsCount: toolsCount,
+            rowid: rowid,
+          ),
+        ));
+}
+
+class $$DriftIceAttemptsTableTableFilterComposer extends FilterComposer<
+    _$DriftDBLocalDataSource, $DriftIceAttemptsTableTable> {
+  $$DriftIceAttemptsTableTableFilterComposer(super.$state);
+  ColumnFilters<String> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get sector => $state.composableBuilder(
+      column: $state.table.sector,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get sectorId => $state.composableBuilder(
+      column: $state.table.sectorId,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get category => $state.composableBuilder(
+      column: $state.table.category,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get style => $state.composableBuilder(
+      column: $state.table.style,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get finishTime => $state.composableBuilder(
+      column: $state.table.finishTime,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get startTime => $state.composableBuilder(
+      column: $state.table.startTime,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<int> get wayLength => $state.composableBuilder(
+      column: $state.table.wayLength,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<int> get suspensionCount => $state.composableBuilder(
+      column: $state.table.suspensionCount,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<int> get fallCount => $state.composableBuilder(
+      column: $state.table.fallCount,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<bool> get downClimbing => $state.composableBuilder(
+      column: $state.table.downClimbing,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<bool> get fail => $state.composableBuilder(
+      column: $state.table.fail,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<bool> get installedIceScrews => $state.composableBuilder(
+      column: $state.table.installedIceScrews,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<int> get iceScrewsCount => $state.composableBuilder(
+      column: $state.table.iceScrewsCount,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<int> get toolsCount => $state.composableBuilder(
+      column: $state.table.toolsCount,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  $$DriftIceTreaningsTableTableFilterComposer get treaningId {
+    final $$DriftIceTreaningsTableTableFilterComposer composer =
+        $state.composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.treaningId,
+            referencedTable: $state.db.driftIceTreaningsTable,
+            getReferencedColumn: (t) => t.id,
+            builder: (joinBuilder, parentComposers) =>
+                $$DriftIceTreaningsTableTableFilterComposer(ComposerState(
+                    $state.db,
+                    $state.db.driftIceTreaningsTable,
+                    joinBuilder,
+                    parentComposers)));
+    return composer;
+  }
+}
+
+class $$DriftIceAttemptsTableTableOrderingComposer extends OrderingComposer<
+    _$DriftDBLocalDataSource, $DriftIceAttemptsTableTable> {
+  $$DriftIceAttemptsTableTableOrderingComposer(super.$state);
+  ColumnOrderings<String> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get sector => $state.composableBuilder(
+      column: $state.table.sector,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get sectorId => $state.composableBuilder(
+      column: $state.table.sectorId,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get category => $state.composableBuilder(
+      column: $state.table.category,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get style => $state.composableBuilder(
+      column: $state.table.style,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get finishTime => $state.composableBuilder(
+      column: $state.table.finishTime,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get startTime => $state.composableBuilder(
+      column: $state.table.startTime,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<int> get wayLength => $state.composableBuilder(
+      column: $state.table.wayLength,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<int> get suspensionCount => $state.composableBuilder(
+      column: $state.table.suspensionCount,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<int> get fallCount => $state.composableBuilder(
+      column: $state.table.fallCount,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<bool> get downClimbing => $state.composableBuilder(
+      column: $state.table.downClimbing,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<bool> get fail => $state.composableBuilder(
+      column: $state.table.fail,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<bool> get installedIceScrews => $state.composableBuilder(
+      column: $state.table.installedIceScrews,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<int> get iceScrewsCount => $state.composableBuilder(
+      column: $state.table.iceScrewsCount,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<int> get toolsCount => $state.composableBuilder(
+      column: $state.table.toolsCount,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  $$DriftIceTreaningsTableTableOrderingComposer get treaningId {
+    final $$DriftIceTreaningsTableTableOrderingComposer composer =
+        $state.composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.treaningId,
+            referencedTable: $state.db.driftIceTreaningsTable,
+            getReferencedColumn: (t) => t.id,
+            builder: (joinBuilder, parentComposers) =>
+                $$DriftIceTreaningsTableTableOrderingComposer(ComposerState(
+                    $state.db,
+                    $state.db.driftIceTreaningsTable,
+                    joinBuilder,
+                    parentComposers)));
+    return composer;
+  }
+}
+
+typedef $$DriftRockTreaningsTableTableCreateCompanionBuilder
+    = DriftRockTreaningsTableCompanion Function({
+  required String id,
+  required String districtId,
+  required String district,
+  required DateTime date,
+  Value<DateTime?> finish,
+  Value<DateTime?> start,
+  Value<String?> sectors,
+  Value<int> rowid,
+});
+typedef $$DriftRockTreaningsTableTableUpdateCompanionBuilder
+    = DriftRockTreaningsTableCompanion Function({
+  Value<String> id,
+  Value<String> districtId,
+  Value<String> district,
+  Value<DateTime> date,
+  Value<DateTime?> finish,
+  Value<DateTime?> start,
+  Value<String?> sectors,
+  Value<int> rowid,
+});
+
+class $$DriftRockTreaningsTableTableTableManager extends RootTableManager<
+    _$DriftDBLocalDataSource,
+    $DriftRockTreaningsTableTable,
+    DriftRockTreanings,
+    $$DriftRockTreaningsTableTableFilterComposer,
+    $$DriftRockTreaningsTableTableOrderingComposer,
+    $$DriftRockTreaningsTableTableCreateCompanionBuilder,
+    $$DriftRockTreaningsTableTableUpdateCompanionBuilder> {
+  $$DriftRockTreaningsTableTableTableManager(
+      _$DriftDBLocalDataSource db, $DriftRockTreaningsTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer: $$DriftRockTreaningsTableTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$DriftRockTreaningsTableTableOrderingComposer(
+              ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> districtId = const Value.absent(),
+            Value<String> district = const Value.absent(),
+            Value<DateTime> date = const Value.absent(),
+            Value<DateTime?> finish = const Value.absent(),
+            Value<DateTime?> start = const Value.absent(),
+            Value<String?> sectors = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftRockTreaningsTableCompanion(
+            id: id,
+            districtId: districtId,
+            district: district,
+            date: date,
+            finish: finish,
+            start: start,
+            sectors: sectors,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String districtId,
+            required String district,
+            required DateTime date,
+            Value<DateTime?> finish = const Value.absent(),
+            Value<DateTime?> start = const Value.absent(),
+            Value<String?> sectors = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftRockTreaningsTableCompanion.insert(
+            id: id,
+            districtId: districtId,
+            district: district,
+            date: date,
+            finish: finish,
+            start: start,
+            sectors: sectors,
+            rowid: rowid,
+          ),
+        ));
+}
+
+class $$DriftRockTreaningsTableTableFilterComposer extends FilterComposer<
+    _$DriftDBLocalDataSource, $DriftRockTreaningsTableTable> {
+  $$DriftRockTreaningsTableTableFilterComposer(super.$state);
+  ColumnFilters<String> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get districtId => $state.composableBuilder(
+      column: $state.table.districtId,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get district => $state.composableBuilder(
+      column: $state.table.district,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get date => $state.composableBuilder(
+      column: $state.table.date,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get finish => $state.composableBuilder(
+      column: $state.table.finish,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get start => $state.composableBuilder(
+      column: $state.table.start,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get sectors => $state.composableBuilder(
+      column: $state.table.sectors,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ComposableFilter driftRockAttemptsTableRefs(
+      ComposableFilter Function($$DriftRockAttemptsTableTableFilterComposer f)
+          f) {
+    final $$DriftRockAttemptsTableTableFilterComposer composer =
+        $state.composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.id,
+            referencedTable: $state.db.driftRockAttemptsTable,
+            getReferencedColumn: (t) => t.treaningId,
+            builder: (joinBuilder, parentComposers) =>
+                $$DriftRockAttemptsTableTableFilterComposer(ComposerState(
+                    $state.db,
+                    $state.db.driftRockAttemptsTable,
+                    joinBuilder,
+                    parentComposers)));
+    return f(composer);
+  }
+}
+
+class $$DriftRockTreaningsTableTableOrderingComposer extends OrderingComposer<
+    _$DriftDBLocalDataSource, $DriftRockTreaningsTableTable> {
+  $$DriftRockTreaningsTableTableOrderingComposer(super.$state);
+  ColumnOrderings<String> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get districtId => $state.composableBuilder(
+      column: $state.table.districtId,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get district => $state.composableBuilder(
+      column: $state.table.district,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get date => $state.composableBuilder(
+      column: $state.table.date,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get finish => $state.composableBuilder(
+      column: $state.table.finish,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get start => $state.composableBuilder(
+      column: $state.table.start,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get sectors => $state.composableBuilder(
+      column: $state.table.sectors,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+}
+
+typedef $$DriftRockAttemptsTableTableCreateCompanionBuilder
+    = DriftRockAttemptsTableCompanion Function({
+  required String id,
+  required String sector,
+  required String sectorId,
+  required String treaningId,
+  required String category,
+  Value<String?> route,
+  Value<String?> routeId,
+  required String style,
+  Value<DateTime?> finishTime,
+  Value<DateTime?> startTime,
+  required int suspensionCount,
+  required int fallCount,
+  required bool downClimbing,
+  required bool fail,
+  Value<String?> ascentType,
+  Value<int> rowid,
+});
+typedef $$DriftRockAttemptsTableTableUpdateCompanionBuilder
+    = DriftRockAttemptsTableCompanion Function({
+  Value<String> id,
+  Value<String> sector,
+  Value<String> sectorId,
+  Value<String> treaningId,
+  Value<String> category,
+  Value<String?> route,
+  Value<String?> routeId,
+  Value<String> style,
+  Value<DateTime?> finishTime,
+  Value<DateTime?> startTime,
+  Value<int> suspensionCount,
+  Value<int> fallCount,
+  Value<bool> downClimbing,
+  Value<bool> fail,
+  Value<String?> ascentType,
+  Value<int> rowid,
+});
+
+class $$DriftRockAttemptsTableTableTableManager extends RootTableManager<
+    _$DriftDBLocalDataSource,
+    $DriftRockAttemptsTableTable,
+    DriftRockAttempt,
+    $$DriftRockAttemptsTableTableFilterComposer,
+    $$DriftRockAttemptsTableTableOrderingComposer,
+    $$DriftRockAttemptsTableTableCreateCompanionBuilder,
+    $$DriftRockAttemptsTableTableUpdateCompanionBuilder> {
+  $$DriftRockAttemptsTableTableTableManager(
+      _$DriftDBLocalDataSource db, $DriftRockAttemptsTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer: $$DriftRockAttemptsTableTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$DriftRockAttemptsTableTableOrderingComposer(
+              ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> sector = const Value.absent(),
+            Value<String> sectorId = const Value.absent(),
+            Value<String> treaningId = const Value.absent(),
+            Value<String> category = const Value.absent(),
+            Value<String?> route = const Value.absent(),
+            Value<String?> routeId = const Value.absent(),
+            Value<String> style = const Value.absent(),
+            Value<DateTime?> finishTime = const Value.absent(),
+            Value<DateTime?> startTime = const Value.absent(),
+            Value<int> suspensionCount = const Value.absent(),
+            Value<int> fallCount = const Value.absent(),
+            Value<bool> downClimbing = const Value.absent(),
+            Value<bool> fail = const Value.absent(),
+            Value<String?> ascentType = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftRockAttemptsTableCompanion(
+            id: id,
+            sector: sector,
+            sectorId: sectorId,
+            treaningId: treaningId,
+            category: category,
+            route: route,
+            routeId: routeId,
+            style: style,
+            finishTime: finishTime,
+            startTime: startTime,
+            suspensionCount: suspensionCount,
+            fallCount: fallCount,
+            downClimbing: downClimbing,
+            fail: fail,
+            ascentType: ascentType,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String sector,
+            required String sectorId,
+            required String treaningId,
+            required String category,
+            Value<String?> route = const Value.absent(),
+            Value<String?> routeId = const Value.absent(),
+            required String style,
+            Value<DateTime?> finishTime = const Value.absent(),
+            Value<DateTime?> startTime = const Value.absent(),
+            required int suspensionCount,
+            required int fallCount,
+            required bool downClimbing,
+            required bool fail,
+            Value<String?> ascentType = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftRockAttemptsTableCompanion.insert(
+            id: id,
+            sector: sector,
+            sectorId: sectorId,
+            treaningId: treaningId,
+            category: category,
+            route: route,
+            routeId: routeId,
+            style: style,
+            finishTime: finishTime,
+            startTime: startTime,
+            suspensionCount: suspensionCount,
+            fallCount: fallCount,
+            downClimbing: downClimbing,
+            fail: fail,
+            ascentType: ascentType,
+            rowid: rowid,
+          ),
+        ));
+}
+
+class $$DriftRockAttemptsTableTableFilterComposer extends FilterComposer<
+    _$DriftDBLocalDataSource, $DriftRockAttemptsTableTable> {
+  $$DriftRockAttemptsTableTableFilterComposer(super.$state);
+  ColumnFilters<String> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get sector => $state.composableBuilder(
+      column: $state.table.sector,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get sectorId => $state.composableBuilder(
+      column: $state.table.sectorId,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get category => $state.composableBuilder(
+      column: $state.table.category,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get route => $state.composableBuilder(
+      column: $state.table.route,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get routeId => $state.composableBuilder(
+      column: $state.table.routeId,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get style => $state.composableBuilder(
+      column: $state.table.style,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get finishTime => $state.composableBuilder(
+      column: $state.table.finishTime,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get startTime => $state.composableBuilder(
+      column: $state.table.startTime,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<int> get suspensionCount => $state.composableBuilder(
+      column: $state.table.suspensionCount,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<int> get fallCount => $state.composableBuilder(
+      column: $state.table.fallCount,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<bool> get downClimbing => $state.composableBuilder(
+      column: $state.table.downClimbing,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<bool> get fail => $state.composableBuilder(
+      column: $state.table.fail,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get ascentType => $state.composableBuilder(
+      column: $state.table.ascentType,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  $$DriftRockTreaningsTableTableFilterComposer get treaningId {
+    final $$DriftRockTreaningsTableTableFilterComposer composer =
+        $state.composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.treaningId,
+            referencedTable: $state.db.driftRockTreaningsTable,
+            getReferencedColumn: (t) => t.id,
+            builder: (joinBuilder, parentComposers) =>
+                $$DriftRockTreaningsTableTableFilterComposer(ComposerState(
+                    $state.db,
+                    $state.db.driftRockTreaningsTable,
+                    joinBuilder,
+                    parentComposers)));
+    return composer;
+  }
+}
+
+class $$DriftRockAttemptsTableTableOrderingComposer extends OrderingComposer<
+    _$DriftDBLocalDataSource, $DriftRockAttemptsTableTable> {
+  $$DriftRockAttemptsTableTableOrderingComposer(super.$state);
+  ColumnOrderings<String> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get sector => $state.composableBuilder(
+      column: $state.table.sector,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get sectorId => $state.composableBuilder(
+      column: $state.table.sectorId,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get category => $state.composableBuilder(
+      column: $state.table.category,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get route => $state.composableBuilder(
+      column: $state.table.route,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get routeId => $state.composableBuilder(
+      column: $state.table.routeId,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get style => $state.composableBuilder(
+      column: $state.table.style,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get finishTime => $state.composableBuilder(
+      column: $state.table.finishTime,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get startTime => $state.composableBuilder(
+      column: $state.table.startTime,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<int> get suspensionCount => $state.composableBuilder(
+      column: $state.table.suspensionCount,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<int> get fallCount => $state.composableBuilder(
+      column: $state.table.fallCount,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<bool> get downClimbing => $state.composableBuilder(
+      column: $state.table.downClimbing,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<bool> get fail => $state.composableBuilder(
+      column: $state.table.fail,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get ascentType => $state.composableBuilder(
+      column: $state.table.ascentType,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  $$DriftRockTreaningsTableTableOrderingComposer get treaningId {
+    final $$DriftRockTreaningsTableTableOrderingComposer composer =
+        $state.composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.treaningId,
+            referencedTable: $state.db.driftRockTreaningsTable,
+            getReferencedColumn: (t) => t.id,
+            builder: (joinBuilder, parentComposers) =>
+                $$DriftRockTreaningsTableTableOrderingComposer(ComposerState(
+                    $state.db,
+                    $state.db.driftRockTreaningsTable,
+                    joinBuilder,
+                    parentComposers)));
+    return composer;
+  }
+}
+
+typedef $$DriftTrekkingPathsTableTableCreateCompanionBuilder
+    = DriftTrekkingPathsTableCompanion Function({
+  required String id,
+  required String region,
+  Value<String?> trekId,
+  Value<String?> trek,
+  required String type,
+  required DateTime date,
+  Value<DateTime?> finish,
+  Value<DateTime?> start,
+  Value<String?> currentSection,
+  required int climbDown,
+  required int climbUp,
+  required bool turn,
+  required double length,
+  Value<int> rowid,
+});
+typedef $$DriftTrekkingPathsTableTableUpdateCompanionBuilder
+    = DriftTrekkingPathsTableCompanion Function({
+  Value<String> id,
+  Value<String> region,
+  Value<String?> trekId,
+  Value<String?> trek,
+  Value<String> type,
+  Value<DateTime> date,
+  Value<DateTime?> finish,
+  Value<DateTime?> start,
+  Value<String?> currentSection,
+  Value<int> climbDown,
+  Value<int> climbUp,
+  Value<bool> turn,
+  Value<double> length,
+  Value<int> rowid,
+});
+
+class $$DriftTrekkingPathsTableTableTableManager extends RootTableManager<
+    _$DriftDBLocalDataSource,
+    $DriftTrekkingPathsTableTable,
+    DriftTrekkingPath,
+    $$DriftTrekkingPathsTableTableFilterComposer,
+    $$DriftTrekkingPathsTableTableOrderingComposer,
+    $$DriftTrekkingPathsTableTableCreateCompanionBuilder,
+    $$DriftTrekkingPathsTableTableUpdateCompanionBuilder> {
+  $$DriftTrekkingPathsTableTableTableManager(
+      _$DriftDBLocalDataSource db, $DriftTrekkingPathsTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer: $$DriftTrekkingPathsTableTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$DriftTrekkingPathsTableTableOrderingComposer(
+              ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> region = const Value.absent(),
+            Value<String?> trekId = const Value.absent(),
+            Value<String?> trek = const Value.absent(),
+            Value<String> type = const Value.absent(),
+            Value<DateTime> date = const Value.absent(),
+            Value<DateTime?> finish = const Value.absent(),
+            Value<DateTime?> start = const Value.absent(),
+            Value<String?> currentSection = const Value.absent(),
+            Value<int> climbDown = const Value.absent(),
+            Value<int> climbUp = const Value.absent(),
+            Value<bool> turn = const Value.absent(),
+            Value<double> length = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftTrekkingPathsTableCompanion(
+            id: id,
+            region: region,
+            trekId: trekId,
+            trek: trek,
+            type: type,
+            date: date,
+            finish: finish,
+            start: start,
+            currentSection: currentSection,
+            climbDown: climbDown,
+            climbUp: climbUp,
+            turn: turn,
+            length: length,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String region,
+            Value<String?> trekId = const Value.absent(),
+            Value<String?> trek = const Value.absent(),
+            required String type,
+            required DateTime date,
+            Value<DateTime?> finish = const Value.absent(),
+            Value<DateTime?> start = const Value.absent(),
+            Value<String?> currentSection = const Value.absent(),
+            required int climbDown,
+            required int climbUp,
+            required bool turn,
+            required double length,
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftTrekkingPathsTableCompanion.insert(
+            id: id,
+            region: region,
+            trekId: trekId,
+            trek: trek,
+            type: type,
+            date: date,
+            finish: finish,
+            start: start,
+            currentSection: currentSection,
+            climbDown: climbDown,
+            climbUp: climbUp,
+            turn: turn,
+            length: length,
+            rowid: rowid,
+          ),
+        ));
+}
+
+class $$DriftTrekkingPathsTableTableFilterComposer extends FilterComposer<
+    _$DriftDBLocalDataSource, $DriftTrekkingPathsTableTable> {
+  $$DriftTrekkingPathsTableTableFilterComposer(super.$state);
+  ColumnFilters<String> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get region => $state.composableBuilder(
+      column: $state.table.region,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get trekId => $state.composableBuilder(
+      column: $state.table.trekId,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get trek => $state.composableBuilder(
+      column: $state.table.trek,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get type => $state.composableBuilder(
+      column: $state.table.type,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get date => $state.composableBuilder(
+      column: $state.table.date,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get finish => $state.composableBuilder(
+      column: $state.table.finish,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get start => $state.composableBuilder(
+      column: $state.table.start,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get currentSection => $state.composableBuilder(
+      column: $state.table.currentSection,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<int> get climbDown => $state.composableBuilder(
+      column: $state.table.climbDown,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<int> get climbUp => $state.composableBuilder(
+      column: $state.table.climbUp,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<bool> get turn => $state.composableBuilder(
+      column: $state.table.turn,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<double> get length => $state.composableBuilder(
+      column: $state.table.length,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ComposableFilter driftTrekkingPathEventsTableRefs(
+      ComposableFilter Function(
+              $$DriftTrekkingPathEventsTableTableFilterComposer f)
+          f) {
+    final $$DriftTrekkingPathEventsTableTableFilterComposer composer =
+        $state.composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.id,
+            referencedTable: $state.db.driftTrekkingPathEventsTable,
+            getReferencedColumn: (t) => t.pathId,
+            builder: (joinBuilder, parentComposers) =>
+                $$DriftTrekkingPathEventsTableTableFilterComposer(ComposerState(
+                    $state.db,
+                    $state.db.driftTrekkingPathEventsTable,
+                    joinBuilder,
+                    parentComposers)));
+    return f(composer);
+  }
+}
+
+class $$DriftTrekkingPathsTableTableOrderingComposer extends OrderingComposer<
+    _$DriftDBLocalDataSource, $DriftTrekkingPathsTableTable> {
+  $$DriftTrekkingPathsTableTableOrderingComposer(super.$state);
+  ColumnOrderings<String> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get region => $state.composableBuilder(
+      column: $state.table.region,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get trekId => $state.composableBuilder(
+      column: $state.table.trekId,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get trek => $state.composableBuilder(
+      column: $state.table.trek,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get type => $state.composableBuilder(
+      column: $state.table.type,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get date => $state.composableBuilder(
+      column: $state.table.date,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get finish => $state.composableBuilder(
+      column: $state.table.finish,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get start => $state.composableBuilder(
+      column: $state.table.start,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get currentSection => $state.composableBuilder(
+      column: $state.table.currentSection,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<int> get climbDown => $state.composableBuilder(
+      column: $state.table.climbDown,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<int> get climbUp => $state.composableBuilder(
+      column: $state.table.climbUp,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<bool> get turn => $state.composableBuilder(
+      column: $state.table.turn,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<double> get length => $state.composableBuilder(
+      column: $state.table.length,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+}
+
+typedef $$DriftTrekkingPathEventsTableTableCreateCompanionBuilder
+    = DriftTrekkingPathEventsTableCompanion Function({
+  required String id,
+  required String type,
+  required String pathId,
+  Value<String?> point,
+  Value<String?> pointId,
+  required DateTime time,
+  Value<int> rowid,
+});
+typedef $$DriftTrekkingPathEventsTableTableUpdateCompanionBuilder
+    = DriftTrekkingPathEventsTableCompanion Function({
+  Value<String> id,
+  Value<String> type,
+  Value<String> pathId,
+  Value<String?> point,
+  Value<String?> pointId,
+  Value<DateTime> time,
+  Value<int> rowid,
+});
+
+class $$DriftTrekkingPathEventsTableTableTableManager extends RootTableManager<
+    _$DriftDBLocalDataSource,
+    $DriftTrekkingPathEventsTableTable,
+    DriftTrekkingPathEvent,
+    $$DriftTrekkingPathEventsTableTableFilterComposer,
+    $$DriftTrekkingPathEventsTableTableOrderingComposer,
+    $$DriftTrekkingPathEventsTableTableCreateCompanionBuilder,
+    $$DriftTrekkingPathEventsTableTableUpdateCompanionBuilder> {
+  $$DriftTrekkingPathEventsTableTableTableManager(
+      _$DriftDBLocalDataSource db, $DriftTrekkingPathEventsTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer: $$DriftTrekkingPathEventsTableTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$DriftTrekkingPathEventsTableTableOrderingComposer(
+              ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> type = const Value.absent(),
+            Value<String> pathId = const Value.absent(),
+            Value<String?> point = const Value.absent(),
+            Value<String?> pointId = const Value.absent(),
+            Value<DateTime> time = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftTrekkingPathEventsTableCompanion(
+            id: id,
+            type: type,
+            pathId: pathId,
+            point: point,
+            pointId: pointId,
+            time: time,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String type,
+            required String pathId,
+            Value<String?> point = const Value.absent(),
+            Value<String?> pointId = const Value.absent(),
+            required DateTime time,
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftTrekkingPathEventsTableCompanion.insert(
+            id: id,
+            type: type,
+            pathId: pathId,
+            point: point,
+            pointId: pointId,
+            time: time,
+            rowid: rowid,
+          ),
+        ));
+}
+
+class $$DriftTrekkingPathEventsTableTableFilterComposer extends FilterComposer<
+    _$DriftDBLocalDataSource, $DriftTrekkingPathEventsTableTable> {
+  $$DriftTrekkingPathEventsTableTableFilterComposer(super.$state);
+  ColumnFilters<String> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get type => $state.composableBuilder(
+      column: $state.table.type,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get point => $state.composableBuilder(
+      column: $state.table.point,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get pointId => $state.composableBuilder(
+      column: $state.table.pointId,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get time => $state.composableBuilder(
+      column: $state.table.time,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  $$DriftTrekkingPathsTableTableFilterComposer get pathId {
+    final $$DriftTrekkingPathsTableTableFilterComposer composer =
+        $state.composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.pathId,
+            referencedTable: $state.db.driftTrekkingPathsTable,
+            getReferencedColumn: (t) => t.id,
+            builder: (joinBuilder, parentComposers) =>
+                $$DriftTrekkingPathsTableTableFilterComposer(ComposerState(
+                    $state.db,
+                    $state.db.driftTrekkingPathsTable,
+                    joinBuilder,
+                    parentComposers)));
+    return composer;
+  }
+}
+
+class $$DriftTrekkingPathEventsTableTableOrderingComposer
+    extends OrderingComposer<_$DriftDBLocalDataSource,
+        $DriftTrekkingPathEventsTableTable> {
+  $$DriftTrekkingPathEventsTableTableOrderingComposer(super.$state);
+  ColumnOrderings<String> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get type => $state.composableBuilder(
+      column: $state.table.type,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get point => $state.composableBuilder(
+      column: $state.table.point,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get pointId => $state.composableBuilder(
+      column: $state.table.pointId,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get time => $state.composableBuilder(
+      column: $state.table.time,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  $$DriftTrekkingPathsTableTableOrderingComposer get pathId {
+    final $$DriftTrekkingPathsTableTableOrderingComposer composer =
+        $state.composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.pathId,
+            referencedTable: $state.db.driftTrekkingPathsTable,
+            getReferencedColumn: (t) => t.id,
+            builder: (joinBuilder, parentComposers) =>
+                $$DriftTrekkingPathsTableTableOrderingComposer(ComposerState(
+                    $state.db,
+                    $state.db.driftTrekkingPathsTable,
+                    joinBuilder,
+                    parentComposers)));
+    return composer;
+  }
+}
+
+typedef $$DriftTechniqueTreaningsTableTableCreateCompanionBuilder
+    = DriftTechniqueTreaningsTableCompanion Function({
+  required String id,
+  required String comment,
+  required DateTime date,
+  Value<DateTime?> finish,
+  Value<DateTime?> start,
+  Value<int> rowid,
+});
+typedef $$DriftTechniqueTreaningsTableTableUpdateCompanionBuilder
+    = DriftTechniqueTreaningsTableCompanion Function({
+  Value<String> id,
+  Value<String> comment,
+  Value<DateTime> date,
+  Value<DateTime?> finish,
+  Value<DateTime?> start,
+  Value<int> rowid,
+});
+
+class $$DriftTechniqueTreaningsTableTableTableManager extends RootTableManager<
+    _$DriftDBLocalDataSource,
+    $DriftTechniqueTreaningsTableTable,
+    DriftTechniqueTreaning,
+    $$DriftTechniqueTreaningsTableTableFilterComposer,
+    $$DriftTechniqueTreaningsTableTableOrderingComposer,
+    $$DriftTechniqueTreaningsTableTableCreateCompanionBuilder,
+    $$DriftTechniqueTreaningsTableTableUpdateCompanionBuilder> {
+  $$DriftTechniqueTreaningsTableTableTableManager(
+      _$DriftDBLocalDataSource db, $DriftTechniqueTreaningsTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer: $$DriftTechniqueTreaningsTableTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$DriftTechniqueTreaningsTableTableOrderingComposer(
+              ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> comment = const Value.absent(),
+            Value<DateTime> date = const Value.absent(),
+            Value<DateTime?> finish = const Value.absent(),
+            Value<DateTime?> start = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftTechniqueTreaningsTableCompanion(
+            id: id,
+            comment: comment,
+            date: date,
+            finish: finish,
+            start: start,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String comment,
+            required DateTime date,
+            Value<DateTime?> finish = const Value.absent(),
+            Value<DateTime?> start = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftTechniqueTreaningsTableCompanion.insert(
+            id: id,
+            comment: comment,
+            date: date,
+            finish: finish,
+            start: start,
+            rowid: rowid,
+          ),
+        ));
+}
+
+class $$DriftTechniqueTreaningsTableTableFilterComposer extends FilterComposer<
+    _$DriftDBLocalDataSource, $DriftTechniqueTreaningsTableTable> {
+  $$DriftTechniqueTreaningsTableTableFilterComposer(super.$state);
+  ColumnFilters<String> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get comment => $state.composableBuilder(
+      column: $state.table.comment,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get date => $state.composableBuilder(
+      column: $state.table.date,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get finish => $state.composableBuilder(
+      column: $state.table.finish,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get start => $state.composableBuilder(
+      column: $state.table.start,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ComposableFilter driftTechniqueTreaningItemsTableRefs(
+      ComposableFilter Function(
+              $$DriftTechniqueTreaningItemsTableTableFilterComposer f)
+          f) {
+    final $$DriftTechniqueTreaningItemsTableTableFilterComposer composer =
+        $state.composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.id,
+            referencedTable: $state.db.driftTechniqueTreaningItemsTable,
+            getReferencedColumn: (t) => t.treaningId,
+            builder: (joinBuilder, parentComposers) =>
+                $$DriftTechniqueTreaningItemsTableTableFilterComposer(
+                    ComposerState(
+                        $state.db,
+                        $state.db.driftTechniqueTreaningItemsTable,
+                        joinBuilder,
+                        parentComposers)));
+    return f(composer);
+  }
+}
+
+class $$DriftTechniqueTreaningsTableTableOrderingComposer
+    extends OrderingComposer<_$DriftDBLocalDataSource,
+        $DriftTechniqueTreaningsTableTable> {
+  $$DriftTechniqueTreaningsTableTableOrderingComposer(super.$state);
+  ColumnOrderings<String> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get comment => $state.composableBuilder(
+      column: $state.table.comment,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get date => $state.composableBuilder(
+      column: $state.table.date,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get finish => $state.composableBuilder(
+      column: $state.table.finish,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get start => $state.composableBuilder(
+      column: $state.table.start,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+}
+
+typedef $$DriftTechniqueTreaningItemsTableTableCreateCompanionBuilder
+    = DriftTechniqueTreaningItemsTableCompanion Function({
+  required String id,
+  required String comment,
+  required String treaningId,
+  Value<String?> options,
+  Value<DateTime?> finishTime,
+  Value<DateTime?> startTime,
+  required String group,
+  required String technique,
+  required String techniqueId,
+  required String groupId,
+  Value<int> rowid,
+});
+typedef $$DriftTechniqueTreaningItemsTableTableUpdateCompanionBuilder
+    = DriftTechniqueTreaningItemsTableCompanion Function({
+  Value<String> id,
+  Value<String> comment,
+  Value<String> treaningId,
+  Value<String?> options,
+  Value<DateTime?> finishTime,
+  Value<DateTime?> startTime,
+  Value<String> group,
+  Value<String> technique,
+  Value<String> techniqueId,
+  Value<String> groupId,
+  Value<int> rowid,
+});
+
+class $$DriftTechniqueTreaningItemsTableTableTableManager
+    extends RootTableManager<
+        _$DriftDBLocalDataSource,
+        $DriftTechniqueTreaningItemsTableTable,
+        DriftTechniqueTreaningItem,
+        $$DriftTechniqueTreaningItemsTableTableFilterComposer,
+        $$DriftTechniqueTreaningItemsTableTableOrderingComposer,
+        $$DriftTechniqueTreaningItemsTableTableCreateCompanionBuilder,
+        $$DriftTechniqueTreaningItemsTableTableUpdateCompanionBuilder> {
+  $$DriftTechniqueTreaningItemsTableTableTableManager(
+      _$DriftDBLocalDataSource db, $DriftTechniqueTreaningItemsTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer:
+              $$DriftTechniqueTreaningItemsTableTableFilterComposer(
+                  ComposerState(db, table)),
+          orderingComposer:
+              $$DriftTechniqueTreaningItemsTableTableOrderingComposer(
+                  ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> comment = const Value.absent(),
+            Value<String> treaningId = const Value.absent(),
+            Value<String?> options = const Value.absent(),
+            Value<DateTime?> finishTime = const Value.absent(),
+            Value<DateTime?> startTime = const Value.absent(),
+            Value<String> group = const Value.absent(),
+            Value<String> technique = const Value.absent(),
+            Value<String> techniqueId = const Value.absent(),
+            Value<String> groupId = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftTechniqueTreaningItemsTableCompanion(
+            id: id,
+            comment: comment,
+            treaningId: treaningId,
+            options: options,
+            finishTime: finishTime,
+            startTime: startTime,
+            group: group,
+            technique: technique,
+            techniqueId: techniqueId,
+            groupId: groupId,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String comment,
+            required String treaningId,
+            Value<String?> options = const Value.absent(),
+            Value<DateTime?> finishTime = const Value.absent(),
+            Value<DateTime?> startTime = const Value.absent(),
+            required String group,
+            required String technique,
+            required String techniqueId,
+            required String groupId,
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftTechniqueTreaningItemsTableCompanion.insert(
+            id: id,
+            comment: comment,
+            treaningId: treaningId,
+            options: options,
+            finishTime: finishTime,
+            startTime: startTime,
+            group: group,
+            technique: technique,
+            techniqueId: techniqueId,
+            groupId: groupId,
+            rowid: rowid,
+          ),
+        ));
+}
+
+class $$DriftTechniqueTreaningItemsTableTableFilterComposer
+    extends FilterComposer<_$DriftDBLocalDataSource,
+        $DriftTechniqueTreaningItemsTableTable> {
+  $$DriftTechniqueTreaningItemsTableTableFilterComposer(super.$state);
+  ColumnFilters<String> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get comment => $state.composableBuilder(
+      column: $state.table.comment,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get options => $state.composableBuilder(
+      column: $state.table.options,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get finishTime => $state.composableBuilder(
+      column: $state.table.finishTime,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get startTime => $state.composableBuilder(
+      column: $state.table.startTime,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get group => $state.composableBuilder(
+      column: $state.table.group,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get technique => $state.composableBuilder(
+      column: $state.table.technique,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get techniqueId => $state.composableBuilder(
+      column: $state.table.techniqueId,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get groupId => $state.composableBuilder(
+      column: $state.table.groupId,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  $$DriftTechniqueTreaningsTableTableFilterComposer get treaningId {
+    final $$DriftTechniqueTreaningsTableTableFilterComposer composer =
+        $state.composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.treaningId,
+            referencedTable: $state.db.driftTechniqueTreaningsTable,
+            getReferencedColumn: (t) => t.id,
+            builder: (joinBuilder, parentComposers) =>
+                $$DriftTechniqueTreaningsTableTableFilterComposer(ComposerState(
+                    $state.db,
+                    $state.db.driftTechniqueTreaningsTable,
+                    joinBuilder,
+                    parentComposers)));
+    return composer;
+  }
+}
+
+class $$DriftTechniqueTreaningItemsTableTableOrderingComposer
+    extends OrderingComposer<_$DriftDBLocalDataSource,
+        $DriftTechniqueTreaningItemsTableTable> {
+  $$DriftTechniqueTreaningItemsTableTableOrderingComposer(super.$state);
+  ColumnOrderings<String> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get comment => $state.composableBuilder(
+      column: $state.table.comment,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get options => $state.composableBuilder(
+      column: $state.table.options,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get finishTime => $state.composableBuilder(
+      column: $state.table.finishTime,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get startTime => $state.composableBuilder(
+      column: $state.table.startTime,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get group => $state.composableBuilder(
+      column: $state.table.group,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get technique => $state.composableBuilder(
+      column: $state.table.technique,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get techniqueId => $state.composableBuilder(
+      column: $state.table.techniqueId,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get groupId => $state.composableBuilder(
+      column: $state.table.groupId,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  $$DriftTechniqueTreaningsTableTableOrderingComposer get treaningId {
+    final $$DriftTechniqueTreaningsTableTableOrderingComposer composer =
+        $state.composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.treaningId,
+            referencedTable: $state.db.driftTechniqueTreaningsTable,
+            getReferencedColumn: (t) => t.id,
+            builder: (joinBuilder, parentComposers) =>
+                $$DriftTechniqueTreaningsTableTableOrderingComposer(
+                    ComposerState(
+                        $state.db,
+                        $state.db.driftTechniqueTreaningsTable,
+                        joinBuilder,
+                        parentComposers)));
+    return composer;
+  }
+}
+
+typedef $$DriftAscensionsTableTableCreateCompanionBuilder
+    = DriftAscensionsTableCompanion Function({
+  required String id,
+  required String mountain,
+  required String mountainId,
+  Value<String?> routeId,
+  Value<String?> route,
+  required DateTime date,
+  Value<DateTime?> finish,
+  Value<DateTime?> start,
+  Value<int> rowid,
+});
+typedef $$DriftAscensionsTableTableUpdateCompanionBuilder
+    = DriftAscensionsTableCompanion Function({
+  Value<String> id,
+  Value<String> mountain,
+  Value<String> mountainId,
+  Value<String?> routeId,
+  Value<String?> route,
+  Value<DateTime> date,
+  Value<DateTime?> finish,
+  Value<DateTime?> start,
+  Value<int> rowid,
+});
+
+class $$DriftAscensionsTableTableTableManager extends RootTableManager<
+    _$DriftDBLocalDataSource,
+    $DriftAscensionsTableTable,
+    DriftAscension,
+    $$DriftAscensionsTableTableFilterComposer,
+    $$DriftAscensionsTableTableOrderingComposer,
+    $$DriftAscensionsTableTableCreateCompanionBuilder,
+    $$DriftAscensionsTableTableUpdateCompanionBuilder> {
+  $$DriftAscensionsTableTableTableManager(
+      _$DriftDBLocalDataSource db, $DriftAscensionsTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer: $$DriftAscensionsTableTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$DriftAscensionsTableTableOrderingComposer(
+              ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> mountain = const Value.absent(),
+            Value<String> mountainId = const Value.absent(),
+            Value<String?> routeId = const Value.absent(),
+            Value<String?> route = const Value.absent(),
+            Value<DateTime> date = const Value.absent(),
+            Value<DateTime?> finish = const Value.absent(),
+            Value<DateTime?> start = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftAscensionsTableCompanion(
+            id: id,
+            mountain: mountain,
+            mountainId: mountainId,
+            routeId: routeId,
+            route: route,
+            date: date,
+            finish: finish,
+            start: start,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String mountain,
+            required String mountainId,
+            Value<String?> routeId = const Value.absent(),
+            Value<String?> route = const Value.absent(),
+            required DateTime date,
+            Value<DateTime?> finish = const Value.absent(),
+            Value<DateTime?> start = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftAscensionsTableCompanion.insert(
+            id: id,
+            mountain: mountain,
+            mountainId: mountainId,
+            routeId: routeId,
+            route: route,
+            date: date,
+            finish: finish,
+            start: start,
+            rowid: rowid,
+          ),
+        ));
+}
+
+class $$DriftAscensionsTableTableFilterComposer extends FilterComposer<
+    _$DriftDBLocalDataSource, $DriftAscensionsTableTable> {
+  $$DriftAscensionsTableTableFilterComposer(super.$state);
+  ColumnFilters<String> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get mountain => $state.composableBuilder(
+      column: $state.table.mountain,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get mountainId => $state.composableBuilder(
+      column: $state.table.mountainId,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get routeId => $state.composableBuilder(
+      column: $state.table.routeId,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get route => $state.composableBuilder(
+      column: $state.table.route,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get date => $state.composableBuilder(
+      column: $state.table.date,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get finish => $state.composableBuilder(
+      column: $state.table.finish,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get start => $state.composableBuilder(
+      column: $state.table.start,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ComposableFilter driftAscensionEventsTableRefs(
+      ComposableFilter Function(
+              $$DriftAscensionEventsTableTableFilterComposer f)
+          f) {
+    final $$DriftAscensionEventsTableTableFilterComposer composer =
+        $state.composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.id,
+            referencedTable: $state.db.driftAscensionEventsTable,
+            getReferencedColumn: (t) => t.ascensionId,
+            builder: (joinBuilder, parentComposers) =>
+                $$DriftAscensionEventsTableTableFilterComposer(ComposerState(
+                    $state.db,
+                    $state.db.driftAscensionEventsTable,
+                    joinBuilder,
+                    parentComposers)));
+    return f(composer);
+  }
+}
+
+class $$DriftAscensionsTableTableOrderingComposer extends OrderingComposer<
+    _$DriftDBLocalDataSource, $DriftAscensionsTableTable> {
+  $$DriftAscensionsTableTableOrderingComposer(super.$state);
+  ColumnOrderings<String> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get mountain => $state.composableBuilder(
+      column: $state.table.mountain,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get mountainId => $state.composableBuilder(
+      column: $state.table.mountainId,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get routeId => $state.composableBuilder(
+      column: $state.table.routeId,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get route => $state.composableBuilder(
+      column: $state.table.route,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get date => $state.composableBuilder(
+      column: $state.table.date,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get finish => $state.composableBuilder(
+      column: $state.table.finish,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get start => $state.composableBuilder(
+      column: $state.table.start,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+}
+
+typedef $$DriftAscensionEventsTableTableCreateCompanionBuilder
+    = DriftAscensionEventsTableCompanion Function({
+  required String id,
+  required String type,
+  required String ascensionId,
+  Value<DateTime?> time,
+  Value<DateTime?> planedTime,
+  Value<int> rowid,
+});
+typedef $$DriftAscensionEventsTableTableUpdateCompanionBuilder
+    = DriftAscensionEventsTableCompanion Function({
+  Value<String> id,
+  Value<String> type,
+  Value<String> ascensionId,
+  Value<DateTime?> time,
+  Value<DateTime?> planedTime,
+  Value<int> rowid,
+});
+
+class $$DriftAscensionEventsTableTableTableManager extends RootTableManager<
+    _$DriftDBLocalDataSource,
+    $DriftAscensionEventsTableTable,
+    DriftAscensionEvent,
+    $$DriftAscensionEventsTableTableFilterComposer,
+    $$DriftAscensionEventsTableTableOrderingComposer,
+    $$DriftAscensionEventsTableTableCreateCompanionBuilder,
+    $$DriftAscensionEventsTableTableUpdateCompanionBuilder> {
+  $$DriftAscensionEventsTableTableTableManager(
+      _$DriftDBLocalDataSource db, $DriftAscensionEventsTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer: $$DriftAscensionEventsTableTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$DriftAscensionEventsTableTableOrderingComposer(
+              ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> type = const Value.absent(),
+            Value<String> ascensionId = const Value.absent(),
+            Value<DateTime?> time = const Value.absent(),
+            Value<DateTime?> planedTime = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftAscensionEventsTableCompanion(
+            id: id,
+            type: type,
+            ascensionId: ascensionId,
+            time: time,
+            planedTime: planedTime,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String type,
+            required String ascensionId,
+            Value<DateTime?> time = const Value.absent(),
+            Value<DateTime?> planedTime = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftAscensionEventsTableCompanion.insert(
+            id: id,
+            type: type,
+            ascensionId: ascensionId,
+            time: time,
+            planedTime: planedTime,
+            rowid: rowid,
+          ),
+        ));
+}
+
+class $$DriftAscensionEventsTableTableFilterComposer extends FilterComposer<
+    _$DriftDBLocalDataSource, $DriftAscensionEventsTableTable> {
+  $$DriftAscensionEventsTableTableFilterComposer(super.$state);
+  ColumnFilters<String> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get type => $state.composableBuilder(
+      column: $state.table.type,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get time => $state.composableBuilder(
+      column: $state.table.time,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get planedTime => $state.composableBuilder(
+      column: $state.table.planedTime,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  $$DriftAscensionsTableTableFilterComposer get ascensionId {
+    final $$DriftAscensionsTableTableFilterComposer composer =
+        $state.composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.ascensionId,
+            referencedTable: $state.db.driftAscensionsTable,
+            getReferencedColumn: (t) => t.id,
+            builder: (joinBuilder, parentComposers) =>
+                $$DriftAscensionsTableTableFilterComposer(ComposerState(
+                    $state.db,
+                    $state.db.driftAscensionsTable,
+                    joinBuilder,
+                    parentComposers)));
+    return composer;
+  }
+}
+
+class $$DriftAscensionEventsTableTableOrderingComposer extends OrderingComposer<
+    _$DriftDBLocalDataSource, $DriftAscensionEventsTableTable> {
+  $$DriftAscensionEventsTableTableOrderingComposer(super.$state);
+  ColumnOrderings<String> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get type => $state.composableBuilder(
+      column: $state.table.type,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get time => $state.composableBuilder(
+      column: $state.table.time,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get planedTime => $state.composableBuilder(
+      column: $state.table.planedTime,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  $$DriftAscensionsTableTableOrderingComposer get ascensionId {
+    final $$DriftAscensionsTableTableOrderingComposer composer =
+        $state.composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.ascensionId,
+            referencedTable: $state.db.driftAscensionsTable,
+            getReferencedColumn: (t) => t.id,
+            builder: (joinBuilder, parentComposers) =>
+                $$DriftAscensionsTableTableOrderingComposer(ComposerState(
+                    $state.db,
+                    $state.db.driftAscensionsTable,
+                    joinBuilder,
+                    parentComposers)));
+    return composer;
+  }
+}
+
+typedef $$DriftTravelsTableTableCreateCompanionBuilder
+    = DriftTravelsTableCompanion Function({
+  required String id,
+  required DateTime date,
+  Value<DateTime?> finish,
+  Value<DateTime?> start,
+  required String regions,
+  required String name,
+  required String image,
+  required String description,
+  required String currencies,
+  required String status,
+  required int budgetCurrency,
+  Value<int> rowid,
+});
+typedef $$DriftTravelsTableTableUpdateCompanionBuilder
+    = DriftTravelsTableCompanion Function({
+  Value<String> id,
+  Value<DateTime> date,
+  Value<DateTime?> finish,
+  Value<DateTime?> start,
+  Value<String> regions,
+  Value<String> name,
+  Value<String> image,
+  Value<String> description,
+  Value<String> currencies,
+  Value<String> status,
+  Value<int> budgetCurrency,
+  Value<int> rowid,
+});
+
+class $$DriftTravelsTableTableTableManager extends RootTableManager<
+    _$DriftDBLocalDataSource,
+    $DriftTravelsTableTable,
+    DriftTravel,
+    $$DriftTravelsTableTableFilterComposer,
+    $$DriftTravelsTableTableOrderingComposer,
+    $$DriftTravelsTableTableCreateCompanionBuilder,
+    $$DriftTravelsTableTableUpdateCompanionBuilder> {
+  $$DriftTravelsTableTableTableManager(
+      _$DriftDBLocalDataSource db, $DriftTravelsTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer:
+              $$DriftTravelsTableTableFilterComposer(ComposerState(db, table)),
+          orderingComposer: $$DriftTravelsTableTableOrderingComposer(
+              ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<DateTime> date = const Value.absent(),
+            Value<DateTime?> finish = const Value.absent(),
+            Value<DateTime?> start = const Value.absent(),
+            Value<String> regions = const Value.absent(),
+            Value<String> name = const Value.absent(),
+            Value<String> image = const Value.absent(),
+            Value<String> description = const Value.absent(),
+            Value<String> currencies = const Value.absent(),
+            Value<String> status = const Value.absent(),
+            Value<int> budgetCurrency = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftTravelsTableCompanion(
+            id: id,
+            date: date,
+            finish: finish,
+            start: start,
+            regions: regions,
+            name: name,
+            image: image,
+            description: description,
+            currencies: currencies,
+            status: status,
+            budgetCurrency: budgetCurrency,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required DateTime date,
+            Value<DateTime?> finish = const Value.absent(),
+            Value<DateTime?> start = const Value.absent(),
+            required String regions,
+            required String name,
+            required String image,
+            required String description,
+            required String currencies,
+            required String status,
+            required int budgetCurrency,
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftTravelsTableCompanion.insert(
+            id: id,
+            date: date,
+            finish: finish,
+            start: start,
+            regions: regions,
+            name: name,
+            image: image,
+            description: description,
+            currencies: currencies,
+            status: status,
+            budgetCurrency: budgetCurrency,
+            rowid: rowid,
+          ),
+        ));
+}
+
+class $$DriftTravelsTableTableFilterComposer
+    extends FilterComposer<_$DriftDBLocalDataSource, $DriftTravelsTableTable> {
+  $$DriftTravelsTableTableFilterComposer(super.$state);
+  ColumnFilters<String> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get date => $state.composableBuilder(
+      column: $state.table.date,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get finish => $state.composableBuilder(
+      column: $state.table.finish,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get start => $state.composableBuilder(
+      column: $state.table.start,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get regions => $state.composableBuilder(
+      column: $state.table.regions,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get name => $state.composableBuilder(
+      column: $state.table.name,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get image => $state.composableBuilder(
+      column: $state.table.image,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get description => $state.composableBuilder(
+      column: $state.table.description,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get currencies => $state.composableBuilder(
+      column: $state.table.currencies,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get status => $state.composableBuilder(
+      column: $state.table.status,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<int> get budgetCurrency => $state.composableBuilder(
+      column: $state.table.budgetCurrency,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ComposableFilter driftTravelDaysTableRefs(
+      ComposableFilter Function($$DriftTravelDaysTableTableFilterComposer f)
+          f) {
+    final $$DriftTravelDaysTableTableFilterComposer composer =
+        $state.composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.id,
+            referencedTable: $state.db.driftTravelDaysTable,
+            getReferencedColumn: (t) => t.travelId,
+            builder: (joinBuilder, parentComposers) =>
+                $$DriftTravelDaysTableTableFilterComposer(ComposerState(
+                    $state.db,
+                    $state.db.driftTravelDaysTable,
+                    joinBuilder,
+                    parentComposers)));
+    return f(composer);
+  }
+
+  ComposableFilter driftCostLinesTableRefs(
+      ComposableFilter Function($$DriftCostLinesTableTableFilterComposer f) f) {
+    final $$DriftCostLinesTableTableFilterComposer composer =
+        $state.composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.id,
+            referencedTable: $state.db.driftCostLinesTable,
+            getReferencedColumn: (t) => t.travelId,
+            builder: (joinBuilder, parentComposers) =>
+                $$DriftCostLinesTableTableFilterComposer(ComposerState(
+                    $state.db,
+                    $state.db.driftCostLinesTable,
+                    joinBuilder,
+                    parentComposers)));
+    return f(composer);
+  }
+
+  ComposableFilter driftBudgetLinesTableRefs(
+      ComposableFilter Function($$DriftBudgetLinesTableTableFilterComposer f)
+          f) {
+    final $$DriftBudgetLinesTableTableFilterComposer composer =
+        $state.composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.id,
+            referencedTable: $state.db.driftBudgetLinesTable,
+            getReferencedColumn: (t) => t.travelId,
+            builder: (joinBuilder, parentComposers) =>
+                $$DriftBudgetLinesTableTableFilterComposer(ComposerState(
+                    $state.db,
+                    $state.db.driftBudgetLinesTable,
+                    joinBuilder,
+                    parentComposers)));
+    return f(composer);
+  }
+
+  ComposableFilter driftInsuranceLinesTableRefs(
+      ComposableFilter Function($$DriftInsuranceLinesTableTableFilterComposer f)
+          f) {
+    final $$DriftInsuranceLinesTableTableFilterComposer composer =
+        $state.composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.id,
+            referencedTable: $state.db.driftInsuranceLinesTable,
+            getReferencedColumn: (t) => t.travelId,
+            builder: (joinBuilder, parentComposers) =>
+                $$DriftInsuranceLinesTableTableFilterComposer(ComposerState(
+                    $state.db,
+                    $state.db.driftInsuranceLinesTable,
+                    joinBuilder,
+                    parentComposers)));
+    return f(composer);
+  }
+}
+
+class $$DriftTravelsTableTableOrderingComposer extends OrderingComposer<
+    _$DriftDBLocalDataSource, $DriftTravelsTableTable> {
+  $$DriftTravelsTableTableOrderingComposer(super.$state);
+  ColumnOrderings<String> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get date => $state.composableBuilder(
+      column: $state.table.date,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get finish => $state.composableBuilder(
+      column: $state.table.finish,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get start => $state.composableBuilder(
+      column: $state.table.start,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get regions => $state.composableBuilder(
+      column: $state.table.regions,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get name => $state.composableBuilder(
+      column: $state.table.name,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get image => $state.composableBuilder(
+      column: $state.table.image,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get description => $state.composableBuilder(
+      column: $state.table.description,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get currencies => $state.composableBuilder(
+      column: $state.table.currencies,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get status => $state.composableBuilder(
+      column: $state.table.status,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<int> get budgetCurrency => $state.composableBuilder(
+      column: $state.table.budgetCurrency,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+}
+
+typedef $$DriftTravelDaysTableTableCreateCompanionBuilder
+    = DriftTravelDaysTableCompanion Function({
+  required String id,
+  required DateTime date,
+  Value<DateTime?> start,
+  required String description,
+  required int number,
+  required String transportLines,
+  required String feedingsLines,
+  required String stayLines,
+  required String travelId,
+  Value<int> rowid,
+});
+typedef $$DriftTravelDaysTableTableUpdateCompanionBuilder
+    = DriftTravelDaysTableCompanion Function({
+  Value<String> id,
+  Value<DateTime> date,
+  Value<DateTime?> start,
+  Value<String> description,
+  Value<int> number,
+  Value<String> transportLines,
+  Value<String> feedingsLines,
+  Value<String> stayLines,
+  Value<String> travelId,
+  Value<int> rowid,
+});
+
+class $$DriftTravelDaysTableTableTableManager extends RootTableManager<
+    _$DriftDBLocalDataSource,
+    $DriftTravelDaysTableTable,
+    DriftTravelDay,
+    $$DriftTravelDaysTableTableFilterComposer,
+    $$DriftTravelDaysTableTableOrderingComposer,
+    $$DriftTravelDaysTableTableCreateCompanionBuilder,
+    $$DriftTravelDaysTableTableUpdateCompanionBuilder> {
+  $$DriftTravelDaysTableTableTableManager(
+      _$DriftDBLocalDataSource db, $DriftTravelDaysTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer: $$DriftTravelDaysTableTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$DriftTravelDaysTableTableOrderingComposer(
+              ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<DateTime> date = const Value.absent(),
+            Value<DateTime?> start = const Value.absent(),
+            Value<String> description = const Value.absent(),
+            Value<int> number = const Value.absent(),
+            Value<String> transportLines = const Value.absent(),
+            Value<String> feedingsLines = const Value.absent(),
+            Value<String> stayLines = const Value.absent(),
+            Value<String> travelId = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftTravelDaysTableCompanion(
+            id: id,
+            date: date,
+            start: start,
+            description: description,
+            number: number,
+            transportLines: transportLines,
+            feedingsLines: feedingsLines,
+            stayLines: stayLines,
+            travelId: travelId,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required DateTime date,
+            Value<DateTime?> start = const Value.absent(),
+            required String description,
+            required int number,
+            required String transportLines,
+            required String feedingsLines,
+            required String stayLines,
+            required String travelId,
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftTravelDaysTableCompanion.insert(
+            id: id,
+            date: date,
+            start: start,
+            description: description,
+            number: number,
+            transportLines: transportLines,
+            feedingsLines: feedingsLines,
+            stayLines: stayLines,
+            travelId: travelId,
+            rowid: rowid,
+          ),
+        ));
+}
+
+class $$DriftTravelDaysTableTableFilterComposer extends FilterComposer<
+    _$DriftDBLocalDataSource, $DriftTravelDaysTableTable> {
+  $$DriftTravelDaysTableTableFilterComposer(super.$state);
+  ColumnFilters<String> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get date => $state.composableBuilder(
+      column: $state.table.date,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get start => $state.composableBuilder(
+      column: $state.table.start,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get description => $state.composableBuilder(
+      column: $state.table.description,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<int> get number => $state.composableBuilder(
+      column: $state.table.number,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get transportLines => $state.composableBuilder(
+      column: $state.table.transportLines,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get feedingsLines => $state.composableBuilder(
+      column: $state.table.feedingsLines,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get stayLines => $state.composableBuilder(
+      column: $state.table.stayLines,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  $$DriftTravelsTableTableFilterComposer get travelId {
+    final $$DriftTravelsTableTableFilterComposer composer =
+        $state.composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.travelId,
+            referencedTable: $state.db.driftTravelsTable,
+            getReferencedColumn: (t) => t.id,
+            builder: (joinBuilder, parentComposers) =>
+                $$DriftTravelsTableTableFilterComposer(ComposerState(
+                    $state.db,
+                    $state.db.driftTravelsTable,
+                    joinBuilder,
+                    parentComposers)));
+    return composer;
+  }
+}
+
+class $$DriftTravelDaysTableTableOrderingComposer extends OrderingComposer<
+    _$DriftDBLocalDataSource, $DriftTravelDaysTableTable> {
+  $$DriftTravelDaysTableTableOrderingComposer(super.$state);
+  ColumnOrderings<String> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get date => $state.composableBuilder(
+      column: $state.table.date,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get start => $state.composableBuilder(
+      column: $state.table.start,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get description => $state.composableBuilder(
+      column: $state.table.description,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<int> get number => $state.composableBuilder(
+      column: $state.table.number,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get transportLines => $state.composableBuilder(
+      column: $state.table.transportLines,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get feedingsLines => $state.composableBuilder(
+      column: $state.table.feedingsLines,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get stayLines => $state.composableBuilder(
+      column: $state.table.stayLines,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  $$DriftTravelsTableTableOrderingComposer get travelId {
+    final $$DriftTravelsTableTableOrderingComposer composer =
+        $state.composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.travelId,
+            referencedTable: $state.db.driftTravelsTable,
+            getReferencedColumn: (t) => t.id,
+            builder: (joinBuilder, parentComposers) =>
+                $$DriftTravelsTableTableOrderingComposer(ComposerState(
+                    $state.db,
+                    $state.db.driftTravelsTable,
+                    joinBuilder,
+                    parentComposers)));
+    return composer;
+  }
+}
+
+typedef $$DriftCostLinesTableTableCreateCompanionBuilder
+    = DriftCostLinesTableCompanion Function({
+  required String id,
+  required String type,
+  required int currency,
+  required String travelId,
+  required DateTime date,
+  required double sum,
+  required double budgetSum,
+  required String description,
+  required String incomeExpense,
+  Value<int> rowid,
+});
+typedef $$DriftCostLinesTableTableUpdateCompanionBuilder
+    = DriftCostLinesTableCompanion Function({
+  Value<String> id,
+  Value<String> type,
+  Value<int> currency,
+  Value<String> travelId,
+  Value<DateTime> date,
+  Value<double> sum,
+  Value<double> budgetSum,
+  Value<String> description,
+  Value<String> incomeExpense,
+  Value<int> rowid,
+});
+
+class $$DriftCostLinesTableTableTableManager extends RootTableManager<
+    _$DriftDBLocalDataSource,
+    $DriftCostLinesTableTable,
+    DriftCostLine,
+    $$DriftCostLinesTableTableFilterComposer,
+    $$DriftCostLinesTableTableOrderingComposer,
+    $$DriftCostLinesTableTableCreateCompanionBuilder,
+    $$DriftCostLinesTableTableUpdateCompanionBuilder> {
+  $$DriftCostLinesTableTableTableManager(
+      _$DriftDBLocalDataSource db, $DriftCostLinesTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer: $$DriftCostLinesTableTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$DriftCostLinesTableTableOrderingComposer(
+              ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> type = const Value.absent(),
+            Value<int> currency = const Value.absent(),
+            Value<String> travelId = const Value.absent(),
+            Value<DateTime> date = const Value.absent(),
+            Value<double> sum = const Value.absent(),
+            Value<double> budgetSum = const Value.absent(),
+            Value<String> description = const Value.absent(),
+            Value<String> incomeExpense = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftCostLinesTableCompanion(
+            id: id,
+            type: type,
+            currency: currency,
+            travelId: travelId,
+            date: date,
+            sum: sum,
+            budgetSum: budgetSum,
+            description: description,
+            incomeExpense: incomeExpense,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String type,
+            required int currency,
+            required String travelId,
+            required DateTime date,
+            required double sum,
+            required double budgetSum,
+            required String description,
+            required String incomeExpense,
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftCostLinesTableCompanion.insert(
+            id: id,
+            type: type,
+            currency: currency,
+            travelId: travelId,
+            date: date,
+            sum: sum,
+            budgetSum: budgetSum,
+            description: description,
+            incomeExpense: incomeExpense,
+            rowid: rowid,
+          ),
+        ));
+}
+
+class $$DriftCostLinesTableTableFilterComposer extends FilterComposer<
+    _$DriftDBLocalDataSource, $DriftCostLinesTableTable> {
+  $$DriftCostLinesTableTableFilterComposer(super.$state);
+  ColumnFilters<String> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get type => $state.composableBuilder(
+      column: $state.table.type,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<int> get currency => $state.composableBuilder(
+      column: $state.table.currency,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get date => $state.composableBuilder(
+      column: $state.table.date,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<double> get sum => $state.composableBuilder(
+      column: $state.table.sum,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<double> get budgetSum => $state.composableBuilder(
+      column: $state.table.budgetSum,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get description => $state.composableBuilder(
+      column: $state.table.description,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get incomeExpense => $state.composableBuilder(
+      column: $state.table.incomeExpense,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  $$DriftTravelsTableTableFilterComposer get travelId {
+    final $$DriftTravelsTableTableFilterComposer composer =
+        $state.composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.travelId,
+            referencedTable: $state.db.driftTravelsTable,
+            getReferencedColumn: (t) => t.id,
+            builder: (joinBuilder, parentComposers) =>
+                $$DriftTravelsTableTableFilterComposer(ComposerState(
+                    $state.db,
+                    $state.db.driftTravelsTable,
+                    joinBuilder,
+                    parentComposers)));
+    return composer;
+  }
+}
+
+class $$DriftCostLinesTableTableOrderingComposer extends OrderingComposer<
+    _$DriftDBLocalDataSource, $DriftCostLinesTableTable> {
+  $$DriftCostLinesTableTableOrderingComposer(super.$state);
+  ColumnOrderings<String> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get type => $state.composableBuilder(
+      column: $state.table.type,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<int> get currency => $state.composableBuilder(
+      column: $state.table.currency,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get date => $state.composableBuilder(
+      column: $state.table.date,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<double> get sum => $state.composableBuilder(
+      column: $state.table.sum,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<double> get budgetSum => $state.composableBuilder(
+      column: $state.table.budgetSum,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get description => $state.composableBuilder(
+      column: $state.table.description,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get incomeExpense => $state.composableBuilder(
+      column: $state.table.incomeExpense,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  $$DriftTravelsTableTableOrderingComposer get travelId {
+    final $$DriftTravelsTableTableOrderingComposer composer =
+        $state.composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.travelId,
+            referencedTable: $state.db.driftTravelsTable,
+            getReferencedColumn: (t) => t.id,
+            builder: (joinBuilder, parentComposers) =>
+                $$DriftTravelsTableTableOrderingComposer(ComposerState(
+                    $state.db,
+                    $state.db.driftTravelsTable,
+                    joinBuilder,
+                    parentComposers)));
+    return composer;
+  }
+}
+
+typedef $$DriftBudgetLinesTableTableCreateCompanionBuilder
+    = DriftBudgetLinesTableCompanion Function({
+  required String id,
+  required String type,
+  required double amount,
+  required String travelId,
+  required String description,
+  Value<int> rowid,
+});
+typedef $$DriftBudgetLinesTableTableUpdateCompanionBuilder
+    = DriftBudgetLinesTableCompanion Function({
+  Value<String> id,
+  Value<String> type,
+  Value<double> amount,
+  Value<String> travelId,
+  Value<String> description,
+  Value<int> rowid,
+});
+
+class $$DriftBudgetLinesTableTableTableManager extends RootTableManager<
+    _$DriftDBLocalDataSource,
+    $DriftBudgetLinesTableTable,
+    DriftBudgetLine,
+    $$DriftBudgetLinesTableTableFilterComposer,
+    $$DriftBudgetLinesTableTableOrderingComposer,
+    $$DriftBudgetLinesTableTableCreateCompanionBuilder,
+    $$DriftBudgetLinesTableTableUpdateCompanionBuilder> {
+  $$DriftBudgetLinesTableTableTableManager(
+      _$DriftDBLocalDataSource db, $DriftBudgetLinesTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer: $$DriftBudgetLinesTableTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$DriftBudgetLinesTableTableOrderingComposer(
+              ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> type = const Value.absent(),
+            Value<double> amount = const Value.absent(),
+            Value<String> travelId = const Value.absent(),
+            Value<String> description = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftBudgetLinesTableCompanion(
+            id: id,
+            type: type,
+            amount: amount,
+            travelId: travelId,
+            description: description,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String type,
+            required double amount,
+            required String travelId,
+            required String description,
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftBudgetLinesTableCompanion.insert(
+            id: id,
+            type: type,
+            amount: amount,
+            travelId: travelId,
+            description: description,
+            rowid: rowid,
+          ),
+        ));
+}
+
+class $$DriftBudgetLinesTableTableFilterComposer extends FilterComposer<
+    _$DriftDBLocalDataSource, $DriftBudgetLinesTableTable> {
+  $$DriftBudgetLinesTableTableFilterComposer(super.$state);
+  ColumnFilters<String> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get type => $state.composableBuilder(
+      column: $state.table.type,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<double> get amount => $state.composableBuilder(
+      column: $state.table.amount,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get description => $state.composableBuilder(
+      column: $state.table.description,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  $$DriftTravelsTableTableFilterComposer get travelId {
+    final $$DriftTravelsTableTableFilterComposer composer =
+        $state.composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.travelId,
+            referencedTable: $state.db.driftTravelsTable,
+            getReferencedColumn: (t) => t.id,
+            builder: (joinBuilder, parentComposers) =>
+                $$DriftTravelsTableTableFilterComposer(ComposerState(
+                    $state.db,
+                    $state.db.driftTravelsTable,
+                    joinBuilder,
+                    parentComposers)));
+    return composer;
+  }
+}
+
+class $$DriftBudgetLinesTableTableOrderingComposer extends OrderingComposer<
+    _$DriftDBLocalDataSource, $DriftBudgetLinesTableTable> {
+  $$DriftBudgetLinesTableTableOrderingComposer(super.$state);
+  ColumnOrderings<String> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get type => $state.composableBuilder(
+      column: $state.table.type,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<double> get amount => $state.composableBuilder(
+      column: $state.table.amount,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get description => $state.composableBuilder(
+      column: $state.table.description,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  $$DriftTravelsTableTableOrderingComposer get travelId {
+    final $$DriftTravelsTableTableOrderingComposer composer =
+        $state.composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.travelId,
+            referencedTable: $state.db.driftTravelsTable,
+            getReferencedColumn: (t) => t.id,
+            builder: (joinBuilder, parentComposers) =>
+                $$DriftTravelsTableTableOrderingComposer(ComposerState(
+                    $state.db,
+                    $state.db.driftTravelsTable,
+                    joinBuilder,
+                    parentComposers)));
+    return composer;
+  }
+}
+
+typedef $$DriftInsuranceLinesTableTableCreateCompanionBuilder
+    = DriftInsuranceLinesTableCompanion Function({
+  required String id,
+  required String number,
+  required String travelId,
+  required String insurant,
+  required String description,
+  required String insurer,
+  required String contacts,
+  Value<int> rowid,
+});
+typedef $$DriftInsuranceLinesTableTableUpdateCompanionBuilder
+    = DriftInsuranceLinesTableCompanion Function({
+  Value<String> id,
+  Value<String> number,
+  Value<String> travelId,
+  Value<String> insurant,
+  Value<String> description,
+  Value<String> insurer,
+  Value<String> contacts,
+  Value<int> rowid,
+});
+
+class $$DriftInsuranceLinesTableTableTableManager extends RootTableManager<
+    _$DriftDBLocalDataSource,
+    $DriftInsuranceLinesTableTable,
+    DriftInsuranceLine,
+    $$DriftInsuranceLinesTableTableFilterComposer,
+    $$DriftInsuranceLinesTableTableOrderingComposer,
+    $$DriftInsuranceLinesTableTableCreateCompanionBuilder,
+    $$DriftInsuranceLinesTableTableUpdateCompanionBuilder> {
+  $$DriftInsuranceLinesTableTableTableManager(
+      _$DriftDBLocalDataSource db, $DriftInsuranceLinesTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer: $$DriftInsuranceLinesTableTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$DriftInsuranceLinesTableTableOrderingComposer(
+              ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> number = const Value.absent(),
+            Value<String> travelId = const Value.absent(),
+            Value<String> insurant = const Value.absent(),
+            Value<String> description = const Value.absent(),
+            Value<String> insurer = const Value.absent(),
+            Value<String> contacts = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftInsuranceLinesTableCompanion(
+            id: id,
+            number: number,
+            travelId: travelId,
+            insurant: insurant,
+            description: description,
+            insurer: insurer,
+            contacts: contacts,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String number,
+            required String travelId,
+            required String insurant,
+            required String description,
+            required String insurer,
+            required String contacts,
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftInsuranceLinesTableCompanion.insert(
+            id: id,
+            number: number,
+            travelId: travelId,
+            insurant: insurant,
+            description: description,
+            insurer: insurer,
+            contacts: contacts,
+            rowid: rowid,
+          ),
+        ));
+}
+
+class $$DriftInsuranceLinesTableTableFilterComposer extends FilterComposer<
+    _$DriftDBLocalDataSource, $DriftInsuranceLinesTableTable> {
+  $$DriftInsuranceLinesTableTableFilterComposer(super.$state);
+  ColumnFilters<String> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get number => $state.composableBuilder(
+      column: $state.table.number,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get insurant => $state.composableBuilder(
+      column: $state.table.insurant,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get description => $state.composableBuilder(
+      column: $state.table.description,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get insurer => $state.composableBuilder(
+      column: $state.table.insurer,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get contacts => $state.composableBuilder(
+      column: $state.table.contacts,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  $$DriftTravelsTableTableFilterComposer get travelId {
+    final $$DriftTravelsTableTableFilterComposer composer =
+        $state.composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.travelId,
+            referencedTable: $state.db.driftTravelsTable,
+            getReferencedColumn: (t) => t.id,
+            builder: (joinBuilder, parentComposers) =>
+                $$DriftTravelsTableTableFilterComposer(ComposerState(
+                    $state.db,
+                    $state.db.driftTravelsTable,
+                    joinBuilder,
+                    parentComposers)));
+    return composer;
+  }
+}
+
+class $$DriftInsuranceLinesTableTableOrderingComposer extends OrderingComposer<
+    _$DriftDBLocalDataSource, $DriftInsuranceLinesTableTable> {
+  $$DriftInsuranceLinesTableTableOrderingComposer(super.$state);
+  ColumnOrderings<String> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get number => $state.composableBuilder(
+      column: $state.table.number,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get insurant => $state.composableBuilder(
+      column: $state.table.insurant,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get description => $state.composableBuilder(
+      column: $state.table.description,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get insurer => $state.composableBuilder(
+      column: $state.table.insurer,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get contacts => $state.composableBuilder(
+      column: $state.table.contacts,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  $$DriftTravelsTableTableOrderingComposer get travelId {
+    final $$DriftTravelsTableTableOrderingComposer composer =
+        $state.composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.travelId,
+            referencedTable: $state.db.driftTravelsTable,
+            getReferencedColumn: (t) => t.id,
+            builder: (joinBuilder, parentComposers) =>
+                $$DriftTravelsTableTableOrderingComposer(ComposerState(
+                    $state.db,
+                    $state.db.driftTravelsTable,
+                    joinBuilder,
+                    parentComposers)));
+    return composer;
+  }
+}
+
+class $DriftDBLocalDataSourceManager {
+  final _$DriftDBLocalDataSource _db;
+  $DriftDBLocalDataSourceManager(this._db);
+  $$DriftStrengthExercisesTableTableTableManager
+      get driftStrengthExercisesTable =>
+          $$DriftStrengthExercisesTableTableTableManager(
+              _db, _db.driftStrengthExercisesTable);
+  $$DriftHallTreaningsTableTableTableManager get driftHallTreaningsTable =>
+      $$DriftHallTreaningsTableTableTableManager(
+          _db, _db.driftHallTreaningsTable);
+  $$DriftHallAttemptsTableTableTableManager get driftHallAttemptsTable =>
+      $$DriftHallAttemptsTableTableTableManager(
+          _db, _db.driftHallAttemptsTable);
+  $$DriftCardioTreaningsTableTableTableManager get driftCardioTreaningsTable =>
+      $$DriftCardioTreaningsTableTableTableManager(
+          _db, _db.driftCardioTreaningsTable);
+  $$DriftStrengthTreaningsTableTableTableManager
+      get driftStrengthTreaningsTable =>
+          $$DriftStrengthTreaningsTableTableTableManager(
+              _db, _db.driftStrengthTreaningsTable);
+  $$DriftStrengthTreaningLinesTableTableTableManager
+      get driftStrengthTreaningLinesTable =>
+          $$DriftStrengthTreaningLinesTableTableTableManager(
+              _db, _db.driftStrengthTreaningLinesTable);
+  $$DriftIceTreaningsTableTableTableManager get driftIceTreaningsTable =>
+      $$DriftIceTreaningsTableTableTableManager(
+          _db, _db.driftIceTreaningsTable);
+  $$DriftIceAttemptsTableTableTableManager get driftIceAttemptsTable =>
+      $$DriftIceAttemptsTableTableTableManager(_db, _db.driftIceAttemptsTable);
+  $$DriftRockTreaningsTableTableTableManager get driftRockTreaningsTable =>
+      $$DriftRockTreaningsTableTableTableManager(
+          _db, _db.driftRockTreaningsTable);
+  $$DriftRockAttemptsTableTableTableManager get driftRockAttemptsTable =>
+      $$DriftRockAttemptsTableTableTableManager(
+          _db, _db.driftRockAttemptsTable);
+  $$DriftTrekkingPathsTableTableTableManager get driftTrekkingPathsTable =>
+      $$DriftTrekkingPathsTableTableTableManager(
+          _db, _db.driftTrekkingPathsTable);
+  $$DriftTrekkingPathEventsTableTableTableManager
+      get driftTrekkingPathEventsTable =>
+          $$DriftTrekkingPathEventsTableTableTableManager(
+              _db, _db.driftTrekkingPathEventsTable);
+  $$DriftTechniqueTreaningsTableTableTableManager
+      get driftTechniqueTreaningsTable =>
+          $$DriftTechniqueTreaningsTableTableTableManager(
+              _db, _db.driftTechniqueTreaningsTable);
+  $$DriftTechniqueTreaningItemsTableTableTableManager
+      get driftTechniqueTreaningItemsTable =>
+          $$DriftTechniqueTreaningItemsTableTableTableManager(
+              _db, _db.driftTechniqueTreaningItemsTable);
+  $$DriftAscensionsTableTableTableManager get driftAscensionsTable =>
+      $$DriftAscensionsTableTableTableManager(_db, _db.driftAscensionsTable);
+  $$DriftAscensionEventsTableTableTableManager get driftAscensionEventsTable =>
+      $$DriftAscensionEventsTableTableTableManager(
+          _db, _db.driftAscensionEventsTable);
+  $$DriftTravelsTableTableTableManager get driftTravelsTable =>
+      $$DriftTravelsTableTableTableManager(_db, _db.driftTravelsTable);
+  $$DriftTravelDaysTableTableTableManager get driftTravelDaysTable =>
+      $$DriftTravelDaysTableTableTableManager(_db, _db.driftTravelDaysTable);
+  $$DriftCostLinesTableTableTableManager get driftCostLinesTable =>
+      $$DriftCostLinesTableTableTableManager(_db, _db.driftCostLinesTable);
+  $$DriftBudgetLinesTableTableTableManager get driftBudgetLinesTable =>
+      $$DriftBudgetLinesTableTableTableManager(_db, _db.driftBudgetLinesTable);
+  $$DriftInsuranceLinesTableTableTableManager get driftInsuranceLinesTable =>
+      $$DriftInsuranceLinesTableTableTableManager(
+          _db, _db.driftInsuranceLinesTable);
 }

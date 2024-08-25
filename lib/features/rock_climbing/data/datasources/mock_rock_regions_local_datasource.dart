@@ -139,4 +139,11 @@ class MockRockRegionsLocalDataSource implements RockRegionsLocalDataSource {
       {required RockDistrict district, required List<RockSector> sectors}) {
     throw UnimplementedError();
   }
+
+  @override
+  Future<Either<Failure, Unit>> deleteDistrict(
+      {required RockDistrict district}) {
+    // TODO: implement deleteDistrict
+    throw UnimplementedError();
+  }
 }

@@ -18,13 +18,13 @@ HallAttemptModel _$HallAttemptModelFromJson(Map<String, dynamic> json) =>
           json['ascentType'], const AscentTypeConverter().fromJson),
       downClimbing: json['downClimbing'] as bool? ?? false,
       fail: json['fail'] as bool? ?? false,
-      fallCount: json['fallCount'] as int? ?? 0,
+      fallCount: (json['fallCount'] as num?)?.toInt() ?? 0,
       finishTime: _$JsonConverterFromJson<int, DateTime>(
           json['finishTime'], const EpochDateTimeConverter().fromJson),
       id: json['id'] as String? ?? '',
       startTime: _$JsonConverterFromJson<int, DateTime>(
           json['startTime'], const EpochDateTimeConverter().fromJson),
-      suspensionCount: json['suspensionCount'] as int? ?? 0,
+      suspensionCount: (json['suspensionCount'] as num?)?.toInt() ?? 0,
       routeId: json['routeId'] as String? ?? '',
     );
 

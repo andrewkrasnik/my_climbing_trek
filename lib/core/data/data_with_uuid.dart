@@ -4,10 +4,14 @@ import 'package:equatable/equatable.dart';
 
 class DataWithUUID extends Equatable {
   final UniqueId _id;
+  final bool localData;
 
   String get id => _id.value;
 
-  DataWithUUID({String id = ''}) : _id = UniqueId.fromUniqueString(id);
+  DataWithUUID({
+    String id = '',
+    this.localData = false,
+  }) : _id = UniqueId.fromUniqueString(id);
 
   static List<DataWithUUID> values = [];
 

@@ -64,9 +64,14 @@ class TrekPage extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: ScaledImageWidget(
                     imageUrl: trek.mapImage!,
+                    cacheKey: region.trekCacheKey,
                   ),
                 ),
-              if (trek.sections.isNotEmpty) TrekPointWidget(point: trek.start),
+              if (trek.sections.isNotEmpty)
+                TrekPointWidget(
+                  point: trek.start,
+                  region: region,
+                ),
               ...trek.sections.map(
                 (section) => Column(
                   mainAxisSize: MainAxisSize.max,
@@ -83,7 +88,10 @@ class TrekPage extends StatelessWidget {
                     ),
                     SizedBox(
                       width: double.infinity,
-                      child: TrekPointWidget(point: section.finish),
+                      child: TrekPointWidget(
+                        point: section.finish,
+                        region: region,
+                      ),
                     ),
                   ],
                 ),

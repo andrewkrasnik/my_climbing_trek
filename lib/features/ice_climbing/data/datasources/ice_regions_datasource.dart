@@ -9,6 +9,7 @@ import 'package:dartz/dartz.dart';
 
 abstract class IceRegionsDataSource {
   Future<Either<Failure, List<IceDistrict>>> getDistricts();
+
   Future<Either<Failure, List<IceSector>>> getSectors(
       {required IceDistrict district});
 
@@ -19,6 +20,8 @@ abstract class IceRegionsDataSource {
     required IceDistrict district,
     required List<IceSector> sectors,
   });
+
+  Future<Either<Failure, Unit>> deleteDistrict({required IceDistrict district});
 }
 
 // @LazySingleton(as: IceRegionsDataSource)
@@ -311,6 +314,13 @@ class MockIceRegionsDataSource implements IceRegionsDataSource {
   @override
   Future<Either<Failure, Unit>> saveSectors(
       {required IceDistrict district, required List<IceSector> sectors}) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, Unit>> deleteDistrict(
+      {required IceDistrict district}) {
+    // TODO: implement deleteDistrict
     throw UnimplementedError();
   }
 }

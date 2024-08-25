@@ -2,6 +2,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:injectable/injectable.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -30,12 +31,15 @@ abstract class InjectableModule {
   HiveInterface get hiveInterface => Hive;
 
   @LazySingleton()
+  DefaultCacheManager get cacheManager => DefaultCacheManager();
+
+  @LazySingleton()
   FirebaseFirestore get firebaseFirestore => FirebaseFirestore.instance;
 
   @LazySingleton()
   InternetConnectionChecker get internetConnectionChecker =>
       InternetConnectionChecker.createInstance(
-        checkInterval: const Duration(seconds: 2),
-        checkTimeout: const Duration(seconds: 2),
+        checkInterval: const Duration(milliseconds: 100),
+        checkTimeout: const Duration(milliseconds: 500),
       );
 }

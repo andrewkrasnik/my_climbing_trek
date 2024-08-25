@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:my_climbing_trek/features/trekking/data/datasources/trekking_local_datasource.dart';
 import 'package:my_climbing_trek/features/trekking/data/datasources/trekking_remote_datasource.dart';
 import 'package:my_climbing_trek/features/trekking/data/models/trek_local_model.dart';
 import 'package:my_climbing_trek/features/trekking/data/models/trek_model.dart';
@@ -245,9 +247,17 @@ class TrekPointIdConverter implements JsonConverter<TrekPoint, String> {
   const TrekPointIdConverter();
   @override
   TrekPoint fromJson(String json) {
-    return getIt<TrekkingRemoteDataSource>()
+    final localPoint = getIt<TrekkingLocalDataSource>()
         .pointsCash
-        .firstWhere((element) => element.id == json);
+        .firstWhereOrNull((element) => element.id == json);
+
+    if (localPoint != null) {
+      return localPoint;
+    } else {
+      return getIt<TrekkingRemoteDataSource>()
+          .pointsCash
+          .firstWhere((element) => element.id == json);
+    }
   }
 
   @override

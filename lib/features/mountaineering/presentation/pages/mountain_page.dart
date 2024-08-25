@@ -84,6 +84,7 @@ class MountainPage extends StatelessWidget {
                             route: dataState.routes[index],
                             mountain: mountain,
                             cubit: routesCubit,
+                            editing: region.hasEditPermission,
                           ),
                         ),
                       ),

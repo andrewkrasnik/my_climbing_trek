@@ -1,3 +1,4 @@
+import 'package:my_climbing_trek/core/widgets/my_cached_network_image.dart';
 import 'package:my_climbing_trek/features/ice_climbing/presentation/bloc/current_ice_treaning/current_ice_treaning_cubit.dart';
 import 'package:my_climbing_trek/features/ice_climbing/presentation/widgets/ice_category_widget.dart';
 import 'package:flutter/material.dart';
@@ -35,12 +36,21 @@ class SelectIceRouteWidget extends StatelessWidget {
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(children: [
-                Image(
-                  width: MediaQuery.of(context).size.width / 4,
-                  image: NetworkImage(
-                    sector.image,
+                SizedBox(
+                  width: 100,
+                  height: 100,
+                  child: MyCachedNetworkImage(
+                    imageUrl: sector.image,
+                    fit: BoxFit.cover,
+                    cacheKey: treaning.district.cacheKey,
                   ),
                 ),
+                // Image(
+                //   width: MediaQuery.of(context).size.width / 4,
+                //   image: NetworkImage(
+                //     sector.image,
+                //   ),
+                // ),
                 const SizedBox(width: 8),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

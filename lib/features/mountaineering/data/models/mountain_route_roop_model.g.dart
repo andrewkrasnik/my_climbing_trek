@@ -13,13 +13,13 @@ MountainRouteRoopModel _$MountainRouteRoopModelFromJson(
           json['climbingCategory'], const ClimbingCategoryConverter().fromJson),
       iceCategory: _$JsonConverterFromJson<String, IceCategory>(
           json['iceCategory'], const IceCategoryConverter().fromJson),
-      length: json['length'] as int,
-      slope: json['slope'] as int? ?? 0,
+      length: (json['length'] as num).toInt(),
+      slope: (json['slope'] as num?)?.toInt() ?? 0,
       anchor: json['anchor'] as String? ?? '',
-      boltCount: json['boltCount'] as int? ?? 0,
+      boltCount: (json['boltCount'] as num?)?.toInt() ?? 0,
       id: json['id'] as String? ?? '',
       description: json['description'] as String? ?? '',
-      number: json['number'] as int,
+      number: (json['number'] as num).toInt(),
       pieces: (json['pieces'] as List<dynamic>?)
           ?.map((e) => const MountainRoutePieceConverter()
               .fromJson(e as Map<String, dynamic>))
@@ -62,8 +62,8 @@ Json? _$JsonConverterToJson<Json, Value>(
 MountainRouteIcePieceModel _$MountainRouteIcePieceModelFromJson(
         Map<String, dynamic> json) =>
     MountainRouteIcePieceModel(
-      length: json['length'] as int,
-      slope: json['slope'] as int? ?? 0,
+      length: (json['length'] as num).toInt(),
+      slope: (json['slope'] as num?)?.toInt() ?? 0,
       category:
           const IceCategoryConverter().fromJson(json['category'] as String),
       type: const RoutePieceTypeConverter().fromJson(json['type'] as String),
@@ -81,14 +81,14 @@ Map<String, dynamic> _$MountainRouteIcePieceModelToJson(
 MountainRouteRockPieceModel _$MountainRouteRockPieceModelFromJson(
         Map<String, dynamic> json) =>
     MountainRouteRockPieceModel(
-      length: json['length'] as int,
+      length: (json['length'] as num).toInt(),
       aidCategory: _$JsonConverterFromJson<String, AidCategory>(
           json['aidCategory'], const AidCategoryConverter().fromJson),
       climbingCategory: _$JsonConverterFromJson<String, ClimbingCategory>(
           json['climbingCategory'], const ClimbingCategoryConverter().fromJson),
       ussrCategory: _$JsonConverterFromJson<String, UssrClimbingCategory>(
           json['ussrCategory'], const UssrClimbingCategoryConverter().fromJson),
-      slope: json['slope'] as int? ?? 0,
+      slope: (json['slope'] as num?)?.toInt() ?? 0,
       type: const RoutePieceTypeConverter().fromJson(json['type'] as String),
     );
 
@@ -111,8 +111,8 @@ MountainRouteMixedPieceModel _$MountainRouteMixedPieceModelFromJson(
     MountainRouteMixedPieceModel(
       category:
           const MixedCategoryConverter().fromJson(json['category'] as String),
-      length: json['length'] as int,
-      slope: json['slope'] as int? ?? 0,
+      length: (json['length'] as num).toInt(),
+      slope: (json['slope'] as num?)?.toInt() ?? 0,
       type: const RoutePieceTypeConverter().fromJson(json['type'] as String),
     );
 

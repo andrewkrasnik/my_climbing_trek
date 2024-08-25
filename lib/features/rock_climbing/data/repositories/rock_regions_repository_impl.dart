@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
+import 'package:my_climbing_trek/core/datasource/image_cash_manager.dart';
 import 'package:my_climbing_trek/core/failures/failure.dart';
 import 'package:my_climbing_trek/core/services/network/network_info.dart';
 import 'package:my_climbing_trek/features/rock_climbing/data/datasources/rock_regions_local_datasource.dart';
@@ -14,53 +15,53 @@ import 'package:my_climbing_trek/features/rock_climbing/domain/repositories/rock
 class RockRegionsRepositoryImpl implements RockRegionsRepository {
   final RockRegionsLocalDataSource _regionsLocalDataSource;
   final RockRegionsRemoteDataSource _regionsRemoteDataSource;
+  final ImageCashManager _imageCashManager;
   final NetworkInfo _networkInfo;
 
   RockRegionsRepositoryImpl(
     this._regionsLocalDataSource,
     this._regionsRemoteDataSource,
+    this._imageCashManager,
     this._networkInfo,
   );
 
   @override
   Future<Either<Failure, List<RockDistrict>>> districts() async {
-    if (await _networkInfo.isConnected) {
-      final failureOrDistricts = await _regionsRemoteDataSource.districts();
+    final failureOrLocalDistricts = await _regionsLocalDataSource.districts();
 
-      return await failureOrDistricts.fold((failure) async => Left(failure),
-          (districts) async {
-        final failureOrUnit =
-            await _regionsLocalDataSource.saveDistricts(districts: districts);
+    return failureOrLocalDistricts.fold(
+      (failure) => Left(failure),
+      (localDistricts) async {
+        if (await _networkInfo.isConnected) {
+          final failureOrRemoteDistricts =
+              await _regionsRemoteDataSource.districts();
 
-        return failureOrUnit.fold((failure) async => Left(failure),
-            (_) async => await _regionsLocalDataSource.districts());
-      });
-    }
-    return await _regionsLocalDataSource.districts();
+          return failureOrRemoteDistricts.fold(
+            (failure) => Left(failure),
+            (remoteDistricts) {
+              remoteDistricts
+                  .removeWhere((element) => localDistricts.contains(element));
+
+              final districts = [...localDistricts, ...remoteDistricts];
+
+              return Right(districts);
+            },
+          );
+        } else {
+          return Right(localDistricts);
+        }
+      },
+    );
   }
 
   @override
   Future<Either<Failure, List<RockSector>>> sectors(
       {required RockDistrict district}) async {
-    if (await _networkInfo.isConnected) {
-      final failureOrSectors =
-          await _regionsRemoteDataSource.sectors(district: district);
-
-      return await failureOrSectors.fold((failure) async => Left(failure),
-          (sectors) async {
-        final failureOrUnit = await _regionsLocalDataSource.saveSectors(
-          district: district,
-          sectors: sectors,
-        );
-
-        return failureOrUnit.fold(
-            (failure) async => Left(failure),
-            (_) async =>
-                await _regionsLocalDataSource.sectors(district: district));
-      });
+    if (district.localData) {
+      return await _regionsLocalDataSource.sectors(district: district);
+    } else {
+      return await _regionsRemoteDataSource.sectors(district: district);
     }
-
-    return await _regionsLocalDataSource.sectors(district: district);
   }
 
   @override
@@ -69,26 +70,18 @@ class RockRegionsRepositoryImpl implements RockRegionsRepository {
     required RockSector sector,
     RockRouteFilter? filter,
   }) async {
-    if (await _networkInfo.isConnected) {
-      final failureOrRoutes = await _regionsRemoteDataSource.routes(
-          district: district, sector: sector);
-
-      return await failureOrRoutes.fold((failure) async => Left(failure),
-          (routes) async {
-        final failureOrUnit = await _regionsLocalDataSource.saveRoutes(
-          district: district,
-          sector: sector,
-          routes: routes,
-        );
-
-        return failureOrUnit.fold(
-            (failure) async => Left(failure),
-            (_) async => await _routesFromLocalStorage(
-                district: district, sector: sector, filter: filter));
-      });
+    if (district.localData) {
+      return await _routesFromLocalStorage(
+        district: district,
+        sector: sector,
+        filter: filter,
+      );
+    } else {
+      return await _regionsRemoteDataSource.routes(
+        district: district,
+        sector: sector,
+      );
     }
-    return await _routesFromLocalStorage(
-        district: district, sector: sector, filter: filter);
   }
 
   Future<Either<Failure, List<RockRoute>>> _routesFromLocalStorage({
@@ -152,5 +145,77 @@ class RockRegionsRepositoryImpl implements RockRegionsRepository {
       district: district,
       sector: sector,
     );
+  }
+
+  @override
+  Future<Either<Failure, List<RockDistrict>>> myDistricts() async {
+    final failureOrLocalDistrics = await _regionsLocalDataSource.districts();
+
+    return failureOrLocalDistrics.fold(
+      (failure) => Left(failure),
+      (districts) async {
+        if (districts.isEmpty) {
+          return await _regionsRemoteDataSource.districts(limit: 5);
+        } else {
+          return Right(districts);
+        }
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failure, Unit>> addMyDistrict(
+      {required RockDistrict district}) async {
+    final List<String> images = [district.image];
+
+    final failureOrUnit =
+        await _regionsLocalDataSource.saveDistricts(districts: [district]);
+
+    return failureOrUnit.fold(
+      (failure) => Left(failure),
+      (_) async {
+        final failureOrSectors =
+            await _regionsRemoteDataSource.sectors(district: district);
+
+        return failureOrSectors.fold((failure) => Left(failure),
+            (sectors) async {
+          final failureOrSaveSectors = await _regionsLocalDataSource
+              .saveSectors(district: district, sectors: sectors);
+
+          return failureOrSaveSectors.fold((failure) => Left(failure),
+              (_) async {
+            for (final sector in sectors) {
+              images.add(sector.image);
+
+              final failureOrRoutes = await _regionsRemoteDataSource.routes(
+                district: district,
+                sector: sector,
+              );
+
+              await failureOrRoutes.fold((_) async => null, (routes) async {
+                await _regionsLocalDataSource.saveRoutes(
+                  district: district,
+                  sector: sector,
+                  routes: routes,
+                );
+              });
+            }
+
+            _imageCashManager.saveImages(
+                cacheKey: district.cacheKey, images: images);
+
+            return const Right(unit);
+          });
+        });
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failure, Unit>> deleteMyDistrict(
+      {required RockDistrict district}) async {
+    await _imageCashManager.clear(cacheKey: district.cacheKey);
+
+    return _regionsLocalDataSource.deleteDistrict(district: district);
   }
 }

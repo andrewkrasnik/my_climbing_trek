@@ -28,13 +28,19 @@ class FirebaseIceRegionsRemoteDataSource implements IceRegionsRemoteDataSource {
     _districtsRef = _firebaseFirestore.collection(_districtsCollectionName);
   }
   @override
-  Future<Either<Failure, List<IceDistrictModel>>> districts() async {
-    final districtsData =
-        await _districtsRef.where('show', isEqualTo: true).get(
-              const GetOptions(
-                serverTimestampBehavior: ServerTimestampBehavior.none,
-              ),
-            );
+  Future<Either<Failure, List<IceDistrictModel>>> districts(
+      {int limit = 0}) async {
+    var ref = _districtsRef.where('show', isEqualTo: true);
+
+    if (limit > 0) {
+      ref = ref.limit(limit);
+    }
+
+    final districtsData = await ref.get(
+      const GetOptions(
+        serverTimestampBehavior: ServerTimestampBehavior.none,
+      ),
+    );
 
     List<IceDistrictModel> districts = [];
 
