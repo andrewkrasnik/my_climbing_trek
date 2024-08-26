@@ -1,5 +1,7 @@
+import 'package:my_climbing_trek/core/widgets/my_modal_bottom_sheet.dart';
 import 'package:my_climbing_trek/features/settings/presentation/cubit/settings_cubit.dart';
 import 'package:my_climbing_trek/features/treanings/presentation/cubit/treanings/treanings_cubit.dart';
+import 'package:my_climbing_trek/features/treanings/presentation/widgets/treaning_editing_widget_factory.dart';
 import 'package:my_climbing_trek/features/treanings/presentation/widgets/treaning_widget_factory.dart';
 import 'package:flutter/material.dart';
 
@@ -20,15 +22,7 @@ class TreaningsPage extends StatelessWidget {
         return BlocProvider(
           create: (context) => getIt<TreaningsCubit>()
             ..loadData(
-              cardio: settingsState.treaningsSettings.useCardioTreanings,
-              gym: settingsState.treaningsSettings.useGymTreanings,
-              ice: settingsState.treaningsSettings.useIceTreanings,
-              rock: settingsState.treaningsSettings.useRockTraining,
-              strength: settingsState.treaningsSettings.useStrengthTraining,
-              travel: settingsState.treaningsSettings.useTraveling,
-              trekking: settingsState.treaningsSettings.useTrekking,
-              techniques: settingsState.treaningsSettings.useTechniques,
-              mountaneering: settingsState.treaningsSettings.useMountaineering,
+              settings: settingsState.treaningsSettings,
             ),
           child: BlocBuilder<TreaningsCubit, TreaningsState>(
             builder: (context, state) {
@@ -50,81 +44,88 @@ class TreaningsPage extends StatelessWidget {
                                     endActionPane: ActionPane(
                                       motion: const ScrollMotion(),
                                       children: [
-                                        SlidableAction(
-                                          flex: 1,
-                                          onPressed: (context) async {
-                                            final cubit =
-                                                BlocProvider.of<TreaningsCubit>(
-                                                    context);
+                                        if (dataState
+                                            .treanings[index].hasEditing)
+                                          SlidableAction(
+                                            flex: 1,
+                                            onPressed: (context) async {
+                                              final cubit = BlocProvider.of<
+                                                  TreaningsCubit>(context);
 
-                                            final deletePermission =
-                                                await showDialog<bool>(
-                                              context: context,
-                                              builder: (context) => AlertDialog(
-                                                title: const Text(
-                                                    'Подтверждение удаления'),
-                                                content: const Text(
-                                                    'После удаления данные о тренировке станут недоступны. Продолжить?'),
-                                                actions: [
-                                                  ElevatedButton(
-                                                    onPressed: () {
-                                                      Navigator.of(context)
-                                                          .pop(false);
-                                                    },
-                                                    child:
-                                                        const Text('Отменить'),
-                                                  ),
-                                                  ElevatedButton(
-                                                    onPressed: () {
-                                                      Navigator.of(context)
-                                                          .pop(true);
-                                                    },
-                                                    child: const Text(
-                                                        'Продолжить'),
-                                                  ),
-                                                ],
-                                              ),
-                                            );
-
-                                            if (deletePermission == true) {
-                                              cubit.delete(
-                                                treaning:
-                                                    dataState.treanings[index],
-                                                cardio: settingsState
-                                                    .treaningsSettings
-                                                    .useCardioTreanings,
-                                                gym: settingsState
-                                                    .treaningsSettings
-                                                    .useGymTreanings,
-                                                ice: settingsState
-                                                    .treaningsSettings
-                                                    .useIceTreanings,
-                                                rock: settingsState
-                                                    .treaningsSettings
-                                                    .useRockTraining,
-                                                strength: settingsState
-                                                    .treaningsSettings
-                                                    .useStrengthTraining,
-                                                travel: settingsState
-                                                    .treaningsSettings
-                                                    .useTraveling,
-                                                trekking: settingsState
-                                                    .treaningsSettings
-                                                    .useTrekking,
-                                                techniques: settingsState
-                                                    .treaningsSettings
-                                                    .useTechniques,
-                                                mountaneering: settingsState
-                                                    .treaningsSettings
-                                                    .useMountaineering,
+                                              await showMyModalBottomSheet<
+                                                  void>(
+                                                context: context,
+                                                heightPersent: 0.6,
+                                                child:
+                                                    TreaningEditingWidgetFactory(
+                                                  treaning: dataState
+                                                      .treanings[index],
+                                                ),
                                               );
-                                            }
-                                          },
-                                          backgroundColor: Colors.red.shade400,
-                                          foregroundColor: Colors.white,
-                                          icon: Icons.delete,
-                                          label: 'delete',
-                                        ),
+
+                                              cubit.loadData(
+                                                  settings: settingsState
+                                                      .treaningsSettings);
+                                            },
+                                            backgroundColor:
+                                                Colors.orange.shade400,
+                                            foregroundColor: Colors.white,
+                                            icon: Icons.edit,
+                                            label: 'edit',
+                                          ),
+                                        if (dataState
+                                            .treanings[index].hasDeleting)
+                                          SlidableAction(
+                                            flex: 1,
+                                            onPressed: (context) async {
+                                              final cubit = BlocProvider.of<
+                                                  TreaningsCubit>(context);
+
+                                              final deletePermission =
+                                                  await showDialog<bool>(
+                                                context: context,
+                                                builder: (context) =>
+                                                    AlertDialog(
+                                                  title: const Text(
+                                                      'Подтверждение удаления'),
+                                                  content: const Text(
+                                                      'После удаления данные о тренировке станут недоступны. Продолжить?'),
+                                                  actions: [
+                                                    ElevatedButton(
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop(false);
+                                                      },
+                                                      child: const Text(
+                                                          'Отменить'),
+                                                    ),
+                                                    ElevatedButton(
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop(true);
+                                                      },
+                                                      child: const Text(
+                                                          'Продолжить'),
+                                                    ),
+                                                  ],
+                                                ),
+                                              );
+
+                                              if (deletePermission == true) {
+                                                cubit.delete(
+                                                  treaning: dataState
+                                                      .treanings[index],
+                                                  settings: settingsState
+                                                      .treaningsSettings,
+                                                );
+                                              }
+                                            },
+                                            backgroundColor:
+                                                Colors.red.shade400,
+                                            foregroundColor: Colors.white,
+                                            icon: Icons.delete,
+                                            label: 'delete',
+                                          ),
                                       ],
                                     ),
                                     child: GestureDetector(

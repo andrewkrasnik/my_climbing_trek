@@ -21,6 +21,10 @@ class Treaning {
 
   String get dateString => DateFormat('dd.MM.yyyy').format(date);
 
+  bool get hasEditing => false;
+
+  bool get hasDeleting => true;
+
   Treaning({
     required this.date,
     DateTime? finish,

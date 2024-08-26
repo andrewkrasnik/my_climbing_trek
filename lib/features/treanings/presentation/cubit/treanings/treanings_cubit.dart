@@ -1,4 +1,5 @@
 import 'package:my_climbing_trek/core/data/treaning.dart';
+import 'package:my_climbing_trek/features/settings/domain/entities/treanings_settings.dart';
 import 'package:my_climbing_trek/features/treanings/domain/usecases/delete_treaning.dart';
 import 'package:my_climbing_trek/features/treanings/domain/usecases/get_all_treanings.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,28 +20,20 @@ class TreaningsCubit extends Cubit<TreaningsState> {
   ) : super(const TreaningsState.initial());
 
   Future<void> loadData({
-    required bool rock,
-    required bool gym,
-    required bool ice,
-    required bool cardio,
-    required bool strength,
-    required bool travel,
-    required bool trekking,
-    required bool techniques,
-    required bool mountaneering,
+    required TreaningsSettings settings,
   }) async {
     emit(const TreaningsState.loading());
 
     final failureOrTreanings = await _allTreanings(
-      cardio: cardio,
-      gym: gym,
-      ice: ice,
-      rock: rock,
-      strength: strength,
-      travel: travel,
-      trekking: trekking,
-      techniques: techniques,
-      mountaneering: mountaneering,
+      cardio: settings.useCardioTreanings,
+      gym: settings.useGymTreanings,
+      ice: settings.useIceTreanings,
+      rock: settings.useRockTraining,
+      strength: settings.useStrengthTraining,
+      travel: settings.useTraveling,
+      trekking: settings.useTrekking,
+      techniques: settings.useTechniques,
+      mountaneering: settings.useMountaineering,
     );
 
     failureOrTreanings.fold(
@@ -54,15 +47,7 @@ class TreaningsCubit extends Cubit<TreaningsState> {
 
   Future<void> delete({
     required Treaning treaning,
-    required bool rock,
-    required bool gym,
-    required bool ice,
-    required bool cardio,
-    required bool strength,
-    required bool travel,
-    required bool trekking,
-    required bool techniques,
-    required bool mountaneering,
+    required TreaningsSettings settings,
   }) async {
     final failureOrUnit = await _deleteTreaning(treaning: treaning);
 
@@ -70,17 +55,7 @@ class TreaningsCubit extends Cubit<TreaningsState> {
       (failure) => emit(TreaningsState.error(
         description: failure.toString(),
       )),
-      (_) => loadData(
-        rock: rock,
-        gym: gym,
-        ice: ice,
-        cardio: cardio,
-        strength: strength,
-        travel: travel,
-        trekking: trekking,
-        techniques: techniques,
-        mountaneering: mountaneering,
-      ),
+      (_) => loadData(settings: settings),
     );
 
     // loadData();

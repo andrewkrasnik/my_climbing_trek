@@ -7,6 +7,9 @@ class CardioTreaning extends Treaning {
   final CardioExercise exercise;
   final double length;
 
+  @override
+  bool get hasEditing => true;
+
   CardioTreaning({
     super.id,
     required super.date,

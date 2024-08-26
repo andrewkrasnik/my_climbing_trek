@@ -11,6 +11,9 @@ class TravelDay extends Treaning {
   List<StayLine> stayLines;
   final String travelId;
 
+  @override
+  bool get hasDeleting => false;
+
   TravelDay({
     required this.travelId,
     required super.date,
