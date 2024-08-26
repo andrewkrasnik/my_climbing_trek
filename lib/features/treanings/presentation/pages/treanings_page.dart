@@ -55,11 +55,13 @@ class TreaningsPage extends StatelessWidget {
                                               await showMyModalBottomSheet<
                                                   void>(
                                                 context: context,
-                                                heightPersent: 0.6,
-                                                child:
-                                                    TreaningEditingWidgetFactory(
-                                                  treaning: dataState
-                                                      .treanings[index],
+                                                heightPersent: 0.65,
+                                                child: SingleChildScrollView(
+                                                  child:
+                                                      TreaningEditingWidgetFactory(
+                                                    treaning: dataState
+                                                        .treanings[index],
+                                                  ),
                                                 ),
                                               );
 

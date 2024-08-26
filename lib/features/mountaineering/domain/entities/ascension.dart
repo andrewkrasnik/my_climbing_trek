@@ -8,6 +8,9 @@ class Ascension extends Treaning {
   final MountainRoute route;
   final List<AscensionEvent> events;
 
+  @override
+  bool get hasEditing => true;
+
   Ascension({
     required super.date,
     required this.mountain,

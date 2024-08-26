@@ -19,6 +19,9 @@ class TrekkingPath extends Treaning {
   TrekSection? currentSection;
   bool turn;
 
+  @override
+  bool get hasEditing => true;
+
   double get time {
     double pathTime = 0;
     if (events.isNotEmpty) {

@@ -10,6 +10,9 @@ class TechniqueTreaning extends Treaning {
 
   List<TechniqueTreaningItem> get items => _items;
 
+  @override
+  bool get hasEditing => true;
+
   Map<TechniqueGroup, List<TechniqueTreaningItem>> get itemsMap {
     final Map<TechniqueGroup, List<TechniqueTreaningItem>> map = {};
 

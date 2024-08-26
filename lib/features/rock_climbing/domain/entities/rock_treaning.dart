@@ -52,6 +52,9 @@ class RockTreaning extends Treaning {
     return attempts.lastWhereOrNull((element) => element.finished);
   }
 
+  @override
+  bool get hasEditing => true;
+
   RockTreaning({
     required super.date,
     required this.district,

@@ -10,6 +10,9 @@ class ClimbingHallTreaning extends Treaning {
 
   bool get hasLead => leadAttempts.isNotEmpty;
 
+  @override
+  bool get hasEditing => true;
+
   ClimbingHallAttempt? get currentAttempt =>
       attempts.firstWhereOrNull((element) => element.started);
   ClimbingHallAttempt? get lastAttempt =>

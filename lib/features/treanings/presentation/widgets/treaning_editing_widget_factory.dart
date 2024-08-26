@@ -6,7 +6,7 @@ import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/hal
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_treaning.dart';
 import 'package:my_climbing_trek/features/ice_climbing/presentation/widgets/ice_treaning_widget.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/ascension.dart';
-import 'package:my_climbing_trek/features/mountaineering/presentation/widgets/ascension_widget.dart';
+import 'package:my_climbing_trek/features/mountaineering/presentation/widgets/mountaneering_editing_widget.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_treaning.dart';
 import 'package:my_climbing_trek/features/rock_climbing/presentation/widgets/rock_treaning_widget.dart';
 import 'package:my_climbing_trek/features/strength_training/domain/entities/strength_treaning.dart';
@@ -14,14 +14,6 @@ import 'package:my_climbing_trek/features/strength_training/presentation/widgets
 import 'package:flutter/material.dart';
 import 'package:my_climbing_trek/features/techniques/domain/entities/technique_treaning.dart';
 import 'package:my_climbing_trek/features/techniques/presentation/widgets/technique_treaning_widget.dart';
-import 'package:my_climbing_trek/features/traveling/domain/entities/travel.dart';
-import 'package:my_climbing_trek/features/traveling/domain/entities/travel_day.dart';
-import 'package:my_climbing_trek/features/traveling/domain/entities/travel_finish.dart';
-import 'package:my_climbing_trek/features/traveling/domain/entities/travel_start.dart';
-import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_day_title_widget.dart';
-import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_finish_widget.dart';
-import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_start_widget.dart';
-import 'package:my_climbing_trek/features/traveling/presentation/widgets/travel_widget.dart';
 import 'package:my_climbing_trek/features/trekking/domain/entities/trekking_path.dart';
 import 'package:my_climbing_trek/features/trekking/presentation/widgets/trekking_path_widget.dart';
 
@@ -32,29 +24,36 @@ class TreaningEditingWidgetFactory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (treaning is ClimbingHallTreaning) {
-      return HallTreaningWidget(treaning: treaning as ClimbingHallTreaning);
+      return HallTreaningWidget(
+        treaning: treaning as ClimbingHallTreaning,
+        isCurrent: true,
+      );
     } else if (treaning is IceTreaning) {
-      return IceTreaningWidget(treaning: treaning as IceTreaning);
+      return IceTreaningWidget(
+        treaning: treaning as IceTreaning,
+        isCurrent: true,
+      );
     } else if (treaning is CardioTreaning) {
       return CardioParametersWidget(treaning: treaning as CardioTreaning);
     } else if (treaning is StrengthTreaning) {
-      return StrengthTreaningWidget(treaning: treaning as StrengthTreaning);
+      return StrengthTreaningWidget(
+        treaning: treaning as StrengthTreaning,
+        editing: true,
+      );
     } else if (treaning is RockTreaning) {
-      return RockTreaningWidget(treaning: treaning as RockTreaning);
-    } else if (treaning is Travel) {
-      return TravelWidget(travel: treaning as Travel);
-    } else if (treaning is TravelFinish) {
-      return TravelFinishWidget(travelFinish: treaning as TravelFinish);
-    } else if (treaning is TravelStart) {
-      return TravelStartWidget(travelStart: treaning as TravelStart);
-    } else if (treaning is TravelDay) {
-      return TravelDayTitleWidget(travelDay: treaning as TravelDay);
+      return RockTreaningWidget(
+        treaning: treaning as RockTreaning,
+        isCurrent: true,
+      );
     } else if (treaning is TrekkingPath) {
       return TrekkingPathWidget(path: treaning as TrekkingPath);
     } else if (treaning is TechniqueTreaning) {
-      return TechniqueTreaningWidget(treaning: treaning as TechniqueTreaning);
+      return TechniqueTreaningWidget(
+        treaning: treaning as TechniqueTreaning,
+        editing: true,
+      );
     } else if (treaning is Ascension) {
-      return AscensionWidget(ascension: treaning as Ascension);
+      return MountaneeringEditingWidget(ascension: treaning as Ascension);
     } else {
       return Container();
     }

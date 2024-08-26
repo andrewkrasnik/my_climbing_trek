@@ -32,6 +32,9 @@ class IceTreaning extends Treaning {
       .where((element) => element.style == ClimbingStyle.topRope)
       .toList();
 
+  @override
+  bool get hasEditing => true;
+
   IceTreaning({
     required this.district,
     required super.date,

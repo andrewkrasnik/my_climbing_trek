@@ -9,6 +9,9 @@ class StrengthTreaning extends Treaning {
   @override
   bool get started => start != null && finish == null;
 
+  @override
+  bool get hasEditing => true;
+
   List<StrengthTreaningExerciseLine> get attempts => _excercises;
 
   StrengthTreaning({
