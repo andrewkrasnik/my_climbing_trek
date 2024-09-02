@@ -78,4 +78,11 @@ class TechniqueTreaningsRepositoryImpl implements TechniqueTreaningsRepository {
     }
     return const Right(unit);
   }
+
+  @override
+  Future<Either<Failure, Unit>> deleteTreaningItem(
+      {required TechniqueTreaningItem item}) async {
+    return await _techniqueTreaningsLocalDataSource.deleteTreaningItem(
+        item: item);
+  }
 }

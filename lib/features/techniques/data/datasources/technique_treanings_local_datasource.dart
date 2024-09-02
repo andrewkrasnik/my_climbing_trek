@@ -19,4 +19,8 @@ abstract class TechniqueTreaningsLocalDataSource {
   Future<Either<Failure, TechniqueTreaning?>> currentTreaning();
 
   Future<Either<Failure, TechniqueTreaning?>> previosTreaning();
+
+  Future<Either<Failure, Unit>> deleteTreaningItem({
+    required TechniqueTreaningItem item,
+  });
 }

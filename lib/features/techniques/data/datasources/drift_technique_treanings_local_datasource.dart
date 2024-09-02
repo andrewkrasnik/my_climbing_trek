@@ -119,4 +119,15 @@ class DriftTechniqueTreaningsLocalDataSource
 
     return TechniqueTreaningModel.fromJson(json);
   }
+
+  @override
+  Future<Either<Failure, Unit>> deleteTreaningItem(
+      {required TechniqueTreaningItem item}) async {
+    final data = const TechniqueTreaningItemConverter().toJson(item);
+
+    final failureOrUnit =
+        await _localDatabase.deleteById(table: itemsTable, data: data);
+
+    return failureOrUnit;
+  }
 }

@@ -98,23 +98,40 @@ class EditTechniqueItemWidget extends HookWidget {
             //       },
             //       child: const Text('Финиш')),
             ElevatedButton(
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                    ),
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18.0),
                   ),
                 ),
-                onPressed: () {
-                  BlocProvider.of<TechniqueTreaningCubit>(context)
-                      .editTreaningItem(
-                    item: item,
-                    options: optionsState.value,
-                    comment: commentController.text,
-                  );
-                  Navigator.of(context).pop();
-                },
-                child: const Text('Сохранить')),
+              ),
+              onPressed: () {
+                BlocProvider.of<TechniqueTreaningCubit>(context)
+                    .editTreaningItem(
+                  item: item,
+                  options: optionsState.value,
+                  comment: commentController.text,
+                );
+                Navigator.of(context).pop();
+              },
+              child: const Text('Сохранить'),
+            ),
+            ElevatedButton(
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18.0),
+                  ),
+                ),
+              ),
+              onPressed: () {
+                BlocProvider.of<TechniqueTreaningCubit>(context).deleteItem(
+                  item: item,
+                );
+                Navigator.of(context).pop();
+              },
+              child: const Text('Удалить'),
+            ),
           ],
         ),
       const SizedBox(height: 16),

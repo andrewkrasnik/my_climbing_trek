@@ -13,7 +13,7 @@ import 'package:my_climbing_trek/features/strength_training/domain/entities/stre
 import 'package:my_climbing_trek/features/strength_training/presentation/widgets/strength_editing_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:my_climbing_trek/features/techniques/domain/entities/technique_treaning.dart';
-import 'package:my_climbing_trek/features/techniques/presentation/widgets/technique_treaning_widget.dart';
+import 'package:my_climbing_trek/features/techniques/presentation/widgets/technique_treaning_edit_widget.dart';
 import 'package:my_climbing_trek/features/trekking/domain/entities/trekking_path.dart';
 import 'package:my_climbing_trek/features/trekking/presentation/widgets/trekking_path_widget.dart';
 
@@ -47,9 +47,8 @@ class TreaningEditingWidgetFactory extends StatelessWidget {
     } else if (treaning is TrekkingPath) {
       return TrekkingPathWidget(path: treaning as TrekkingPath);
     } else if (treaning is TechniqueTreaning) {
-      return TechniqueTreaningWidget(
+      return TechniqueTreaningEditWidget(
         treaning: treaning as TechniqueTreaning,
-        editing: true,
       );
     } else if (treaning is Ascension) {
       return MountaneeringEditingWidget(ascension: treaning as Ascension);

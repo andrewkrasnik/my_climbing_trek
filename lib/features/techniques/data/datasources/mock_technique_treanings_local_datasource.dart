@@ -49,4 +49,11 @@ class MockTechniqueTreaningsLocalDataSource
       {required TechniqueTreaningItem item}) async {
     return const Right(unit);
   }
+
+  @override
+  Future<Either<Failure, Unit>> deleteTreaningItem(
+      {required TechniqueTreaningItem item}) {
+    // TODO: implement deleteTreaningItem
+    throw UnimplementedError();
+  }
 }

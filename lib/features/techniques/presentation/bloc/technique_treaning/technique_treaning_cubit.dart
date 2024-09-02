@@ -9,6 +9,7 @@ import 'package:my_climbing_trek/features/techniques/domain/entities/technique_t
 import 'package:my_climbing_trek/features/techniques/domain/usecases/add_technique_to_treaning_usecase.dart';
 import 'package:my_climbing_trek/features/techniques/domain/usecases/add_technique_treaning_usecase.dart';
 import 'package:my_climbing_trek/features/techniques/domain/usecases/current_technique_treaning_usecase.dart';
+import 'package:my_climbing_trek/features/techniques/domain/usecases/delete_technique_treaning_item_usecase.dart';
 import 'package:my_climbing_trek/features/techniques/domain/usecases/edit_technique_item_usecase.dart';
 import 'package:my_climbing_trek/features/techniques/domain/usecases/finish_technique_treaning_usecase.dart';
 import 'package:my_climbing_trek/features/techniques/domain/usecases/previos_technique_treaning_usecase.dart';
@@ -24,6 +25,7 @@ class TechniqueTreaningCubit extends Cubit<TechniqueTreaningState> {
   final AddTechniqueToTreaningUseCase _addTechniqueToTreaningUseCase;
   final FinishTechniqueTreaningUseCase _finishTechniqueTreaningUseCase;
   final EditTechniqueItemUseCase _editTechniqueItemUseCase;
+  final DeleteTechniqueTreaningItemUseCase _deleteTechniqueTreaningItemUseCase;
 
   TechniqueTreaningCubit(
     this._addTechniqueTreaningUseCase,
@@ -32,7 +34,12 @@ class TechniqueTreaningCubit extends Cubit<TechniqueTreaningState> {
     this._addTechniqueToTreaningUseCase,
     this._finishTechniqueTreaningUseCase,
     this._editTechniqueItemUseCase,
+    this._deleteTechniqueTreaningItemUseCase,
   ) : super(TechniqueTreaningState.initial());
+
+  Future<void> setTreaning({required TechniqueTreaning treaning}) async {
+    emit(TechniqueTreaningState(currentTreaning: treaning));
+  }
 
   Future<void> loadData() async {
     final failureOrCurrentTreaning = await _currentTechniqueTreaningUseCase();
@@ -118,6 +125,15 @@ class TechniqueTreaningCubit extends Cubit<TechniqueTreaningState> {
           treaning: state.currentTreaning!);
 
       failureOrTreaning.fold((failure) => null, (treaning) => loadData());
+    }
+  }
+
+  Future<void> deleteItem({required TechniqueTreaningItem item}) async {
+    if (state.currentTreaning != null) {
+      final failureOrUnit =
+          await _deleteTechniqueTreaningItemUseCase(item: item);
+
+      failureOrUnit.fold((failure) => null, (treaning) => loadData());
     }
   }
 }

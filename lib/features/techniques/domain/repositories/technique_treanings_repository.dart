@@ -18,6 +18,10 @@ abstract class TechniqueTreaningsRepository implements TreaningsRepository {
     required TechniqueTreaningItem item,
   });
 
+  Future<Either<Failure, Unit>> deleteTreaningItem({
+    required TechniqueTreaningItem item,
+  });
+
   Future<Either<Failure, TechniqueTreaning?>> currentTreaning();
 
   Future<Either<Failure, TechniqueTreaning?>> previosTreaning();
