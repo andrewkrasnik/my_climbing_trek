@@ -18,7 +18,9 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AscensionState {
   Ascension? get ascension => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AscensionState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $AscensionStateCopyWith<AscensionState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -42,6 +44,8 @@ class _$AscensionStateCopyWithImpl<$Res, $Val extends AscensionState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of AscensionState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -75,6 +79,8 @@ class __$$AscensionStateImplCopyWithImpl<$Res>
       _$AscensionStateImpl _value, $Res Function(_$AscensionStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of AscensionState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -114,7 +120,9 @@ class _$AscensionStateImpl implements _AscensionState {
   @override
   int get hashCode => Object.hash(runtimeType, ascension);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AscensionState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AscensionStateImplCopyWith<_$AscensionStateImpl> get copyWith =>
@@ -128,8 +136,11 @@ abstract class _AscensionState implements AscensionState {
 
   @override
   Ascension? get ascension;
+
+  /// Create a copy of AscensionState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AscensionStateImplCopyWith<_$AscensionStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

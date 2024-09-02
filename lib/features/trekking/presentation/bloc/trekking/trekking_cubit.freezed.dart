@@ -21,7 +21,9 @@ mixin _$TrekkingState {
   TrekkingPathEvent? get currentEvent => throw _privateConstructorUsedError;
   TrekPoint? get currentPoint => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TrekkingState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $TrekkingStateCopyWith<TrekkingState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -49,6 +51,8 @@ class _$TrekkingStateCopyWithImpl<$Res, $Val extends TrekkingState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of TrekkingState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -101,6 +105,8 @@ class __$$TrekkingStateImplCopyWithImpl<$Res>
       _$TrekkingStateImpl _value, $Res Function(_$TrekkingStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of TrekkingState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -172,7 +178,9 @@ class _$TrekkingStateImpl implements _TrekkingState {
   int get hashCode => Object.hash(
       runtimeType, currentPath, previosPath, currentEvent, currentPoint);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TrekkingState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$TrekkingStateImplCopyWith<_$TrekkingStateImpl> get copyWith =>
@@ -194,8 +202,11 @@ abstract class _TrekkingState implements TrekkingState {
   TrekkingPathEvent? get currentEvent;
   @override
   TrekPoint? get currentPoint;
+
+  /// Create a copy of TrekkingState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TrekkingStateImplCopyWith<_$TrekkingStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

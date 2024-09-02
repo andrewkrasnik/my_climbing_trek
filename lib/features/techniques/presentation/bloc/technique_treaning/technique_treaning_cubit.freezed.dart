@@ -20,7 +20,9 @@ mixin _$TechniqueTreaningState {
   TechniqueTreaning? get previosTreaning => throw _privateConstructorUsedError;
   Technique? get currentTechnique => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TechniqueTreaningState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $TechniqueTreaningStateCopyWith<TechniqueTreaningState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -48,6 +50,8 @@ class _$TechniqueTreaningStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of TechniqueTreaningState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -97,6 +101,8 @@ class __$$TechniqueTreaningStateImplCopyWithImpl<$Res>
       $Res Function(_$TechniqueTreaningStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of TechniqueTreaningState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -156,7 +162,9 @@ class _$TechniqueTreaningStateImpl implements _TechniqueTreaningState {
   int get hashCode => Object.hash(
       runtimeType, currentTreaning, previosTreaning, currentTechnique);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TechniqueTreaningState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$TechniqueTreaningStateImplCopyWith<_$TechniqueTreaningStateImpl>
@@ -176,8 +184,11 @@ abstract class _TechniqueTreaningState implements TechniqueTreaningState {
   TechniqueTreaning? get previosTreaning;
   @override
   Technique? get currentTechnique;
+
+  /// Create a copy of TechniqueTreaningState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TechniqueTreaningStateImplCopyWith<_$TechniqueTreaningStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

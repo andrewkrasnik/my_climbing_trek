@@ -21,7 +21,9 @@ mixin _$CurrentTravelState {
   bool get useFilter => throw _privateConstructorUsedError;
   String get errorMessage => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CurrentTravelState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CurrentTravelStateCopyWith<CurrentTravelState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -49,6 +51,8 @@ class _$CurrentTravelStateCopyWithImpl<$Res, $Val extends CurrentTravelState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CurrentTravelState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -101,6 +105,8 @@ class __$$CurrentTravelStateImplCopyWithImpl<$Res>
       $Res Function(_$CurrentTravelStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CurrentTravelState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -171,7 +177,9 @@ class _$CurrentTravelStateImpl implements _CurrentTravelState {
   int get hashCode =>
       Object.hash(runtimeType, travel, travelDay, useFilter, errorMessage);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CurrentTravelState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CurrentTravelStateImplCopyWith<_$CurrentTravelStateImpl> get copyWith =>
@@ -194,8 +202,11 @@ abstract class _CurrentTravelState implements CurrentTravelState {
   bool get useFilter;
   @override
   String get errorMessage;
+
+  /// Create a copy of CurrentTravelState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CurrentTravelStateImplCopyWith<_$CurrentTravelStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

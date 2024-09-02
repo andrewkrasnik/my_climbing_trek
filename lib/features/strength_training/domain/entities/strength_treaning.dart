@@ -50,6 +50,19 @@ class StrengthTreaning extends Treaning {
 
   @override
   String get place => 'Силовая тренировка';
+
+  StrengthTreaning copyWith({
+    List<StrengthTreaningExerciseLine>? attempts,
+    DateTime? date,
+  }) {
+    return StrengthTreaning(
+      attempts: attempts ?? this.attempts,
+      date: date ?? this.date,
+      id: id,
+      finish: finish,
+      start: start,
+    );
+  }
 }
 
 class StrengthTreaningExerciseLine extends DataWithUUID {

@@ -352,6 +352,8 @@ import 'features/strength_training/domain/usecases/get_strength_exercises.dart'
     as _i182;
 import 'features/strength_training/domain/usecases/get_strength_treanings.dart'
     as _i422;
+import 'features/strength_training/domain/usecases/save_stregth_treaning.dart'
+    as _i732;
 import 'features/strength_training/domain/usecases/save_strength_exercise.dart'
     as _i212;
 import 'features/strength_training/domain/usecases/select_to_use_strength_exercise.dart'
@@ -1084,6 +1086,8 @@ _i174.GetIt $initGetIt(
               gh<_i751.StrengthTreaningsRepository>()));
   gh.lazySingleton<_i422.GetStrengthTreanings>(() => _i422.GetStrengthTreanings(
       strengthTreaningsRepository: gh<_i751.StrengthTreaningsRepository>()));
+  gh.lazySingleton<_i732.SaveStrengthTreaning>(() => _i732.SaveStrengthTreaning(
+      strengthTreaningsRepository: gh<_i751.StrengthTreaningsRepository>()));
   gh.lazySingleton<_i948.AddTravelUsecase>(
       () => _i948.AddTravelUsecase(gh<_i1055.TravelRepository>()));
   gh.lazySingleton<_i764.CurrentTravelUsecase>(
@@ -1147,6 +1151,19 @@ _i174.GetIt $initGetIt(
         gh<_i78.GetClimbingHallRoures>(),
         gh<_i231.HallRouteToArchive>(),
         gh<_i456.GetGymRouteStatistic>(),
+      ));
+  gh.factory<_i306.StrengthTrainingCubit>(() => _i306.StrengthTrainingCubit(
+        getCurrentStrengthTreaning: gh<_i337.GetCurrentStrengthTreaning>(),
+        getPreviosStrengthTreaning: gh<_i859.GetPreviosStrengthTreaning>(),
+        addStrengthTreaning: gh<_i624.AddStrengthTreaning>(),
+        updateStrengthTreaningExercises:
+            gh<_i526.UpdateStrengthTreaningExercises>(),
+        addRepetitionForStrengthTreaning:
+            gh<_i336.AddRepetitionForStrengthTreaning>(),
+        finishStrengthTreaning: gh<_i571.FinishStrengthTreaning>(),
+        deleteRepetitionForStrengthTreaning:
+            gh<_i453.DeleteRepetitionForStrengthTreaning>(),
+        saveStrengthTreaning: gh<_i732.SaveStrengthTreaning>(),
       ));
   gh.factory<_i976.CardioTreaningsCubit>(() => _i976.CardioTreaningsCubit(
         gh<_i1038.GetCardioTreanings>(),
@@ -1227,18 +1244,6 @@ _i174.GetIt $initGetIt(
         gh<_i146.GetCurrentIceTreaning>(),
         gh<_i77.GetLastIceTreaning>(),
         gh<_i187.DeleteIceAttempt>(),
-      ));
-  gh.factory<_i306.StrengthTrainingCubit>(() => _i306.StrengthTrainingCubit(
-        getCurrentStrengthTreaning: gh<_i337.GetCurrentStrengthTreaning>(),
-        getPreviosStrengthTreaning: gh<_i859.GetPreviosStrengthTreaning>(),
-        addStrengthTreaning: gh<_i624.AddStrengthTreaning>(),
-        updateStrengthTreaningExercises:
-            gh<_i526.UpdateStrengthTreaningExercises>(),
-        addRepetitionForStrengthTreaning:
-            gh<_i336.AddRepetitionForStrengthTreaning>(),
-        finishStrengthTreaning: gh<_i571.FinishStrengthTreaning>(),
-        deleteRepetitionForStrengthTreaning:
-            gh<_i453.DeleteRepetitionForStrengthTreaning>(),
       ));
   gh.factory<_i1006.ClimbingHallsCubit>(() => _i1006.ClimbingHallsCubit(
       allClimbingHalls: gh<_i934.AllClimbingHalls>()));

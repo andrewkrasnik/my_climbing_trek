@@ -9,7 +9,7 @@ part of 'insurance_line_model.dart';
 InsuranceLineModel _$InsuranceLineModelFromJson(Map<String, dynamic> json) =>
     InsuranceLineModel(
       travelId: json['travelId'] as String,
-      number: json['number'] as String? ?? '',
+      number: json['number'] as String,
       id: json['id'] as String? ?? '',
       insurer: json['insurer'] as String,
       description: json['description'] as String,

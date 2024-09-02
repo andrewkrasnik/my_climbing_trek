@@ -1,4 +1,4 @@
-import 'package:my_climbing_trek/core/extentions/date_time_extention.dart';
+import 'package:my_climbing_trek/core/widgets/date_picker_widget.dart';
 import 'package:my_climbing_trek/features/cardio_workout/domain/entities/cardio_exercise.dart';
 import 'package:my_climbing_trek/features/cardio_workout/domain/entities/cardio_treaning.dart';
 import 'package:my_climbing_trek/features/cardio_workout/presentation/cubit/cardio_treaning/cardio_treaning_cubit.dart';
@@ -30,42 +30,7 @@ class CardioParametersWidget extends HookWidget {
       child: Form(
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconButton(
-                    onPressed: () {
-                      date.value = date.value.previosDay();
-                    },
-                    icon: const Icon(Icons.arrow_back_ios)),
-                InkWell(
-                    onTap: () async {
-                      final newDate = await showDatePicker(
-                          context: context,
-                          initialDate: date.value,
-                          lastDate: DateTime.now(),
-                          firstDate: DateTime.now()
-                              .subtract(const Duration(days: 365)));
-
-                      if (newDate != null) {
-                        date.value = newDate;
-                      }
-                    },
-                    child: Text(
-                      date.value.dayString(),
-                      style: Theme.of(context).textTheme.headlineSmall,
-                    )),
-                IconButton(
-                    onPressed: () {
-                      if (date.value
-                          .toDayStart()
-                          .isBefore(DateTime.now().toDayStart())) {
-                        date.value = date.value.nextDay();
-                      }
-                    },
-                    icon: const Icon(Icons.arrow_forward_ios)),
-              ],
-            ),
+            DatePickerWidget(date: date),
             const SizedBox(
               height: 16,
             ),

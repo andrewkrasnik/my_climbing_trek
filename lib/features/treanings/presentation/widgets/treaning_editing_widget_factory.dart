@@ -10,7 +10,7 @@ import 'package:my_climbing_trek/features/mountaineering/presentation/widgets/mo
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_treaning.dart';
 import 'package:my_climbing_trek/features/rock_climbing/presentation/widgets/rock_treaning_widget.dart';
 import 'package:my_climbing_trek/features/strength_training/domain/entities/strength_treaning.dart';
-import 'package:my_climbing_trek/features/strength_training/presentation/widgets/strength_treaning_widget.dart';
+import 'package:my_climbing_trek/features/strength_training/presentation/widgets/strength_editing_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:my_climbing_trek/features/techniques/domain/entities/technique_treaning.dart';
 import 'package:my_climbing_trek/features/techniques/presentation/widgets/technique_treaning_widget.dart';
@@ -36,9 +36,8 @@ class TreaningEditingWidgetFactory extends StatelessWidget {
     } else if (treaning is CardioTreaning) {
       return CardioParametersWidget(treaning: treaning as CardioTreaning);
     } else if (treaning is StrengthTreaning) {
-      return StrengthTreaningWidget(
+      return StrengthEditingWidget(
         treaning: treaning as StrengthTreaning,
-        editing: true,
       );
     } else if (treaning is RockTreaning) {
       return RockTreaningWidget(
