@@ -4,7 +4,7 @@ import 'package:my_climbing_trek/features/cardio_workout/presentation/widgets/ca
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_treaning.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/hall_treaning_widget.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_treaning.dart';
-import 'package:my_climbing_trek/features/ice_climbing/presentation/widgets/ice_treaning_widget.dart';
+import 'package:my_climbing_trek/features/ice_climbing/presentation/widgets/ice_treaning_editing_widget.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/ascension.dart';
 import 'package:my_climbing_trek/features/mountaineering/presentation/widgets/mountaneering_editing_widget.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_treaning.dart';
@@ -29,9 +29,8 @@ class TreaningEditingWidgetFactory extends StatelessWidget {
         isCurrent: true,
       );
     } else if (treaning is IceTreaning) {
-      return IceTreaningWidget(
+      return IceTreaningEditingWidget(
         treaning: treaning as IceTreaning,
-        isCurrent: true,
       );
     } else if (treaning is CardioTreaning) {
       return CardioParametersWidget(treaning: treaning as CardioTreaning);

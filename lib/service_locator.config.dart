@@ -398,6 +398,8 @@ import 'features/techniques/domain/usecases/delete_my_technique_group.dart'
     as _i828;
 import 'features/techniques/domain/usecases/delete_technique_group_usecase.dart'
     as _i793;
+import 'features/techniques/domain/usecases/delete_technique_treaning_item_usecase.dart'
+    as _i5;
 import 'features/techniques/domain/usecases/delete_technique_treaning_usecase.dart'
     as _i588;
 import 'features/techniques/domain/usecases/delete_technique_usecase.dart'
@@ -715,6 +717,9 @@ _i174.GetIt $initGetIt(
   gh.lazySingleton<_i858.PreviosTechniqueTreaningUseCase>(() =>
       _i858.PreviosTechniqueTreaningUseCase(
           gh<_i665.TechniqueTreaningsRepository>()));
+  gh.lazySingleton<_i5.DeleteTechniqueTreaningItemUseCase>(() =>
+      _i5.DeleteTechniqueTreaningItemUseCase(
+          gh<_i665.TechniqueTreaningsRepository>()));
   gh.lazySingleton<_i677.RockTreaningsLocalDataSource>(() =>
       _i924.DriftRockTreaningsLocalDataSource(gh<_i808.LocalDBDatasource>()));
   gh.lazySingleton<_i157.TravelRegionsRepository>(() =>
@@ -749,6 +754,15 @@ _i174.GetIt $initGetIt(
       _i508.SaveMountainRouteUsecase(gh<_i436.MountainRegionsRepository>()));
   gh.lazySingleton<_i959.SaveMountainUsecase>(
       () => _i959.SaveMountainUsecase(gh<_i436.MountainRegionsRepository>()));
+  gh.factory<_i942.TechniqueTreaningCubit>(() => _i942.TechniqueTreaningCubit(
+        gh<_i486.AddTechniqueTreaningUseCase>(),
+        gh<_i858.PreviosTechniqueTreaningUseCase>(),
+        gh<_i484.CurrentTechniqueTreaningUseCase>(),
+        gh<_i222.AddTechniqueToTreaningUseCase>(),
+        gh<_i755.FinishTechniqueTreaningUseCase>(),
+        gh<_i157.EditTechniqueItemUseCase>(),
+        gh<_i5.DeleteTechniqueTreaningItemUseCase>(),
+      ));
   gh.lazySingleton<_i967.DeleteStrengthExercise>(() =>
       _i967.DeleteStrengthExercise(
           strengthExerciseRepository: gh<_i21.StrengthExerciseRepository>()));
@@ -759,14 +773,6 @@ _i174.GetIt $initGetIt(
   gh.lazySingleton<_i791.SelectToUseStrengthExercise>(() =>
       _i791.SelectToUseStrengthExercise(
           strengthExerciseRepository: gh<_i21.StrengthExerciseRepository>()));
-  gh.factory<_i942.TechniqueTreaningCubit>(() => _i942.TechniqueTreaningCubit(
-        gh<_i486.AddTechniqueTreaningUseCase>(),
-        gh<_i858.PreviosTechniqueTreaningUseCase>(),
-        gh<_i484.CurrentTechniqueTreaningUseCase>(),
-        gh<_i222.AddTechniqueToTreaningUseCase>(),
-        gh<_i755.FinishTechniqueTreaningUseCase>(),
-        gh<_i157.EditTechniqueItemUseCase>(),
-      ));
   gh.factory<_i186.AuthGetUser>(
       () => _i186.AuthGetUser(authRepository: gh<_i877.AuthRepository>()));
   gh.factory<_i801.AuthLogin>(

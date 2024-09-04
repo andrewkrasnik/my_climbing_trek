@@ -162,4 +162,11 @@ class CurrentIceTreaningCubit extends Cubit<CurrentIceTreaningState> {
       );
     }
   }
+
+  Future<void> changeDate(
+      {required IceTreaning treaning, required DateTime date}) async {}
+
+  Future<void> setTreaning({required IceTreaning treaning}) async {
+    emit(CurrentIceTreaningState(currentTreaning: treaning));
+  }
 }
