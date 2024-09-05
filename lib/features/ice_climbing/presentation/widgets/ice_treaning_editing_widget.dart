@@ -3,8 +3,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:my_climbing_trek/core/data/climbing_style.dart';
 import 'package:my_climbing_trek/core/widgets/date_picker_widget.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_treaning.dart';
-import 'package:my_climbing_trek/features/ice_climbing/presentation/bloc/current_ice_treaning/current_ice_treaning_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:my_climbing_trek/features/ice_climbing/presentation/bloc/current_ice_treaning/current_ice_treaning_cubit.dart';
 import 'package:my_climbing_trek/features/ice_climbing/presentation/pages/ice_district_page.dart';
 import 'package:my_climbing_trek/features/ice_climbing/presentation/widgets/ice_attempts_with_style.dart';
 import 'package:my_climbing_trek/service_locator.dart';
@@ -18,15 +18,18 @@ class IceTreaningEditingWidget extends HookWidget {
   Widget build(BuildContext context) {
     final date = useState<DateTime>(treaning.date);
 
+    final cubit = getIt<CurrentIceTreaningCubit>()
+      ..setTreaning(treaning: treaning);
+
     return BlocProvider(
-      create: (context) =>
-          getIt<CurrentIceTreaningCubit>()..setTreaning(treaning: treaning),
+      create: (context) => cubit,
       child: BlocBuilder<CurrentIceTreaningCubit, CurrentIceTreaningState>(
         builder: (context, state) {
           return Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
               mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 DatePickerWidget(date: date),
                 Row(
@@ -36,45 +39,45 @@ class IceTreaningEditingWidget extends HookWidget {
                         onTap: () => Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) => IceDistrictPage(
-                                  district: treaning.district,
+                                  district: state.currentTreaning!.district,
                                   addSector: (sector) {
-                                    BlocProvider.of<CurrentIceTreaningCubit>(
-                                            context)
-                                        .addIceSectorToTreaning(
-                                            sector: sector,
-                                            district: treaning.district);
+                                    cubit.addIceSectorToTreaning(
+                                        sector: sector,
+                                        district:
+                                            state.currentTreaning!.district);
                                   },
                                 ),
                               ),
                             ),
-                        child: Text(treaning.district.name)),
+                        child: Text(state.currentTreaning!.district.name)),
                   ],
                 ),
                 const SizedBox(
                   height: 8,
                 ),
-                if (treaning.hasLead)
+                if (state.currentTreaning!.hasLead)
                   IceAttemptsWithStyle(
-                    attempts: treaning.leadAttempts,
-                    treaning: treaning,
+                    attempts: state.currentTreaning!.leadAttempts,
+                    treaning: state.currentTreaning!,
                     isCurrent: true,
                     climbingStyle: ClimbingStyle.lead,
+                    cubit: cubit,
+                    editing: true,
                     child: const Text('Нижняя:'),
                   ),
-                if (treaning.hasTopRope)
+                if (state.currentTreaning!.hasTopRope)
                   IceAttemptsWithStyle(
-                    attempts: treaning.topRopeAttempts,
-                    treaning: treaning,
+                    attempts: state.currentTreaning!.topRopeAttempts,
+                    treaning: state.currentTreaning!,
                     isCurrent: true,
                     climbingStyle: ClimbingStyle.topRope,
+                    cubit: cubit,
+                    editing: true,
                     child: const Text('Верхняя:'),
                   ),
                 TextButton(
                   child: const Text('Завершить'),
                   onPressed: () async {
-                    final cubit =
-                        BlocProvider.of<CurrentIceTreaningCubit>(context);
-
                     final finishPermission = await showDialog<bool>(
                       context: context,
                       builder: (context) => AlertDialog(
@@ -100,7 +103,6 @@ class IceTreaningEditingWidget extends HookWidget {
 
                     if (finishPermission == true) {
                       cubit.changeDate(
-                        treaning: treaning,
                         date: date.value,
                       );
 

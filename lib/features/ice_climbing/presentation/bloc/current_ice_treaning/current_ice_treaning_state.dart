@@ -7,6 +7,7 @@ class CurrentIceTreaningState with _$CurrentIceTreaningState {
     IceTreaning? lastTreaning,
     IceTreaningAttempt? currentAttempt,
     IceTreaningAttempt? lastAttempt,
+    bool? loading,
   }) = _CurrentIceTreaningState;
 
   factory CurrentIceTreaningState.initial() => const CurrentIceTreaningState();

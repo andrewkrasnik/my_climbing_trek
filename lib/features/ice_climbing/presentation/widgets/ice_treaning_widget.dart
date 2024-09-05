@@ -24,6 +24,8 @@ class IceTreaningWidget extends StatelessWidget {
       title = '$title, ${treaning.sectors.first.name}';
     }
 
+    final cubit = BlocProvider.of<CurrentIceTreaningCubit>(context);
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Material(
@@ -81,6 +83,7 @@ class IceTreaningWidget extends StatelessWidget {
                   treaning: treaning,
                   isCurrent: isCurrent,
                   climbingStyle: ClimbingStyle.lead,
+                  cubit: cubit,
                   child: const Text('Нижняя:'),
                 ),
               if (isCurrent || treaning.hasTopRope)
@@ -88,6 +91,7 @@ class IceTreaningWidget extends StatelessWidget {
                   attempts: treaning.topRopeAttempts,
                   treaning: treaning,
                   isCurrent: isCurrent,
+                  cubit: cubit,
                   climbingStyle: ClimbingStyle.topRope,
                   child: const Text('Верхняя:'),
                 ),

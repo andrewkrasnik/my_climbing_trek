@@ -6,6 +6,7 @@ import 'package:my_climbing_trek/features/ice_climbing/domain/usecases/delete_ic
 import 'package:my_climbing_trek/features/ice_climbing/domain/usecases/finish_ice_attempt.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/usecases/finish_ice_treaning.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/usecases/get_current_ice_treaning.dart';
+import 'package:my_climbing_trek/features/ice_climbing/domain/usecases/get_ice_treaning_usecase.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/usecases/get_last_ice_treaning.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/usecases/ice_sector_to_treaning.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/usecases/new_ice_attempt.dart';
@@ -16,6 +17,7 @@ import 'package:injectable/injectable.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_treaning.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_treaning_attempt.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/usecases/new_ice_treaning.dart';
+import 'package:my_climbing_trek/features/ice_climbing/domain/usecases/save_ice_treaning_usecase.dart';
 
 part 'current_ice_treaning_cubit.freezed.dart';
 part 'current_ice_treaning_state.dart';
@@ -30,6 +32,8 @@ class CurrentIceTreaningCubit extends Cubit<CurrentIceTreaningState> {
   final GetLastIceTreaning _getLastIceTreaning;
   final GetCurrentIceTreaning _getCurrentIceTreaning;
   final DeleteIceAttempt _deleteIceAttempt;
+  final GetIceTreaningUseCase _getIceTreaningUseCase;
+  final SaveIceTreaningUseCase _saveIceTreaningUseCase;
 
   CurrentIceTreaningCubit(
     this._newIceTreaning,
@@ -40,9 +44,15 @@ class CurrentIceTreaningCubit extends Cubit<CurrentIceTreaningState> {
     this._getCurrentIceTreaning,
     this._getLastIceTreaning,
     this._deleteIceAttempt,
+    this._getIceTreaningUseCase,
+    this._saveIceTreaningUseCase,
   ) : super(CurrentIceTreaningState.initial());
 
-  Future<void> loadData() async {
+  Future<void> setTreaning({required IceTreaning treaning}) async {
+    emit(state.copyWith(currentTreaning: treaning));
+  }
+
+  Future<void> loadCurrentTreanings() async {
     emit(const CurrentIceTreaningState());
 
     final failureOrCurrent = await _getCurrentIceTreaning();
@@ -112,6 +122,7 @@ class CurrentIceTreaningCubit extends Cubit<CurrentIceTreaningState> {
 
   Future<void> finishCurrentAttempt({
     required IceCategory category,
+    required IceTreaningAttempt attempt,
     required bool fail,
     required bool downClimbing,
     required int fallCount,
@@ -123,7 +134,7 @@ class CurrentIceTreaningCubit extends Cubit<CurrentIceTreaningState> {
   }) async {
     final failureOrAttempt = await _finishIceAttempt(
       category: category,
-      attempt: state.currentAttempt!,
+      attempt: attempt,
       treaning: state.currentTreaning!,
       length: length,
       fail: fail,
@@ -135,10 +146,10 @@ class CurrentIceTreaningCubit extends Cubit<CurrentIceTreaningState> {
       toolsCount: toolsCount,
     );
 
-    failureOrAttempt.fold(
-        (failure) => null,
-        (attempt) =>
-            emit(state.copyWith(currentAttempt: null, lastAttempt: attempt)));
+    failureOrAttempt.fold((failure) => null, (attempt) {
+      emit(state.copyWith(currentAttempt: null, lastAttempt: attempt));
+      loadData();
+    });
   }
 
   Future<void> deleteAttempt({required IceTreaningAttempt attempt}) async {
@@ -163,10 +174,38 @@ class CurrentIceTreaningCubit extends Cubit<CurrentIceTreaningState> {
     }
   }
 
-  Future<void> changeDate(
-      {required IceTreaning treaning, required DateTime date}) async {}
+  Future<void> loadData() async {
+    if (state.currentTreaning == null) {
+      return;
+    }
 
-  Future<void> setTreaning({required IceTreaning treaning}) async {
-    emit(CurrentIceTreaningState(currentTreaning: treaning));
+    emit(state.copyWith(loading: true));
+
+    final failureOrTreaning =
+        await _getIceTreaningUseCase(treaning: state.currentTreaning!);
+
+    failureOrTreaning.fold(
+      (failure) => null,
+      (treaning) => emit(
+        state.copyWith(currentTreaning: treaning, loading: false),
+      ),
+    );
+  }
+
+  void changeDate({required DateTime date}) async {
+    if (state.currentTreaning == null) {
+      return;
+    }
+
+    emit(state.copyWith(loading: true));
+
+    final failureOrTreaning = await _saveIceTreaningUseCase(
+        treaning: state.currentTreaning!.copyWith(date: date));
+
+    failureOrTreaning.fold(
+      (failure) => null,
+      (treaning) =>
+          emit(state.copyWith(currentTreaning: treaning, loading: false)),
+    );
   }
 }

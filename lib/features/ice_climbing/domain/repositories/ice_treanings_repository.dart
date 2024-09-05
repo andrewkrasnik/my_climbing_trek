@@ -19,4 +19,7 @@ abstract class IceTreaningsRepository implements TreaningsRepository {
 
   Future<Either<Failure, Unit>> deleteAttempt(
       {required IceTreaningAttempt attempt});
+
+  Future<Either<Failure, IceTreaning>> getTreaning(
+      {required String treaningId});
 }

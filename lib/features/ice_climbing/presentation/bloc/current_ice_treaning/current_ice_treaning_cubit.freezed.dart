@@ -20,6 +20,7 @@ mixin _$CurrentIceTreaningState {
   IceTreaning? get lastTreaning => throw _privateConstructorUsedError;
   IceTreaningAttempt? get currentAttempt => throw _privateConstructorUsedError;
   IceTreaningAttempt? get lastAttempt => throw _privateConstructorUsedError;
+  bool? get loading => throw _privateConstructorUsedError;
 
   /// Create a copy of CurrentIceTreaningState
   /// with the given fields replaced by the non-null parameter values.
@@ -38,7 +39,8 @@ abstract class $CurrentIceTreaningStateCopyWith<$Res> {
       {IceTreaning? currentTreaning,
       IceTreaning? lastTreaning,
       IceTreaningAttempt? currentAttempt,
-      IceTreaningAttempt? lastAttempt});
+      IceTreaningAttempt? lastAttempt,
+      bool? loading});
 }
 
 /// @nodoc
@@ -61,6 +63,7 @@ class _$CurrentIceTreaningStateCopyWithImpl<$Res,
     Object? lastTreaning = freezed,
     Object? currentAttempt = freezed,
     Object? lastAttempt = freezed,
+    Object? loading = freezed,
   }) {
     return _then(_value.copyWith(
       currentTreaning: freezed == currentTreaning
@@ -79,6 +82,10 @@ class _$CurrentIceTreaningStateCopyWithImpl<$Res,
           ? _value.lastAttempt
           : lastAttempt // ignore: cast_nullable_to_non_nullable
               as IceTreaningAttempt?,
+      loading: freezed == loading
+          ? _value.loading
+          : loading // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 }
@@ -96,7 +103,8 @@ abstract class _$$CurrentIceTreaningStateImplCopyWith<$Res>
       {IceTreaning? currentTreaning,
       IceTreaning? lastTreaning,
       IceTreaningAttempt? currentAttempt,
-      IceTreaningAttempt? lastAttempt});
+      IceTreaningAttempt? lastAttempt,
+      bool? loading});
 }
 
 /// @nodoc
@@ -118,6 +126,7 @@ class __$$CurrentIceTreaningStateImplCopyWithImpl<$Res>
     Object? lastTreaning = freezed,
     Object? currentAttempt = freezed,
     Object? lastAttempt = freezed,
+    Object? loading = freezed,
   }) {
     return _then(_$CurrentIceTreaningStateImpl(
       currentTreaning: freezed == currentTreaning
@@ -136,6 +145,10 @@ class __$$CurrentIceTreaningStateImplCopyWithImpl<$Res>
           ? _value.lastAttempt
           : lastAttempt // ignore: cast_nullable_to_non_nullable
               as IceTreaningAttempt?,
+      loading: freezed == loading
+          ? _value.loading
+          : loading // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -147,7 +160,8 @@ class _$CurrentIceTreaningStateImpl implements _CurrentIceTreaningState {
       {this.currentTreaning,
       this.lastTreaning,
       this.currentAttempt,
-      this.lastAttempt});
+      this.lastAttempt,
+      this.loading});
 
   @override
   final IceTreaning? currentTreaning;
@@ -157,10 +171,12 @@ class _$CurrentIceTreaningStateImpl implements _CurrentIceTreaningState {
   final IceTreaningAttempt? currentAttempt;
   @override
   final IceTreaningAttempt? lastAttempt;
+  @override
+  final bool? loading;
 
   @override
   String toString() {
-    return 'CurrentIceTreaningState(currentTreaning: $currentTreaning, lastTreaning: $lastTreaning, currentAttempt: $currentAttempt, lastAttempt: $lastAttempt)';
+    return 'CurrentIceTreaningState(currentTreaning: $currentTreaning, lastTreaning: $lastTreaning, currentAttempt: $currentAttempt, lastAttempt: $lastAttempt, loading: $loading)';
   }
 
   @override
@@ -175,12 +191,13 @@ class _$CurrentIceTreaningStateImpl implements _CurrentIceTreaningState {
             (identical(other.currentAttempt, currentAttempt) ||
                 other.currentAttempt == currentAttempt) &&
             (identical(other.lastAttempt, lastAttempt) ||
-                other.lastAttempt == lastAttempt));
+                other.lastAttempt == lastAttempt) &&
+            (identical(other.loading, loading) || other.loading == loading));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, currentTreaning, lastTreaning, currentAttempt, lastAttempt);
+  int get hashCode => Object.hash(runtimeType, currentTreaning, lastTreaning,
+      currentAttempt, lastAttempt, loading);
 
   /// Create a copy of CurrentIceTreaningState
   /// with the given fields replaced by the non-null parameter values.
@@ -197,7 +214,8 @@ abstract class _CurrentIceTreaningState implements CurrentIceTreaningState {
       {final IceTreaning? currentTreaning,
       final IceTreaning? lastTreaning,
       final IceTreaningAttempt? currentAttempt,
-      final IceTreaningAttempt? lastAttempt}) = _$CurrentIceTreaningStateImpl;
+      final IceTreaningAttempt? lastAttempt,
+      final bool? loading}) = _$CurrentIceTreaningStateImpl;
 
   @override
   IceTreaning? get currentTreaning;
@@ -207,6 +225,8 @@ abstract class _CurrentIceTreaningState implements CurrentIceTreaningState {
   IceTreaningAttempt? get currentAttempt;
   @override
   IceTreaningAttempt? get lastAttempt;
+  @override
+  bool? get loading;
 
   /// Create a copy of CurrentIceTreaningState
   /// with the given fields replaced by the non-null parameter values.

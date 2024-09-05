@@ -69,4 +69,10 @@ class IceTreaningsRepositoryImpl implements IceTreaningsRepository {
     }
     return const Right(unit);
   }
+
+  @override
+  Future<Either<Failure, IceTreaning>> getTreaning(
+      {required String treaningId}) async {
+    return await _iceTreaningsDataSource.getTreaning(treaningId: treaningId);
+  }
 }

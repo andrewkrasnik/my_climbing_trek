@@ -16,6 +16,9 @@ class IceAttemptsWithStyle extends StatelessWidget {
   final IceTreaning treaning;
   final bool isCurrent;
   final ClimbingStyle climbingStyle;
+  final CurrentIceTreaningCubit cubit;
+  final bool editing;
+
   const IceAttemptsWithStyle({
     required this.child,
     required this.attempts,
@@ -23,14 +26,17 @@ class IceAttemptsWithStyle extends StatelessWidget {
     required this.treaning,
     required this.isCurrent,
     required this.climbingStyle,
+    required this.cubit,
+    this.editing = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CurrentIceTreaningCubit, CurrentIceTreaningState>(
+      bloc: cubit,
       builder: (context, state) {
         final bool showAddButton = isCurrent && state.currentAttempt == null;
-        final cubit = BlocProvider.of<CurrentIceTreaningCubit>(context);
+
         return Wrap(
           crossAxisAlignment: WrapCrossAlignment.center,
           alignment: WrapAlignment.start,
@@ -40,6 +46,8 @@ class IceAttemptsWithStyle extends StatelessWidget {
                   padding: const EdgeInsets.all(4.0),
                   child: AttemptClickWidget(
                     attempt: attempt,
+                    cubit: cubit,
+                    editing: editing,
                   ),
                 )),
             if (showAddButton)
@@ -68,8 +76,13 @@ class IceAttemptsWithStyle extends StatelessWidget {
 
 class AttemptClickWidget extends StatelessWidget {
   final IceTreaningAttempt attempt;
+  final CurrentIceTreaningCubit cubit;
+  final bool editing;
+
   const AttemptClickWidget({
     required this.attempt,
+    required this.cubit,
+    this.editing = false,
     super.key,
   });
 
@@ -121,7 +134,8 @@ class AttemptClickWidget extends StatelessWidget {
         context: context,
         builder: (context) => IceAttemptDialog(
           attempt: attempt,
-          cubit: BlocProvider.of<CurrentIceTreaningCubit>(context),
+          cubit: cubit,
+          editing: editing,
         ),
       ),
       child: Stack(

@@ -157,6 +157,8 @@ import 'features/ice_climbing/domain/usecases/finish_ice_treaning.dart'
     as _i312;
 import 'features/ice_climbing/domain/usecases/get_current_ice_treaning.dart'
     as _i146;
+import 'features/ice_climbing/domain/usecases/get_ice_treaning_usecase.dart'
+    as _i199;
 import 'features/ice_climbing/domain/usecases/get_last_ice_treaning.dart'
     as _i77;
 import 'features/ice_climbing/domain/usecases/ice_sector_to_treaning.dart'
@@ -169,6 +171,8 @@ import 'features/ice_climbing/domain/usecases/load_sectors_usecase.dart'
     as _i66;
 import 'features/ice_climbing/domain/usecases/new_ice_attempt.dart' as _i1037;
 import 'features/ice_climbing/domain/usecases/new_ice_treaning.dart' as _i468;
+import 'features/ice_climbing/domain/usecases/save_ice_treaning_usecase.dart'
+    as _i353;
 import 'features/ice_climbing/domain/usecases/save_sector_usecase.dart'
     as _i476;
 import 'features/ice_climbing/presentation/bloc/current_ice_treaning/current_ice_treaning_cubit.dart'
@@ -808,6 +812,12 @@ _i174.GetIt $initGetIt(
       iceTreaningsRepository: gh<_i916.IceTreaningsRepository>()));
   gh.lazySingleton<_i197.IceSectorToTreaning>(() => _i197.IceSectorToTreaning(
       iceTreaningsRepository: gh<_i916.IceTreaningsRepository>()));
+  gh.lazySingleton<_i199.GetIceTreaningUseCase>(() =>
+      _i199.GetIceTreaningUseCase(
+          iceTreaningsRepository: gh<_i916.IceTreaningsRepository>()));
+  gh.lazySingleton<_i353.SaveIceTreaningUseCase>(() =>
+      _i353.SaveIceTreaningUseCase(
+          iceTreaningsRepository: gh<_i916.IceTreaningsRepository>()));
   gh.lazySingleton<_i617.IceRegionsRepository>(
       () => _i176.IceRegionsRepositoryImpl(
             gh<_i283.IceRegionsDataSource>(),
@@ -1250,6 +1260,8 @@ _i174.GetIt $initGetIt(
         gh<_i146.GetCurrentIceTreaning>(),
         gh<_i77.GetLastIceTreaning>(),
         gh<_i187.DeleteIceAttempt>(),
+        gh<_i199.GetIceTreaningUseCase>(),
+        gh<_i353.SaveIceTreaningUseCase>(),
       ));
   gh.factory<_i1006.ClimbingHallsCubit>(() => _i1006.ClimbingHallsCubit(
       allClimbingHalls: gh<_i934.AllClimbingHalls>()));

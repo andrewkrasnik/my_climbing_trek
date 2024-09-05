@@ -17,6 +17,9 @@ abstract class IceTreaningsDataSource {
 
   Future<Either<Failure, Unit>> deleteAttempt(
       {required IceTreaningAttempt attempt});
+
+  Future<Either<Failure, IceTreaning>> getTreaning(
+      {required String treaningId});
 }
 
 // @LazySingleton(as: IceTreaningsDataSource)
@@ -55,6 +58,13 @@ class MockIceTreaningsDataSource implements IceTreaningsDataSource {
   @override
   Future<Either<Failure, Unit>> deleteAttempt(
       {required IceTreaningAttempt attempt}) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, IceTreaning>> getTreaning(
+      {required String treaningId}) {
+    // TODO: implement getTreaning
     throw UnimplementedError();
   }
 }

@@ -167,11 +167,12 @@ class IceAttemptDialog extends HookWidget {
             },
             child: const Text('Старт'),
           ),
-        if (attempt.started)
+        if (editing)
           ElevatedButton(
             onPressed: () {
               cubit.finishCurrentAttempt(
                 category: categoryState.value,
+                attempt: attempt,
                 fail: failState.value,
                 downClimbing: downClimbingState.value,
                 fallCount: fallCountState.value,

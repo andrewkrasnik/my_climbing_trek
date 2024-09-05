@@ -1,11 +1,11 @@
+import 'package:collection/collection.dart';
+
 import 'package:my_climbing_trek/core/data/climbing_style.dart';
 import 'package:my_climbing_trek/core/data/treaning.dart';
 import 'package:my_climbing_trek/core/extentions/date_time_extention.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_district.dart';
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_sector.dart';
-
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_treaning_attempt.dart';
-import 'package:collection/collection.dart';
 
 class IceTreaning extends Treaning {
   final IceDistrict district;
@@ -54,4 +54,21 @@ class IceTreaning extends Treaning {
 
   @override
   String get place => district.name;
+
+  IceTreaning copyWith({
+    IceDistrict? district,
+    List<IceSector>? sectors,
+    List<IceTreaningAttempt>? attempts,
+    DateTime? date,
+  }) {
+    return IceTreaning(
+      district: district ?? this.district,
+      sectors: sectors ?? this.sectors,
+      attempts: attempts ?? _attempts,
+      date: date ?? this.date,
+      id: id,
+      finish: finish,
+      start: start,
+    );
+  }
 }
