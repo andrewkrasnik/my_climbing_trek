@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -32,6 +33,8 @@ void main() async {
       di.configureDependencies();
 
       await Firebase.initializeApp();
+
+      HttpOverrides.global = ProxiedHttpOverrides('172.20.10.9:8888');
 
       await FirebaseAppCheck.instance.activate(
         // You can also use a `ReCaptchaEnterpriseProvider` provider instance as an
@@ -68,6 +71,21 @@ void main() async {
       di.getIt<CrashLogService>().recordError(error, stack);
     },
   );
+}
+
+class ProxiedHttpOverrides extends HttpOverrides {
+  final String _proxy;
+  ProxiedHttpOverrides(this._proxy);
+
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..findProxy = (uri) {
+        return _proxy.isNotEmpty ? "PROXY $_proxy;" : 'DIRECT';
+      }
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => Platform.isAndroid;
+  }
 }
 
 class MyApp extends StatelessWidget {
