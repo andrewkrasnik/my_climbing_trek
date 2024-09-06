@@ -27,4 +27,7 @@ abstract class RockTreaningsRepository implements TreaningsRepository {
     required RockRoute route,
     required RockSector sector,
   });
+
+  Future<Either<Failure, RockTreaning>> getTreaning(
+      {required String treaningId});
 }

@@ -85,4 +85,11 @@ class RockTreaningsRepositoryImpl implements RockTreaningsRepository {
     }
     return const Right(unit);
   }
+
+  @override
+  Future<Either<Failure, RockTreaning>> getTreaning(
+      {required String treaningId}) async {
+    return await _rockTreaningsLocalDataSource.getTreaning(
+        treaningId: treaningId);
+  }
 }

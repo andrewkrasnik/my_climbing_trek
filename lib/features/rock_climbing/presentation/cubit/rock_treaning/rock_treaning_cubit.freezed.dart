@@ -24,6 +24,7 @@ mixin _$RockTreaningState {
       throw _privateConstructorUsedError;
   RockRouteAttemptsStatistic? get lastRouteStatistic =>
       throw _privateConstructorUsedError;
+  bool? get loading => throw _privateConstructorUsedError;
 
   /// Create a copy of RockTreaningState
   /// with the given fields replaced by the non-null parameter values.
@@ -44,7 +45,8 @@ abstract class $RockTreaningStateCopyWith<$Res> {
       RockTreaningAttempt? currentAttempt,
       RockTreaningAttempt? lastAttempt,
       RockRouteAttemptsStatistic? currentRouteStatistic,
-      RockRouteAttemptsStatistic? lastRouteStatistic});
+      RockRouteAttemptsStatistic? lastRouteStatistic,
+      bool? loading});
 }
 
 /// @nodoc
@@ -68,6 +70,7 @@ class _$RockTreaningStateCopyWithImpl<$Res, $Val extends RockTreaningState>
     Object? lastAttempt = freezed,
     Object? currentRouteStatistic = freezed,
     Object? lastRouteStatistic = freezed,
+    Object? loading = freezed,
   }) {
     return _then(_value.copyWith(
       currentTreaning: freezed == currentTreaning
@@ -94,6 +97,10 @@ class _$RockTreaningStateCopyWithImpl<$Res, $Val extends RockTreaningState>
           ? _value.lastRouteStatistic
           : lastRouteStatistic // ignore: cast_nullable_to_non_nullable
               as RockRouteAttemptsStatistic?,
+      loading: freezed == loading
+          ? _value.loading
+          : loading // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 }
@@ -113,7 +120,8 @@ abstract class _$$CurrentIceTreaningStateImplCopyWith<$Res>
       RockTreaningAttempt? currentAttempt,
       RockTreaningAttempt? lastAttempt,
       RockRouteAttemptsStatistic? currentRouteStatistic,
-      RockRouteAttemptsStatistic? lastRouteStatistic});
+      RockRouteAttemptsStatistic? lastRouteStatistic,
+      bool? loading});
 }
 
 /// @nodoc
@@ -136,6 +144,7 @@ class __$$CurrentIceTreaningStateImplCopyWithImpl<$Res>
     Object? lastAttempt = freezed,
     Object? currentRouteStatistic = freezed,
     Object? lastRouteStatistic = freezed,
+    Object? loading = freezed,
   }) {
     return _then(_$CurrentIceTreaningStateImpl(
       currentTreaning: freezed == currentTreaning
@@ -162,6 +171,10 @@ class __$$CurrentIceTreaningStateImplCopyWithImpl<$Res>
           ? _value.lastRouteStatistic
           : lastRouteStatistic // ignore: cast_nullable_to_non_nullable
               as RockRouteAttemptsStatistic?,
+      loading: freezed == loading
+          ? _value.loading
+          : loading // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -175,7 +188,8 @@ class _$CurrentIceTreaningStateImpl implements _CurrentIceTreaningState {
       this.currentAttempt,
       this.lastAttempt,
       this.currentRouteStatistic,
-      this.lastRouteStatistic});
+      this.lastRouteStatistic,
+      this.loading});
 
   @override
   final RockTreaning? currentTreaning;
@@ -189,10 +203,12 @@ class _$CurrentIceTreaningStateImpl implements _CurrentIceTreaningState {
   final RockRouteAttemptsStatistic? currentRouteStatistic;
   @override
   final RockRouteAttemptsStatistic? lastRouteStatistic;
+  @override
+  final bool? loading;
 
   @override
   String toString() {
-    return 'RockTreaningState(currentTreaning: $currentTreaning, lastTreaning: $lastTreaning, currentAttempt: $currentAttempt, lastAttempt: $lastAttempt, currentRouteStatistic: $currentRouteStatistic, lastRouteStatistic: $lastRouteStatistic)';
+    return 'RockTreaningState(currentTreaning: $currentTreaning, lastTreaning: $lastTreaning, currentAttempt: $currentAttempt, lastAttempt: $lastAttempt, currentRouteStatistic: $currentRouteStatistic, lastRouteStatistic: $lastRouteStatistic, loading: $loading)';
   }
 
   @override
@@ -211,12 +227,20 @@ class _$CurrentIceTreaningStateImpl implements _CurrentIceTreaningState {
             (identical(other.currentRouteStatistic, currentRouteStatistic) ||
                 other.currentRouteStatistic == currentRouteStatistic) &&
             (identical(other.lastRouteStatistic, lastRouteStatistic) ||
-                other.lastRouteStatistic == lastRouteStatistic));
+                other.lastRouteStatistic == lastRouteStatistic) &&
+            (identical(other.loading, loading) || other.loading == loading));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, currentTreaning, lastTreaning,
-      currentAttempt, lastAttempt, currentRouteStatistic, lastRouteStatistic);
+  int get hashCode => Object.hash(
+      runtimeType,
+      currentTreaning,
+      lastTreaning,
+      currentAttempt,
+      lastAttempt,
+      currentRouteStatistic,
+      lastRouteStatistic,
+      loading);
 
   /// Create a copy of RockTreaningState
   /// with the given fields replaced by the non-null parameter values.
@@ -230,13 +254,13 @@ class _$CurrentIceTreaningStateImpl implements _CurrentIceTreaningState {
 
 abstract class _CurrentIceTreaningState implements RockTreaningState {
   const factory _CurrentIceTreaningState(
-          {final RockTreaning? currentTreaning,
-          final RockTreaning? lastTreaning,
-          final RockTreaningAttempt? currentAttempt,
-          final RockTreaningAttempt? lastAttempt,
-          final RockRouteAttemptsStatistic? currentRouteStatistic,
-          final RockRouteAttemptsStatistic? lastRouteStatistic}) =
-      _$CurrentIceTreaningStateImpl;
+      {final RockTreaning? currentTreaning,
+      final RockTreaning? lastTreaning,
+      final RockTreaningAttempt? currentAttempt,
+      final RockTreaningAttempt? lastAttempt,
+      final RockRouteAttemptsStatistic? currentRouteStatistic,
+      final RockRouteAttemptsStatistic? lastRouteStatistic,
+      final bool? loading}) = _$CurrentIceTreaningStateImpl;
 
   @override
   RockTreaning? get currentTreaning;
@@ -250,6 +274,8 @@ abstract class _CurrentIceTreaningState implements RockTreaningState {
   RockRouteAttemptsStatistic? get currentRouteStatistic;
   @override
   RockRouteAttemptsStatistic? get lastRouteStatistic;
+  @override
+  bool? get loading;
 
   /// Create a copy of RockTreaningState
   /// with the given fields replaced by the non-null parameter values.

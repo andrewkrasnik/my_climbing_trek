@@ -104,6 +104,8 @@ import 'features/hall_climbing/domain/usecases/treanings/finish_hall_attempt.dar
     as _i510;
 import 'features/hall_climbing/domain/usecases/treanings/finish_hall_treaning.dart'
     as _i1043;
+import 'features/hall_climbing/domain/usecases/treanings/get_hall_treaning_usecase.dart'
+    as _i385;
 import 'features/hall_climbing/domain/usecases/treanings/last_hall_treaning.dart'
     as _i591;
 import 'features/hall_climbing/domain/usecases/treanings/new_hall_attempt.dart'
@@ -112,6 +114,8 @@ import 'features/hall_climbing/domain/usecases/treanings/new_hall_attempt_from_r
     as _i424;
 import 'features/hall_climbing/domain/usecases/treanings/new_hall_treaning.dart'
     as _i364;
+import 'features/hall_climbing/domain/usecases/treanings/save_hall_treaning_usecase.dart'
+    as _i663;
 import 'features/hall_climbing/presentation/bloc/climbing_hall/climbing_hall_cubit.dart'
     as _i273;
 import 'features/hall_climbing/presentation/bloc/climbing_halls/climbing_halls_cubit.dart'
@@ -273,6 +277,8 @@ import 'features/rock_climbing/domain/usecases/get_rock_route_attempts.dart'
     as _i612;
 import 'features/rock_climbing/domain/usecases/get_rock_route_statistic.dart'
     as _i145;
+import 'features/rock_climbing/domain/usecases/get_rock_treaning_usecase.dart'
+    as _i468;
 import 'features/rock_climbing/domain/usecases/load_my_rock_districts.dart'
     as _i942;
 import 'features/rock_climbing/domain/usecases/load_rock_districts.dart'
@@ -285,6 +291,8 @@ import 'features/rock_climbing/domain/usecases/rock_sector_to_treaning.dart'
     as _i937;
 import 'features/rock_climbing/domain/usecases/save_rock_route.dart' as _i931;
 import 'features/rock_climbing/domain/usecases/save_rock_sector.dart' as _i280;
+import 'features/rock_climbing/domain/usecases/save_rock_treaning_usecase.dart'
+    as _i661;
 import 'features/rock_climbing/presentation/cubit/rock_districts/rock_districts_cubit.dart'
     as _i453;
 import 'features/rock_climbing/presentation/cubit/rock_routes/rock_routes_cubit.dart'
@@ -928,6 +936,10 @@ _i174.GetIt $initGetIt(
       () => _i205.NewRockTreaning(gh<_i1067.RockTreaningsRepository>()));
   gh.lazySingleton<_i937.RockSectorToTreaning>(
       () => _i937.RockSectorToTreaning(gh<_i1067.RockTreaningsRepository>()));
+  gh.lazySingleton<_i468.GetRockTreaningUseCase>(
+      () => _i468.GetRockTreaningUseCase(gh<_i1067.RockTreaningsRepository>()));
+  gh.lazySingleton<_i661.SaveRockTreaningUseCase>(() =>
+      _i661.SaveRockTreaningUseCase(gh<_i1067.RockTreaningsRepository>()));
   gh.lazySingleton<_i313.AllHallTreanings>(
       () => _i313.AllHallTreanings(gh<_i194.HallTreaningRepository>()));
   gh.lazySingleton<_i284.CurrentHallTreaning>(
@@ -1006,6 +1018,10 @@ _i174.GetIt $initGetIt(
       ));
   gh.lazySingleton<_i456.GetGymRouteStatistic>(
       () => _i456.GetGymRouteStatistic(gh<_i194.HallTreaningRepository>()));
+  gh.lazySingleton<_i385.GetHallTreaningUseCase>(
+      () => _i385.GetHallTreaningUseCase(gh<_i194.HallTreaningRepository>()));
+  gh.lazySingleton<_i663.SaveHallTreaningUseCase>(
+      () => _i663.SaveHallTreaningUseCase(gh<_i194.HallTreaningRepository>()));
   gh.lazySingleton<_i816.AddTrekEventUsecase>(
       () => _i816.AddTrekEventUsecase(gh<_i330.TrekkingPathRepository>()));
   gh.lazySingleton<_i795.ContinueTrekUsecase>(
@@ -1028,18 +1044,6 @@ _i174.GetIt $initGetIt(
       treaningRepository: gh<_i194.HallTreaningRepository>()));
   gh.lazySingleton<_i364.NewHallTreaning>(() => _i364.NewHallTreaning(
       treaningRepository: gh<_i194.HallTreaningRepository>()));
-  gh.factory<_i147.CurrentHallTreaningCubit>(
-      () => _i147.CurrentHallTreaningCubit(
-            newHallAttemptFromRoute: gh<_i424.NewHallAttemptFromRoute>(),
-            newHallTreaning: gh<_i364.NewHallTreaning>(),
-            newHallAttempt: gh<_i643.NewHallAttempt>(),
-            currentHallTreaning: gh<_i284.CurrentHallTreaning>(),
-            finishHallAttempt: gh<_i510.FinishHallAttempt>(),
-            finishHallTreaning: gh<_i1043.FinishHallTreaning>(),
-            lastHallTreaning: gh<_i591.LastHallTreaning>(),
-            deleteHallAttempt: gh<_i1054.DeleteHallAttempt>(),
-            getGymRouteStatistic: gh<_i456.GetGymRouteStatistic>(),
-          ));
   gh.factory<_i247.HallRouteCubit>(
       () => _i247.HallRouteCubit(gh<_i44.NewHallRoute>()));
   gh.lazySingleton<_i231.HallRouteToArchive>(() =>
@@ -1136,6 +1140,20 @@ _i174.GetIt $initGetIt(
       () => _i910.GetDayLinesUsecase(gh<_i1055.TravelRepository>()));
   gh.lazySingleton<_i1073.GetInsuranceLineUsecase>(
       () => _i1073.GetInsuranceLineUsecase(gh<_i1055.TravelRepository>()));
+  gh.factory<_i147.CurrentHallTreaningCubit>(
+      () => _i147.CurrentHallTreaningCubit(
+            gh<_i385.GetHallTreaningUseCase>(),
+            gh<_i663.SaveHallTreaningUseCase>(),
+            newHallAttemptFromRoute: gh<_i424.NewHallAttemptFromRoute>(),
+            newHallTreaning: gh<_i364.NewHallTreaning>(),
+            newHallAttempt: gh<_i643.NewHallAttempt>(),
+            currentHallTreaning: gh<_i284.CurrentHallTreaning>(),
+            finishHallAttempt: gh<_i510.FinishHallAttempt>(),
+            finishHallTreaning: gh<_i1043.FinishHallTreaning>(),
+            lastHallTreaning: gh<_i591.LastHallTreaning>(),
+            deleteHallAttempt: gh<_i1054.DeleteHallAttempt>(),
+            getGymRouteStatistic: gh<_i456.GetGymRouteStatistic>(),
+          ));
   gh.factory<_i897.IceDistrictsCubit>(() => _i897.IceDistrictsCubit(
         gh<_i150.LoadDistrictsUseCase>(),
         gh<_i73.LoadMyIceDistricts>(),
@@ -1300,6 +1318,8 @@ _i174.GetIt $initGetIt(
         gh<_i884.GetCurrentRockTreaning>(),
         gh<_i145.GetRockRouteStatistic>(),
         gh<_i262.DeleteRockAttempt>(),
+        gh<_i468.GetRockTreaningUseCase>(),
+        gh<_i661.SaveRockTreaningUseCase>(),
       ));
   gh.factory<_i758.TravelPageCubit>(() => _i758.TravelPageCubit(
         gh<_i126.DeleteCostLineUsecase>(),

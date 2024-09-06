@@ -22,4 +22,7 @@ abstract class RockTreaningsLocalDataSource {
 
   Future<Either<Failure, Unit>> deleteAttempt(
       {required RockTreaningAttempt attempt});
+
+  Future<Either<Failure, RockTreaning>> getTreaning(
+      {required String treaningId});
 }

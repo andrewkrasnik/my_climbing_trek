@@ -62,4 +62,11 @@ class MockHallTreaningDataSource implements HallTreaningDataSource {
       {required ClimbingHallRoute route}) {
     throw UnimplementedError();
   }
+
+  @override
+  Future<Either<Failure, ClimbingHallTreaning>> getTreaning(
+      {required String treaningId}) {
+    // TODO: implement getTreaning
+    throw UnimplementedError();
+  }
 }

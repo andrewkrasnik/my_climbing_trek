@@ -1,4 +1,5 @@
 import 'package:collection/collection.dart';
+
 import 'package:my_climbing_trek/core/data/climbing_style.dart';
 import 'package:my_climbing_trek/core/data/treaning.dart';
 import 'package:my_climbing_trek/core/extentions/date_time_extention.dart';
@@ -74,4 +75,30 @@ class RockTreaning extends Treaning {
 
   @override
   String get place => district.name;
+
+  String get treaninndTitle {
+    String title = district.name;
+
+    if (sectors.length == 1) {
+      title = '$title, ${sectors.first.name}';
+    }
+    return title;
+  }
+
+  RockTreaning copyWith({
+    RockDistrict? district,
+    List<RockSector>? sectors,
+    List<RockTreaningAttempt>? attempts,
+    DateTime? date,
+  }) {
+    return RockTreaning(
+      district: district ?? this.district,
+      sectors: sectors ?? this.sectors,
+      attempts: attempts ?? _attempts,
+      date: date ?? this.date,
+      id: id,
+      finish: finish,
+      start: start,
+    );
+  }
 }

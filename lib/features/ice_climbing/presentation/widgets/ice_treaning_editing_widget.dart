@@ -55,26 +55,24 @@ class IceTreaningEditingWidget extends HookWidget {
                 const SizedBox(
                   height: 8,
                 ),
-                if (state.currentTreaning!.hasLead)
-                  IceAttemptsWithStyle(
-                    attempts: state.currentTreaning!.leadAttempts,
-                    treaning: state.currentTreaning!,
-                    isCurrent: true,
-                    climbingStyle: ClimbingStyle.lead,
-                    cubit: cubit,
-                    editing: true,
-                    child: const Text('Нижняя:'),
-                  ),
-                if (state.currentTreaning!.hasTopRope)
-                  IceAttemptsWithStyle(
-                    attempts: state.currentTreaning!.topRopeAttempts,
-                    treaning: state.currentTreaning!,
-                    isCurrent: true,
-                    climbingStyle: ClimbingStyle.topRope,
-                    cubit: cubit,
-                    editing: true,
-                    child: const Text('Верхняя:'),
-                  ),
+                IceAttemptsWithStyle(
+                  attempts: state.currentTreaning!.leadAttempts,
+                  treaning: state.currentTreaning!,
+                  isCurrent: true,
+                  climbingStyle: ClimbingStyle.lead,
+                  cubit: cubit,
+                  editing: true,
+                  child: const Text('Нижняя:'),
+                ),
+                IceAttemptsWithStyle(
+                  attempts: state.currentTreaning!.topRopeAttempts,
+                  treaning: state.currentTreaning!,
+                  isCurrent: true,
+                  climbingStyle: ClimbingStyle.topRope,
+                  cubit: cubit,
+                  editing: true,
+                  child: const Text('Верхняя:'),
+                ),
                 TextButton(
                   child: const Text('Завершить'),
                   onPressed: () async {

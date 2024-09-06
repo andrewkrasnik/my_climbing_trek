@@ -164,4 +164,21 @@ class DriftRockTreaningsLocalDataSource
         table: attemptsTable,
         data: const RockTreaningAttemptConverter().toJson(attempt));
   }
+
+  @override
+  Future<Either<Failure, RockTreaning>> getTreaning(
+      {required String treaningId}) async {
+    final failureOrData = await _localDatabase.getData(
+      table: table,
+      whereConditions: {'id': treaningId},
+      orderByConditions: {'date': false},
+    );
+
+    return failureOrData.fold(
+      (failure) => Left(failure),
+      (data) async {
+        return Right(await _treaningWithAttempts(data.first));
+      },
+    );
+  }
 }

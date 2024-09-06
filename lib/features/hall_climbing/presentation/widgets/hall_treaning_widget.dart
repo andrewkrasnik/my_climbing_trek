@@ -12,6 +12,7 @@ import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/sel
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:my_climbing_trek/service_locator.dart';
 
 class HallTreaningWidget extends StatelessWidget {
   final bool isCurrent;
@@ -24,6 +25,8 @@ class HallTreaningWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = getIt<CurrentHallTreaningCubit>();
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Material(
@@ -71,6 +74,7 @@ class HallTreaningWidget extends StatelessWidget {
                   attempts: treaning.leadAttempts,
                   treaning: treaning,
                   isCurrent: isCurrent,
+                  cubit: cubit,
                   climbingStyle: ClimbingStyle.lead,
                   child: const Text('Нижняя:'),
                 ),
@@ -80,6 +84,7 @@ class HallTreaningWidget extends StatelessWidget {
                   attempts: treaning.topRopeAttempts,
                   treaning: treaning,
                   isCurrent: isCurrent,
+                  cubit: cubit,
                   climbingStyle: ClimbingStyle.topRope,
                   child: const Text('Верхняя:'),
                 ),
@@ -89,6 +94,7 @@ class HallTreaningWidget extends StatelessWidget {
                   attempts: treaning.boulderingAttempts,
                   treaning: treaning,
                   isCurrent: isCurrent,
+                  cubit: cubit,
                   climbingStyle: ClimbingStyle.bouldering,
                   child: const Text('Болдер:'),
                 ),
@@ -97,6 +103,7 @@ class HallTreaningWidget extends StatelessWidget {
                 AttemptsWithStyle(
                   attempts: treaning.autoBelayAttempts,
                   treaning: treaning,
+                  cubit: cubit,
                   isCurrent: isCurrent,
                   climbingStyle: ClimbingStyle.autoBelay,
                   child: const Text('Auto belay:'),
@@ -156,6 +163,7 @@ class AttemptsWithStyle extends StatelessWidget {
     required this.treaning,
     required this.isCurrent,
     required this.climbingStyle,
+    required CurrentHallTreaningCubit cubit,
   });
 
   @override
@@ -167,14 +175,12 @@ class AttemptsWithStyle extends StatelessWidget {
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [
             SizedBox(width: 80, child: child),
-            ...attempts
-                .map((attempt) => Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: AttemptClickWidget(
-                        attempt: attempt,
-                      ),
-                    ))
-                ,
+            ...attempts.map((attempt) => Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: AttemptClickWidget(
+                    attempt: attempt,
+                  ),
+                )),
             if (showAddButton)
               IconButton(
                 onPressed: () {

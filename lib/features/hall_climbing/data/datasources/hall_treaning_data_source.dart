@@ -26,4 +26,7 @@ abstract class HallTreaningDataSource {
 
   Future<Either<Failure, List<ClimbingHallAttempt>>> routeAttempts(
       {required ClimbingHallRoute route});
+
+  Future<Either<Failure, ClimbingHallTreaning>> getTreaning(
+      {required String treaningId});
 }

@@ -106,7 +106,8 @@ class MyApp extends StatelessWidget {
           create: (context) => di.getIt<StrengthTrainingCubit>()..loadData(),
         ),
         BlocProvider(
-          create: (context) => di.getIt<RockTreaningCubit>()..loadData(),
+          create: (context) =>
+              di.getIt<RockTreaningCubit>()..loadCurrentTreanings(),
         ),
         BlocProvider<TrekkingCubit>(
           create: (context) => di.getIt<TrekkingCubit>()..loadData(),
@@ -143,7 +144,7 @@ class MyApp extends StatelessWidget {
             listener: (context, state) async {
               await BlocProvider.of<HomePageCubit>(context).loadData();
               await BlocProvider.of<CurrentHallTreaningCubit>(context)
-                  .loadData();
+                  .loadCurrentTreanings();
             },
             child: const SafeArea(child: BottomNavigationPage()),
           )),

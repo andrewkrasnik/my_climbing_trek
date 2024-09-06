@@ -179,4 +179,21 @@ class LocalHallTreaningDataSource implements HallTreaningDataSource {
             .map((line) => const ClimbingHallAttemptConverter().fromJson(line))
             .toList()));
   }
+
+  @override
+  Future<Either<Failure, ClimbingHallTreaning>> getTreaning(
+      {required String treaningId}) async {
+    final failureOrData = await _localDatabase.getData(
+      table: table,
+      whereConditions: {'id': treaningId},
+      orderByConditions: {'date': false},
+    );
+
+    return failureOrData.fold(
+      (failure) => Left(failure),
+      (data) async {
+        return Right(await _treaningWithAttempts(data.first));
+      },
+    );
+  }
 }

@@ -55,4 +55,11 @@ class MockRockTreaningsLocalDataSource implements RockTreaningsLocalDataSource {
       {required RockTreaningAttempt attempt}) {
     throw UnimplementedError();
   }
+
+  @override
+  Future<Either<Failure, RockTreaning>> getTreaning(
+      {required String treaningId}) {
+    // TODO: implement getTreaning
+    throw UnimplementedError();
+  }
 }

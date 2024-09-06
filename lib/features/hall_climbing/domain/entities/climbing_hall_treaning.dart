@@ -1,8 +1,9 @@
+import 'package:collection/collection.dart';
+
 import 'package:my_climbing_trek/core/data/climbing_style.dart';
 import 'package:my_climbing_trek/core/data/treaning.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_attempt.dart';
-import 'package:collection/collection.dart';
 
 class ClimbingHallTreaning extends Treaning {
   final ClimbingHall climbingHall;
@@ -62,4 +63,19 @@ class ClimbingHallTreaning extends Treaning {
         climbingHall: climbingHall,
         attempts: attempts.map((e) => e.copy()).toList(),
       );
+
+  ClimbingHallTreaning copyWith({
+    ClimbingHall? climbingHall,
+    List<ClimbingHallAttempt>? attempts,
+    DateTime? date,
+  }) {
+    return ClimbingHallTreaning(
+      climbingHall: climbingHall ?? this.climbingHall,
+      attempts: attempts ?? this.attempts,
+      date: date ?? this.date,
+      id: id,
+      finish: finish,
+      start: start,
+    );
+  }
 }

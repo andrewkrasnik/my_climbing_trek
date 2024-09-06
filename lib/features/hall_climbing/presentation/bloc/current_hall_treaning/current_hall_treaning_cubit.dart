@@ -8,6 +8,7 @@ import 'package:my_climbing_trek/features/hall_climbing/domain/usecases/treaning
 import 'package:my_climbing_trek/features/hall_climbing/domain/usecases/treanings/delete_hall_attempt.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/usecases/treanings/finish_hall_attempt.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/usecases/treanings/finish_hall_treaning.dart';
+import 'package:my_climbing_trek/features/hall_climbing/domain/usecases/treanings/get_hall_treaning_usecase.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/usecases/treanings/last_hall_treaning.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/usecases/treanings/new_hall_attempt.dart';
 import 'package:my_climbing_trek/features/hall_climbing/domain/usecases/treanings/new_hall_attempt_from_route.dart';
@@ -17,6 +18,7 @@ import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing
 import 'package:my_climbing_trek/features/hall_climbing/domain/entities/climbing_hall_treaning.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:my_climbing_trek/features/hall_climbing/domain/usecases/treanings/save_hall_treaning_usecase.dart';
 
 part 'current_hall_treaning_state.dart';
 part 'current_hall_treaning_cubit.freezed.dart';
@@ -32,12 +34,16 @@ class CurrentHallTreaningCubit extends Cubit<CurrentHallTreaningState> {
   final LastHallTreaning lastHallTreaning;
   final DeleteHallAttempt deleteHallAttempt;
   final GetGymRouteStatistic getGymRouteStatistic;
+  final GetHallTreaningUseCase _getHallTreaningUseCase;
+  final SaveHallTreaningUseCase _saveHallTreaningUseCase;
 
   bool get treaningStarted => state.current != null;
 
   bool get attemptStarted => state.currentAttempt != null;
 
-  CurrentHallTreaningCubit({
+  CurrentHallTreaningCubit(
+    this._getHallTreaningUseCase,
+    this._saveHallTreaningUseCase, {
     required this.newHallAttemptFromRoute,
     required this.newHallTreaning,
     required this.newHallAttempt,
@@ -49,7 +55,7 @@ class CurrentHallTreaningCubit extends Cubit<CurrentHallTreaningState> {
     required this.getGymRouteStatistic,
   }) : super(CurrentHallTreaningState.initial());
 
-  Future<void> loadData() async {
+  Future<void> loadCurrentTreanings() async {
     final failureOrCurrentTreaning = await currentHallTreaning();
 
     final failureOrLastTreaning = await lastHallTreaning();
@@ -263,5 +269,43 @@ class CurrentHallTreaningCubit extends Cubit<CurrentHallTreaningState> {
     final failureOrUnit = await deleteHallAttempt(attempt: attempt);
 
     failureOrUnit.fold((failure) => null, (_) => loadData());
+  }
+
+  setTreaning({required ClimbingHallTreaning treaning}) {
+    emit(state.copyWith(current: treaning));
+  }
+
+  void changeDate({required DateTime date}) async {
+    if (state.current == null) {
+      return;
+    }
+
+    emit(state.copyWith(loading: true));
+
+    final failureOrTreaning = await _saveHallTreaningUseCase(
+        treaning: state.current!.copyWith(date: date));
+
+    failureOrTreaning.fold(
+      (failure) => null,
+      (treaning) => emit(state.copyWith(current: treaning, loading: false)),
+    );
+  }
+
+  Future<void> loadData() async {
+    if (state.current == null) {
+      return;
+    }
+
+    emit(state.copyWith(loading: true));
+
+    final failureOrTreaning =
+        await _getHallTreaningUseCase(treaning: state.current!);
+
+    failureOrTreaning.fold(
+      (failure) => null,
+      (treaning) => emit(
+        state.copyWith(current: treaning, loading: false),
+      ),
+    );
   }
 }

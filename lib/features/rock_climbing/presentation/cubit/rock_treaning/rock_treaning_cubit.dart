@@ -14,9 +14,11 @@ import 'package:my_climbing_trek/features/rock_climbing/domain/usecases/finish_r
 import 'package:my_climbing_trek/features/rock_climbing/domain/usecases/get_current_rock_treaning.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/usecases/get_last_rock_treaning.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/usecases/get_rock_route_statistic.dart';
+import 'package:my_climbing_trek/features/rock_climbing/domain/usecases/get_rock_treaning_usecase.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/usecases/new_rock_attempt.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/usecases/new_rock_treaning.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/usecases/rock_sector_to_treaning.dart';
+import 'package:my_climbing_trek/features/rock_climbing/domain/usecases/save_rock_treaning_usecase.dart';
 
 part 'rock_treaning_state.dart';
 part 'rock_treaning_cubit.freezed.dart';
@@ -32,6 +34,8 @@ class RockTreaningCubit extends Cubit<RockTreaningState> {
   final GetCurrentRockTreaning _getCurrentTreaning;
   final GetRockRouteStatistic _getRockRouteStatistic;
   final DeleteRockAttempt _deleteRockAttempt;
+  final GetRockTreaningUseCase _getRockTreaningUseCase;
+  final SaveRockTreaningUseCase _saveRockTreaningUseCase;
 
   RockTreaningCubit(
     this._newTreaning,
@@ -43,9 +47,11 @@ class RockTreaningCubit extends Cubit<RockTreaningState> {
     this._getCurrentTreaning,
     this._getRockRouteStatistic,
     this._deleteRockAttempt,
+    this._getRockTreaningUseCase,
+    this._saveRockTreaningUseCase,
   ) : super(RockTreaningState.initial());
 
-  Future<void> loadData() async {
+  Future<void> loadCurrentTreanings() async {
     emit(RockTreaningState.initial());
 
     final failureOrCurrent = await _getCurrentTreaning();
@@ -226,5 +232,44 @@ class RockTreaningCubit extends Cubit<RockTreaningState> {
         )),
       );
     }
+  }
+
+  Future<void> loadData() async {
+    if (state.currentTreaning == null) {
+      return;
+    }
+
+    emit(state.copyWith(loading: true));
+
+    final failureOrTreaning =
+        await _getRockTreaningUseCase(treaning: state.currentTreaning!);
+
+    failureOrTreaning.fold(
+      (failure) => null,
+      (treaning) => emit(
+        state.copyWith(currentTreaning: treaning, loading: false),
+      ),
+    );
+  }
+
+  setTreaning({required RockTreaning treaning}) {
+    emit(state.copyWith(currentTreaning: treaning));
+  }
+
+  void changeDate({required DateTime date}) async {
+    if (state.currentTreaning == null) {
+      return;
+    }
+
+    emit(state.copyWith(loading: true));
+
+    final failureOrTreaning = await _saveRockTreaningUseCase(
+        treaning: state.currentTreaning!.copyWith(date: date));
+
+    failureOrTreaning.fold(
+      (failure) => null,
+      (treaning) =>
+          emit(state.copyWith(currentTreaning: treaning, loading: false)),
+    );
   }
 }

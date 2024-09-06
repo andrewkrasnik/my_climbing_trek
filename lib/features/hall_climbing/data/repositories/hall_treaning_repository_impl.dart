@@ -111,4 +111,10 @@ class HallTreaningRepositoryImpl implements HallTreaningRepository {
     }
     return const Right(unit);
   }
+
+  @override
+  Future<Either<Failure, ClimbingHallTreaning>> getTreaning(
+      {required String treaningId}) async {
+    return await dataSource.getTreaning(treaningId: treaningId);
+  }
 }

@@ -9,6 +9,7 @@ class RockTreaningState with _$RockTreaningState {
     RockTreaningAttempt? lastAttempt,
     RockRouteAttemptsStatistic? currentRouteStatistic,
     RockRouteAttemptsStatistic? lastRouteStatistic,
+    bool? loading,
   }) = _CurrentIceTreaningState;
 
   factory RockTreaningState.initial() => const RockTreaningState();
