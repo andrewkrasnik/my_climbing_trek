@@ -168,18 +168,19 @@ class RockTreaningCubit extends Cubit<RockTreaningState> {
 
   Future<void> startAttempt({required RockTreaningAttempt attempt}) async {}
 
-  Future<void> finishCurrentAttempt({
+  Future<void> finishAttempt({
+    required RockTreaningAttempt attempt,
     required bool fail,
     required bool downClimbing,
     required int fallCount,
     required int suspensionCount,
   }) async {
-    final route = state.currentAttempt?.route;
+    final route = attempt.route;
 
-    final sector = state.currentAttempt?.sector;
+    final sector = attempt.sector;
 
     final failureOrAttempt = await _finishAttempt(
-      attempt: state.currentAttempt!,
+      attempt: attempt,
       treaning: state.currentTreaning!,
       fail: fail,
       downClimbing: downClimbing,
@@ -194,7 +195,7 @@ class RockTreaningCubit extends Cubit<RockTreaningState> {
 
     if (route != null) {
       final failureOrStatistic =
-          await _getRockRouteStatistic(routes: [route], sector: sector!);
+          await _getRockRouteStatistic(routes: [route], sector: sector);
       failureOrStatistic.fold(
         (l) => null,
         (statistic) {

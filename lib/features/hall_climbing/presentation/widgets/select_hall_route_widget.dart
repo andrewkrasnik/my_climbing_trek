@@ -18,10 +18,13 @@ import '../bloc/climbing_hall/climbing_hall_cubit.dart';
 class SelectHallRouteWidget extends HookWidget {
   final ClimbingHallTreaning treaning;
   final ClimbingStyle style;
+  final CurrentHallTreaningCubit cubit;
+
   const SelectHallRouteWidget({
     super.key,
     required this.treaning,
     required this.style,
+    required this.cubit,
   });
 
   @override
@@ -87,8 +90,7 @@ class SelectHallRouteWidget extends HookWidget {
                       ),
                     ElevatedButton(
                       onPressed: () {
-                        BlocProvider.of<CurrentHallTreaningCubit>(context)
-                            .newAttempt(
+                        cubit.newAttempt(
                           style: style,
                           category: category.value!,
                         );
@@ -195,10 +197,7 @@ class SelectHallRouteWidget extends HookWidget {
                                         .statistic?[dataState.routes[index]],
                                     child: ElevatedButton(
                                         onPressed: () {
-                                          BlocProvider.of<
-                                                      CurrentHallTreaningCubit>(
-                                                  context)
-                                              .attemptFromRoute(
+                                          cubit.attemptFromRoute(
                                             climbingHall: treaning.climbingHall,
                                             route: dataState.routes[index],
                                             style: style,

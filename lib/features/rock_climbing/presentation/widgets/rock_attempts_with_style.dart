@@ -14,6 +14,7 @@ class RockAttemptsWithStyle extends StatelessWidget {
   final RockTreaning treaning;
   final bool isCurrent;
   final ClimbingStyle climbingStyle;
+  final RockTreaningCubit cubit;
   const RockAttemptsWithStyle({
     required this.child,
     required this.attempts,
@@ -21,27 +22,29 @@ class RockAttemptsWithStyle extends StatelessWidget {
     required this.treaning,
     required this.isCurrent,
     required this.climbingStyle,
+    required this.cubit,
   });
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<RockTreaningCubit, RockTreaningState>(
+      bloc: cubit,
       builder: (context, state) {
         final bool showAddButton = isCurrent && state.currentAttempt == null;
-        final cubit = BlocProvider.of<RockTreaningCubit>(context);
+
         return Wrap(
           crossAxisAlignment: WrapCrossAlignment.center,
           alignment: WrapAlignment.start,
           children: [
             SizedBox(width: 80, child: child),
-            ...attempts
-                .map((attempt) => Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: RockAttemptClickWidget(
-                        attempt: attempt,
-                      ),
-                    ))
-                ,
+            ...attempts.map((attempt) => Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: RockAttemptClickWidget(
+                    attempt: attempt,
+                    cubit: cubit,
+                    editing: isCurrent,
+                  ),
+                )),
             if (showAddButton)
               IconButton(
                 onPressed: () {

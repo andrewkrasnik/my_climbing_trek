@@ -156,6 +156,8 @@ class AttemptsWithStyle extends StatelessWidget {
   final ClimbingHallTreaning treaning;
   final bool isCurrent;
   final ClimbingStyle climbingStyle;
+  final CurrentHallTreaningCubit cubit;
+
   const AttemptsWithStyle({
     required this.child,
     required this.attempts,
@@ -163,7 +165,7 @@ class AttemptsWithStyle extends StatelessWidget {
     required this.treaning,
     required this.isCurrent,
     required this.climbingStyle,
-    required CurrentHallTreaningCubit cubit,
+    required this.cubit,
   });
 
   @override
@@ -179,6 +181,8 @@ class AttemptsWithStyle extends StatelessWidget {
                   padding: const EdgeInsets.all(4.0),
                   child: AttemptClickWidget(
                     attempt: attempt,
+                    cubit: cubit,
+                    editing: isCurrent,
                   ),
                 )),
             if (showAddButton)
@@ -190,6 +194,7 @@ class AttemptsWithStyle extends StatelessWidget {
                     child: SelectHallRouteWidget(
                       treaning: treaning,
                       style: climbingStyle,
+                      cubit: cubit,
                     ),
                   );
                 },
@@ -206,8 +211,13 @@ class AttemptsWithStyle extends StatelessWidget {
 
 class AttemptClickWidget extends StatelessWidget {
   final ClimbingHallAttempt attempt;
+  final CurrentHallTreaningCubit cubit;
+  final bool editing;
+
   const AttemptClickWidget({
     required this.attempt,
+    required this.cubit,
+    this.editing = false,
     super.key,
   });
 
@@ -216,7 +226,11 @@ class AttemptClickWidget extends StatelessWidget {
     return InkWell(
       onTap: () => showDialog(
         context: context,
-        builder: (context) => HallAttemptDialog(attempt: attempt),
+        builder: (context) => HallAttemptDialog(
+          attempt: attempt,
+          cubit: cubit,
+          editing: editing,
+        ),
       ),
       child: HallRouteCategoryWidget.fromAttempt(attempt: attempt),
     );

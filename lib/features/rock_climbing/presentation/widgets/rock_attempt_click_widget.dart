@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_climbing_trek/core/data/ascent_type.dart';
 import 'package:my_climbing_trek/core/widgets/attempt_budget.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_treaning_attempt.dart';
@@ -9,8 +8,13 @@ import 'package:my_climbing_trek/features/rock_climbing/presentation/widgets/roc
 
 class RockAttemptClickWidget extends StatelessWidget {
   final RockTreaningAttempt attempt;
+  final RockTreaningCubit cubit;
+  final bool editing;
+
   const RockAttemptClickWidget({
     required this.attempt,
+    required this.cubit,
+    this.editing = false,
     super.key,
   });
 
@@ -68,7 +72,8 @@ class RockAttemptClickWidget extends StatelessWidget {
         context: context,
         builder: (context) => RockAttemptDialog(
           attempt: attempt,
-          cubit: BlocProvider.of<RockTreaningCubit>(context),
+          cubit: cubit,
+          editing: editing,
         ),
       ),
       child: Stack(

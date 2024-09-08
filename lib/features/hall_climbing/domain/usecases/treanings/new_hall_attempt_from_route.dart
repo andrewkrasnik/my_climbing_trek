@@ -15,37 +15,24 @@ class NewHallAttemptFromRoute {
     required this.hallTreaningRepository,
   });
 
-  Future<Either<Failure, ClimbingHallTreaning>> call(
-      {required ClimbingHall climbingHall,
-      required ClimbingHallRoute route,
-      required ClimbingStyle style}) async {
-    final failureOrCurrentTreaning =
-        await hallTreaningRepository.currentTreaning();
-
-    final currentTreaning =
-        await failureOrCurrentTreaning.fold((faulure) async {
-      final newTreaning = ClimbingHallTreaning(
-          date: DateTime.now(), climbingHall: climbingHall, attempts: []);
-
-      final failureOrTreaning =
-          await hallTreaningRepository.saveTreaning(treaning: newTreaning);
-
-      return failureOrTreaning.fold(
-          (failure) => throw Error(), (treaning) => treaning);
-    }, (treaning) async => treaning);
-
+  Future<Either<Failure, ClimbingHallTreaning>> call({
+    required ClimbingHall climbingHall,
+    required ClimbingHallRoute route,
+    required ClimbingStyle style,
+    required ClimbingHallTreaning treaning,
+  }) async {
     final attempt = ClimbingHallAttempt(
       route: route,
       style: style,
       category: route.category,
-      treaningId: currentTreaning!.id,
+      treaningId: treaning.id,
     )..start();
 
     await hallTreaningRepository.saveAttempt(
-        treaning: currentTreaning, attempt: attempt);
+        treaning: treaning, attempt: attempt);
 
-    currentTreaning.attempts.add(attempt);
+    treaning.attempts.add(attempt);
 
-    return Right(currentTreaning);
+    return Right(treaning);
   }
 }

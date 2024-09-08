@@ -42,7 +42,8 @@ class RockTreaningEditingWidget extends HookWidget {
                                       addSector: (sector) {
                                         cubit.addRockSectorToTreaning(
                                             sector: sector,
-                                            district: treaning.district);
+                                            district: state
+                                                .currentTreaning!.district);
                                       },
                                     ))),
                         child: Text(state.currentTreaning!.treaninndTitle)),
@@ -53,34 +54,38 @@ class RockTreaningEditingWidget extends HookWidget {
                 ),
                 if (treaning.sectorsHasTrad)
                   RockAttemptsWithStyle(
-                    attempts: treaning.tradAttempts,
-                    treaning: treaning,
+                    attempts: state.currentTreaning!.tradAttempts,
+                    treaning: state.currentTreaning!,
                     isCurrent: true,
                     climbingStyle: ClimbingStyle.trad,
+                    cubit: cubit,
                     child: const Text('Трэд:'),
                   ),
                 if (treaning.sectorsHasRope)
                   RockAttemptsWithStyle(
-                    attempts: treaning.leadAttempts,
-                    treaning: treaning,
+                    attempts: state.currentTreaning!.leadAttempts,
+                    treaning: state.currentTreaning!,
                     isCurrent: true,
                     climbingStyle: ClimbingStyle.lead,
+                    cubit: cubit,
                     child: const Text('Нижняя:'),
                   ),
                 if (treaning.sectorsHasRope)
                   RockAttemptsWithStyle(
-                    attempts: treaning.topRopeAttempts,
-                    treaning: treaning,
+                    attempts: state.currentTreaning!.topRopeAttempts,
+                    treaning: state.currentTreaning!,
                     isCurrent: true,
                     climbingStyle: ClimbingStyle.topRope,
+                    cubit: cubit,
                     child: const Text('Верхняя:'),
                   ),
                 if (treaning.sectorsHasBouldering)
                   RockAttemptsWithStyle(
-                    attempts: treaning.boulderingAttempts,
-                    treaning: treaning,
+                    attempts: state.currentTreaning!.boulderingAttempts,
+                    treaning: state.currentTreaning!,
                     isCurrent: true,
                     climbingStyle: ClimbingStyle.bouldering,
+                    cubit: cubit,
                     child: const Text('Болдеринг:'),
                   ),
                 TextButton(

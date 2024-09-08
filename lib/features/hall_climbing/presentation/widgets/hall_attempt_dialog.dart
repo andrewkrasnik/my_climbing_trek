@@ -5,23 +5,27 @@ import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/boo
 import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/hall_route_category_widget.dart';
 import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/int_counter_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class HallAttemptDialog extends HookWidget {
   final ClimbingHallAttempt attempt;
+  final CurrentHallTreaningCubit cubit;
+  final bool editing;
+
   const HallAttemptDialog({
     super.key,
     required this.attempt,
+    required this.cubit,
+    this.editing = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    final bool editing = attempt.started;
     final suspensionCountState = useState<int>(attempt.suspensionCount);
     final fallCountState = useState<int>(attempt.fallCount);
     final downClimbingState = useState<bool>(attempt.downClimbing);
     final failState = useState<bool>(attempt.fail);
+
     return AlertDialog(
       content: Padding(
         padding: const EdgeInsets.all(8),
@@ -66,17 +70,16 @@ class HallAttemptDialog extends HookWidget {
         if (attempt.planed)
           ElevatedButton(
             onPressed: () {
-              BlocProvider.of<CurrentHallTreaningCubit>(context)
-                  .startAttempt(attempt: attempt);
+              cubit.startAttempt(attempt: attempt);
               Navigator.of(context).pop();
             },
             child: const Text('Старт'),
           ),
-        if (attempt.started)
+        if (attempt.started || editing)
           ElevatedButton(
             onPressed: () {
-              BlocProvider.of<CurrentHallTreaningCubit>(context)
-                  .finishCurrentAttempt(
+              cubit.finishAttempt(
+                attempt: attempt,
                 fail: failState.value,
                 downClimbing: downClimbingState.value,
                 fallCount: fallCountState.value,
@@ -89,8 +92,7 @@ class HallAttemptDialog extends HookWidget {
         if (attempt.finished)
           ElevatedButton(
             onPressed: () {
-              BlocProvider.of<CurrentHallTreaningCubit>(context)
-                  .deleteAttempt(attempt: attempt);
+              cubit.deleteAttempt(attempt: attempt);
               Navigator.of(context).pop();
             },
             child: const Text('Удалить'),

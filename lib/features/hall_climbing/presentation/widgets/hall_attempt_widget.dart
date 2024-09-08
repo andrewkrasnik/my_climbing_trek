@@ -45,8 +45,11 @@ class HallAttemptWidget extends StatelessWidget {
                       //     .finishCurrentAttempt();
                       showDialog(
                         context: context,
-                        builder: (context) =>
-                            HallAttemptDialog(attempt: attempt),
+                        builder: (context) => HallAttemptDialog(
+                          attempt: attempt,
+                          cubit: BlocProvider.of<CurrentHallTreaningCubit>(
+                              context),
+                        ),
                       );
                     },
                   ),

@@ -30,7 +30,10 @@ class RockAttemptWidget extends StatelessWidget {
           elevation: 0,
           borderRadius: BorderRadius.circular(8),
           child: ListTile(
-            leading: RockAttemptClickWidget(attempt: attempt),
+            leading: RockAttemptClickWidget(
+              attempt: attempt,
+              cubit: cubit,
+            ),
             title: Text(attempt.route?.name ?? 'Безымянная'),
             subtitle: attempt.route == null
                 ? null

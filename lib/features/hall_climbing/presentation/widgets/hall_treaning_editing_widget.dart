@@ -67,8 +67,8 @@ class HallTreaningEditingWidget extends HookWidget {
                   ),
                 if (treaning.climbingHall.hasBouldering)
                   AttemptsWithStyle(
-                    attempts: treaning.boulderingAttempts,
-                    treaning: treaning,
+                    attempts: state.current!.boulderingAttempts,
+                    treaning: state.current!,
                     isCurrent: true,
                     cubit: cubit,
                     climbingStyle: ClimbingStyle.bouldering,
@@ -76,8 +76,8 @@ class HallTreaningEditingWidget extends HookWidget {
                   ),
                 if (treaning.climbingHall.hasAutoBelay)
                   AttemptsWithStyle(
-                    attempts: treaning.autoBelayAttempts,
-                    treaning: treaning,
+                    attempts: state.current!.autoBelayAttempts,
+                    treaning: state.current!,
                     isCurrent: true,
                     cubit: cubit,
                     climbingStyle: ClimbingStyle.autoBelay,

@@ -91,10 +91,11 @@ class RockAttemptDialog extends HookWidget {
             },
             child: const Text('Старт'),
           ),
-        if (attempt.started)
+        if (attempt.started || editing)
           ElevatedButton(
             onPressed: () {
-              cubit.finishCurrentAttempt(
+              cubit.finishAttempt(
+                attempt: attempt,
                 fail: failState.value,
                 downClimbing: downClimbingState.value,
                 fallCount: fallCountState.value,

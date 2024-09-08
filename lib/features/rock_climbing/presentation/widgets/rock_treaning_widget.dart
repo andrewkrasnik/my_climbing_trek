@@ -18,6 +18,8 @@ class RockTreaningWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = BlocProvider.of<RockTreaningCubit>(context);
+
     return BlocBuilder<RockTreaningCubit, RockTreaningState>(
       builder: (context, state) {
         return Padding(
@@ -80,6 +82,7 @@ class RockTreaningWidget extends StatelessWidget {
                       treaning: treaning,
                       isCurrent: isCurrent,
                       climbingStyle: ClimbingStyle.trad,
+                      cubit: cubit,
                       child: const Text('Трэд:'),
                     ),
                   if ((isCurrent && treaning.sectorsHasRope) ||
@@ -89,6 +92,7 @@ class RockTreaningWidget extends StatelessWidget {
                       treaning: treaning,
                       isCurrent: isCurrent,
                       climbingStyle: ClimbingStyle.lead,
+                      cubit: cubit,
                       child: const Text('Нижняя:'),
                     ),
                   if ((isCurrent && treaning.sectorsHasRope) ||
@@ -98,6 +102,7 @@ class RockTreaningWidget extends StatelessWidget {
                       treaning: treaning,
                       isCurrent: isCurrent,
                       climbingStyle: ClimbingStyle.topRope,
+                      cubit: cubit,
                       child: const Text('Верхняя:'),
                     ),
                   if ((isCurrent && treaning.sectorsHasBouldering) ||
@@ -107,6 +112,7 @@ class RockTreaningWidget extends StatelessWidget {
                       treaning: treaning,
                       isCurrent: isCurrent,
                       climbingStyle: ClimbingStyle.bouldering,
+                      cubit: cubit,
                       child: const Text('Болдеринг:'),
                     ),
                   if (isCurrent &&
@@ -117,8 +123,7 @@ class RockTreaningWidget extends StatelessWidget {
                     TextButton(
                       child: const Text('Завершить'),
                       onPressed: () {
-                        BlocProvider.of<RockTreaningCubit>(context)
-                            .finishTreaning();
+                        cubit.finishTreaning();
                       },
                     ),
                 ],

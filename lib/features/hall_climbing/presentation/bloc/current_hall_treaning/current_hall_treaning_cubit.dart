@@ -104,14 +104,20 @@ class CurrentHallTreaningCubit extends Cubit<CurrentHallTreaningState> {
     }
   }
 
-  Future<void> attemptFromRoute(
-      {required ClimbingHall climbingHall,
-      required ClimbingHallRoute route,
-      required ClimbingStyle style}) async {
+  Future<void> attemptFromRoute({
+    required ClimbingHall climbingHall,
+    required ClimbingHallRoute route,
+    required ClimbingStyle style,
+  }) async {
+    if (state.current == null) {
+      return;
+    }
+
     final failureOrTreaning = await newHallAttemptFromRoute(
       route: route,
       style: style,
       climbingHall: climbingHall,
+      treaning: state.current!,
     );
 
     failureOrTreaning.fold((failure) => null, (treaning) async {
@@ -131,63 +137,57 @@ class CurrentHallTreaningCubit extends Cubit<CurrentHallTreaningState> {
     });
   }
 
-  Future<void> finishCurrentAttempt({
+  Future<void> finishAttempt({
+    required ClimbingHallAttempt attempt,
     int suspensionCount = 0,
     int fallCount = 0,
     bool downClimbing = false,
     bool fail = false,
     int attemptCount = 0,
   }) async {
-    if (attemptStarted) {
-      final failureOrAttempt = await finishHallAttempt(
-        attempt: state.currentAttempt!,
-        treaning: state.current!,
-        attemptCount: attemptCount,
-        downClimbing: downClimbing,
-        fail: fail,
-        fallCount: fallCount,
-        suspensionCount: suspensionCount,
-      );
+    final failureOrAttempt = await finishHallAttempt(
+      attempt: attempt,
+      treaning: state.current!,
+      attemptCount: attemptCount,
+      downClimbing: downClimbing,
+      fail: fail,
+      fallCount: fallCount,
+      suspensionCount: suspensionCount,
+    );
 
-      failureOrAttempt.fold(
-        (failure) async => null,
-        (attempt) async {
-          final failureOrTreaning = await currentHallTreaning();
+    failureOrAttempt.fold(
+      (failure) async => null,
+      (attempt) async {
+        emit(
+          state.copyWith(
+            currentAttempt: null,
+            currentRouteStatistic: null,
+            lastAttempt: attempt,
+            current: state.current!,
+            lastRouteStatistic: null,
+          ),
+        );
 
-          failureOrTreaning.fold(
+        if (attempt.route != null) {
+          final failureOrStatistic =
+              await getGymRouteStatistic(routes: [attempt.route!]);
+          failureOrStatistic.fold(
             (l) => null,
-            (treaning) async {
-              emit(
-                state.copyWith(
-                  currentAttempt: null,
-                  currentRouteStatistic: null,
-                  lastAttempt: attempt,
-                  current: treaning,
-                  lastRouteStatistic: null,
-                ),
-              );
-
-              if (attempt.route != null) {
-                final failureOrStatistic =
-                    await getGymRouteStatistic(routes: [attempt.route!]);
-                failureOrStatistic.fold(
-                  (l) => null,
-                  (statistic) {
-                    if (statistic.isNotEmpty) {
-                      emit(
-                        state.copyWith(
-                          lastRouteStatistic: statistic[attempt.route!],
-                        ),
-                      );
-                    }
-                  },
+            (statistic) {
+              if (statistic.isNotEmpty) {
+                emit(
+                  state.copyWith(
+                    lastRouteStatistic: statistic[attempt.route!],
+                  ),
                 );
               }
             },
           );
-        },
-      );
-    }
+        }
+
+        loadData();
+      },
+    );
   }
 
   Future<void> finishCurrentTreaning() async {
