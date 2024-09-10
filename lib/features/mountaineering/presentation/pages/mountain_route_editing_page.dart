@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:my_climbing_trek/core/widgets/my_modal_bottom_sheet.dart';
@@ -60,28 +59,25 @@ class MountainRouteEditingPage extends HookWidget {
           IconButton(
             onPressed: () {
               cubit.saveRoute(
-                  mountain: mountain,
-                  id: idController.text,
-                  name: nameController.text,
-                  image: imageController.text,
-                  category: categoryState.value!,
-                  type: typeState.value!,
-                  roops: ropesState.value,
-                  description: descriptionController.text,
-                  passage: passageController.text,
-                  descent: descentController.text,
-                  links: [],
-                  author: authorController.text,
-                  firstAscentYear: firstAscentYearController.text,
-                  length: 0,
-                  farLink: farLinkController.text,
-                  ueaaSchemaImage: ueaaImageController.text,
-                  climbingCategory: ropesState.value
-                      .sortedBy<num>((element) =>
-                          int.tryParse(element.climbingCategory?.id ?? '0') ??
-                          0)
-                      .lastOrNull
-                      ?.climbingCategory);
+                mountain: mountain,
+                id: idController.text,
+                name: nameController.text,
+                image: imageController.text,
+                category: categoryState.value!,
+                type: typeState.value!,
+                roops: ropesState.value,
+                description: descriptionController.text,
+                passage: passageController.text,
+                descent: descentController.text,
+                links: [],
+                author: authorController.text,
+                firstAscentYear: firstAscentYearController.text,
+                length: 0,
+                farLink: farLinkController.text,
+                ueaaSchemaImage: ueaaImageController.text,
+                climbingCategory:
+                    MountainRoute.maxClimbingCategory(ropesState.value),
+              );
             },
             icon: const Icon(Icons.save),
           )

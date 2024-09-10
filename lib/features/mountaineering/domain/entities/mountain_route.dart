@@ -27,6 +27,19 @@ class MountainRoute extends DataWithUUID {
 
   List<String> get links => _links;
 
+  static ClimbingCategory? maxClimbingCategory(List<MountainRouteRoop> roops) {
+    final tempCategories = roops
+        .where((item) => item.climbingCategory != null)
+        .map((item) => item.climbingCategory!)
+        .toList();
+
+    tempCategories.sort(
+      (a, b) => a.id.compareTo(b.id),
+    );
+
+    return tempCategories.lastOrNull;
+  }
+
   MountainRoute(
       {required this.category,
       required this.type,
