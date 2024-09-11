@@ -77,6 +77,8 @@ class MountainRouteEditingPage extends HookWidget {
                 ueaaSchemaImage: ueaaImageController.text,
                 climbingCategory:
                     MountainRoute.maxClimbingCategory(ropesState.value),
+                aidCategory: MountainRoute.maxAidCategory(ropesState.value),
+                ussrCategory: MountainRoute.maxUssrCategory(ropesState.value),
               );
             },
             icon: const Icon(Icons.save),

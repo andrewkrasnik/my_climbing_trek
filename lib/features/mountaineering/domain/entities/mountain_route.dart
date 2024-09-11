@@ -64,4 +64,60 @@ class MountainRoute extends DataWithUUID {
   bool get isMultiPitch =>
       type == MountainRouteType.multiPitch ||
       type == MountainRouteType.tradMultiPitch;
+
+  static AidCategory? maxAidCategory(List<MountainRouteRoop> value) {
+    final tempCategories =
+        value.map((item) => item.pieces?.maxAidCategory).toList();
+
+    tempCategories.removeWhere((item) => item == null);
+
+    tempCategories.sort(
+      (a, b) => a!.id.compareTo(b!.id),
+    );
+
+    return tempCategories.lastOrNull;
+  }
+
+  static UssrClimbingCategory? maxUssrCategory(List<MountainRouteRoop> value) {
+    final tempCategories =
+        value.map((item) => item.pieces?.maxUssrCategory).toList();
+
+    tempCategories.removeWhere((item) => item == null);
+
+    tempCategories.sort(
+      (a, b) => a!.id.compareTo(b!.id),
+    );
+
+    return tempCategories.lastOrNull;
+  }
+}
+
+extension on List<MountainRoutePiece>? {
+  AidCategory? get maxAidCategory {
+    final tempCategories = this
+        ?.where((item) =>
+            item is MountainRouteRockPiece && item.aidCategory != null)
+        .map((item) => (item as MountainRouteRockPiece).aidCategory!)
+        .toList();
+
+    tempCategories?.sort(
+      (a, b) => a.id.compareTo(b.id),
+    );
+
+    return tempCategories?.lastOrNull;
+  }
+
+  UssrClimbingCategory? get maxUssrCategory {
+    final tempCategories = this
+        ?.where((item) =>
+            item is MountainRouteRockPiece && item.ussrCategory != null)
+        .map((item) => (item as MountainRouteRockPiece).ussrCategory!)
+        .toList();
+
+    tempCategories?.sort(
+      (a, b) => a.id.compareTo(b.id),
+    );
+
+    return tempCategories?.lastOrNull;
+  }
 }
