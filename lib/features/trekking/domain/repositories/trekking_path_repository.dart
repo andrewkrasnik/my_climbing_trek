@@ -21,4 +21,7 @@ abstract class TrekkingPathRepository implements TreaningsRepository {
   Future<Either<Failure, TrekkingPath?>> previosPath();
 
   Future<Either<Failure, TrekkingPath>> getPath({required String pathId});
+
+  Future<Either<Failure, Unit>> deletePathEvent(
+      {required TrekkingPathEvent event});
 }

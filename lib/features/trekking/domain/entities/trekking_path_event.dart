@@ -17,4 +17,18 @@ class TrekkingPathEvent extends DataWithUUID {
   });
 
   get isMooving => type == TrekkingEventType.startMoving;
+
+  TrekkingPathEvent copyWith({
+    TrekkingEventType? type,
+    TrekPoint? point,
+    DateTime? time,
+    String? pathId,
+  }) {
+    return TrekkingPathEvent(
+      type: type ?? this.type,
+      point: point ?? this.point,
+      time: time ?? this.time,
+      pathId: pathId ?? this.pathId,
+    );
+  }
 }

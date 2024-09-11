@@ -48,16 +48,42 @@ class TrekkingPathEditingWidget extends HookWidget {
                 const SizedBox(
                   height: 8,
                 ),
-                ...path.events.map(
+                ...state.currentPath!.events.map(
                   (event) => Row(
                     children: [
-                      Text(event.time.timeString()),
+                      InkWell(
+                        onTap: () async {
+                          final newTime = await showTimePicker(
+                            context: context,
+                            initialTime: TimeOfDay.fromDateTime(event.time),
+                          );
+
+                          if (newTime != null) {
+                            cubit.setTime(
+                                event: event,
+                                time: DateTime.now().copyWith(
+                                    hour: newTime.hour,
+                                    minute: newTime.minute,
+                                    second: 0));
+                          }
+                        },
+                        child: Text(event.time.timeString()),
+                      ),
                       const SizedBox(width: 4),
                       if (event.point != null) ...[
                         Text(event.point!.name),
                         const SizedBox(width: 4),
                       ],
                       Text(event.type.name),
+                      const Spacer(),
+                      InkWell(
+                          onTap: () {
+                            cubit.deleteEvent(event: event);
+                          },
+                          child: const Icon(
+                            Icons.delete,
+                            size: 20,
+                          ))
                     ],
                   ),
                 ),

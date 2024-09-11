@@ -79,4 +79,10 @@ class TrekkingPathRepositoryImpl implements TrekkingPathRepository {
       {required String pathId}) async {
     return await _pathLocalDataSource.getPath(pathId: pathId);
   }
+
+  @override
+  Future<Either<Failure, Unit>> deletePathEvent(
+      {required TrekkingPathEvent event}) async {
+    return await _pathLocalDataSource.deletePathEvent(event: event);
+  }
 }

@@ -9,8 +9,10 @@ import 'package:my_climbing_trek/features/trekking/domain/entities/trekking_path
 import 'package:my_climbing_trek/features/trekking/domain/usecases/add_trek_event_usecase.dart';
 import 'package:my_climbing_trek/features/trekking/domain/usecases/continue_trek_usecase.dart';
 import 'package:my_climbing_trek/features/trekking/domain/usecases/current_trekking_path_usecase.dart';
+import 'package:my_climbing_trek/features/trekking/domain/usecases/delete_trek_event_usecase.dart';
 import 'package:my_climbing_trek/features/trekking/domain/usecases/get_trekking_path_usecase.dart';
 import 'package:my_climbing_trek/features/trekking/domain/usecases/previos_trekking_path_usecase.dart';
+import 'package:my_climbing_trek/features/trekking/domain/usecases/save_trek_event_usecase.dart';
 import 'package:my_climbing_trek/features/trekking/domain/usecases/save_trekking_path_usecase.dart';
 import 'package:my_climbing_trek/features/trekking/domain/usecases/start_trek_usecase.dart';
 
@@ -26,6 +28,8 @@ class TrekkingCubit extends Cubit<TrekkingState> {
   final ContinueTrekUsecase _continueTrekUsecase;
   final GetTrekkingPathUsecase _getTrekkingPathUsecase;
   final SaveTrekkingPathUsecase _saveTrekkingPathUsecase;
+  final DeleteTrekEventUsecase _deleteTrekEventUsecase;
+  final SaveTrekEventUsecase _saveTrekEventUsecase;
 
   TrekkingCubit(
     this._currentTrekkingPathUsecase,
@@ -35,6 +39,8 @@ class TrekkingCubit extends Cubit<TrekkingState> {
     this._continueTrekUsecase,
     this._getTrekkingPathUsecase,
     this._saveTrekkingPathUsecase,
+    this._deleteTrekEventUsecase,
+    this._saveTrekEventUsecase,
   ) : super(TrekkingState.initial());
 
   Future<void> loadCurrent() async {
@@ -62,7 +68,8 @@ class TrekkingCubit extends Cubit<TrekkingState> {
       emit(state.copyWith(
         currentPath: currentPath,
         previosPath: null,
-        currentEvent: currentPath?.events.lastOrNull,
+        currentEvent: currentPath.events.lastOrNull,
+        loading: false,
       ));
     });
   }
@@ -131,6 +138,26 @@ class TrekkingCubit extends Cubit<TrekkingState> {
         path: state.currentPath!.copyWith(date: date));
 
     failureOrTreaning.fold(
+      (failure) => null,
+      (_) => loadData(path: state.currentPath!),
+    );
+  }
+
+  Future<void> setTime(
+      {required TrekkingPathEvent event, required DateTime time}) async {
+    final failureOrUnit =
+        await _saveTrekEventUsecase(event: event.copyWith(time: time));
+
+    failureOrUnit.fold(
+      (failure) => null,
+      (_) => loadData(path: state.currentPath!),
+    );
+  }
+
+  Future<void> deleteEvent({required TrekkingPathEvent event}) async {
+    final failureOrUnit = await _deleteTrekEventUsecase(event: event);
+
+    failureOrUnit.fold(
       (failure) => null,
       (_) => loadData(path: state.currentPath!),
     );

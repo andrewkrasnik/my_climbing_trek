@@ -62,4 +62,11 @@ class MockTrekkingPathLocalDataSource implements TrekkingPathLocalDataSource {
     // TODO: implement getPath
     throw UnimplementedError();
   }
+
+  @override
+  Future<Either<Failure, Unit>> deletePathEvent(
+      {required TrekkingPathEvent event}) {
+    // TODO: implement deletePathEvent
+    throw UnimplementedError();
+  }
 }

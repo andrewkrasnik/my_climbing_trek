@@ -147,4 +147,13 @@ class DriftTrekkingPathLocalDataSource implements TrekkingPathLocalDataSource {
       },
     );
   }
+
+  @override
+  Future<Either<Failure, Unit>> deletePathEvent(
+      {required TrekkingPathEvent event}) async {
+    return await _localDatabase.deleteById(
+      table: eventsTable,
+      data: const TrekkingPathEventConverter().toJson(event),
+    );
+  }
 }
