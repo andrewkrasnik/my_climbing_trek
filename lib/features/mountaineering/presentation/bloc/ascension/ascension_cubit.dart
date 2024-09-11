@@ -10,6 +10,8 @@ import 'package:my_climbing_trek/features/mountaineering/domain/usecases/add_asc
 import 'package:my_climbing_trek/features/mountaineering/domain/usecases/edit_ascension_event_usecase.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/usecases/finish_ascension_usecase.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/usecases/get_ascension_usecase.dart';
+import 'package:my_climbing_trek/features/mountaineering/domain/usecases/get_current_ascension_usecase.dart';
+import 'package:my_climbing_trek/features/mountaineering/domain/usecases/save_ascension_usecase.dart';
 
 part 'ascension_cubit.freezed.dart';
 part 'ascension_state.dart';
@@ -20,18 +22,31 @@ class AscensionCubit extends Cubit<AscensionState> {
   final GetAscensionUsecase _getAscensionUsecase;
   final FinishAscensionUsecase _finishAscensionUsecase;
   final EditAscensionEventUsecase _editAscensionEventUsecase;
+  final SaveAscensionUsecase _saveAscensionUsecase;
+  final GetCurrentAscensionUsecase _getCurrentAscensionUsecase;
 
   AscensionCubit(
     this._addAscensionUsecase,
     this._getAscensionUsecase,
     this._finishAscensionUsecase,
     this._editAscensionEventUsecase,
+    this._saveAscensionUsecase,
+    this._getCurrentAscensionUsecase,
   ) : super(AscensionState.initial());
 
-  Future<void> loadData() async {
+  Future<void> loadCurrent({required}) async {
     emit(AscensionState.initial());
 
-    final failureOrAscension = await _getAscensionUsecase();
+    final failureOrAscension = await _getCurrentAscensionUsecase();
+
+    failureOrAscension.fold((failure) => null,
+        (ascension) => emit(state.copyWith(ascension: ascension)));
+  }
+
+  Future<void> loadData({required Ascension ascension}) async {
+    emit(AscensionState.initial());
+
+    final failureOrAscension = await _getAscensionUsecase(ascension: ascension);
 
     failureOrAscension.fold((failure) => null,
         (ascension) => emit(state.copyWith(ascension: ascension)));
@@ -64,7 +79,8 @@ class AscensionCubit extends Cubit<AscensionState> {
       planedTime: time,
     );
 
-    failureOrUnit.fold((failure) => null, (ascension) => loadData());
+    failureOrUnit.fold((failure) => null,
+        (ascension) => loadData(ascension: state.ascension!));
   }
 
   Future<void> setTime(
@@ -74,6 +90,27 @@ class AscensionCubit extends Cubit<AscensionState> {
       time: time,
     );
 
-    failureOrUnit.fold((failure) => null, (ascension) => loadData());
+    failureOrUnit.fold(
+        (failure) => null, (_) => loadData(ascension: state.ascension!));
+  }
+
+  Future<void> setAscension({required Ascension ascension}) async {
+    emit(AscensionState(ascension: ascension));
+  }
+
+  Future<void> changeDate({required DateTime date}) async {
+    if (state.ascension == null) {
+      return;
+    }
+
+    emit(state.copyWith(loading: true));
+
+    final failureOrTreaning = await _saveAscensionUsecase(
+        ascension: state.ascension!.copyWith(date: date));
+
+    failureOrTreaning.fold(
+      (failure) => null,
+      (_) => loadData(ascension: state.ascension!),
+    );
   }
 }

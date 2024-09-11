@@ -6,7 +6,7 @@ import 'package:my_climbing_trek/features/hall_climbing/presentation/widgets/hal
 import 'package:my_climbing_trek/features/ice_climbing/domain/entities/ice_treaning.dart';
 import 'package:my_climbing_trek/features/ice_climbing/presentation/widgets/ice_treaning_editing_widget.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/ascension.dart';
-import 'package:my_climbing_trek/features/mountaineering/presentation/widgets/mountaneering_editing_widget.dart';
+import 'package:my_climbing_trek/features/mountaineering/presentation/widgets/ascension_editing_widget.dart';
 import 'package:my_climbing_trek/features/rock_climbing/domain/entities/rock_treaning.dart';
 import 'package:my_climbing_trek/features/rock_climbing/presentation/widgets/rock_treaning_editing_widget.dart';
 import 'package:my_climbing_trek/features/strength_training/domain/entities/strength_treaning.dart';
@@ -48,7 +48,7 @@ class TreaningEditingWidgetFactory extends StatelessWidget {
         treaning: treaning as TechniqueTreaning,
       );
     } else if (treaning is Ascension) {
-      return MountaneeringEditingWidget(ascension: treaning as Ascension);
+      return AscensionEditingWidget(ascension: treaning as Ascension);
     } else {
       return Container();
     }

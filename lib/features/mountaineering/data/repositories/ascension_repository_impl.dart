@@ -69,4 +69,9 @@ class AscensionRepositoryImpl implements AscensionRepository {
     }
     return const Right(unit);
   }
+
+  @override
+  Future<Either<Failure, Ascension>> getAscention({required String id}) async {
+    return await _localAscensionDataSource.getAscention(id: id);
+  }
 }

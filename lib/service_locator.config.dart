@@ -217,6 +217,8 @@ import 'features/mountaineering/domain/usecases/finish_ascension_usecase.dart'
     as _i560;
 import 'features/mountaineering/domain/usecases/get_ascension_usecase.dart'
     as _i124;
+import 'features/mountaineering/domain/usecases/get_current_ascension_usecase.dart'
+    as _i351;
 import 'features/mountaineering/domain/usecases/get_mountain_regions.dart'
     as _i397;
 import 'features/mountaineering/domain/usecases/get_mountain_routes.dart'
@@ -224,6 +226,8 @@ import 'features/mountaineering/domain/usecases/get_mountain_routes.dart'
 import 'features/mountaineering/domain/usecases/get_mountaints.dart' as _i207;
 import 'features/mountaineering/domain/usecases/get_my_mountain_regions.dart'
     as _i6;
+import 'features/mountaineering/domain/usecases/save_ascension_usecase.dart'
+    as _i350;
 import 'features/mountaineering/domain/usecases/save_mountain_route_usecase.dart'
     as _i508;
 import 'features/mountaineering/domain/usecases/save_mountain_usecase.dart'
@@ -618,6 +622,10 @@ _i174.GetIt $initGetIt(
       () => _i560.FinishAscensionUsecase(gh<_i248.AscensionRepository>()));
   gh.lazySingleton<_i124.GetAscensionUsecase>(
       () => _i124.GetAscensionUsecase(gh<_i248.AscensionRepository>()));
+  gh.lazySingleton<_i350.SaveAscensionUsecase>(
+      () => _i350.SaveAscensionUsecase(gh<_i248.AscensionRepository>()));
+  gh.lazySingleton<_i351.GetCurrentAscensionUsecase>(
+      () => _i351.GetCurrentAscensionUsecase(gh<_i248.AscensionRepository>()));
   gh.lazySingleton<_i316.TrekkingRemoteDataSource>(
       () => _i18.FirebaseTrekkingRemoteDatasource(
             gh<_i974.FirebaseFirestore>(),
@@ -670,12 +678,6 @@ _i174.GetIt $initGetIt(
           ));
   gh.lazySingleton<_i211.StrengthExerciseDataSource>(() =>
       _i264.LocalStrengthExerciseDataSource(gh<_i808.LocalDBDatasource>()));
-  gh.factory<_i387.AscensionCubit>(() => _i387.AscensionCubit(
-        gh<_i329.AddAscensionUsecase>(),
-        gh<_i124.GetAscensionUsecase>(),
-        gh<_i560.FinishAscensionUsecase>(),
-        gh<_i816.EditAscensionEventUsecase>(),
-      ));
   gh.lazySingleton<_i1059.HallTreaningDataSource>(
       () => _i653.LocalHallTreaningDataSource(gh<_i808.LocalDBDatasource>()));
   gh.lazySingleton<_i682.CardioTreaningsDatasource>(
@@ -766,6 +768,14 @@ _i174.GetIt $initGetIt(
       _i508.SaveMountainRouteUsecase(gh<_i436.MountainRegionsRepository>()));
   gh.lazySingleton<_i959.SaveMountainUsecase>(
       () => _i959.SaveMountainUsecase(gh<_i436.MountainRegionsRepository>()));
+  gh.factory<_i387.AscensionCubit>(() => _i387.AscensionCubit(
+        gh<_i329.AddAscensionUsecase>(),
+        gh<_i124.GetAscensionUsecase>(),
+        gh<_i560.FinishAscensionUsecase>(),
+        gh<_i816.EditAscensionEventUsecase>(),
+        gh<_i350.SaveAscensionUsecase>(),
+        gh<_i351.GetCurrentAscensionUsecase>(),
+      ));
   gh.factory<_i942.TechniqueTreaningCubit>(() => _i942.TechniqueTreaningCubit(
         gh<_i486.AddTechniqueTreaningUseCase>(),
         gh<_i858.PreviosTechniqueTreaningUseCase>(),

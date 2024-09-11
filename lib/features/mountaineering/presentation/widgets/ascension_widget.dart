@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_climbing_trek/core/widgets/my_cached_network_image.dart';
 import 'package:my_climbing_trek/core/widgets/scaled_image.dart';
 import 'package:my_climbing_trek/core/widgets/treaning_picture_page.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/ascension.dart';
+import 'package:my_climbing_trek/features/mountaineering/presentation/bloc/ascension/ascension_cubit.dart';
 import 'package:my_climbing_trek/features/mountaineering/presentation/pages/ascension_page.dart';
 
 import 'package:my_climbing_trek/features/mountaineering/presentation/pages/mountain_route_page.dart';
@@ -39,7 +41,7 @@ class AscensionWidget extends StatelessWidget {
                   imageUrl: ascension.mountain.image,
                   height: 240,
                   width: double.maxFinite,
-                  fit: BoxFit.fitWidth,
+                  fit: BoxFit.cover,
                 ),
               ),
             if (!ascension.finished) ...[
@@ -78,6 +80,7 @@ class AscensionWidget extends StatelessWidget {
                     ascension: ascension,
                     textStyle: textStyle,
                     onlyMainEvents: true,
+                    cubit: BlocProvider.of<AscensionCubit>(context),
                   ),
                 ),
               ),
@@ -100,6 +103,8 @@ class AscensionWidget extends StatelessWidget {
                                   ascension: ascension,
                                   textStyle: textStyle,
                                   onlyMainEvents: true,
+                                  cubit:
+                                      BlocProvider.of<AscensionCubit>(context),
                                 ),
                               ),
                             )));

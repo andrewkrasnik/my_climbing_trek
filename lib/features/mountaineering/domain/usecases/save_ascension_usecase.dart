@@ -5,13 +5,14 @@ import 'package:my_climbing_trek/features/mountaineering/domain/entities/ascensi
 import 'package:my_climbing_trek/features/mountaineering/domain/repositories/ascension_repository.dart';
 
 @LazySingleton()
-class GetAscensionUsecase {
+class SaveAscensionUsecase {
   final AscensionRepository _ascensionRepository;
 
-  GetAscensionUsecase(this._ascensionRepository);
+  SaveAscensionUsecase(this._ascensionRepository);
 
-  Future<Either<Failure, Ascension>> call(
-      {required Ascension ascension}) async {
-    return await _ascensionRepository.getAscention(id: ascension.id);
+  Future<Either<Failure, Unit>> call({
+    required Ascension ascension,
+  }) async {
+    return _ascensionRepository.saveAscention(ascension: ascension);
   }
 }

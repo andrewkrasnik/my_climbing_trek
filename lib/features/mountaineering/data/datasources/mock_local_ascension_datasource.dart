@@ -42,4 +42,10 @@ class MockLocalAscensionDataSource implements LocalAscensionDataSource {
       {required AscensionEvent event}) async {
     return const Right(unit);
   }
+
+  @override
+  Future<Either<Failure, Ascension>> getAscention({required String id}) {
+    // TODO: implement getAscention
+    throw UnimplementedError();
+  }
 }

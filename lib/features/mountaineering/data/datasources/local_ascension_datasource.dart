@@ -4,6 +4,8 @@ import 'package:my_climbing_trek/features/mountaineering/domain/entities/ascensi
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/ascension_event.dart';
 
 abstract class LocalAscensionDataSource {
+  Future<Either<Failure, Ascension>> getAscention({required String id});
+
   Future<Either<Failure, Ascension?>> currentAscention();
 
   Future<Either<Failure, List<Ascension>>> getTreanings();

@@ -7,6 +7,7 @@ import 'package:my_climbing_trek/features/mountaineering/presentation/bloc/ascen
 import 'package:my_climbing_trek/features/mountaineering/presentation/bloc/mountain_routes/mountain_routes_cubit.dart';
 import 'package:my_climbing_trek/features/mountaineering/presentation/pages/mountain_route_editing_page.dart';
 import 'package:my_climbing_trek/features/mountaineering/presentation/widgets/mountain_roop_widget.dart';
+import 'package:my_climbing_trek/features/mountaineering/presentation/widgets/mountain_route_category_widget.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class MountainRoutePage extends StatelessWidget {
@@ -70,6 +71,17 @@ class MountainRoutePage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              ListTile(
+                  leading: MountainRouteCategoryWidget(route: route),
+                  title: Text(route.name),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(route.type.name),
+                      if (route.author.isNotEmpty)
+                        Text('${route.author}, ${route.firstAscentYear}')
+                    ],
+                  )),
               if (route.image?.isNotEmpty == true)
                 ScaledImageWidget(imageUrl: route.image!),
               if (route.ueaaSchemaImage?.isNotEmpty == true) ...[

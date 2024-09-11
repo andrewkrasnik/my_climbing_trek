@@ -7,6 +7,8 @@ import 'package:my_climbing_trek/features/treanings/domain/repositories/treaning
 abstract class AscensionRepository implements TreaningsRepository {
   Future<Either<Failure, Ascension?>> currentAscention();
 
+  Future<Either<Failure, Ascension>> getAscention({required String id});
+
   @override
   Future<Either<Failure, List<Ascension>>> getTreanings();
 

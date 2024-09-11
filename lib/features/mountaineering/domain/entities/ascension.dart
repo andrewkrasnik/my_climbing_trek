@@ -26,4 +26,21 @@ class Ascension extends Treaning {
 
   @override
   String get title => '${mountain.name}, ${route.name}';
+
+  Ascension copyWith({
+    Mountain? mountain,
+    MountainRoute? route,
+    List<AscensionEvent>? events,
+    DateTime? date,
+  }) {
+    return Ascension(
+      mountain: mountain ?? this.mountain,
+      route: route ?? this.route,
+      events: events ?? this.events,
+      date: date ?? this.date,
+      id: id,
+      finish: finish,
+      start: start,
+    );
+  }
 }

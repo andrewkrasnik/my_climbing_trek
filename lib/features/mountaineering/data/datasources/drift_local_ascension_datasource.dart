@@ -102,4 +102,20 @@ class DriftLocalAscensionDataSource implements LocalAscensionDataSource {
 
     return AscensionModel.fromJson(json);
   }
+
+  @override
+  Future<Either<Failure, Ascension>> getAscention({required String id}) async {
+    final failureOrData = await _localDatabase.getData(
+      table: table,
+      whereConditions: {'id': id},
+      orderByConditions: {'date': false},
+    );
+
+    return failureOrData.fold(
+      (failure) => Left(failure),
+      (data) async {
+        return Right(await _ascensionWithEvents(data.first));
+      },
+    );
+  }
 }

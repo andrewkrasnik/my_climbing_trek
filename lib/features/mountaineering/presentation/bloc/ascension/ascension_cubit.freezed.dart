@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$AscensionState {
   Ascension? get ascension => throw _privateConstructorUsedError;
+  bool? get loading => throw _privateConstructorUsedError;
 
   /// Create a copy of AscensionState
   /// with the given fields replaced by the non-null parameter values.
@@ -31,7 +32,7 @@ abstract class $AscensionStateCopyWith<$Res> {
           AscensionState value, $Res Function(AscensionState) then) =
       _$AscensionStateCopyWithImpl<$Res, AscensionState>;
   @useResult
-  $Res call({Ascension? ascension});
+  $Res call({Ascension? ascension, bool? loading});
 }
 
 /// @nodoc
@@ -50,12 +51,17 @@ class _$AscensionStateCopyWithImpl<$Res, $Val extends AscensionState>
   @override
   $Res call({
     Object? ascension = freezed,
+    Object? loading = freezed,
   }) {
     return _then(_value.copyWith(
       ascension: freezed == ascension
           ? _value.ascension
           : ascension // ignore: cast_nullable_to_non_nullable
               as Ascension?,
+      loading: freezed == loading
+          ? _value.loading
+          : loading // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 }
@@ -68,7 +74,7 @@ abstract class _$$AscensionStateImplCopyWith<$Res>
       __$$AscensionStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Ascension? ascension});
+  $Res call({Ascension? ascension, bool? loading});
 }
 
 /// @nodoc
@@ -85,12 +91,17 @@ class __$$AscensionStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? ascension = freezed,
+    Object? loading = freezed,
   }) {
     return _then(_$AscensionStateImpl(
       ascension: freezed == ascension
           ? _value.ascension
           : ascension // ignore: cast_nullable_to_non_nullable
               as Ascension?,
+      loading: freezed == loading
+          ? _value.loading
+          : loading // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -98,14 +109,16 @@ class __$$AscensionStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AscensionStateImpl implements _AscensionState {
-  const _$AscensionStateImpl({this.ascension});
+  const _$AscensionStateImpl({this.ascension, this.loading});
 
   @override
   final Ascension? ascension;
+  @override
+  final bool? loading;
 
   @override
   String toString() {
-    return 'AscensionState(ascension: $ascension)';
+    return 'AscensionState(ascension: $ascension, loading: $loading)';
   }
 
   @override
@@ -114,11 +127,12 @@ class _$AscensionStateImpl implements _AscensionState {
         (other.runtimeType == runtimeType &&
             other is _$AscensionStateImpl &&
             (identical(other.ascension, ascension) ||
-                other.ascension == ascension));
+                other.ascension == ascension) &&
+            (identical(other.loading, loading) || other.loading == loading));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, ascension);
+  int get hashCode => Object.hash(runtimeType, ascension, loading);
 
   /// Create a copy of AscensionState
   /// with the given fields replaced by the non-null parameter values.
@@ -131,11 +145,13 @@ class _$AscensionStateImpl implements _AscensionState {
 }
 
 abstract class _AscensionState implements AscensionState {
-  const factory _AscensionState({final Ascension? ascension}) =
-      _$AscensionStateImpl;
+  const factory _AscensionState(
+      {final Ascension? ascension, final bool? loading}) = _$AscensionStateImpl;
 
   @override
   Ascension? get ascension;
+  @override
+  bool? get loading;
 
   /// Create a copy of AscensionState
   /// with the given fields replaced by the non-null parameter values.

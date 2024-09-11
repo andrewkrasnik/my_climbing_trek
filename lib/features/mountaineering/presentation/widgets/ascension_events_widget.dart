@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_climbing_trek/features/mountaineering/domain/entities/ascension.dart';
 import 'package:my_climbing_trek/core/extentions/date_time_extention.dart';
 import 'package:my_climbing_trek/features/mountaineering/presentation/bloc/ascension/ascension_cubit.dart';
@@ -9,9 +8,11 @@ class AscensionEventsWidget extends StatelessWidget {
   final bool onlyMainEvents;
   final bool editing;
   final TextStyle? textStyle;
+  final AscensionCubit cubit;
 
   const AscensionEventsWidget({
     required this.ascension,
+    required this.cubit,
     this.editing = false,
     this.onlyMainEvents = false,
     this.textStyle,
@@ -45,9 +46,6 @@ class AscensionEventsWidget extends StatelessWidget {
                 InkWell(
                   onTap: editing
                       ? () async {
-                          final cubit =
-                              BlocProvider.of<AscensionCubit>(context);
-
                           final newTime = await showTimePicker(
                             context: context,
                             initialTime: event.planedTime == null
@@ -73,9 +71,6 @@ class AscensionEventsWidget extends StatelessWidget {
                 InkWell(
                   onTap: editing
                       ? () async {
-                          final cubit =
-                              BlocProvider.of<AscensionCubit>(context);
-
                           final newTime = await showTimePicker(
                             context: context,
                             initialTime: event.time == null

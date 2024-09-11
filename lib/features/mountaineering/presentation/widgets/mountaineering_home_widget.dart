@@ -66,6 +66,7 @@ class MountaineeringHomeWidget extends StatelessWidget {
                         AscensionEventsWidget(
                           ascension: state.ascension!,
                           editing: true,
+                          cubit: BlocProvider.of<AscensionCubit>(context),
                         ),
                         // if (state.ascension?.started == true)
                         TextButton(

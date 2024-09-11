@@ -116,7 +116,7 @@ class MyApp extends StatelessWidget {
           create: (context) => di.getIt<TechniqueTreaningCubit>()..loadData(),
         ),
         BlocProvider<AscensionCubit>(
-          create: (context) => di.getIt<AscensionCubit>()..loadData(),
+          create: (context) => di.getIt<AscensionCubit>()..loadCurrent(),
         ),
       ],
       child: MaterialApp(
