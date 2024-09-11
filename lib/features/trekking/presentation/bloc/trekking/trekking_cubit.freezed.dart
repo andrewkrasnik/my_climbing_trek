@@ -20,6 +20,7 @@ mixin _$TrekkingState {
   TrekkingPath? get previosPath => throw _privateConstructorUsedError;
   TrekkingPathEvent? get currentEvent => throw _privateConstructorUsedError;
   TrekPoint? get currentPoint => throw _privateConstructorUsedError;
+  bool? get loading => throw _privateConstructorUsedError;
 
   /// Create a copy of TrekkingState
   /// with the given fields replaced by the non-null parameter values.
@@ -38,7 +39,8 @@ abstract class $TrekkingStateCopyWith<$Res> {
       {TrekkingPath? currentPath,
       TrekkingPath? previosPath,
       TrekkingPathEvent? currentEvent,
-      TrekPoint? currentPoint});
+      TrekPoint? currentPoint,
+      bool? loading});
 }
 
 /// @nodoc
@@ -60,6 +62,7 @@ class _$TrekkingStateCopyWithImpl<$Res, $Val extends TrekkingState>
     Object? previosPath = freezed,
     Object? currentEvent = freezed,
     Object? currentPoint = freezed,
+    Object? loading = freezed,
   }) {
     return _then(_value.copyWith(
       currentPath: freezed == currentPath
@@ -78,6 +81,10 @@ class _$TrekkingStateCopyWithImpl<$Res, $Val extends TrekkingState>
           ? _value.currentPoint
           : currentPoint // ignore: cast_nullable_to_non_nullable
               as TrekPoint?,
+      loading: freezed == loading
+          ? _value.loading
+          : loading // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 }
@@ -94,7 +101,8 @@ abstract class _$$TrekkingStateImplCopyWith<$Res>
       {TrekkingPath? currentPath,
       TrekkingPath? previosPath,
       TrekkingPathEvent? currentEvent,
-      TrekPoint? currentPoint});
+      TrekPoint? currentPoint,
+      bool? loading});
 }
 
 /// @nodoc
@@ -114,6 +122,7 @@ class __$$TrekkingStateImplCopyWithImpl<$Res>
     Object? previosPath = freezed,
     Object? currentEvent = freezed,
     Object? currentPoint = freezed,
+    Object? loading = freezed,
   }) {
     return _then(_$TrekkingStateImpl(
       currentPath: freezed == currentPath
@@ -132,6 +141,10 @@ class __$$TrekkingStateImplCopyWithImpl<$Res>
           ? _value.currentPoint
           : currentPoint // ignore: cast_nullable_to_non_nullable
               as TrekPoint?,
+      loading: freezed == loading
+          ? _value.loading
+          : loading // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -143,7 +156,8 @@ class _$TrekkingStateImpl implements _TrekkingState {
       {this.currentPath,
       this.previosPath,
       this.currentEvent,
-      this.currentPoint});
+      this.currentPoint,
+      this.loading});
 
   @override
   final TrekkingPath? currentPath;
@@ -153,10 +167,12 @@ class _$TrekkingStateImpl implements _TrekkingState {
   final TrekkingPathEvent? currentEvent;
   @override
   final TrekPoint? currentPoint;
+  @override
+  final bool? loading;
 
   @override
   String toString() {
-    return 'TrekkingState(currentPath: $currentPath, previosPath: $previosPath, currentEvent: $currentEvent, currentPoint: $currentPoint)';
+    return 'TrekkingState(currentPath: $currentPath, previosPath: $previosPath, currentEvent: $currentEvent, currentPoint: $currentPoint, loading: $loading)';
   }
 
   @override
@@ -171,12 +187,13 @@ class _$TrekkingStateImpl implements _TrekkingState {
             (identical(other.currentEvent, currentEvent) ||
                 other.currentEvent == currentEvent) &&
             (identical(other.currentPoint, currentPoint) ||
-                other.currentPoint == currentPoint));
+                other.currentPoint == currentPoint) &&
+            (identical(other.loading, loading) || other.loading == loading));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, currentPath, previosPath, currentEvent, currentPoint);
+  int get hashCode => Object.hash(runtimeType, currentPath, previosPath,
+      currentEvent, currentPoint, loading);
 
   /// Create a copy of TrekkingState
   /// with the given fields replaced by the non-null parameter values.
@@ -192,7 +209,8 @@ abstract class _TrekkingState implements TrekkingState {
       {final TrekkingPath? currentPath,
       final TrekkingPath? previosPath,
       final TrekkingPathEvent? currentEvent,
-      final TrekPoint? currentPoint}) = _$TrekkingStateImpl;
+      final TrekPoint? currentPoint,
+      final bool? loading}) = _$TrekkingStateImpl;
 
   @override
   TrekkingPath? get currentPath;
@@ -202,6 +220,8 @@ abstract class _TrekkingState implements TrekkingState {
   TrekkingPathEvent? get currentEvent;
   @override
   TrekPoint? get currentPoint;
+  @override
+  bool? get loading;
 
   /// Create a copy of TrekkingState
   /// with the given fields replaced by the non-null parameter values.

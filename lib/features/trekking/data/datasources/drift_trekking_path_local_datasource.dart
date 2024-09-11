@@ -130,4 +130,21 @@ class DriftTrekkingPathLocalDataSource implements TrekkingPathLocalDataSource {
 
     return TrekkingPathModel.fromJson(json);
   }
+
+  @override
+  Future<Either<Failure, TrekkingPath>> getPath(
+      {required String pathId}) async {
+    final failureOrData = await _localDatabase.getData(
+      table: table,
+      whereConditions: {'id': pathId},
+      orderByConditions: {'date': false},
+    );
+
+    return failureOrData.fold(
+      (failure) => Left(failure),
+      (data) async {
+        return Right(await _pathWithEvents(data.first));
+      },
+    );
+  }
 }

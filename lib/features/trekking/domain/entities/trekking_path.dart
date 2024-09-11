@@ -117,4 +117,33 @@ class TrekkingPath extends Treaning {
 
   @override
   String get place => trek?.name ?? '';
+
+  TrekkingPath copyWith({
+    Region? region,
+    Trek? trek,
+    List<TrekkingPathEvent>? events,
+    TrekkingType? type,
+    double? length,
+    int? climbUp,
+    int? climbDown,
+    TrekSection? currentSection,
+    bool? turn,
+    DateTime? date,
+  }) {
+    return TrekkingPath(
+      region: region ?? this.region,
+      trek: trek ?? this.trek,
+      events: events ?? this.events,
+      type: type ?? this.type,
+      length: length ?? this.length,
+      climbUp: climbUp ?? this.climbUp,
+      climbDown: climbDown ?? this.climbDown,
+      currentSection: currentSection ?? this.currentSection,
+      turn: turn ?? this.turn,
+      date: date ?? this.date,
+      id: id,
+      finish: finish,
+      start: start,
+    );
+  }
 }

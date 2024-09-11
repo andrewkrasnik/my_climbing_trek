@@ -543,12 +543,16 @@ import 'features/trekking/domain/usecases/delete_trek_point.dart' as _i753;
 import 'features/trekking/domain/usecases/get_my__trekking_regions.dart'
     as _i864;
 import 'features/trekking/domain/usecases/get_trek_points.dart' as _i837;
+import 'features/trekking/domain/usecases/get_trekking_path_usecase.dart'
+    as _i504;
 import 'features/trekking/domain/usecases/get_trekking_regions.dart' as _i605;
 import 'features/trekking/domain/usecases/get_treks.dart' as _i230;
 import 'features/trekking/domain/usecases/previos_trekking_path_usecase.dart'
     as _i730;
 import 'features/trekking/domain/usecases/save_trek.dart' as _i1027;
 import 'features/trekking/domain/usecases/save_trek_point.dart' as _i163;
+import 'features/trekking/domain/usecases/save_trekking_path_usecase.dart'
+    as _i115;
 import 'features/trekking/domain/usecases/start_trek_usecase.dart' as _i540;
 import 'features/trekking/presentation/bloc/trekking/trekking_cubit.dart'
     as _i685;
@@ -1042,6 +1046,10 @@ _i174.GetIt $initGetIt(
       _i730.PreviosTrekkingPathUsecase(gh<_i330.TrekkingPathRepository>()));
   gh.lazySingleton<_i540.StartTrekUsecase>(
       () => _i540.StartTrekUsecase(gh<_i330.TrekkingPathRepository>()));
+  gh.lazySingleton<_i504.GetTrekkingPathUsecase>(
+      () => _i504.GetTrekkingPathUsecase(gh<_i330.TrekkingPathRepository>()));
+  gh.lazySingleton<_i115.SaveTrekkingPathUsecase>(
+      () => _i115.SaveTrekkingPathUsecase(gh<_i330.TrekkingPathRepository>()));
   gh.lazySingleton<_i1054.DeleteHallAttempt>(() => _i1054.DeleteHallAttempt(
       treaningRepository: gh<_i194.HallTreaningRepository>()));
   gh.lazySingleton<_i667.DeleteHallTreaning>(() => _i667.DeleteHallTreaning(
@@ -1235,6 +1243,15 @@ _i174.GetIt $initGetIt(
         gh<_i550.DeleteRockSector>(),
         gh<_i280.SaveRockSector>(),
       ));
+  gh.factory<_i685.TrekkingCubit>(() => _i685.TrekkingCubit(
+        gh<_i150.CurrentTrekkingPathUsecase>(),
+        gh<_i730.PreviosTrekkingPathUsecase>(),
+        gh<_i540.StartTrekUsecase>(),
+        gh<_i816.AddTrekEventUsecase>(),
+        gh<_i795.ContinueTrekUsecase>(),
+        gh<_i504.GetTrekkingPathUsecase>(),
+        gh<_i115.SaveTrekkingPathUsecase>(),
+      ));
   gh.factory<_i621.CurrentTravelCubit>(() => _i621.CurrentTravelCubit(
         gh<_i764.CurrentTravelUsecase>(),
         gh<_i434.EditCostLineUsecase>(),
@@ -1305,13 +1322,6 @@ _i174.GetIt $initGetIt(
       ));
   gh.factory<_i124.TravelDayCubit>(
       () => _i124.TravelDayCubit(gh<_i515.EditDayLineUsecase>()));
-  gh.factory<_i685.TrekkingCubit>(() => _i685.TrekkingCubit(
-        gh<_i150.CurrentTrekkingPathUsecase>(),
-        gh<_i730.PreviosTrekkingPathUsecase>(),
-        gh<_i540.StartTrekUsecase>(),
-        gh<_i816.AddTrekEventUsecase>(),
-        gh<_i795.ContinueTrekUsecase>(),
-      ));
   gh.factory<_i1049.RockRoutesCubit>(() => _i1049.RockRoutesCubit(
         gh<_i162.LoadRockRoutes>(),
         gh<_i145.GetRockRouteStatistic>(),

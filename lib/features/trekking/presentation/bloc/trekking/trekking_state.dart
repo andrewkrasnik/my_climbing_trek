@@ -7,6 +7,7 @@ class TrekkingState with _$TrekkingState {
     TrekkingPath? previosPath,
     TrekkingPathEvent? currentEvent,
     TrekPoint? currentPoint,
+    bool? loading,
   }) = _TrekkingState;
 
   factory TrekkingState.initial() => const TrekkingState();

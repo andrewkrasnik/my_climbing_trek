@@ -15,7 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:my_climbing_trek/features/techniques/domain/entities/technique_treaning.dart';
 import 'package:my_climbing_trek/features/techniques/presentation/widgets/technique_treaning_edit_widget.dart';
 import 'package:my_climbing_trek/features/trekking/domain/entities/trekking_path.dart';
-import 'package:my_climbing_trek/features/trekking/presentation/widgets/trekking_path_widget.dart';
+import 'package:my_climbing_trek/features/trekking/presentation/widgets/trekking_path_editing_widget.dart';
 
 class TreaningEditingWidgetFactory extends StatelessWidget {
   final Treaning treaning;
@@ -42,7 +42,7 @@ class TreaningEditingWidgetFactory extends StatelessWidget {
         treaning: treaning as RockTreaning,
       );
     } else if (treaning is TrekkingPath) {
-      return TrekkingPathWidget(path: treaning as TrekkingPath);
+      return TrekkingPathEditingWidget(path: treaning as TrekkingPath);
     } else if (treaning is TechniqueTreaning) {
       return TechniqueTreaningEditWidget(
         treaning: treaning as TechniqueTreaning,

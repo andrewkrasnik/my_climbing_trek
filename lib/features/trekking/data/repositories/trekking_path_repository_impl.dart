@@ -73,4 +73,10 @@ class TrekkingPathRepositoryImpl implements TrekkingPathRepository {
     }
     return const Right(unit);
   }
+
+  @override
+  Future<Either<Failure, TrekkingPath>> getPath(
+      {required String pathId}) async {
+    return await _pathLocalDataSource.getPath(pathId: pathId);
+  }
 }

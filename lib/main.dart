@@ -110,7 +110,7 @@ class MyApp extends StatelessWidget {
               di.getIt<RockTreaningCubit>()..loadCurrentTreanings(),
         ),
         BlocProvider<TrekkingCubit>(
-          create: (context) => di.getIt<TrekkingCubit>()..loadData(),
+          create: (context) => di.getIt<TrekkingCubit>()..loadCurrent(),
         ),
         BlocProvider<TechniqueTreaningCubit>(
           create: (context) => di.getIt<TechniqueTreaningCubit>()..loadData(),

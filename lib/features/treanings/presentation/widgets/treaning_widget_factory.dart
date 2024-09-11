@@ -50,7 +50,9 @@ class TreaningWidgetFactory extends StatelessWidget {
     } else if (treaning is TravelDay) {
       return TravelDayTitleWidget(travelDay: treaning as TravelDay);
     } else if (treaning is TrekkingPath) {
-      return TrekkingPathWidget(path: treaning as TrekkingPath);
+      return TrekkingPathWidget(
+        path: treaning as TrekkingPath,
+      );
     } else if (treaning is TechniqueTreaning) {
       return TechniqueTreaningWidget(treaning: treaning as TechniqueTreaning);
     } else if (treaning is Ascension) {

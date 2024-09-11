@@ -51,9 +51,9 @@ class AscensionWidget extends StatelessWidget {
                   imageUrl: ascension.route.ueaaSchemaImage!,
                 ),
               if (ascension.route.ueaaSchemaImage == null ||
-                  ascension.route.ueaaSchemaImage?.isEmpty == true)
+                  ascension.route.image?.isNotEmpty == true)
                 ScaledImageWidget(
-                  imageUrl: ascension.mountain.image,
+                  imageUrl: ascension.route.image!,
                 ),
             ],
             Positioned(

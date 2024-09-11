@@ -56,4 +56,10 @@ class MockTrekkingPathLocalDataSource implements TrekkingPathLocalDataSource {
       {required TrekkingPath treaning}) {
     throw UnimplementedError();
   }
+
+  @override
+  Future<Either<Failure, TrekkingPath>> getPath({required String pathId}) {
+    // TODO: implement getPath
+    throw UnimplementedError();
+  }
 }
