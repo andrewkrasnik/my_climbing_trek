@@ -25,7 +25,9 @@ mixin _$CurrentHallTreaningState {
   GymRouteAttemptsStatistic? get lastRouteStatistic =>
       throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CurrentHallTreaningState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CurrentHallTreaningStateCopyWith<CurrentHallTreaningState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -56,6 +58,8 @@ class _$CurrentHallTreaningStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CurrentHallTreaningState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -123,6 +127,8 @@ class __$$CurrentHallTreaningStateImplCopyWithImpl<$Res>
       $Res Function(_$CurrentHallTreaningStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CurrentHallTreaningState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -212,7 +218,9 @@ class _$CurrentHallTreaningStateImpl implements _CurrentHallTreaningState {
   int get hashCode => Object.hash(runtimeType, current, last, currentAttempt,
       lastAttempt, currentRouteStatistic, lastRouteStatistic);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CurrentHallTreaningState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CurrentHallTreaningStateImplCopyWith<_$CurrentHallTreaningStateImpl>
@@ -242,8 +250,11 @@ abstract class _CurrentHallTreaningState implements CurrentHallTreaningState {
   GymRouteAttemptsStatistic? get currentRouteStatistic;
   @override
   GymRouteAttemptsStatistic? get lastRouteStatistic;
+
+  /// Create a copy of CurrentHallTreaningState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CurrentHallTreaningStateImplCopyWith<_$CurrentHallTreaningStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

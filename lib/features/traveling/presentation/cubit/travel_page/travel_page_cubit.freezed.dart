@@ -27,7 +27,9 @@ mixin _$TravelPageState {
   List<Region> get regions => throw _privateConstructorUsedError;
   FeedingStatistic? get feedingStatistic => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TravelPageState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $TravelPageStateCopyWith<TravelPageState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -61,6 +63,8 @@ class _$TravelPageStateCopyWithImpl<$Res, $Val extends TravelPageState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of TravelPageState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -149,6 +153,8 @@ class __$$TravelPageStateImplCopyWithImpl<$Res>
       _$TravelPageStateImpl _value, $Res Function(_$TravelPageStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of TravelPageState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -320,7 +326,9 @@ class _$TravelPageStateImpl implements _TravelPageState {
       const DeepCollectionEquality().hash(_regions),
       feedingStatistic);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TravelPageState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$TravelPageStateImplCopyWith<_$TravelPageStateImpl> get copyWith =>
@@ -361,8 +369,11 @@ abstract class _TravelPageState implements TravelPageState {
   List<Region> get regions;
   @override
   FeedingStatistic? get feedingStatistic;
+
+  /// Create a copy of TravelPageState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TravelPageStateImplCopyWith<_$TravelPageStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

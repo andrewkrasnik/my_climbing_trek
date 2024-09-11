@@ -34,8 +34,6 @@ void main() async {
 
       await Firebase.initializeApp();
 
-      HttpOverrides.global = ProxiedHttpOverrides('172.20.10.9:8888');
-
       await FirebaseAppCheck.instance.activate(
         // You can also use a `ReCaptchaEnterpriseProvider` provider instance as an
         // argument for `webProvider`
@@ -95,6 +93,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    if (_settingsCubit
+        .state.treaningsSettings.proxy.isNotEmpty) //'172.20.10.9:8888'
+    {
+      HttpOverrides.global =
+          ProxiedHttpOverrides(_settingsCubit.state.treaningsSettings.proxy);
+    }
+
     return MultiBlocProvider(
       providers: [
         BlocProvider<AuthenticationCubit>(

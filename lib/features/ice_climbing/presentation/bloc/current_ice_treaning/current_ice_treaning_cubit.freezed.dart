@@ -21,7 +21,9 @@ mixin _$CurrentIceTreaningState {
   IceTreaningAttempt? get currentAttempt => throw _privateConstructorUsedError;
   IceTreaningAttempt? get lastAttempt => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CurrentIceTreaningState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CurrentIceTreaningStateCopyWith<CurrentIceTreaningState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -50,6 +52,8 @@ class _$CurrentIceTreaningStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CurrentIceTreaningState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -105,6 +109,8 @@ class __$$CurrentIceTreaningStateImplCopyWithImpl<$Res>
       $Res Function(_$CurrentIceTreaningStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CurrentIceTreaningState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -176,7 +182,9 @@ class _$CurrentIceTreaningStateImpl implements _CurrentIceTreaningState {
   int get hashCode => Object.hash(
       runtimeType, currentTreaning, lastTreaning, currentAttempt, lastAttempt);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CurrentIceTreaningState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CurrentIceTreaningStateImplCopyWith<_$CurrentIceTreaningStateImpl>
@@ -199,8 +207,11 @@ abstract class _CurrentIceTreaningState implements CurrentIceTreaningState {
   IceTreaningAttempt? get currentAttempt;
   @override
   IceTreaningAttempt? get lastAttempt;
+
+  /// Create a copy of CurrentIceTreaningState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CurrentIceTreaningStateImplCopyWith<_$CurrentIceTreaningStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

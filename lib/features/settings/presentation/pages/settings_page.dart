@@ -18,8 +18,12 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const titleTextStyle = TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
+
     return BlocBuilder<SettingsCubit, SettingsState>(
       builder: (context, state) {
+        final proxyController =
+            TextEditingController(text: state.treaningsSettings.proxy);
+
         return Scaffold(
           body: SingleChildScrollView(
             child: Padding(
@@ -35,6 +39,21 @@ class SettingsPage extends StatelessWidget {
                       ),
                     ),
                     const AuthButton(),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    TextField(
+                      controller: proxyController,
+                      decoration: InputDecoration(
+                          suffixIcon: IconButton(
+                              onPressed: () {
+                                BlocProvider.of<SettingsCubit>(context)
+                                    .changeProxy(proxyController.text);
+                              },
+                              icon: Icon(Icons.save)),
+                          labelText: 'Proxy server',
+                          border: OutlineInputBorder()),
+                    ),
                     const SizedBox(
                       height: 16,
                     ),

@@ -10,9 +10,11 @@ class TreaningsSettings extends Equatable {
   final bool useTraveling;
   final bool useTrekking;
   final bool useTechniques;
+  final String proxy;
 
   const TreaningsSettings(
-      {required this.useGymTreanings,
+      {this.proxy = '',
+      required this.useGymTreanings,
       required this.useCardioTreanings,
       required this.useIceTreanings,
       required this.useStrengthTraining,
@@ -36,6 +38,7 @@ class TreaningsSettings extends Equatable {
     bool? useTraveling,
     bool? useTrekking,
     bool? useTechniques,
+    String? proxy,
   }) {
     return TreaningsSettings(
       useGymTreanings: useGymTreanings ?? this.useGymTreanings,
@@ -47,6 +50,7 @@ class TreaningsSettings extends Equatable {
       useTraveling: useTraveling ?? this.useTraveling,
       useTrekking: useTrekking ?? this.useTrekking,
       useTechniques: useTechniques ?? this.useTechniques,
+      proxy: proxy ?? this.proxy,
     );
   }
 

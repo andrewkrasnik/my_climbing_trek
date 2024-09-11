@@ -53,6 +53,17 @@ class SettingsCubit extends Cubit<SettingsState> {
     );
   }
 
+  Future<void> changeProxy(String proxy) async {
+    final newSettings = state.treaningsSettings.copyWith(proxy: proxy);
+
+    final failureOrUnit = await _saveTreaningsSettings(settings: newSettings);
+
+    failureOrUnit.fold(
+      (failure) => null,
+      (_) => emit(state.copyWith(treaningsSettings: newSettings)),
+    );
+  }
+
   Future<void> changeTreaningSettings(
       {required int settingsId, required bool value}) async {
     var newSettings = state.treaningsSettings;

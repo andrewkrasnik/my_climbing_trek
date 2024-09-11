@@ -98,6 +98,9 @@ class _$TreaningsExportImportStateCopyWithImpl<$Res,
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of TreaningsExportImportState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -114,6 +117,9 @@ class __$$InitialImplCopyWithImpl<$Res>
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of TreaningsExportImportState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -240,6 +246,9 @@ class __$$ExportingImplCopyWithImpl<$Res>
   __$$ExportingImplCopyWithImpl(
       _$ExportingImpl _value, $Res Function(_$ExportingImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of TreaningsExportImportState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -366,6 +375,9 @@ class __$$ImportingImplCopyWithImpl<$Res>
   __$$ImportingImplCopyWithImpl(
       _$ImportingImpl _value, $Res Function(_$ImportingImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of TreaningsExportImportState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -495,6 +507,8 @@ class __$$DataExportImplCopyWithImpl<$Res>
       _$DataExportImpl _value, $Res Function(_$DataExportImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of TreaningsExportImportState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -541,7 +555,9 @@ class _$DataExportImpl implements _DataExport {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_treanings));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TreaningsExportImportState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DataExportImplCopyWith<_$DataExportImpl> get copyWith =>
@@ -639,7 +655,10 @@ abstract class _DataExport implements TreaningsExportImportState {
       _$DataExportImpl;
 
   Map<String, dynamic> get treanings;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of TreaningsExportImportState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DataExportImplCopyWith<_$DataExportImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -661,6 +680,8 @@ class __$$DataImportImplCopyWithImpl<$Res>
       _$DataImportImpl _value, $Res Function(_$DataImportImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of TreaningsExportImportState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -700,7 +721,9 @@ class _$DataImportImpl implements _DataImport {
   @override
   int get hashCode => Object.hash(runtimeType, treanings);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TreaningsExportImportState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DataImportImplCopyWith<_$DataImportImpl> get copyWith =>
@@ -798,7 +821,10 @@ abstract class _DataImport implements TreaningsExportImportState {
       _$DataImportImpl;
 
   String get treanings;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of TreaningsExportImportState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DataImportImplCopyWith<_$DataImportImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -820,6 +846,8 @@ class __$$ErrorImplCopyWithImpl<$Res>
       _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of TreaningsExportImportState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -859,7 +887,9 @@ class _$ErrorImpl implements _Error {
   @override
   int get hashCode => Object.hash(runtimeType, description);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TreaningsExportImportState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
@@ -956,7 +986,10 @@ abstract class _Error implements TreaningsExportImportState {
   const factory _Error({required final String description}) = _$ErrorImpl;
 
   String get description;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of TreaningsExportImportState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
