@@ -64,6 +64,9 @@ class TreaningsPage extends StatelessWidget {
                                                   ),
                                                 ),
                                               );
+                                              await Future.delayed(
+                                                  const Duration(
+                                                      milliseconds: 500));
 
                                               cubit.loadData(
                                                   settings: settingsState

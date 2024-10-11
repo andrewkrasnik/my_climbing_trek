@@ -630,10 +630,10 @@ _i174.GetIt $initGetIt(
       () => _i560.FinishAscensionUsecase(gh<_i248.AscensionRepository>()));
   gh.lazySingleton<_i124.GetAscensionUsecase>(
       () => _i124.GetAscensionUsecase(gh<_i248.AscensionRepository>()));
-  gh.lazySingleton<_i350.SaveAscensionUsecase>(
-      () => _i350.SaveAscensionUsecase(gh<_i248.AscensionRepository>()));
   gh.lazySingleton<_i351.GetCurrentAscensionUsecase>(
       () => _i351.GetCurrentAscensionUsecase(gh<_i248.AscensionRepository>()));
+  gh.lazySingleton<_i350.SaveAscensionUsecase>(
+      () => _i350.SaveAscensionUsecase(gh<_i248.AscensionRepository>()));
   gh.lazySingleton<_i316.TrekkingRemoteDataSource>(
       () => _i18.FirebaseTrekkingRemoteDatasource(
             gh<_i974.FirebaseFirestore>(),
@@ -728,6 +728,9 @@ _i174.GetIt $initGetIt(
   gh.lazySingleton<_i484.CurrentTechniqueTreaningUseCase>(() =>
       _i484.CurrentTechniqueTreaningUseCase(
           gh<_i665.TechniqueTreaningsRepository>()));
+  gh.lazySingleton<_i5.DeleteTechniqueTreaningItemUseCase>(() =>
+      _i5.DeleteTechniqueTreaningItemUseCase(
+          gh<_i665.TechniqueTreaningsRepository>()));
   gh.lazySingleton<_i588.DeleteTechniqueTreaningUseCase>(() =>
       _i588.DeleteTechniqueTreaningUseCase(
           gh<_i665.TechniqueTreaningsRepository>()));
@@ -738,9 +741,6 @@ _i174.GetIt $initGetIt(
           gh<_i665.TechniqueTreaningsRepository>()));
   gh.lazySingleton<_i858.PreviosTechniqueTreaningUseCase>(() =>
       _i858.PreviosTechniqueTreaningUseCase(
-          gh<_i665.TechniqueTreaningsRepository>()));
-  gh.lazySingleton<_i5.DeleteTechniqueTreaningItemUseCase>(() =>
-      _i5.DeleteTechniqueTreaningItemUseCase(
           gh<_i665.TechniqueTreaningsRepository>()));
   gh.lazySingleton<_i677.RockTreaningsLocalDataSource>(() =>
       _i924.DriftRockTreaningsLocalDataSource(gh<_i808.LocalDBDatasource>()));
@@ -834,13 +834,13 @@ _i174.GetIt $initGetIt(
   gh.lazySingleton<_i146.GetCurrentIceTreaning>(() =>
       _i146.GetCurrentIceTreaning(
           iceTreaningsRepository: gh<_i916.IceTreaningsRepository>()));
+  gh.lazySingleton<_i199.GetIceTreaningUseCase>(() =>
+      _i199.GetIceTreaningUseCase(
+          iceTreaningsRepository: gh<_i916.IceTreaningsRepository>()));
   gh.lazySingleton<_i77.GetLastIceTreaning>(() => _i77.GetLastIceTreaning(
       iceTreaningsRepository: gh<_i916.IceTreaningsRepository>()));
   gh.lazySingleton<_i197.IceSectorToTreaning>(() => _i197.IceSectorToTreaning(
       iceTreaningsRepository: gh<_i916.IceTreaningsRepository>()));
-  gh.lazySingleton<_i199.GetIceTreaningUseCase>(() =>
-      _i199.GetIceTreaningUseCase(
-          iceTreaningsRepository: gh<_i916.IceTreaningsRepository>()));
   gh.lazySingleton<_i353.SaveIceTreaningUseCase>(() =>
       _i353.SaveIceTreaningUseCase(
           iceTreaningsRepository: gh<_i916.IceTreaningsRepository>()));
@@ -948,14 +948,14 @@ _i174.GetIt $initGetIt(
       () => _i884.GetCurrentRockTreaning(gh<_i1067.RockTreaningsRepository>()));
   gh.lazySingleton<_i17.GetLastRockTreaning>(
       () => _i17.GetLastRockTreaning(gh<_i1067.RockTreaningsRepository>()));
+  gh.lazySingleton<_i468.GetRockTreaningUseCase>(
+      () => _i468.GetRockTreaningUseCase(gh<_i1067.RockTreaningsRepository>()));
   gh.lazySingleton<_i546.NewRockAttempt>(
       () => _i546.NewRockAttempt(gh<_i1067.RockTreaningsRepository>()));
   gh.lazySingleton<_i205.NewRockTreaning>(
       () => _i205.NewRockTreaning(gh<_i1067.RockTreaningsRepository>()));
   gh.lazySingleton<_i937.RockSectorToTreaning>(
       () => _i937.RockSectorToTreaning(gh<_i1067.RockTreaningsRepository>()));
-  gh.lazySingleton<_i468.GetRockTreaningUseCase>(
-      () => _i468.GetRockTreaningUseCase(gh<_i1067.RockTreaningsRepository>()));
   gh.lazySingleton<_i661.SaveRockTreaningUseCase>(() =>
       _i661.SaveRockTreaningUseCase(gh<_i1067.RockTreaningsRepository>()));
   gh.lazySingleton<_i313.AllHallTreanings>(
@@ -1046,18 +1046,18 @@ _i174.GetIt $initGetIt(
       () => _i795.ContinueTrekUsecase(gh<_i330.TrekkingPathRepository>()));
   gh.lazySingleton<_i150.CurrentTrekkingPathUsecase>(() =>
       _i150.CurrentTrekkingPathUsecase(gh<_i330.TrekkingPathRepository>()));
-  gh.lazySingleton<_i730.PreviosTrekkingPathUsecase>(() =>
-      _i730.PreviosTrekkingPathUsecase(gh<_i330.TrekkingPathRepository>()));
-  gh.lazySingleton<_i540.StartTrekUsecase>(
-      () => _i540.StartTrekUsecase(gh<_i330.TrekkingPathRepository>()));
-  gh.lazySingleton<_i504.GetTrekkingPathUsecase>(
-      () => _i504.GetTrekkingPathUsecase(gh<_i330.TrekkingPathRepository>()));
-  gh.lazySingleton<_i115.SaveTrekkingPathUsecase>(
-      () => _i115.SaveTrekkingPathUsecase(gh<_i330.TrekkingPathRepository>()));
   gh.lazySingleton<_i544.DeleteTrekEventUsecase>(
       () => _i544.DeleteTrekEventUsecase(gh<_i330.TrekkingPathRepository>()));
+  gh.lazySingleton<_i504.GetTrekkingPathUsecase>(
+      () => _i504.GetTrekkingPathUsecase(gh<_i330.TrekkingPathRepository>()));
+  gh.lazySingleton<_i730.PreviosTrekkingPathUsecase>(() =>
+      _i730.PreviosTrekkingPathUsecase(gh<_i330.TrekkingPathRepository>()));
+  gh.lazySingleton<_i115.SaveTrekkingPathUsecase>(
+      () => _i115.SaveTrekkingPathUsecase(gh<_i330.TrekkingPathRepository>()));
   gh.lazySingleton<_i462.SaveTrekEventUsecase>(
       () => _i462.SaveTrekEventUsecase(gh<_i330.TrekkingPathRepository>()));
+  gh.lazySingleton<_i540.StartTrekUsecase>(
+      () => _i540.StartTrekUsecase(gh<_i330.TrekkingPathRepository>()));
   gh.lazySingleton<_i1054.DeleteHallAttempt>(() => _i1054.DeleteHallAttempt(
       treaningRepository: gh<_i194.HallTreaningRepository>()));
   gh.lazySingleton<_i667.DeleteHallTreaning>(() => _i667.DeleteHallTreaning(

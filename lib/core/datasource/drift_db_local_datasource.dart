@@ -154,6 +154,8 @@ class DriftDBLocalDataSource extends _$DriftDBLocalDataSource
                 .toList()))
           .get();
       // data as List<Map<String, dynamic>>;
+      print(data);
+
       return Right(data.map((dataItem) => dataItem.toJson()).toList());
     });
   }

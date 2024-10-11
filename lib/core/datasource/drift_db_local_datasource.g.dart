@@ -9438,52 +9438,31 @@ typedef $$DriftStrengthExercisesTableTableUpdateCompanionBuilder
   Value<int> rowid,
 });
 
-class $$DriftStrengthExercisesTableTableTableManager extends RootTableManager<
+final class $$DriftStrengthExercisesTableTableReferences extends BaseReferences<
     _$DriftDBLocalDataSource,
     $DriftStrengthExercisesTableTable,
-    DriftStrengthExercise,
-    $$DriftStrengthExercisesTableTableFilterComposer,
-    $$DriftStrengthExercisesTableTableOrderingComposer,
-    $$DriftStrengthExercisesTableTableCreateCompanionBuilder,
-    $$DriftStrengthExercisesTableTableUpdateCompanionBuilder> {
-  $$DriftStrengthExercisesTableTableTableManager(
-      _$DriftDBLocalDataSource db, $DriftStrengthExercisesTableTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          filteringComposer: $$DriftStrengthExercisesTableTableFilterComposer(
-              ComposerState(db, table)),
-          orderingComposer: $$DriftStrengthExercisesTableTableOrderingComposer(
-              ComposerState(db, table)),
-          updateCompanionCallback: ({
-            Value<int> repetitions = const Value.absent(),
-            Value<String> id = const Value.absent(),
-            Value<String> name = const Value.absent(),
-            Value<bool> selected = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DriftStrengthExercisesTableCompanion(
-            repetitions: repetitions,
-            id: id,
-            name: name,
-            selected: selected,
-            rowid: rowid,
-          ),
-          createCompanionCallback: ({
-            required int repetitions,
-            required String id,
-            required String name,
-            Value<bool> selected = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DriftStrengthExercisesTableCompanion.insert(
-            repetitions: repetitions,
-            id: id,
-            name: name,
-            selected: selected,
-            rowid: rowid,
-          ),
-        ));
+    DriftStrengthExercise> {
+  $$DriftStrengthExercisesTableTableReferences(
+      super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<$DriftStrengthTreaningLinesTableTable,
+          List<DriftStrengthTreaningLine>>
+      _driftStrengthTreaningLinesTableRefsTable(_$DriftDBLocalDataSource db) =>
+          MultiTypedResultKey.fromTable(db.driftStrengthTreaningLinesTable,
+              aliasName: $_aliasNameGenerator(db.driftStrengthExercisesTable.id,
+                  db.driftStrengthTreaningLinesTable.exerciseId));
+
+  $$DriftStrengthTreaningLinesTableTableProcessedTableManager
+      get driftStrengthTreaningLinesTableRefs {
+    final manager = $$DriftStrengthTreaningLinesTableTableTableManager(
+            $_db, $_db.driftStrengthTreaningLinesTable)
+        .filter((f) => f.exerciseId.id($_item.id));
+
+    final cache = $_typedResult
+        .readTableOrNull(_driftStrengthTreaningLinesTableRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
 }
 
 class $$DriftStrengthExercisesTableTableFilterComposer extends FilterComposer<
@@ -9555,6 +9534,104 @@ class $$DriftStrengthExercisesTableTableOrderingComposer
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
+class $$DriftStrengthExercisesTableTableTableManager extends RootTableManager<
+    _$DriftDBLocalDataSource,
+    $DriftStrengthExercisesTableTable,
+    DriftStrengthExercise,
+    $$DriftStrengthExercisesTableTableFilterComposer,
+    $$DriftStrengthExercisesTableTableOrderingComposer,
+    $$DriftStrengthExercisesTableTableCreateCompanionBuilder,
+    $$DriftStrengthExercisesTableTableUpdateCompanionBuilder,
+    (DriftStrengthExercise, $$DriftStrengthExercisesTableTableReferences),
+    DriftStrengthExercise,
+    PrefetchHooks Function({bool driftStrengthTreaningLinesTableRefs})> {
+  $$DriftStrengthExercisesTableTableTableManager(
+      _$DriftDBLocalDataSource db, $DriftStrengthExercisesTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer: $$DriftStrengthExercisesTableTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$DriftStrengthExercisesTableTableOrderingComposer(
+              ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<int> repetitions = const Value.absent(),
+            Value<String> id = const Value.absent(),
+            Value<String> name = const Value.absent(),
+            Value<bool> selected = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftStrengthExercisesTableCompanion(
+            repetitions: repetitions,
+            id: id,
+            name: name,
+            selected: selected,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required int repetitions,
+            required String id,
+            required String name,
+            Value<bool> selected = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftStrengthExercisesTableCompanion.insert(
+            repetitions: repetitions,
+            id: id,
+            name: name,
+            selected: selected,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$DriftStrengthExercisesTableTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: (
+              {driftStrengthTreaningLinesTableRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [
+                if (driftStrengthTreaningLinesTableRefs)
+                  db.driftStrengthTreaningLinesTable
+              ],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (driftStrengthTreaningLinesTableRefs)
+                    await $_getPrefetchedData(
+                        currentTable: table,
+                        referencedTable:
+                            $$DriftStrengthExercisesTableTableReferences
+                                ._driftStrengthTreaningLinesTableRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$DriftStrengthExercisesTableTableReferences(
+                                    db, table, p0)
+                                .driftStrengthTreaningLinesTableRefs,
+                        referencedItemsForCurrentItem:
+                            (item, referencedItems) => referencedItems
+                                .where((e) => e.exerciseId == item.id),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$DriftStrengthExercisesTableTableProcessedTableManager
+    = ProcessedTableManager<
+        _$DriftDBLocalDataSource,
+        $DriftStrengthExercisesTableTable,
+        DriftStrengthExercise,
+        $$DriftStrengthExercisesTableTableFilterComposer,
+        $$DriftStrengthExercisesTableTableOrderingComposer,
+        $$DriftStrengthExercisesTableTableCreateCompanionBuilder,
+        $$DriftStrengthExercisesTableTableUpdateCompanionBuilder,
+        (DriftStrengthExercise, $$DriftStrengthExercisesTableTableReferences),
+        DriftStrengthExercise,
+        PrefetchHooks Function({bool driftStrengthTreaningLinesTableRefs})>;
 typedef $$DriftHallTreaningsTableTableCreateCompanionBuilder
     = DriftHallTreaningsTableCompanion Function({
   required String id,
@@ -9576,60 +9653,31 @@ typedef $$DriftHallTreaningsTableTableUpdateCompanionBuilder
   Value<int> rowid,
 });
 
-class $$DriftHallTreaningsTableTableTableManager extends RootTableManager<
+final class $$DriftHallTreaningsTableTableReferences extends BaseReferences<
     _$DriftDBLocalDataSource,
     $DriftHallTreaningsTableTable,
-    DriftHallTreaning,
-    $$DriftHallTreaningsTableTableFilterComposer,
-    $$DriftHallTreaningsTableTableOrderingComposer,
-    $$DriftHallTreaningsTableTableCreateCompanionBuilder,
-    $$DriftHallTreaningsTableTableUpdateCompanionBuilder> {
-  $$DriftHallTreaningsTableTableTableManager(
-      _$DriftDBLocalDataSource db, $DriftHallTreaningsTableTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          filteringComposer: $$DriftHallTreaningsTableTableFilterComposer(
-              ComposerState(db, table)),
-          orderingComposer: $$DriftHallTreaningsTableTableOrderingComposer(
-              ComposerState(db, table)),
-          updateCompanionCallback: ({
-            Value<String> id = const Value.absent(),
-            Value<String> hallId = const Value.absent(),
-            Value<DateTime> date = const Value.absent(),
-            Value<DateTime?> finish = const Value.absent(),
-            Value<DateTime?> start = const Value.absent(),
-            Value<String> climbingHall = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DriftHallTreaningsTableCompanion(
-            id: id,
-            hallId: hallId,
-            date: date,
-            finish: finish,
-            start: start,
-            climbingHall: climbingHall,
-            rowid: rowid,
-          ),
-          createCompanionCallback: ({
-            required String id,
-            required String hallId,
-            required DateTime date,
-            Value<DateTime?> finish = const Value.absent(),
-            Value<DateTime?> start = const Value.absent(),
-            required String climbingHall,
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DriftHallTreaningsTableCompanion.insert(
-            id: id,
-            hallId: hallId,
-            date: date,
-            finish: finish,
-            start: start,
-            climbingHall: climbingHall,
-            rowid: rowid,
-          ),
-        ));
+    DriftHallTreaning> {
+  $$DriftHallTreaningsTableTableReferences(
+      super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<$DriftHallAttemptsTableTable,
+      List<DriftHallAttempt>> _driftHallAttemptsTableRefsTable(
+          _$DriftDBLocalDataSource db) =>
+      MultiTypedResultKey.fromTable(db.driftHallAttemptsTable,
+          aliasName: $_aliasNameGenerator(db.driftHallTreaningsTable.id,
+              db.driftHallAttemptsTable.treaningId));
+
+  $$DriftHallAttemptsTableTableProcessedTableManager
+      get driftHallAttemptsTableRefs {
+    final manager = $$DriftHallAttemptsTableTableTableManager(
+            $_db, $_db.driftHallAttemptsTable)
+        .filter((f) => f.treaningId.id($_item.id));
+
+    final cache =
+        $_typedResult.readTableOrNull(_driftHallAttemptsTableRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
 }
 
 class $$DriftHallTreaningsTableTableFilterComposer extends FilterComposer<
@@ -9718,6 +9766,110 @@ class $$DriftHallTreaningsTableTableOrderingComposer extends OrderingComposer<
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
+class $$DriftHallTreaningsTableTableTableManager extends RootTableManager<
+    _$DriftDBLocalDataSource,
+    $DriftHallTreaningsTableTable,
+    DriftHallTreaning,
+    $$DriftHallTreaningsTableTableFilterComposer,
+    $$DriftHallTreaningsTableTableOrderingComposer,
+    $$DriftHallTreaningsTableTableCreateCompanionBuilder,
+    $$DriftHallTreaningsTableTableUpdateCompanionBuilder,
+    (DriftHallTreaning, $$DriftHallTreaningsTableTableReferences),
+    DriftHallTreaning,
+    PrefetchHooks Function({bool driftHallAttemptsTableRefs})> {
+  $$DriftHallTreaningsTableTableTableManager(
+      _$DriftDBLocalDataSource db, $DriftHallTreaningsTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer: $$DriftHallTreaningsTableTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$DriftHallTreaningsTableTableOrderingComposer(
+              ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> hallId = const Value.absent(),
+            Value<DateTime> date = const Value.absent(),
+            Value<DateTime?> finish = const Value.absent(),
+            Value<DateTime?> start = const Value.absent(),
+            Value<String> climbingHall = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftHallTreaningsTableCompanion(
+            id: id,
+            hallId: hallId,
+            date: date,
+            finish: finish,
+            start: start,
+            climbingHall: climbingHall,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String hallId,
+            required DateTime date,
+            Value<DateTime?> finish = const Value.absent(),
+            Value<DateTime?> start = const Value.absent(),
+            required String climbingHall,
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftHallTreaningsTableCompanion.insert(
+            id: id,
+            hallId: hallId,
+            date: date,
+            finish: finish,
+            start: start,
+            climbingHall: climbingHall,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$DriftHallTreaningsTableTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: ({driftHallAttemptsTableRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [
+                if (driftHallAttemptsTableRefs) db.driftHallAttemptsTable
+              ],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (driftHallAttemptsTableRefs)
+                    await $_getPrefetchedData(
+                        currentTable: table,
+                        referencedTable:
+                            $$DriftHallTreaningsTableTableReferences
+                                ._driftHallAttemptsTableRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$DriftHallTreaningsTableTableReferences(
+                                    db, table, p0)
+                                .driftHallAttemptsTableRefs,
+                        referencedItemsForCurrentItem:
+                            (item, referencedItems) => referencedItems
+                                .where((e) => e.treaningId == item.id),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$DriftHallTreaningsTableTableProcessedTableManager
+    = ProcessedTableManager<
+        _$DriftDBLocalDataSource,
+        $DriftHallTreaningsTableTable,
+        DriftHallTreaning,
+        $$DriftHallTreaningsTableTableFilterComposer,
+        $$DriftHallTreaningsTableTableOrderingComposer,
+        $$DriftHallTreaningsTableTableCreateCompanionBuilder,
+        $$DriftHallTreaningsTableTableUpdateCompanionBuilder,
+        (DriftHallTreaning, $$DriftHallTreaningsTableTableReferences),
+        DriftHallTreaning,
+        PrefetchHooks Function({bool driftHallAttemptsTableRefs})>;
 typedef $$DriftHallAttemptsTableTableCreateCompanionBuilder
     = DriftHallAttemptsTableCompanion Function({
   required String id,
@@ -9753,88 +9905,26 @@ typedef $$DriftHallAttemptsTableTableUpdateCompanionBuilder
   Value<int> rowid,
 });
 
-class $$DriftHallAttemptsTableTableTableManager extends RootTableManager<
-    _$DriftDBLocalDataSource,
-    $DriftHallAttemptsTableTable,
-    DriftHallAttempt,
-    $$DriftHallAttemptsTableTableFilterComposer,
-    $$DriftHallAttemptsTableTableOrderingComposer,
-    $$DriftHallAttemptsTableTableCreateCompanionBuilder,
-    $$DriftHallAttemptsTableTableUpdateCompanionBuilder> {
-  $$DriftHallAttemptsTableTableTableManager(
-      _$DriftDBLocalDataSource db, $DriftHallAttemptsTableTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          filteringComposer: $$DriftHallAttemptsTableTableFilterComposer(
-              ComposerState(db, table)),
-          orderingComposer: $$DriftHallAttemptsTableTableOrderingComposer(
-              ComposerState(db, table)),
-          updateCompanionCallback: ({
-            Value<String> id = const Value.absent(),
-            Value<String> treaningId = const Value.absent(),
-            Value<String> category = const Value.absent(),
-            Value<String> style = const Value.absent(),
-            Value<String?> routeId = const Value.absent(),
-            Value<String?> route = const Value.absent(),
-            Value<DateTime?> finishTime = const Value.absent(),
-            Value<DateTime?> startTime = const Value.absent(),
-            Value<String?> ascentType = const Value.absent(),
-            Value<int> suspensionCount = const Value.absent(),
-            Value<int> fallCount = const Value.absent(),
-            Value<bool> downClimbing = const Value.absent(),
-            Value<bool> fail = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DriftHallAttemptsTableCompanion(
-            id: id,
-            treaningId: treaningId,
-            category: category,
-            style: style,
-            routeId: routeId,
-            route: route,
-            finishTime: finishTime,
-            startTime: startTime,
-            ascentType: ascentType,
-            suspensionCount: suspensionCount,
-            fallCount: fallCount,
-            downClimbing: downClimbing,
-            fail: fail,
-            rowid: rowid,
-          ),
-          createCompanionCallback: ({
-            required String id,
-            required String treaningId,
-            required String category,
-            required String style,
-            Value<String?> routeId = const Value.absent(),
-            Value<String?> route = const Value.absent(),
-            Value<DateTime?> finishTime = const Value.absent(),
-            Value<DateTime?> startTime = const Value.absent(),
-            Value<String?> ascentType = const Value.absent(),
-            required int suspensionCount,
-            required int fallCount,
-            required bool downClimbing,
-            required bool fail,
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DriftHallAttemptsTableCompanion.insert(
-            id: id,
-            treaningId: treaningId,
-            category: category,
-            style: style,
-            routeId: routeId,
-            route: route,
-            finishTime: finishTime,
-            startTime: startTime,
-            ascentType: ascentType,
-            suspensionCount: suspensionCount,
-            fallCount: fallCount,
-            downClimbing: downClimbing,
-            fail: fail,
-            rowid: rowid,
-          ),
-        ));
+final class $$DriftHallAttemptsTableTableReferences extends BaseReferences<
+    _$DriftDBLocalDataSource, $DriftHallAttemptsTableTable, DriftHallAttempt> {
+  $$DriftHallAttemptsTableTableReferences(
+      super.$_db, super.$_table, super.$_typedResult);
+
+  static $DriftHallTreaningsTableTable _treaningIdTable(
+          _$DriftDBLocalDataSource db) =>
+      db.driftHallTreaningsTable.createAlias($_aliasNameGenerator(
+          db.driftHallAttemptsTable.treaningId, db.driftHallTreaningsTable.id));
+
+  $$DriftHallTreaningsTableTableProcessedTableManager? get treaningId {
+    if ($_item.treaningId == null) return null;
+    final manager = $$DriftHallTreaningsTableTableTableManager(
+            $_db, $_db.driftHallTreaningsTable)
+        .filter((f) => f.id($_item.treaningId!));
+    final item = $_typedResult.readTableOrNull(_treaningIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
 }
 
 class $$DriftHallAttemptsTableTableFilterComposer extends FilterComposer<
@@ -9997,6 +10087,146 @@ class $$DriftHallAttemptsTableTableOrderingComposer extends OrderingComposer<
   }
 }
 
+class $$DriftHallAttemptsTableTableTableManager extends RootTableManager<
+    _$DriftDBLocalDataSource,
+    $DriftHallAttemptsTableTable,
+    DriftHallAttempt,
+    $$DriftHallAttemptsTableTableFilterComposer,
+    $$DriftHallAttemptsTableTableOrderingComposer,
+    $$DriftHallAttemptsTableTableCreateCompanionBuilder,
+    $$DriftHallAttemptsTableTableUpdateCompanionBuilder,
+    (DriftHallAttempt, $$DriftHallAttemptsTableTableReferences),
+    DriftHallAttempt,
+    PrefetchHooks Function({bool treaningId})> {
+  $$DriftHallAttemptsTableTableTableManager(
+      _$DriftDBLocalDataSource db, $DriftHallAttemptsTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer: $$DriftHallAttemptsTableTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$DriftHallAttemptsTableTableOrderingComposer(
+              ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> treaningId = const Value.absent(),
+            Value<String> category = const Value.absent(),
+            Value<String> style = const Value.absent(),
+            Value<String?> routeId = const Value.absent(),
+            Value<String?> route = const Value.absent(),
+            Value<DateTime?> finishTime = const Value.absent(),
+            Value<DateTime?> startTime = const Value.absent(),
+            Value<String?> ascentType = const Value.absent(),
+            Value<int> suspensionCount = const Value.absent(),
+            Value<int> fallCount = const Value.absent(),
+            Value<bool> downClimbing = const Value.absent(),
+            Value<bool> fail = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftHallAttemptsTableCompanion(
+            id: id,
+            treaningId: treaningId,
+            category: category,
+            style: style,
+            routeId: routeId,
+            route: route,
+            finishTime: finishTime,
+            startTime: startTime,
+            ascentType: ascentType,
+            suspensionCount: suspensionCount,
+            fallCount: fallCount,
+            downClimbing: downClimbing,
+            fail: fail,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String treaningId,
+            required String category,
+            required String style,
+            Value<String?> routeId = const Value.absent(),
+            Value<String?> route = const Value.absent(),
+            Value<DateTime?> finishTime = const Value.absent(),
+            Value<DateTime?> startTime = const Value.absent(),
+            Value<String?> ascentType = const Value.absent(),
+            required int suspensionCount,
+            required int fallCount,
+            required bool downClimbing,
+            required bool fail,
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftHallAttemptsTableCompanion.insert(
+            id: id,
+            treaningId: treaningId,
+            category: category,
+            style: style,
+            routeId: routeId,
+            route: route,
+            finishTime: finishTime,
+            startTime: startTime,
+            ascentType: ascentType,
+            suspensionCount: suspensionCount,
+            fallCount: fallCount,
+            downClimbing: downClimbing,
+            fail: fail,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$DriftHallAttemptsTableTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: ({treaningId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (treaningId) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.treaningId,
+                    referencedTable: $$DriftHallAttemptsTableTableReferences
+                        ._treaningIdTable(db),
+                    referencedColumn: $$DriftHallAttemptsTableTableReferences
+                        ._treaningIdTable(db)
+                        .id,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$DriftHallAttemptsTableTableProcessedTableManager
+    = ProcessedTableManager<
+        _$DriftDBLocalDataSource,
+        $DriftHallAttemptsTableTable,
+        DriftHallAttempt,
+        $$DriftHallAttemptsTableTableFilterComposer,
+        $$DriftHallAttemptsTableTableOrderingComposer,
+        $$DriftHallAttemptsTableTableCreateCompanionBuilder,
+        $$DriftHallAttemptsTableTableUpdateCompanionBuilder,
+        (DriftHallAttempt, $$DriftHallAttemptsTableTableReferences),
+        DriftHallAttempt,
+        PrefetchHooks Function({bool treaningId})>;
 typedef $$DriftCardioTreaningsTableTableCreateCompanionBuilder
     = DriftCardioTreaningsTableCompanion Function({
   required String id,
@@ -10019,66 +10249,6 @@ typedef $$DriftCardioTreaningsTableTableUpdateCompanionBuilder
   Value<double> length,
   Value<int> rowid,
 });
-
-class $$DriftCardioTreaningsTableTableTableManager extends RootTableManager<
-    _$DriftDBLocalDataSource,
-    $DriftCardioTreaningsTableTable,
-    DriftCardioTreanings,
-    $$DriftCardioTreaningsTableTableFilterComposer,
-    $$DriftCardioTreaningsTableTableOrderingComposer,
-    $$DriftCardioTreaningsTableTableCreateCompanionBuilder,
-    $$DriftCardioTreaningsTableTableUpdateCompanionBuilder> {
-  $$DriftCardioTreaningsTableTableTableManager(
-      _$DriftDBLocalDataSource db, $DriftCardioTreaningsTableTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          filteringComposer: $$DriftCardioTreaningsTableTableFilterComposer(
-              ComposerState(db, table)),
-          orderingComposer: $$DriftCardioTreaningsTableTableOrderingComposer(
-              ComposerState(db, table)),
-          updateCompanionCallback: ({
-            Value<String> id = const Value.absent(),
-            Value<String> exercise = const Value.absent(),
-            Value<DateTime> date = const Value.absent(),
-            Value<DateTime?> finish = const Value.absent(),
-            Value<DateTime?> start = const Value.absent(),
-            Value<int> duration = const Value.absent(),
-            Value<double> length = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DriftCardioTreaningsTableCompanion(
-            id: id,
-            exercise: exercise,
-            date: date,
-            finish: finish,
-            start: start,
-            duration: duration,
-            length: length,
-            rowid: rowid,
-          ),
-          createCompanionCallback: ({
-            required String id,
-            required String exercise,
-            required DateTime date,
-            Value<DateTime?> finish = const Value.absent(),
-            Value<DateTime?> start = const Value.absent(),
-            required int duration,
-            required double length,
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DriftCardioTreaningsTableCompanion.insert(
-            id: id,
-            exercise: exercise,
-            date: date,
-            finish: finish,
-            start: start,
-            duration: duration,
-            length: length,
-            rowid: rowid,
-          ),
-        ));
-}
 
 class $$DriftCardioTreaningsTableTableFilterComposer extends FilterComposer<
     _$DriftDBLocalDataSource, $DriftCardioTreaningsTableTable> {
@@ -10158,6 +10328,93 @@ class $$DriftCardioTreaningsTableTableOrderingComposer extends OrderingComposer<
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
+class $$DriftCardioTreaningsTableTableTableManager extends RootTableManager<
+    _$DriftDBLocalDataSource,
+    $DriftCardioTreaningsTableTable,
+    DriftCardioTreanings,
+    $$DriftCardioTreaningsTableTableFilterComposer,
+    $$DriftCardioTreaningsTableTableOrderingComposer,
+    $$DriftCardioTreaningsTableTableCreateCompanionBuilder,
+    $$DriftCardioTreaningsTableTableUpdateCompanionBuilder,
+    (
+      DriftCardioTreanings,
+      BaseReferences<_$DriftDBLocalDataSource, $DriftCardioTreaningsTableTable,
+          DriftCardioTreanings>
+    ),
+    DriftCardioTreanings,
+    PrefetchHooks Function()> {
+  $$DriftCardioTreaningsTableTableTableManager(
+      _$DriftDBLocalDataSource db, $DriftCardioTreaningsTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer: $$DriftCardioTreaningsTableTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$DriftCardioTreaningsTableTableOrderingComposer(
+              ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> exercise = const Value.absent(),
+            Value<DateTime> date = const Value.absent(),
+            Value<DateTime?> finish = const Value.absent(),
+            Value<DateTime?> start = const Value.absent(),
+            Value<int> duration = const Value.absent(),
+            Value<double> length = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftCardioTreaningsTableCompanion(
+            id: id,
+            exercise: exercise,
+            date: date,
+            finish: finish,
+            start: start,
+            duration: duration,
+            length: length,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String exercise,
+            required DateTime date,
+            Value<DateTime?> finish = const Value.absent(),
+            Value<DateTime?> start = const Value.absent(),
+            required int duration,
+            required double length,
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftCardioTreaningsTableCompanion.insert(
+            id: id,
+            exercise: exercise,
+            date: date,
+            finish: finish,
+            start: start,
+            duration: duration,
+            length: length,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$DriftCardioTreaningsTableTableProcessedTableManager
+    = ProcessedTableManager<
+        _$DriftDBLocalDataSource,
+        $DriftCardioTreaningsTableTable,
+        DriftCardioTreanings,
+        $$DriftCardioTreaningsTableTableFilterComposer,
+        $$DriftCardioTreaningsTableTableOrderingComposer,
+        $$DriftCardioTreaningsTableTableCreateCompanionBuilder,
+        $$DriftCardioTreaningsTableTableUpdateCompanionBuilder,
+        (
+          DriftCardioTreanings,
+          BaseReferences<_$DriftDBLocalDataSource,
+              $DriftCardioTreaningsTableTable, DriftCardioTreanings>
+        ),
+        DriftCardioTreanings,
+        PrefetchHooks Function()>;
 typedef $$DriftStrengthTreaningsTableTableCreateCompanionBuilder
     = DriftStrengthTreaningsTableCompanion Function({
   required String id,
@@ -10175,52 +10432,31 @@ typedef $$DriftStrengthTreaningsTableTableUpdateCompanionBuilder
   Value<int> rowid,
 });
 
-class $$DriftStrengthTreaningsTableTableTableManager extends RootTableManager<
+final class $$DriftStrengthTreaningsTableTableReferences extends BaseReferences<
     _$DriftDBLocalDataSource,
     $DriftStrengthTreaningsTableTable,
-    DriftStrengthTreaning,
-    $$DriftStrengthTreaningsTableTableFilterComposer,
-    $$DriftStrengthTreaningsTableTableOrderingComposer,
-    $$DriftStrengthTreaningsTableTableCreateCompanionBuilder,
-    $$DriftStrengthTreaningsTableTableUpdateCompanionBuilder> {
-  $$DriftStrengthTreaningsTableTableTableManager(
-      _$DriftDBLocalDataSource db, $DriftStrengthTreaningsTableTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          filteringComposer: $$DriftStrengthTreaningsTableTableFilterComposer(
-              ComposerState(db, table)),
-          orderingComposer: $$DriftStrengthTreaningsTableTableOrderingComposer(
-              ComposerState(db, table)),
-          updateCompanionCallback: ({
-            Value<String> id = const Value.absent(),
-            Value<DateTime> date = const Value.absent(),
-            Value<DateTime?> finish = const Value.absent(),
-            Value<DateTime?> start = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DriftStrengthTreaningsTableCompanion(
-            id: id,
-            date: date,
-            finish: finish,
-            start: start,
-            rowid: rowid,
-          ),
-          createCompanionCallback: ({
-            required String id,
-            required DateTime date,
-            Value<DateTime?> finish = const Value.absent(),
-            Value<DateTime?> start = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DriftStrengthTreaningsTableCompanion.insert(
-            id: id,
-            date: date,
-            finish: finish,
-            start: start,
-            rowid: rowid,
-          ),
-        ));
+    DriftStrengthTreaning> {
+  $$DriftStrengthTreaningsTableTableReferences(
+      super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<$DriftStrengthTreaningLinesTableTable,
+          List<DriftStrengthTreaningLine>>
+      _driftStrengthTreaningLinesTableRefsTable(_$DriftDBLocalDataSource db) =>
+          MultiTypedResultKey.fromTable(db.driftStrengthTreaningLinesTable,
+              aliasName: $_aliasNameGenerator(db.driftStrengthTreaningsTable.id,
+                  db.driftStrengthTreaningLinesTable.treaningId));
+
+  $$DriftStrengthTreaningLinesTableTableProcessedTableManager
+      get driftStrengthTreaningLinesTableRefs {
+    final manager = $$DriftStrengthTreaningLinesTableTableTableManager(
+            $_db, $_db.driftStrengthTreaningLinesTable)
+        .filter((f) => f.treaningId.id($_item.id));
+
+    final cache = $_typedResult
+        .readTableOrNull(_driftStrengthTreaningLinesTableRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
 }
 
 class $$DriftStrengthTreaningsTableTableFilterComposer extends FilterComposer<
@@ -10292,6 +10528,104 @@ class $$DriftStrengthTreaningsTableTableOrderingComposer
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
+class $$DriftStrengthTreaningsTableTableTableManager extends RootTableManager<
+    _$DriftDBLocalDataSource,
+    $DriftStrengthTreaningsTableTable,
+    DriftStrengthTreaning,
+    $$DriftStrengthTreaningsTableTableFilterComposer,
+    $$DriftStrengthTreaningsTableTableOrderingComposer,
+    $$DriftStrengthTreaningsTableTableCreateCompanionBuilder,
+    $$DriftStrengthTreaningsTableTableUpdateCompanionBuilder,
+    (DriftStrengthTreaning, $$DriftStrengthTreaningsTableTableReferences),
+    DriftStrengthTreaning,
+    PrefetchHooks Function({bool driftStrengthTreaningLinesTableRefs})> {
+  $$DriftStrengthTreaningsTableTableTableManager(
+      _$DriftDBLocalDataSource db, $DriftStrengthTreaningsTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer: $$DriftStrengthTreaningsTableTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$DriftStrengthTreaningsTableTableOrderingComposer(
+              ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<DateTime> date = const Value.absent(),
+            Value<DateTime?> finish = const Value.absent(),
+            Value<DateTime?> start = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftStrengthTreaningsTableCompanion(
+            id: id,
+            date: date,
+            finish: finish,
+            start: start,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required DateTime date,
+            Value<DateTime?> finish = const Value.absent(),
+            Value<DateTime?> start = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftStrengthTreaningsTableCompanion.insert(
+            id: id,
+            date: date,
+            finish: finish,
+            start: start,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$DriftStrengthTreaningsTableTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: (
+              {driftStrengthTreaningLinesTableRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [
+                if (driftStrengthTreaningLinesTableRefs)
+                  db.driftStrengthTreaningLinesTable
+              ],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (driftStrengthTreaningLinesTableRefs)
+                    await $_getPrefetchedData(
+                        currentTable: table,
+                        referencedTable:
+                            $$DriftStrengthTreaningsTableTableReferences
+                                ._driftStrengthTreaningLinesTableRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$DriftStrengthTreaningsTableTableReferences(
+                                    db, table, p0)
+                                .driftStrengthTreaningLinesTableRefs,
+                        referencedItemsForCurrentItem:
+                            (item, referencedItems) => referencedItems
+                                .where((e) => e.treaningId == item.id),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$DriftStrengthTreaningsTableTableProcessedTableManager
+    = ProcessedTableManager<
+        _$DriftDBLocalDataSource,
+        $DriftStrengthTreaningsTableTable,
+        DriftStrengthTreaning,
+        $$DriftStrengthTreaningsTableTableFilterComposer,
+        $$DriftStrengthTreaningsTableTableOrderingComposer,
+        $$DriftStrengthTreaningsTableTableCreateCompanionBuilder,
+        $$DriftStrengthTreaningsTableTableUpdateCompanionBuilder,
+        (DriftStrengthTreaning, $$DriftStrengthTreaningsTableTableReferences),
+        DriftStrengthTreaning,
+        PrefetchHooks Function({bool driftStrengthTreaningLinesTableRefs})>;
 typedef $$DriftStrengthTreaningLinesTableTableCreateCompanionBuilder
     = DriftStrengthTreaningLinesTableCompanion Function({
   required String id,
@@ -10311,59 +10645,45 @@ typedef $$DriftStrengthTreaningLinesTableTableUpdateCompanionBuilder
   Value<int> rowid,
 });
 
-class $$DriftStrengthTreaningLinesTableTableTableManager
-    extends RootTableManager<
-        _$DriftDBLocalDataSource,
-        $DriftStrengthTreaningLinesTableTable,
-        DriftStrengthTreaningLine,
-        $$DriftStrengthTreaningLinesTableTableFilterComposer,
-        $$DriftStrengthTreaningLinesTableTableOrderingComposer,
-        $$DriftStrengthTreaningLinesTableTableCreateCompanionBuilder,
-        $$DriftStrengthTreaningLinesTableTableUpdateCompanionBuilder> {
-  $$DriftStrengthTreaningLinesTableTableTableManager(
-      _$DriftDBLocalDataSource db, $DriftStrengthTreaningLinesTableTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          filteringComposer:
-              $$DriftStrengthTreaningLinesTableTableFilterComposer(
-                  ComposerState(db, table)),
-          orderingComposer:
-              $$DriftStrengthTreaningLinesTableTableOrderingComposer(
-                  ComposerState(db, table)),
-          updateCompanionCallback: ({
-            Value<String> id = const Value.absent(),
-            Value<String> repetitions = const Value.absent(),
-            Value<String> treaningId = const Value.absent(),
-            Value<String> exercise = const Value.absent(),
-            Value<String> exerciseId = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DriftStrengthTreaningLinesTableCompanion(
-            id: id,
-            repetitions: repetitions,
-            treaningId: treaningId,
-            exercise: exercise,
-            exerciseId: exerciseId,
-            rowid: rowid,
-          ),
-          createCompanionCallback: ({
-            required String id,
-            required String repetitions,
-            required String treaningId,
-            required String exercise,
-            required String exerciseId,
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DriftStrengthTreaningLinesTableCompanion.insert(
-            id: id,
-            repetitions: repetitions,
-            treaningId: treaningId,
-            exercise: exercise,
-            exerciseId: exerciseId,
-            rowid: rowid,
-          ),
-        ));
+final class $$DriftStrengthTreaningLinesTableTableReferences
+    extends BaseReferences<_$DriftDBLocalDataSource,
+        $DriftStrengthTreaningLinesTableTable, DriftStrengthTreaningLine> {
+  $$DriftStrengthTreaningLinesTableTableReferences(
+      super.$_db, super.$_table, super.$_typedResult);
+
+  static $DriftStrengthTreaningsTableTable _treaningIdTable(
+          _$DriftDBLocalDataSource db) =>
+      db.driftStrengthTreaningsTable.createAlias($_aliasNameGenerator(
+          db.driftStrengthTreaningLinesTable.treaningId,
+          db.driftStrengthTreaningsTable.id));
+
+  $$DriftStrengthTreaningsTableTableProcessedTableManager? get treaningId {
+    if ($_item.treaningId == null) return null;
+    final manager = $$DriftStrengthTreaningsTableTableTableManager(
+            $_db, $_db.driftStrengthTreaningsTable)
+        .filter((f) => f.id($_item.treaningId!));
+    final item = $_typedResult.readTableOrNull(_treaningIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+
+  static $DriftStrengthExercisesTableTable _exerciseIdTable(
+          _$DriftDBLocalDataSource db) =>
+      db.driftStrengthExercisesTable.createAlias($_aliasNameGenerator(
+          db.driftStrengthTreaningLinesTable.exerciseId,
+          db.driftStrengthExercisesTable.id));
+
+  $$DriftStrengthExercisesTableTableProcessedTableManager? get exerciseId {
+    if ($_item.exerciseId == null) return null;
+    final manager = $$DriftStrengthExercisesTableTableTableManager(
+            $_db, $_db.driftStrengthExercisesTable)
+        .filter((f) => f.id($_item.exerciseId!));
+    final item = $_typedResult.readTableOrNull(_exerciseIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
 }
 
 class $$DriftStrengthTreaningLinesTableTableFilterComposer
@@ -10472,6 +10792,139 @@ class $$DriftStrengthTreaningLinesTableTableOrderingComposer
   }
 }
 
+class $$DriftStrengthTreaningLinesTableTableTableManager
+    extends RootTableManager<
+        _$DriftDBLocalDataSource,
+        $DriftStrengthTreaningLinesTableTable,
+        DriftStrengthTreaningLine,
+        $$DriftStrengthTreaningLinesTableTableFilterComposer,
+        $$DriftStrengthTreaningLinesTableTableOrderingComposer,
+        $$DriftStrengthTreaningLinesTableTableCreateCompanionBuilder,
+        $$DriftStrengthTreaningLinesTableTableUpdateCompanionBuilder,
+        (
+          DriftStrengthTreaningLine,
+          $$DriftStrengthTreaningLinesTableTableReferences
+        ),
+        DriftStrengthTreaningLine,
+        PrefetchHooks Function({bool treaningId, bool exerciseId})> {
+  $$DriftStrengthTreaningLinesTableTableTableManager(
+      _$DriftDBLocalDataSource db, $DriftStrengthTreaningLinesTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer:
+              $$DriftStrengthTreaningLinesTableTableFilterComposer(
+                  ComposerState(db, table)),
+          orderingComposer:
+              $$DriftStrengthTreaningLinesTableTableOrderingComposer(
+                  ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> repetitions = const Value.absent(),
+            Value<String> treaningId = const Value.absent(),
+            Value<String> exercise = const Value.absent(),
+            Value<String> exerciseId = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftStrengthTreaningLinesTableCompanion(
+            id: id,
+            repetitions: repetitions,
+            treaningId: treaningId,
+            exercise: exercise,
+            exerciseId: exerciseId,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String repetitions,
+            required String treaningId,
+            required String exercise,
+            required String exerciseId,
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftStrengthTreaningLinesTableCompanion.insert(
+            id: id,
+            repetitions: repetitions,
+            treaningId: treaningId,
+            exercise: exercise,
+            exerciseId: exerciseId,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$DriftStrengthTreaningLinesTableTableReferences(
+                        db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: ({treaningId = false, exerciseId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (treaningId) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.treaningId,
+                    referencedTable:
+                        $$DriftStrengthTreaningLinesTableTableReferences
+                            ._treaningIdTable(db),
+                    referencedColumn:
+                        $$DriftStrengthTreaningLinesTableTableReferences
+                            ._treaningIdTable(db)
+                            .id,
+                  ) as T;
+                }
+                if (exerciseId) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.exerciseId,
+                    referencedTable:
+                        $$DriftStrengthTreaningLinesTableTableReferences
+                            ._exerciseIdTable(db),
+                    referencedColumn:
+                        $$DriftStrengthTreaningLinesTableTableReferences
+                            ._exerciseIdTable(db)
+                            .id,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$DriftStrengthTreaningLinesTableTableProcessedTableManager
+    = ProcessedTableManager<
+        _$DriftDBLocalDataSource,
+        $DriftStrengthTreaningLinesTableTable,
+        DriftStrengthTreaningLine,
+        $$DriftStrengthTreaningLinesTableTableFilterComposer,
+        $$DriftStrengthTreaningLinesTableTableOrderingComposer,
+        $$DriftStrengthTreaningLinesTableTableCreateCompanionBuilder,
+        $$DriftStrengthTreaningLinesTableTableUpdateCompanionBuilder,
+        (
+          DriftStrengthTreaningLine,
+          $$DriftStrengthTreaningLinesTableTableReferences
+        ),
+        DriftStrengthTreaningLine,
+        PrefetchHooks Function({bool treaningId, bool exerciseId})>;
 typedef $$DriftIceTreaningsTableTableCreateCompanionBuilder
     = DriftIceTreaningsTableCompanion Function({
   required String id,
@@ -10495,64 +10948,28 @@ typedef $$DriftIceTreaningsTableTableUpdateCompanionBuilder
   Value<int> rowid,
 });
 
-class $$DriftIceTreaningsTableTableTableManager extends RootTableManager<
-    _$DriftDBLocalDataSource,
-    $DriftIceTreaningsTableTable,
-    DriftIceTreanings,
-    $$DriftIceTreaningsTableTableFilterComposer,
-    $$DriftIceTreaningsTableTableOrderingComposer,
-    $$DriftIceTreaningsTableTableCreateCompanionBuilder,
-    $$DriftIceTreaningsTableTableUpdateCompanionBuilder> {
-  $$DriftIceTreaningsTableTableTableManager(
-      _$DriftDBLocalDataSource db, $DriftIceTreaningsTableTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          filteringComposer: $$DriftIceTreaningsTableTableFilterComposer(
-              ComposerState(db, table)),
-          orderingComposer: $$DriftIceTreaningsTableTableOrderingComposer(
-              ComposerState(db, table)),
-          updateCompanionCallback: ({
-            Value<String> id = const Value.absent(),
-            Value<String> district = const Value.absent(),
-            Value<String> districtId = const Value.absent(),
-            Value<DateTime> date = const Value.absent(),
-            Value<DateTime?> finish = const Value.absent(),
-            Value<DateTime?> start = const Value.absent(),
-            Value<String?> sectors = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DriftIceTreaningsTableCompanion(
-            id: id,
-            district: district,
-            districtId: districtId,
-            date: date,
-            finish: finish,
-            start: start,
-            sectors: sectors,
-            rowid: rowid,
-          ),
-          createCompanionCallback: ({
-            required String id,
-            required String district,
-            required String districtId,
-            required DateTime date,
-            Value<DateTime?> finish = const Value.absent(),
-            Value<DateTime?> start = const Value.absent(),
-            Value<String?> sectors = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DriftIceTreaningsTableCompanion.insert(
-            id: id,
-            district: district,
-            districtId: districtId,
-            date: date,
-            finish: finish,
-            start: start,
-            sectors: sectors,
-            rowid: rowid,
-          ),
-        ));
+final class $$DriftIceTreaningsTableTableReferences extends BaseReferences<
+    _$DriftDBLocalDataSource, $DriftIceTreaningsTableTable, DriftIceTreanings> {
+  $$DriftIceTreaningsTableTableReferences(
+      super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<$DriftIceAttemptsTableTable, List<DriftIceAttempt>>
+      _driftIceAttemptsTableRefsTable(_$DriftDBLocalDataSource db) =>
+          MultiTypedResultKey.fromTable(db.driftIceAttemptsTable,
+              aliasName: $_aliasNameGenerator(db.driftIceTreaningsTable.id,
+                  db.driftIceAttemptsTable.treaningId));
+
+  $$DriftIceAttemptsTableTableProcessedTableManager
+      get driftIceAttemptsTableRefs {
+    final manager = $$DriftIceAttemptsTableTableTableManager(
+            $_db, $_db.driftIceAttemptsTable)
+        .filter((f) => f.treaningId.id($_item.id));
+
+    final cache =
+        $_typedResult.readTableOrNull(_driftIceAttemptsTableRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
 }
 
 class $$DriftIceTreaningsTableTableFilterComposer extends FilterComposer<
@@ -10651,6 +11068,113 @@ class $$DriftIceTreaningsTableTableOrderingComposer extends OrderingComposer<
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
+class $$DriftIceTreaningsTableTableTableManager extends RootTableManager<
+    _$DriftDBLocalDataSource,
+    $DriftIceTreaningsTableTable,
+    DriftIceTreanings,
+    $$DriftIceTreaningsTableTableFilterComposer,
+    $$DriftIceTreaningsTableTableOrderingComposer,
+    $$DriftIceTreaningsTableTableCreateCompanionBuilder,
+    $$DriftIceTreaningsTableTableUpdateCompanionBuilder,
+    (DriftIceTreanings, $$DriftIceTreaningsTableTableReferences),
+    DriftIceTreanings,
+    PrefetchHooks Function({bool driftIceAttemptsTableRefs})> {
+  $$DriftIceTreaningsTableTableTableManager(
+      _$DriftDBLocalDataSource db, $DriftIceTreaningsTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer: $$DriftIceTreaningsTableTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$DriftIceTreaningsTableTableOrderingComposer(
+              ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> district = const Value.absent(),
+            Value<String> districtId = const Value.absent(),
+            Value<DateTime> date = const Value.absent(),
+            Value<DateTime?> finish = const Value.absent(),
+            Value<DateTime?> start = const Value.absent(),
+            Value<String?> sectors = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftIceTreaningsTableCompanion(
+            id: id,
+            district: district,
+            districtId: districtId,
+            date: date,
+            finish: finish,
+            start: start,
+            sectors: sectors,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String district,
+            required String districtId,
+            required DateTime date,
+            Value<DateTime?> finish = const Value.absent(),
+            Value<DateTime?> start = const Value.absent(),
+            Value<String?> sectors = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftIceTreaningsTableCompanion.insert(
+            id: id,
+            district: district,
+            districtId: districtId,
+            date: date,
+            finish: finish,
+            start: start,
+            sectors: sectors,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$DriftIceTreaningsTableTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: ({driftIceAttemptsTableRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [
+                if (driftIceAttemptsTableRefs) db.driftIceAttemptsTable
+              ],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (driftIceAttemptsTableRefs)
+                    await $_getPrefetchedData(
+                        currentTable: table,
+                        referencedTable: $$DriftIceTreaningsTableTableReferences
+                            ._driftIceAttemptsTableRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$DriftIceTreaningsTableTableReferences(
+                                    db, table, p0)
+                                .driftIceAttemptsTableRefs,
+                        referencedItemsForCurrentItem:
+                            (item, referencedItems) => referencedItems
+                                .where((e) => e.treaningId == item.id),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$DriftIceTreaningsTableTableProcessedTableManager
+    = ProcessedTableManager<
+        _$DriftDBLocalDataSource,
+        $DriftIceTreaningsTableTable,
+        DriftIceTreanings,
+        $$DriftIceTreaningsTableTableFilterComposer,
+        $$DriftIceTreaningsTableTableOrderingComposer,
+        $$DriftIceTreaningsTableTableCreateCompanionBuilder,
+        $$DriftIceTreaningsTableTableUpdateCompanionBuilder,
+        (DriftIceTreanings, $$DriftIceTreaningsTableTableReferences),
+        DriftIceTreanings,
+        PrefetchHooks Function({bool driftIceAttemptsTableRefs})>;
 typedef $$DriftIceAttemptsTableTableCreateCompanionBuilder
     = DriftIceAttemptsTableCompanion Function({
   required String id,
@@ -10692,100 +11216,26 @@ typedef $$DriftIceAttemptsTableTableUpdateCompanionBuilder
   Value<int> rowid,
 });
 
-class $$DriftIceAttemptsTableTableTableManager extends RootTableManager<
-    _$DriftDBLocalDataSource,
-    $DriftIceAttemptsTableTable,
-    DriftIceAttempt,
-    $$DriftIceAttemptsTableTableFilterComposer,
-    $$DriftIceAttemptsTableTableOrderingComposer,
-    $$DriftIceAttemptsTableTableCreateCompanionBuilder,
-    $$DriftIceAttemptsTableTableUpdateCompanionBuilder> {
-  $$DriftIceAttemptsTableTableTableManager(
-      _$DriftDBLocalDataSource db, $DriftIceAttemptsTableTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          filteringComposer: $$DriftIceAttemptsTableTableFilterComposer(
-              ComposerState(db, table)),
-          orderingComposer: $$DriftIceAttemptsTableTableOrderingComposer(
-              ComposerState(db, table)),
-          updateCompanionCallback: ({
-            Value<String> id = const Value.absent(),
-            Value<String> sector = const Value.absent(),
-            Value<String> sectorId = const Value.absent(),
-            Value<String> treaningId = const Value.absent(),
-            Value<String> category = const Value.absent(),
-            Value<String> style = const Value.absent(),
-            Value<DateTime?> finishTime = const Value.absent(),
-            Value<DateTime?> startTime = const Value.absent(),
-            Value<int?> wayLength = const Value.absent(),
-            Value<int> suspensionCount = const Value.absent(),
-            Value<int> fallCount = const Value.absent(),
-            Value<bool> downClimbing = const Value.absent(),
-            Value<bool> fail = const Value.absent(),
-            Value<bool> installedIceScrews = const Value.absent(),
-            Value<int> iceScrewsCount = const Value.absent(),
-            Value<int> toolsCount = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DriftIceAttemptsTableCompanion(
-            id: id,
-            sector: sector,
-            sectorId: sectorId,
-            treaningId: treaningId,
-            category: category,
-            style: style,
-            finishTime: finishTime,
-            startTime: startTime,
-            wayLength: wayLength,
-            suspensionCount: suspensionCount,
-            fallCount: fallCount,
-            downClimbing: downClimbing,
-            fail: fail,
-            installedIceScrews: installedIceScrews,
-            iceScrewsCount: iceScrewsCount,
-            toolsCount: toolsCount,
-            rowid: rowid,
-          ),
-          createCompanionCallback: ({
-            required String id,
-            required String sector,
-            required String sectorId,
-            required String treaningId,
-            required String category,
-            required String style,
-            Value<DateTime?> finishTime = const Value.absent(),
-            Value<DateTime?> startTime = const Value.absent(),
-            Value<int?> wayLength = const Value.absent(),
-            required int suspensionCount,
-            required int fallCount,
-            required bool downClimbing,
-            required bool fail,
-            required bool installedIceScrews,
-            required int iceScrewsCount,
-            required int toolsCount,
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DriftIceAttemptsTableCompanion.insert(
-            id: id,
-            sector: sector,
-            sectorId: sectorId,
-            treaningId: treaningId,
-            category: category,
-            style: style,
-            finishTime: finishTime,
-            startTime: startTime,
-            wayLength: wayLength,
-            suspensionCount: suspensionCount,
-            fallCount: fallCount,
-            downClimbing: downClimbing,
-            fail: fail,
-            installedIceScrews: installedIceScrews,
-            iceScrewsCount: iceScrewsCount,
-            toolsCount: toolsCount,
-            rowid: rowid,
-          ),
-        ));
+final class $$DriftIceAttemptsTableTableReferences extends BaseReferences<
+    _$DriftDBLocalDataSource, $DriftIceAttemptsTableTable, DriftIceAttempt> {
+  $$DriftIceAttemptsTableTableReferences(
+      super.$_db, super.$_table, super.$_typedResult);
+
+  static $DriftIceTreaningsTableTable _treaningIdTable(
+          _$DriftDBLocalDataSource db) =>
+      db.driftIceTreaningsTable.createAlias($_aliasNameGenerator(
+          db.driftIceAttemptsTable.treaningId, db.driftIceTreaningsTable.id));
+
+  $$DriftIceTreaningsTableTableProcessedTableManager? get treaningId {
+    if ($_item.treaningId == null) return null;
+    final manager = $$DriftIceTreaningsTableTableTableManager(
+            $_db, $_db.driftIceTreaningsTable)
+        .filter((f) => f.id($_item.treaningId!));
+    final item = $_typedResult.readTableOrNull(_treaningIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
 }
 
 class $$DriftIceAttemptsTableTableFilterComposer extends FilterComposer<
@@ -10978,6 +11428,158 @@ class $$DriftIceAttemptsTableTableOrderingComposer extends OrderingComposer<
   }
 }
 
+class $$DriftIceAttemptsTableTableTableManager extends RootTableManager<
+    _$DriftDBLocalDataSource,
+    $DriftIceAttemptsTableTable,
+    DriftIceAttempt,
+    $$DriftIceAttemptsTableTableFilterComposer,
+    $$DriftIceAttemptsTableTableOrderingComposer,
+    $$DriftIceAttemptsTableTableCreateCompanionBuilder,
+    $$DriftIceAttemptsTableTableUpdateCompanionBuilder,
+    (DriftIceAttempt, $$DriftIceAttemptsTableTableReferences),
+    DriftIceAttempt,
+    PrefetchHooks Function({bool treaningId})> {
+  $$DriftIceAttemptsTableTableTableManager(
+      _$DriftDBLocalDataSource db, $DriftIceAttemptsTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer: $$DriftIceAttemptsTableTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$DriftIceAttemptsTableTableOrderingComposer(
+              ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> sector = const Value.absent(),
+            Value<String> sectorId = const Value.absent(),
+            Value<String> treaningId = const Value.absent(),
+            Value<String> category = const Value.absent(),
+            Value<String> style = const Value.absent(),
+            Value<DateTime?> finishTime = const Value.absent(),
+            Value<DateTime?> startTime = const Value.absent(),
+            Value<int?> wayLength = const Value.absent(),
+            Value<int> suspensionCount = const Value.absent(),
+            Value<int> fallCount = const Value.absent(),
+            Value<bool> downClimbing = const Value.absent(),
+            Value<bool> fail = const Value.absent(),
+            Value<bool> installedIceScrews = const Value.absent(),
+            Value<int> iceScrewsCount = const Value.absent(),
+            Value<int> toolsCount = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftIceAttemptsTableCompanion(
+            id: id,
+            sector: sector,
+            sectorId: sectorId,
+            treaningId: treaningId,
+            category: category,
+            style: style,
+            finishTime: finishTime,
+            startTime: startTime,
+            wayLength: wayLength,
+            suspensionCount: suspensionCount,
+            fallCount: fallCount,
+            downClimbing: downClimbing,
+            fail: fail,
+            installedIceScrews: installedIceScrews,
+            iceScrewsCount: iceScrewsCount,
+            toolsCount: toolsCount,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String sector,
+            required String sectorId,
+            required String treaningId,
+            required String category,
+            required String style,
+            Value<DateTime?> finishTime = const Value.absent(),
+            Value<DateTime?> startTime = const Value.absent(),
+            Value<int?> wayLength = const Value.absent(),
+            required int suspensionCount,
+            required int fallCount,
+            required bool downClimbing,
+            required bool fail,
+            required bool installedIceScrews,
+            required int iceScrewsCount,
+            required int toolsCount,
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftIceAttemptsTableCompanion.insert(
+            id: id,
+            sector: sector,
+            sectorId: sectorId,
+            treaningId: treaningId,
+            category: category,
+            style: style,
+            finishTime: finishTime,
+            startTime: startTime,
+            wayLength: wayLength,
+            suspensionCount: suspensionCount,
+            fallCount: fallCount,
+            downClimbing: downClimbing,
+            fail: fail,
+            installedIceScrews: installedIceScrews,
+            iceScrewsCount: iceScrewsCount,
+            toolsCount: toolsCount,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$DriftIceAttemptsTableTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: ({treaningId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (treaningId) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.treaningId,
+                    referencedTable: $$DriftIceAttemptsTableTableReferences
+                        ._treaningIdTable(db),
+                    referencedColumn: $$DriftIceAttemptsTableTableReferences
+                        ._treaningIdTable(db)
+                        .id,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$DriftIceAttemptsTableTableProcessedTableManager
+    = ProcessedTableManager<
+        _$DriftDBLocalDataSource,
+        $DriftIceAttemptsTableTable,
+        DriftIceAttempt,
+        $$DriftIceAttemptsTableTableFilterComposer,
+        $$DriftIceAttemptsTableTableOrderingComposer,
+        $$DriftIceAttemptsTableTableCreateCompanionBuilder,
+        $$DriftIceAttemptsTableTableUpdateCompanionBuilder,
+        (DriftIceAttempt, $$DriftIceAttemptsTableTableReferences),
+        DriftIceAttempt,
+        PrefetchHooks Function({bool treaningId})>;
 typedef $$DriftRockTreaningsTableTableCreateCompanionBuilder
     = DriftRockTreaningsTableCompanion Function({
   required String id,
@@ -11001,64 +11603,31 @@ typedef $$DriftRockTreaningsTableTableUpdateCompanionBuilder
   Value<int> rowid,
 });
 
-class $$DriftRockTreaningsTableTableTableManager extends RootTableManager<
+final class $$DriftRockTreaningsTableTableReferences extends BaseReferences<
     _$DriftDBLocalDataSource,
     $DriftRockTreaningsTableTable,
-    DriftRockTreanings,
-    $$DriftRockTreaningsTableTableFilterComposer,
-    $$DriftRockTreaningsTableTableOrderingComposer,
-    $$DriftRockTreaningsTableTableCreateCompanionBuilder,
-    $$DriftRockTreaningsTableTableUpdateCompanionBuilder> {
-  $$DriftRockTreaningsTableTableTableManager(
-      _$DriftDBLocalDataSource db, $DriftRockTreaningsTableTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          filteringComposer: $$DriftRockTreaningsTableTableFilterComposer(
-              ComposerState(db, table)),
-          orderingComposer: $$DriftRockTreaningsTableTableOrderingComposer(
-              ComposerState(db, table)),
-          updateCompanionCallback: ({
-            Value<String> id = const Value.absent(),
-            Value<String> districtId = const Value.absent(),
-            Value<String> district = const Value.absent(),
-            Value<DateTime> date = const Value.absent(),
-            Value<DateTime?> finish = const Value.absent(),
-            Value<DateTime?> start = const Value.absent(),
-            Value<String?> sectors = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DriftRockTreaningsTableCompanion(
-            id: id,
-            districtId: districtId,
-            district: district,
-            date: date,
-            finish: finish,
-            start: start,
-            sectors: sectors,
-            rowid: rowid,
-          ),
-          createCompanionCallback: ({
-            required String id,
-            required String districtId,
-            required String district,
-            required DateTime date,
-            Value<DateTime?> finish = const Value.absent(),
-            Value<DateTime?> start = const Value.absent(),
-            Value<String?> sectors = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DriftRockTreaningsTableCompanion.insert(
-            id: id,
-            districtId: districtId,
-            district: district,
-            date: date,
-            finish: finish,
-            start: start,
-            sectors: sectors,
-            rowid: rowid,
-          ),
-        ));
+    DriftRockTreanings> {
+  $$DriftRockTreaningsTableTableReferences(
+      super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<$DriftRockAttemptsTableTable,
+      List<DriftRockAttempt>> _driftRockAttemptsTableRefsTable(
+          _$DriftDBLocalDataSource db) =>
+      MultiTypedResultKey.fromTable(db.driftRockAttemptsTable,
+          aliasName: $_aliasNameGenerator(db.driftRockTreaningsTable.id,
+              db.driftRockAttemptsTable.treaningId));
+
+  $$DriftRockAttemptsTableTableProcessedTableManager
+      get driftRockAttemptsTableRefs {
+    final manager = $$DriftRockAttemptsTableTableTableManager(
+            $_db, $_db.driftRockAttemptsTable)
+        .filter((f) => f.treaningId.id($_item.id));
+
+    final cache =
+        $_typedResult.readTableOrNull(_driftRockAttemptsTableRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
 }
 
 class $$DriftRockTreaningsTableTableFilterComposer extends FilterComposer<
@@ -11157,6 +11726,114 @@ class $$DriftRockTreaningsTableTableOrderingComposer extends OrderingComposer<
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
+class $$DriftRockTreaningsTableTableTableManager extends RootTableManager<
+    _$DriftDBLocalDataSource,
+    $DriftRockTreaningsTableTable,
+    DriftRockTreanings,
+    $$DriftRockTreaningsTableTableFilterComposer,
+    $$DriftRockTreaningsTableTableOrderingComposer,
+    $$DriftRockTreaningsTableTableCreateCompanionBuilder,
+    $$DriftRockTreaningsTableTableUpdateCompanionBuilder,
+    (DriftRockTreanings, $$DriftRockTreaningsTableTableReferences),
+    DriftRockTreanings,
+    PrefetchHooks Function({bool driftRockAttemptsTableRefs})> {
+  $$DriftRockTreaningsTableTableTableManager(
+      _$DriftDBLocalDataSource db, $DriftRockTreaningsTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer: $$DriftRockTreaningsTableTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$DriftRockTreaningsTableTableOrderingComposer(
+              ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> districtId = const Value.absent(),
+            Value<String> district = const Value.absent(),
+            Value<DateTime> date = const Value.absent(),
+            Value<DateTime?> finish = const Value.absent(),
+            Value<DateTime?> start = const Value.absent(),
+            Value<String?> sectors = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftRockTreaningsTableCompanion(
+            id: id,
+            districtId: districtId,
+            district: district,
+            date: date,
+            finish: finish,
+            start: start,
+            sectors: sectors,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String districtId,
+            required String district,
+            required DateTime date,
+            Value<DateTime?> finish = const Value.absent(),
+            Value<DateTime?> start = const Value.absent(),
+            Value<String?> sectors = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftRockTreaningsTableCompanion.insert(
+            id: id,
+            districtId: districtId,
+            district: district,
+            date: date,
+            finish: finish,
+            start: start,
+            sectors: sectors,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$DriftRockTreaningsTableTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: ({driftRockAttemptsTableRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [
+                if (driftRockAttemptsTableRefs) db.driftRockAttemptsTable
+              ],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (driftRockAttemptsTableRefs)
+                    await $_getPrefetchedData(
+                        currentTable: table,
+                        referencedTable:
+                            $$DriftRockTreaningsTableTableReferences
+                                ._driftRockAttemptsTableRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$DriftRockTreaningsTableTableReferences(
+                                    db, table, p0)
+                                .driftRockAttemptsTableRefs,
+                        referencedItemsForCurrentItem:
+                            (item, referencedItems) => referencedItems
+                                .where((e) => e.treaningId == item.id),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$DriftRockTreaningsTableTableProcessedTableManager
+    = ProcessedTableManager<
+        _$DriftDBLocalDataSource,
+        $DriftRockTreaningsTableTable,
+        DriftRockTreanings,
+        $$DriftRockTreaningsTableTableFilterComposer,
+        $$DriftRockTreaningsTableTableOrderingComposer,
+        $$DriftRockTreaningsTableTableCreateCompanionBuilder,
+        $$DriftRockTreaningsTableTableUpdateCompanionBuilder,
+        (DriftRockTreanings, $$DriftRockTreaningsTableTableReferences),
+        DriftRockTreanings,
+        PrefetchHooks Function({bool driftRockAttemptsTableRefs})>;
 typedef $$DriftRockAttemptsTableTableCreateCompanionBuilder
     = DriftRockAttemptsTableCompanion Function({
   required String id,
@@ -11196,96 +11873,26 @@ typedef $$DriftRockAttemptsTableTableUpdateCompanionBuilder
   Value<int> rowid,
 });
 
-class $$DriftRockAttemptsTableTableTableManager extends RootTableManager<
-    _$DriftDBLocalDataSource,
-    $DriftRockAttemptsTableTable,
-    DriftRockAttempt,
-    $$DriftRockAttemptsTableTableFilterComposer,
-    $$DriftRockAttemptsTableTableOrderingComposer,
-    $$DriftRockAttemptsTableTableCreateCompanionBuilder,
-    $$DriftRockAttemptsTableTableUpdateCompanionBuilder> {
-  $$DriftRockAttemptsTableTableTableManager(
-      _$DriftDBLocalDataSource db, $DriftRockAttemptsTableTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          filteringComposer: $$DriftRockAttemptsTableTableFilterComposer(
-              ComposerState(db, table)),
-          orderingComposer: $$DriftRockAttemptsTableTableOrderingComposer(
-              ComposerState(db, table)),
-          updateCompanionCallback: ({
-            Value<String> id = const Value.absent(),
-            Value<String> sector = const Value.absent(),
-            Value<String> sectorId = const Value.absent(),
-            Value<String> treaningId = const Value.absent(),
-            Value<String> category = const Value.absent(),
-            Value<String?> route = const Value.absent(),
-            Value<String?> routeId = const Value.absent(),
-            Value<String> style = const Value.absent(),
-            Value<DateTime?> finishTime = const Value.absent(),
-            Value<DateTime?> startTime = const Value.absent(),
-            Value<int> suspensionCount = const Value.absent(),
-            Value<int> fallCount = const Value.absent(),
-            Value<bool> downClimbing = const Value.absent(),
-            Value<bool> fail = const Value.absent(),
-            Value<String?> ascentType = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DriftRockAttemptsTableCompanion(
-            id: id,
-            sector: sector,
-            sectorId: sectorId,
-            treaningId: treaningId,
-            category: category,
-            route: route,
-            routeId: routeId,
-            style: style,
-            finishTime: finishTime,
-            startTime: startTime,
-            suspensionCount: suspensionCount,
-            fallCount: fallCount,
-            downClimbing: downClimbing,
-            fail: fail,
-            ascentType: ascentType,
-            rowid: rowid,
-          ),
-          createCompanionCallback: ({
-            required String id,
-            required String sector,
-            required String sectorId,
-            required String treaningId,
-            required String category,
-            Value<String?> route = const Value.absent(),
-            Value<String?> routeId = const Value.absent(),
-            required String style,
-            Value<DateTime?> finishTime = const Value.absent(),
-            Value<DateTime?> startTime = const Value.absent(),
-            required int suspensionCount,
-            required int fallCount,
-            required bool downClimbing,
-            required bool fail,
-            Value<String?> ascentType = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DriftRockAttemptsTableCompanion.insert(
-            id: id,
-            sector: sector,
-            sectorId: sectorId,
-            treaningId: treaningId,
-            category: category,
-            route: route,
-            routeId: routeId,
-            style: style,
-            finishTime: finishTime,
-            startTime: startTime,
-            suspensionCount: suspensionCount,
-            fallCount: fallCount,
-            downClimbing: downClimbing,
-            fail: fail,
-            ascentType: ascentType,
-            rowid: rowid,
-          ),
-        ));
+final class $$DriftRockAttemptsTableTableReferences extends BaseReferences<
+    _$DriftDBLocalDataSource, $DriftRockAttemptsTableTable, DriftRockAttempt> {
+  $$DriftRockAttemptsTableTableReferences(
+      super.$_db, super.$_table, super.$_typedResult);
+
+  static $DriftRockTreaningsTableTable _treaningIdTable(
+          _$DriftDBLocalDataSource db) =>
+      db.driftRockTreaningsTable.createAlias($_aliasNameGenerator(
+          db.driftRockAttemptsTable.treaningId, db.driftRockTreaningsTable.id));
+
+  $$DriftRockTreaningsTableTableProcessedTableManager? get treaningId {
+    if ($_item.treaningId == null) return null;
+    final manager = $$DriftRockTreaningsTableTableTableManager(
+            $_db, $_db.driftRockTreaningsTable)
+        .filter((f) => f.id($_item.treaningId!));
+    final item = $_typedResult.readTableOrNull(_treaningIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
 }
 
 class $$DriftRockAttemptsTableTableFilterComposer extends FilterComposer<
@@ -11468,6 +12075,154 @@ class $$DriftRockAttemptsTableTableOrderingComposer extends OrderingComposer<
   }
 }
 
+class $$DriftRockAttemptsTableTableTableManager extends RootTableManager<
+    _$DriftDBLocalDataSource,
+    $DriftRockAttemptsTableTable,
+    DriftRockAttempt,
+    $$DriftRockAttemptsTableTableFilterComposer,
+    $$DriftRockAttemptsTableTableOrderingComposer,
+    $$DriftRockAttemptsTableTableCreateCompanionBuilder,
+    $$DriftRockAttemptsTableTableUpdateCompanionBuilder,
+    (DriftRockAttempt, $$DriftRockAttemptsTableTableReferences),
+    DriftRockAttempt,
+    PrefetchHooks Function({bool treaningId})> {
+  $$DriftRockAttemptsTableTableTableManager(
+      _$DriftDBLocalDataSource db, $DriftRockAttemptsTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer: $$DriftRockAttemptsTableTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$DriftRockAttemptsTableTableOrderingComposer(
+              ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> sector = const Value.absent(),
+            Value<String> sectorId = const Value.absent(),
+            Value<String> treaningId = const Value.absent(),
+            Value<String> category = const Value.absent(),
+            Value<String?> route = const Value.absent(),
+            Value<String?> routeId = const Value.absent(),
+            Value<String> style = const Value.absent(),
+            Value<DateTime?> finishTime = const Value.absent(),
+            Value<DateTime?> startTime = const Value.absent(),
+            Value<int> suspensionCount = const Value.absent(),
+            Value<int> fallCount = const Value.absent(),
+            Value<bool> downClimbing = const Value.absent(),
+            Value<bool> fail = const Value.absent(),
+            Value<String?> ascentType = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftRockAttemptsTableCompanion(
+            id: id,
+            sector: sector,
+            sectorId: sectorId,
+            treaningId: treaningId,
+            category: category,
+            route: route,
+            routeId: routeId,
+            style: style,
+            finishTime: finishTime,
+            startTime: startTime,
+            suspensionCount: suspensionCount,
+            fallCount: fallCount,
+            downClimbing: downClimbing,
+            fail: fail,
+            ascentType: ascentType,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String sector,
+            required String sectorId,
+            required String treaningId,
+            required String category,
+            Value<String?> route = const Value.absent(),
+            Value<String?> routeId = const Value.absent(),
+            required String style,
+            Value<DateTime?> finishTime = const Value.absent(),
+            Value<DateTime?> startTime = const Value.absent(),
+            required int suspensionCount,
+            required int fallCount,
+            required bool downClimbing,
+            required bool fail,
+            Value<String?> ascentType = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftRockAttemptsTableCompanion.insert(
+            id: id,
+            sector: sector,
+            sectorId: sectorId,
+            treaningId: treaningId,
+            category: category,
+            route: route,
+            routeId: routeId,
+            style: style,
+            finishTime: finishTime,
+            startTime: startTime,
+            suspensionCount: suspensionCount,
+            fallCount: fallCount,
+            downClimbing: downClimbing,
+            fail: fail,
+            ascentType: ascentType,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$DriftRockAttemptsTableTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: ({treaningId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (treaningId) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.treaningId,
+                    referencedTable: $$DriftRockAttemptsTableTableReferences
+                        ._treaningIdTable(db),
+                    referencedColumn: $$DriftRockAttemptsTableTableReferences
+                        ._treaningIdTable(db)
+                        .id,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$DriftRockAttemptsTableTableProcessedTableManager
+    = ProcessedTableManager<
+        _$DriftDBLocalDataSource,
+        $DriftRockAttemptsTableTable,
+        DriftRockAttempt,
+        $$DriftRockAttemptsTableTableFilterComposer,
+        $$DriftRockAttemptsTableTableOrderingComposer,
+        $$DriftRockAttemptsTableTableCreateCompanionBuilder,
+        $$DriftRockAttemptsTableTableUpdateCompanionBuilder,
+        (DriftRockAttempt, $$DriftRockAttemptsTableTableReferences),
+        DriftRockAttempt,
+        PrefetchHooks Function({bool treaningId})>;
 typedef $$DriftTrekkingPathsTableTableCreateCompanionBuilder
     = DriftTrekkingPathsTableCompanion Function({
   required String id,
@@ -11503,88 +12258,31 @@ typedef $$DriftTrekkingPathsTableTableUpdateCompanionBuilder
   Value<int> rowid,
 });
 
-class $$DriftTrekkingPathsTableTableTableManager extends RootTableManager<
+final class $$DriftTrekkingPathsTableTableReferences extends BaseReferences<
     _$DriftDBLocalDataSource,
     $DriftTrekkingPathsTableTable,
-    DriftTrekkingPath,
-    $$DriftTrekkingPathsTableTableFilterComposer,
-    $$DriftTrekkingPathsTableTableOrderingComposer,
-    $$DriftTrekkingPathsTableTableCreateCompanionBuilder,
-    $$DriftTrekkingPathsTableTableUpdateCompanionBuilder> {
-  $$DriftTrekkingPathsTableTableTableManager(
-      _$DriftDBLocalDataSource db, $DriftTrekkingPathsTableTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          filteringComposer: $$DriftTrekkingPathsTableTableFilterComposer(
-              ComposerState(db, table)),
-          orderingComposer: $$DriftTrekkingPathsTableTableOrderingComposer(
-              ComposerState(db, table)),
-          updateCompanionCallback: ({
-            Value<String> id = const Value.absent(),
-            Value<String> region = const Value.absent(),
-            Value<String?> trekId = const Value.absent(),
-            Value<String?> trek = const Value.absent(),
-            Value<String> type = const Value.absent(),
-            Value<DateTime> date = const Value.absent(),
-            Value<DateTime?> finish = const Value.absent(),
-            Value<DateTime?> start = const Value.absent(),
-            Value<String?> currentSection = const Value.absent(),
-            Value<int> climbDown = const Value.absent(),
-            Value<int> climbUp = const Value.absent(),
-            Value<bool> turn = const Value.absent(),
-            Value<double> length = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DriftTrekkingPathsTableCompanion(
-            id: id,
-            region: region,
-            trekId: trekId,
-            trek: trek,
-            type: type,
-            date: date,
-            finish: finish,
-            start: start,
-            currentSection: currentSection,
-            climbDown: climbDown,
-            climbUp: climbUp,
-            turn: turn,
-            length: length,
-            rowid: rowid,
-          ),
-          createCompanionCallback: ({
-            required String id,
-            required String region,
-            Value<String?> trekId = const Value.absent(),
-            Value<String?> trek = const Value.absent(),
-            required String type,
-            required DateTime date,
-            Value<DateTime?> finish = const Value.absent(),
-            Value<DateTime?> start = const Value.absent(),
-            Value<String?> currentSection = const Value.absent(),
-            required int climbDown,
-            required int climbUp,
-            required bool turn,
-            required double length,
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DriftTrekkingPathsTableCompanion.insert(
-            id: id,
-            region: region,
-            trekId: trekId,
-            trek: trek,
-            type: type,
-            date: date,
-            finish: finish,
-            start: start,
-            currentSection: currentSection,
-            climbDown: climbDown,
-            climbUp: climbUp,
-            turn: turn,
-            length: length,
-            rowid: rowid,
-          ),
-        ));
+    DriftTrekkingPath> {
+  $$DriftTrekkingPathsTableTableReferences(
+      super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<$DriftTrekkingPathEventsTableTable,
+      List<DriftTrekkingPathEvent>> _driftTrekkingPathEventsTableRefsTable(
+          _$DriftDBLocalDataSource db) =>
+      MultiTypedResultKey.fromTable(db.driftTrekkingPathEventsTable,
+          aliasName: $_aliasNameGenerator(db.driftTrekkingPathsTable.id,
+              db.driftTrekkingPathEventsTable.pathId));
+
+  $$DriftTrekkingPathEventsTableTableProcessedTableManager
+      get driftTrekkingPathEventsTableRefs {
+    final manager = $$DriftTrekkingPathEventsTableTableTableManager(
+            $_db, $_db.driftTrekkingPathEventsTable)
+        .filter((f) => f.pathId.id($_item.id));
+
+    final cache = $_typedResult
+        .readTableOrNull(_driftTrekkingPathEventsTableRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
 }
 
 class $$DriftTrekkingPathsTableTableFilterComposer extends FilterComposer<
@@ -11744,6 +12442,139 @@ class $$DriftTrekkingPathsTableTableOrderingComposer extends OrderingComposer<
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
+class $$DriftTrekkingPathsTableTableTableManager extends RootTableManager<
+    _$DriftDBLocalDataSource,
+    $DriftTrekkingPathsTableTable,
+    DriftTrekkingPath,
+    $$DriftTrekkingPathsTableTableFilterComposer,
+    $$DriftTrekkingPathsTableTableOrderingComposer,
+    $$DriftTrekkingPathsTableTableCreateCompanionBuilder,
+    $$DriftTrekkingPathsTableTableUpdateCompanionBuilder,
+    (DriftTrekkingPath, $$DriftTrekkingPathsTableTableReferences),
+    DriftTrekkingPath,
+    PrefetchHooks Function({bool driftTrekkingPathEventsTableRefs})> {
+  $$DriftTrekkingPathsTableTableTableManager(
+      _$DriftDBLocalDataSource db, $DriftTrekkingPathsTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer: $$DriftTrekkingPathsTableTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$DriftTrekkingPathsTableTableOrderingComposer(
+              ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> region = const Value.absent(),
+            Value<String?> trekId = const Value.absent(),
+            Value<String?> trek = const Value.absent(),
+            Value<String> type = const Value.absent(),
+            Value<DateTime> date = const Value.absent(),
+            Value<DateTime?> finish = const Value.absent(),
+            Value<DateTime?> start = const Value.absent(),
+            Value<String?> currentSection = const Value.absent(),
+            Value<int> climbDown = const Value.absent(),
+            Value<int> climbUp = const Value.absent(),
+            Value<bool> turn = const Value.absent(),
+            Value<double> length = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftTrekkingPathsTableCompanion(
+            id: id,
+            region: region,
+            trekId: trekId,
+            trek: trek,
+            type: type,
+            date: date,
+            finish: finish,
+            start: start,
+            currentSection: currentSection,
+            climbDown: climbDown,
+            climbUp: climbUp,
+            turn: turn,
+            length: length,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String region,
+            Value<String?> trekId = const Value.absent(),
+            Value<String?> trek = const Value.absent(),
+            required String type,
+            required DateTime date,
+            Value<DateTime?> finish = const Value.absent(),
+            Value<DateTime?> start = const Value.absent(),
+            Value<String?> currentSection = const Value.absent(),
+            required int climbDown,
+            required int climbUp,
+            required bool turn,
+            required double length,
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftTrekkingPathsTableCompanion.insert(
+            id: id,
+            region: region,
+            trekId: trekId,
+            trek: trek,
+            type: type,
+            date: date,
+            finish: finish,
+            start: start,
+            currentSection: currentSection,
+            climbDown: climbDown,
+            climbUp: climbUp,
+            turn: turn,
+            length: length,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$DriftTrekkingPathsTableTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: ({driftTrekkingPathEventsTableRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [
+                if (driftTrekkingPathEventsTableRefs)
+                  db.driftTrekkingPathEventsTable
+              ],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (driftTrekkingPathEventsTableRefs)
+                    await $_getPrefetchedData(
+                        currentTable: table,
+                        referencedTable:
+                            $$DriftTrekkingPathsTableTableReferences
+                                ._driftTrekkingPathEventsTableRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$DriftTrekkingPathsTableTableReferences(
+                                    db, table, p0)
+                                .driftTrekkingPathEventsTableRefs,
+                        referencedItemsForCurrentItem: (item,
+                                referencedItems) =>
+                            referencedItems.where((e) => e.pathId == item.id),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$DriftTrekkingPathsTableTableProcessedTableManager
+    = ProcessedTableManager<
+        _$DriftDBLocalDataSource,
+        $DriftTrekkingPathsTableTable,
+        DriftTrekkingPath,
+        $$DriftTrekkingPathsTableTableFilterComposer,
+        $$DriftTrekkingPathsTableTableOrderingComposer,
+        $$DriftTrekkingPathsTableTableCreateCompanionBuilder,
+        $$DriftTrekkingPathsTableTableUpdateCompanionBuilder,
+        (DriftTrekkingPath, $$DriftTrekkingPathsTableTableReferences),
+        DriftTrekkingPath,
+        PrefetchHooks Function({bool driftTrekkingPathEventsTableRefs})>;
 typedef $$DriftTrekkingPathEventsTableTableCreateCompanionBuilder
     = DriftTrekkingPathEventsTableCompanion Function({
   required String id,
@@ -11765,60 +12596,28 @@ typedef $$DriftTrekkingPathEventsTableTableUpdateCompanionBuilder
   Value<int> rowid,
 });
 
-class $$DriftTrekkingPathEventsTableTableTableManager extends RootTableManager<
-    _$DriftDBLocalDataSource,
-    $DriftTrekkingPathEventsTableTable,
-    DriftTrekkingPathEvent,
-    $$DriftTrekkingPathEventsTableTableFilterComposer,
-    $$DriftTrekkingPathEventsTableTableOrderingComposer,
-    $$DriftTrekkingPathEventsTableTableCreateCompanionBuilder,
-    $$DriftTrekkingPathEventsTableTableUpdateCompanionBuilder> {
-  $$DriftTrekkingPathEventsTableTableTableManager(
-      _$DriftDBLocalDataSource db, $DriftTrekkingPathEventsTableTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          filteringComposer: $$DriftTrekkingPathEventsTableTableFilterComposer(
-              ComposerState(db, table)),
-          orderingComposer: $$DriftTrekkingPathEventsTableTableOrderingComposer(
-              ComposerState(db, table)),
-          updateCompanionCallback: ({
-            Value<String> id = const Value.absent(),
-            Value<String> type = const Value.absent(),
-            Value<String> pathId = const Value.absent(),
-            Value<String?> point = const Value.absent(),
-            Value<String?> pointId = const Value.absent(),
-            Value<DateTime> time = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DriftTrekkingPathEventsTableCompanion(
-            id: id,
-            type: type,
-            pathId: pathId,
-            point: point,
-            pointId: pointId,
-            time: time,
-            rowid: rowid,
-          ),
-          createCompanionCallback: ({
-            required String id,
-            required String type,
-            required String pathId,
-            Value<String?> point = const Value.absent(),
-            Value<String?> pointId = const Value.absent(),
-            required DateTime time,
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DriftTrekkingPathEventsTableCompanion.insert(
-            id: id,
-            type: type,
-            pathId: pathId,
-            point: point,
-            pointId: pointId,
-            time: time,
-            rowid: rowid,
-          ),
-        ));
+final class $$DriftTrekkingPathEventsTableTableReferences
+    extends BaseReferences<_$DriftDBLocalDataSource,
+        $DriftTrekkingPathEventsTableTable, DriftTrekkingPathEvent> {
+  $$DriftTrekkingPathEventsTableTableReferences(
+      super.$_db, super.$_table, super.$_typedResult);
+
+  static $DriftTrekkingPathsTableTable _pathIdTable(
+          _$DriftDBLocalDataSource db) =>
+      db.driftTrekkingPathsTable.createAlias($_aliasNameGenerator(
+          db.driftTrekkingPathEventsTable.pathId,
+          db.driftTrekkingPathsTable.id));
+
+  $$DriftTrekkingPathsTableTableProcessedTableManager? get pathId {
+    if ($_item.pathId == null) return null;
+    final manager = $$DriftTrekkingPathsTableTableTableManager(
+            $_db, $_db.driftTrekkingPathsTable)
+        .filter((f) => f.id($_item.pathId!));
+    final item = $_typedResult.readTableOrNull(_pathIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
 }
 
 class $$DriftTrekkingPathEventsTableTableFilterComposer extends FilterComposer<
@@ -11912,6 +12711,120 @@ class $$DriftTrekkingPathEventsTableTableOrderingComposer
   }
 }
 
+class $$DriftTrekkingPathEventsTableTableTableManager extends RootTableManager<
+    _$DriftDBLocalDataSource,
+    $DriftTrekkingPathEventsTableTable,
+    DriftTrekkingPathEvent,
+    $$DriftTrekkingPathEventsTableTableFilterComposer,
+    $$DriftTrekkingPathEventsTableTableOrderingComposer,
+    $$DriftTrekkingPathEventsTableTableCreateCompanionBuilder,
+    $$DriftTrekkingPathEventsTableTableUpdateCompanionBuilder,
+    (DriftTrekkingPathEvent, $$DriftTrekkingPathEventsTableTableReferences),
+    DriftTrekkingPathEvent,
+    PrefetchHooks Function({bool pathId})> {
+  $$DriftTrekkingPathEventsTableTableTableManager(
+      _$DriftDBLocalDataSource db, $DriftTrekkingPathEventsTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer: $$DriftTrekkingPathEventsTableTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$DriftTrekkingPathEventsTableTableOrderingComposer(
+              ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> type = const Value.absent(),
+            Value<String> pathId = const Value.absent(),
+            Value<String?> point = const Value.absent(),
+            Value<String?> pointId = const Value.absent(),
+            Value<DateTime> time = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftTrekkingPathEventsTableCompanion(
+            id: id,
+            type: type,
+            pathId: pathId,
+            point: point,
+            pointId: pointId,
+            time: time,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String type,
+            required String pathId,
+            Value<String?> point = const Value.absent(),
+            Value<String?> pointId = const Value.absent(),
+            required DateTime time,
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftTrekkingPathEventsTableCompanion.insert(
+            id: id,
+            type: type,
+            pathId: pathId,
+            point: point,
+            pointId: pointId,
+            time: time,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$DriftTrekkingPathEventsTableTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: ({pathId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (pathId) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.pathId,
+                    referencedTable:
+                        $$DriftTrekkingPathEventsTableTableReferences
+                            ._pathIdTable(db),
+                    referencedColumn:
+                        $$DriftTrekkingPathEventsTableTableReferences
+                            ._pathIdTable(db)
+                            .id,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$DriftTrekkingPathEventsTableTableProcessedTableManager
+    = ProcessedTableManager<
+        _$DriftDBLocalDataSource,
+        $DriftTrekkingPathEventsTableTable,
+        DriftTrekkingPathEvent,
+        $$DriftTrekkingPathEventsTableTableFilterComposer,
+        $$DriftTrekkingPathEventsTableTableOrderingComposer,
+        $$DriftTrekkingPathEventsTableTableCreateCompanionBuilder,
+        $$DriftTrekkingPathEventsTableTableUpdateCompanionBuilder,
+        (DriftTrekkingPathEvent, $$DriftTrekkingPathEventsTableTableReferences),
+        DriftTrekkingPathEvent,
+        PrefetchHooks Function({bool pathId})>;
 typedef $$DriftTechniqueTreaningsTableTableCreateCompanionBuilder
     = DriftTechniqueTreaningsTableCompanion Function({
   required String id,
@@ -11931,56 +12844,31 @@ typedef $$DriftTechniqueTreaningsTableTableUpdateCompanionBuilder
   Value<int> rowid,
 });
 
-class $$DriftTechniqueTreaningsTableTableTableManager extends RootTableManager<
-    _$DriftDBLocalDataSource,
-    $DriftTechniqueTreaningsTableTable,
-    DriftTechniqueTreaning,
-    $$DriftTechniqueTreaningsTableTableFilterComposer,
-    $$DriftTechniqueTreaningsTableTableOrderingComposer,
-    $$DriftTechniqueTreaningsTableTableCreateCompanionBuilder,
-    $$DriftTechniqueTreaningsTableTableUpdateCompanionBuilder> {
-  $$DriftTechniqueTreaningsTableTableTableManager(
-      _$DriftDBLocalDataSource db, $DriftTechniqueTreaningsTableTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          filteringComposer: $$DriftTechniqueTreaningsTableTableFilterComposer(
-              ComposerState(db, table)),
-          orderingComposer: $$DriftTechniqueTreaningsTableTableOrderingComposer(
-              ComposerState(db, table)),
-          updateCompanionCallback: ({
-            Value<String> id = const Value.absent(),
-            Value<String> comment = const Value.absent(),
-            Value<DateTime> date = const Value.absent(),
-            Value<DateTime?> finish = const Value.absent(),
-            Value<DateTime?> start = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DriftTechniqueTreaningsTableCompanion(
-            id: id,
-            comment: comment,
-            date: date,
-            finish: finish,
-            start: start,
-            rowid: rowid,
-          ),
-          createCompanionCallback: ({
-            required String id,
-            required String comment,
-            required DateTime date,
-            Value<DateTime?> finish = const Value.absent(),
-            Value<DateTime?> start = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DriftTechniqueTreaningsTableCompanion.insert(
-            id: id,
-            comment: comment,
-            date: date,
-            finish: finish,
-            start: start,
-            rowid: rowid,
-          ),
-        ));
+final class $$DriftTechniqueTreaningsTableTableReferences
+    extends BaseReferences<_$DriftDBLocalDataSource,
+        $DriftTechniqueTreaningsTableTable, DriftTechniqueTreaning> {
+  $$DriftTechniqueTreaningsTableTableReferences(
+      super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<$DriftTechniqueTreaningItemsTableTable,
+          List<DriftTechniqueTreaningItem>>
+      _driftTechniqueTreaningItemsTableRefsTable(_$DriftDBLocalDataSource db) =>
+          MultiTypedResultKey.fromTable(db.driftTechniqueTreaningItemsTable,
+              aliasName: $_aliasNameGenerator(
+                  db.driftTechniqueTreaningsTable.id,
+                  db.driftTechniqueTreaningItemsTable.treaningId));
+
+  $$DriftTechniqueTreaningItemsTableTableProcessedTableManager
+      get driftTechniqueTreaningItemsTableRefs {
+    final manager = $$DriftTechniqueTreaningItemsTableTableTableManager(
+            $_db, $_db.driftTechniqueTreaningItemsTable)
+        .filter((f) => f.treaningId.id($_item.id));
+
+    final cache = $_typedResult
+        .readTableOrNull(_driftTechniqueTreaningItemsTableRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
 }
 
 class $$DriftTechniqueTreaningsTableTableFilterComposer extends FilterComposer<
@@ -12062,6 +12950,108 @@ class $$DriftTechniqueTreaningsTableTableOrderingComposer
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
+class $$DriftTechniqueTreaningsTableTableTableManager extends RootTableManager<
+    _$DriftDBLocalDataSource,
+    $DriftTechniqueTreaningsTableTable,
+    DriftTechniqueTreaning,
+    $$DriftTechniqueTreaningsTableTableFilterComposer,
+    $$DriftTechniqueTreaningsTableTableOrderingComposer,
+    $$DriftTechniqueTreaningsTableTableCreateCompanionBuilder,
+    $$DriftTechniqueTreaningsTableTableUpdateCompanionBuilder,
+    (DriftTechniqueTreaning, $$DriftTechniqueTreaningsTableTableReferences),
+    DriftTechniqueTreaning,
+    PrefetchHooks Function({bool driftTechniqueTreaningItemsTableRefs})> {
+  $$DriftTechniqueTreaningsTableTableTableManager(
+      _$DriftDBLocalDataSource db, $DriftTechniqueTreaningsTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer: $$DriftTechniqueTreaningsTableTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$DriftTechniqueTreaningsTableTableOrderingComposer(
+              ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> comment = const Value.absent(),
+            Value<DateTime> date = const Value.absent(),
+            Value<DateTime?> finish = const Value.absent(),
+            Value<DateTime?> start = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftTechniqueTreaningsTableCompanion(
+            id: id,
+            comment: comment,
+            date: date,
+            finish: finish,
+            start: start,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String comment,
+            required DateTime date,
+            Value<DateTime?> finish = const Value.absent(),
+            Value<DateTime?> start = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftTechniqueTreaningsTableCompanion.insert(
+            id: id,
+            comment: comment,
+            date: date,
+            finish: finish,
+            start: start,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$DriftTechniqueTreaningsTableTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: (
+              {driftTechniqueTreaningItemsTableRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [
+                if (driftTechniqueTreaningItemsTableRefs)
+                  db.driftTechniqueTreaningItemsTable
+              ],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (driftTechniqueTreaningItemsTableRefs)
+                    await $_getPrefetchedData(
+                        currentTable: table,
+                        referencedTable:
+                            $$DriftTechniqueTreaningsTableTableReferences
+                                ._driftTechniqueTreaningItemsTableRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$DriftTechniqueTreaningsTableTableReferences(
+                                    db, table, p0)
+                                .driftTechniqueTreaningItemsTableRefs,
+                        referencedItemsForCurrentItem:
+                            (item, referencedItems) => referencedItems
+                                .where((e) => e.treaningId == item.id),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$DriftTechniqueTreaningsTableTableProcessedTableManager
+    = ProcessedTableManager<
+        _$DriftDBLocalDataSource,
+        $DriftTechniqueTreaningsTableTable,
+        DriftTechniqueTreaning,
+        $$DriftTechniqueTreaningsTableTableFilterComposer,
+        $$DriftTechniqueTreaningsTableTableOrderingComposer,
+        $$DriftTechniqueTreaningsTableTableCreateCompanionBuilder,
+        $$DriftTechniqueTreaningsTableTableUpdateCompanionBuilder,
+        (DriftTechniqueTreaning, $$DriftTechniqueTreaningsTableTableReferences),
+        DriftTechniqueTreaning,
+        PrefetchHooks Function({bool driftTechniqueTreaningItemsTableRefs})>;
 typedef $$DriftTechniqueTreaningItemsTableTableCreateCompanionBuilder
     = DriftTechniqueTreaningItemsTableCompanion Function({
   required String id,
@@ -12091,79 +13081,28 @@ typedef $$DriftTechniqueTreaningItemsTableTableUpdateCompanionBuilder
   Value<int> rowid,
 });
 
-class $$DriftTechniqueTreaningItemsTableTableTableManager
-    extends RootTableManager<
-        _$DriftDBLocalDataSource,
-        $DriftTechniqueTreaningItemsTableTable,
-        DriftTechniqueTreaningItem,
-        $$DriftTechniqueTreaningItemsTableTableFilterComposer,
-        $$DriftTechniqueTreaningItemsTableTableOrderingComposer,
-        $$DriftTechniqueTreaningItemsTableTableCreateCompanionBuilder,
-        $$DriftTechniqueTreaningItemsTableTableUpdateCompanionBuilder> {
-  $$DriftTechniqueTreaningItemsTableTableTableManager(
-      _$DriftDBLocalDataSource db, $DriftTechniqueTreaningItemsTableTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          filteringComposer:
-              $$DriftTechniqueTreaningItemsTableTableFilterComposer(
-                  ComposerState(db, table)),
-          orderingComposer:
-              $$DriftTechniqueTreaningItemsTableTableOrderingComposer(
-                  ComposerState(db, table)),
-          updateCompanionCallback: ({
-            Value<String> id = const Value.absent(),
-            Value<String> comment = const Value.absent(),
-            Value<String> treaningId = const Value.absent(),
-            Value<String?> options = const Value.absent(),
-            Value<DateTime?> finishTime = const Value.absent(),
-            Value<DateTime?> startTime = const Value.absent(),
-            Value<String> group = const Value.absent(),
-            Value<String> technique = const Value.absent(),
-            Value<String> techniqueId = const Value.absent(),
-            Value<String> groupId = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DriftTechniqueTreaningItemsTableCompanion(
-            id: id,
-            comment: comment,
-            treaningId: treaningId,
-            options: options,
-            finishTime: finishTime,
-            startTime: startTime,
-            group: group,
-            technique: technique,
-            techniqueId: techniqueId,
-            groupId: groupId,
-            rowid: rowid,
-          ),
-          createCompanionCallback: ({
-            required String id,
-            required String comment,
-            required String treaningId,
-            Value<String?> options = const Value.absent(),
-            Value<DateTime?> finishTime = const Value.absent(),
-            Value<DateTime?> startTime = const Value.absent(),
-            required String group,
-            required String technique,
-            required String techniqueId,
-            required String groupId,
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DriftTechniqueTreaningItemsTableCompanion.insert(
-            id: id,
-            comment: comment,
-            treaningId: treaningId,
-            options: options,
-            finishTime: finishTime,
-            startTime: startTime,
-            group: group,
-            technique: technique,
-            techniqueId: techniqueId,
-            groupId: groupId,
-            rowid: rowid,
-          ),
-        ));
+final class $$DriftTechniqueTreaningItemsTableTableReferences
+    extends BaseReferences<_$DriftDBLocalDataSource,
+        $DriftTechniqueTreaningItemsTableTable, DriftTechniqueTreaningItem> {
+  $$DriftTechniqueTreaningItemsTableTableReferences(
+      super.$_db, super.$_table, super.$_typedResult);
+
+  static $DriftTechniqueTreaningsTableTable _treaningIdTable(
+          _$DriftDBLocalDataSource db) =>
+      db.driftTechniqueTreaningsTable.createAlias($_aliasNameGenerator(
+          db.driftTechniqueTreaningItemsTable.treaningId,
+          db.driftTechniqueTreaningsTable.id));
+
+  $$DriftTechniqueTreaningsTableTableProcessedTableManager? get treaningId {
+    if ($_item.treaningId == null) return null;
+    final manager = $$DriftTechniqueTreaningsTableTableTableManager(
+            $_db, $_db.driftTechniqueTreaningsTable)
+        .filter((f) => f.id($_item.treaningId!));
+    final item = $_typedResult.readTableOrNull(_treaningIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
 }
 
 class $$DriftTechniqueTreaningItemsTableTableFilterComposer
@@ -12299,6 +13238,146 @@ class $$DriftTechniqueTreaningItemsTableTableOrderingComposer
   }
 }
 
+class $$DriftTechniqueTreaningItemsTableTableTableManager
+    extends RootTableManager<
+        _$DriftDBLocalDataSource,
+        $DriftTechniqueTreaningItemsTableTable,
+        DriftTechniqueTreaningItem,
+        $$DriftTechniqueTreaningItemsTableTableFilterComposer,
+        $$DriftTechniqueTreaningItemsTableTableOrderingComposer,
+        $$DriftTechniqueTreaningItemsTableTableCreateCompanionBuilder,
+        $$DriftTechniqueTreaningItemsTableTableUpdateCompanionBuilder,
+        (
+          DriftTechniqueTreaningItem,
+          $$DriftTechniqueTreaningItemsTableTableReferences
+        ),
+        DriftTechniqueTreaningItem,
+        PrefetchHooks Function({bool treaningId})> {
+  $$DriftTechniqueTreaningItemsTableTableTableManager(
+      _$DriftDBLocalDataSource db, $DriftTechniqueTreaningItemsTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer:
+              $$DriftTechniqueTreaningItemsTableTableFilterComposer(
+                  ComposerState(db, table)),
+          orderingComposer:
+              $$DriftTechniqueTreaningItemsTableTableOrderingComposer(
+                  ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> comment = const Value.absent(),
+            Value<String> treaningId = const Value.absent(),
+            Value<String?> options = const Value.absent(),
+            Value<DateTime?> finishTime = const Value.absent(),
+            Value<DateTime?> startTime = const Value.absent(),
+            Value<String> group = const Value.absent(),
+            Value<String> technique = const Value.absent(),
+            Value<String> techniqueId = const Value.absent(),
+            Value<String> groupId = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftTechniqueTreaningItemsTableCompanion(
+            id: id,
+            comment: comment,
+            treaningId: treaningId,
+            options: options,
+            finishTime: finishTime,
+            startTime: startTime,
+            group: group,
+            technique: technique,
+            techniqueId: techniqueId,
+            groupId: groupId,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String comment,
+            required String treaningId,
+            Value<String?> options = const Value.absent(),
+            Value<DateTime?> finishTime = const Value.absent(),
+            Value<DateTime?> startTime = const Value.absent(),
+            required String group,
+            required String technique,
+            required String techniqueId,
+            required String groupId,
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftTechniqueTreaningItemsTableCompanion.insert(
+            id: id,
+            comment: comment,
+            treaningId: treaningId,
+            options: options,
+            finishTime: finishTime,
+            startTime: startTime,
+            group: group,
+            technique: technique,
+            techniqueId: techniqueId,
+            groupId: groupId,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$DriftTechniqueTreaningItemsTableTableReferences(
+                        db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: ({treaningId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (treaningId) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.treaningId,
+                    referencedTable:
+                        $$DriftTechniqueTreaningItemsTableTableReferences
+                            ._treaningIdTable(db),
+                    referencedColumn:
+                        $$DriftTechniqueTreaningItemsTableTableReferences
+                            ._treaningIdTable(db)
+                            .id,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$DriftTechniqueTreaningItemsTableTableProcessedTableManager
+    = ProcessedTableManager<
+        _$DriftDBLocalDataSource,
+        $DriftTechniqueTreaningItemsTableTable,
+        DriftTechniqueTreaningItem,
+        $$DriftTechniqueTreaningItemsTableTableFilterComposer,
+        $$DriftTechniqueTreaningItemsTableTableOrderingComposer,
+        $$DriftTechniqueTreaningItemsTableTableCreateCompanionBuilder,
+        $$DriftTechniqueTreaningItemsTableTableUpdateCompanionBuilder,
+        (
+          DriftTechniqueTreaningItem,
+          $$DriftTechniqueTreaningItemsTableTableReferences
+        ),
+        DriftTechniqueTreaningItem,
+        PrefetchHooks Function({bool treaningId})>;
 typedef $$DriftAscensionsTableTableCreateCompanionBuilder
     = DriftAscensionsTableCompanion Function({
   required String id,
@@ -12324,68 +13403,29 @@ typedef $$DriftAscensionsTableTableUpdateCompanionBuilder
   Value<int> rowid,
 });
 
-class $$DriftAscensionsTableTableTableManager extends RootTableManager<
-    _$DriftDBLocalDataSource,
-    $DriftAscensionsTableTable,
-    DriftAscension,
-    $$DriftAscensionsTableTableFilterComposer,
-    $$DriftAscensionsTableTableOrderingComposer,
-    $$DriftAscensionsTableTableCreateCompanionBuilder,
-    $$DriftAscensionsTableTableUpdateCompanionBuilder> {
-  $$DriftAscensionsTableTableTableManager(
-      _$DriftDBLocalDataSource db, $DriftAscensionsTableTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          filteringComposer: $$DriftAscensionsTableTableFilterComposer(
-              ComposerState(db, table)),
-          orderingComposer: $$DriftAscensionsTableTableOrderingComposer(
-              ComposerState(db, table)),
-          updateCompanionCallback: ({
-            Value<String> id = const Value.absent(),
-            Value<String> mountain = const Value.absent(),
-            Value<String> mountainId = const Value.absent(),
-            Value<String?> routeId = const Value.absent(),
-            Value<String?> route = const Value.absent(),
-            Value<DateTime> date = const Value.absent(),
-            Value<DateTime?> finish = const Value.absent(),
-            Value<DateTime?> start = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DriftAscensionsTableCompanion(
-            id: id,
-            mountain: mountain,
-            mountainId: mountainId,
-            routeId: routeId,
-            route: route,
-            date: date,
-            finish: finish,
-            start: start,
-            rowid: rowid,
-          ),
-          createCompanionCallback: ({
-            required String id,
-            required String mountain,
-            required String mountainId,
-            Value<String?> routeId = const Value.absent(),
-            Value<String?> route = const Value.absent(),
-            required DateTime date,
-            Value<DateTime?> finish = const Value.absent(),
-            Value<DateTime?> start = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DriftAscensionsTableCompanion.insert(
-            id: id,
-            mountain: mountain,
-            mountainId: mountainId,
-            routeId: routeId,
-            route: route,
-            date: date,
-            finish: finish,
-            start: start,
-            rowid: rowid,
-          ),
-        ));
+final class $$DriftAscensionsTableTableReferences extends BaseReferences<
+    _$DriftDBLocalDataSource, $DriftAscensionsTableTable, DriftAscension> {
+  $$DriftAscensionsTableTableReferences(
+      super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<$DriftAscensionEventsTableTable,
+      List<DriftAscensionEvent>> _driftAscensionEventsTableRefsTable(
+          _$DriftDBLocalDataSource db) =>
+      MultiTypedResultKey.fromTable(db.driftAscensionEventsTable,
+          aliasName: $_aliasNameGenerator(db.driftAscensionsTable.id,
+              db.driftAscensionEventsTable.ascensionId));
+
+  $$DriftAscensionEventsTableTableProcessedTableManager
+      get driftAscensionEventsTableRefs {
+    final manager = $$DriftAscensionEventsTableTableTableManager(
+            $_db, $_db.driftAscensionEventsTable)
+        .filter((f) => f.ascensionId.id($_item.id));
+
+    final cache = $_typedResult
+        .readTableOrNull(_driftAscensionEventsTableRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
 }
 
 class $$DriftAscensionsTableTableFilterComposer extends FilterComposer<
@@ -12495,6 +13535,116 @@ class $$DriftAscensionsTableTableOrderingComposer extends OrderingComposer<
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
+class $$DriftAscensionsTableTableTableManager extends RootTableManager<
+    _$DriftDBLocalDataSource,
+    $DriftAscensionsTableTable,
+    DriftAscension,
+    $$DriftAscensionsTableTableFilterComposer,
+    $$DriftAscensionsTableTableOrderingComposer,
+    $$DriftAscensionsTableTableCreateCompanionBuilder,
+    $$DriftAscensionsTableTableUpdateCompanionBuilder,
+    (DriftAscension, $$DriftAscensionsTableTableReferences),
+    DriftAscension,
+    PrefetchHooks Function({bool driftAscensionEventsTableRefs})> {
+  $$DriftAscensionsTableTableTableManager(
+      _$DriftDBLocalDataSource db, $DriftAscensionsTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer: $$DriftAscensionsTableTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$DriftAscensionsTableTableOrderingComposer(
+              ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> mountain = const Value.absent(),
+            Value<String> mountainId = const Value.absent(),
+            Value<String?> routeId = const Value.absent(),
+            Value<String?> route = const Value.absent(),
+            Value<DateTime> date = const Value.absent(),
+            Value<DateTime?> finish = const Value.absent(),
+            Value<DateTime?> start = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftAscensionsTableCompanion(
+            id: id,
+            mountain: mountain,
+            mountainId: mountainId,
+            routeId: routeId,
+            route: route,
+            date: date,
+            finish: finish,
+            start: start,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String mountain,
+            required String mountainId,
+            Value<String?> routeId = const Value.absent(),
+            Value<String?> route = const Value.absent(),
+            required DateTime date,
+            Value<DateTime?> finish = const Value.absent(),
+            Value<DateTime?> start = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftAscensionsTableCompanion.insert(
+            id: id,
+            mountain: mountain,
+            mountainId: mountainId,
+            routeId: routeId,
+            route: route,
+            date: date,
+            finish: finish,
+            start: start,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$DriftAscensionsTableTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: ({driftAscensionEventsTableRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [
+                if (driftAscensionEventsTableRefs) db.driftAscensionEventsTable
+              ],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (driftAscensionEventsTableRefs)
+                    await $_getPrefetchedData(
+                        currentTable: table,
+                        referencedTable: $$DriftAscensionsTableTableReferences
+                            ._driftAscensionEventsTableRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$DriftAscensionsTableTableReferences(db, table, p0)
+                                .driftAscensionEventsTableRefs,
+                        referencedItemsForCurrentItem:
+                            (item, referencedItems) => referencedItems
+                                .where((e) => e.ascensionId == item.id),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$DriftAscensionsTableTableProcessedTableManager
+    = ProcessedTableManager<
+        _$DriftDBLocalDataSource,
+        $DriftAscensionsTableTable,
+        DriftAscension,
+        $$DriftAscensionsTableTableFilterComposer,
+        $$DriftAscensionsTableTableOrderingComposer,
+        $$DriftAscensionsTableTableCreateCompanionBuilder,
+        $$DriftAscensionsTableTableUpdateCompanionBuilder,
+        (DriftAscension, $$DriftAscensionsTableTableReferences),
+        DriftAscension,
+        PrefetchHooks Function({bool driftAscensionEventsTableRefs})>;
 typedef $$DriftAscensionEventsTableTableCreateCompanionBuilder
     = DriftAscensionEventsTableCompanion Function({
   required String id,
@@ -12514,56 +13664,29 @@ typedef $$DriftAscensionEventsTableTableUpdateCompanionBuilder
   Value<int> rowid,
 });
 
-class $$DriftAscensionEventsTableTableTableManager extends RootTableManager<
+final class $$DriftAscensionEventsTableTableReferences extends BaseReferences<
     _$DriftDBLocalDataSource,
     $DriftAscensionEventsTableTable,
-    DriftAscensionEvent,
-    $$DriftAscensionEventsTableTableFilterComposer,
-    $$DriftAscensionEventsTableTableOrderingComposer,
-    $$DriftAscensionEventsTableTableCreateCompanionBuilder,
-    $$DriftAscensionEventsTableTableUpdateCompanionBuilder> {
-  $$DriftAscensionEventsTableTableTableManager(
-      _$DriftDBLocalDataSource db, $DriftAscensionEventsTableTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          filteringComposer: $$DriftAscensionEventsTableTableFilterComposer(
-              ComposerState(db, table)),
-          orderingComposer: $$DriftAscensionEventsTableTableOrderingComposer(
-              ComposerState(db, table)),
-          updateCompanionCallback: ({
-            Value<String> id = const Value.absent(),
-            Value<String> type = const Value.absent(),
-            Value<String> ascensionId = const Value.absent(),
-            Value<DateTime?> time = const Value.absent(),
-            Value<DateTime?> planedTime = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DriftAscensionEventsTableCompanion(
-            id: id,
-            type: type,
-            ascensionId: ascensionId,
-            time: time,
-            planedTime: planedTime,
-            rowid: rowid,
-          ),
-          createCompanionCallback: ({
-            required String id,
-            required String type,
-            required String ascensionId,
-            Value<DateTime?> time = const Value.absent(),
-            Value<DateTime?> planedTime = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DriftAscensionEventsTableCompanion.insert(
-            id: id,
-            type: type,
-            ascensionId: ascensionId,
-            time: time,
-            planedTime: planedTime,
-            rowid: rowid,
-          ),
-        ));
+    DriftAscensionEvent> {
+  $$DriftAscensionEventsTableTableReferences(
+      super.$_db, super.$_table, super.$_typedResult);
+
+  static $DriftAscensionsTableTable _ascensionIdTable(
+          _$DriftDBLocalDataSource db) =>
+      db.driftAscensionsTable.createAlias($_aliasNameGenerator(
+          db.driftAscensionEventsTable.ascensionId,
+          db.driftAscensionsTable.id));
+
+  $$DriftAscensionsTableTableProcessedTableManager? get ascensionId {
+    if ($_item.ascensionId == null) return null;
+    final manager =
+        $$DriftAscensionsTableTableTableManager($_db, $_db.driftAscensionsTable)
+            .filter((f) => f.id($_item.ascensionId!));
+    final item = $_typedResult.readTableOrNull(_ascensionIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
 }
 
 class $$DriftAscensionEventsTableTableFilterComposer extends FilterComposer<
@@ -12646,6 +13769,114 @@ class $$DriftAscensionEventsTableTableOrderingComposer extends OrderingComposer<
   }
 }
 
+class $$DriftAscensionEventsTableTableTableManager extends RootTableManager<
+    _$DriftDBLocalDataSource,
+    $DriftAscensionEventsTableTable,
+    DriftAscensionEvent,
+    $$DriftAscensionEventsTableTableFilterComposer,
+    $$DriftAscensionEventsTableTableOrderingComposer,
+    $$DriftAscensionEventsTableTableCreateCompanionBuilder,
+    $$DriftAscensionEventsTableTableUpdateCompanionBuilder,
+    (DriftAscensionEvent, $$DriftAscensionEventsTableTableReferences),
+    DriftAscensionEvent,
+    PrefetchHooks Function({bool ascensionId})> {
+  $$DriftAscensionEventsTableTableTableManager(
+      _$DriftDBLocalDataSource db, $DriftAscensionEventsTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer: $$DriftAscensionEventsTableTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$DriftAscensionEventsTableTableOrderingComposer(
+              ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> type = const Value.absent(),
+            Value<String> ascensionId = const Value.absent(),
+            Value<DateTime?> time = const Value.absent(),
+            Value<DateTime?> planedTime = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftAscensionEventsTableCompanion(
+            id: id,
+            type: type,
+            ascensionId: ascensionId,
+            time: time,
+            planedTime: planedTime,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String type,
+            required String ascensionId,
+            Value<DateTime?> time = const Value.absent(),
+            Value<DateTime?> planedTime = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftAscensionEventsTableCompanion.insert(
+            id: id,
+            type: type,
+            ascensionId: ascensionId,
+            time: time,
+            planedTime: planedTime,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$DriftAscensionEventsTableTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: ({ascensionId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (ascensionId) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.ascensionId,
+                    referencedTable: $$DriftAscensionEventsTableTableReferences
+                        ._ascensionIdTable(db),
+                    referencedColumn: $$DriftAscensionEventsTableTableReferences
+                        ._ascensionIdTable(db)
+                        .id,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$DriftAscensionEventsTableTableProcessedTableManager
+    = ProcessedTableManager<
+        _$DriftDBLocalDataSource,
+        $DriftAscensionEventsTableTable,
+        DriftAscensionEvent,
+        $$DriftAscensionEventsTableTableFilterComposer,
+        $$DriftAscensionEventsTableTableOrderingComposer,
+        $$DriftAscensionEventsTableTableCreateCompanionBuilder,
+        $$DriftAscensionEventsTableTableUpdateCompanionBuilder,
+        (DriftAscensionEvent, $$DriftAscensionEventsTableTableReferences),
+        DriftAscensionEvent,
+        PrefetchHooks Function({bool ascensionId})>;
 typedef $$DriftTravelsTableTableCreateCompanionBuilder
     = DriftTravelsTableCompanion Function({
   required String id,
@@ -12677,80 +13908,82 @@ typedef $$DriftTravelsTableTableUpdateCompanionBuilder
   Value<int> rowid,
 });
 
-class $$DriftTravelsTableTableTableManager extends RootTableManager<
-    _$DriftDBLocalDataSource,
-    $DriftTravelsTableTable,
-    DriftTravel,
-    $$DriftTravelsTableTableFilterComposer,
-    $$DriftTravelsTableTableOrderingComposer,
-    $$DriftTravelsTableTableCreateCompanionBuilder,
-    $$DriftTravelsTableTableUpdateCompanionBuilder> {
-  $$DriftTravelsTableTableTableManager(
-      _$DriftDBLocalDataSource db, $DriftTravelsTableTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          filteringComposer:
-              $$DriftTravelsTableTableFilterComposer(ComposerState(db, table)),
-          orderingComposer: $$DriftTravelsTableTableOrderingComposer(
-              ComposerState(db, table)),
-          updateCompanionCallback: ({
-            Value<String> id = const Value.absent(),
-            Value<DateTime> date = const Value.absent(),
-            Value<DateTime?> finish = const Value.absent(),
-            Value<DateTime?> start = const Value.absent(),
-            Value<String> regions = const Value.absent(),
-            Value<String> name = const Value.absent(),
-            Value<String> image = const Value.absent(),
-            Value<String> description = const Value.absent(),
-            Value<String> currencies = const Value.absent(),
-            Value<String> status = const Value.absent(),
-            Value<int> budgetCurrency = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DriftTravelsTableCompanion(
-            id: id,
-            date: date,
-            finish: finish,
-            start: start,
-            regions: regions,
-            name: name,
-            image: image,
-            description: description,
-            currencies: currencies,
-            status: status,
-            budgetCurrency: budgetCurrency,
-            rowid: rowid,
-          ),
-          createCompanionCallback: ({
-            required String id,
-            required DateTime date,
-            Value<DateTime?> finish = const Value.absent(),
-            Value<DateTime?> start = const Value.absent(),
-            required String regions,
-            required String name,
-            required String image,
-            required String description,
-            required String currencies,
-            required String status,
-            required int budgetCurrency,
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DriftTravelsTableCompanion.insert(
-            id: id,
-            date: date,
-            finish: finish,
-            start: start,
-            regions: regions,
-            name: name,
-            image: image,
-            description: description,
-            currencies: currencies,
-            status: status,
-            budgetCurrency: budgetCurrency,
-            rowid: rowid,
-          ),
-        ));
+final class $$DriftTravelsTableTableReferences extends BaseReferences<
+    _$DriftDBLocalDataSource, $DriftTravelsTableTable, DriftTravel> {
+  $$DriftTravelsTableTableReferences(
+      super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<$DriftTravelDaysTableTable, List<DriftTravelDay>>
+      _driftTravelDaysTableRefsTable(_$DriftDBLocalDataSource db) =>
+          MultiTypedResultKey.fromTable(db.driftTravelDaysTable,
+              aliasName: $_aliasNameGenerator(
+                  db.driftTravelsTable.id, db.driftTravelDaysTable.travelId));
+
+  $$DriftTravelDaysTableTableProcessedTableManager
+      get driftTravelDaysTableRefs {
+    final manager =
+        $$DriftTravelDaysTableTableTableManager($_db, $_db.driftTravelDaysTable)
+            .filter((f) => f.travelId.id($_item.id));
+
+    final cache =
+        $_typedResult.readTableOrNull(_driftTravelDaysTableRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+
+  static MultiTypedResultKey<$DriftCostLinesTableTable, List<DriftCostLine>>
+      _driftCostLinesTableRefsTable(_$DriftDBLocalDataSource db) =>
+          MultiTypedResultKey.fromTable(db.driftCostLinesTable,
+              aliasName: $_aliasNameGenerator(
+                  db.driftTravelsTable.id, db.driftCostLinesTable.travelId));
+
+  $$DriftCostLinesTableTableProcessedTableManager get driftCostLinesTableRefs {
+    final manager =
+        $$DriftCostLinesTableTableTableManager($_db, $_db.driftCostLinesTable)
+            .filter((f) => f.travelId.id($_item.id));
+
+    final cache =
+        $_typedResult.readTableOrNull(_driftCostLinesTableRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+
+  static MultiTypedResultKey<$DriftBudgetLinesTableTable, List<DriftBudgetLine>>
+      _driftBudgetLinesTableRefsTable(_$DriftDBLocalDataSource db) =>
+          MultiTypedResultKey.fromTable(db.driftBudgetLinesTable,
+              aliasName: $_aliasNameGenerator(
+                  db.driftTravelsTable.id, db.driftBudgetLinesTable.travelId));
+
+  $$DriftBudgetLinesTableTableProcessedTableManager
+      get driftBudgetLinesTableRefs {
+    final manager = $$DriftBudgetLinesTableTableTableManager(
+            $_db, $_db.driftBudgetLinesTable)
+        .filter((f) => f.travelId.id($_item.id));
+
+    final cache =
+        $_typedResult.readTableOrNull(_driftBudgetLinesTableRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+
+  static MultiTypedResultKey<$DriftInsuranceLinesTableTable,
+      List<DriftInsuranceLine>> _driftInsuranceLinesTableRefsTable(
+          _$DriftDBLocalDataSource db) =>
+      MultiTypedResultKey.fromTable(db.driftInsuranceLinesTable,
+          aliasName: $_aliasNameGenerator(
+              db.driftTravelsTable.id, db.driftInsuranceLinesTable.travelId));
+
+  $$DriftInsuranceLinesTableTableProcessedTableManager
+      get driftInsuranceLinesTableRefs {
+    final manager = $$DriftInsuranceLinesTableTableTableManager(
+            $_db, $_db.driftInsuranceLinesTable)
+        .filter((f) => f.travelId.id($_item.id));
+
+    final cache =
+        $_typedResult.readTableOrNull(_driftInsuranceLinesTableRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
 }
 
 class $$DriftTravelsTableTableFilterComposer
@@ -12942,6 +14175,178 @@ class $$DriftTravelsTableTableOrderingComposer extends OrderingComposer<
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
+class $$DriftTravelsTableTableTableManager extends RootTableManager<
+    _$DriftDBLocalDataSource,
+    $DriftTravelsTableTable,
+    DriftTravel,
+    $$DriftTravelsTableTableFilterComposer,
+    $$DriftTravelsTableTableOrderingComposer,
+    $$DriftTravelsTableTableCreateCompanionBuilder,
+    $$DriftTravelsTableTableUpdateCompanionBuilder,
+    (DriftTravel, $$DriftTravelsTableTableReferences),
+    DriftTravel,
+    PrefetchHooks Function(
+        {bool driftTravelDaysTableRefs,
+        bool driftCostLinesTableRefs,
+        bool driftBudgetLinesTableRefs,
+        bool driftInsuranceLinesTableRefs})> {
+  $$DriftTravelsTableTableTableManager(
+      _$DriftDBLocalDataSource db, $DriftTravelsTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer:
+              $$DriftTravelsTableTableFilterComposer(ComposerState(db, table)),
+          orderingComposer: $$DriftTravelsTableTableOrderingComposer(
+              ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<DateTime> date = const Value.absent(),
+            Value<DateTime?> finish = const Value.absent(),
+            Value<DateTime?> start = const Value.absent(),
+            Value<String> regions = const Value.absent(),
+            Value<String> name = const Value.absent(),
+            Value<String> image = const Value.absent(),
+            Value<String> description = const Value.absent(),
+            Value<String> currencies = const Value.absent(),
+            Value<String> status = const Value.absent(),
+            Value<int> budgetCurrency = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftTravelsTableCompanion(
+            id: id,
+            date: date,
+            finish: finish,
+            start: start,
+            regions: regions,
+            name: name,
+            image: image,
+            description: description,
+            currencies: currencies,
+            status: status,
+            budgetCurrency: budgetCurrency,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required DateTime date,
+            Value<DateTime?> finish = const Value.absent(),
+            Value<DateTime?> start = const Value.absent(),
+            required String regions,
+            required String name,
+            required String image,
+            required String description,
+            required String currencies,
+            required String status,
+            required int budgetCurrency,
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftTravelsTableCompanion.insert(
+            id: id,
+            date: date,
+            finish: finish,
+            start: start,
+            regions: regions,
+            name: name,
+            image: image,
+            description: description,
+            currencies: currencies,
+            status: status,
+            budgetCurrency: budgetCurrency,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$DriftTravelsTableTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: (
+              {driftTravelDaysTableRefs = false,
+              driftCostLinesTableRefs = false,
+              driftBudgetLinesTableRefs = false,
+              driftInsuranceLinesTableRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [
+                if (driftTravelDaysTableRefs) db.driftTravelDaysTable,
+                if (driftCostLinesTableRefs) db.driftCostLinesTable,
+                if (driftBudgetLinesTableRefs) db.driftBudgetLinesTable,
+                if (driftInsuranceLinesTableRefs) db.driftInsuranceLinesTable
+              ],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (driftTravelDaysTableRefs)
+                    await $_getPrefetchedData(
+                        currentTable: table,
+                        referencedTable: $$DriftTravelsTableTableReferences
+                            ._driftTravelDaysTableRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$DriftTravelsTableTableReferences(db, table, p0)
+                                .driftTravelDaysTableRefs,
+                        referencedItemsForCurrentItem: (item,
+                                referencedItems) =>
+                            referencedItems.where((e) => e.travelId == item.id),
+                        typedResults: items),
+                  if (driftCostLinesTableRefs)
+                    await $_getPrefetchedData(
+                        currentTable: table,
+                        referencedTable: $$DriftTravelsTableTableReferences
+                            ._driftCostLinesTableRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$DriftTravelsTableTableReferences(db, table, p0)
+                                .driftCostLinesTableRefs,
+                        referencedItemsForCurrentItem: (item,
+                                referencedItems) =>
+                            referencedItems.where((e) => e.travelId == item.id),
+                        typedResults: items),
+                  if (driftBudgetLinesTableRefs)
+                    await $_getPrefetchedData(
+                        currentTable: table,
+                        referencedTable: $$DriftTravelsTableTableReferences
+                            ._driftBudgetLinesTableRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$DriftTravelsTableTableReferences(db, table, p0)
+                                .driftBudgetLinesTableRefs,
+                        referencedItemsForCurrentItem: (item,
+                                referencedItems) =>
+                            referencedItems.where((e) => e.travelId == item.id),
+                        typedResults: items),
+                  if (driftInsuranceLinesTableRefs)
+                    await $_getPrefetchedData(
+                        currentTable: table,
+                        referencedTable: $$DriftTravelsTableTableReferences
+                            ._driftInsuranceLinesTableRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$DriftTravelsTableTableReferences(db, table, p0)
+                                .driftInsuranceLinesTableRefs,
+                        referencedItemsForCurrentItem: (item,
+                                referencedItems) =>
+                            referencedItems.where((e) => e.travelId == item.id),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$DriftTravelsTableTableProcessedTableManager = ProcessedTableManager<
+    _$DriftDBLocalDataSource,
+    $DriftTravelsTableTable,
+    DriftTravel,
+    $$DriftTravelsTableTableFilterComposer,
+    $$DriftTravelsTableTableOrderingComposer,
+    $$DriftTravelsTableTableCreateCompanionBuilder,
+    $$DriftTravelsTableTableUpdateCompanionBuilder,
+    (DriftTravel, $$DriftTravelsTableTableReferences),
+    DriftTravel,
+    PrefetchHooks Function(
+        {bool driftTravelDaysTableRefs,
+        bool driftCostLinesTableRefs,
+        bool driftBudgetLinesTableRefs,
+        bool driftInsuranceLinesTableRefs})>;
 typedef $$DriftTravelDaysTableTableCreateCompanionBuilder
     = DriftTravelDaysTableCompanion Function({
   required String id,
@@ -12969,72 +14374,25 @@ typedef $$DriftTravelDaysTableTableUpdateCompanionBuilder
   Value<int> rowid,
 });
 
-class $$DriftTravelDaysTableTableTableManager extends RootTableManager<
-    _$DriftDBLocalDataSource,
-    $DriftTravelDaysTableTable,
-    DriftTravelDay,
-    $$DriftTravelDaysTableTableFilterComposer,
-    $$DriftTravelDaysTableTableOrderingComposer,
-    $$DriftTravelDaysTableTableCreateCompanionBuilder,
-    $$DriftTravelDaysTableTableUpdateCompanionBuilder> {
-  $$DriftTravelDaysTableTableTableManager(
-      _$DriftDBLocalDataSource db, $DriftTravelDaysTableTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          filteringComposer: $$DriftTravelDaysTableTableFilterComposer(
-              ComposerState(db, table)),
-          orderingComposer: $$DriftTravelDaysTableTableOrderingComposer(
-              ComposerState(db, table)),
-          updateCompanionCallback: ({
-            Value<String> id = const Value.absent(),
-            Value<DateTime> date = const Value.absent(),
-            Value<DateTime?> start = const Value.absent(),
-            Value<String> description = const Value.absent(),
-            Value<int> number = const Value.absent(),
-            Value<String> transportLines = const Value.absent(),
-            Value<String> feedingsLines = const Value.absent(),
-            Value<String> stayLines = const Value.absent(),
-            Value<String> travelId = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DriftTravelDaysTableCompanion(
-            id: id,
-            date: date,
-            start: start,
-            description: description,
-            number: number,
-            transportLines: transportLines,
-            feedingsLines: feedingsLines,
-            stayLines: stayLines,
-            travelId: travelId,
-            rowid: rowid,
-          ),
-          createCompanionCallback: ({
-            required String id,
-            required DateTime date,
-            Value<DateTime?> start = const Value.absent(),
-            required String description,
-            required int number,
-            required String transportLines,
-            required String feedingsLines,
-            required String stayLines,
-            required String travelId,
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DriftTravelDaysTableCompanion.insert(
-            id: id,
-            date: date,
-            start: start,
-            description: description,
-            number: number,
-            transportLines: transportLines,
-            feedingsLines: feedingsLines,
-            stayLines: stayLines,
-            travelId: travelId,
-            rowid: rowid,
-          ),
-        ));
+final class $$DriftTravelDaysTableTableReferences extends BaseReferences<
+    _$DriftDBLocalDataSource, $DriftTravelDaysTableTable, DriftTravelDay> {
+  $$DriftTravelDaysTableTableReferences(
+      super.$_db, super.$_table, super.$_typedResult);
+
+  static $DriftTravelsTableTable _travelIdTable(_$DriftDBLocalDataSource db) =>
+      db.driftTravelsTable.createAlias($_aliasNameGenerator(
+          db.driftTravelDaysTable.travelId, db.driftTravelsTable.id));
+
+  $$DriftTravelsTableTableProcessedTableManager? get travelId {
+    if ($_item.travelId == null) return null;
+    final manager =
+        $$DriftTravelsTableTableTableManager($_db, $_db.driftTravelsTable)
+            .filter((f) => f.id($_item.travelId!));
+    final item = $_typedResult.readTableOrNull(_travelIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
 }
 
 class $$DriftTravelDaysTableTableFilterComposer extends FilterComposer<
@@ -13157,6 +14515,130 @@ class $$DriftTravelDaysTableTableOrderingComposer extends OrderingComposer<
   }
 }
 
+class $$DriftTravelDaysTableTableTableManager extends RootTableManager<
+    _$DriftDBLocalDataSource,
+    $DriftTravelDaysTableTable,
+    DriftTravelDay,
+    $$DriftTravelDaysTableTableFilterComposer,
+    $$DriftTravelDaysTableTableOrderingComposer,
+    $$DriftTravelDaysTableTableCreateCompanionBuilder,
+    $$DriftTravelDaysTableTableUpdateCompanionBuilder,
+    (DriftTravelDay, $$DriftTravelDaysTableTableReferences),
+    DriftTravelDay,
+    PrefetchHooks Function({bool travelId})> {
+  $$DriftTravelDaysTableTableTableManager(
+      _$DriftDBLocalDataSource db, $DriftTravelDaysTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer: $$DriftTravelDaysTableTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$DriftTravelDaysTableTableOrderingComposer(
+              ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<DateTime> date = const Value.absent(),
+            Value<DateTime?> start = const Value.absent(),
+            Value<String> description = const Value.absent(),
+            Value<int> number = const Value.absent(),
+            Value<String> transportLines = const Value.absent(),
+            Value<String> feedingsLines = const Value.absent(),
+            Value<String> stayLines = const Value.absent(),
+            Value<String> travelId = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftTravelDaysTableCompanion(
+            id: id,
+            date: date,
+            start: start,
+            description: description,
+            number: number,
+            transportLines: transportLines,
+            feedingsLines: feedingsLines,
+            stayLines: stayLines,
+            travelId: travelId,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required DateTime date,
+            Value<DateTime?> start = const Value.absent(),
+            required String description,
+            required int number,
+            required String transportLines,
+            required String feedingsLines,
+            required String stayLines,
+            required String travelId,
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftTravelDaysTableCompanion.insert(
+            id: id,
+            date: date,
+            start: start,
+            description: description,
+            number: number,
+            transportLines: transportLines,
+            feedingsLines: feedingsLines,
+            stayLines: stayLines,
+            travelId: travelId,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$DriftTravelDaysTableTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: ({travelId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (travelId) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.travelId,
+                    referencedTable: $$DriftTravelDaysTableTableReferences
+                        ._travelIdTable(db),
+                    referencedColumn: $$DriftTravelDaysTableTableReferences
+                        ._travelIdTable(db)
+                        .id,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$DriftTravelDaysTableTableProcessedTableManager
+    = ProcessedTableManager<
+        _$DriftDBLocalDataSource,
+        $DriftTravelDaysTableTable,
+        DriftTravelDay,
+        $$DriftTravelDaysTableTableFilterComposer,
+        $$DriftTravelDaysTableTableOrderingComposer,
+        $$DriftTravelDaysTableTableCreateCompanionBuilder,
+        $$DriftTravelDaysTableTableUpdateCompanionBuilder,
+        (DriftTravelDay, $$DriftTravelDaysTableTableReferences),
+        DriftTravelDay,
+        PrefetchHooks Function({bool travelId})>;
 typedef $$DriftCostLinesTableTableCreateCompanionBuilder
     = DriftCostLinesTableCompanion Function({
   required String id,
@@ -13184,72 +14666,25 @@ typedef $$DriftCostLinesTableTableUpdateCompanionBuilder
   Value<int> rowid,
 });
 
-class $$DriftCostLinesTableTableTableManager extends RootTableManager<
-    _$DriftDBLocalDataSource,
-    $DriftCostLinesTableTable,
-    DriftCostLine,
-    $$DriftCostLinesTableTableFilterComposer,
-    $$DriftCostLinesTableTableOrderingComposer,
-    $$DriftCostLinesTableTableCreateCompanionBuilder,
-    $$DriftCostLinesTableTableUpdateCompanionBuilder> {
-  $$DriftCostLinesTableTableTableManager(
-      _$DriftDBLocalDataSource db, $DriftCostLinesTableTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          filteringComposer: $$DriftCostLinesTableTableFilterComposer(
-              ComposerState(db, table)),
-          orderingComposer: $$DriftCostLinesTableTableOrderingComposer(
-              ComposerState(db, table)),
-          updateCompanionCallback: ({
-            Value<String> id = const Value.absent(),
-            Value<String> type = const Value.absent(),
-            Value<int> currency = const Value.absent(),
-            Value<String> travelId = const Value.absent(),
-            Value<DateTime> date = const Value.absent(),
-            Value<double> sum = const Value.absent(),
-            Value<double> budgetSum = const Value.absent(),
-            Value<String> description = const Value.absent(),
-            Value<String> incomeExpense = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DriftCostLinesTableCompanion(
-            id: id,
-            type: type,
-            currency: currency,
-            travelId: travelId,
-            date: date,
-            sum: sum,
-            budgetSum: budgetSum,
-            description: description,
-            incomeExpense: incomeExpense,
-            rowid: rowid,
-          ),
-          createCompanionCallback: ({
-            required String id,
-            required String type,
-            required int currency,
-            required String travelId,
-            required DateTime date,
-            required double sum,
-            required double budgetSum,
-            required String description,
-            required String incomeExpense,
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DriftCostLinesTableCompanion.insert(
-            id: id,
-            type: type,
-            currency: currency,
-            travelId: travelId,
-            date: date,
-            sum: sum,
-            budgetSum: budgetSum,
-            description: description,
-            incomeExpense: incomeExpense,
-            rowid: rowid,
-          ),
-        ));
+final class $$DriftCostLinesTableTableReferences extends BaseReferences<
+    _$DriftDBLocalDataSource, $DriftCostLinesTableTable, DriftCostLine> {
+  $$DriftCostLinesTableTableReferences(
+      super.$_db, super.$_table, super.$_typedResult);
+
+  static $DriftTravelsTableTable _travelIdTable(_$DriftDBLocalDataSource db) =>
+      db.driftTravelsTable.createAlias($_aliasNameGenerator(
+          db.driftCostLinesTable.travelId, db.driftTravelsTable.id));
+
+  $$DriftTravelsTableTableProcessedTableManager? get travelId {
+    if ($_item.travelId == null) return null;
+    final manager =
+        $$DriftTravelsTableTableTableManager($_db, $_db.driftTravelsTable)
+            .filter((f) => f.id($_item.travelId!));
+    final item = $_typedResult.readTableOrNull(_travelIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
 }
 
 class $$DriftCostLinesTableTableFilterComposer extends FilterComposer<
@@ -13372,6 +14807,129 @@ class $$DriftCostLinesTableTableOrderingComposer extends OrderingComposer<
   }
 }
 
+class $$DriftCostLinesTableTableTableManager extends RootTableManager<
+    _$DriftDBLocalDataSource,
+    $DriftCostLinesTableTable,
+    DriftCostLine,
+    $$DriftCostLinesTableTableFilterComposer,
+    $$DriftCostLinesTableTableOrderingComposer,
+    $$DriftCostLinesTableTableCreateCompanionBuilder,
+    $$DriftCostLinesTableTableUpdateCompanionBuilder,
+    (DriftCostLine, $$DriftCostLinesTableTableReferences),
+    DriftCostLine,
+    PrefetchHooks Function({bool travelId})> {
+  $$DriftCostLinesTableTableTableManager(
+      _$DriftDBLocalDataSource db, $DriftCostLinesTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer: $$DriftCostLinesTableTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$DriftCostLinesTableTableOrderingComposer(
+              ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> type = const Value.absent(),
+            Value<int> currency = const Value.absent(),
+            Value<String> travelId = const Value.absent(),
+            Value<DateTime> date = const Value.absent(),
+            Value<double> sum = const Value.absent(),
+            Value<double> budgetSum = const Value.absent(),
+            Value<String> description = const Value.absent(),
+            Value<String> incomeExpense = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftCostLinesTableCompanion(
+            id: id,
+            type: type,
+            currency: currency,
+            travelId: travelId,
+            date: date,
+            sum: sum,
+            budgetSum: budgetSum,
+            description: description,
+            incomeExpense: incomeExpense,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String type,
+            required int currency,
+            required String travelId,
+            required DateTime date,
+            required double sum,
+            required double budgetSum,
+            required String description,
+            required String incomeExpense,
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftCostLinesTableCompanion.insert(
+            id: id,
+            type: type,
+            currency: currency,
+            travelId: travelId,
+            date: date,
+            sum: sum,
+            budgetSum: budgetSum,
+            description: description,
+            incomeExpense: incomeExpense,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$DriftCostLinesTableTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: ({travelId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (travelId) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.travelId,
+                    referencedTable:
+                        $$DriftCostLinesTableTableReferences._travelIdTable(db),
+                    referencedColumn: $$DriftCostLinesTableTableReferences
+                        ._travelIdTable(db)
+                        .id,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$DriftCostLinesTableTableProcessedTableManager = ProcessedTableManager<
+    _$DriftDBLocalDataSource,
+    $DriftCostLinesTableTable,
+    DriftCostLine,
+    $$DriftCostLinesTableTableFilterComposer,
+    $$DriftCostLinesTableTableOrderingComposer,
+    $$DriftCostLinesTableTableCreateCompanionBuilder,
+    $$DriftCostLinesTableTableUpdateCompanionBuilder,
+    (DriftCostLine, $$DriftCostLinesTableTableReferences),
+    DriftCostLine,
+    PrefetchHooks Function({bool travelId})>;
 typedef $$DriftBudgetLinesTableTableCreateCompanionBuilder
     = DriftBudgetLinesTableCompanion Function({
   required String id,
@@ -13391,56 +14949,25 @@ typedef $$DriftBudgetLinesTableTableUpdateCompanionBuilder
   Value<int> rowid,
 });
 
-class $$DriftBudgetLinesTableTableTableManager extends RootTableManager<
-    _$DriftDBLocalDataSource,
-    $DriftBudgetLinesTableTable,
-    DriftBudgetLine,
-    $$DriftBudgetLinesTableTableFilterComposer,
-    $$DriftBudgetLinesTableTableOrderingComposer,
-    $$DriftBudgetLinesTableTableCreateCompanionBuilder,
-    $$DriftBudgetLinesTableTableUpdateCompanionBuilder> {
-  $$DriftBudgetLinesTableTableTableManager(
-      _$DriftDBLocalDataSource db, $DriftBudgetLinesTableTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          filteringComposer: $$DriftBudgetLinesTableTableFilterComposer(
-              ComposerState(db, table)),
-          orderingComposer: $$DriftBudgetLinesTableTableOrderingComposer(
-              ComposerState(db, table)),
-          updateCompanionCallback: ({
-            Value<String> id = const Value.absent(),
-            Value<String> type = const Value.absent(),
-            Value<double> amount = const Value.absent(),
-            Value<String> travelId = const Value.absent(),
-            Value<String> description = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DriftBudgetLinesTableCompanion(
-            id: id,
-            type: type,
-            amount: amount,
-            travelId: travelId,
-            description: description,
-            rowid: rowid,
-          ),
-          createCompanionCallback: ({
-            required String id,
-            required String type,
-            required double amount,
-            required String travelId,
-            required String description,
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DriftBudgetLinesTableCompanion.insert(
-            id: id,
-            type: type,
-            amount: amount,
-            travelId: travelId,
-            description: description,
-            rowid: rowid,
-          ),
-        ));
+final class $$DriftBudgetLinesTableTableReferences extends BaseReferences<
+    _$DriftDBLocalDataSource, $DriftBudgetLinesTableTable, DriftBudgetLine> {
+  $$DriftBudgetLinesTableTableReferences(
+      super.$_db, super.$_table, super.$_typedResult);
+
+  static $DriftTravelsTableTable _travelIdTable(_$DriftDBLocalDataSource db) =>
+      db.driftTravelsTable.createAlias($_aliasNameGenerator(
+          db.driftBudgetLinesTable.travelId, db.driftTravelsTable.id));
+
+  $$DriftTravelsTableTableProcessedTableManager? get travelId {
+    if ($_item.travelId == null) return null;
+    final manager =
+        $$DriftTravelsTableTableTableManager($_db, $_db.driftTravelsTable)
+            .filter((f) => f.id($_item.travelId!));
+    final item = $_typedResult.readTableOrNull(_travelIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
 }
 
 class $$DriftBudgetLinesTableTableFilterComposer extends FilterComposer<
@@ -13523,6 +15050,114 @@ class $$DriftBudgetLinesTableTableOrderingComposer extends OrderingComposer<
   }
 }
 
+class $$DriftBudgetLinesTableTableTableManager extends RootTableManager<
+    _$DriftDBLocalDataSource,
+    $DriftBudgetLinesTableTable,
+    DriftBudgetLine,
+    $$DriftBudgetLinesTableTableFilterComposer,
+    $$DriftBudgetLinesTableTableOrderingComposer,
+    $$DriftBudgetLinesTableTableCreateCompanionBuilder,
+    $$DriftBudgetLinesTableTableUpdateCompanionBuilder,
+    (DriftBudgetLine, $$DriftBudgetLinesTableTableReferences),
+    DriftBudgetLine,
+    PrefetchHooks Function({bool travelId})> {
+  $$DriftBudgetLinesTableTableTableManager(
+      _$DriftDBLocalDataSource db, $DriftBudgetLinesTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer: $$DriftBudgetLinesTableTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$DriftBudgetLinesTableTableOrderingComposer(
+              ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> type = const Value.absent(),
+            Value<double> amount = const Value.absent(),
+            Value<String> travelId = const Value.absent(),
+            Value<String> description = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftBudgetLinesTableCompanion(
+            id: id,
+            type: type,
+            amount: amount,
+            travelId: travelId,
+            description: description,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String type,
+            required double amount,
+            required String travelId,
+            required String description,
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftBudgetLinesTableCompanion.insert(
+            id: id,
+            type: type,
+            amount: amount,
+            travelId: travelId,
+            description: description,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$DriftBudgetLinesTableTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: ({travelId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (travelId) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.travelId,
+                    referencedTable: $$DriftBudgetLinesTableTableReferences
+                        ._travelIdTable(db),
+                    referencedColumn: $$DriftBudgetLinesTableTableReferences
+                        ._travelIdTable(db)
+                        .id,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$DriftBudgetLinesTableTableProcessedTableManager
+    = ProcessedTableManager<
+        _$DriftDBLocalDataSource,
+        $DriftBudgetLinesTableTable,
+        DriftBudgetLine,
+        $$DriftBudgetLinesTableTableFilterComposer,
+        $$DriftBudgetLinesTableTableOrderingComposer,
+        $$DriftBudgetLinesTableTableCreateCompanionBuilder,
+        $$DriftBudgetLinesTableTableUpdateCompanionBuilder,
+        (DriftBudgetLine, $$DriftBudgetLinesTableTableReferences),
+        DriftBudgetLine,
+        PrefetchHooks Function({bool travelId})>;
 typedef $$DriftInsuranceLinesTableTableCreateCompanionBuilder
     = DriftInsuranceLinesTableCompanion Function({
   required String id,
@@ -13546,64 +15181,27 @@ typedef $$DriftInsuranceLinesTableTableUpdateCompanionBuilder
   Value<int> rowid,
 });
 
-class $$DriftInsuranceLinesTableTableTableManager extends RootTableManager<
+final class $$DriftInsuranceLinesTableTableReferences extends BaseReferences<
     _$DriftDBLocalDataSource,
     $DriftInsuranceLinesTableTable,
-    DriftInsuranceLine,
-    $$DriftInsuranceLinesTableTableFilterComposer,
-    $$DriftInsuranceLinesTableTableOrderingComposer,
-    $$DriftInsuranceLinesTableTableCreateCompanionBuilder,
-    $$DriftInsuranceLinesTableTableUpdateCompanionBuilder> {
-  $$DriftInsuranceLinesTableTableTableManager(
-      _$DriftDBLocalDataSource db, $DriftInsuranceLinesTableTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          filteringComposer: $$DriftInsuranceLinesTableTableFilterComposer(
-              ComposerState(db, table)),
-          orderingComposer: $$DriftInsuranceLinesTableTableOrderingComposer(
-              ComposerState(db, table)),
-          updateCompanionCallback: ({
-            Value<String> id = const Value.absent(),
-            Value<String> number = const Value.absent(),
-            Value<String> travelId = const Value.absent(),
-            Value<String> insurant = const Value.absent(),
-            Value<String> description = const Value.absent(),
-            Value<String> insurer = const Value.absent(),
-            Value<String> contacts = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DriftInsuranceLinesTableCompanion(
-            id: id,
-            number: number,
-            travelId: travelId,
-            insurant: insurant,
-            description: description,
-            insurer: insurer,
-            contacts: contacts,
-            rowid: rowid,
-          ),
-          createCompanionCallback: ({
-            required String id,
-            required String number,
-            required String travelId,
-            required String insurant,
-            required String description,
-            required String insurer,
-            required String contacts,
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              DriftInsuranceLinesTableCompanion.insert(
-            id: id,
-            number: number,
-            travelId: travelId,
-            insurant: insurant,
-            description: description,
-            insurer: insurer,
-            contacts: contacts,
-            rowid: rowid,
-          ),
-        ));
+    DriftInsuranceLine> {
+  $$DriftInsuranceLinesTableTableReferences(
+      super.$_db, super.$_table, super.$_typedResult);
+
+  static $DriftTravelsTableTable _travelIdTable(_$DriftDBLocalDataSource db) =>
+      db.driftTravelsTable.createAlias($_aliasNameGenerator(
+          db.driftInsuranceLinesTable.travelId, db.driftTravelsTable.id));
+
+  $$DriftTravelsTableTableProcessedTableManager? get travelId {
+    if ($_item.travelId == null) return null;
+    final manager =
+        $$DriftTravelsTableTableTableManager($_db, $_db.driftTravelsTable)
+            .filter((f) => f.id($_item.travelId!));
+    final item = $_typedResult.readTableOrNull(_travelIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
 }
 
 class $$DriftInsuranceLinesTableTableFilterComposer extends FilterComposer<
@@ -13705,6 +15303,123 @@ class $$DriftInsuranceLinesTableTableOrderingComposer extends OrderingComposer<
     return composer;
   }
 }
+
+class $$DriftInsuranceLinesTableTableTableManager extends RootTableManager<
+    _$DriftDBLocalDataSource,
+    $DriftInsuranceLinesTableTable,
+    DriftInsuranceLine,
+    $$DriftInsuranceLinesTableTableFilterComposer,
+    $$DriftInsuranceLinesTableTableOrderingComposer,
+    $$DriftInsuranceLinesTableTableCreateCompanionBuilder,
+    $$DriftInsuranceLinesTableTableUpdateCompanionBuilder,
+    (DriftInsuranceLine, $$DriftInsuranceLinesTableTableReferences),
+    DriftInsuranceLine,
+    PrefetchHooks Function({bool travelId})> {
+  $$DriftInsuranceLinesTableTableTableManager(
+      _$DriftDBLocalDataSource db, $DriftInsuranceLinesTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer: $$DriftInsuranceLinesTableTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$DriftInsuranceLinesTableTableOrderingComposer(
+              ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> number = const Value.absent(),
+            Value<String> travelId = const Value.absent(),
+            Value<String> insurant = const Value.absent(),
+            Value<String> description = const Value.absent(),
+            Value<String> insurer = const Value.absent(),
+            Value<String> contacts = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftInsuranceLinesTableCompanion(
+            id: id,
+            number: number,
+            travelId: travelId,
+            insurant: insurant,
+            description: description,
+            insurer: insurer,
+            contacts: contacts,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String number,
+            required String travelId,
+            required String insurant,
+            required String description,
+            required String insurer,
+            required String contacts,
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DriftInsuranceLinesTableCompanion.insert(
+            id: id,
+            number: number,
+            travelId: travelId,
+            insurant: insurant,
+            description: description,
+            insurer: insurer,
+            contacts: contacts,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$DriftInsuranceLinesTableTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: ({travelId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (travelId) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.travelId,
+                    referencedTable: $$DriftInsuranceLinesTableTableReferences
+                        ._travelIdTable(db),
+                    referencedColumn: $$DriftInsuranceLinesTableTableReferences
+                        ._travelIdTable(db)
+                        .id,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$DriftInsuranceLinesTableTableProcessedTableManager
+    = ProcessedTableManager<
+        _$DriftDBLocalDataSource,
+        $DriftInsuranceLinesTableTable,
+        DriftInsuranceLine,
+        $$DriftInsuranceLinesTableTableFilterComposer,
+        $$DriftInsuranceLinesTableTableOrderingComposer,
+        $$DriftInsuranceLinesTableTableCreateCompanionBuilder,
+        $$DriftInsuranceLinesTableTableUpdateCompanionBuilder,
+        (DriftInsuranceLine, $$DriftInsuranceLinesTableTableReferences),
+        DriftInsuranceLine,
+        PrefetchHooks Function({bool travelId})>;
 
 class $DriftDBLocalDataSourceManager {
   final _$DriftDBLocalDataSource _db;
