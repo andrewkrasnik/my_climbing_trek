@@ -85,7 +85,7 @@ class MountainRoute extends DataWithUUID {
     tempCategories.removeWhere((item) => item == null);
 
     tempCategories.sort(
-      (a, b) => a!.id.compareTo(b!.id),
+      (a, b) => a!.index.compareTo(b!.index),
     );
 
     return tempCategories.lastOrNull;

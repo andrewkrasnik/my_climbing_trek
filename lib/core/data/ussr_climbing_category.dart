@@ -7,16 +7,19 @@ class UssrClimbingCategory extends DifficultyCategory {
   final String id;
   final String name;
   final String description;
+  final int index;
 
   UssrClimbingCategory({
     required this.name,
     required this.description,
     required this.id,
+    required this.index,
   });
   static final UssrClimbingCategory NC = UssrClimbingCategory(
     name: 'Б/К',
     description: 'Пешком',
     id: 'NC',
+    index: 1,
   );
 
   static final UssrClimbingCategory I = UssrClimbingCategory(
@@ -24,6 +27,7 @@ class UssrClimbingCategory extends DifficultyCategory {
     description:
         'Легкие скалы. Для движения и сохранения равновесия иногда требуется помощь рук. Многочисленные, в основном крупные зацепы на сильно расчлененном рельефе',
     id: 'I',
+    index: 2,
   );
 
   static final UssrClimbingCategory II = UssrClimbingCategory(
@@ -31,6 +35,7 @@ class UssrClimbingCategory extends DifficultyCategory {
     description:
         'Скалы средней трудности. Сохранение равновесия и передвижение невозможно без помощи рук. Для опытных альпинистов возможно одновременное движение связки на короткой веревке',
     id: 'II',
+    index: 3,
   );
 
   static final UssrClimbingCategory III = UssrClimbingCategory(
@@ -38,6 +43,7 @@ class UssrClimbingCategory extends DifficultyCategory {
     description:
         'Довольно трудные скалы. Зацепки относительно невелики и далеко друг от друга. Одновременное движение невозможно, только с попеременной страховкой. Однозначно потребуются петли, закладки, карабины и прочее «железо»',
     id: 'III',
+    index: 4,
   );
 
   static final UssrClimbingCategory IIIplus = UssrClimbingCategory(
@@ -45,6 +51,7 @@ class UssrClimbingCategory extends DifficultyCategory {
     description:
         'Довольно трудные скалы. Зацепки относительно невелики и далеко друг от друга. Одновременное движение невозможно, только с попеременной страховкой. Однозначно потребуются петли, закладки, карабины и прочее «железо»',
     id: 'IIIplus',
+    index: 5,
   );
 
   static final UssrClimbingCategory IV = UssrClimbingCategory(
@@ -52,6 +59,7 @@ class UssrClimbingCategory extends DifficultyCategory {
     description:
         'Очень трудные скалы. Спортивное свободное лазание по крутым скалам. Попеременная и промежуточная страховка с помощью крючьев и других вспомогательных средств.',
     id: 'IV',
+    index: 6,
   );
 
   static final UssrClimbingCategory IVplus = UssrClimbingCategory(
@@ -59,6 +67,7 @@ class UssrClimbingCategory extends DifficultyCategory {
     description:
         'Очень трудные скалы. Спортивное свободное лазание по крутым скалам. Попеременная и промежуточная страховка с помощью крючьев и других вспомогательных средств.',
     id: 'IVplus',
+    index: 7,
   );
 
   static final UssrClimbingCategory V = UssrClimbingCategory(
@@ -66,6 +75,7 @@ class UssrClimbingCategory extends DifficultyCategory {
     description:
         'Особо трудные скалы. Тут уже требуется весьма высокая техническая и физическая подготовка. Часто возможности страховки скудны (соответственно, автоматически повышаются требования к скалолазному мастерству). Возможно использование искусственных точек опоры.',
     id: 'V',
+    index: 8,
   );
 
   static final UssrClimbingCategory Vplus = UssrClimbingCategory(
@@ -73,12 +83,14 @@ class UssrClimbingCategory extends DifficultyCategory {
     description:
         'Особо трудные скалы. Тут уже требуется весьма высокая техническая и физическая подготовка. Часто возможности страховки скудны (соответственно, автоматически повышаются требования к скалолазному мастерству). Возможно использование искусственных точек опоры.',
     id: 'Vplus',
+    index: 9,
   );
 
   static final UssrClimbingCategory VI = UssrClimbingCategory(
     name: 'VI',
     description: 'сверхсложные скалы',
     id: 'VI',
+    index: 10,
   );
 
   static final Map<String, UssrClimbingCategory> _values = {

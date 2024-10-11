@@ -29,37 +29,51 @@ class MountainRouteWidget extends StatelessWidget {
     return Material(
         elevation: 4,
         borderRadius: BorderRadius.circular(8),
-        child: ListTile(
-          leading: MountainRouteCategoryWidget(route: route),
-          title: Text(route.name),
-          subtitle: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(route.type.name),
-              if (route.author.isNotEmpty)
-                Text('${route.author}, ${route.firstAscentYear}')
-            ],
+        child: InkWell(
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => CacheKeyInheritedWidget(
+                      cacheKey: cacheKey,
+                      child: MountainRoutePage(
+                        mountain: mountain,
+                        route: route,
+                        cubit: cubit,
+                        editing: editing,
+                      ),
+                    )));
+          },
+          child: ListTile(
+            leading: MountainRouteCategoryWidget(route: route),
+            title: Text(route.name),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(route.type.name),
+                if (route.author.isNotEmpty)
+                  Text('${route.author}, ${route.firstAscentYear}')
+              ],
+            ),
+            trailing: onTapGo == null
+                ? IconButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => CacheKeyInheritedWidget(
+                                cacheKey: cacheKey,
+                                child: MountainRoutePage(
+                                  mountain: mountain,
+                                  route: route,
+                                  cubit: cubit,
+                                  editing: editing,
+                                ),
+                              )));
+                    },
+                    icon: Icon(
+                      Icons.arrow_forward_ios,
+                      color: Theme.of(context).colorScheme.surface,
+                    ),
+                  )
+                : ElevatedButton(onPressed: () {}, child: const Text('GO!')),
           ),
-          trailing: onTapGo == null
-              ? IconButton(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => CacheKeyInheritedWidget(
-                              cacheKey: cacheKey,
-                              child: MountainRoutePage(
-                                mountain: mountain,
-                                route: route,
-                                cubit: cubit,
-                                editing: editing,
-                              ),
-                            )));
-                  },
-                  icon: Icon(
-                    Icons.arrow_forward_ios,
-                    color: Theme.of(context).colorScheme.surface,
-                  ),
-                )
-              : ElevatedButton(onPressed: () {}, child: const Text('GO!')),
         ));
   }
 }

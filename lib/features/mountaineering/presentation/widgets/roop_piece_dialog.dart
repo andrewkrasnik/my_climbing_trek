@@ -141,8 +141,8 @@ class RoopPieceDialog extends HookWidget {
                 climbingCategory: climbingCategoryState.value,
                 ussrCategory: ussrCategoryState.value,
                 aidCategory: aidCategoryState.value,
-                length: int.parse(lengthController.text),
-                slope: int.parse(slopeController.text),
+                length: int.tryParse(lengthController.text) ?? 0,
+                slope: int.tryParse(slopeController.text) ?? 0,
               );
             }
 

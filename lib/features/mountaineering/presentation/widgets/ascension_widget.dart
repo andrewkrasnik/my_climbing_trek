@@ -49,11 +49,18 @@ class AscensionWidget extends StatelessWidget {
                   ascension.route.ueaaSchemaImage!.isNotEmpty)
                 ScaledImageWidget(
                   imageUrl: ascension.route.ueaaSchemaImage!,
-                ),
-              if (ascension.route.ueaaSchemaImage == null ||
+                )
+              else if (ascension.route.ueaaSchemaImage == null &&
                   ascension.route.image?.isNotEmpty == true)
                 ScaledImageWidget(
                   imageUrl: ascension.route.image!,
+                )
+              else
+                MyCachedNetworkImage(
+                  imageUrl: ascension.mountain.image,
+                  height: 240,
+                  width: double.maxFinite,
+                  fit: BoxFit.cover,
                 ),
             ],
             Positioned(
