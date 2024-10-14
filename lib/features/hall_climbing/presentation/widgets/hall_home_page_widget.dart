@@ -14,6 +14,9 @@ class HallHomePageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const titleTextStyle = TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
+
+    BlocProvider.of<CurrentHallTreaningCubit>(context).loadCurrentTreanings();
+
     return Column(
       children: [
         BlocBuilder<CurrentHallTreaningCubit, CurrentHallTreaningState>(

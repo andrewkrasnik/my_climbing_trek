@@ -29,6 +29,8 @@ class MountaineeringHomeWidget extends StatelessWidget {
 
     cubit.loadMyData();
 
+    BlocProvider.of<AscensionCubit>(context).loadCurrent();
+
     return BlocProvider(
       create: (context) => cubit,
       child: Column(

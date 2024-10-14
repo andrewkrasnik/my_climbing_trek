@@ -15,6 +15,9 @@ class IceHomePageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const titleTextStyle = TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
+
+    BlocProvider.of<CurrentIceTreaningCubit>(context).loadCurrentTreanings();
+
     return BlocBuilder<CurrentIceTreaningCubit, CurrentIceTreaningState>(
       builder: (context, state) {
         final cubit = BlocProvider.of<CurrentIceTreaningCubit>(context);

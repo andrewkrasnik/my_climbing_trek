@@ -83,40 +83,37 @@ class MyApp extends StatelessWidget {
           create: (context) => di.getIt<AuthenticationCubit>()..getUser(),
         ),
         BlocProvider<HomePageCubit>(
-          create: (context) => di.getIt<HomePageCubit>(), //..loadData(),
+          create: (context) => di.getIt<HomePageCubit>(),
         ),
         BlocProvider<CurrentTravelCubit>(
-          create: (context) => di.getIt<CurrentTravelCubit>()..loadData(),
+          create: (context) => di.getIt<CurrentTravelCubit>(),
         ),
         BlocProvider<CurrentHallTreaningCubit>(
-          create: (context) =>
-              di.getIt<CurrentHallTreaningCubit>(), //..loadData(),
+          create: (context) => di.getIt<CurrentHallTreaningCubit>(),
         ),
         BlocProvider<SettingsCubit>(
           create: (context) => _settingsCubit,
         ),
         BlocProvider(
-          create: (context) =>
-              di.getIt<CurrentIceTreaningCubit>()..loadCurrentTreanings(),
+          create: (context) => di.getIt<CurrentIceTreaningCubit>(),
         ),
         BlocProvider(
-          create: (context) => di.getIt<CardioTreaningCubit>()..loadData(),
+          create: (context) => di.getIt<CardioTreaningCubit>(),
         ),
         BlocProvider(
-          create: (context) => di.getIt<StrengthTrainingCubit>()..loadData(),
+          create: (context) => di.getIt<StrengthTrainingCubit>(),
         ),
         BlocProvider(
-          create: (context) =>
-              di.getIt<RockTreaningCubit>()..loadCurrentTreanings(),
+          create: (context) => di.getIt<RockTreaningCubit>(),
         ),
         BlocProvider<TrekkingCubit>(
-          create: (context) => di.getIt<TrekkingCubit>()..loadCurrent(),
+          create: (context) => di.getIt<TrekkingCubit>(),
         ),
         BlocProvider<TechniqueTreaningCubit>(
-          create: (context) => di.getIt<TechniqueTreaningCubit>()..loadData(),
+          create: (context) => di.getIt<TechniqueTreaningCubit>(),
         ),
         BlocProvider<AscensionCubit>(
-          create: (context) => di.getIt<AscensionCubit>()..loadCurrent(),
+          create: (context) => di.getIt<AscensionCubit>(),
         ),
       ],
       child: MaterialApp(

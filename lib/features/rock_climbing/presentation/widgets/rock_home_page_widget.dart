@@ -15,6 +15,9 @@ class RockHomePageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const titleTextStyle = TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
+
+    BlocProvider.of<RockTreaningCubit>(context).loadCurrentTreanings();
+
     return BlocBuilder<RockTreaningCubit, RockTreaningState>(
       builder: (context, state) {
         final cubit = BlocProvider.of<RockTreaningCubit>(context);

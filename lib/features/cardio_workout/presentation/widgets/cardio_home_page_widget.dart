@@ -10,6 +10,8 @@ class CardioHomePageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<CardioTreaningCubit>(context).loadData();
+
     return BlocBuilder<CardioTreaningCubit, CardioTreaningState>(
       builder: (context, state) {
         const titleTextStyle =

@@ -9,6 +9,9 @@ class StrengthHomePageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const titleTextStyle = TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
+
+    BlocProvider.of<StrengthTrainingCubit>(context).loadData();
+
     return BlocBuilder<StrengthTrainingCubit, StrengthTrainingState>(
       builder: (context, state) {
         return Column(

@@ -14,6 +14,9 @@ class TechniquesHomePageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const titleTextStyle = TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
+
+    BlocProvider.of<TechniqueTreaningCubit>(context).loadData();
+
     return BlocBuilder<TechniqueTreaningCubit, TechniqueTreaningState>(
       builder: (context, state) {
         final cubit = getIt<TechniqueGroupsCubit>();

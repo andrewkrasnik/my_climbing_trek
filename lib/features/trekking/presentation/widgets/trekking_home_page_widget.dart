@@ -30,6 +30,8 @@ class TrekkingHomePageWidget extends StatelessWidget {
       cubit.loadMyData();
     }
 
+    BlocProvider.of<TrekkingCubit>(context).loadCurrent();
+
     return BlocProvider(
       create: (context) => cubit,
       child: Column(children: [
