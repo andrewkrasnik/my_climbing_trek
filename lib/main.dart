@@ -86,7 +86,7 @@ class MyApp extends StatelessWidget {
           create: (context) => di.getIt<HomePageCubit>(),
         ),
         BlocProvider<CurrentTravelCubit>(
-          create: (context) => di.getIt<CurrentTravelCubit>(),
+          create: (context) => di.getIt<CurrentTravelCubit>()..loadData(),
         ),
         BlocProvider<CurrentHallTreaningCubit>(
           create: (context) => di.getIt<CurrentHallTreaningCubit>(),

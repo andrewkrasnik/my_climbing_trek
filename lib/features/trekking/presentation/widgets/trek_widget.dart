@@ -18,8 +18,7 @@ class TrekWidget extends StatelessWidget {
     return GestureDetector(
       child: SizedBox(
         height: 240,
-        // width: 180,
-
+        width: 180,
         child: Hero(
           tag: 'Trek${trek.id}',
           child: Stack(

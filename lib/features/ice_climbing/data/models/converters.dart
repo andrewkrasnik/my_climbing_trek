@@ -72,7 +72,7 @@ class IceSectorConverter
         glacierIce: object.glacierIce,
         id: object.id,
         image: object.image,
-        waterfallIce: object.artificialIce,
+        waterfallIce: object.waterfallIce,
       ).toJson();
     }
   }

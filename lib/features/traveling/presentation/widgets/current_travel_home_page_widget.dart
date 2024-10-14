@@ -16,8 +16,6 @@ class CurrentTravelHomePageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     const titleTextStyle = TextStyle(fontSize: 24, fontWeight: FontWeight.bold);
 
-    BlocProvider.of<CurrentTravelCubit>(context).loadData();
-
     return BlocBuilder<CurrentTravelCubit, CurrentTravelState>(
       builder: (context, state) {
         return state.travel == null
