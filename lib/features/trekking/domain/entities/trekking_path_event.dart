@@ -29,6 +29,7 @@ class TrekkingPathEvent extends DataWithUUID {
       point: point ?? this.point,
       time: time ?? this.time,
       pathId: pathId ?? this.pathId,
+      id: id,
     );
   }
 }

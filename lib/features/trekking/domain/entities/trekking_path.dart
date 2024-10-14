@@ -35,8 +35,13 @@ class TrekkingPath extends Treaning {
     return pathTime;
   }
 
-  TrekPoint? get currentPoint =>
-      turn ? currentSection?.finish : currentSection?.start;
+  TrekPoint? get currentPoint {
+    if (events.isEmpty) {
+      return trekStart;
+    } else {
+      return turn ? currentSection?.finish : currentSection?.start;
+    }
+  }
 
   TrekPoint? get trekStart => turn ? trek?.finish : trek?.start;
 

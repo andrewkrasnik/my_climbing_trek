@@ -62,16 +62,22 @@ class TrekkingCubit extends Cubit<TrekkingState> {
   }
 
   Future<void> loadData({required TrekkingPath path}) async {
-    final failureOrCurrentPath = await _getTrekkingPathUsecase(path: path);
+    final failureOrPath = await _getTrekkingPathUsecase(path: path);
 
-    failureOrCurrentPath.fold((failure) => null, (currentPath) async {
-      emit(state.copyWith(
-        currentPath: currentPath,
-        previosPath: null,
-        currentEvent: currentPath.events.lastOrNull,
-        loading: false,
-      ));
-    });
+    failureOrPath.fold(
+      (failure) => null,
+      (newPath) async {
+        emit(
+          state.copyWith(
+            currentPath: newPath,
+            previosPath: null,
+            currentEvent: newPath.events.lastOrNull,
+            loading: false,
+            currentPoint: newPath.currentPoint,
+          ),
+        );
+      },
+    );
   }
 
   Future<void> startTrek({required Trek trek, bool turn = false}) async {
@@ -112,10 +118,6 @@ class TrekkingCubit extends Cubit<TrekkingState> {
       time: time,
     );
 
-    if (point != null) {
-      emit(state.copyWith(currentPoint: null));
-    }
-
     failureOrUnit.fold((failure) => null, (_) => loadData(path: path));
   }
 
@@ -124,7 +126,11 @@ class TrekkingCubit extends Cubit<TrekkingState> {
   }
 
   Future<void> setPath({required TrekkingPath path}) async {
-    emit(TrekkingState(currentPath: path));
+    emit(TrekkingState(
+      currentPath: path,
+      currentEvent: path.events.lastOrNull,
+      currentPoint: path.currentPoint,
+    ));
   }
 
   Future<void> changeDate({required DateTime date}) async {

@@ -29,29 +29,34 @@ class AddTrekEventUsecase {
     final failureOrUnit =
         await _trekkingPathRepository.savePathEvent(event: event);
 
-    return failureOrUnit.fold((failure) => Left(failure), (_) async {
-      if (point != null && point != path.trekStart && path.visitPoint(point)) {
-        final failureOrPathUnit =
-            await _trekkingPathRepository.savePath(path: path);
+    return failureOrUnit.fold(
+      (failure) => Left(failure),
+      (_) async {
+        if (point != null &&
+            point != path.trekStart &&
+            path.visitPoint(point)) {
+          final failureOrPathUnit =
+              await _trekkingPathRepository.savePath(path: path);
 
-        if (failureOrPathUnit.isLeft()) {
-          return failureOrPathUnit.fold(
-              (failure) => Left(failure), (_) => Left(Failure()));
+          if (failureOrPathUnit.isLeft()) {
+            return failureOrPathUnit.fold(
+                (failure) => Left(failure), (_) => Left(Failure()));
+          }
         }
-      }
 
-      if (TrekkingEventType.endActions.contains(type) ||
-          (point != null && point == path.trekFinish)) {
-        path.finishTreaning();
+        if (TrekkingEventType.endActions.contains(type) ||
+            (point != null && point == path.trekFinish)) {
+          path.finishTreaning();
 
-        final failureOrPathUnit =
-            await _trekkingPathRepository.savePath(path: path);
+          final failureOrPathUnit =
+              await _trekkingPathRepository.savePath(path: path);
 
-        return failureOrPathUnit.fold(
-            (failure) => Left(failure), (r) => Right(event));
-      } else {
-        return Right(event);
-      }
-    });
+          return failureOrPathUnit.fold(
+              (failure) => Left(failure), (r) => Right(event));
+        } else {
+          return Right(event);
+        }
+      },
+    );
   }
 }

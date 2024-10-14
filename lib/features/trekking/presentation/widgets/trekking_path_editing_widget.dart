@@ -94,7 +94,7 @@ class TrekkingPathEditingWidget extends HookWidget {
                   const SizedBox(height: 4),
                 ],
                 if (state.currentEvent?.isMooving == true &&
-                    path.currentSection != null) ...[
+                    state.currentPath?.currentSection != null) ...[
                   const Text('Пункт назначения:'),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -120,7 +120,7 @@ class TrekkingPathEditingWidget extends HookWidget {
                   const SizedBox(height: 8),
                 ],
                 Wrap(
-                  children: path.actions
+                  children: (state.currentPath?.actions ?? [])
                       .map((type) => Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 4.0),
